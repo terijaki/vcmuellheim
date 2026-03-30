@@ -40,11 +40,7 @@ type SamsCacheEntry = {
  *
  * Returns the deserialized value if a fresh entry exists (within TTL), otherwise `null`.
  */
-export async function readSamsCacheEntry<T>(
-	cacheKey: string,
-	ttlMs: number,
-	now: () => number = Date.now,
-): Promise<T | null> {
+export async function readSamsCacheEntry<T>(cacheKey: string, ttlMs: number, now: () => number = Date.now): Promise<T | null> {
 	const result = await docClient.send(
 		new GetCommand({
 			TableName: getContentTableName(),
@@ -67,11 +63,7 @@ export async function readSamsCacheEntry<T>(
  *
  * Serializes the value to JSON and records the current time as `cachedAt`.
  */
-export async function writeSamsCacheEntry<T>(
-	cacheKey: string,
-	value: T,
-	now: () => number = Date.now,
-): Promise<void> {
+export async function writeSamsCacheEntry<T>(cacheKey: string, value: T, now: () => number = Date.now): Promise<void> {
 	const nowMs = now();
 	const entry: SamsCacheEntry = {
 		pk: buildPk(cacheKey),

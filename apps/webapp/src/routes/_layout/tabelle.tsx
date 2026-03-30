@@ -5,10 +5,11 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
 import { useSamsMatches, useSamsRankingsByLeagueUuid } from "@webapp/hooks/dataQueries";
-import { getSamsLeagueLevelsByLeagueUuidsFn, listSamsTeamsFn } from "@webapp/server/functions/sams";
+import { getSamsLeagueLevelsByLeagueUuidsFn, getSamsMatchesFn, getSamsRankingsByLeagueUuidsFn, listSamsTeamsFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import { buildLeagueOrderingContext, calculateLastResultCap, sortLeagueUuidsByLevels } from "@webapp/utils/ranking";
 import { numToWord } from "num-words-de";
+import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/_layout/tabelle")({
 		const orderingContext = buildLeagueOrderingContext(samsTeams.teams);
 
 		if (samsTeams.teams.length === 0) {
-			return { leagueUuids: [], teams: teams.items, lastResultCap: 6 };
+			return { leagueUuids: [], teams: teams.items, lastResultCap: 6, rankings: undefined, matches: undefined };
 		}
 
 		let leagueLevels: Record<string, number | null> = {};
@@ -50,18 +51,50 @@ export const Route = createFileRoute("/_layout/tabelle")({
 			leagueOrderByUuid: orderingContext.leagueOrderByUuid,
 		});
 		const lastResultCap = calculateLastResultCap(samsTeams.teams.length, GAMES_PER_TEAM);
-		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap };
+
+		let rankings: RankingResponse[] | undefined;
+		let matches: LeagueMatchesResponse | undefined;
+		if (sortedLeagueUuids.length > 0) {
+			try {
+				[rankings, matches] = await Promise.all([getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: sortedLeagueUuids } }), getSamsMatchesFn({ data: { range: "past", limit: lastResultCap } })]);
+			} catch (error) {
+				console.error("Failed to prefetch SAMS data in tabelle loader", { error });
+				// rankings and matches stay undefined — React Query will fetch client-side
+			}
+		}
+		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap, rankings, matches };
 	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { leagueUuids, teams, lastResultCap } = Route.useLoaderData();
-	const { data: rankings, isLoading: isLoadingRankings, isFetching: isFetchingRankings, isError: isRankingsError } = useSamsRankingsByLeagueUuid(leagueUuids);
-	const { data: matchesData, isLoading: isLoadingMatches, isError: isMatchesError } = useSamsMatches({ range: "past", limit: lastResultCap });
+	const { leagueUuids, teams, lastResultCap, rankings: loaderRankings, matches: loaderMatches } = Route.useLoaderData();
+
+	const rankingsInitialDataUpdatedAt = loaderRankings?.[0]?.timestamp ? new Date(loaderRankings[0].timestamp).getTime() : undefined;
+	const matchesInitialDataUpdatedAt = loaderMatches?.timestamp ? new Date(loaderMatches.timestamp).getTime() : undefined;
+
+	const {
+		data: rankingsData,
+		isLoading: isLoadingRankings,
+		isFetching: isFetchingRankings,
+		isError: isRankingsError,
+	} = useSamsRankingsByLeagueUuid(leagueUuids, {
+		initialData: loaderRankings,
+		initialDataUpdatedAt: rankingsInitialDataUpdatedAt,
+	});
+	const {
+		data: matchesData,
+		isLoading: isLoadingMatches,
+		isError: isMatchesError,
+	} = useSamsMatches({
+		range: "past",
+		limit: lastResultCap,
+		initialData: loaderMatches,
+		initialDataUpdatedAt: matchesInitialDataUpdatedAt,
+	});
 	const recentMatches = matchesData?.matches ?? [];
 	const lastResultWord = recentMatches.length > 1 && numToWord(recentMatches.length, { uppercase: false });
-	const hasRankings = !!rankings && rankings.length > 0;
+	const hasRankings = !!rankingsData && rankingsData.length > 0;
 
 	return (
 		<PageWithHeading title={"Tabelle"}>
@@ -77,8 +110,8 @@ function RouteComponent() {
 							</Text>
 						)}
 						<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-							{rankings.map((ranking) => (
-								<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} />
+							{rankingsData.map((ranking) => (
+								<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} isFetching={isFetchingRankings} />
 							))}
 						</SimpleGrid>
 					</>

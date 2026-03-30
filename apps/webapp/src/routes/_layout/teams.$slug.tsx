@@ -15,16 +15,47 @@ import weekday from "dayjs/plugin/weekday";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useSamsTeams, useTeamBySlug } from "@/apps/webapp/src/hooks/dataQueries";
+import { getSamsMatchesFn, getSamsRankingsByLeagueUuidsFn, listSamsTeamsFn } from "@/apps/webapp/src/server/functions/sams";
+import { getTeamBySlugFn } from "@/apps/webapp/src/server/functions/teams";
+import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
 
 dayjs.locale(de);
 dayjs.extend(weekday);
 
 export const Route = createFileRoute("/_layout/teams/$slug")({
+	loader: async ({ params }) => {
+		const { slug } = params;
+		const [team, samsTeamsResult] = await Promise.all([getTeamBySlugFn({ data: { slug } }), listSamsTeamsFn()]);
+
+		if (!team) {
+			return { team: null, rankings: undefined, matches: undefined };
+		}
+
+		const samsTeam = samsTeamsResult.teams.find((t) => t.uuid === team.sbvvTeamId);
+
+		if (!samsTeam) {
+			return { team, samsTeam: undefined, rankings: undefined, matches: undefined };
+		}
+
+		let rankings: RankingResponse[] | undefined;
+		let matches: LeagueMatchesResponse | undefined;
+		try {
+			[rankings, matches] = await Promise.all([
+				samsTeam.leagueUuid ? getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: [samsTeam.leagueUuid] } }) : Promise.resolve(undefined),
+				getSamsMatchesFn({ data: { team: samsTeam.uuid } }),
+			]);
+		} catch (error) {
+			console.error("Failed to prefetch SAMS data in team detail loader", { error });
+		}
+
+		return { team, samsTeam, rankings, matches };
+	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
 	const { slug } = Route.useParams();
+	const loaderData = Route.useLoaderData();
 	const { data: team, isLoading, error } = useTeamBySlug(slug);
 
 	if (isLoading) {
@@ -52,13 +83,13 @@ function RouteComponent() {
 					<TeamPictures team={team} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Tabelle..." />}>
-					<TeamRanking team={team} />
+					<TeamRanking team={team} loaderRankings={loaderData.rankings} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
 					<TeamCalendar slug={slug} team={team} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
-					<TeamMatches team={team} />
+					<TeamMatches team={team} loaderMatches={loaderData.matches} />
 				</Suspense>
 				<Center>
 					<Button component={Link} to="/#mannschaften">
@@ -91,12 +122,16 @@ function TeamCalendar({ slug, team }: { slug: string; team: NonNullable<ReturnTy
 	);
 }
 
-function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
+function TeamMatches({ team, loaderMatches }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]>; loaderMatches?: LeagueMatchesResponse }) {
 	const { data: samsTeams } = useSamsTeams();
 	const samsTeam = samsTeams?.teams.find((t) => t.uuid === team.sbvvTeamId);
 
+	const matchesInitialDataUpdatedAt = loaderMatches?.timestamp ? new Date(loaderMatches.timestamp).getTime() : undefined;
+
 	const { data: matches, isLoading: isLoadingMatches } = useSamsMatches({
 		team: samsTeam?.uuid,
+		initialData: loaderMatches,
+		initialDataUpdatedAt: matchesInitialDataUpdatedAt,
 	});
 
 	const currentMonth = dayjs().month() + 1;
@@ -149,17 +184,22 @@ function TeamMatches({ team }: { team: NonNullable<ReturnType<typeof useTeamBySl
 	);
 }
 
-function TeamRanking({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
+function TeamRanking({ team, loaderRankings }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]>; loaderRankings?: RankingResponse[] }) {
 	const { data: samsTeams } = useSamsTeams();
 	const samsTeam = samsTeams?.teams.find((t) => t.uuid === team.sbvvTeamId);
 
-	const { data: rankings } = useSamsRankingsByLeagueUuid(samsTeam?.leagueUuid ? [samsTeam.leagueUuid] : []);
+	const rankingsInitialDataUpdatedAt = loaderRankings?.[0]?.timestamp ? new Date(loaderRankings[0].timestamp).getTime() : undefined;
+
+	const { data: rankings, isFetching: isFetchingRanking } = useSamsRankingsByLeagueUuid(samsTeam?.leagueUuid ? [samsTeam.leagueUuid] : [], {
+		initialData: loaderRankings,
+		initialDataUpdatedAt: rankingsInitialDataUpdatedAt,
+	});
 
 	if (!samsTeam || !rankings || rankings.length === 0) return null;
 
 	const ranking = rankings[0];
 
-	return <RankingTable ranking={ranking} currentTeamId={samsTeam.uuid} />;
+	return <RankingTable ranking={ranking} currentTeamId={samsTeam.uuid} isFetching={isFetchingRanking} />;
 }
 
 function TeamSchedule({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
