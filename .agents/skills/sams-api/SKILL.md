@@ -17,7 +17,7 @@ Run [sams.ts](./sams.ts) with Bun to make calls against the SAMS REST API. See [
 ## Usage
 
 ```
-bun run .github/skills/sams-api/sams.ts <resource> [uuid] [subresource] [--query key=value ...]
+bun run .agents/skills/sams-api/sams.ts <resource> [uuid] [subresource] [--query key=value ...]
 ```
 
 Run without arguments or with `--help` for examples. Full endpoint reference: `https://www.volleyball-baden.de/api/v2/swagger.json`.
@@ -25,7 +25,7 @@ Run without arguments or with `--help` for examples. Full endpoint reference: `h
 Verify the API key is working:
 
 ```bash
-bun run .github/skills/sams-api/sams.ts seasons --query size=1
+bun run .agents/skills/sams-api/sams.ts seasons --query size=1
 ```
 
 ## Investigation workflow

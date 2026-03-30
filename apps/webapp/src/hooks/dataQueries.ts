@@ -4,6 +4,7 @@
  */
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
 import type { PaginationCursor } from "@/lib/db/types";
 import { getEventByIdFn, getUpcomingEventsFn } from "../server/functions/events";
 import { listLocationsFn } from "../server/functions/locations";
@@ -193,7 +194,7 @@ export const useClubLogoUrlsBatch = (clubSlugs: string[]) => {
 	});
 };
 
-export const useSamsRankingsByLeagueUuid = (leagueUuids: string[]) => {
+export const useSamsRankingsByLeagueUuid = (leagueUuids: string[], options?: { initialData?: RankingResponse[]; initialDataUpdatedAt?: number }) => {
 	return useQuery({
 		queryKey: ["samsRankings", leagueUuids],
 		queryFn: () => getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids } }),
@@ -202,6 +203,8 @@ export const useSamsRankingsByLeagueUuid = (leagueUuids: string[]) => {
 		retry: 1,
 		placeholderData: (previousData) => previousData,
 		refetchOnWindowFocus: false,
+		initialData: options?.initialData,
+		initialDataUpdatedAt: options?.initialDataUpdatedAt,
 	});
 };
 
@@ -212,6 +215,8 @@ export const useSamsMatches = ({
 	team,
 	limit,
 	range,
+	initialData,
+	initialDataUpdatedAt,
 }: {
 	league?: string;
 	season?: string;
@@ -219,6 +224,8 @@ export const useSamsMatches = ({
 	team?: string;
 	limit?: number;
 	range?: "past" | "future";
+	initialData?: LeagueMatchesResponse;
+	initialDataUpdatedAt?: number;
 } = {}) => {
 	return useQuery({
 		queryKey: ["samsMatches", league, season, sportsclub, team, limit, range],
@@ -227,6 +234,8 @@ export const useSamsMatches = ({
 		staleTime: 1000 * 60 * 2,
 		placeholderData: (previousData) => previousData,
 		refetchOnWindowFocus: false,
+		initialData,
+		initialDataUpdatedAt,
 	});
 };
 

@@ -7,9 +7,9 @@ import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { memberSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
-import { resolveNullableUpdates } from "./patch-helpers";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
+import { resolveNullableUpdates } from "./patch-helpers";
 
 // ── Public ──────────────────────────────────────────────────────────────────
 
