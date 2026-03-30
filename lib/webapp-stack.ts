@@ -124,8 +124,15 @@ export class WebAppStack extends cdk.Stack {
 
 		// Grant Lambda access to the single content table
 		props.contentTable.grantReadWriteData(this.webappLambda);
-		dynamodb.Table.fromTableArn(this, "SamsDataTableRef", samsTableArn).grantReadWriteData(this.webappLambda);
 		props.instagramTable.grantReadData(this.webappLambda);
+		dynamodb.Table.fromTableArn(this, "SamsDataTableRef", samsTableArn).grantReadWriteData(this.webappLambda);
+		this.webappLambda.addToRolePolicy(
+			new cdk.aws_iam.PolicyStatement({
+				effect: cdk.aws_iam.Effect.ALLOW,
+				actions: ["dynamodb:Query"],
+				resources: [`${samsTableArn}/index/*`],
+			}),
+		);
 
 		// Grant S3 access for media uploads and reads
 		props.mediaBucket.grantReadWrite(this.webappLambda);
