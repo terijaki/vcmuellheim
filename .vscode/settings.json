@@ -31,7 +31,11 @@
 	"chat.useNestedAgentsMdFiles": true,
 	"chat.tools.terminal.autoApprove": {
 		"/^vp (run )?(test|check(--fix)?|lint|verify(:all)?|cdk:synth(:all)?|deps-check)(\\s+[\\w./\\-:*=]+)*(\\s+2>&1)?(\\s*\\|\\s*(head|tail|cat|grep|wc)(\\s+[\\w./\\-*=]+)*)?$/": true,
-		"/\\.agents\\/skills\\/sams-api\\/sams\\.ts/": true
+		"/\\.agents\\/skills\\/sams-api\\/sams\\.ts/": true,
+		"/^aws dynamodb (scan|query|get-item|describe-table|list-tables) .*$/": {
+			"approve": true,
+			"matchCommandLine": true
+		}
 	},
 	"github-actions.workflows.pinned.workflows": [".github/workflows/cdk-deploy.yml"]
 }

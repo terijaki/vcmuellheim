@@ -1,10 +1,10 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { getAllLeagueMatches, type LeagueMatchDto } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 import dayjs from "dayjs";
+import { createSamsDb } from "@/lib/db/electrodb-client";
 import { Club } from "@/project.config";
 import { slugify } from "../../utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
@@ -17,7 +17,8 @@ const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsLeagueMatchesLambdaEnvironmentSchema);
 const SAMS_API_KEY = env.SAMS_API_KEY;
-const CLUBS_TABLE_NAME = env.CLUBS_TABLE_NAME;
+const TABLE_NAME = env.SAMS_TABLE_NAME;
+const samsEntities = createSamsDb(docClient, TABLE_NAME);
 
 const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	logger.appendKeys({ path: event.path });
@@ -43,22 +44,8 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 		if (!sportsclub && !team && !league) {
 			try {
 				const clubSlug = slugify(Club.shortName);
-				const clubQuery = await docClient.send(
-					new QueryCommand({
-						TableName: CLUBS_TABLE_NAME,
-						IndexName: "GSI-SamsClubQueries",
-						KeyConditionExpression: "#type = :type AND nameSlug = :slug",
-						ExpressionAttributeNames: {
-							"#type": "type",
-						},
-						ExpressionAttributeValues: {
-							":type": "club",
-							":slug": clubSlug,
-						},
-						Limit: 1,
-					}),
-				);
-				const club = clubQuery.Items?.[0];
+				const clubResponse = await samsEntities.club.query.byType({ type: "club" }).begins({ nameSlug: clubSlug }).go({ limit: 1 });
+				const club = clubResponse.data[0];
 				if (club?.sportsclubUuid) {
 					sportsclub = club.sportsclubUuid;
 					console.log(`Using default club: ${club.name} (${sportsclub})`);
@@ -112,7 +99,9 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
 			});
 
 			if (!data) {
-				throw new Error(`SAMS API returned no data on page ${currentPage}`);
+				if (currentPage === 0) throw new Error(`SAMS API returned no data on page ${currentPage}`);
+				// Subsequent page returned nothing — return what we have so far
+				break;
 			}
 
 			if (data.content) {

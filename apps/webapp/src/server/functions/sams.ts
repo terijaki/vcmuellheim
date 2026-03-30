@@ -203,7 +203,11 @@ export const getSamsMatchesFn = createServerFn()
 				query: { ...defaultQueryParams, page: currentPage, size: 100 },
 				signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
 			});
-			if (!pageData) throw new Error(`SAMS API returned no data on page ${currentPage}`);
+			if (!pageData) {
+				if (currentPage === 0) throw new Error(`SAMS API returned no data on page ${currentPage}`);
+				// Subsequent page returned nothing — return what we have so far
+				break;
+			}
 			if (pageData.content) {
 				allMatches.push(...pageData.content.map(({ _links: _, ...m }) => m));
 				currentPage++;
@@ -233,6 +237,60 @@ export const getSamsRankingsByLeagueUuidsFn = createServerFn()
 	.inputValidator(z.object({ leagueUuids: z.array(z.string()) }))
 	.handler(async ({ data }) => {
 		return Promise.all(data.leagueUuids.map((leagueUuid) => fetchSamsRankingsByLeagueUuid(leagueUuid)));
+	});
+
+/**
+ * Cache-peek-only variant: reads from DynamoDB without falling back to the SAMS API.
+ * Returns cached rankings if all leagues are cached, otherwise null.
+ * Use in route loaders to keep navigation fast — React Query will fetch live data client-side.
+ */
+export const peekSamsRankingsByLeagueUuidsFn = createServerFn()
+	.inputValidator(z.object({ leagueUuids: z.array(z.string()) }))
+	.handler(async ({ data }) => {
+		const results = await Promise.all(
+			data.leagueUuids.map((leagueUuid) => {
+				const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
+				return readSamsCacheEntry<RankingResponse>(cacheKey, 5 * 60 * 1000);
+			}),
+		);
+		if (results.some((r) => r === null)) return null;
+		return results as RankingResponse[];
+	});
+
+/**
+ * Cache-peek-only variant for matches: resolves the effective filter params (including the
+ * default sportsclub UUID) and returns the cached entry if present, otherwise null.
+ * Use in route loaders to keep navigation fast — React Query will fetch live data client-side.
+ */
+export const peekSamsMatchesCacheFn = createServerFn()
+	.inputValidator(
+		z
+			.object({
+				league: z.string().optional(),
+				season: z.string().optional(),
+				sportsclub: z.string().optional(),
+				team: z.string().optional(),
+				limit: z.number().int().positive().optional(),
+				range: z.enum(["past", "future"]).optional(),
+			})
+			.optional(),
+	)
+	.handler(async ({ data }) => {
+		let { league, season, sportsclub, team } = data || {};
+
+		// Mirror the default sportsclub resolution from getSamsMatchesFn so the cache key matches.
+		if (!sportsclub && !team && !league) {
+			try {
+				const clubSlug = slugify(Club.shortName);
+				const club = await getSamsClubByNameSlug(clubSlug);
+				if (club?.sportsclubUuid) sportsclub = club.sportsclubUuid as string;
+			} catch {
+				// proceed without filter
+			}
+		}
+
+		const cacheKey = createCacheKey({ type: "sams_matches", league, season, sportsclub, team, limit: data?.limit, range: data?.range });
+		return readSamsCacheEntry<LeagueMatchesResponse>(cacheKey, 5 * 60 * 1000);
 	});
 
 export const getSamsLeagueLevelsByLeagueUuidsFn = createServerFn()

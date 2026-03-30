@@ -76,10 +76,6 @@ function createDependencies(app: cdk.App) {
 
 	return {
 		contentTable: createTable("ContentTable"),
-		samsApiStack: {
-			samsClubsTable: createTable("SamsClubsTable"),
-			samsTeamsTable: createTable("SamsTeamsTable"),
-		},
 		instagramTable: createTable("InstagramTable"),
 		mediaBucket: new s3.Bucket(dependencyStack, "MediaBucket"),
 	};
@@ -167,8 +163,7 @@ describe("WebAppStack", () => {
 					INSTAGRAM_TABLE_NAME: Match.anyValue(),
 					MEDIA_BUCKET_NAME: Match.anyValue(),
 					NODE_ENV: "production",
-					SAMS_CLUBS_TABLE_NAME: Match.anyValue(),
-					SAMS_TEAMS_TABLE_NAME: Match.anyValue(),
+					SAMS_TABLE_NAME: Match.anyValue(),
 				},
 			},
 		});
