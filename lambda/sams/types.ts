@@ -23,13 +23,13 @@ export type SamsSeasonsLambdaEnvironment = z.infer<typeof SamsSeasonsLambdaEnvir
 export type SamsRankingsLambdaEnvironment = z.infer<typeof SamsRankingsLambdaEnvironmentSchema>;
 
 export const SamsLeagueMatchesLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
-	CLUBS_TABLE_NAME: requiredEnvString,
+	SAMS_TABLE_NAME: requiredEnvString,
 });
 
 export type SamsLeagueMatchesLambdaEnvironment = z.infer<typeof SamsLeagueMatchesLambdaEnvironmentSchema>;
 
 export const SamsClubsSyncLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
-	CLUBS_TABLE_NAME: requiredEnvString,
+	SAMS_TABLE_NAME: requiredEnvString,
 	MEDIA_BUCKET_NAME: requiredEnvString,
 	MEDIA_CLOUDFRONT_URL: requiredEnvString,
 });
@@ -37,26 +37,25 @@ export const SamsClubsSyncLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentS
 export type SamsClubsSyncLambdaEnvironment = z.infer<typeof SamsClubsSyncLambdaEnvironmentSchema>;
 
 export const SamsTeamsSyncLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
-	CLUBS_TABLE_NAME: requiredEnvString,
-	TEAMS_TABLE_NAME: requiredEnvString,
+	SAMS_TABLE_NAME: requiredEnvString,
 });
 
 export type SamsTeamsSyncLambdaEnvironment = z.infer<typeof SamsTeamsSyncLambdaEnvironmentSchema>;
 
 export const SamsClubsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
-	CLUBS_TABLE_NAME: requiredEnvString,
+	SAMS_TABLE_NAME: requiredEnvString,
 });
 
 export type SamsClubsLambdaEnvironment = z.infer<typeof SamsClubsLambdaEnvironmentSchema>;
 
 export const SamsTeamsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
-	TEAMS_TABLE_NAME: requiredEnvString,
+	SAMS_TABLE_NAME: requiredEnvString,
 });
 
 export type SamsTeamsLambdaEnvironment = z.infer<typeof SamsTeamsLambdaEnvironmentSchema>;
 
 export const SamsLogoProxyLambdaEnvironmentSchema = z.object({
-	CLUBS_TABLE_NAME: requiredEnvString,
+	SAMS_TABLE_NAME: requiredEnvString,
 });
 
 export type SamsLogoProxyLambdaEnvironment = z.infer<typeof SamsLogoProxyLambdaEnvironmentSchema>;

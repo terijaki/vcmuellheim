@@ -5,7 +5,7 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
 import { useSamsMatches, useSamsRankingsByLeagueUuid } from "@webapp/hooks/dataQueries";
-import { getSamsLeagueLevelsByLeagueUuidsFn, getSamsMatchesFn, getSamsRankingsByLeagueUuidsFn, listSamsTeamsFn } from "@webapp/server/functions/sams";
+import { getSamsLeagueLevelsByLeagueUuidsFn, listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsByLeagueUuidsFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import { buildLeagueOrderingContext, calculateLastResultCap, sortLeagueUuidsByLevels } from "@webapp/utils/ranking";
 import { numToWord } from "num-words-de";
@@ -55,12 +55,10 @@ export const Route = createFileRoute("/_layout/tabelle")({
 		let rankings: RankingResponse[] | undefined;
 		let matches: LeagueMatchesResponse | undefined;
 		if (sortedLeagueUuids.length > 0) {
-			try {
-				[rankings, matches] = await Promise.all([getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: sortedLeagueUuids } }), getSamsMatchesFn({ data: { range: "past", limit: lastResultCap } })]);
-			} catch (error) {
-				console.error("Failed to prefetch SAMS data in tabelle loader", { error });
-				// rankings and matches stay undefined — React Query will fetch client-side
-			}
+			[rankings, matches] = await Promise.all([
+				peekSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: sortedLeagueUuids } }).then((r) => r ?? undefined),
+				peekSamsMatchesCacheFn({ data: { range: "past", limit: lastResultCap } }).then((m) => m ?? undefined),
+			]);
 		}
 		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap, rankings, matches };
 	},

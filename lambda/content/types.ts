@@ -8,8 +8,7 @@ export const TrpcLambdaEnvironmentSchema = tableEnvironmentSchema.extend({
 	BETTER_AUTH_SECRET: requiredEnvString,
 	MEDIA_BUCKET_NAME: requiredEnvString,
 	CLOUDFRONT_URL: optionalEnvString,
-	SAMS_CLUBS_TABLE_NAME: requiredEnvString,
-	SAMS_TEAMS_TABLE_NAME: requiredEnvString,
+	SAMS_TABLE_NAME: requiredEnvString,
 });
 
 export type TrpcLambdaEnvironment = z.infer<typeof TrpcLambdaEnvironmentSchema>;

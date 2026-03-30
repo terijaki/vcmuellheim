@@ -67,7 +67,7 @@ const mediaStack = new MediaStack(app, mediaStackName, {
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
-const samsApiStack = new SamsApiStack(app, samsStackName, {
+new SamsApiStack(app, samsStackName, {
 	...commonStackProps,
 	description: `SAMS API Services (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,
@@ -93,10 +93,6 @@ const webappStack = new WebAppStack(app, webappStackName, {
 	...commonStackProps,
 	description: `VCM WebApp + Admin (${environment}${branchSuffix})`,
 	contentTable: contentDbStack.contentTable,
-	samsApiStack: {
-		samsClubsTable: samsApiStack.samsClubsTable,
-		samsTeamsTable: samsApiStack.samsTeamsTable,
-	},
 	instagramTable: socialMediaStack.instagramTable,
 	mediaBucket: mediaStack.bucket,
 	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,

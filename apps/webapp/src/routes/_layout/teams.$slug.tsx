@@ -15,7 +15,7 @@ import weekday from "dayjs/plugin/weekday";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useTeamBySlug } from "@/apps/webapp/src/hooks/dataQueries";
-import { getSamsMatchesFn, getSamsRankingsByLeagueUuidsFn, listSamsTeamsFn } from "@/apps/webapp/src/server/functions/sams";
+import { listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsByLeagueUuidsFn } from "@/apps/webapp/src/server/functions/sams";
 import { getTeamBySlugFn } from "@/apps/webapp/src/server/functions/teams";
 import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
 
@@ -37,16 +37,10 @@ export const Route = createFileRoute("/_layout/teams/$slug")({
 			return { team, samsTeam: undefined, rankings: undefined, matches: undefined };
 		}
 
-		let rankings: RankingResponse[] | undefined;
-		let matches: LeagueMatchesResponse | undefined;
-		try {
-			[rankings, matches] = await Promise.all([
-				samsTeam.leagueUuid ? getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: [samsTeam.leagueUuid] } }) : Promise.resolve(undefined),
-				getSamsMatchesFn({ data: { team: samsTeam.uuid } }),
-			]);
-		} catch (error) {
-			console.error("Failed to prefetch SAMS data in team detail loader", { error });
-		}
+		const [rankings, matches] = await Promise.all([
+			samsTeam.leagueUuid ? peekSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: [samsTeam.leagueUuid] } }).then((r) => r ?? undefined) : Promise.resolve(undefined),
+			peekSamsMatchesCacheFn({ data: { team: samsTeam.uuid } }).then((m) => m ?? undefined),
+		]);
 
 		return { team, samsTeam, rankings, matches };
 	},

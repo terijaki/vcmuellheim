@@ -3,7 +3,7 @@ import { slugify } from "@/utils/slugify";
 
 // Set environment variables before tests
 beforeAll(() => {
-	process.env.CLUBS_TABLE_NAME = "test-clubs-table";
+	process.env.SAMS_TABLE_NAME = "test-sams-table";
 });
 
 describe("sams-clubs Lambda - Integration tests", () => {
@@ -22,8 +22,8 @@ describe("sams-clubs Lambda - Integration tests", () => {
 	});
 
 	describe("environment configuration", () => {
-		it("should have CLUBS_TABLE_NAME configured", () => {
-			expect(process.env.CLUBS_TABLE_NAME).toBe("test-clubs-table");
+		it("should have SAMS_TABLE_NAME configured", () => {
+			expect(process.env.SAMS_TABLE_NAME).toBe("test-sams-table");
 		});
 	});
 });

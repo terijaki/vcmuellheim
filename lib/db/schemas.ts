@@ -168,3 +168,40 @@ export type SponsorInput = z.infer<typeof sponsorSchema>;
 export type LocationInput = z.infer<typeof locationSchema>;
 export type BusInput = z.infer<typeof busSchema>;
 export type TrainingScheduleInput = z.infer<typeof trainingScheduleSchema>;
+
+// ---------------------------------------------------------------------------
+// SAMS entity schemas
+// ---------------------------------------------------------------------------
+
+/** SAMS club record (synced from external SAMS API) */
+export const samsClubSchema = z.object({
+	sportsclubUuid: z.string().min(1),
+	type: z.literal("club").default("club").describe("Entity type discriminator for GSI queries"),
+	name: z.string().min(1),
+	nameSlug: z.string().min(1).describe("URL-safe slug for case-insensitive queries"),
+	associationUuid: z.string().optional(),
+	associationName: z.string().optional(),
+	logoImageLink: z.string().optional(),
+	logoS3Key: z.string().optional(),
+	updatedAt: z.iso.datetime(),
+	ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (30-day expiry)"),
+});
+
+/** SAMS team record (synced from external SAMS API — only VC Müllheim teams) */
+export const samsTeamSchema = z.object({
+	uuid: z.string().min(1),
+	type: z.literal("team").default("team").describe("Entity type discriminator for GSI queries"),
+	name: z.string().min(1),
+	nameSlug: z.string().min(1).describe("URL-safe slug for case-insensitive queries"),
+	sportsclubUuid: z.string().min(1),
+	associationUuid: z.string().min(1),
+	leagueUuid: z.string().min(1),
+	leagueName: z.string().min(1),
+	seasonUuid: z.string().min(1),
+	seasonName: z.string().min(1),
+	updatedAt: z.iso.datetime(),
+	ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (1-year expiry)"),
+});
+
+export type SamsClubInput = z.infer<typeof samsClubSchema>;
+export type SamsTeamInput = z.infer<typeof samsTeamSchema>;

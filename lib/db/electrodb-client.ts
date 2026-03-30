@@ -15,7 +15,8 @@ import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { Service } from "electrodb";
 import { docClient } from "./client";
 import { AuthVerificationEntity, BusEntity, CmsUserEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SessionEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
-import { getContentTableName } from "./env";
+import { getContentTableName, getSamsTableName } from "./env";
+import { SamsClubEntity, SamsTeamEntity } from "./sams-electrodb-entities";
 
 /** All entities registered in the service */
 const entityMap = {
@@ -53,4 +54,36 @@ export function db(): ReturnType<typeof createDb> {
 		_db = createDb(docClient, getContentTableName());
 	}
 	return _db;
+}
+
+// ---------------------------------------------------------------------------
+// SAMS service — single SAMS data table (clubs + teams)
+// ---------------------------------------------------------------------------
+
+const samsEntityMap = {
+	club: SamsClubEntity,
+	team: SamsTeamEntity,
+} as const;
+
+/**
+ * Create a configured ElectroDB service for the SAMS table connected to the given client and table.
+ * Returns the `entities` object so individual entities can be used directly.
+ */
+export function createSamsDb(client: DynamoDBDocumentClient, tableName: string) {
+	return new Service(samsEntityMap, { client, table: tableName }).entities;
+}
+
+// Singleton for webapp
+let _samsDb: ReturnType<typeof createSamsDb> | null = null;
+
+/**
+ * Returns the singleton ElectroDB SAMS entity map for the webapp.
+ * Lazily initialised on first call so the SAMS_TABLE_NAME env var
+ * can be set by tests before the module is first evaluated.
+ */
+export function samsDb(): ReturnType<typeof createSamsDb> {
+	if (!_samsDb) {
+		_samsDb = createSamsDb(docClient, getSamsTableName());
+	}
+	return _samsDb;
 }

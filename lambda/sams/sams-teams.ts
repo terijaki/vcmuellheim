@@ -1,9 +1,9 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { getTeamByUuid } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { createSamsDb } from "@/lib/db/electrodb-client";
 import { slugify } from "@/utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
@@ -14,12 +14,9 @@ const { logger, tracer } = createLambdaResources("sams-teams");
 const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsTeamsLambdaEnvironmentSchema);
-const TEAMS_TABLE_NAME = env.TEAMS_TABLE_NAME;
+const TABLE_NAME = env.SAMS_TABLE_NAME;
 const SAMS_API_KEY = env.SAMS_API_KEY;
-
-if (!TEAMS_TABLE_NAME) {
-	throw new Error("❌ TEAMS_TABLE_NAME environment variable is required");
-}
+const samsEntities = createSamsDb(docClient, TABLE_NAME);
 
 const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	logger.appendKeys({ path: event.path });
@@ -42,14 +39,9 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 
 		// Case 1: Get team by UUID (path parameter)
 		if (uuid) {
-			const command = new GetCommand({
-				TableName: TEAMS_TABLE_NAME,
-				Key: { uuid },
-			});
+			const result = await samsEntities.team.get({ uuid }).go();
 
-			const result = await docClient.send(command);
-
-			if (!result.Item) {
+			if (!result.data) {
 				console.log(`🔍 Fetching team by UUID: ${uuid}`);
 				const { data } = await getTeamByUuid({
 					path: { uuid },
@@ -79,7 +71,7 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 			}
 
 			// Parse with TeamItemSchema, then convert to response format
-			const team = TeamItemSchema.parse(result.Item);
+			const team = TeamItemSchema.parse(result.data);
 			const responseTeam = TeamResponseSchema.parse(team);
 
 			return {
@@ -99,29 +91,14 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 			// Query by name using nameSlug GSI (case-insensitive)
 			const slugifiedName = slugify(name);
 			console.log(`🔍 Querying team by nameSlug: ${name} (slug: ${slugifiedName})`);
-			const command = new QueryCommand({
-				TableName: TEAMS_TABLE_NAME,
-				IndexName: "GSI-SamsTeamQueries",
-				KeyConditionExpression: "#type = :type AND nameSlug = :nameSlug",
-				ExpressionAttributeNames: {
-					"#type": "type",
-				},
-				ExpressionAttributeValues: {
-					":type": "club",
-					":nameSlug": slugifiedName,
-				},
-			});
-
-			const result = await docClient.send(command);
-			teams = result.Items || [];
+			const result = await samsEntities.team.query.byType({ type: "team" }).begins({ nameSlug: slugifiedName }).go({ pages: "all" });
+			// Prefer exact nameSlug matches; fall back to all prefix matches if none are exact
+			const exactMatches = result.data.filter((t) => t.nameSlug === slugifiedName);
+			teams = exactMatches.length > 0 ? exactMatches : result.data;
 		} else {
 			// No filters provided - return all teams (since we only store our club's teams)
-			const command = new ScanCommand({
-				TableName: TEAMS_TABLE_NAME,
-			});
-
-			const result = await docClient.send(command);
-			teams = result.Items || [];
+			const result = await samsEntities.team.query.byType({ type: "team" }).go({ pages: "all" });
+			teams = result.data;
 		}
 
 		// Parse and validate response

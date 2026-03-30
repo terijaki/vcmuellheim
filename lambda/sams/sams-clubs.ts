@@ -1,8 +1,8 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { createSamsDb } from "@/lib/db/electrodb-client";
 import { slugify } from "@/utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
@@ -13,7 +13,8 @@ const { logger, tracer } = createLambdaResources("sams-clubs");
 const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsClubsLambdaEnvironmentSchema);
-const TABLE_NAME = env.CLUBS_TABLE_NAME;
+const TABLE_NAME = env.SAMS_TABLE_NAME;
+const samsEntities = createSamsDb(docClient, TABLE_NAME);
 
 const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	logger.appendKeys({ path: event.path });
@@ -22,32 +23,15 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 	const { uuid } = event.pathParameters || {};
 	const { name } = event.queryStringParameters || {};
 
-	if (!TABLE_NAME) {
-		return {
-			statusCode: 500,
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ error: "CLUBS_TABLE_NAME environment variable is not set" }),
-		};
-	}
-
 	try {
 		// Check if this is a request for a specific club by UUID
 		if (uuid) {
 			// Get specific club by UUID (primary key lookup)
 			console.log(`🔍 Fetching club by UUID: ${uuid}`);
 
-			const result = await docClient.send(
-				new GetCommand({
-					TableName: TABLE_NAME,
-					Key: {
-						sportsclubUuid: uuid,
-					},
-				}),
-			);
+			const result = await samsEntities.club.get({ sportsclubUuid: uuid }).go();
 
-			if (!result.Item) {
+			if (!result.data) {
 				return {
 					statusCode: 404,
 					headers: {
@@ -64,7 +48,7 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 					"Content-Type": "application/json",
 					"Cache-Control": "public, max-age=259200",
 				},
-				body: JSON.stringify(ClubResponseSchema.parse(result.Item)),
+				body: JSON.stringify(ClubResponseSchema.parse(result.data)),
 			};
 		}
 
@@ -74,22 +58,9 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 			const slugifiedName = slugify(name);
 			console.log(`🔍 Querying club by name prefix: ${name} (slug: ${slugifiedName})`);
 
-			const result = await docClient.send(
-				new QueryCommand({
-					TableName: TABLE_NAME,
-					IndexName: "GSI-SamsClubQueries",
-					KeyConditionExpression: "#type = :type AND begins_with(nameSlug, :nameSlug)",
-					ExpressionAttributeNames: {
-						"#type": "type",
-					},
-					ExpressionAttributeValues: {
-						":type": "club",
-						":nameSlug": slugifiedName,
-					},
-				}),
-			);
+			const result = await samsEntities.club.query.byType({ type: "club" }).begins({ nameSlug: slugifiedName }).go({ pages: "all" });
 
-			if (!result.Items || result.Items.length === 0) {
+			if (!result.data || result.data.length === 0) {
 				return {
 					statusCode: 404,
 					headers: {
@@ -101,18 +72,7 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 			}
 
 			// Return first match if exact match, otherwise all prefix matches
-			const exactMatch = result.Items.find((item: unknown) => {
-				if (!item || typeof item !== "object") {
-					return false;
-				}
-
-				if (!("nameSlug" in item)) {
-					return false;
-				}
-
-				const nameSlug = item.nameSlug;
-				return typeof nameSlug === "string" && nameSlug === slugifiedName;
-			});
+			const exactMatch = result.data.find((item) => item.nameSlug === slugifiedName);
 			if (exactMatch) {
 				return {
 					statusCode: 200,
@@ -133,8 +93,8 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 				},
 				body: JSON.stringify(
 					ClubsResponseSchema.parse({
-						clubs: result.Items.map((item: unknown) => ClubResponseSchema.parse(item)),
-						count: result.Items.length,
+						clubs: result.data.map((item) => ClubResponseSchema.parse(item)),
+						count: result.data.length,
 					}),
 				),
 			};
@@ -143,11 +103,7 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 		// No filters - return all clubs (scan)
 		console.log("📊 Fetching all clubs");
 
-		const result = await docClient.send(
-			new ScanCommand({
-				TableName: TABLE_NAME,
-			}),
-		);
+		const result = await samsEntities.club.query.byType({ type: "club" }).go({ pages: "all" });
 
 		return {
 			statusCode: 200,
@@ -157,8 +113,8 @@ const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
 			},
 			body: JSON.stringify(
 				ClubsResponseSchema.parse({
-					clubs: result.Items?.map((item: unknown) => ClubResponseSchema.parse(item)) ?? [],
-					count: result.Items?.length ?? 0,
+					clubs: result.data.map((item) => ClubResponseSchema.parse(item)),
+					count: result.data.length,
 				}),
 			),
 		};

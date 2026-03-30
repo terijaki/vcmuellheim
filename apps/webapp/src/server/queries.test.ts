@@ -1,7 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it } from "bun:test";
-import { DynamoDBDocumentClient, GetCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
-import type { ClubResponse, TeamResponse } from "@/lambda/sams/types";
 import type { CmsUser, News } from "@/lib/db/types";
 
 const ddbMock = mockClient(DynamoDBDocumentClient);
@@ -20,8 +19,7 @@ let getSamsTeamByUuid: typeof import("./queries").getSamsTeamByUuid;
 describe("server/queries", () => {
 	beforeAll(async () => {
 		process.env.CONTENT_TABLE_NAME = "test-content-table";
-		process.env.SAMS_CLUBS_TABLE_NAME = "test-sams-clubs-table";
-		process.env.SAMS_TEAMS_TABLE_NAME = "test-sams-teams-table";
+		process.env.SAMS_TABLE_NAME = "test-sams-table";
 
 		const q = await import("./queries");
 		getAllNews = q.getAllNews;
@@ -235,44 +233,50 @@ describe("server/queries", () => {
 	});
 
 	describe("getAllSamsClubs", () => {
-		it("scans the SAMS clubs table", async () => {
+		it("queries the SAMS table by type via ElectroDB", async () => {
 			const mockClubs = [
 				{
 					sportsclubUuid: "c1",
 					type: "club",
-					name: "VC M\u00fcllheim",
-					associationUuid: null,
-					associationName: null,
-					logoImageLink: null,
-					logoS3Key: null,
+					name: "VC Müllheim",
+					nameSlug: "vc-muellheim",
 					updatedAt: "2024-01-01T00:00:00Z",
-					nameSlug: "vc-muel",
 					ttl: 123,
+					__edb_e__: "samsclub",
+					__edb_v__: "1",
 				},
 			];
-			ddbMock.on(ScanCommand).resolves({ Items: mockClubs });
+			ddbMock.on(QueryCommand).resolves({ Items: mockClubs });
 
 			const result = await getAllSamsClubs();
 
 			expect(result.items).toHaveLength(1);
-			const calls = ddbMock.commandCalls(ScanCommand);
-			expect(calls[0].args[0].input.TableName).toBe("test-sams-clubs-table");
+			const calls = ddbMock.commandCalls(QueryCommand);
+			expect(calls[0].args[0].input.TableName).toBe("test-sams-table");
 		});
 	});
 
 	describe("getSamsClubBySportsclubUuid", () => {
-		it("gets club by primary key sportsclubUuid", async () => {
-			const mockClub: ClubResponse = { sportsclubUuid: "c1", type: "club", name: "VC M\u00fcllheim", updatedAt: "2024-01-01T00:00:00Z" };
+		it("gets club by primary key sportsclubUuid via ElectroDB", async () => {
+			const mockClub = {
+				sportsclubUuid: "c1",
+				type: "club",
+				name: "VC Müllheim",
+				nameSlug: "vc-muellheim",
+				updatedAt: "2024-01-01T00:00:00Z",
+				ttl: 123,
+				__edb_e__: "samsclub",
+				__edb_v__: "1",
+			};
 			ddbMock.on(GetCommand).resolves({ Item: mockClub });
 
 			const result = await getSamsClubBySportsclubUuid("c1");
 
-			expect(result).toEqual(mockClub);
+			expect(result).not.toBeNull();
+			expect(result?.sportsclubUuid).toBe("c1");
+			expect(result?.name).toBe("VC Müllheim");
 			const calls = ddbMock.commandCalls(GetCommand);
-			expect(calls[0].args[0].input).toMatchObject({
-				TableName: "test-sams-clubs-table",
-				Key: { sportsclubUuid: "c1" },
-			});
+			expect(calls[0].args[0].input.TableName).toBe("test-sams-table");
 		});
 
 		it("returns null when not found", async () => {
@@ -283,20 +287,25 @@ describe("server/queries", () => {
 	});
 
 	describe("getSamsClubByNameSlug", () => {
-		it("queries GSI-SamsClubQueries with exact equality match", async () => {
-			const mockClub: ClubResponse = { sportsclubUuid: "c1", type: "club", name: "VC M\u00fcllheim", updatedAt: "2024-01-01T00:00:00Z" };
+		it("queries GSI1-BySamsType with begins_with slug match via ElectroDB", async () => {
+			const mockClub = {
+				sportsclubUuid: "c1",
+				type: "club",
+				name: "VC Müllheim",
+				nameSlug: "vc-muellheim",
+				updatedAt: "2024-01-01T00:00:00Z",
+				ttl: 123,
+				__edb_e__: "samsclub",
+				__edb_v__: "1",
+			};
 			ddbMock.on(QueryCommand).resolves({ Items: [mockClub] });
 
 			const result = await getSamsClubByNameSlug("vc-muellheim");
 
-			expect(result).toEqual(mockClub);
+			expect(result).not.toBeNull();
+			expect(result?.sportsclubUuid).toBe("c1");
 			const calls = ddbMock.commandCalls(QueryCommand);
-			expect(calls[0].args[0].input).toMatchObject({
-				IndexName: "GSI-SamsClubQueries",
-				KeyConditionExpression: "#type = :type AND #nameSlug = :nameSlug",
-				ExpressionAttributeValues: { ":type": "club", ":nameSlug": "vc-muellheim" },
-				Limit: 1,
-			});
+			expect(calls[0].args[0].input.TableName).toBe("test-sams-table");
 		});
 
 		it("returns null when no match", async () => {
@@ -307,12 +316,13 @@ describe("server/queries", () => {
 	});
 
 	describe("getAllSamsTeams", () => {
-		it("scans the SAMS teams table", async () => {
+		it("queries the SAMS table by type via ElectroDB", async () => {
 			const mockTeams = [
 				{
 					uuid: "t1",
 					type: "team",
 					name: "Damen 1",
+					nameSlug: "damen-1",
 					sportsclubUuid: "c1",
 					associationUuid: "a1",
 					leagueUuid: "l1",
@@ -320,26 +330,28 @@ describe("server/queries", () => {
 					seasonUuid: "s1",
 					seasonName: "2024",
 					updatedAt: "2024-01-01T00:00:00Z",
-					nameSlug: "damen-1",
 					ttl: 123,
+					__edb_e__: "samsteam",
+					__edb_v__: "1",
 				},
 			];
-			ddbMock.on(ScanCommand).resolves({ Items: mockTeams });
+			ddbMock.on(QueryCommand).resolves({ Items: mockTeams });
 
 			const result = await getAllSamsTeams();
 
 			expect(result.items).toHaveLength(1);
-			const calls = ddbMock.commandCalls(ScanCommand);
-			expect(calls[0].args[0].input.TableName).toBe("test-sams-teams-table");
+			const calls = ddbMock.commandCalls(QueryCommand);
+			expect(calls[0].args[0].input.TableName).toBe("test-sams-table");
 		});
 	});
 
 	describe("getSamsTeamByUuid", () => {
-		it("gets team by uuid primary key", async () => {
-			const mockTeam: TeamResponse = {
+		it("gets team by uuid primary key via ElectroDB", async () => {
+			const mockTeam = {
 				uuid: "t1",
 				type: "team",
 				name: "Damen 1",
+				nameSlug: "damen-1",
 				sportsclubUuid: "c1",
 				associationUuid: "a1",
 				leagueUuid: "l1",
@@ -347,17 +359,19 @@ describe("server/queries", () => {
 				seasonUuid: "s1",
 				seasonName: "2024",
 				updatedAt: "2024-01-01T00:00:00Z",
+				ttl: 123,
+				__edb_e__: "samsteam",
+				__edb_v__: "1",
 			};
 			ddbMock.on(GetCommand).resolves({ Item: mockTeam });
 
 			const result = await getSamsTeamByUuid("t1");
 
-			expect(result).toEqual(mockTeam);
+			expect(result).not.toBeNull();
+			expect(result?.uuid).toBe("t1");
+			expect(result?.name).toBe("Damen 1");
 			const calls = ddbMock.commandCalls(GetCommand);
-			expect(calls[0].args[0].input).toMatchObject({
-				TableName: "test-sams-teams-table",
-				Key: { uuid: "t1" },
-			});
+			expect(calls[0].args[0].input.TableName).toBe("test-sams-table");
 		});
 
 		it("returns null when not found", async () => {
