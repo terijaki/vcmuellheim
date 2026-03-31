@@ -197,6 +197,7 @@ export const samsTeamSchema = z.object({
 	associationUuid: z.string().min(1),
 	leagueUuid: z.string().min(1),
 	leagueName: z.string().min(1),
+	leagueHierarchyLevel: z.number().nonnegative().optional(),
 	seasonUuid: z.string().min(1),
 	seasonName: z.string().min(1),
 	updatedAt: z.iso.datetime(),
