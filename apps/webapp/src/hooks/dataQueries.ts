@@ -11,7 +11,7 @@ import { listLocationsFn } from "../server/functions/locations";
 import { listMembersFn } from "../server/functions/members";
 // Server functions
 import { getGalleryImagesFn, getNewsByIdFn, getPublishedNewsFn } from "../server/functions/news";
-import { getClubLogoUrlFn, getClubLogoUrlsBatchFn, getSamsMatchesFn, getSamsRankingsByLeagueUuidsFn, getSamsTickerFn, listSamsTeamsFn } from "../server/functions/sams";
+import { getClubLogoUrlFn, getClubLogoUrlsBatchFn, getSamsMatchesFn, getSamsRankingByLeagueUuidFn, getSamsTickerFn, listSamsTeamsFn } from "../server/functions/sams";
 import { getRecentInstagramPostsFn } from "../server/functions/social";
 import { listSponsorsFn } from "../server/functions/sponsors";
 import { getTeamBySlugFn, listTeamsFn } from "../server/functions/teams";
@@ -194,19 +194,17 @@ export const useClubLogoUrlsBatch = (clubSlugs: string[]) => {
 	});
 };
 
-export const useSamsRankingsByLeagueUuid = (leagueUuids: string[], options?: { initialData?: RankingResponse[]; initialDataUpdatedAt?: number }) => {
-	return useQuery({
-		queryKey: ["samsRankings", leagueUuids],
-		queryFn: () => getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids } }),
-		enabled: leagueUuids.length > 0,
-		staleTime: 1000 * 60 * 10,
-		retry: 1,
-		placeholderData: (previousData) => previousData,
-		refetchOnWindowFocus: false,
-		initialData: options?.initialData,
-		initialDataUpdatedAt: options?.initialDataUpdatedAt,
-	});
-};
+export const samsRankingQuery = (leagueUuid: string, options?: { initialData?: RankingResponse; initialDataUpdatedAt?: number }) => ({
+	queryKey: ["samsRanking", leagueUuid] as const,
+	queryFn: () => getSamsRankingByLeagueUuidFn({ data: leagueUuid }),
+	enabled: !!leagueUuid,
+	staleTime: 1000 * 60 * 10,
+	retry: 1 as const,
+	placeholderData: (previousData: RankingResponse | undefined) => previousData,
+	refetchOnWindowFocus: false as const,
+	initialData: options?.initialData,
+	initialDataUpdatedAt: options?.initialDataUpdatedAt,
+});
 
 export const useSamsMatches = ({
 	league,

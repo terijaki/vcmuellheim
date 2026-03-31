@@ -14,10 +14,10 @@ import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useTeamBySlug } from "@/apps/webapp/src/hooks/dataQueries";
+import { useFileUrls, useLocations, useMembers, useSamsMatches, useTeamBySlug } from "@/apps/webapp/src/hooks/dataQueries";
 import { listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsCacheFn } from "@/apps/webapp/src/server/functions/sams";
 import { getTeamBySlugFn } from "@/apps/webapp/src/server/functions/teams";
-import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
+import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 
 dayjs.locale(de);
 dayjs.extend(weekday);
@@ -77,7 +77,7 @@ function RouteComponent() {
 					<TeamPictures team={team} />
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Tabelle..." />}>
-					<TeamRanking loaderSamsTeam={loaderData.samsTeam} loaderRankings={loaderData.rankings} />
+					{loaderData.samsTeam?.leagueUuid && <RankingTable leagueUuid={loaderData.samsTeam.leagueUuid} initialData={loaderData.rankings?.[0]} currentTeamId={loaderData.samsTeam.uuid} />}
 				</Suspense>
 				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
 					<TeamCalendar slug={slug} loaderSamsTeam={loaderData.samsTeam} />
@@ -170,21 +170,6 @@ function TeamMatches({ loaderSamsTeam, loaderMatches }: { loaderSamsTeam: Return
 			)}
 		</>
 	);
-}
-
-function TeamRanking({ loaderSamsTeam, loaderRankings }: { loaderSamsTeam: ReturnType<typeof Route.useLoaderData>["samsTeam"]; loaderRankings?: RankingResponse[] }) {
-	const rankingsInitialDataUpdatedAt = loaderRankings?.[0]?.timestamp ? new Date(loaderRankings[0].timestamp).getTime() : undefined;
-
-	const { data: rankings, isFetching: isFetchingRanking } = useSamsRankingsByLeagueUuid(loaderSamsTeam?.leagueUuid ? [loaderSamsTeam.leagueUuid] : [], {
-		initialData: loaderRankings,
-		initialDataUpdatedAt: rankingsInitialDataUpdatedAt,
-	});
-
-	if (!loaderSamsTeam || !rankings || rankings.length === 0) return null;
-
-	const ranking = rankings[0];
-
-	return <RankingTable ranking={ranking} currentTeamId={loaderSamsTeam.uuid} isFetching={isFetchingRanking} />;
 }
 
 function TeamSchedule({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {

@@ -161,6 +161,10 @@ export const getSamsRankingsByLeagueUuidsFn = createServerFn()
 		return Promise.all(data.leagueUuids.map((leagueUuid) => fetchSamsRankingsByLeagueUuid(leagueUuid)));
 	});
 
+export const getSamsRankingByLeagueUuidFn = createServerFn()
+	.inputValidator(z.string())
+	.handler(async ({ data }) => fetchSamsRankingsByLeagueUuid(data));
+
 /**
  * Cache-peek-only variant for rankings: reads from DynamoDB without calling SAMS API.
  * Returns whatever is cached regardless of age — any data is better than a skeleton.

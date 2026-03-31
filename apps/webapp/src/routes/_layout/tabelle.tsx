@@ -4,7 +4,7 @@ import CardTitle from "@webapp/components/CardTitle";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
-import { useSamsMatches, useSamsRankingsByLeagueUuid } from "@webapp/hooks/dataQueries";
+import { useSamsMatches } from "@webapp/hooks/dataQueries";
 import { listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsCacheFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import { buildLeagueOrderingContext, calculateLastResultCap, sortLeagueUuidsByLevels } from "@webapp/utils/ranking";
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/_layout/tabelle")({
 		const orderingContext = buildLeagueOrderingContext(samsTeams.teams);
 
 		if (samsTeams.teams.length === 0) {
-			return { leagueUuids: [], teams: teams.items, lastResultCap: 6, rankings: undefined, matches: undefined };
+			return { leagueUuids: [], teams: teams.items, lastResultCap: 6, rankingsByLeagueUuid: {} satisfies Record<string, RankingResponse>, matches: undefined };
 		}
 
 		// League levels are stored on each team by the sync lambda — no extra API call needed.
@@ -63,41 +63,26 @@ export const Route = createFileRoute("/_layout/tabelle")({
 		});
 		const lastResultCap = calculateLastResultCap(samsTeams.teams.length, GAMES_PER_TEAM);
 
-		let rankings: RankingResponse[] | undefined;
+		let rankingsByLeagueUuid: Record<string, RankingResponse> = {};
 		let matches: LeagueMatchesResponse | undefined;
 		if (sortedLeagueUuids.length > 0) {
 			const [rankingsResult, matchesResult] = await Promise.all([
 				peekSamsRankingsCacheFn({ data: { leagueUuids: sortedLeagueUuids } }),
 				peekSamsMatchesCacheFn({ data: { range: "past", limit: lastResultCap } }),
 			]);
-			const hasAllRankings = rankingsResult.length === sortedLeagueUuids.length;
-			rankings = hasAllRankings && rankingsResult.length > 0 ? rankingsResult : undefined;
+			rankingsByLeagueUuid = Object.fromEntries(rankingsResult.map((r) => [r.leagueUuid, r]));
 			matches = matchesResult ?? undefined;
 		}
-		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap, rankings, matches };
+		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap, rankingsByLeagueUuid, matches };
 	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { leagueUuids, teams, lastResultCap, rankings: loaderRankings, matches: loaderMatches } = Route.useLoaderData();
+	const { leagueUuids, teams, lastResultCap, rankingsByLeagueUuid, matches: loaderMatches } = Route.useLoaderData();
 
 	const matchesInitialDataUpdatedAt = loaderMatches?.timestamp ? new Date(loaderMatches.timestamp).getTime() : undefined;
 
-	// Pass the cached timestamp so React Query knows how old the data is.
-	// When the data is older than staleTime (10 min), React Query triggers a
-	// background refetch → isFetching=true → spinner shows next to each table.
-	const rankingsInitialDataUpdatedAt = loaderRankings?.[0]?.timestamp ? new Date(loaderRankings[0].timestamp).getTime() : undefined;
-
-	const {
-		data: rankingsData,
-		isLoading: isLoadingRankings,
-		isFetching: isFetchingRankings,
-		isError: isRankingsError,
-	} = useSamsRankingsByLeagueUuid(leagueUuids, {
-		initialData: loaderRankings,
-		initialDataUpdatedAt: rankingsInitialDataUpdatedAt,
-	});
 	const {
 		data: matchesData,
 		isLoading: isLoadingMatches,
@@ -110,18 +95,15 @@ function RouteComponent() {
 	});
 	const recentMatches = matchesData?.matches ?? [];
 	const lastResultWord = recentMatches.length > 1 && numToWord(recentMatches.length, { uppercase: false });
-	const hasRankings = !!rankingsData && rankingsData.length > 0;
 
 	return (
 		<PageWithHeading title={"Tabelle"}>
 			<Stack>
-				{isLoadingRankings && <RankingsLoadingState leagueCount={leagueUuids.length} />}
-				{!isLoadingRankings && isRankingsError && <RankingsErrorState />}
-				{!isLoadingRankings && !isRankingsError && !hasRankings && <NoRankingsData />}
-				{hasRankings && (
+				{leagueUuids.length === 0 && <NoRankingsData />}
+				{leagueUuids.length > 0 && (
 					<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-						{rankingsData.map((ranking) => (
-							<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} isFetching={isFetchingRankings} />
+						{leagueUuids.map((leagueUuid) => (
+							<RankingTable key={leagueUuid} leagueUuid={leagueUuid} initialData={rankingsByLeagueUuid[leagueUuid]} linkToTeamPage={true} clubsTeams={teams} />
 						))}
 					</SimpleGrid>
 				)}
@@ -137,40 +119,6 @@ function RouteComponent() {
 				)}
 			</Stack>
 		</PageWithHeading>
-	);
-}
-
-function RankingsLoadingState({ leagueCount }: { leagueCount: number }) {
-	const placeholderCount = Math.max(2, Math.min(6, leagueCount || 2));
-	const placeholderSlots = Array.from({ length: placeholderCount }, (_, slot) => slot + 1);
-
-	return (
-		<>
-			<Text c="dimmed" size="sm">
-				Tabellen werden geladen...
-			</Text>
-			<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-				{placeholderSlots.map((slot) => (
-					<Card key={`ranking-loading-${slot}`} p="md">
-						<Stack align="center" py="xl" gap="xs">
-							<Loader size="sm" />
-							<Text c="dimmed" size="sm">
-								Lade Tabelle...
-							</Text>
-						</Stack>
-					</Card>
-				))}
-			</SimpleGrid>
-		</>
-	);
-}
-
-function RankingsErrorState() {
-	return (
-		<Card>
-			<CardTitle>Fehler beim Laden der Tabellen</CardTitle>
-			<Text>Die Tabellen konnten derzeit nicht geladen werden. Bitte versuche es in wenigen Minuten erneut.</Text>
-		</Card>
 	);
 }
 
