@@ -50,8 +50,8 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		}
 		console.log(`Current season: ${currentSeason.name} (${currentSeason.uuid})`);
 
-		// Step 3: Get all leagues for the association filtered by current season, and
-		// fetch hierarchy levels in parallel so we can store them on each team.
+		// Step 3: Get all leagues for the association filtered by current season.
+		// build a hierarchy level map so we can store the level on each team.
 		console.log(`Fetching leagues for association ${associationUuid}...`);
 		const allLeagues = [];
 		let leaguePage = 0;

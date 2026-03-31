@@ -70,7 +70,8 @@ export const Route = createFileRoute("/_layout/tabelle")({
 				peekSamsRankingsCacheFn({ data: { leagueUuids: sortedLeagueUuids } }),
 				peekSamsMatchesCacheFn({ data: { range: "past", limit: lastResultCap } }),
 			]);
-			rankings = rankingsResult.length > 0 ? rankingsResult : undefined;
+			const hasAllRankings = rankingsResult.length === sortedLeagueUuids.length;
+			rankings = hasAllRankings && rankingsResult.length > 0 ? rankingsResult : undefined;
 			matches = matchesResult ?? undefined;
 		}
 		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap, rankings, matches };
