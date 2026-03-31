@@ -162,6 +162,23 @@ export const getSamsRankingsByLeagueUuidsFn = createServerFn()
 	});
 
 /**
+ * Cache-peek-only variant for rankings: reads from DynamoDB without calling SAMS API.
+ * Returns whatever is cached regardless of age — any data is better than a skeleton.
+ * React Query handles freshness via its queryFn (getSamsRankingsByLeagueUuidsFn).
+ */
+export const peekSamsRankingsCacheFn = createServerFn()
+	.inputValidator(z.object({ leagueUuids: z.array(z.string()) }))
+	.handler(async ({ data }) => {
+		const results = await Promise.all(
+			data.leagueUuids.map((leagueUuid) => {
+				const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
+				return readSamsCacheEntry<RankingResponse>(cacheKey, Infinity);
+			}),
+		);
+		return results.filter((r): r is RankingResponse => r !== null);
+	});
+
+/**
  * Cache-peek-only variant for matches: resolves the effective filter params (including the
  * default sportsclub UUID) and returns the cached entry if present, otherwise null.
  * Use in route loaders to keep navigation fast — React Query will fetch live data client-side.
@@ -194,7 +211,7 @@ export const peekSamsMatchesCacheFn = createServerFn()
 		}
 
 		const cacheKey = createCacheKey({ type: "sams_matches", league, season, sportsclub, team, limit: data?.limit, range: data?.range });
-		return readSamsCacheEntry<LeagueMatchesResponse>(cacheKey, 5 * 60 * 1000);
+		return readSamsCacheEntry<LeagueMatchesResponse>(cacheKey, Infinity);
 	});
 
 export const listSamsClubsFn = createServerFn().handler(async () => {

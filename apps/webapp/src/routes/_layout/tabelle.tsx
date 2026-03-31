@@ -5,7 +5,7 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
 import { useSamsMatches, useSamsRankingsByLeagueUuid } from "@webapp/hooks/dataQueries";
-import { getSamsRankingsByLeagueUuidsFn, listSamsTeamsFn, peekSamsMatchesCacheFn } from "@webapp/server/functions/sams";
+import { listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsCacheFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import { buildLeagueOrderingContext, calculateLastResultCap, sortLeagueUuidsByLevels } from "@webapp/utils/ranking";
 import { numToWord } from "num-words-de";
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/_layout/tabelle")({
 		const orderingContext = buildLeagueOrderingContext(samsTeams.teams);
 
 		if (samsTeams.teams.length === 0) {
-			return { leagueUuids: [], teams: teams.items, lastResultCap: 6, rankings: undefined, rankingsComplete: true, matches: undefined };
+			return { leagueUuids: [], teams: teams.items, lastResultCap: 6, rankings: undefined, matches: undefined };
 		}
 
 		// League levels are stored on each team by the sync lambda — no extra API call needed.
@@ -35,32 +35,29 @@ export const Route = createFileRoute("/_layout/tabelle")({
 		const lastResultCap = calculateLastResultCap(samsTeams.teams.length, GAMES_PER_TEAM);
 
 		let rankings: RankingResponse[] | undefined;
-		let rankingsComplete = true;
 		let matches: LeagueMatchesResponse | undefined;
 		if (sortedLeagueUuids.length > 0) {
 			const [rankingsResult, matchesResult] = await Promise.all([
-				getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: sortedLeagueUuids } }),
+				peekSamsRankingsCacheFn({ data: { leagueUuids: sortedLeagueUuids } }),
 				peekSamsMatchesCacheFn({ data: { range: "past", limit: lastResultCap } }),
 			]);
 			rankings = rankingsResult.length > 0 ? rankingsResult : undefined;
-			rankingsComplete = true;
 			matches = matchesResult ?? undefined;
 		}
-		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap, rankings, rankingsComplete, matches };
+		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap, rankings, matches };
 	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { leagueUuids, teams, lastResultCap, rankings: loaderRankings, rankingsComplete, matches: loaderMatches } = Route.useLoaderData();
+	const { leagueUuids, teams, lastResultCap, rankings: loaderRankings, matches: loaderMatches } = Route.useLoaderData();
 
 	const matchesInitialDataUpdatedAt = loaderMatches?.timestamp ? new Date(loaderMatches.timestamp).getTime() : undefined;
 
-	// Only pass initialDataUpdatedAt when the loader returned a complete cache hit.
-	// With partial data (some leagues missing), omitting it makes React Query treat the
-	// initial data as immediately stale → background refetch starts → isFetching=true →
-	// spinner shows next to the timestamp in each RankingTable.
-	const rankingsInitialDataUpdatedAt = rankingsComplete && loaderRankings?.[0]?.timestamp ? new Date(loaderRankings[0].timestamp).getTime() : undefined;
+	// Pass the cached timestamp so React Query knows how old the data is.
+	// When the data is older than staleTime (10 min), React Query triggers a
+	// background refetch → isFetching=true → spinner shows next to each table.
+	const rankingsInitialDataUpdatedAt = loaderRankings?.[0]?.timestamp ? new Date(loaderRankings[0].timestamp).getTime() : undefined;
 
 	const {
 		data: rankingsData,

@@ -15,7 +15,7 @@ import weekday from "dayjs/plugin/weekday";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import { useFileUrls, useLocations, useMembers, useSamsMatches, useSamsRankingsByLeagueUuid, useTeamBySlug } from "@/apps/webapp/src/hooks/dataQueries";
-import { getSamsRankingsByLeagueUuidsFn, listSamsTeamsFn, peekSamsMatchesCacheFn } from "@/apps/webapp/src/server/functions/sams";
+import { listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsCacheFn } from "@/apps/webapp/src/server/functions/sams";
 import { getTeamBySlugFn } from "@/apps/webapp/src/server/functions/teams";
 import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
 
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/_layout/teams/$slug")({
 		}
 
 		const [rankings, matches] = await Promise.all([
-			samsTeam.leagueUuid ? getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: [samsTeam.leagueUuid] } }) : Promise.resolve(undefined),
+			samsTeam.leagueUuid ? peekSamsRankingsCacheFn({ data: { leagueUuids: [samsTeam.leagueUuid] } }) : Promise.resolve(undefined),
 			peekSamsMatchesCacheFn({ data: { team: samsTeam.uuid } }).then((m) => m ?? undefined),
 		]);
 
