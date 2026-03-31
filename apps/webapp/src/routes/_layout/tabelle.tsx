@@ -14,6 +14,35 @@ import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
 export const Route = createFileRoute("/_layout/tabelle")({
+	/**
+	 * LOADING STRATEGY — do not change without understanding the full picture.
+	 *
+	 * Goal: instant navigation (no skeleton), with a small spinner showing when data
+	 * is being refreshed in the background.
+	 *
+	 * How it works:
+	 *  1. Loader runs server-side before navigation completes. It must be FAST — any
+	 *     async call that hits an external API blocks the browser from showing the page.
+	 *     → Use only DDB cache-peek functions (peekSamsRankingsCacheFn, peekSamsMatchesCacheFn).
+	 *     → These read DynamoDB only, never call the SAMS API, and use Infinity TTL so they
+	 *       always return whatever is cached regardless of age.
+	 *
+	 *  2. The loader passes the cached data as `initialData` + `initialDataUpdatedAt` to
+	 *     React Query hooks. React Query compares `initialDataUpdatedAt` against its
+	 *     `staleTime` (10 min). If the data is stale, it starts a background refetch
+	 *     immediately after render → `isFetching: true` → small spinner in RankingTable.
+	 *
+	 *  3. The React Query `queryFn` (getSamsRankingsByLeagueUuidsFn) has its own 5-min
+	 *     DDB cache check and falls back to the SAMS API on miss — this is the only place
+	 *     the SAMS API is called.
+	 *
+	 * Result: users always see cached data instantly. The spinner appears when React Query
+	 * decides fresh data is needed. A loading skeleton only appears when the DDB cache is
+	 * completely empty (first-ever visit or after a full cache eviction).
+	 *
+	 * PITFALL: Do NOT replace peek functions with getSamsRankingsByLeagueUuidsFn in the
+	 * loader. That function calls the SAMS API on cache miss, blocking navigation for 2-3s.
+	 */
 	loader: async () => {
 		// Main data comes from DynamoDB; only a batched SAMS metadata lookup is used for league ordering.
 		const [samsTeams, teams] = await Promise.all([listSamsTeamsFn(), listTeamsFn()]);
@@ -89,18 +118,11 @@ function RouteComponent() {
 				{!isLoadingRankings && isRankingsError && <RankingsErrorState />}
 				{!isLoadingRankings && !isRankingsError && !hasRankings && <NoRankingsData />}
 				{hasRankings && (
-					<>
-						{isFetchingRankings && (
-							<Text c="dimmed" size="sm">
-								Tabellen werden aktualisiert...
-							</Text>
-						)}
-						<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-							{rankingsData.map((ranking) => (
-								<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} isFetching={isFetchingRankings} />
-							))}
-						</SimpleGrid>
-					</>
+					<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+						{rankingsData.map((ranking) => (
+							<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} isFetching={isFetchingRankings} />
+						))}
+					</SimpleGrid>
 				)}
 				{isLoadingMatches && <MatchesLoadingState />}
 				{!isLoadingMatches && isMatchesError && <MatchesErrorState />}
