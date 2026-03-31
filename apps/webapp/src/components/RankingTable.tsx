@@ -27,16 +27,16 @@ export default function RankingTable(props: RankingTable) {
 
 	return (
 		<Card>
-			{props.ranking.leagueName && <CardTitle>{props.ranking.leagueName}</CardTitle>}
+			<Group gap={4} justify="space-between" align="flex-start">
+				{props.ranking.leagueName && <CardTitle>{props.ranking.leagueName}</CardTitle>}
+				<Loader size="xs" type="oval" opacity={props.isFetching ? 1 : 0} />
+			</Group>
 			<Group c="dimmed" justify="space-between">
 				{props.ranking.seasonName && <Text size="xs">Saison {props.ranking.seasonName}</Text>}
 				{ranking.timestamp && (
-					<Group gap={4} align="center">
-						{props.isFetching && <Loader size="xs" />}
-						<Text size="xs">
-							<LastUpdate date={ranking.timestamp} />
-						</Text>
-					</Group>
+					<Text size="xs">
+						<LastUpdate date={ranking.timestamp} />
+					</Text>
 				)}
 			</Group>
 			<Table striped highlightOnHover withRowBorders={false} horizontalSpacing="xs" verticalSpacing={0}>

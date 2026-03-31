@@ -60,8 +60,7 @@ function RouteComponent() {
 	// With partial data (some leagues missing), omitting it makes React Query treat the
 	// initial data as immediately stale → background refetch starts → isFetching=true →
 	// spinner shows next to the timestamp in each RankingTable.
-	const rankingsInitialDataUpdatedAt =
-		rankingsComplete && loaderRankings?.[0]?.timestamp ? new Date(loaderRankings[0].timestamp).getTime() : undefined;
+	const rankingsInitialDataUpdatedAt = rankingsComplete && loaderRankings?.[0]?.timestamp ? new Date(loaderRankings[0].timestamp).getTime() : undefined;
 
 	const {
 		data: rankingsData,
