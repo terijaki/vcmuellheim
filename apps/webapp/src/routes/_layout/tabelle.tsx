@@ -5,7 +5,7 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
 import { useSamsMatches, useSamsRankingsByLeagueUuid } from "@webapp/hooks/dataQueries";
-import { listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsByLeagueUuidsFn } from "@webapp/server/functions/sams";
+import { getSamsRankingsByLeagueUuidsFn, listSamsTeamsFn, peekSamsMatchesCacheFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import { buildLeagueOrderingContext, calculateLastResultCap, sortLeagueUuidsByLevels } from "@webapp/utils/ranking";
 import { numToWord } from "num-words-de";
@@ -39,11 +39,11 @@ export const Route = createFileRoute("/_layout/tabelle")({
 		let matches: LeagueMatchesResponse | undefined;
 		if (sortedLeagueUuids.length > 0) {
 			const [rankingsResult, matchesResult] = await Promise.all([
-				peekSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: sortedLeagueUuids } }),
+				getSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: sortedLeagueUuids } }),
 				peekSamsMatchesCacheFn({ data: { range: "past", limit: lastResultCap } }),
 			]);
-			rankings = rankingsResult.rankings.length > 0 ? rankingsResult.rankings : undefined;
-			rankingsComplete = rankingsResult.complete;
+			rankings = rankingsResult.length > 0 ? rankingsResult : undefined;
+			rankingsComplete = true;
 			matches = matchesResult ?? undefined;
 		}
 		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap, rankings, rankingsComplete, matches };

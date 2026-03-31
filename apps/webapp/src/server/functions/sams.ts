@@ -162,26 +162,6 @@ export const getSamsRankingsByLeagueUuidsFn = createServerFn()
 	});
 
 /**
- * Cache-peek-only variant: reads from DynamoDB without falling back to the SAMS API.
- * Returns cached rankings for all leagues that are in cache plus a `complete` flag.
- * When `complete` is false some leagues were missing — React Query will fetch the full
- * set client-side (triggering `isFetching` → spinner in each RankingTable).
- * Use in route loaders to keep navigation fast.
- */
-export const peekSamsRankingsByLeagueUuidsFn = createServerFn()
-	.inputValidator(z.object({ leagueUuids: z.array(z.string()) }))
-	.handler(async ({ data }) => {
-		const results = await Promise.all(
-			data.leagueUuids.map((leagueUuid) => {
-				const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
-				return readSamsCacheEntry<RankingResponse>(cacheKey, 5 * 60 * 1000);
-			}),
-		);
-		const rankings = results.filter((r): r is RankingResponse => r !== null);
-		return { rankings, complete: rankings.length === data.leagueUuids.length };
-	});
-
-/**
  * Cache-peek-only variant for matches: resolves the effective filter params (including the
  * default sportsclub UUID) and returns the cached entry if present, otherwise null.
  * Use in route loaders to keep navigation fast — React Query will fetch live data client-side.
