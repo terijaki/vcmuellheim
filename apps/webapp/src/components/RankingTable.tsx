@@ -15,7 +15,6 @@ type RankingTable = {
 	linkToTeamPage?: boolean;
 	clubsTeams?: Team[];
 	currentTeamId?: string; // When set, only highlight this specific team and disable links
-	isFetching?: boolean;
 };
 
 export default function RankingTable(props: RankingTable) {
@@ -59,12 +58,9 @@ export default function RankingTable(props: RankingTable) {
 			<Group c="dimmed" justify="space-between">
 				{ranking.seasonName && <Text size="xs">Saison {ranking.seasonName}</Text>}
 				{ranking.timestamp && (
-					<Group gap={4} align="center">
-						{props.isFetching && <Loader size="xs" />}
-						<Text size="xs">
-							<LastUpdate date={ranking.timestamp} />
-						</Text>
-					</Group>
+					<Text size="xs">
+						<LastUpdate date={ranking.timestamp} />
+					</Text>
 				)}
 			</Group>
 			<Table striped highlightOnHover withRowBorders={false} horizontalSpacing="xs" verticalSpacing={0}>
