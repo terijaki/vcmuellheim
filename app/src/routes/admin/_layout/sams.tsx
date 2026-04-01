@@ -117,7 +117,7 @@ function SamsDashboardPage() {
 
 	return (
 		<Stack gap="md">
-			<Group align="flex-end" gap="md" wrap="wrap">
+			<Group align="flex-end" justify="space-between" gap="md" wrap="wrap">
 				<Title order={2}>SAMS Teams</Title>
 				{isAdmin && (
 					<Stack gap={4}>
@@ -131,7 +131,7 @@ function SamsDashboardPage() {
 								{teamsSyncTriggeredAt !== null ? (
 									<Loader size="xs" />
 								) : (
-									<ActionIcon size="sm" radius="xl" variant="light" disabled={teamsSyncTriggeredAt === null} onClick={() => teamsMutation.mutate()}>
+									<ActionIcon size="sm" radius="xl" variant="light" disabled={IS_DEV} onClick={() => teamsMutation.mutate()}>
 										<RefreshCw style={{ padding: 2 }} />
 									</ActionIcon>
 								)}
@@ -197,7 +197,7 @@ function SamsDashboardPage() {
 				<Text>Keine SAMS Teams gefunden</Text>
 			)}
 
-			<Group align="flex-end" gap="md" mt="lg" wrap="wrap">
+			<Group align="flex-end" justify="space-between" gap="md" mt="lg" wrap="wrap">
 				<Title order={2}>SAMS Vereine</Title>
 				{isAdmin && (
 					<Stack gap={4}>
@@ -211,7 +211,7 @@ function SamsDashboardPage() {
 								{clubsSyncTriggeredAt !== null ? (
 									<Loader size="xs" />
 								) : (
-									<ActionIcon size="sm" variant="light" radius="xl" disabled={clubsSyncTriggeredAt === null} onClick={() => clubsMutation.mutate()}>
+									<ActionIcon size="sm" variant="light" radius="xl" disabled={IS_DEV} onClick={() => clubsMutation.mutate()}>
 										<RefreshCw style={{ padding: 2 }} />
 									</ActionIcon>
 								)}
