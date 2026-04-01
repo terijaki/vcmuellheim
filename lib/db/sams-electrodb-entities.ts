@@ -76,6 +76,7 @@ export const SamsTeamEntity = new Entity({
 		associationUuid: { type: "string", required: true },
 		leagueUuid: { type: "string", required: true },
 		leagueName: { type: "string", required: true },
+		leagueHierarchyLevel: { type: "number" },
 		seasonUuid: { type: "string", required: true },
 		seasonName: { type: "string", required: true },
 		updatedAt: { type: "string", required: true },

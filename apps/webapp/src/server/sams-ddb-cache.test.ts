@@ -131,3 +131,32 @@ describe("round-trip: write then read", () => {
 		expect(writtenItem.cachedAt).toBe(expectedCachedAt);
 	});
 });
+describe("Infinity TTL (loader peek contract)", () => {
+	// Route loaders use Infinity as the TTL so they always return whatever is cached,
+	// regardless of age. This prevents the loader from blocking navigation while waiting
+	// for a SAMS API call. React Query handles freshness client-side after render.
+	it("returns data that is far beyond a normal TTL when Infinity is passed", async () => {
+		// Data cached 1 year ago
+		const oneYearAgoMs = Date.now() - 365 * 24 * 60 * 60 * 1000;
+		ddbMock.on(GetCommand).resolves({
+			Item: {
+				pk: "sams_cache#old-key",
+				sk: "sams_cache",
+				data: JSON.stringify(SAMPLE_PAYLOAD),
+				cachedAt: new Date(oneYearAgoMs).toISOString(),
+			},
+		});
+
+		const result = await readSamsCacheEntry<TestPayload>("old-key", Infinity);
+
+		expect(result).toEqual(SAMPLE_PAYLOAD);
+	});
+
+	it("still returns null on a cache miss even with Infinity TTL", async () => {
+		ddbMock.on(GetCommand).resolves({ Item: undefined });
+
+		const result = await readSamsCacheEntry<TestPayload>("no-entry", Infinity);
+
+		expect(result).toBeNull();
+	});
+});

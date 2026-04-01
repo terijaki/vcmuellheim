@@ -4,8 +4,8 @@ import CardTitle from "@webapp/components/CardTitle";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
-import { useSamsMatches, useSamsRankingsByLeagueUuid } from "@webapp/hooks/dataQueries";
-import { getSamsLeagueLevelsByLeagueUuidsFn, listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsByLeagueUuidsFn } from "@webapp/server/functions/sams";
+import { useSamsMatches } from "@webapp/hooks/dataQueries";
+import { listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsCacheFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import { buildLeagueOrderingContext, calculateLastResultCap, sortLeagueUuidsByLevels } from "@webapp/utils/ranking";
 import { numToWord } from "num-words-de";
@@ -14,35 +14,46 @@ import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
 export const Route = createFileRoute("/_layout/tabelle")({
+	/**
+	 * LOADING STRATEGY — do not change without understanding the full picture.
+	 *
+	 * Goal: instant navigation (no skeleton), with a small spinner showing when data
+	 * is being refreshed in the background.
+	 *
+	 * How it works:
+	 *  1. Loader runs server-side before navigation completes. It must be FAST — any
+	 *     async call that hits an external API blocks the browser from showing the page.
+	 *     → Use only DDB cache-peek functions (peekSamsRankingsCacheFn, peekSamsMatchesCacheFn).
+	 *     → These read DynamoDB only, never call the SAMS API, and use Infinity TTL so they
+	 *       always return whatever is cached regardless of age.
+	 *
+	 *  2. The loader passes the cached data as `initialData` + `initialDataUpdatedAt` to
+	 *     React Query hooks. React Query compares `initialDataUpdatedAt` against its
+	 *     `staleTime` (10 min). If the data is stale, it starts a background refetch
+	 *     immediately after render → `isFetching: true` → small spinner in RankingTable.
+	 *
+	 *  3. The React Query `queryFn` (getSamsRankingsByLeagueUuidsFn) has its own 5-min
+	 *     DDB cache check and falls back to the SAMS API on miss — this is the only place
+	 *     the SAMS API is called.
+	 *
+	 * Result: users always see cached data instantly. The spinner appears when React Query
+	 * decides fresh data is needed. A loading skeleton only appears when the DDB cache is
+	 * completely empty (first-ever visit or after a full cache eviction).
+	 *
+	 * PITFALL: Do NOT replace peek functions with getSamsRankingsByLeagueUuidsFn in the
+	 * loader. That function calls the SAMS API on cache miss, blocking navigation for 2-3s.
+	 */
 	loader: async () => {
 		// Main data comes from DynamoDB; only a batched SAMS metadata lookup is used for league ordering.
 		const [samsTeams, teams] = await Promise.all([listSamsTeamsFn(), listTeamsFn()]);
 		const orderingContext = buildLeagueOrderingContext(samsTeams.teams);
 
 		if (samsTeams.teams.length === 0) {
-			return { leagueUuids: [], teams: teams.items, lastResultCap: 6, rankings: undefined, matches: undefined };
+			return { leagueUuids: [], teams: teams.items, lastResultCap: 6, rankingsByLeagueUuid: {} satisfies Record<string, RankingResponse>, matches: undefined };
 		}
 
-		let leagueLevels: Record<string, number | null> = {};
-		if (orderingContext.leagueUuids.length > 0) {
-			try {
-				leagueLevels = await getSamsLeagueLevelsByLeagueUuidsFn({
-					data: {
-						leagueUuids: orderingContext.leagueUuids,
-						seasonUuid: orderingContext.seasonUuid,
-						associationUuid: orderingContext.associationUuid,
-					},
-				});
-			} catch (error) {
-				console.error("Failed to fetch SAMS league levels for league UUIDs", {
-					error,
-					leagueUuids: orderingContext.leagueUuids,
-					seasonUuid: orderingContext.seasonUuid,
-					associationUuid: orderingContext.associationUuid,
-				});
-				leagueLevels = {};
-			}
-		}
+		// League levels are stored on each team by the sync lambda — no extra API call needed.
+		const leagueLevels = Object.fromEntries(orderingContext.leagueLevelByUuid);
 
 		const sortedLeagueUuids = sortLeagueUuidsByLevels({
 			leagueUuids: orderingContext.leagueUuids,
@@ -52,34 +63,26 @@ export const Route = createFileRoute("/_layout/tabelle")({
 		});
 		const lastResultCap = calculateLastResultCap(samsTeams.teams.length, GAMES_PER_TEAM);
 
-		let rankings: RankingResponse[] | undefined;
+		let rankingsByLeagueUuid: Record<string, RankingResponse> = {};
 		let matches: LeagueMatchesResponse | undefined;
 		if (sortedLeagueUuids.length > 0) {
-			[rankings, matches] = await Promise.all([
-				peekSamsRankingsByLeagueUuidsFn({ data: { leagueUuids: sortedLeagueUuids } }).then((r) => r ?? undefined),
-				peekSamsMatchesCacheFn({ data: { range: "past", limit: lastResultCap } }).then((m) => m ?? undefined),
+			const [rankingsResult, matchesResult] = await Promise.all([
+				peekSamsRankingsCacheFn({ data: { leagueUuids: sortedLeagueUuids } }),
+				peekSamsMatchesCacheFn({ data: { range: "past", limit: lastResultCap } }),
 			]);
+			rankingsByLeagueUuid = Object.fromEntries(rankingsResult.map((r) => [r.leagueUuid, r]));
+			matches = matchesResult ?? undefined;
 		}
-		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap, rankings, matches };
+		return { leagueUuids: sortedLeagueUuids, teams: teams.items, lastResultCap, rankingsByLeagueUuid, matches };
 	},
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { leagueUuids, teams, lastResultCap, rankings: loaderRankings, matches: loaderMatches } = Route.useLoaderData();
+	const { leagueUuids, teams, lastResultCap, rankingsByLeagueUuid, matches: loaderMatches } = Route.useLoaderData();
 
-	const rankingsInitialDataUpdatedAt = loaderRankings?.[0]?.timestamp ? new Date(loaderRankings[0].timestamp).getTime() : undefined;
 	const matchesInitialDataUpdatedAt = loaderMatches?.timestamp ? new Date(loaderMatches.timestamp).getTime() : undefined;
 
-	const {
-		data: rankingsData,
-		isLoading: isLoadingRankings,
-		isFetching: isFetchingRankings,
-		isError: isRankingsError,
-	} = useSamsRankingsByLeagueUuid(leagueUuids, {
-		initialData: loaderRankings,
-		initialDataUpdatedAt: rankingsInitialDataUpdatedAt,
-	});
 	const {
 		data: matchesData,
 		isLoading: isLoadingMatches,
@@ -92,27 +95,17 @@ function RouteComponent() {
 	});
 	const recentMatches = matchesData?.matches ?? [];
 	const lastResultWord = recentMatches.length > 1 && numToWord(recentMatches.length, { uppercase: false });
-	const hasRankings = !!rankingsData && rankingsData.length > 0;
 
 	return (
 		<PageWithHeading title={"Tabelle"}>
 			<Stack>
-				{isLoadingRankings && <RankingsLoadingState leagueCount={leagueUuids.length} />}
-				{!isLoadingRankings && isRankingsError && <RankingsErrorState />}
-				{!isLoadingRankings && !isRankingsError && !hasRankings && <NoRankingsData />}
-				{hasRankings && (
-					<>
-						{isFetchingRankings && (
-							<Text c="dimmed" size="sm">
-								Tabellen werden aktualisiert...
-							</Text>
-						)}
-						<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-							{rankingsData.map((ranking) => (
-								<RankingTable key={ranking.leagueUuid} ranking={ranking} linkToTeamPage={true} clubsTeams={teams} isFetching={isFetchingRankings} />
-							))}
-						</SimpleGrid>
-					</>
+				{leagueUuids.length === 0 && <NoRankingsData />}
+				{leagueUuids.length > 0 && (
+					<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+						{leagueUuids.map((leagueUuid) => (
+							<RankingTable key={leagueUuid} leagueUuid={leagueUuid} initialData={rankingsByLeagueUuid[leagueUuid]} linkToTeamPage={true} clubsTeams={teams} />
+						))}
+					</SimpleGrid>
 				)}
 				{isLoadingMatches && <MatchesLoadingState />}
 				{!isLoadingMatches && isMatchesError && <MatchesErrorState />}
@@ -126,40 +119,6 @@ function RouteComponent() {
 				)}
 			</Stack>
 		</PageWithHeading>
-	);
-}
-
-function RankingsLoadingState({ leagueCount }: { leagueCount: number }) {
-	const placeholderCount = Math.max(2, Math.min(6, leagueCount || 2));
-	const placeholderSlots = Array.from({ length: placeholderCount }, (_, slot) => slot + 1);
-
-	return (
-		<>
-			<Text c="dimmed" size="sm">
-				Tabellen werden geladen...
-			</Text>
-			<SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-				{placeholderSlots.map((slot) => (
-					<Card key={`ranking-loading-${slot}`} p="md">
-						<Stack align="center" py="xl" gap="xs">
-							<Loader size="sm" />
-							<Text c="dimmed" size="sm">
-								Lade Tabelle...
-							</Text>
-						</Stack>
-					</Card>
-				))}
-			</SimpleGrid>
-		</>
-	);
-}
-
-function RankingsErrorState() {
-	return (
-		<Card>
-			<CardTitle>Fehler beim Laden der Tabellen</CardTitle>
-			<Text>Die Tabellen konnten derzeit nicht geladen werden. Bitte versuche es in wenigen Minuten erneut.</Text>
-		</Card>
 	);
 }
 

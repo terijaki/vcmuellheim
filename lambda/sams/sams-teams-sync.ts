@@ -1,6 +1,6 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { getAllLeagues, getAllSeasons, getTeamsForLeague } from "@codegen/sams/generated";
+import { getAllLeagueHierarchies, getAllLeagues, getAllSeasons, getTeamsForLeague } from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandler } from "aws-lambda";
 import { createSamsDb } from "@/lib/db/electrodb-client";
@@ -50,11 +50,27 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 		}
 		console.log(`Current season: ${currentSeason.name} (${currentSeason.uuid})`);
 
-		// Step 3: Get all leagues for the association filtered by current season
+		// Step 3: Get all leagues for the association filtered by current season.
+		// build a hierarchy level map so we can store the level on each team.
 		console.log(`Fetching leagues for association ${associationUuid}...`);
 		const allLeagues = [];
 		let leaguePage = 0;
 		let hasMoreLeagues = true;
+
+		// Build hierarchy level map: hierarchyUuid → level number
+		const hierarchyLevelByUuid = new Map<string, number>();
+		let hierarchyPage = 0;
+		let hasMoreHierarchies = true;
+		while (hasMoreHierarchies) {
+			const { data: hierarchyData } = await getAllLeagueHierarchies({
+				query: { association: associationUuid, "for-season": currentSeason.uuid, page: hierarchyPage, size: 100 },
+			});
+			for (const h of hierarchyData?.content ?? []) {
+				if (h.uuid && h.level !== undefined) hierarchyLevelByUuid.set(h.uuid, h.level);
+			}
+			hasMoreHierarchies = hierarchyData?.last !== true;
+			hierarchyPage++;
+		}
 
 		while (hasMoreLeagues) {
 			const { data: leagueData } = await getAllLeagues({
@@ -113,6 +129,7 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 							associationUuid: t.associationUuid as string,
 							leagueUuid: league.uuid as string,
 							leagueName: league.name as string,
+							leagueHierarchyLevel: league.leagueHierarchyUuid ? hierarchyLevelByUuid.get(league.leagueHierarchyUuid) : undefined,
 							seasonUuid: currentSeason.uuid as string,
 							seasonName: currentSeason.name as string,
 							updatedAt: new Date().toISOString(),

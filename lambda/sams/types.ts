@@ -135,6 +135,7 @@ const BaseTeamItemSchema = z.object({
 	associationUuid: z.string(),
 	leagueUuid: z.string(),
 	leagueName: z.string(),
+	leagueHierarchyLevel: z.number().nonnegative().optional().describe("Optional league hierarchy level for sorting; lower means higher league"),
 	seasonUuid: z.string(),
 	seasonName: z.string(),
 	updatedAt: z.string(),

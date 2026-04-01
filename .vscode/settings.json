@@ -32,6 +32,10 @@
 	"chat.tools.terminal.autoApprove": {
 		"/^(vp (run )?|vpr )(test|check(--fix)?|lint|verify(:all)?|cdk:synth(:all)?|deps-check)(\\s+[\\w./\\-:*=]+)*(\\s+2>&1)?(\\s*\\|\\s*(head|tail|cat|grep|wc)(\\s+[\\w./\\-*=]+)*)?$/": true,
 		"/\\.agents\\/skills\\/sams-api\\/sams\\.ts/": true,
+		"/^bun \\.agents\\/skills\\/lambda-logs\\/check-logs\\.ts .*$/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
 		"/^aws dynamodb (scan|query|get-item|describe-table|list-tables) .*$/": {
 			"approve": true,
 			"matchCommandLine": true

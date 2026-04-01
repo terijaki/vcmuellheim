@@ -1,5 +1,6 @@
-import { Card, Group, Loader, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
-import { useClubLogoUrlsBatch } from "@webapp/hooks/dataQueries";
+import { Card, Group, Loader, Stack, Table, TableTbody, TableTh, TableThead, TableTr, Text } from "@mantine/core";
+import { useQuery } from "@tanstack/react-query";
+import { samsRankingQuery, useClubLogoUrlsBatch } from "@webapp/hooks/dataQueries";
 import dayjs from "dayjs";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { Team } from "@/lib/db/types";
@@ -9,7 +10,8 @@ import ClubLogo from "./ClubLogo";
 import RankingTableItem from "./RankingTableItem";
 
 type RankingTable = {
-	ranking: RankingResponse;
+	leagueUuid: string;
+	initialData?: RankingResponse;
 	linkToTeamPage?: boolean;
 	clubsTeams?: Team[];
 	currentTeamId?: string; // When set, only highlight this specific team and disable links
@@ -17,19 +19,45 @@ type RankingTable = {
 };
 
 export default function RankingTable(props: RankingTable) {
-	const ranking = props.ranking;
+	const initialDataUpdatedAt = props.initialData?.timestamp ? new Date(props.initialData.timestamp).getTime() : undefined;
+	const { data: ranking, isFetching, isLoading, isError } = useQuery(samsRankingQuery(props.leagueUuid, { initialData: props.initialData, initialDataUpdatedAt }));
 
 	// Batch-fetch all logo URLs in a single server function call instead of one per row
 	const teamSlugs = (ranking?.teams ?? []).map((t) => slugify((t.teamName ?? "").replace(/\s+\d+$/, "")));
 	const { data: logoUrlMap } = useClubLogoUrlsBatch(teamSlugs);
 
-	if (!ranking) return null;
+	if (isError && !ranking) {
+		return (
+			<Card>
+				<CardTitle>Fehler beim Laden der Tabelle</CardTitle>
+				<Text size="sm" c="dimmed">
+					Die Tabelle konnte derzeit nicht geladen werden.
+				</Text>
+			</Card>
+		);
+	}
+
+	if (isLoading || !ranking) {
+		return (
+			<Card>
+				<Stack align="center" py="xl" gap="xs">
+					<Loader size="sm" />
+					<Text c="dimmed" size="sm">
+						Lade Tabelle...
+					</Text>
+				</Stack>
+			</Card>
+		);
+	}
 
 	return (
 		<Card>
-			{props.ranking.leagueName && <CardTitle>{props.ranking.leagueName}</CardTitle>}
+			<Group gap={4} justify="space-between" align="flex-start">
+				{ranking.leagueName && <CardTitle>{ranking.leagueName}</CardTitle>}
+				<Loader size="xs" type="oval" opacity={isFetching ? 1 : 0} />
+			</Group>
 			<Group c="dimmed" justify="space-between">
-				{props.ranking.seasonName && <Text size="xs">Saison {props.ranking.seasonName}</Text>}
+				{ranking.seasonName && <Text size="xs">Saison {ranking.seasonName}</Text>}
 				{ranking.timestamp && (
 					<Group gap={4} align="center">
 						{props.isFetching && <Loader size="xs" />}

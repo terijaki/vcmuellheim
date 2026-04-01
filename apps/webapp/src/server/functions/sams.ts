@@ -4,7 +4,7 @@
  * All read-only, public.
  */
 
-import { getAllLeagueHierarchies, getAllLeagueMatches, getAllLeagues, getLeagueByUuid, getRankingsForLeague, getSeasonByUuid, type LeagueMatchDto } from "@codegen/sams/generated";
+import { getAllLeagueMatches, getLeagueByUuid, getRankingsForLeague, getSeasonByUuid, type LeagueMatchDto } from "@codegen/sams/generated";
 import { Club } from "@project.config";
 import { createServerFn } from "@tanstack/react-start";
 import { createCacheKey, createExpiringCache, getOrSetExpiringCacheValue } from "@utils/cache";
@@ -27,84 +27,6 @@ import { parseServerData } from "../schema-parse";
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
 
 const SAMS_API_TIMEOUT_MS = 10_000;
-
-async function listAllLeaguesForSeason(options: { seasonUuid?: string; associationUuid?: string }) {
-	const leaguesByUuid = new Map<string, { leagueHierarchyUuid?: string }>();
-	let page = 0;
-	let hasMorePages = true;
-
-	while (hasMorePages) {
-		const { data } = await getAllLeagues({
-			query: {
-				page,
-				size: 100,
-				association: options.associationUuid,
-				season: options.seasonUuid,
-			},
-			signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
-		});
-
-		for (const league of data?.content ?? []) {
-			if (!league.uuid) continue;
-			leaguesByUuid.set(league.uuid, { leagueHierarchyUuid: league.leagueHierarchyUuid });
-		}
-
-		hasMorePages = data?.last !== true;
-		page++;
-	}
-
-	return leaguesByUuid;
-}
-
-async function listAllLeagueHierarchyLevels(options: { seasonUuid?: string; associationUuid?: string }) {
-	const hierarchyLevelByUuid = new Map<string, number>();
-	let page = 0;
-	let hasMorePages = true;
-
-	while (hasMorePages) {
-		const { data } = await getAllLeagueHierarchies({
-			query: {
-				page,
-				size: 100,
-				association: options.associationUuid,
-				"for-season": options.seasonUuid,
-			},
-			signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
-		});
-
-		for (const hierarchy of data?.content ?? []) {
-			if (!hierarchy.uuid || hierarchy.level === undefined) continue;
-			hierarchyLevelByUuid.set(hierarchy.uuid, hierarchy.level);
-		}
-
-		hasMorePages = data?.last !== true;
-		page++;
-	}
-
-	return hierarchyLevelByUuid;
-}
-
-async function fetchLeagueLevelsByLeagueUuid(options: { leagueUuids: string[]; seasonUuid?: string; associationUuid?: string }) {
-	const cacheKey = createCacheKey({ type: "sams_league_levels", leagueUuids: options.leagueUuids, seasonUuid: options.seasonUuid, associationUuid: options.associationUuid });
-	const cached = await readSamsCacheEntry<Record<string, number | null>>(cacheKey, 24 * 60 * 60 * 1000);
-	if (cached) return cached;
-
-	const [leaguesByUuid, hierarchyLevelByUuid] = await Promise.all([
-		listAllLeaguesForSeason({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
-		listAllLeagueHierarchyLevels({ seasonUuid: options.seasonUuid, associationUuid: options.associationUuid }),
-	]);
-
-	const result = Object.fromEntries(
-		options.leagueUuids.map((leagueUuid) => {
-			const leagueHierarchyUuid = leaguesByUuid.get(leagueUuid)?.leagueHierarchyUuid;
-			const level = leagueHierarchyUuid ? hierarchyLevelByUuid.get(leagueHierarchyUuid) : undefined;
-			return [leagueUuid, level ?? null] as const;
-		}),
-	);
-
-	await writeSamsCacheEntry(cacheKey, result);
-	return result;
-}
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
 	const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
@@ -239,22 +161,25 @@ export const getSamsRankingsByLeagueUuidsFn = createServerFn()
 		return Promise.all(data.leagueUuids.map((leagueUuid) => fetchSamsRankingsByLeagueUuid(leagueUuid)));
 	});
 
+export const getSamsRankingByLeagueUuidFn = createServerFn()
+	.inputValidator(z.string())
+	.handler(async ({ data }) => fetchSamsRankingsByLeagueUuid(data));
+
 /**
- * Cache-peek-only variant: reads from DynamoDB without falling back to the SAMS API.
- * Returns cached rankings if all leagues are cached, otherwise null.
- * Use in route loaders to keep navigation fast — React Query will fetch live data client-side.
+ * Cache-peek-only variant for rankings: reads from DynamoDB without calling SAMS API.
+ * Returns whatever is cached regardless of age — any data is better than a skeleton.
+ * React Query handles freshness via its queryFn (getSamsRankingsByLeagueUuidsFn).
  */
-export const peekSamsRankingsByLeagueUuidsFn = createServerFn()
+export const peekSamsRankingsCacheFn = createServerFn()
 	.inputValidator(z.object({ leagueUuids: z.array(z.string()) }))
 	.handler(async ({ data }) => {
 		const results = await Promise.all(
 			data.leagueUuids.map((leagueUuid) => {
 				const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
-				return readSamsCacheEntry<RankingResponse>(cacheKey, 5 * 60 * 1000);
+				return readSamsCacheEntry<RankingResponse>(cacheKey, Infinity);
 			}),
 		);
-		if (results.some((r) => r === null)) return null;
-		return results as RankingResponse[];
+		return results.filter((r): r is RankingResponse => r !== null);
 	});
 
 /**
@@ -290,23 +215,7 @@ export const peekSamsMatchesCacheFn = createServerFn()
 		}
 
 		const cacheKey = createCacheKey({ type: "sams_matches", league, season, sportsclub, team, limit: data?.limit, range: data?.range });
-		return readSamsCacheEntry<LeagueMatchesResponse>(cacheKey, 5 * 60 * 1000);
-	});
-
-export const getSamsLeagueLevelsByLeagueUuidsFn = createServerFn()
-	.inputValidator(
-		z.object({
-			leagueUuids: z.array(z.string()),
-			seasonUuid: z.string().optional(),
-			associationUuid: z.string().optional(),
-		}),
-	)
-	.handler(async ({ data }) => {
-		return fetchLeagueLevelsByLeagueUuid({
-			leagueUuids: data.leagueUuids,
-			seasonUuid: data.seasonUuid,
-			associationUuid: data.associationUuid,
-		});
+		return readSamsCacheEntry<LeagueMatchesResponse>(cacheKey, Infinity);
 	});
 
 export const listSamsClubsFn = createServerFn().handler(async () => {
