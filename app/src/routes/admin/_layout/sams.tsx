@@ -1,4 +1,4 @@
-import { Button, Card, Group, Progress, Stack, Table, Text, Title, Tooltip } from "@mantine/core";
+import { Button, Card, Group, Loader, Stack, Table, Text, Title, Tooltip } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, getRouteApi } from "@tanstack/react-router";
@@ -11,52 +11,85 @@ import { useEffect, useRef, useState } from "react";
 const adminLayoutRoute = getRouteApi("/admin/_layout");
 
 const IS_DEV = import.meta.env.DEV;
-const SYNC_DURATION_SECONDS = 180;
-const TICK_INTERVAL_MS = 500;
-const PROGRESS_PER_TICK = 100 / (SYNC_DURATION_SECONDS * (1000 / TICK_INTERVAL_MS));
+const SYNC_COOLDOWN_MS = 3 * 60 * 1000;
+const POLL_INTERVAL_MS = 20_000;
 
 function SamsDashboardPage() {
 	const { user } = adminLayoutRoute.useRouteContext();
 	const isAdmin = user.role === "Admin";
 	const queryClient = useQueryClient();
 
-	const [clubsCooldown, setClubsCooldown] = useState(false);
-	const [teamsCooldown, setTeamsCooldown] = useState(false);
-	const [clubsProgress, setClubsProgress] = useState<number | null>(null);
-	const [teamsProgress, setTeamsProgress] = useState<number | null>(null);
+	const [clubsSyncTriggeredAt, setClubsSyncTriggeredAt] = useState<number | null>(null);
+	const [teamsSyncTriggeredAt, setTeamsSyncTriggeredAt] = useState<number | null>(null);
 
-	const clubsIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-	const teamsIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+	const clubsPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+	const teamsPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+	const clubsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const teamsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-	const startProgress = (
-		setProgress: React.Dispatch<React.SetStateAction<number | null>>,
-		setCooldown: React.Dispatch<React.SetStateAction<boolean>>,
-		intervalRef: React.MutableRefObject<ReturnType<typeof setInterval> | null>,
+	const { data: samsTeamsData, isLoading: teamsLoading } = useQuery({ queryKey: ["sams", "teams"], queryFn: () => listSamsTeamsFn() });
+	const { data: samsClubsData, isLoading: clubsLoading } = useQuery({ queryKey: ["sams", "clubs"], queryFn: () => listSamsClubsFn() });
+	const teams = samsTeamsData?.items || [];
+	const clubs = samsClubsData?.items || [];
+
+	const teamsLastSynced = teams.length > 0 ? teams.reduce((max, t) => (t.updatedAt > max ? t.updatedAt : max), teams[0].updatedAt) : null;
+	const clubsLastSynced = clubs.length > 0 ? clubs.reduce((max, c) => (c.updatedAt > max ? c.updatedAt : max), clubs[0].updatedAt) : null;
+
+	const stopSync = (
+		setTriggeredAt: React.Dispatch<React.SetStateAction<number | null>>,
+		pollRef: React.MutableRefObject<ReturnType<typeof setInterval> | null>,
+		timeoutRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>,
 	) => {
-		setProgress(0);
-		intervalRef.current = setInterval(() => {
-			setProgress((prev) => {
-				const next = (prev ?? 0) + PROGRESS_PER_TICK;
-				if (next >= 100) {
-					if (intervalRef.current !== null) {
-						clearInterval(intervalRef.current);
-						intervalRef.current = null;
-					}
-					queryClient.invalidateQueries();
-					setCooldown(false);
-					return null;
-				}
-				return next;
-			});
-		}, TICK_INTERVAL_MS);
+		if (pollRef.current !== null) {
+			clearInterval(pollRef.current);
+			pollRef.current = null;
+		}
+		if (timeoutRef.current !== null) {
+			clearTimeout(timeoutRef.current);
+			timeoutRef.current = null;
+		}
+		setTriggeredAt(null);
 	};
 
+	const startSync = (
+		setTriggeredAt: React.Dispatch<React.SetStateAction<number | null>>,
+		pollRef: React.MutableRefObject<ReturnType<typeof setInterval> | null>,
+		timeoutRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>,
+	) => {
+		setTriggeredAt(Date.now());
+		pollRef.current = setInterval(() => {
+			queryClient.invalidateQueries();
+		}, POLL_INTERVAL_MS);
+		timeoutRef.current = setTimeout(() => {
+			stopSync(setTriggeredAt, pollRef, timeoutRef);
+		}, SYNC_COOLDOWN_MS);
+	};
+
+	// Stop polling when fresh data arrives (updatedAt newer than trigger time)
 	useEffect(() => {
-		const clubsInterval = clubsIntervalRef;
-		const teamsInterval = teamsIntervalRef;
+		if (clubsSyncTriggeredAt !== null && clubsLastSynced !== null && new Date(clubsLastSynced).getTime() > clubsSyncTriggeredAt) {
+			stopSync(setClubsSyncTriggeredAt, clubsPollRef, clubsTimeoutRef);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [clubsLastSynced]);
+
+	useEffect(() => {
+		if (teamsSyncTriggeredAt !== null && teamsLastSynced !== null && new Date(teamsLastSynced).getTime() > teamsSyncTriggeredAt) {
+			stopSync(setTeamsSyncTriggeredAt, teamsPollRef, teamsTimeoutRef);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [teamsLastSynced]);
+
+	useEffect(() => {
+		const clubsPoll = clubsPollRef;
+		const teamsPoll = teamsPollRef;
+		const clubsTimeout = clubsTimeoutRef;
+		const teamsTimeout = teamsTimeoutRef;
 		return () => {
-			if (clubsInterval.current !== null) clearInterval(clubsInterval.current);
-			if (teamsInterval.current !== null) clearInterval(teamsInterval.current);
+			if (clubsPoll.current !== null) clearInterval(clubsPoll.current);
+			if (teamsPoll.current !== null) clearInterval(teamsPoll.current);
+			if (clubsTimeout.current !== null) clearTimeout(clubsTimeout.current);
+			if (teamsTimeout.current !== null) clearTimeout(teamsTimeout.current);
 		};
 	}, []);
 
@@ -64,8 +97,7 @@ function SamsDashboardPage() {
 		mutationFn: () => triggerSamsClubsSyncFn(),
 		onSuccess: () => {
 			notifications.show({ message: "Sync erfolgreich ausgelöst", color: "green", autoClose: 3000 });
-			setClubsCooldown(true);
-			startProgress(setClubsProgress, setClubsCooldown, clubsIntervalRef);
+			startSync(setClubsSyncTriggeredAt, clubsPollRef, clubsTimeoutRef);
 		},
 		onError: (error: Error) => {
 			notifications.show({ title: "Fehler", message: `Sync konnte nicht ausgelöst werden: ${error.message}`, color: "red", autoClose: 5000 });
@@ -76,21 +108,12 @@ function SamsDashboardPage() {
 		mutationFn: () => triggerSamsTeamsSyncFn(),
 		onSuccess: () => {
 			notifications.show({ message: "Sync erfolgreich ausgelöst", color: "green", autoClose: 3000 });
-			setTeamsCooldown(true);
-			startProgress(setTeamsProgress, setTeamsCooldown, teamsIntervalRef);
+			startSync(setTeamsSyncTriggeredAt, teamsPollRef, teamsTimeoutRef);
 		},
 		onError: (error: Error) => {
 			notifications.show({ title: "Fehler", message: `Sync konnte nicht ausgelöst werden: ${error.message}`, color: "red", autoClose: 5000 });
 		},
 	});
-
-	const { data: samsTeamsData, isLoading: teamsLoading } = useQuery({ queryKey: ["sams", "teams"], queryFn: () => listSamsTeamsFn() });
-	const { data: samsClubsData, isLoading: clubsLoading } = useQuery({ queryKey: ["sams", "clubs"], queryFn: () => listSamsClubsFn() });
-	const teams = samsTeamsData?.items || [];
-	const clubs = samsClubsData?.items || [];
-
-	const teamsLastSynced = teams.length > 0 ? teams.reduce((max, t) => (t.updatedAt > max ? t.updatedAt : max), teams[0].updatedAt) : null;
-	const clubsLastSynced = clubs.length > 0 ? clubs.reduce((max, c) => (c.updatedAt > max ? c.updatedAt : max), clubs[0].updatedAt) : null;
 
 	return (
 		<Stack gap="md">
@@ -104,13 +127,13 @@ function SamsDashboardPage() {
 									Zuletzt synchronisiert: {dayjs(teamsLastSynced).format("DD.MM.YYYY HH:mm")}
 								</Text>
 							)}
-							<Tooltip label={IS_DEV ? "Nur deployed verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && !teamsCooldown}>
-								<Button size="xs" variant="light" loading={teamsMutation.isPending} disabled={IS_DEV || teamsCooldown} onClick={() => teamsMutation.mutate()}>
+							<Tooltip label={IS_DEV ? "Nur im Deployment verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && teamsSyncTriggeredAt === null}>
+								<Button size="xs" variant="light" loading={teamsMutation.isPending} disabled={IS_DEV || teamsSyncTriggeredAt !== null} onClick={() => teamsMutation.mutate()}>
 									{IS_DEV ? "Sync (nur deployed)" : "Jetzt synchronisieren"}
 								</Button>
 							</Tooltip>
+							{teamsSyncTriggeredAt !== null && <Loader size="xs" />}
 						</Group>
-						{teamsProgress !== null && <Progress value={teamsProgress} size="sm" radius="xl" animated />}
 					</Stack>
 				)}
 			</Group>
@@ -181,13 +204,13 @@ function SamsDashboardPage() {
 									Zuletzt synchronisiert: {dayjs(clubsLastSynced).format("DD.MM.YYYY HH:mm")}
 								</Text>
 							)}
-							<Tooltip label={IS_DEV ? "Nur deployed verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && !clubsCooldown}>
-								<Button size="xs" variant="light" loading={clubsMutation.isPending} disabled={IS_DEV || clubsCooldown} onClick={() => clubsMutation.mutate()}>
+							<Tooltip label={IS_DEV ? "Nur im Deployment verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && clubsSyncTriggeredAt === null}>
+								<Button size="xs" variant="light" loading={clubsMutation.isPending} disabled={IS_DEV || clubsSyncTriggeredAt !== null} onClick={() => clubsMutation.mutate()}>
 									{IS_DEV ? "Sync (nur deployed)" : "Jetzt synchronisieren"}
 								</Button>
 							</Tooltip>
+							{clubsSyncTriggeredAt !== null && <Loader size="xs" />}
 						</Group>
-						{clubsProgress !== null && <Progress value={clubsProgress} size="sm" radius="xl" animated />}
 					</Stack>
 				)}
 			</Group>
