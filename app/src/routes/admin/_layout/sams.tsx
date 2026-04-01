@@ -211,7 +211,7 @@ function SamsDashboardPage() {
 								{clubsSyncTriggeredAt !== null ? (
 									<Loader size="xs" />
 								) : (
-									<ActionIcon size="sm" variant="light" radius="xl" disabled={clubsSyncTriggeredAt !== null} onClick={() => clubsMutation.mutate()}>
+									<ActionIcon size="sm" variant="light" radius="xl" disabled={clubsSyncTriggeredAt === null} onClick={() => clubsMutation.mutate()}>
 										<RefreshCw style={{ padding: 2 }} />
 									</ActionIcon>
 								)}
