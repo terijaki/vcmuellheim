@@ -1,11 +1,11 @@
-import { Button, Card, Group, Loader, Stack, Table, Text, Title, Tooltip } from "@mantine/core";
+import { Button, Card, Group, Loader, Stack, Table, Text, Title, Tooltip, ActionIcon } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 import ClubLogo from "@webapp/components/ClubLogo";
 import { listSamsClubsFn, listSamsTeamsFn, triggerSamsClubsSyncFn, triggerSamsTeamsSyncFn } from "@webapp/server/functions/sams";
 import dayjs from "dayjs";
-import { Info } from "lucide-react";
+import { Info, RefreshCw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const adminLayoutRoute = getRouteApi("/admin/_layout");
@@ -120,19 +120,22 @@ function SamsDashboardPage() {
 			<Group align="flex-end" gap="md" wrap="wrap">
 				<Title order={2}>SAMS Teams</Title>
 				{isAdmin && (
-					<Stack gap={4} style={{ flex: 1, minWidth: 200 }}>
+					<Stack gap={4}>
 						<Group gap="xs" align="center">
 							{teamsLastSynced && (
 								<Text size="xs" c="dimmed">
-									Zuletzt synchronisiert: {dayjs(teamsLastSynced).format("DD.MM.YYYY HH:mm")}
+									Zuletzt synchronisiert: {dayjs(teamsLastSynced).format("DD.MM.YY HH:mm")}
 								</Text>
 							)}
-							<Tooltip label={IS_DEV ? "Nur im Deployment verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && teamsSyncTriggeredAt === null}>
-								<Button size="xs" variant="light" loading={teamsMutation.isPending} disabled={IS_DEV || teamsSyncTriggeredAt !== null} onClick={() => teamsMutation.mutate()}>
-									{IS_DEV ? "Sync (nur deployed)" : "Jetzt synchronisieren"}
-								</Button>
+							<Tooltip label={IS_DEV ? "Sync nur deployed verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && teamsSyncTriggeredAt === null}>
+								{teamsSyncTriggeredAt !== null ? (
+									<Loader size="xs" />
+								) : (
+									<ActionIcon size="sm" radius="xl" variant="light" disabled={teamsSyncTriggeredAt === null} onClick={() => teamsMutation.mutate()}>
+										<RefreshCw style={{ padding: 2 }} />
+									</ActionIcon>
+								)}
 							</Tooltip>
-							{teamsSyncTriggeredAt !== null && <Loader size="xs" />}
 						</Group>
 					</Stack>
 				)}
@@ -197,19 +200,22 @@ function SamsDashboardPage() {
 			<Group align="flex-end" gap="md" mt="lg" wrap="wrap">
 				<Title order={2}>SAMS Vereine</Title>
 				{isAdmin && (
-					<Stack gap={4} style={{ flex: 1, minWidth: 200 }}>
+					<Stack gap={4}>
 						<Group gap="xs" align="center">
 							{clubsLastSynced && (
 								<Text size="xs" c="dimmed">
-									Zuletzt synchronisiert: {dayjs(clubsLastSynced).format("DD.MM.YYYY HH:mm")}
+									Zuletzt synchronisiert: {dayjs(clubsLastSynced).format("DD.MM.YY HH:mm")}
 								</Text>
 							)}
-							<Tooltip label={IS_DEV ? "Nur im Deployment verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && clubsSyncTriggeredAt === null}>
-								<Button size="xs" variant="light" loading={clubsMutation.isPending} disabled={IS_DEV || clubsSyncTriggeredAt !== null} onClick={() => clubsMutation.mutate()}>
-									{IS_DEV ? "Sync (nur deployed)" : "Jetzt synchronisieren"}
-								</Button>
+							<Tooltip label={IS_DEV ? "Sync nur deployed verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && clubsSyncTriggeredAt === null}>
+								{clubsSyncTriggeredAt !== null ? (
+									<Loader size="xs" />
+								) : (
+									<ActionIcon size="sm" variant="light" radius="xl" disabled={clubsSyncTriggeredAt !== null} onClick={() => clubsMutation.mutate()}>
+										<RefreshCw style={{ padding: 2 }} />
+									</ActionIcon>
+								)}
 							</Tooltip>
-							{clubsSyncTriggeredAt !== null && <Loader size="xs" />}
 						</Group>
 					</Stack>
 				)}
