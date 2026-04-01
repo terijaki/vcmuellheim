@@ -6,11 +6,13 @@
 
 import { getAllLeagueMatches, getLeagueByUuid, getRankingsForLeague, getSeasonByUuid, type LeagueMatchDto } from "@codegen/sams/generated";
 import { Club } from "@project.config";
+import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { createServerFn } from "@tanstack/react-start";
 import { createCacheKey, createExpiringCache, getOrSetExpiringCacheValue } from "@utils/cache";
 import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
+import { requireAdminMiddleware } from "../../middleware";
 import {
 	type LeagueMatchesResponse,
 	LeagueMatchesResponseSchema,
@@ -389,3 +391,30 @@ export const getSamsTickerFn = createServerFn().handler(async () => {
 
 	return result.data;
 });
+
+// ── Admin: SAMS sync triggers ────────────────────────────────────────────────
+
+/** Invokes a SAMS sync Lambda asynchronously (InvocationType: "Event"). Exported for testing. */
+export async function invokeSamsLambdaAsync(functionName: string, label: string): Promise<void> {
+	const client = new LambdaClient({});
+	const result = await client.send(new InvokeCommand({ FunctionName: functionName, InvocationType: "Event" }));
+	if (result.StatusCode !== 202) {
+		throw new Error(`${label} trigger failed: StatusCode=${result.StatusCode}`);
+	}
+}
+
+export const triggerSamsClubsSyncFn = createServerFn()
+	.middleware([requireAdminMiddleware])
+	.handler(async () => {
+		const functionName = process.env.SAMS_CLUBS_SYNC_FUNCTION_NAME;
+		if (!functionName) throw new Error("SAMS_CLUBS_SYNC_FUNCTION_NAME is not configured");
+		await invokeSamsLambdaAsync(functionName, "SAMS clubs sync");
+	});
+
+export const triggerSamsTeamsSyncFn = createServerFn()
+	.middleware([requireAdminMiddleware])
+	.handler(async () => {
+		const functionName = process.env.SAMS_TEAMS_SYNC_FUNCTION_NAME;
+		if (!functionName) throw new Error("SAMS_TEAMS_SYNC_FUNCTION_NAME is not configured");
+		await invokeSamsLambdaAsync(functionName, "SAMS teams sync");
+	});
