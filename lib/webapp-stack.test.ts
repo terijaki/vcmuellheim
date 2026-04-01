@@ -215,7 +215,7 @@ describe("WebAppStack", () => {
 		});
 
 		const template = Template.fromStack(stack);
-		const publicFolders = readdirSync("apps/webapp/public", {
+		const publicFolders = readdirSync("app/public", {
 			withFileTypes: true,
 		})
 			.filter((entry) => entry.isDirectory())

@@ -47,10 +47,10 @@ This file provides instructions specific to the `lib/` directory, which contains
 
 ## Server functions (replacing tRPC)
 
-The webapp uses **TanStack React Start server functions** instead of tRPC. All data fetching is server-side rendered in `apps/webapp/src/server/functions/`:
+The webapp uses **TanStack React Start server functions** instead of tRPC. All data fetching is server-side rendered in `app/src/server/functions/`:
 
 - Each server function is a `createServerFn()` with optional middleware (`requireAuthMiddleware`) and input validators (Zod).
-- Results are used via React Query hooks under `apps/webapp/src/lib/hooks.ts`.
+- Results are used via React Query hooks under `app/src/lib/hooks.ts`.
 - This approach eliminates the need for a separate tRPC API layer.
 
 ## Testing

@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import ResponsiveImage from "@webapp/components/ResponsiveImage";
 import { useEffect, useMemo } from "react";
-import { useGalleryImages } from "@/apps/webapp/src/hooks/dataQueries";
+import { useGalleryImages } from "@/app/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/fotos")({
 	component: RouteComponent,

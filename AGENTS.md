@@ -5,9 +5,9 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 
 ## Quick Overview
 
-- **Unified monorepo** with bun workspaces: `apps/webapp` (single TanStack Start app + Nitro backend).
-- **Frontend & SSR:** TanStack Start with file-based routes, Mantine UI components — see [`apps/AGENTS.md`](apps/AGENTS.md).
-- **Server functions:** Nitro-backed server functions under `apps/webapp/src/server/functions/`.
+- **Unified monorepo** with bun workspaces: `app` (single TanStack Start app + Nitro backend).
+- **Frontend & SSR:** TanStack Start with file-based routes, Mantine UI components — see [`app/AGENTS.md`](app/AGENTS.md).
+- **Server functions:** Nitro-backed server functions under `app/src/server/functions/`.
 - **Backend/Infra:** AWS CDK (in `lib/`, `bin/cdk.ts`) producing WebApp Lambda, API Gateway, DynamoDB, S3 — see [`lib/AGENTS.md`](lib/AGENTS.md).
 - **Background Lambdas:** Sync tasks, ICS/Sitemap/Social handlers under `lambda/` — see [`lambda/AGENTS.md`](lambda/AGENTS.md).
 - **Shared runtime code:** `lib/db/` (repository layer), `lib/*-stack.ts` (CDK stacks), `lib/db/schemas.ts` (DB schemas).

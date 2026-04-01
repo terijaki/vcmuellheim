@@ -118,7 +118,7 @@ export class WebAppStack extends cdk.Stack {
 		// Nitro's aws-lambda preset outputs a single ESM handler file
 		this.webappLambda = new lambda.Function(this, "WebAppLambda", {
 			functionName: `vcm-webapp-${environment}${branchSuffix}`,
-			code: lambda.Code.fromAsset("apps/webapp/.output/server"),
+			code: lambda.Code.fromAsset("app/.output/server"),
 			handler: "index.handler",
 			runtime: lambda.Runtime.NODEJS_24_X,
 			timeout: cdk.Duration.seconds(30),
@@ -238,7 +238,7 @@ export class WebAppStack extends cdk.Stack {
 
 		// ── Static asset deployment ────────────────────────────────────────────
 		new s3deploy.BucketDeployment(this, "WebAppAssetsDeployment", {
-			sources: [s3deploy.Source.asset("apps/webapp/.output/public")],
+			sources: [s3deploy.Source.asset("app/.output/public")],
 			destinationBucket: assetsBucket,
 			distribution: this.distribution,
 			distributionPaths: ["/assets/*", "/_build/*", "/docs/*"],

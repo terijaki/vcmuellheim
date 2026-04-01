@@ -1,11 +1,11 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadEnv, type PluginOption } from "vite-plus";
-import { CONTENT_TABLE_ENV_VAR, getSamsDataTableName } from "../../../lib/db/env.ts";
-import { Club } from "../../../project.config.ts";
-import { getSanitizedBranch } from "../../../utils/git.ts";
+import { CONTENT_TABLE_ENV_VAR, getSamsDataTableName } from "../../lib/db/env.ts";
+import { Club } from "../../project.config.ts";
+import { getSanitizedBranch } from "../../utils/git.ts";
 
-const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 export function getAppEnvironment(mode = process.env.NODE_ENV === "production" ? "production" : "development"): string {
 	const rootEnv = loadEnv(mode, repoRoot, "");

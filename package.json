@@ -14,7 +14,7 @@
 	"scripts": {
 		"dev": "vp dev",
 		"build": "vp build",
-		"start": "node apps/webapp/.output/server/index.mjs",
+		"start": "node app/.output/server/index.mjs",
 		"lint": "vp lint",
 		"check": "vp check",
 		"check:fix": "vp check --fix",

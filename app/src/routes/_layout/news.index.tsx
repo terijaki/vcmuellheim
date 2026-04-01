@@ -6,7 +6,7 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import NewsCard from "@webapp/components/NewsCard";
 import { ServerCrash } from "lucide-react";
 import { useEffect } from "react";
-import { useNews } from "@/apps/webapp/src/hooks/dataQueries";
+import { useNews } from "@/app/src/hooks/dataQueries";
 
 export const Route = createFileRoute("/_layout/news/")({
 	component: RouteComponent,

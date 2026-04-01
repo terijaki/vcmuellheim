@@ -14,9 +14,9 @@ import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import { useFileUrls, useLocations, useMembers, useSamsMatches, useTeamBySlug } from "@/apps/webapp/src/hooks/dataQueries";
-import { listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsCacheFn } from "@/apps/webapp/src/server/functions/sams";
-import { getTeamBySlugFn } from "@/apps/webapp/src/server/functions/teams";
+import { useFileUrls, useLocations, useMembers, useSamsMatches, useTeamBySlug } from "@/app/src/hooks/dataQueries";
+import { listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsCacheFn } from "@/app/src/server/functions/sams";
+import { getTeamBySlugFn } from "@/app/src/server/functions/teams";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 
 dayjs.locale(de);

@@ -4,7 +4,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite-plus";
-import { getAppEnvironment, localAwsResourceEnvPlugin } from "./apps/webapp/vite/localAwsResourceEnv.ts";
+import { getAppEnvironment, localAwsResourceEnvPlugin } from "./app/vite/localAwsResourceEnv.ts";
 
 const isProd = getAppEnvironment() === "prod";
 
@@ -13,13 +13,13 @@ export default defineConfig({
 		"*": "vp check --fix",
 	},
 	fmt: {
-		ignorePatterns: ["apps/webapp/src/routeTree.gen.ts", "codegen/sams/generated/**"],
+		ignorePatterns: ["app/src/routeTree.gen.ts", "codegen/sams/generated/**"],
 		useTabs: true,
 		tabWidth: 2,
 		printWidth: 200,
 	},
 	lint: {
-		ignorePatterns: ["codegen/sams/generated/**", "apps/webapp/src/routeTree.gen.ts"],
+		ignorePatterns: ["codegen/sams/generated/**", "app/src/routeTree.gen.ts"],
 		plugins: ["react"],
 		options: {
 			typeAware: true,
@@ -31,12 +31,12 @@ export default defineConfig({
 		nitro({
 			preset: "aws-lambda",
 			output: {
-				publicDir: "apps/webapp/.output/public",
-				serverDir: "apps/webapp/.output/server",
+				publicDir: "app/.output/public",
+				serverDir: "app/.output/server",
 			},
-			publicAssets: [{ dir: "apps/webapp/public", maxAge: 0 }],
+			publicAssets: [{ dir: "app/public", maxAge: 0 }],
 		}),
-		tanstackStart({ srcDirectory: "apps/webapp/src" }),
+		tanstackStart({ srcDirectory: "app/src" }),
 		react(),
 		babel({ presets: [reactCompilerPreset()] }),
 		...(process.env.SENTRY_AUTH_TOKEN
@@ -58,7 +58,7 @@ export default defineConfig({
 			logLevels: ["warn", "error"],
 		},
 	},
-	publicDir: "apps/webapp/public",
+	publicDir: "app/public",
 	resolve: {
 		tsconfigPaths: true,
 	},
