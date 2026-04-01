@@ -41,7 +41,3 @@ vp exec tsx --env-file=.env.local .agents/skills/sams-api/sams.ts seasons --quer
 
 - Max 5 req/s (200 ms between calls); daily quota per key — only fetch what is needed.
 - **401** key missing/invalid · **404** UUID not found · **429** rate limit exceeded
-
-```
-
-```
