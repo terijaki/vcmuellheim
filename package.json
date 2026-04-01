@@ -21,7 +21,7 @@
 		"test": "vp test",
 		"db:seed": "vp exec tsx scripts/db-seed.ts",
 		"db:seed:sams": "vp exec tsx scripts/data-trigger-syncs.ts",
-		"sams:update": "vp exec tsx codegen/sams/generate-client.ts",
+		"sams:codegen": "vp exec tsx codegen/sams/generate-client.ts",
 		"verify:all": "vp check --fix && vp test",
 		"cdk": "cdk --profile vcmuellheim",
 		"cdk:deploy": "cdk deploy --profile vcmuellheim --require-approval=never",

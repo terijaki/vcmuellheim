@@ -28,7 +28,7 @@ jobs:
         run: vp install
 
       - name: Regenerate from live spec
-        run: vp run sams:update
+        run: vp run sams:codegen
 
       - name: Detect drift in source.json
         id: diff
@@ -137,7 +137,7 @@ jobs:
 
       - name: Regenerate client from live spec
         id: regen
-        run: vp run sams:update
+        run: vp run sams:codegen
 
       - name: Check
         id: typecheck
