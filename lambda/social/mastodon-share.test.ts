@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, mock, test } from "bun:test";
+import { beforeEach, describe, expect, test, vi } from "vite-plus/test";
 import type { News } from "@/lib/db/types";
 
 // Mock fetch globally
-const mockFetch = mock((_url: string, _init?: RequestInit) =>
+const mockFetch = vi.fn((_url: string, _init?: RequestInit) =>
 	Promise.resolve({
 		ok: true,
 		json: () =>
@@ -107,11 +107,11 @@ describe("Mastodon Share Lambda", () => {
 		expect(body.status).toContain("...");
 	});
 
-	test("should throw error if MASTODON_ACCESS_TOKEN is not set", () => {
+	test("should throw error if MASTODON_ACCESS_TOKEN is not set", async () => {
 		// This test validates that the error message is correct in the function
 		// We can't actually test the runtime behavior without reloading the module
 		// which would break other tests, so we just verify the error message exists in code
-		const { shareToMastodon } = require("./mastodon-share");
+		const { shareToMastodon } = await import("./mastodon-share");
 		expect(shareToMastodon).toBeDefined();
 		// The actual validation happens at runtime when MASTODON_ACCESS_TOKEN is checked
 	});
@@ -189,7 +189,7 @@ describe("Mastodon Share Lambda", () => {
 	});
 
 	test("should handle Mastodon API errors gracefully", async () => {
-		const mockFailFetch = mock((_url: string, _init?: RequestInit) =>
+		const mockFailFetch = vi.fn((_url: string, _init?: RequestInit) =>
 			Promise.resolve({
 				ok: false,
 				status: 401,
@@ -227,7 +227,7 @@ describe("Mastodon Share Lambda", () => {
 	});
 
 	test("should handle media upload errors and continue posting without images", async () => {
-		const mockFetchWithMediaError = mock((url: string, _init?: RequestInit) => {
+		const mockFetchWithMediaError = vi.fn((url: string, _init?: RequestInit) => {
 			if (url.includes("/api/v2/media")) {
 				return Promise.resolve({
 					ok: false,
@@ -278,7 +278,7 @@ describe("Mastodon Share Lambda", () => {
 
 	test("should include media IDs in post when images are provided", async () => {
 		let mediaUploadCalls = 0;
-		const mockFetchWithMedia = mock((url: string, _init?: RequestInit) => {
+		const mockFetchWithMedia = vi.fn((url: string, _init?: RequestInit) => {
 			if (url.includes("/api/v2/media")) {
 				mediaUploadCalls++;
 				return Promise.resolve({

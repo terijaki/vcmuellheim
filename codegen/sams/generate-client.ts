@@ -3,7 +3,7 @@ import { createClient } from "@hey-api/openapi-ts";
 createClient({
 	output: {
 		path: "codegen/sams/generated",
-		postProcess: ["biome:format", "biome:lint"],
+		postProcess: ["oxfmt"],
 		preferExportAll: true,
 		source: true,
 	},

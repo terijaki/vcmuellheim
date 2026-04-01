@@ -66,7 +66,7 @@ if (hasDrift) {
 
 The upstream spec at \`https://www.volleyball-baden.de/api/v2/swagger.json\` has changed since the last committed raw snapshot in \`codegen/sams/generated/input.json\`.
 
-Run \`bun run sams:update\` locally, review \`codegen/sams/generated/input.json\` for the upstream change and \`codegen/sams/generated/source.json\` plus the generated client files for downstream impact, then commit the updated files once verified.
+Run \`bun run sams:codegen\` locally, review \`codegen/sams/generated/input.json\` for the upstream change and \`codegen/sams/generated/source.json\` plus the generated client files for downstream impact, then commit the updated files once verified.
 
 [Full diff in workflow run](${runUrl})`);
 }

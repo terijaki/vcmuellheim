@@ -3,71 +3,50 @@
 import * as z from 'zod';
 
 export const zConstraintViolation = z.object({
-    constraint: z.optional(z.string()),
-    property: z.optional(z.string()),
-    entity: z.optional(z.string()),
-    invalidValue: z.optional(z.string()),
-    message: z.optional(z.string())
+    constraint: z.string().optional(),
+    property: z.string().optional(),
+    entity: z.string().optional(),
+    invalidValue: z.string().optional(),
+    message: z.string().optional()
 });
 
 export const zValidationError = z.object({
-    violations: z.optional(z.array(zConstraintViolation))
+    violations: z.array(zConstraintViolation).optional()
 });
 
 export const zResponseExceptionMessage = z.object({
-    message: z.optional(z.string())
+    message: z.string().optional()
 });
 
 export const zResponseException = z.object({
-    exception: z.optional(z.string()),
-    message: z.optional(z.string())
+    exception: z.string().optional(),
+    message: z.string().optional()
 });
 
 export const zEmbedded = z.object({
-    empty: z.optional(z.boolean())
+    empty: z.boolean().optional()
 });
 
 export const zLinks = z.object({
-    empty: z.optional(z.boolean())
+    empty: z.boolean().optional()
 });
 
 export const zHalRepresentation = z.object({
-    _links: z.optional(zLinks),
-    _embedded: z.optional(zEmbedded)
+    _links: zLinks.optional(),
+    _embedded: zEmbedded.optional()
 });
 
 /**
  * Address for a location or a person. An address object may be null if no address data is available. For persons this might be the case if the address visibility has been set to private.
  */
 export const zAddress = z.object({
-    street: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    postcode: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    city: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    country: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    extrafield: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    region: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    postbox: z.optional(z.union([
-        z.string(),
-        z.null()
-    ]))
+    street: z.string().nullish(),
+    postcode: z.string().nullish(),
+    city: z.string().nullish(),
+    country: z.string().nullish(),
+    extrafield: z.string().nullish(),
+    region: z.string().nullish(),
+    postbox: z.string().nullish()
 }).register(z.globalRegistry, {
     description: 'Address for a location or a person. An address object may be null if no address data is available. For persons this might be the case if the address visibility has been set to private.'
 });
@@ -76,950 +55,660 @@ export const zAddress = z.object({
  * A member of a committee. Personal data may be null if its visibility has been restricted.
  */
 export const zCommitteeMember = z.object({
-    uuid: z.optional(z.string()),
-    committeeUuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().optional(),
+    committeeUuid: z.string().register(z.globalRegistry, {
         description: 'Reference to the committee'
-    })),
-    additionalTitle: z.optional(z.string()),
-    sourceFunction: z.optional(z.string()),
-    description: z.optional(z.string()),
-    firstName: z.optional(z.string()),
-    lastName: z.optional(z.string()),
-    email: z.optional(z.string()),
-    priority: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    address: z.optional(zAddress),
-    phoneMobile: z.optional(z.string()),
-    fax: z.optional(z.string()),
-    phoneWork: z.optional(z.string()),
-    faxWork: z.optional(z.string()),
-    phoneMobileWork: z.optional(z.string()),
-    portraitPhotoLink: z.optional(z.string())
+    }).optional(),
+    additionalTitle: z.string().optional(),
+    sourceFunction: z.string().optional(),
+    description: z.string().optional(),
+    firstName: z.string().optional(),
+    lastName: z.string().optional(),
+    email: z.string().optional(),
+    priority: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    address: zAddress.optional(),
+    phoneMobile: z.string().optional(),
+    fax: z.string().optional(),
+    phoneWork: z.string().optional(),
+    faxWork: z.string().optional(),
+    phoneMobileWork: z.string().optional(),
+    portraitPhotoLink: z.string().optional()
 }).register(z.globalRegistry, {
     description: 'A member of a committee. Personal data may be null if its visibility has been restricted.'
 });
 
 export const zMatchResultTypeCount = z.object({
-    result: z.optional(z.string()),
-    count: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }))
+    result: z.string().optional(),
+    count: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zRefereeTeamDto = z.object({
-    firstReferee: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    secondReferee: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    thirdReferee: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    challengeReferee: z.optional(z.union([
-        z.string(),
-        z.null()
-    ]))
+    firstReferee: z.string().nullish(),
+    secondReferee: z.string().nullish(),
+    thirdReferee: z.string().nullish(),
+    challengeReferee: z.string().nullish()
 });
 
 export const zVolleyballMatchSetRestDto = z.object({
-    number: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    ballPoints: z.optional(z.string()),
-    winner: z.optional(z.string()),
-    winnerName: z.optional(z.string()),
-    duration: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }))
+    number: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    ballPoints: z.string().optional(),
+    winner: z.string().optional(),
+    winnerName: z.string().optional(),
+    duration: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zVolleyballMatchResultsDto = z.object({
-    winner: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    winnerName: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    setPoints: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    ballPoints: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    sets: z.optional(z.union([
-        z.array(zVolleyballMatchSetRestDto),
-        z.null()
-    ]))
+    winner: z.string().nullish(),
+    winnerName: z.string().nullish(),
+    setPoints: z.string().nullish(),
+    ballPoints: z.string().nullish(),
+    sets: z.array(zVolleyballMatchSetRestDto).nullish()
 });
 
 export const zLinkDto = z.object({
-    href: z.optional(z.string())
+    href: z.string().optional()
 });
 
 export const zAssociation = z.object({
     uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     }),
-    _links: z.optional(z.union([
-        z.record(z.string(), zLinkDto),
-        z.null()
-    ])),
-    _embedded: z.optional(z.union([
-        z.record(z.string(), z.record(z.string(), z.unknown())),
-        z.null()
-    ])),
+    _links: z.record(z.string(), zLinkDto).nullish(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).nullish(),
     name: z.string(),
-    shortname: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    parentUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    level: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ]))
+    shortname: z.string().nullish(),
+    parentUuid: z.string().nullish(),
+    level: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish()
 });
 
 export const zAssociationResourcePage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zAssociation)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zAssociation).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zCommittee = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    associationUuid: z.optional(z.string().register(z.globalRegistry, {
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    associationUuid: z.string().register(z.globalRegistry, {
         description: 'Reference to the association this entity belongs to'
-    })),
-    members: z.optional(z.array(zCommitteeMember)),
-    name: z.optional(z.string()),
-    shortname: z.optional(z.string()),
-    description: z.optional(z.string()),
-    type: z.optional(z.string()),
-    imageLink: z.optional(z.string())
+    }).optional(),
+    members: z.array(zCommitteeMember).optional(),
+    name: z.string().optional(),
+    shortname: z.string().optional(),
+    description: z.string().optional(),
+    type: z.string().optional(),
+    imageLink: z.string().optional()
 });
 
 export const zCommitteePage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zCommittee)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zCommittee).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zSportsclubDto = z.object({
     uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     }),
-    _links: z.optional(z.union([
-        z.record(z.string(), zLinkDto),
-        z.null()
-    ])),
-    _embedded: z.optional(z.union([
-        z.record(z.string(), z.record(z.string(), z.unknown())),
-        z.null()
-    ])),
+    _links: z.record(z.string(), zLinkDto).nullish(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).nullish(),
     name: z.string(),
-    shortname: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    sportsclubNumber: z.optional(z.union([
-        z.coerce.bigint().min(BigInt('-9223372036854775808'), { error: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { error: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
-        z.null()
-    ])),
-    associationUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    logoImageLink: z.optional(z.union([
-        z.string(),
-        z.null()
-    ]))
+    shortname: z.string().nullish(),
+    sportsclubNumber: z.coerce.bigint().min(BigInt('-9223372036854775808'), { error: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { error: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).nullish(),
+    associationUuid: z.string().nullish(),
+    logoImageLink: z.string().nullish()
 });
 
 export const zSportsclubPage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zSportsclubDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zSportsclubDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zLeagueHierarchyDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    name: z.optional(z.string()),
-    shortName: z.optional(z.string()),
-    seasonUuid: z.optional(z.string()),
-    associationUuid: z.optional(z.string()),
-    level: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    parentLeagueHierarchyUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ]))
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    name: z.string().optional(),
+    shortName: z.string().optional(),
+    seasonUuid: z.string().optional(),
+    associationUuid: z.string().optional(),
+    level: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    parentLeagueHierarchyUuid: z.string().nullish()
 });
 
 export const zLeagueHierarchyPage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zLeagueHierarchyDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zLeagueHierarchyDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zCompetitionDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    name: z.optional(z.string()),
-    shortName: z.optional(z.string()),
-    gender: z.optional(z.enum([
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    name: z.string().optional(),
+    shortName: z.string().optional(),
+    gender: z.enum([
         'MALE',
         'FEMALE',
         'MIXED'
-    ])),
-    leagueHierarchyUuid: z.optional(z.string()),
-    seasonUuid: z.optional(z.string()),
-    associationUuid: z.optional(z.string()),
-    latestResultUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
-    latestStructuralUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
-    scoreTableCalculationMode: z.optional(z.string()),
-    superCompetitionUuid: z.optional(z.string().register(z.globalRegistry, {
+    ]).optional(),
+    leagueHierarchyUuid: z.string().optional(),
+    seasonUuid: z.string().optional(),
+    associationUuid: z.string().optional(),
+    latestResultUpdate: z.iso.datetime({ offset: true, local: true }).optional(),
+    latestStructuralUpdate: z.iso.datetime({ offset: true, local: true }).optional(),
+    scoreTableCalculationMode: z.string().optional(),
+    superCompetitionUuid: z.string().register(z.globalRegistry, {
         description: 'If this competition is the sub-competition of a super competition then this UUID points to this super competition.'
-    }))
+    }).optional()
 });
 
 export const zCompetitionPage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zCompetitionDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zCompetitionDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zLeagueDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    name: z.optional(z.string()),
-    shortName: z.optional(z.string()),
-    gender: z.optional(z.enum([
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    name: z.string().optional(),
+    shortName: z.string().optional(),
+    gender: z.enum([
         'MALE',
         'FEMALE',
         'MIXED'
-    ])),
-    leagueHierarchyUuid: z.optional(z.string()),
-    seasonUuid: z.optional(z.string()),
-    associationUuid: z.optional(z.string()),
-    latestResultUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
-    latestStructuralUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
-    scoreTableCalculationMode: z.optional(z.string())
+    ]).optional(),
+    leagueHierarchyUuid: z.string().optional(),
+    seasonUuid: z.string().optional(),
+    associationUuid: z.string().optional(),
+    latestResultUpdate: z.iso.datetime({ offset: true, local: true }).optional(),
+    latestStructuralUpdate: z.iso.datetime({ offset: true, local: true }).optional(),
+    scoreTableCalculationMode: z.string().optional()
 });
 
 export const zLeaguePage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zLeagueDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zLeagueDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zSuperCompetitionDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    name: z.optional(z.string()),
-    shortName: z.optional(z.string()),
-    gender: z.optional(z.enum([
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    name: z.string().optional(),
+    shortName: z.string().optional(),
+    gender: z.enum([
         'MALE',
         'FEMALE',
         'MIXED'
-    ])),
-    leagueHierarchyUuid: z.optional(z.string()),
-    seasonUuid: z.optional(z.string()),
-    associationUuid: z.optional(z.string()),
-    latestResultUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
-    latestStructuralUpdate: z.optional(z.iso.datetime({ offset: true, local: true })),
-    scoreTableCalculationMode: z.optional(z.string()),
-    superCompetitionUuid: z.optional(z.string().register(z.globalRegistry, {
+    ]).optional(),
+    leagueHierarchyUuid: z.string().optional(),
+    seasonUuid: z.string().optional(),
+    associationUuid: z.string().optional(),
+    latestResultUpdate: z.iso.datetime({ offset: true, local: true }).optional(),
+    latestStructuralUpdate: z.iso.datetime({ offset: true, local: true }).optional(),
+    scoreTableCalculationMode: z.string().optional(),
+    superCompetitionUuid: z.string().register(z.globalRegistry, {
         description: 'If this competition is the sub-competition of a super competition then this UUID points to this super competition.'
-    }))
+    }).optional()
 });
 
 export const zSuperCompetitionPage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zSuperCompetitionDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zSuperCompetitionDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 /**
  * A location comprises the location's name, its address, and its geographical coordinates if available
  */
 export const zLocation = z.object({
-    uuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    _links: z.optional(z.union([
-        z.record(z.string(), zLinkDto),
-        z.null()
-    ])),
-    _embedded: z.optional(z.union([
-        z.record(z.string(), z.record(z.string(), z.unknown())),
-        z.null()
-    ])),
-    name: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    longitude: z.optional(z.union([
-        z.number(),
-        z.null()
-    ])),
-    latitude: z.optional(z.union([
-        z.number(),
-        z.null()
-    ])),
-    address: z.optional(zAddress)
+    uuid: z.string().nullish(),
+    _links: z.record(z.string(), zLinkDto).nullish(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).nullish(),
+    name: z.string().nullish(),
+    longitude: z.number().nullish(),
+    latitude: z.number().nullish(),
+    address: zAddress.optional()
 }).register(z.globalRegistry, {
     description: 'A location comprises the location\'s name, its address, and its geographical coordinates if available'
 });
 
 export const zLocationResourcePage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zLocation)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zLocation).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zCompetitionMatchGroupDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    name: z.optional(z.string()),
-    tourneyLevel: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    seasonUuid: z.optional(z.string()),
-    competitionUuid: z.optional(z.string()),
-    associationUuid: z.optional(z.string())
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    name: z.string().optional(),
+    tourneyLevel: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    seasonUuid: z.string().optional(),
+    competitionUuid: z.string().optional(),
+    associationUuid: z.string().optional()
 });
 
 export const zCompetitionMatchGroupPage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zCompetitionMatchGroupDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zCompetitionMatchGroupDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zLeagueRankingsEntryDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.union([
-        z.record(z.string(), zLinkDto),
-        z.null()
-    ])),
-    _embedded: z.optional(z.union([
-        z.record(z.string(), z.record(z.string(), z.unknown())),
-        z.null()
-    ])),
-    teamName: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    rank: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    matchesPlayed: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    points: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    scoreIncludingLosses: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    wins: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    losses: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    setWins: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    setLosses: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    setDifference: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    setRatio: z.optional(z.union([
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).nullish(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).nullish(),
+    teamName: z.string().nullish(),
+    rank: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    matchesPlayed: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    points: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    scoreIncludingLosses: z.string().nullish(),
+    wins: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    losses: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    setWins: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    setLosses: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    setDifference: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    setRatio: z.union([
         z.number(),
-        z.string(),
-        z.null()
-    ])),
-    ballWins: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    ballLosses: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    ballDifference: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    ballRatio: z.optional(z.union([
+        z.string()
+    ]).nullish(),
+    ballWins: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    ballLosses: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    ballDifference: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    ballRatio: z.union([
         z.number(),
-        z.string(),
-        z.null()
-    ])),
-    resultTypes: z.optional(z.union([
-        z.array(zMatchResultTypeCount),
-        z.null()
-    ]))
+        z.string()
+    ]).nullish(),
+    resultTypes: z.array(zMatchResultTypeCount).nullish()
 });
 
 export const zCompetitionMatchGroupRankingsDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    matchGroupName: z.optional(z.string()),
-    rankings: z.optional(z.array(zLeagueRankingsEntryDto))
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    matchGroupName: z.string().optional(),
+    rankings: z.array(zLeagueRankingsEntryDto).optional()
 });
 
 export const zCompetitionRankingsResourcePage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zCompetitionMatchGroupRankingsDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zCompetitionMatchGroupRankingsDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zTeamDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.union([
-        z.record(z.string(), zLinkDto),
-        z.null()
-    ])),
-    _embedded: z.optional(z.union([
-        z.record(z.string(), z.record(z.string(), z.unknown())),
-        z.null()
-    ])),
-    masterTeamUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    name: z.optional(z.string()),
-    shortName: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    teamNumber: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    clubCode: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    logoImageLink: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    logoImageForScreenOutputLink: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    sportsclubUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    associationUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ]))
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).nullish(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).nullish(),
+    masterTeamUuid: z.string().nullish(),
+    name: z.string().optional(),
+    shortName: z.string().nullish(),
+    teamNumber: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    clubCode: z.string().nullish(),
+    logoImageLink: z.string().nullish(),
+    logoImageForScreenOutputLink: z.string().nullish(),
+    sportsclubUuid: z.string().nullish(),
+    associationUuid: z.string().nullish()
 });
 
 export const zTeamPage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zTeamDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zTeamDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zCompetitionMatchDto = z.object({
     uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     }),
-    _links: z.optional(z.union([
-        z.record(z.string(), zLinkDto),
-        z.null()
-    ])),
-    _embedded: z.optional(z.union([
-        z.object({
-            team1: z.optional(z.object({
-                uuid: z.string(),
-                name: z.string(),
-                sportsclubUuid: z.string()
-            })),
-            team2: z.optional(z.object({
-                uuid: z.string(),
-                name: z.string(),
-                sportsclubUuid: z.string()
-            }))
-        }),
-        z.null()
-    ])),
-    date: z.optional(z.union([
-        z.iso.date(),
-        z.null()
-    ])),
-    time: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    matchNumber: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    decidingMatch: z.optional(z.union([
-        z.boolean(),
-        z.null()
-    ])),
-    gameReassessed: z.optional(z.union([
-        z.boolean(),
-        z.null()
-    ])),
-    host: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    referees: z.optional(z.union([
-        zRefereeTeamDto,
-        z.null()
-    ])),
-    spectators: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    netDuration: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    verified: z.optional(z.union([
-        z.boolean(),
-        z.null()
-    ])),
-    location: z.optional(z.union([
-        zLocation,
-        z.null()
-    ])),
-    seasonUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    associationUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    team1Description: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    team2Description: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    results: z.optional(z.union([
-        zVolleyballMatchResultsDto,
-        z.null()
-    ])),
-    matchGroupUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    competitionUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    delayPossible: z.optional(z.union([
-        z.boolean(),
-        z.null()
-    ])),
-    indefinitelyRescheduled: z.optional(z.union([
-        z.boolean(),
-        z.null()
-    ]))
+    _links: z.record(z.string(), zLinkDto).nullish(),
+    _embedded: z.object({
+        team1: z.object({
+            uuid: z.string(),
+            name: z.string(),
+            sportsclubUuid: z.string()
+        }).optional(),
+        team2: z.object({
+            uuid: z.string(),
+            name: z.string(),
+            sportsclubUuid: z.string()
+        }).optional()
+    }).nullish(),
+    date: z.iso.date().nullish(),
+    time: z.string().nullish(),
+    matchNumber: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    decidingMatch: z.boolean().nullish(),
+    gameReassessed: z.boolean().nullish(),
+    host: z.string().nullish(),
+    referees: zRefereeTeamDto.nullish(),
+    spectators: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    netDuration: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    verified: z.boolean().nullish(),
+    location: zLocation.nullish(),
+    seasonUuid: z.string().nullish(),
+    associationUuid: z.string().nullish(),
+    team1Description: z.string().nullish(),
+    team2Description: z.string().nullish(),
+    results: zVolleyballMatchResultsDto.nullish(),
+    matchGroupUuid: z.string().nullish(),
+    competitionUuid: z.string().nullish(),
+    delayPossible: z.boolean().nullish(),
+    indefinitelyRescheduled: z.boolean().nullish()
 });
 
 export const zCompetitionMatchPage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zCompetitionMatchDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zCompetitionMatchDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zLeagueMatchDayDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    name: z.optional(z.string()),
-    matchdate: z.optional(z.iso.datetime({ offset: true, local: true })),
-    seasonUuid: z.optional(z.string()),
-    leagueUuid: z.optional(z.string()),
-    associationUuid: z.optional(z.string())
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    name: z.string().optional(),
+    matchdate: z.iso.datetime({ offset: true, local: true }).optional(),
+    seasonUuid: z.string().optional(),
+    leagueUuid: z.string().optional(),
+    associationUuid: z.string().optional()
 });
 
 export const zLeagueMatchDayPage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zLeagueMatchDayDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zLeagueMatchDayDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zLeagueRankingsResourcePage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zLeagueRankingsEntryDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zLeagueRankingsEntryDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zLeagueMatchDto = z.object({
     uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
     }),
-    _links: z.optional(z.union([
-        z.record(z.string(), zLinkDto),
-        z.null()
-    ])),
-    _embedded: z.optional(z.union([
-        z.object({
-            team1: z.optional(z.object({
-                uuid: z.string(),
-                name: z.string(),
-                sportsclubUuid: z.string()
-            })),
-            team2: z.optional(z.object({
-                uuid: z.string(),
-                name: z.string(),
-                sportsclubUuid: z.string()
-            }))
-        }),
-        z.null()
-    ])),
-    date: z.optional(z.union([
-        z.iso.date(),
-        z.null()
-    ])),
-    time: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    matchNumber: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    decidingMatch: z.optional(z.union([
-        z.boolean(),
-        z.null()
-    ])),
-    gameReassessed: z.optional(z.union([
-        z.boolean(),
-        z.null()
-    ])),
-    host: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    referees: z.optional(z.union([
-        zRefereeTeamDto,
-        z.null()
-    ])),
-    spectators: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    netDuration: z.optional(z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.null()
-    ])),
-    verified: z.optional(z.union([
-        z.boolean(),
-        z.null()
-    ])),
-    location: z.optional(z.union([
-        zLocation,
-        z.null()
-    ])),
-    seasonUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    associationUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    team1Description: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    team2Description: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    results: z.optional(z.union([
-        zVolleyballMatchResultsDto,
-        z.null()
-    ])),
-    matchDayUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    leagueUuid: z.optional(z.union([
-        z.string(),
-        z.null()
-    ])),
-    delayPossible: z.optional(z.union([
-        z.boolean(),
-        z.null()
-    ])),
-    indefinitelyRescheduled: z.optional(z.union([
-        z.boolean(),
-        z.null()
-    ]))
+    _links: z.record(z.string(), zLinkDto).nullish(),
+    _embedded: z.object({
+        team1: z.object({
+            uuid: z.string(),
+            name: z.string(),
+            sportsclubUuid: z.string()
+        }).optional(),
+        team2: z.object({
+            uuid: z.string(),
+            name: z.string(),
+            sportsclubUuid: z.string()
+        }).optional()
+    }).nullish(),
+    date: z.iso.date().nullish(),
+    time: z.string().nullish(),
+    matchNumber: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    decidingMatch: z.boolean().nullish(),
+    gameReassessed: z.boolean().nullish(),
+    host: z.string().nullish(),
+    referees: zRefereeTeamDto.nullish(),
+    spectators: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    netDuration: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    verified: z.boolean().nullish(),
+    location: zLocation.nullish(),
+    seasonUuid: z.string().nullish(),
+    associationUuid: z.string().nullish(),
+    team1Description: z.string().nullish(),
+    team2Description: z.string().nullish(),
+    results: zVolleyballMatchResultsDto.nullish(),
+    matchDayUuid: z.string().nullish(),
+    leagueUuid: z.string().nullish(),
+    delayPossible: z.boolean().nullish(),
+    indefinitelyRescheduled: z.boolean().nullish()
 });
 
 export const zLeagueMatchPage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zLeagueMatchDto)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zLeagueMatchDto).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 export const zEvent = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    name: z.optional(z.string()),
-    shortname: z.optional(z.string()),
-    eventNumber: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    overridingEventNumber: z.optional(z.string()),
-    dateNotYetKnown: z.optional(z.boolean().register(z.globalRegistry, {
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    name: z.string().optional(),
+    shortname: z.string().optional(),
+    eventNumber: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    overridingEventNumber: z.string().optional(),
+    dateNotYetKnown: z.boolean().register(z.globalRegistry, {
         description: 'True if no start and end date has been set yet'
-    })),
-    endsAt: z.optional(z.iso.datetime({ offset: true, local: true })),
-    beginsAt: z.optional(z.iso.datetime({ offset: true, local: true }).register(z.globalRegistry, {
+    }).optional(),
+    endsAt: z.iso.datetime({ offset: true, local: true }).optional(),
+    beginsAt: z.iso.datetime({ offset: true, local: true }).register(z.globalRegistry, {
         description: 'Start date for an event. Is null if dateNotYetKnown is true'
-    })),
-    registrationDeadline: z.optional(z.iso.datetime({ offset: true, local: true })),
-    associationUuid: z.optional(z.string()),
-    canceled: z.optional(z.boolean().register(z.globalRegistry, {
+    }).optional(),
+    registrationDeadline: z.iso.datetime({ offset: true, local: true }).optional(),
+    associationUuid: z.string().optional(),
+    canceled: z.boolean().register(z.globalRegistry, {
         description: 'True if the event has been canceled'
-    })),
-    minimumNumberOfParticipants: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    maximumNumberOfParticipants: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    usedCapacity: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    }).optional(),
+    minimumNumberOfParticipants: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    maximumNumberOfParticipants: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    usedCapacity: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
         description: 'Number of registered participants for an event. If this event is a subordinate event, i.e. there is a higher level event, then this value is calculated as the sum of all participants of the higher level event and all participants of this higher level event\'s subordinate event. If this event has subordinate events, then this value is calculated as the sum of participants of this event and all its subordinate events.'
-    })),
-    registrationUri: z.optional(z.url()),
-    location: z.optional(zLocation),
-    eventTypeUuid: z.optional(z.string().register(z.globalRegistry, {
+    }).optional(),
+    registrationUri: z.url().optional(),
+    location: zLocation.optional(),
+    eventTypeUuid: z.string().register(z.globalRegistry, {
         description: 'Reference to the type details for this event'
-    }))
+    }).optional()
 });
 
 export const zEventPage = z.object({
-    totalElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    numberOfElements: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    content: z.optional(z.array(zEvent)),
-    empty: z.optional(z.boolean()),
-    totalPages: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })),
-    first: z.optional(z.boolean()),
-    last: z.optional(z.boolean())
+    totalElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    numberOfElements: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    content: z.array(zEvent).optional(),
+    empty: z.boolean().optional(),
+    totalPages: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    first: z.boolean().optional(),
+    last: z.boolean().optional()
 });
 
 /**
  * Type of an event.
  */
 export const zEventType = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    name: z.optional(z.string()),
-    description: z.optional(z.string()),
-    category: z.optional(z.string()),
-    associationUuid: z.optional(z.string())
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    name: z.string().optional(),
+    description: z.string().optional(),
+    category: z.string().optional(),
+    associationUuid: z.string().optional()
 }).register(z.globalRegistry, {
     description: 'Type of an event.'
 });
 
 export const zSeasonDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    name: z.optional(z.string()),
-    startDate: z.optional(z.string()),
-    endDate: z.optional(z.string()),
-    currentSeason: z.optional(z.boolean())
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    name: z.string().optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    currentSeason: z.boolean().optional()
 });
 
 export const zUserDetailsDto = z.object({
-    uuid: z.optional(z.string().register(z.globalRegistry, {
+    uuid: z.string().register(z.globalRegistry, {
         description: 'Entity unique identifier'
-    })),
-    _links: z.optional(z.record(z.string(), zLinkDto)),
-    _embedded: z.optional(z.record(z.string(), z.record(z.string(), z.unknown()))),
-    firstName: z.optional(z.string()),
-    lastName: z.optional(z.string()),
-    dateOfBirth: z.optional(z.iso.datetime({ offset: true, local: true })),
-    gender: z.optional(z.enum([
+    }).optional(),
+    _links: z.record(z.string(), zLinkDto).optional(),
+    _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    firstName: z.string().optional(),
+    lastName: z.string().optional(),
+    dateOfBirth: z.iso.datetime({ offset: true, local: true }).optional(),
+    gender: z.enum([
         'UNDEFINED',
         'MALE',
         'FEMALE',
         'DIVERS'
-    ])),
-    emailAddress: z.optional(z.string()),
-    samsInstance: z.optional(z.string()),
-    refsoftID: z.optional(z.string())
+    ]).optional(),
+    emailAddress: z.string().optional(),
+    samsInstance: z.string().optional(),
+    refsoftID: z.string().optional()
 });
 
 export const zGetApiBaseLinksData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 export const zGetAssociationByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string().register(z.globalRegistry, {
             description: 'UUID of the requested association'
         })
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1028,24 +717,24 @@ export const zGetAssociationByUuidData = z.object({
 export const zGetAssociationByUuidResponse = zAssociation;
 
 export const zGetAssociationsData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1054,25 +743,25 @@ export const zGetAssociationsData = z.object({
 export const zGetAssociationsResponse = zAssociationResourcePage;
 
 export const zGetCommitteesForAssociationData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string().register(z.globalRegistry, {
             description: 'UUID of the association whose committees are requested'
         })
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1081,25 +770,25 @@ export const zGetCommitteesForAssociationData = z.object({
 export const zGetCommitteesForAssociationResponse = zCommitteePage;
 
 export const zGetSportsclubsForAssociationData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string().register(z.globalRegistry, {
             description: 'UUID of the association whose committees are requested'
         })
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1108,21 +797,21 @@ export const zGetSportsclubsForAssociationData = z.object({
 export const zGetSportsclubsForAssociationResponse = zSportsclubPage;
 
 export const zGetAllCommitteesData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1131,16 +820,16 @@ export const zGetAllCommitteesData = z.object({
 export const zGetAllCommitteesResponse = zCommitteePage;
 
 export const zGetCommitteeData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1149,27 +838,27 @@ export const zGetCommitteeData = z.object({
 export const zGetCommitteeResponse = zCommittee;
 
 export const zGetAllLeagueHierarchiesData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        'for-season': z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        'for-season': z.string().register(z.globalRegistry, {
             description: 'Filter for the season. UUID of the season to which the league hierarchy belongs.'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1178,23 +867,23 @@ export const zGetAllLeagueHierarchiesData = z.object({
 export const zGetAllLeagueHierarchiesResponse = zLeagueHierarchyPage;
 
 export const zGetCompetitionsByLeagueHierarchyData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1203,16 +892,16 @@ export const zGetCompetitionsByLeagueHierarchyData = z.object({
 export const zGetCompetitionsByLeagueHierarchyResponse = zCompetitionPage;
 
 export const zGetLeagueHierarchyByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1221,23 +910,23 @@ export const zGetLeagueHierarchyByUuidData = z.object({
 export const zGetLeagueHierarchyByUuidResponse = zLeagueHierarchyDto;
 
 export const zGetLeaguesByLeagueHierarchyData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1246,23 +935,23 @@ export const zGetLeaguesByLeagueHierarchyData = z.object({
 export const zGetLeaguesByLeagueHierarchyResponse = zLeaguePage;
 
 export const zGetSuperCompetitionsByLeagueHierarchyData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1271,21 +960,21 @@ export const zGetSuperCompetitionsByLeagueHierarchyData = z.object({
 export const zGetSuperCompetitionsByLeagueHierarchyResponse = zSuperCompetitionPage;
 
 export const zGetAllLocationsData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1294,16 +983,16 @@ export const zGetAllLocationsData = z.object({
 export const zGetAllLocationsResponse = zLocationResourcePage;
 
 export const zGetLocationByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1312,27 +1001,27 @@ export const zGetLocationByUuidData = z.object({
 export const zGetLocationByUuidResponse = zLocation;
 
 export const zGetAllCompetitionsData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        })),
-        season: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        season: z.string().register(z.globalRegistry, {
             description: 'Filter for season using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1341,16 +1030,16 @@ export const zGetAllCompetitionsData = z.object({
 export const zGetAllCompetitionsResponse = zCompetitionPage;
 
 export const zGetCompetitionByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1359,23 +1048,23 @@ export const zGetCompetitionByUuidData = z.object({
 export const zGetCompetitionByUuidResponse = zCompetitionDto;
 
 export const zGetMatchGroupsForCompetitionData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1384,23 +1073,23 @@ export const zGetMatchGroupsForCompetitionData = z.object({
 export const zGetMatchGroupsForCompetitionResponse = zCompetitionMatchGroupPage;
 
 export const zGetRankingsForCompetitionData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1409,23 +1098,23 @@ export const zGetRankingsForCompetitionData = z.object({
 export const zGetRankingsForCompetitionResponse = zCompetitionRankingsResourcePage;
 
 export const zGetTeamsForCompetitionData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1434,36 +1123,36 @@ export const zGetTeamsForCompetitionData = z.object({
 export const zGetTeamsForCompetitionResponse = zTeamPage;
 
 export const zGetAllCompetitionMatchesWithFilterData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        })),
-        'for-season': z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        'for-season': z.string().register(z.globalRegistry, {
             description: 'Filter by season UUID: Find all matches from a particular season.'
-        })),
-        'for-competition': z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        'for-competition': z.string().register(z.globalRegistry, {
             description: 'Filter by competition UUID: Find all matches from a particular competition.'
-        })),
-        'for-sportsclub': z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        'for-sportsclub': z.string().register(z.globalRegistry, {
             description: 'Filter by sports club UUID: Find all matches for a particular sports club.'
-        })),
-        'for-team': z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        'for-team': z.string().register(z.globalRegistry, {
             description: 'Filter by team UUID: Find all matches attended by a particular team.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1472,16 +1161,16 @@ export const zGetAllCompetitionMatchesWithFilterData = z.object({
 export const zGetAllCompetitionMatchesWithFilterResponse = zCompetitionMatchPage;
 
 export const zGetCompetitionMatchByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1490,24 +1179,24 @@ export const zGetCompetitionMatchByUuidData = z.object({
 export const zGetCompetitionMatchByUuidResponse = zCompetitionMatchDto;
 
 export const zGetAllMatchGroupsData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1516,16 +1205,16 @@ export const zGetAllMatchGroupsData = z.object({
 export const zGetAllMatchGroupsResponse = zCompetitionMatchGroupPage;
 
 export const zGetMatchGroupByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1534,23 +1223,23 @@ export const zGetMatchGroupByUuidData = z.object({
 export const zGetMatchGroupByUuidResponse = zCompetitionMatchGroupDto;
 
 export const zGetMatchesByMatchGroupData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1559,27 +1248,27 @@ export const zGetMatchesByMatchGroupData = z.object({
 export const zGetMatchesByMatchGroupResponse = zCompetitionMatchPage;
 
 export const zGetAllLeaguesData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        })),
-        season: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        season: z.string().register(z.globalRegistry, {
             description: 'Filter for season using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1588,16 +1277,16 @@ export const zGetAllLeaguesData = z.object({
 export const zGetAllLeaguesResponse = zLeaguePage;
 
 export const zGetLeagueByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1606,23 +1295,23 @@ export const zGetLeagueByUuidData = z.object({
 export const zGetLeagueByUuidResponse = zLeagueDto;
 
 export const zGetMatchDaysForLeagueData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1631,23 +1320,23 @@ export const zGetMatchDaysForLeagueData = z.object({
 export const zGetMatchDaysForLeagueResponse = zLeagueMatchDayPage;
 
 export const zGetRankingsForLeagueData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1656,23 +1345,23 @@ export const zGetRankingsForLeagueData = z.object({
 export const zGetRankingsForLeagueResponse = zLeagueRankingsResourcePage;
 
 export const zGetTeamsForLeagueData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1681,36 +1370,36 @@ export const zGetTeamsForLeagueData = z.object({
 export const zGetTeamsForLeagueResponse = zTeamPage;
 
 export const zGetAllLeagueMatchesData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        })),
-        'for-season': z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        'for-season': z.string().register(z.globalRegistry, {
             description: 'Filter by season UUID: Find all matches from a particular season.'
-        })),
-        'for-league': z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        'for-league': z.string().register(z.globalRegistry, {
             description: 'Filter by league UUID: Find all matches from a particular league.'
-        })),
-        'for-sportsclub': z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        'for-sportsclub': z.string().register(z.globalRegistry, {
             description: 'Filter by sports club UUID: Find all matches for a particular sports club.'
-        })),
-        'for-team': z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        'for-team': z.string().register(z.globalRegistry, {
             description: 'Filter by team UUID: Find all matches attended by a particular team.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1719,16 +1408,16 @@ export const zGetAllLeagueMatchesData = z.object({
 export const zGetAllLeagueMatchesResponse = zLeagueMatchPage;
 
 export const zGetLeagueMatchByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1737,24 +1426,24 @@ export const zGetLeagueMatchByUuidData = z.object({
 export const zGetLeagueMatchByUuidResponse = zLeagueMatchDto;
 
 export const zGetAllMatchDaysData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1763,16 +1452,16 @@ export const zGetAllMatchDaysData = z.object({
 export const zGetAllMatchDaysResponse = zLeagueMatchDayPage;
 
 export const zGetMatchDayByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1781,23 +1470,23 @@ export const zGetMatchDayByUuidData = z.object({
 export const zGetMatchDayByUuidResponse = zLeagueMatchDayDto;
 
 export const zGetMatchesByMatchDayData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1806,27 +1495,27 @@ export const zGetMatchesByMatchDayData = z.object({
 export const zGetMatchesByMatchDayResponse = zLeagueMatchPage;
 
 export const zGetAllSuperCompetitionsData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        })),
-        season: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        season: z.string().register(z.globalRegistry, {
             description: 'Filter for season using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1835,16 +1524,16 @@ export const zGetAllSuperCompetitionsData = z.object({
 export const zGetAllSuperCompetitionsResponse = zSuperCompetitionPage;
 
 export const zGetSuperCompetitionByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1853,24 +1542,24 @@ export const zGetSuperCompetitionByUuidData = z.object({
 export const zGetSuperCompetitionByUuidResponse = zSuperCompetitionDto;
 
 export const zGetAllEventsData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1879,18 +1568,18 @@ export const zGetAllEventsData = z.object({
 export const zGetAllEventsResponse = zEventPage;
 
 export const zGetEventByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string().register(z.globalRegistry, {
             description: 'UUID of the requested event'
         })
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1899,18 +1588,18 @@ export const zGetEventByUuidData = z.object({
 export const zGetEventByUuidResponse = zEvent;
 
 export const zGetEventTypeByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string().register(z.globalRegistry, {
             description: 'UUID of the requested event type'
         })
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1919,18 +1608,18 @@ export const zGetEventTypeByUuidData = z.object({
 export const zGetEventTypeByUuidResponse = zEventType;
 
 export const zGetEventTypesData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        association: z.optional(z.string().register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1939,14 +1628,14 @@ export const zGetEventTypesData = z.object({
 export const zGetEventTypesResponse = zEventType;
 
 export const zGetAllSeasonsData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1957,23 +1646,23 @@ export const zGetAllSeasonsResponse = z.array(zSeasonDto).register(z.globalRegis
 });
 
 export const zGetLeagueHierarchiesForSeasonData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -1982,16 +1671,16 @@ export const zGetLeagueHierarchiesForSeasonData = z.object({
 export const zGetLeagueHierarchiesForSeasonResponse = zLeagueHierarchyPage;
 
 export const zGetSeasonByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -2000,24 +1689,24 @@ export const zGetSeasonByUuidData = z.object({
 export const zGetSeasonByUuidResponse = zSeasonDto;
 
 export const zGetAllSportsclubsData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -2026,16 +1715,16 @@ export const zGetAllSportsclubsData = z.object({
 export const zGetAllSportsclubsResponse = zSportsclubPage;
 
 export const zGetSportsclubData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -2044,24 +1733,24 @@ export const zGetSportsclubData = z.object({
 export const zGetSportsclubResponse = zSportsclubDto;
 
 export const zGetAllTeamsData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.object({
-        page: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        page: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested page number. Defaults to the first page (i.e. page number 0).'
-        })),
-        size: z.optional(z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
+        }).optional(),
+        size: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).register(z.globalRegistry, {
             description: 'Requested number of items per page. Defaults to 20. The maximum allowed value is 100'
-        })),
-        association: z.optional(z.string().register(z.globalRegistry, {
+        }).optional(),
+        association: z.string().register(z.globalRegistry, {
             description: 'Filter for association using the given UUID. Defaults to no filtering.'
-        }))
-    })),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+        }).optional()
+    }).optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -2070,16 +1759,16 @@ export const zGetAllTeamsData = z.object({
 export const zGetAllTeamsResponse = zTeamPage;
 
 export const zGetTeamByUuidData = z.object({
-    body: z.optional(z.never()),
+    body: z.never().optional(),
     path: z.object({
         uuid: z.string()
     }),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -2088,14 +1777,14 @@ export const zGetTeamByUuidData = z.object({
 export const zGetTeamByUuidResponse = zTeamDto;
 
 export const zGetCurrentUserData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**
@@ -2104,14 +1793,14 @@ export const zGetCurrentUserData = z.object({
 export const zGetCurrentUserResponse = zUserDetailsDto;
 
 export const zUserDetailsRootLinksData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.never()),
-    headers: z.optional(z.object({
-        'X-Api-Key': z.optional(z.string().register(z.globalRegistry, {
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional(),
+    headers: z.object({
+        'X-Api-Key': z.string().register(z.globalRegistry, {
             description: 'A SAMS API key with permission to access this API.'
-        }))
-    }))
+        }).optional()
+    }).optional()
 });
 
 /**

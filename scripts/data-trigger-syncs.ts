@@ -8,7 +8,7 @@ import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 function checkAwsSession() {
 	try {
 		execSync("aws sts get-caller-identity", { stdio: "ignore" });
-	} catch (_err) {
+	} catch {
 		console.error("❌ No active AWS session found. Please run 'aws login' or authenticate with AWS CLI.");
 		process.exit(1);
 	}

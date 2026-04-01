@@ -28,15 +28,15 @@ This file provides instructions specific to the `lib/` directory, which contains
 ## CDK conventions
 
 - Use the `vcmuellheim` AWS profile for all CDK CLI operations.
-- Before deploying, always run `bun run cdk:synth` and `bun run cdk:diff` to verify changes.
-- Deploy a single stack: `bun run cdk:deploy {StackName}`
-- Deploy all stacks: `bun run cdk:deploy:all`
+- Before deploying, always run `vpr cdk:synth` and `vpr cdk:diff` to verify changes.
+- Deploy a single stack: `vpr cdk:deploy {StackName}`
+- Deploy all stacks: `vpr cdk:deploy:all`
 - Scheduled tasks use EventBridge constructs — see existing stacks for patterns.
 
 ## Integration points / external services
 
 - **AWS:** CDK stacks create Lambdas, DynamoDB tables, S3 buckets, and Cognito resources. Use the `vcmuellheim` AWS profile.
-- **SAMS API:** `codegen/sams/` contains the Swagger spec and client generation for the external SAMS sports data API used by sync Lambdas. Regenerate the client with `bun run sams:update`.
+- **SAMS API:** `codegen/sams/` contains the Swagger spec and client generation for the external SAMS sports data API used by sync Lambdas. Regenerate the client with `vpr sams:codegen`.
 - **Background/schedulers:** EventBridge rules are defined in CDK constructs.
 
 ## DB conventions
@@ -47,14 +47,14 @@ This file provides instructions specific to the `lib/` directory, which contains
 
 ## Server functions (replacing tRPC)
 
-The webapp uses **TanStack React Start server functions** instead of tRPC. All data fetching is server-side rendered in `apps/webapp/src/server/functions/`:
+The webapp uses **TanStack React Start server functions** instead of tRPC. All data fetching is server-side rendered in `app/src/server/functions/`:
 
 - Each server function is a `createServerFn()` with optional middleware (`requireAuthMiddleware`) and input validators (Zod).
-- Results are used via React Query hooks under `apps/webapp/src/lib/hooks.ts`.
+- Results are used via React Query hooks under `app/src/lib/hooks.ts`.
 - This approach eliminates the need for a separate tRPC API layer.
 
 ## Testing
 
 - Stack unit tests live alongside stack files (e.g., `lib/sams-api-stack.test.ts`).
 - Use `aws-sdk-client-mock` for AWS SDK calls in tests.
-- Run tests: `bun run test`
+- Run tests: `vp test`

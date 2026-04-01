@@ -1,4 +1,4 @@
-import { describe, expect, it, mock } from "bun:test";
+import { describe, expect, it, vi } from "vite-plus/test";
 import { createCacheKey, createExpiringCache, getOrSetExpiringCacheValue } from "./cache";
 
 describe("createCacheKey", () => {
@@ -66,7 +66,7 @@ describe("createCacheKey", () => {
 describe("getOrSetExpiringCacheValue", () => {
 	it("returns cached values before expiry", async () => {
 		const cache = createExpiringCache<string>();
-		const load = mock(async () => "fresh-value");
+		const load = vi.fn(async () => "fresh-value");
 		const now = () => 1_000;
 
 		const first = await getOrSetExpiringCacheValue({
@@ -93,7 +93,7 @@ describe("getOrSetExpiringCacheValue", () => {
 	it("reloads values after expiry", async () => {
 		const cache = createExpiringCache<string>();
 		const values = ["value-1", "value-2"];
-		const load = mock(async () => values.shift() ?? "unexpected-value");
+		const load = vi.fn(async () => values.shift() ?? "unexpected-value");
 
 		const first = await getOrSetExpiringCacheValue({
 			cache,

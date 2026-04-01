@@ -1,21 +1,20 @@
 {
 	"window.title": "VC Müllheim - ${activeEditorShort}",
-	"editor.defaultFormatter": "biomejs.biome",
+	"editor.defaultFormatter": "oxc.oxc-vscode",
+	"[json]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
 	"[css]": {
 		"editor.defaultFormatter": "vscode.css-language-features"
 	},
 	"[html]": {
 		"editor.defaultFormatter": "vscode.html-language-features"
 	},
-	"[json]": {
-		"editor.defaultFormatter": "vscode.json-language-features"
-	},
-	"[jsonc]": {
-		"editor.defaultFormatter": "vscode.json-language-features"
-	},
 	"editor.codeActionsOnSave": {
-		"source.organizeImports.biome": "explicit",
-		"source.fixAll.biome": "explicit",
+		"source.removeUnusedImports": "explicit"
 	},
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": false,
@@ -28,9 +27,10 @@
 	"files.readonlyInclude": {
 		"**/routeTree.gen.ts": true
 	},
+	"js/ts.tsdk.path": "node_modules/typescript/lib",
 	"chat.useNestedAgentsMdFiles": true,
 	"chat.tools.terminal.autoApprove": {
-		"/^bun (run )(test|typecheck|lint|check(:fix)|verify(:all)|cdk:synth(:all)|tsc(--noEmit)|deps-check)(\\s+[\\w./\\-:*=]+)*(\\s+2>&1)?(\\s*\\|\\s*(head|tail|cat|grep|wc)(\\s+[\\w./\\-*=]+)*)?$/": true,
+		"/^(vp (run )?|vpr )(test|check(--fix)?|lint|verify(:all)?|cdk:synth(:all)?|deps-check)(\\s+[\\w./\\-:*=]+)*(\\s+2>&1)?(\\s*\\|\\s*(head|tail|cat|grep|wc)(\\s+[\\w./\\-*=]+)*)?$/": true,
 		"/\\.agents\\/skills\\/sams-api\\/sams\\.ts/": true,
 		"/^bun \\.agents\\/skills\\/lambda-logs\\/check-logs\\.ts .*$/": {
 			"approve": true,
@@ -39,9 +39,7 @@
 		"/^aws dynamodb (scan|query|get-item|describe-table|list-tables) .*$/": {
 			"approve": true,
 			"matchCommandLine": true
-		},
+		}
 	},
-	"github-actions.workflows.pinned.workflows": [
-		".github/workflows/cdk-deploy.yml"
-	]
+	"github-actions.workflows.pinned.workflows": [".github/workflows/cdk-deploy.yml"]
 }

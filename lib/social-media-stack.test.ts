@@ -1,4 +1,4 @@
-import { beforeAll, describe, it } from "bun:test";
+import { beforeAll, describe, it } from "vite-plus/test";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { SocialMediaStack } from "./social-media-stack";
 import { createTestApp } from "./test-helpers";
