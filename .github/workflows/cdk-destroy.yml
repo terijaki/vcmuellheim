@@ -27,8 +27,6 @@ jobs:
           node-version: "25"
           cache: true
 
-      - uses: oven-sh/setup-bun@v2
-
       - name: Install dependencies
         run: vp install
 
