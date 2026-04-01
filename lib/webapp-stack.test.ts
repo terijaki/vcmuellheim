@@ -28,8 +28,8 @@ vi.mock("node:child_process", async () => {
 const { WebAppStack } = await import("./webapp-stack");
 
 function ensureNitroOutputFixtures() {
-	const serverDir = join("apps", "webapp", ".output", "server");
-	const publicDir = join("apps", "webapp", ".output", "public");
+	const serverDir = join("app", ".output", "server");
+	const publicDir = join("app", ".output", "public");
 	const serverEntryFile = join(serverDir, "index.mjs");
 	const publicMarkerFile = join(publicDir, ".test-placeholder");
 
