@@ -123,7 +123,8 @@ export class WebAppStack extends cdk.Stack {
 		// Nitro's aws-lambda preset outputs a single ESM handler file
 		this.webappLambda = new lambda.Function(this, "WebAppLambda", {
 			functionName: `vcm-webapp-${environment}${branchSuffix}`,
-			code: lambda.Code.fromAsset("app/.output/server"),
+			// During destroy the build output doesn't exist — use a stub so CDK can synthesize
+			code: isCdkDestroy ? lambda.Code.fromInline("exports.handler = async () => {};") : lambda.Code.fromAsset("app/.output/server"),
 			handler: "index.handler",
 			runtime: lambda.Runtime.NODEJS_24_X,
 			timeout: cdk.Duration.seconds(30),
@@ -246,14 +247,17 @@ export class WebAppStack extends cdk.Stack {
 		});
 
 		// ── Static asset deployment ────────────────────────────────────────────
-		new s3deploy.BucketDeployment(this, "WebAppAssetsDeployment", {
-			sources: [s3deploy.Source.asset("app/.output/public")],
-			destinationBucket: assetsBucket,
-			distribution: this.distribution,
-			distributionPaths: ["/assets/*", "/_build/*", "/docs/*"],
-			prune: true,
-			memoryLimit: 512,
-		});
+		// Skip during destroy — the bucket itself is deleted by CloudFormation
+		if (!isCdkDestroy) {
+			new s3deploy.BucketDeployment(this, "WebAppAssetsDeployment", {
+				sources: [s3deploy.Source.asset("app/.output/public")],
+				destinationBucket: assetsBucket,
+				distribution: this.distribution,
+				distributionPaths: ["/assets/*", "/_build/*", "/docs/*"],
+				prune: true,
+				memoryLimit: 512,
+			});
+		}
 
 		// ── DNS record ─────────────────────────────────────────────────────────
 		if (props.hostedZone && props.cloudFrontCertificate) {

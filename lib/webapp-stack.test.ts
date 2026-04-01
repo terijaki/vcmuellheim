@@ -237,4 +237,27 @@ describe("WebAppStack", () => {
 
 		expect(missingFolders).toEqual([]);
 	});
+
+	it("synthesizes without build output when CDK_DESTROY=true", () => {
+		// Ensure no fixtures exist for this test
+		cleanupOutputFixtures();
+		cleanupOutputFixtures = () => {};
+		process.env.CDK_DESTROY = "true";
+
+		const app = createTestApp();
+		const dependencies = createDependencies(app);
+
+		expect(() => {
+			new WebAppStack(app, "TestStack", {
+				env: testEnv,
+				stackProps: {
+					environment: "dev",
+					branch: "test-branch",
+				},
+				...dependencies,
+			});
+		}).not.toThrow();
+
+		expect(buildMock).not.toHaveBeenCalled();
+	});
 });
