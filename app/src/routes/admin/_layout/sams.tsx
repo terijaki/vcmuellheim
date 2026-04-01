@@ -35,6 +35,9 @@ function SamsDashboardPage() {
 	const teamsLastSynced = teams.length > 0 ? teams.reduce((max, t) => (t.updatedAt > max ? t.updatedAt : max), teams[0].updatedAt) : null;
 	const clubsLastSynced = clubs.length > 0 ? clubs.reduce((max, c) => (c.updatedAt > max ? c.updatedAt : max), clubs[0].updatedAt) : null;
 
+	const teamsRecentlySynced = teamsLastSynced !== null && Date.now() - new Date(teamsLastSynced).getTime() < SYNC_COOLDOWN_MS;
+	const clubsRecentlySynced = clubsLastSynced !== null && Date.now() - new Date(clubsLastSynced).getTime() < SYNC_COOLDOWN_MS;
+
 	const stopSync = (
 		setTriggeredAt: React.Dispatch<React.SetStateAction<number | null>>,
 		pollRef: React.MutableRefObject<ReturnType<typeof setInterval> | null>,
@@ -120,18 +123,18 @@ function SamsDashboardPage() {
 			<Group align="flex-end" justify="space-between" gap="md" wrap="wrap">
 				<Title order={2}>SAMS Teams</Title>
 				{isAdmin && (
-					<Stack gap={4}>
+					<Stack gap={4} ml="auto">
 						<Group gap="xs" align="center">
 							{teamsLastSynced && (
 								<Text size="xs" c="dimmed">
 									Zuletzt synchronisiert: {dayjs(teamsLastSynced).format("DD.MM.YY HH:mm")}
 								</Text>
 							)}
-							<Tooltip label={IS_DEV ? "Sync nur deployed verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && teamsSyncTriggeredAt === null}>
+							<Tooltip label={IS_DEV ? "Sync nur deployed verfügbar" : "Kürzlich synchronisiert — bitte 3 Minuten warten"} disabled={!IS_DEV && !teamsRecentlySynced && teamsSyncTriggeredAt === null}>
 								{teamsSyncTriggeredAt !== null ? (
 									<Loader size="xs" />
 								) : (
-									<ActionIcon size="sm" radius="xl" variant="light" disabled={IS_DEV} onClick={() => teamsMutation.mutate()}>
+									<ActionIcon size="sm" radius="xl" variant="light" disabled={IS_DEV || teamsRecentlySynced} onClick={() => teamsMutation.mutate()}>
 										<RefreshCw style={{ padding: 2 }} />
 									</ActionIcon>
 								)}
@@ -200,18 +203,18 @@ function SamsDashboardPage() {
 			<Group align="flex-end" justify="space-between" gap="md" mt="lg" wrap="wrap">
 				<Title order={2}>SAMS Vereine</Title>
 				{isAdmin && (
-					<Stack gap={4}>
+					<Stack gap={4} ml="auto">
 						<Group gap="xs" align="center">
 							{clubsLastSynced && (
 								<Text size="xs" c="dimmed">
 									Zuletzt synchronisiert: {dayjs(clubsLastSynced).format("DD.MM.YY HH:mm")}
 								</Text>
 							)}
-							<Tooltip label={IS_DEV ? "Sync nur deployed verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && clubsSyncTriggeredAt === null}>
+							<Tooltip label={IS_DEV ? "Sync nur deployed verfügbar" : "Kürzlich synchronisiert — bitte 3 Minuten warten"} disabled={!IS_DEV && !clubsRecentlySynced && clubsSyncTriggeredAt === null}>
 								{clubsSyncTriggeredAt !== null ? (
 									<Loader size="xs" />
 								) : (
-									<ActionIcon size="sm" variant="light" radius="xl" disabled={IS_DEV} onClick={() => clubsMutation.mutate()}>
+									<ActionIcon size="sm" variant="light" radius="xl" disabled={IS_DEV || clubsRecentlySynced} onClick={() => clubsMutation.mutate()}>
 										<RefreshCw style={{ padding: 2 }} />
 									</ActionIcon>
 								)}
