@@ -67,7 +67,7 @@ const mediaStack = new MediaStack(app, mediaStackName, {
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
-new SamsApiStack(app, samsStackName, {
+const samsApiStack = new SamsApiStack(app, samsStackName, {
 	...commonStackProps,
 	description: `SAMS API Services (${environment}${branchSuffix})`,
 	hostedZone: dnsStack.hostedZone,
@@ -98,6 +98,8 @@ const webappStack = new WebAppStack(app, webappStackName, {
 	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 	hostedZone: dnsStack.hostedZone,
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
+	samsClubsSyncFn: samsApiStack.samsClubsSync,
+	samsTeamsSyncFn: samsApiStack.samsTeamsSync,
 });
 
 // Budget monitoring - requires email for alerts

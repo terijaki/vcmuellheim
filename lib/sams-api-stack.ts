@@ -42,6 +42,8 @@ interface SamsApiStackProps extends cdk.StackProps {
 export class SamsApiStack extends cdk.Stack {
 	public readonly cloudFrontUrl: string;
 	public readonly samsDataTable: dynamodb.Table;
+	public readonly samsClubsSync: NodejsFunction;
+	public readonly samsTeamsSync: NodejsFunction;
 
 	constructor(scope: Construct, id: string, props?: SamsApiStackProps) {
 		super(scope, id, props);
@@ -228,7 +230,7 @@ export class SamsApiStack extends cdk.Stack {
 		});
 
 		// Create Lambda function for nightly clubs sync
-		const samsClubsSync = new NodejsFunction(this, "SamsClubsSync", {
+		this.samsClubsSync = new NodejsFunction(this, "SamsClubsSync", {
 			functionName: `sams-clubs-sync-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
@@ -254,11 +256,11 @@ export class SamsApiStack extends cdk.Stack {
 		});
 
 		// Grant DynamoDB permissions to clubs sync Lambda
-		samsDataTable.grantReadWriteData(samsClubsSync);
-		props?.mediaBucket?.grantWrite(samsClubsSync);
+		samsDataTable.grantReadWriteData(this.samsClubsSync);
+		props?.mediaBucket?.grantWrite(this.samsClubsSync);
 
 		// Create Lambda function for nightly teams sync
-		const samsTeamsSync = new NodejsFunction(this, "SamsTeamsSync", {
+		this.samsTeamsSync = new NodejsFunction(this, "SamsTeamsSync", {
 			functionName: `sams-teams-sync-${environment}${branchSuffix}`,
 			runtime: lambda.Runtime.NODEJS_24_X,
 			handler: "handler",
@@ -282,7 +284,7 @@ export class SamsApiStack extends cdk.Stack {
 		});
 
 		// Grant DynamoDB permissions to teams sync Lambda
-		samsDataTable.grantReadWriteData(samsTeamsSync);
+		samsDataTable.grantReadWriteData(this.samsTeamsSync);
 
 		// Create Lambda function for clubs query (read from DynamoDB)
 		const samsClubs = new NodejsFunction(this, "SamsClubs", {
@@ -348,7 +350,7 @@ export class SamsApiStack extends cdk.Stack {
 				minute: "0",
 			}),
 		}); // Add Lambda as target for EventBridge rule
-		syncRule.addTarget(new targets.LambdaFunction(samsClubsSync));
+		syncRule.addTarget(new targets.LambdaFunction(this.samsClubsSync));
 
 		// Create EventBridge rule to trigger teams sync nightly at 3 AM UTC
 		const teamsSyncRule = new events.Rule(this, "SamsTeamsSyncRule", {
@@ -361,7 +363,7 @@ export class SamsApiStack extends cdk.Stack {
 		});
 
 		// Add teams Lambda as target for EventBridge rule
-		teamsSyncRule.addTarget(new targets.LambdaFunction(samsTeamsSync));
+		teamsSyncRule.addTarget(new targets.LambdaFunction(this.samsTeamsSync));
 
 		// Use a single shared origin request policy for all behaviors
 		const sharedOriginPolicy = new cloudfront.OriginRequestPolicy(this, "SamsApiSharedOriginPolicy", {

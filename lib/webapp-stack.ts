@@ -42,6 +42,9 @@ export interface WebAppStackProps extends cdk.StackProps {
 	hostedZone?: route53.IHostedZone;
 	/** CloudFront certificate (must be in us-east-1) */
 	cloudFrontCertificate?: acm.ICertificate;
+	/** Optional sync Lambdas from SamsApiStack — grants invoke permissions to the webapp Lambda */
+	samsClubsSyncFn?: lambda.IFunction;
+	samsTeamsSyncFn?: lambda.IFunction;
 }
 
 export class WebAppStack extends cdk.Stack {
@@ -94,6 +97,8 @@ export class WebAppStack extends cdk.Stack {
 			...(process.env.SAMS_API_KEY ? { SAMS_API_KEY: process.env.SAMS_API_KEY } : {}),
 			...(process.env.SAMS_SERVER ? { SAMS_SERVER: process.env.SAMS_SERVER } : {}),
 			...(props.mediaCloudFrontUrl ? { CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
+			...(props.samsClubsSyncFn ? { SAMS_CLUBS_SYNC_FUNCTION_NAME: props.samsClubsSyncFn.functionName } : {}),
+			...(props.samsTeamsSyncFn ? { SAMS_TEAMS_SYNC_FUNCTION_NAME: props.samsTeamsSyncFn.functionName } : {}),
 			NODE_ENV: "production",
 		};
 
@@ -143,6 +148,10 @@ export class WebAppStack extends cdk.Stack {
 
 		// Grant S3 access for media uploads and reads
 		props.mediaBucket.grantReadWrite(this.webappLambda);
+
+		// Grant invoke permissions for SAMS sync Lambdas if provided
+		props.samsClubsSyncFn?.grantInvoke(this.webappLambda);
+		props.samsTeamsSyncFn?.grantInvoke(this.webappLambda);
 
 		// Grant SES access for OTP emails
 		this.webappLambda.addToRolePolicy(
