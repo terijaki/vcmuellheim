@@ -1,19 +1,118 @@
-import { Card, Stack, Table, Text, Title, Tooltip } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { Button, Card, Group, Progress, Stack, Table, Text, Title, Tooltip } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 import ClubLogo from "@webapp/components/ClubLogo";
-import { listSamsClubsFn, listSamsTeamsFn } from "@webapp/server/functions/sams";
+import { listSamsClubsFn, listSamsTeamsFn, triggerSamsClubsSyncFn, triggerSamsTeamsSyncFn } from "@webapp/server/functions/sams";
+import dayjs from "dayjs";
 import { Info } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
+const adminLayoutRoute = getRouteApi("/admin/_layout");
+
+const SYNC_DURATION_SECONDS = 180;
+const TICK_INTERVAL_MS = 500;
+const PROGRESS_PER_TICK = 100 / (SYNC_DURATION_SECONDS * (1000 / TICK_INTERVAL_MS));
 
 function SamsDashboardPage() {
+	const { user } = adminLayoutRoute.useRouteContext();
+	const isAdmin = user.role === "Admin";
+	const queryClient = useQueryClient();
+
+	const [clubsCooldown, setClubsCooldown] = useState(false);
+	const [teamsCooldown, setTeamsCooldown] = useState(false);
+	const [clubsProgress, setClubsProgress] = useState<number | null>(null);
+	const [teamsProgress, setTeamsProgress] = useState<number | null>(null);
+
+	const clubsIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+	const teamsIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+	const startProgress = (
+		setProgress: React.Dispatch<React.SetStateAction<number | null>>,
+		setCooldown: React.Dispatch<React.SetStateAction<boolean>>,
+		intervalRef: React.MutableRefObject<ReturnType<typeof setInterval> | null>,
+	) => {
+		setProgress(0);
+		intervalRef.current = setInterval(() => {
+			setProgress((prev) => {
+				const next = (prev ?? 0) + PROGRESS_PER_TICK;
+				if (next >= 100) {
+					if (intervalRef.current !== null) {
+						clearInterval(intervalRef.current);
+						intervalRef.current = null;
+					}
+					queryClient.invalidateQueries();
+					setCooldown(false);
+					return null;
+				}
+				return next;
+			});
+		}, TICK_INTERVAL_MS);
+	};
+
+	useEffect(() => {
+		const clubsInterval = clubsIntervalRef;
+		const teamsInterval = teamsIntervalRef;
+		return () => {
+			if (clubsInterval.current !== null) clearInterval(clubsInterval.current);
+			if (teamsInterval.current !== null) clearInterval(teamsInterval.current);
+		};
+	}, []);
+
+	const clubsMutation = useMutation({
+		mutationFn: () => triggerSamsClubsSyncFn(),
+		onSuccess: () => {
+			notifications.show({ message: "Sync erfolgreich ausgelöst", color: "green", autoClose: 3000 });
+			setClubsCooldown(true);
+			startProgress(setClubsProgress, setClubsCooldown, clubsIntervalRef);
+		},
+		onError: (error: Error) => {
+			notifications.show({ title: "Fehler", message: `Sync konnte nicht ausgelöst werden: ${error.message}`, color: "red", autoClose: 5000 });
+		},
+	});
+
+	const teamsMutation = useMutation({
+		mutationFn: () => triggerSamsTeamsSyncFn(),
+		onSuccess: () => {
+			notifications.show({ message: "Sync erfolgreich ausgelöst", color: "green", autoClose: 3000 });
+			setTeamsCooldown(true);
+			startProgress(setTeamsProgress, setTeamsCooldown, teamsIntervalRef);
+		},
+		onError: (error: Error) => {
+			notifications.show({ title: "Fehler", message: `Sync konnte nicht ausgelöst werden: ${error.message}`, color: "red", autoClose: 5000 });
+		},
+	});
+
 	const { data: samsTeamsData, isLoading: teamsLoading } = useQuery({ queryKey: ["sams", "teams"], queryFn: () => listSamsTeamsFn() });
 	const { data: samsClubsData, isLoading: clubsLoading } = useQuery({ queryKey: ["sams", "clubs"], queryFn: () => listSamsClubsFn() });
 	const teams = samsTeamsData?.items || [];
 	const clubs = samsClubsData?.items || [];
 
+	const teamsLastSynced = teams.length > 0 ? teams.reduce((max, t) => (t.updatedAt > max ? t.updatedAt : max), teams[0].updatedAt) : null;
+	const clubsLastSynced = clubs.length > 0 ? clubs.reduce((max, c) => (c.updatedAt > max ? c.updatedAt : max), clubs[0].updatedAt) : null;
+
 	return (
 		<Stack gap="md">
-			<Title order={2}>SAMS Teams</Title>
+			<Group align="flex-end" gap="md" wrap="wrap">
+				<Title order={2}>SAMS Teams</Title>
+				{isAdmin && (
+					<Stack gap={4} style={{ flex: 1, minWidth: 200 }}>
+						<Group gap="xs" align="center">
+							{teamsLastSynced && (
+								<Text size="xs" c="dimmed">
+									Zuletzt synchronisiert: {dayjs(teamsLastSynced).format("DD.MM.YYYY HH:mm")}
+								</Text>
+							)}
+							<Tooltip label="Sync ausgelöst — bitte 3 Minuten warten" disabled={!teamsCooldown}>
+								<Button size="xs" variant="light" loading={teamsMutation.isPending} disabled={teamsCooldown} onClick={() => teamsMutation.mutate()}>
+									Jetzt synchronisieren
+								</Button>
+							</Tooltip>
+						</Group>
+						{teamsProgress !== null && <Progress value={teamsProgress} size="sm" radius="xl" animated />}
+					</Stack>
+				)}
+			</Group>
 			{teamsLoading ? (
 				<Text>Laden...</Text>
 			) : teams && teams.length > 0 ? (
@@ -71,9 +170,26 @@ function SamsDashboardPage() {
 				<Text>Keine SAMS Teams gefunden</Text>
 			)}
 
-			<Title order={2} mt="lg">
-				SAMS Vereine
-			</Title>
+			<Group align="flex-end" gap="md" mt="lg" wrap="wrap">
+				<Title order={2}>SAMS Vereine</Title>
+				{isAdmin && (
+					<Stack gap={4} style={{ flex: 1, minWidth: 200 }}>
+						<Group gap="xs" align="center">
+							{clubsLastSynced && (
+								<Text size="xs" c="dimmed">
+									Zuletzt synchronisiert: {dayjs(clubsLastSynced).format("DD.MM.YYYY HH:mm")}
+								</Text>
+							)}
+							<Tooltip label="Sync ausgelöst — bitte 3 Minuten warten" disabled={!clubsCooldown}>
+								<Button size="xs" variant="light" loading={clubsMutation.isPending} disabled={clubsCooldown} onClick={() => clubsMutation.mutate()}>
+									Jetzt synchronisieren
+								</Button>
+							</Tooltip>
+						</Group>
+						{clubsProgress !== null && <Progress value={clubsProgress} size="sm" radius="xl" animated />}
+					</Stack>
+				)}
+			</Group>
 			{clubsLoading ? (
 				<Text>Laden...</Text>
 			) : clubs && clubs.length > 0 ? (
