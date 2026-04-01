@@ -104,7 +104,7 @@ function SamsDashboardPage() {
 									Zuletzt synchronisiert: {dayjs(teamsLastSynced).format("DD.MM.YYYY HH:mm")}
 								</Text>
 							)}
-							<Tooltip label={IS_DEV ? "Nur im Deployment verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && !teamsCooldown}>
+							<Tooltip label={IS_DEV ? "Nur deployed verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && !teamsCooldown}>
 								<Button size="xs" variant="light" loading={teamsMutation.isPending} disabled={IS_DEV || teamsCooldown} onClick={() => teamsMutation.mutate()}>
 									{IS_DEV ? "Sync (nur deployed)" : "Jetzt synchronisieren"}
 								</Button>
@@ -181,7 +181,7 @@ function SamsDashboardPage() {
 									Zuletzt synchronisiert: {dayjs(clubsLastSynced).format("DD.MM.YYYY HH:mm")}
 								</Text>
 							)}
-							<Tooltip label={IS_DEV ? "Nur im Deployment verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && !clubsCooldown}>
+							<Tooltip label={IS_DEV ? "Nur deployed verfügbar" : "Sync ausgelöst — bitte 3 Minuten warten"} disabled={!IS_DEV && !clubsCooldown}>
 								<Button size="xs" variant="light" loading={clubsMutation.isPending} disabled={IS_DEV || clubsCooldown} onClick={() => clubsMutation.mutate()}>
 									{IS_DEV ? "Sync (nur deployed)" : "Jetzt synchronisieren"}
 								</Button>
