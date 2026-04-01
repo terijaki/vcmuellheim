@@ -14,7 +14,7 @@ This file provides instructions specific to the `lambda/` directory, which conta
 - `lambda/sams/sams-clubs.ts` — example of a typical SAMS sync Lambda
 - `lambda/content/handler.ts` — content Lambda handler
 - `lambda/social/mastodon-share.ts` — social media Lambda example
-- Generated SAMS API client: `codegen/sams/generated/` (do not edit generated files manually; run `vp run sams:update` to regenerate)
+- Generated SAMS API client: `codegen/sams/generated/` (do not edit generated files manually; run `vpr sams:update` to regenerate)
 
 ## Lambda conventions
 

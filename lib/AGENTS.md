@@ -28,15 +28,15 @@ This file provides instructions specific to the `lib/` directory, which contains
 ## CDK conventions
 
 - Use the `vcmuellheim` AWS profile for all CDK CLI operations.
-- Before deploying, always run `vp run cdk:synth` and `vp run cdk:diff` to verify changes.
-- Deploy a single stack: `vp run cdk:deploy {StackName}`
-- Deploy all stacks: `vp run cdk:deploy:all`
+- Before deploying, always run `vpr cdk:synth` and `vpr cdk:diff` to verify changes.
+- Deploy a single stack: `vpr cdk:deploy {StackName}`
+- Deploy all stacks: `vpr cdk:deploy:all`
 - Scheduled tasks use EventBridge constructs — see existing stacks for patterns.
 
 ## Integration points / external services
 
 - **AWS:** CDK stacks create Lambdas, DynamoDB tables, S3 buckets, and Cognito resources. Use the `vcmuellheim` AWS profile.
-- **SAMS API:** `codegen/sams/` contains the Swagger spec and client generation for the external SAMS sports data API used by sync Lambdas. Regenerate the client with `vp run sams:update`.
+- **SAMS API:** `codegen/sams/` contains the Swagger spec and client generation for the external SAMS sports data API used by sync Lambdas. Regenerate the client with `vpr sams:update`.
 - **Background/schedulers:** EventBridge rules are defined in CDK constructs.
 
 ## DB conventions

@@ -62,6 +62,8 @@
 		"@tiptap/extension-link": "^2.10.4",
 		"@tiptap/react": "^2.10.4",
 		"@tiptap/starter-kit": "^2.10.4",
+		"@voidzero-dev/vite-plus-core": "^0.1.14",
+		"@voidzero-dev/vite-plus-test": "^0.1.14",
 		"better-auth": "1.5.6",
 		"dayjs": "^1.11.20",
 		"electrodb": "^3.7.2",
@@ -102,11 +104,10 @@
 		"tsx": "^4.20.6",
 		"typescript": "^6.0.2",
 		"vite": "npm:@voidzero-dev/vite-plus-core@latest",
-		"vite-plus": "latest",
+		"vite-plus": "^0.1.14",
 		"vitest": "npm:@voidzero-dev/vite-plus-test@latest"
 	},
 	"engines": {
 		"node": ">=25"
-	},
-	"packageManager": "pnpm@10.33.0"
+	}
 }

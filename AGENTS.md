@@ -5,7 +5,7 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 
 ## Quick Overview
 
-- **Unified monorepo** with pnpm workspaces: `apps/webapp` (single TanStack Start app + Nitro backend).
+- **Unified monorepo** with bun workspaces: `apps/webapp` (single TanStack Start app + Nitro backend).
 - **Frontend & SSR:** TanStack Start with file-based routes, Mantine UI components — see [`apps/AGENTS.md`](apps/AGENTS.md).
 - **Server functions:** Nitro-backed server functions under `apps/webapp/src/server/functions/`.
 - **Backend/Infra:** AWS CDK (in `lib/`, `bin/cdk.ts`) producing WebApp Lambda, API Gateway, DynamoDB, S3 — see [`lib/AGENTS.md`](lib/AGENTS.md).
@@ -17,14 +17,14 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 - **Install deps:** `vp install` at repo root.
 - **Run webapp locally:**
   - `vp dev` — start unified webapp dev server (includes website public routes + admin auth).
-- **Build:** `vp run build`.
+- **Build:** `vpr build`.
 - **Lint / format / typecheck:**
   - `vp check` / `vp check --fix` (lint + format + typecheck)
-  - `vp run verify:all` (combined check + tests)
+  - `vpr verify:all` (combined check + tests)
 - **Tests:** `vp test` (or `vp test <path/to/test>` for a single file).
-- **DB / scripts:** `vp run db:seed`, `vp run db:seed:sams`
-- **CDK:** `vp run cdk:synth`, `vp run cdk:deploy`, `vp run cdk:deploy:all` (scripts use AWS profile `vcmuellheim`).
-- **WebApp build prep:** `vp run build` (outputs `.output/` with Nitro server + static assets).
+- **DB / scripts:** `vpr db:seed`, `vpr db:seed:sams`
+- **CDK:** `vpr cdk:synth`, `vpr cdk:deploy`, `vpr cdk:deploy:all` (scripts use AWS profile `vcmuellheim`).
+- **WebApp build prep:** `vpr build` (outputs `.output/` with Nitro server + static assets).
 
 ## Global codebase conventions
 
@@ -39,7 +39,7 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 
 ## What NOT to change / be cautious about
 
-- Don't change project-wide Vite+, pnpm workspace, or CDK bootstrapping without coordinating — these affect CI and deployments.
+- Don't change project-wide Vite+, bun workspace, or CDK bootstrapping without coordinating — these affect CI and deployments.
 - Avoid introducing new runtime dependencies lightly; prefer reusing packages listed in `package.json` catalog.
 
 ## When creating code suggestions
