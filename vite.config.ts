@@ -34,6 +34,7 @@ export default defineConfig({
 				publicDir: "apps/webapp/.output/public",
 				serverDir: "apps/webapp/.output/server",
 			},
+			publicAssets: [{ dir: "apps/webapp/public", maxAge: 0 }],
 		}),
 		tanstackStart({ srcDirectory: "apps/webapp/src" }),
 		react(),
