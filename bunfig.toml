@@ -1,11 +1,6 @@
 [console]
 depth = 3
 
-[test]
-randomize = true
-onlyFailures = true
-preload = ["./test-setup.ts"]
-
 [install]
 linker = "hoisted"
 auto = "disable"
