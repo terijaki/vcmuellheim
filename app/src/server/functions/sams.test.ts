@@ -1,5 +1,7 @@
-import { describe, expect, it } from "vite-plus/test";
-import { buildLiveMatchesFromRaw, resolveClubLogoUrl } from "./sams";
+import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
+import { mockClient } from "aws-sdk-client-mock";
+import { beforeEach, describe, expect, it } from "vite-plus/test";
+import { buildLiveMatchesFromRaw, invokeSamsLambdaAsync, resolveClubLogoUrl, triggerSamsClubsSyncFn, triggerSamsTeamsSyncFn } from "./sams";
 
 describe("resolveClubLogoUrl", () => {
 	const CF = "https://cdn.example.com";
@@ -153,5 +155,51 @@ describe("buildLiveMatchesFromRaw", () => {
 			}),
 		);
 		expect(result).toHaveLength(1);
+	});
+});
+
+// ── invokeSamsLambdaAsync ────────────────────────────────────────────────────
+
+const lambdaMock = mockClient(LambdaClient);
+
+describe("invokeSamsLambdaAsync", () => {
+	beforeEach(() => {
+		lambdaMock.reset();
+		process.env.SAMS_CLUBS_SYNC_FUNCTION_NAME = "test-clubs-sync";
+		process.env.SAMS_TEAMS_SYNC_FUNCTION_NAME = "test-teams-sync";
+	});
+
+	it("resolves without error when StatusCode is 202", async () => {
+		lambdaMock.on(InvokeCommand).resolves({ StatusCode: 202 });
+		await expect(invokeSamsLambdaAsync("test-fn", "test label")).resolves.toBeUndefined();
+	});
+
+	it("throws when StatusCode is not 202", async () => {
+		lambdaMock.on(InvokeCommand).resolves({ StatusCode: 500 });
+		await expect(invokeSamsLambdaAsync("test-fn", "test label")).rejects.toThrow("test label trigger failed: StatusCode=500");
+	});
+
+	it("passes the function name to InvokeCommand", async () => {
+		lambdaMock.on(InvokeCommand).resolves({ StatusCode: 202 });
+		await invokeSamsLambdaAsync("my-function", "label");
+		const calls = lambdaMock.commandCalls(InvokeCommand);
+		expect(calls).toHaveLength(1);
+		expect(calls[0]?.args[0].input).toMatchObject({ FunctionName: "my-function", InvocationType: "Event" });
+	});
+});
+
+// ── triggerSamsClubsSyncFn / triggerSamsTeamsSyncFn — admin guard ────────────
+
+describe("triggerSamsClubsSyncFn", () => {
+	it("rejects when there is no active admin session (no HTTP request context)", async () => {
+		// In a Node.js test environment, requireAdminMiddleware finds no session
+		// via getRequest() and throws an authorization error.
+		await expect(triggerSamsClubsSyncFn()).rejects.toThrow();
+	});
+});
+
+describe("triggerSamsTeamsSyncFn", () => {
+	it("rejects when there is no active admin session (no HTTP request context)", async () => {
+		await expect(triggerSamsTeamsSyncFn()).rejects.toThrow();
 	});
 });
