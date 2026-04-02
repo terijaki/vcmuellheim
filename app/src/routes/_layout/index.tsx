@@ -12,18 +12,19 @@ import HomeNews from "@webapp/components/homepage/HomeNews";
 import HomeSponsors from "@webapp/components/homepage/HomeSponsors";
 import HomeTeams from "@webapp/components/homepage/HomeTeams";
 import { useHomeLiveTickerData } from "@webapp/hooks/useHomeLiveTicker";
+import { getInstagramPostsFn } from "@webapp/server/functions/social";
 import { getHomeIntroBackgroundImageFn } from "@webapp/server/functions/home";
 
 export const Route = createFileRoute("/_layout/")({
 	loader: async () => {
-		const introBackgroundImage = await getHomeIntroBackgroundImageFn();
-		return { introBackgroundImage };
+		const [introBackgroundImage, instagramPosts] = await Promise.all([getHomeIntroBackgroundImageFn(), getInstagramPostsFn()]);
+		return { introBackgroundImage, instagramPosts };
 	},
 	component: HomePage,
 });
 
 function HomePage() {
-	const { introBackgroundImage } = Route.useLoaderData();
+	const { introBackgroundImage, instagramPosts } = Route.useLoaderData();
 	const { ourMatches, hasMatchesToday, hasOpenMatches } = useHomeLiveTickerData();
 
 	const introContent = hasMatchesToday ? (
@@ -48,7 +49,7 @@ function HomePage() {
 	return (
 		<Stack gap={0} align="stretch">
 			<HomeIntro backgroundImage={introBackgroundImage} introContent={introContent} />
-			<HomeInstagram />
+			<HomeInstagram posts={instagramPosts} />
 			<HomeNews />
 			<HomeHeimspiele />
 			<HomeTeams />

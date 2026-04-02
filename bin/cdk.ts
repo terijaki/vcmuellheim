@@ -77,12 +77,10 @@ const samsApiStack = new SamsApiStack(app, samsStackName, {
 	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 });
 
-// Social Media Stack with Instagram and Mastodon integration
-const socialMediaStack = new SocialMediaStack(app, socialMediaStackName, {
+// Social Media Stack with Mastodon integration
+new SocialMediaStack(app, socialMediaStackName, {
 	...commonStackProps,
 	description: `Social Media API Services (${environment}${branchSuffix})`,
-	hostedZone: dnsStack.hostedZone,
-	regionalCertificate: dnsStack.regionalCertificate,
 	contentTable: contentDbStack.contentTable,
 	// Pass the webapp URL for Mastodon news-sharing links
 	websiteUrl: isProd ? `https://${DNS.prod.hostedZoneName}` : `https://${environment}${branchSuffix}.${DNS.dev.hostedZoneName}`,
@@ -93,7 +91,6 @@ const webappStack = new WebAppStack(app, webappStackName, {
 	...commonStackProps,
 	description: `VCM WebApp + Admin (${environment}${branchSuffix})`,
 	contentTable: contentDbStack.contentTable,
-	instagramTable: socialMediaStack.instagramTable,
 	mediaBucket: mediaStack.bucket,
 	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 	hostedZone: dnsStack.hostedZone,

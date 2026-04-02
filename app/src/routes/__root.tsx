@@ -4,7 +4,7 @@ import "@mantine/dropzone/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/tiptap/styles.css";
 import "../globals.css";
-import { ColorSchemeScript, colorsTuple, createTheme, MantineProvider, mantineHtmlProps } from "@mantine/core";
+import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from "@mantine/core";
 import { DatesProvider } from "@mantine/dates";
 import { Notifications } from "@mantine/notifications";
 import { Club } from "@project.config";
@@ -16,42 +16,12 @@ import "dayjs/locale/de";
 import { useEffect } from "react";
 import type { RouterContext } from "../router";
 import { getSessionFn } from "../server/functions/session";
+import { theme } from "../lib/theme";
 
 dayjs.locale("de");
 
 const DEFAULT_DESCRIPTION = "Willkommen beim Volleyballclub Müllheim e.V. - Dein Volleyballverein für alle Altersklassen mit Damen-, Herren- und Jugendteams.";
 const DEFAULT_IMAGE = `${Club.url}/assets/logos/logo-366273-500.png`;
-
-const theme = createTheme({
-	colors: {
-		blumine: colorsTuple("#366273"),
-		turquoise: colorsTuple("#01a29a"),
-		onyx: colorsTuple("#363b40"),
-		lion: colorsTuple("#bfa084"),
-		aquahaze: colorsTuple("#eff5f5"),
-		gamboge: colorsTuple("#f09e1a"),
-	},
-	primaryColor: "blumine",
-	fontFamily: "Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, system-ui, sans-serif",
-	components: {
-		Anchor: {
-			defaultProps: {
-				c: "turquoise",
-			},
-		},
-		Loader: {
-			defaultProps: {
-				type: "dots",
-				size: "lg",
-			},
-		},
-		Skeleton: {
-			defaultProps: {
-				radius: "md",
-			},
-		},
-	},
-});
 
 export const Route = createRootRouteWithContext<RouterContext>()({
 	beforeLoad: async () => {
@@ -78,7 +48,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 			{ name: "twitter:image", content: DEFAULT_IMAGE },
 		],
 		links: [
-			{ rel: "icon", href: "/favicon.ico" },
+			{ rel: "icon", href: "/assets/logos/logo-366273-250.png", type: "image/png" },
+			{ rel: "icon", href: "/assets/logos/logo-363B40-250.png", type: "image/png", media: "(prefers-color-scheme: dark)" },
 			{ rel: "canonical", href: Club.url },
 		],
 	}),

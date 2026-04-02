@@ -83,7 +83,7 @@ export const ResponsiveImage = ({ source, alt, lazy = true, ...props }: Responsi
 	const sizes = jpegSrcSet ? buildSizesAttribute("quarter") : undefined;
 
 	return (
-		<picture>
+		<picture style={{ display: "block", width: "100%", height: "100%" }}>
 			{webpSrcSet && <source type="image/webp" srcSet={webpSrcSet} sizes={sizes} />}
 			<Image src={finalUrl} srcSet={jpegSrcSet} sizes={sizes} alt={alt} loading={lazy ? "lazy" : "eager"} style={{ width: "100%", height: "100%", objectFit: "cover" }} {...props} />
 		</picture>

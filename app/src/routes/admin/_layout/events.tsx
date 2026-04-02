@@ -189,8 +189,8 @@ function EventsPage() {
 						if (eventDates.has(dateStr)) {
 							return {
 								style: {
-									backgroundColor: "var(--mantine-color-turquoise-4)",
-									border: "1px solid var(--mantine-color-turquoise-6)",
+									backgroundColor: "var(--mantine-color-turquoise-6)",
+									border: "1px solid var(--mantine-color-turquoise-8)",
 									color: "var(--mantine-color-white)",
 								},
 							};

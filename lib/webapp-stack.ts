@@ -35,7 +35,6 @@ export interface WebAppStackProps extends cdk.StackProps {
 		branch: string;
 	};
 	contentTable: dynamodb.Table;
-	instagramTable: dynamodb.ITable;
 	mediaBucket: s3Bucket.Bucket;
 	/** CloudFront URL of the media stack — used for serving uploaded images */
 	mediaCloudFrontUrl?: string;
@@ -93,7 +92,6 @@ export class WebAppStack extends cdk.Stack {
 			BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
 			MEDIA_BUCKET_NAME: props.mediaBucket.bucketName,
 			SAMS_TABLE_NAME: samsTableName,
-			INSTAGRAM_TABLE_NAME: props.instagramTable.tableName,
 			...(process.env.SAMS_API_KEY ? { SAMS_API_KEY: process.env.SAMS_API_KEY } : {}),
 			...(process.env.SAMS_SERVER ? { SAMS_SERVER: process.env.SAMS_SERVER } : {}),
 			...(props.mediaCloudFrontUrl ? { CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
@@ -137,7 +135,6 @@ export class WebAppStack extends cdk.Stack {
 
 		// Grant Lambda access to the single content table
 		props.contentTable.grantReadWriteData(this.webappLambda);
-		props.instagramTable.grantReadData(this.webappLambda);
 		dynamodb.Table.fromTableArn(this, "SamsDataTableRef", samsTableArn).grantReadWriteData(this.webappLambda);
 		this.webappLambda.addToRolePolicy(
 			new cdk.aws_iam.PolicyStatement({

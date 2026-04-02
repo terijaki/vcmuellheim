@@ -49,7 +49,7 @@ export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
 						<Checkbox label="Nur Ligabetrieb" checked={leagueParticipation} onChange={() => setLeagueParticipation(!leagueParticipation)} />
 					</Flex>
 				</Group>
-				<Grid gutter="md">
+				<Grid gap="md">
 					{teamsSorted.map((team, index, array) => {
 						const isMatchingLeagueParticipation = leagueParticipation ? Boolean(team.league) : true;
 						const isMatchingGender = gender === "" || team.gender === gender;

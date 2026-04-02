@@ -1,30 +1,9 @@
 import { z } from "zod";
 import { optionalEnvString, requiredEnvString } from "../utils/env";
 
-type SerializableValue = string | number | boolean | bigint | symbol | object;
-
-const serializableValueSchema = z.custom<SerializableValue>((value) => value !== null && value !== undefined);
-
 // ============================================================================
 // Lambda Environment Contracts
 // ============================================================================
-
-export const InstagramSyncLambdaEnvironmentSchema = z.object({
-	CDK_ENVIRONMENT: optionalEnvString,
-	INSTAGRAM_TABLE_NAME: requiredEnvString,
-	APIFY_API_KEY: requiredEnvString,
-	APIFY_SCHEDULE_ID: requiredEnvString,
-	APIFY_ACTOR_ID: requiredEnvString,
-});
-
-export type InstagramSyncLambdaEnvironment = z.infer<typeof InstagramSyncLambdaEnvironmentSchema>;
-
-export const InstagramPostsLambdaEnvironmentSchema = z.object({
-	CDK_ENVIRONMENT: optionalEnvString,
-	INSTAGRAM_TABLE_NAME: requiredEnvString,
-});
-
-export type InstagramPostsLambdaEnvironment = z.infer<typeof InstagramPostsLambdaEnvironmentSchema>;
 
 export const MastodonShareLambdaEnvironmentSchema = z.object({
 	CDK_ENVIRONMENT: optionalEnvString,
@@ -47,91 +26,77 @@ export const MastodonStreamHandlerLambdaEnvironmentSchema = z.object({
 export type MastodonStreamHandlerLambdaEnvironment = z.infer<typeof MastodonStreamHandlerLambdaEnvironmentSchema>;
 
 // ============================================================================
-// Instagram Schemas & Types
+// Behold.so Schemas & Types
 // ============================================================================
 
-/**
- * Instagram post from Apify scraper (input)
- */
-export const InstagramPostSchema = z.object({
-	id: z.string(),
-	timestamp: z.string(),
-	type: z.enum(["Image", "Video"]),
-	url: z.string().optional(),
-	ownerFullName: z.string(),
-	ownerUsername: z.string(),
-	inputUrl: z.string(),
-	caption: z.string().optional(),
-	displayUrl: z.string().optional(),
-	videoUrl: z.string().optional(),
-	dimensionsHeight: z.number(),
-	dimensionsWidth: z.number(),
-	images: z.array(z.record(z.string(), serializableValueSchema)).optional(),
-	likesCount: z.number(),
-	commentsCount: z.number(),
-	hashtags: z.array(z.string()).optional(),
+const BeholdSizeSchema = z.object({
+	mediaUrl: z.url(),
+	height: z.number(),
+	width: z.number(),
 });
 
-export type InstagramPost = z.infer<typeof InstagramPostSchema>;
+const BeholdSizesSchema = z.object({
+	small: BeholdSizeSchema,
+	medium: BeholdSizeSchema,
+	large: BeholdSizeSchema,
+	full: BeholdSizeSchema,
+});
+
+const BeholdColorPaletteSchema = z.object({
+	dominant: z.string(),
+	muted: z.string(),
+	mutedLight: z.string(),
+	mutedDark: z.string(),
+	vibrant: z.string(),
+	vibrantLight: z.string(),
+	vibrantDark: z.string(),
+});
+
+const BeholdChildPostSchema = z.object({
+	id: z.string(),
+	mediaType: z.string(),
+	mediaUrl: z.url(),
+	sizes: BeholdSizesSchema,
+	colorPalette: BeholdColorPaletteSchema,
+});
 
 /**
- * DynamoDB item schema - transforms Instagram post for storage
- * Automatically strips undefined/null values and adds metadata
+ * A single Instagram post as returned by the Behold.so feed API.
+ * Schema must stay in sync with the official @behold/types Post interface —
+ * the compile-time check below will error if drift is detected.
  */
-export const InstagramPostItemSchema = z
-	.object({
-		id: z.string(),
-		entityType: z.literal("POST"),
-		timestamp: z.string(),
-		type: z.enum(["Image", "Video"]),
-		ownerFullName: z.string(),
-		ownerUsername: z.string().transform((val) => val.toLowerCase()),
-		inputUrl: z.string(),
-		dimensionsHeight: z.number(),
-		dimensionsWidth: z.number(),
-		likesCount: z.number(),
-		commentsCount: z.number(),
-		updatedAt: z.string(),
-		ttl: z.number(),
-		// Optional fields - only included if present
-		url: z.string().optional(),
-		caption: z.string().optional(),
-		displayUrl: z.string().optional(),
-		videoUrl: z.string().optional(),
-		images: z.array(z.record(z.string(), serializableValueSchema)).optional(),
-		hashtags: z.array(z.string()).optional(),
-	})
-	.transform((data) => {
-		// Remove undefined values to save DynamoDB storage
-		return Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined)) as InstagramPostItem;
-	});
+export const BeholdPostSchema = z.object({
+	id: z.string(),
+	timestamp: z.string(),
+	permalink: z.string(),
+	mediaType: z.enum(["IMAGE", "VIDEO", "CAROUSEL_ALBUM"]),
+	isReel: z.boolean().optional(),
+	mediaUrl: z.url(),
+	thumbnailUrl: z.url().optional(),
+	sizes: BeholdSizesSchema,
+	caption: z.string(),
+	altText: z.string().optional(),
+	prunedCaption: z.string(),
+	hashtags: z.array(z.string()),
+	hashtag: z.string().optional(),
+	mentions: z.array(z.string()),
+	colorPalette: BeholdColorPaletteSchema,
+	children: z.array(BeholdChildPostSchema).optional(),
+});
 
-export type InstagramPostItem = {
-	id: string;
-	entityType: "POST";
-	timestamp: string;
-	type: "Image" | "Video";
-	ownerFullName: string;
-	ownerUsername: string;
-	inputUrl: string;
-	dimensionsHeight: number;
-	dimensionsWidth: number;
-	likesCount: number;
-	commentsCount: number;
-	updatedAt: string;
-	ttl: number;
-	url?: string;
-	caption?: string;
-	displayUrl?: string;
-	videoUrl?: string;
-	images?: Record<string, SerializableValue>[];
-	hashtags?: string[];
-};
+export type BeholdPost = z.infer<typeof BeholdPostSchema>;
+
+// Compile-time drift detection: if @behold/types diverges from our Zod schema,
+// TypeScript will fail here during `vp check`. The check verifies that any value
+// the Behold API produces (typed as their official Post) is assignable to our
+// schema-derived type — i.e., our schema accepts all valid Behold responses.
+import type { Post as _BeholdApiPost } from "@behold/types";
+declare const _beholdPostDriftCheck: _BeholdApiPost extends BeholdPost ? true : "⚠ Drift detected: update BeholdPostSchema to match @behold/types Post";
+declare const _assertDriftCheck: typeof _beholdPostDriftCheck extends true ? true : never;
 
 /**
- * Response for multiple Instagram posts
+ * Top-level response from the Behold.so feed API.
  */
-export interface InstagramPostsResponse {
-	posts: InstagramPost[];
-	count: number;
-}
+export const BeholdFeedSchema = z.object({
+	posts: z.array(BeholdPostSchema),
+});

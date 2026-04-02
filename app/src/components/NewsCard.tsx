@@ -47,21 +47,21 @@ const NewsCard = forwardRef<HTMLAnchorElement, News>((props, ref) => {
 			<CardSection bg={hasImage && thumbnail ? "lion" : undefined} mb="xs">
 				{thumbnail ? (
 					<Box style={{ position: "relative", height: CARD_HEIGHT, overflow: "hidden" }}>
-						<ResponsiveImage
-							source={thumbnail}
-							alt={`Galleryfoto`}
+						<Box
 							style={{
-								transition: "transform 0.5s ease",
-								transform: isHovered ? "scale(1.03)" : undefined,
 								position: "absolute",
 								top: 0,
 								left: 0,
 								width: "100%",
 								height: "100%",
 								zIndex: 1,
+								transition: "transform 0.5s ease",
+								transform: isHovered ? "scale(1.03)" : undefined,
 							}}
-						/>
-						<Stack style={{ zIndex: 2, position: "relative", height: "100%" }} justify="flex-end" h={CARD_HEIGHT}>
+						>
+							<ResponsiveImage source={thumbnail} alt={`Galleryfoto`} />
+						</Box>
+						<Stack style={{ zIndex: 2, position: "absolute", bottom: 0, left: 0, right: 0 }}>
 							<Title order={4} fw="bold" px="sm" py="xs" c="white" lineClamp={2} style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
 								{props.title}
 							</Title>

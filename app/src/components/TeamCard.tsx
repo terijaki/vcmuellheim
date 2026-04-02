@@ -57,7 +57,7 @@ export default function TeamCard(props: Team) {
 				</ActionIcon>
 			</Group>
 
-			<Collapse in={isOpen}>
+			<Collapse expanded={isOpen}>
 				<Stack>
 					{ageGroup && (
 						<Group gap="xs">

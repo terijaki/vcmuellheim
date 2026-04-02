@@ -35,7 +35,6 @@ function applyLocalAwsResourceEnv(environment: string) {
 	setDefaultEnv(CONTENT_TABLE_ENV_VAR, `vcm-content-${environment}${branchSuffix}`);
 
 	setDefaultEnv("SAMS_TABLE_NAME", getSamsDataTableName(environment, sanitizedBranch));
-	setDefaultEnv("INSTAGRAM_TABLE_NAME", `instagram-posts-${environment}${branchSuffix}`);
 	setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
 	setDefaultEnv("SAMS_SERVER", "https://www.volleyball-baden.de");
 
