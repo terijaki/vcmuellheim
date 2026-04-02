@@ -10,8 +10,8 @@ import { BeholdFeedSchema } from "@/lambda/social/types";
 import { Instagram } from "@project.config";
 import { parseServerData } from "../schema-parse";
 
-const MAX_POSTS = 4;
-const MAX_AGE_DAYS = 1411;
+const MAX_POSTS = 2;
+const MAX_AGE_DAYS = process.env.NODE_ENV === "development" ? 365 : 14;
 
 export const getInstagramPostsFn = createServerFn({ method: "GET" }).handler(async (): Promise<BeholdPost[]> => {
 	const response = await fetch(Instagram.beholdFeedUrl);
