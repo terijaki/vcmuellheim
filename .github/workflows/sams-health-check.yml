@@ -17,7 +17,7 @@ jobs:
     outputs:
       has_drift: ${{ steps.diff.outputs.has_drift }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: voidzero-dev/setup-vp@v1
         with:
@@ -61,7 +61,7 @@ jobs:
       fixed_bug_ids: ${{ steps.parse.outputs.fixed_bug_ids }}
       check_failed_ids: ${{ steps.parse.outputs.check_failed_ids }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: voidzero-dev/setup-vp@v1
         with:
@@ -125,7 +125,7 @@ jobs:
       failed: ${{ steps.result.outputs.failed }}
       failure_step: ${{ steps.result.outputs.failure_step }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: voidzero-dev/setup-vp@v1
         with:
@@ -173,7 +173,7 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: voidzero-dev/setup-vp@v1
         with:

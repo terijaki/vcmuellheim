@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - uses: voidzero-dev/setup-vp@v1
         with:
@@ -37,7 +37,7 @@ jobs:
         run: vp install
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION || 'eu-central-1' }}
@@ -70,7 +70,6 @@ jobs:
           CDK_BUDGET_ALERT_EMAIL: ${{ secrets.CDK_BUDGET_ALERT_EMAIL }}
           CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
           VITE_CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
-          APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
           SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
           SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
@@ -83,7 +82,6 @@ jobs:
           CDK_BUDGET_ALERT_EMAIL: ${{ secrets.CDK_BUDGET_ALERT_EMAIL }}
           CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
           VITE_CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
-          APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
           SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
           SAMS_SERVER: ${{ secrets.SAMS_SERVER }}
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
@@ -132,7 +130,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get workflow logs
         id: logs
@@ -146,7 +144,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment on deployment
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const workflowUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
