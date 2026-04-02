@@ -75,7 +75,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
 					</Group>
 				</Group>
 			</Container>
-			<Collapse in={opened} hiddenFrom="md" bg="onyx" p="md">
+			<Collapse expanded={opened} hiddenFrom="md" bg="onyx" p="md">
 				<Stack gap="xs">
 					{navLinks.map(({ to, label, icon }) => {
 						const isActive = location.pathname.startsWith(to);

@@ -65,7 +65,7 @@ export default function Header() {
 					<Burger opened={opened} onClick={toggle} hiddenFrom="sm" color="white" />
 				</Group>
 			</Container>
-			<Collapse in={opened} hiddenFrom="sm" bg="onyx" p="md">
+			<Collapse expanded={opened} hiddenFrom="sm" bg="onyx" p="md">
 				<Group justify="space-between" align="flex-start" pt="lg">
 					<Stack gap="xs">
 						{navbarLinks.map((item) => (

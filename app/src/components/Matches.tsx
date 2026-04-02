@@ -62,7 +62,7 @@ export default function Matches({
 						const team2 = match._embedded?.team2;
 						const leagueName = match.leagueUuid && leagues.get(match.leagueUuid);
 						return (
-							<Grid key={match.uuid} data-match-number={match.matchNumber} data-match-uuid={match.uuid} bg={oddIndex ? "gray.1" : undefined} p="xs" gutter={{ base: 0, sm: "xs" }} align="center">
+							<Grid key={match.uuid} data-match-number={match.matchNumber} data-match-uuid={match.uuid} bg={oddIndex ? "gray.1" : undefined} p="xs" gap={{ base: 0, sm: "xs" }} align="center">
 								{/* date and location */}
 								<GridCol span={{ base: 12, sm: 3 }}>
 									<Flex direction={{ base: "row", sm: "column" }} columnGap="xs" rowGap={0} align="center">
@@ -143,7 +143,7 @@ export default function Matches({
 					const leagueName = match.leagueUuid && leagues.get(match.leagueUuid);
 
 					return (
-						<Grid key={match.uuid} data-match-number={match.matchNumber} data-match-uuid={match.uuid} bg={oddIndex ? "gray.1" : undefined} p="xs" gutter={{ base: 0, sm: "xs" }} align="center">
+						<Grid key={match.uuid} data-match-number={match.matchNumber} data-match-uuid={match.uuid} bg={oddIndex ? "gray.1" : undefined} p="xs" gap={{ base: 0, sm: "xs" }} align="center">
 							<GridCol span={{ base: 12, sm: 3 }}>
 								<Flex columnGap="xs" rowGap={0} align="center" direction={{ base: "row", sm: "column" }} c="onyx">
 									{match.date && (
