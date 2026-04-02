@@ -1,99 +1,71 @@
-import { Card, CardSection, Grid, GridCol, Group, Image, Stack, Text } from "@mantine/core";
-import { useInViewport } from "@mantine/hooks";
+import { Card, CardSection, Grid, GridCol, Image, Stack, Text } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { FaComment as IconComment, FaHeart as IconLike } from "react-icons/fa6";
-import type { InstagramPost } from "@/lambda/social/types";
+import type { BeholdPost } from "@/lambda/social/types";
 
-export default function InstagramCard(post: InstagramPost) {
+export default function InstagramCard(post: BeholdPost) {
 	const [isHovered, setIsHovered] = useState(false);
-	const { ref } = useInViewport();
 	const [videoLoaded, setVideoLoaded] = useState(false);
 	const videoRef = useRef<HTMLVideoElement>(null);
 
-	const {
-		id,
-		caption,
-		likesCount,
-		commentsCount,
-		url,
-		displayUrl,
-		// dimensionsHeight,
-		// dimensionsWidth,
-		ownerUsername,
-		hashtags,
-		videoUrl,
-	} = post;
+	const { id, prunedCaption, sizes, permalink, hashtags, mediaType, mediaUrl } = post;
 
-	const shouldShowVideo = isHovered;
+	const isVideo = mediaType === "VIDEO";
 
-	// Handle video playback on hover with user interaction requirement
 	const handleMouseEnter = () => {
 		setIsHovered(true);
-		// Try to play immediately on hover
 		if (videoRef.current && videoLoaded) {
-			videoRef.current.play().catch(() => {
-				// If autoplay fails, it will play on click instead
-			});
+			videoRef.current.play().catch(() => {});
 		}
 	};
 
 	const handleVideoClick = (e: React.MouseEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
-		if (videoRef.current) {
-			if (videoRef.current.paused) {
-				videoRef.current.play();
-			}
+		if (videoRef.current?.paused) {
+			videoRef.current.play();
 		}
 	};
 
-	// Handle video playback state
 	useEffect(() => {
 		const video = videoRef.current;
 		if (!video) return;
-
-		if (!shouldShowVideo && !video.paused) {
+		if (!isHovered && !video.paused) {
 			video.pause();
 			video.currentTime = 0;
 		}
-	}, [shouldShowVideo]);
-
-	// fetch data dynamicallys based on instagram url in our teams
+	}, [isHovered]);
 
 	return (
 		<Card
-			ref={ref}
 			component="a"
-			href={url || ""}
+			href={permalink}
 			target="_blank"
 			rel="noopener noreferrer"
 			radius="md"
 			shadow="sm"
+			h={180}
+			style={{ overflow: "hidden" }}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={() => setIsHovered(false)}
 			data-post-id={id}
 		>
-			<CardSection ref={ref}>
-				<Grid justify="space-between" align="stretch" gutter={0}>
-					<GridCol span={4} pos="relative" style={{ overflow: "hidden" }}>
-						{videoUrl && (
+			<CardSection h="100%">
+				<Grid justify="space-between" align="stretch" gutter={0} h="100%">
+					<GridCol span={4} pos="relative" style={{ overflow: "hidden", display: "flex", alignItems: "center" }}>
+						{isVideo && (
 							<video
 								ref={videoRef}
-								src={videoUrl}
+								src={mediaUrl}
 								height="100%"
 								width="100%"
 								muted
 								loop
 								playsInline
-								poster={displayUrl}
+								poster={sizes.small.mediaUrl}
 								controls={false}
 								onClick={handleVideoClick}
-								onLoadedData={() => {
-									setVideoLoaded(true);
-								}}
-								onError={() => {
-									setVideoLoaded(false);
-								}}
+								onLoadedData={() => setVideoLoaded(true)}
+								onError={() => setVideoLoaded(false)}
 								preload="auto"
 								style={{
 									position: "absolute",
@@ -103,14 +75,14 @@ export default function InstagramCard(post: InstagramPost) {
 									right: 0,
 									zIndex: 1,
 									objectFit: "cover",
-									opacity: shouldShowVideo && videoLoaded ? 1 : 0,
+									opacity: isHovered && videoLoaded ? 1 : 0,
 									transition: "opacity 0.5s ease",
 									cursor: "pointer",
 								}}
 							/>
 						)}
 						<Image
-							src={displayUrl}
+							src={sizes.small.mediaUrl}
 							alt={""}
 							style={{
 								width: "100%",
@@ -123,23 +95,14 @@ export default function InstagramCard(post: InstagramPost) {
 							}}
 						/>
 					</GridCol>
-					<GridCol span={8}>
+					<GridCol span={8} style={{ overflow: "hidden" }}>
 						<Stack justify="space-between" p="sm">
-							<Text lineClamp={6}>{caption}</Text>
-							{hashtags && hashtags.length > 0 && (
+							<Text lineClamp={6}>{prunedCaption}</Text>
+							{hashtags.length > 0 && (
 								<Text size="xs" fw="bold">
 									{hashtags.map((h) => `#${h}`).join(" ")}
 								</Text>
 							)}
-							<Group c="dimmed">
-								<Text size="xs">
-									<IconLike /> {likesCount}
-								</Text>
-								<Text size="xs">
-									<IconComment /> {commentsCount}
-								</Text>
-								<Text size="xs">＠ {ownerUsername}</Text>
-							</Group>
 						</Stack>
 					</GridCol>
 				</Grid>

@@ -82,6 +82,7 @@
 		"@aws-lambda-powertools/logger": "^2.31.0",
 		"@aws-lambda-powertools/tracer": "^2.31.0",
 		"@aws-sdk/client-lambda": "^3.1009.0",
+		"@behold/types": "^0.2.0",
 		"@hey-api/openapi-ts": "^0.94.5",
 		"@sentry/vite-plugin": "^5.1.1",
 		"@tanstack/router-plugin": "^1.167.5",

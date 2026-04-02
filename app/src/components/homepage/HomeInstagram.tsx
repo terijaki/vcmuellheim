@@ -1,13 +1,15 @@
 import { BackgroundImage, Box, Container, Overlay, SimpleGrid, Stack } from "@mantine/core";
-import { useRecentInstagramPosts } from "../../hooks/dataQueries";
+import type { BeholdPost } from "@/lambda/social/types";
 import InstagramCard from "../InstagramCard";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default function HomeInstagram() {
-	const { data, isLoading } = useRecentInstagramPosts();
-	if (isLoading) return null;
-	if (!data || data.length === 0) return null;
+interface HomeInstagramProps {
+	posts: BeholdPost[];
+}
+
+export default function HomeInstagram({ posts }: HomeInstagramProps) {
+	if (posts.length === 0) return null;
 
 	return (
 		<Box bg="onyx">
@@ -17,10 +19,9 @@ export default function HomeInstagram() {
 					<Stack>
 						<SectionHeading text="Instagram" color="white" />
 						<SimpleGrid cols={{ base: 1, md: 2 }}>
-							{data.slice(0, 4).map((post) => {
-								if (!post) return null;
-								return <InstagramCard key={post.id} {...post} />;
-							})}
+							{posts.map((post) => (
+								<InstagramCard key={post.id} {...post} />
+							))}
 						</SimpleGrid>
 					</Stack>
 				</Container>

@@ -12,7 +12,6 @@ import { listMembersFn } from "../server/functions/members";
 // Server functions
 import { getGalleryImagesFn, getNewsByIdFn, getPublishedNewsFn } from "../server/functions/news";
 import { getClubLogoUrlFn, getClubLogoUrlsBatchFn, getSamsMatchesFn, getSamsRankingByLeagueUuidFn, getSamsTickerFn, listSamsTeamsFn } from "../server/functions/sams";
-import { getRecentInstagramPostsFn } from "../server/functions/social";
 import { listSponsorsFn } from "../server/functions/sponsors";
 import { getTeamBySlugFn, listTeamsFn } from "../server/functions/teams";
 import { getFileUrlFn, getFileUrlsFn } from "../server/functions/upload";
@@ -147,18 +146,6 @@ export const useFileUrls = (s3Keys?: string[]) => {
 			return getFileUrlsFn({ data: { s3Keys } });
 		},
 		enabled: !!s3Keys && s3Keys.length > 0,
-	});
-};
-
-// ============================================================================
-// Instagram / Social
-// ============================================================================
-
-export const useRecentInstagramPosts = ({ days = 30 }: { days?: number } = {}) => {
-	return useQuery({
-		queryKey: ["instagramPosts", days],
-		queryFn: () => getRecentInstagramPostsFn({ data: { days } }),
-		staleTime: 1000 * 60 * 15, // 15 minutes
 	});
 };
 

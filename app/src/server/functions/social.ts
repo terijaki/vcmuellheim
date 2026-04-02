@@ -1,70 +1,27 @@
 /**
- * Social media server functions — replaces the instagram-posts Lambda read endpoint.
+ * Social media server functions — fetches Instagram posts from Behold.so CDN feed.
  * Public, no auth required.
  */
 
-import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { createServerFn } from "@tanstack/react-start";
 import dayjs from "dayjs";
-import { z } from "zod";
-import { type InstagramPost, InstagramPostSchema } from "@/lambda/social/types";
-import { docClient } from "@/lib/db/client";
-import { parseServerArray } from "../schema-parse";
+import type { BeholdPost } from "@/lambda/social/types";
+import { BeholdFeedSchema } from "@/lambda/social/types";
+import { Instagram } from "@project.config";
+import { parseServerData } from "../schema-parse";
 
-const INSTAGRAM_TABLE_NAME = () => process.env.INSTAGRAM_TABLE_NAME || "";
-type SerializableValue = string | number | boolean | bigint | symbol | object;
-type SerializableInstagramImage = Record<string, SerializableValue>;
-type InstagramPostForServerFn = Omit<InstagramPost, "images"> & {
-	images?: SerializableInstagramImage[];
-};
+const MAX_POSTS = 4;
+const MAX_AGE_DAYS = 1411;
 
-function normalizeInstagramImages(images: InstagramPost["images"]): SerializableInstagramImage[] | undefined {
-	if (!images) {
-		return undefined;
+export const getInstagramPostsFn = createServerFn({ method: "GET" }).handler(async (): Promise<BeholdPost[]> => {
+	const response = await fetch(Instagram.beholdFeedUrl);
+	if (!response.ok) {
+		throw new Error(`Failed to fetch Behold feed: ${response.status}`);
 	}
 
-	return images.map((image) => {
-		const normalizedImage: SerializableInstagramImage = {};
+	const raw: unknown = await response.json();
+	const feed = parseServerData(BeholdFeedSchema, raw, "Failed to parse Behold feed");
 
-		for (const [key, value] of Object.entries(image)) {
-			if (value !== null && value !== undefined) {
-				normalizedImage[key] = value;
-			}
-		}
-
-		return normalizedImage;
-	});
-}
-
-export const getRecentInstagramPostsFn = createServerFn({ method: "GET" })
-	.inputValidator(z.object({ days: z.number().int().min(1).max(90).optional() }))
-	.handler(async ({ data }) => {
-		const days = data?.days ?? 7;
-		const cutoffDate = dayjs().subtract(days, "day").toISOString();
-
-		const command = new QueryCommand({
-			TableName: INSTAGRAM_TABLE_NAME(),
-			KeyConditionExpression: "entityType = :entityType AND #ts >= :cutoffDate",
-			ExpressionAttributeValues: {
-				":entityType": "POST",
-				":cutoffDate": cutoffDate,
-			},
-			ExpressionAttributeNames: {
-				"#ts": "timestamp",
-				"#type": "type",
-				"#url": "url",
-			},
-			ProjectionExpression:
-				"id, #ts, #type, #url, ownerFullName, ownerUsername, inputUrl, caption, displayUrl, videoUrl, dimensionsHeight, dimensionsWidth, images, likesCount, commentsCount, hashtags",
-			ScanIndexForward: false,
-		});
-
-		const result = await docClient.send(command);
-		const items = result.Items || [];
-		const posts = parseServerArray(InstagramPostSchema, items, "Failed to parse Instagram posts");
-
-		return posts.map<InstagramPostForServerFn>((post) => ({
-			...post,
-			images: normalizeInstagramImages(post.images),
-		}));
-	});
+	const cutoff = dayjs().subtract(MAX_AGE_DAYS, "day");
+	return feed.posts.filter((post) => dayjs(post.timestamp).isAfter(cutoff)).slice(0, MAX_POSTS);
+});

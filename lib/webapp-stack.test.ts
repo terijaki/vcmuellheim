@@ -76,7 +76,6 @@ function createDependencies(app: cdk.App) {
 
 	return {
 		contentTable: createTable("ContentTable"),
-		instagramTable: createTable("InstagramTable"),
 		mediaBucket: new s3.Bucket(dependencyStack, "MediaBucket"),
 	};
 }
@@ -160,7 +159,7 @@ describe("WebAppStack", () => {
 					BETTER_AUTH_SECRET: "test-auth-secret",
 					CDK_ENVIRONMENT: "dev",
 					CLOUDFRONT_URL: "https://media.example.com",
-					INSTAGRAM_TABLE_NAME: Match.anyValue(),
+
 					MEDIA_BUCKET_NAME: Match.anyValue(),
 					NODE_ENV: "production",
 					SAMS_TABLE_NAME: Match.anyValue(),

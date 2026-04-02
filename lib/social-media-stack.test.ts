@@ -1,12 +1,7 @@
-import { beforeAll, describe, it } from "vite-plus/test";
-import { Match, Template } from "aws-cdk-lib/assertions";
+import { describe, it } from "vite-plus/test";
+import { Template } from "aws-cdk-lib/assertions";
 import { SocialMediaStack } from "./social-media-stack";
 import { createTestApp } from "./test-helpers";
-
-// Set required environment variables before tests
-beforeAll(() => {
-	process.env.APIFY_API_KEY = "test-api-key";
-});
 
 describe("SocialMediaStack", () => {
 	describe("Development environment", () => {
@@ -25,81 +20,22 @@ describe("SocialMediaStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Should have HTTP API (ApiGatewayV2)
-			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
+			// Should have no API Gateway (removed with Instagram pipeline)
+			template.resourceCountIs("AWS::ApiGatewayV2::Api", 0);
 
-			// Should have 3 Lambda functions (InstagramSync + InstagramPosts + MastodonShare)
-			// Note: Mastodon stream handler is only created when newsTable is provided
-			template.resourceCountIs("AWS::Lambda::Function", 3);
+			// Should have 1 Lambda function (MastodonShare only — MastodonStreamHandler requires contentTable)
+			template.resourceCountIs("AWS::Lambda::Function", 1);
 
-			// Should have 1 DynamoDB table
-			template.resourceCountIs("AWS::DynamoDB::Table", 1);
+			// Should have no DynamoDB tables (Instagram table removed)
+			template.resourceCountIs("AWS::DynamoDB::Table", 0);
 
-			// Should have EventBridge rule for daily sync
-			template.resourceCountIs("AWS::Events::Rule", 1);
-		});
-
-		it("should set correct removal policy for dev", () => {
-			const app = createTestApp();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			// Dev table should have DESTROY removal policy
-			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "instagram-posts-dev",
-			});
-		});
-
-		it("should include branch suffix in resource names", () => {
-			const app = createTestApp();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "feature-xyz",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			// Check Lambda function names include branch suffix
-			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "instagram-sync-dev-feature-xyz",
-			});
-
-			// Check DynamoDB table names include branch suffix
-			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "instagram-posts-dev-feature-xyz",
-			});
-		});
-	});
-
-	describe("Production environment", () => {
-		it("should set RETAIN removal policy for prod tables", () => {
-			const app = createTestApp();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "prod",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			// Prod table should have RETAIN removal policy
-			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "instagram-posts-prod",
-			});
+			// Should have no EventBridge rules (Instagram sync removed)
+			template.resourceCountIs("AWS::Events::Rule", 0);
 		});
 	});
 
 	describe("Lambda functions", () => {
-		it("should configure sync function with correct timeout", () => {
+		it("should configure mastodon share function with correct settings", () => {
 			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
@@ -111,156 +47,9 @@ describe("SocialMediaStack", () => {
 			const template = Template.fromStack(stack);
 
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "instagram-sync-dev",
-				Timeout: 300, // 5 minutes
+				FunctionName: "mastodon-share-dev",
+				Timeout: 60,
 				MemorySize: 512,
-			});
-		});
-
-		it("should configure posts function with correct timeout", () => {
-			const app = createTestApp();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "instagram-posts-dev",
-				Timeout: 30,
-				MemorySize: 256,
-			});
-		});
-
-		it("should set environment variables for sync Lambda", () => {
-			const app = createTestApp();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "instagram-sync-dev",
-				Environment: {
-					Variables: {
-						APIFY_API_KEY: "test-api-key",
-					},
-				},
-			});
-		});
-	});
-
-	describe("DynamoDB table", () => {
-		it("should create Instagram posts table with correct schema", () => {
-			const app = createTestApp();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "instagram-posts-dev",
-				BillingMode: "PAY_PER_REQUEST",
-				KeySchema: [
-					{
-						AttributeName: "entityType",
-						KeyType: "HASH",
-					},
-					{
-						AttributeName: "timestamp",
-						KeyType: "RANGE",
-					},
-				],
-			});
-		});
-
-		it("should enable TTL on table", () => {
-			const app = createTestApp();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TimeToLiveSpecification: {
-					AttributeName: "ttl",
-					Enabled: true,
-				},
-			});
-		});
-	});
-
-	describe("EventBridge schedule", () => {
-		it("should create daily sync schedule at 4 AM UTC", () => {
-			const app = createTestApp();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::Events::Rule", {
-				ScheduleExpression: "cron(0 4 * * ? *)",
-			});
-		});
-	});
-
-	describe("HTTP API Gateway", () => {
-		it("should configure CORS", () => {
-			const app = createTestApp();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::ApiGatewayV2::Api", {
-				Name: "Social Media API (dev)",
-				CorsConfiguration: {
-					AllowOrigins: Match.arrayWith(["https://vcmuellheim.de"]),
-					AllowMethods: ["GET", "POST", "OPTIONS"],
-					AllowCredentials: false,
-				},
-			});
-		});
-
-		it("should create instagram route", () => {
-			const app = createTestApp();
-			const stack = new SocialMediaStack(app, "TestStack", {
-				stackProps: {
-					environment: "dev",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			// Should have routes
-			template.resourceCountIs("AWS::ApiGatewayV2::Route", 1);
-
-			template.hasResourceProperties("AWS::ApiGatewayV2::Route", {
-				RouteKey: "GET /instagram",
 			});
 		});
 	});
