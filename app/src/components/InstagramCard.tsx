@@ -49,7 +49,7 @@ export default function InstagramCard(post: BeholdPost) {
 			onMouseLeave={() => setIsHovered(false)}
 			data-post-id={id}
 		>
-			<CardSection w={180} style={{ overflow: "hidden" }}>
+			<CardSection w={180} pos="relative" style={{ overflow: "hidden" }}>
 				{isVideo && (
 					<video
 						ref={videoRef}
