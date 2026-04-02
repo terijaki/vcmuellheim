@@ -1,16 +1,14 @@
 import type { Sponsor } from "@lib/db/types";
-import { Anchor, BackgroundImage, Box, Button, Container, Flex, Group, Image, Loader, Overlay, Stack, Text } from "@mantine/core";
+import { Anchor, BackgroundImage, Box, Button, Container, Flex, Group, Image, Loader, Marquee, Overlay, Stack, Text } from "@mantine/core";
 import { Club } from "@project.config";
 import { useFileUrl, useSponsors } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
 
-//TODO when there are more sponsors (>2) use a Marquee (available in Mantine V9)
-
-export default function HomeSponsors() {
+export default function HomeSponsors({ showFallback }: { showFallback?: boolean }) {
 	const { data } = useSponsors();
 	const sponsors = data?.items || [];
-	if (sponsors.length === 0) return null;
+	if (sponsors.length === 0 && !showFallback) return null;
 
 	return (
 		<Box bg="blumine">
@@ -19,7 +17,7 @@ export default function HomeSponsors() {
 				<Container size="xl" py="md" c="white">
 					<Stack gap="xs">
 						<SectionHeading text={sponsors.length === 1 ? "Sponsor" : "Sponsoren"} color="white" />
-						<Sponsors sponsors={sponsors} />
+						<Sponsors sponsors={sponsors} showFallback={showFallback} />
 					</Stack>
 				</Container>
 				<Overlay backgroundOpacity={0.9} color="var(--mantine-color-blumine-filled)" blur={2} zIndex={-1} />
@@ -28,8 +26,8 @@ export default function HomeSponsors() {
 	);
 }
 
-function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
-	if (!sponsors || sponsors.length === 0)
+function Sponsors({ sponsors, showFallback }: { sponsors: Sponsor[]; showFallback?: boolean }) {
+	if (showFallback && (!sponsors || sponsors.length === 0))
 		return (
 			<Container size="sm">
 				<Stack justify="center" align="center">
@@ -48,11 +46,19 @@ function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 	return (
 		<Stack align="center">
 			<Text>Wir bedanken uns herzlich bei {sponsors.length === 1 ? "unserem Sponsor" : "unseren Sponsoren"}!</Text>
-			<Group gap="xl" align="flex-start" justify="center">
-				{sponsors.map((sponsor) => {
-					return <SponsorCard sponsor={sponsor} key={sponsor.id} />;
-				})}
-			</Group>
+			{sponsors.length > 2 ? (
+				<Marquee gap="xl" fadeEdgeColor="var(--mantine-color-blumine-filled)">
+					{sponsors.map((sponsor) => (
+						<SponsorCard sponsor={sponsor} key={sponsor.id} />
+					))}
+				</Marquee>
+			) : (
+				<Group gap="xl" align="flex-start" justify="center">
+					{sponsors.map((sponsor) => (
+						<SponsorCard sponsor={sponsor} key={sponsor.id} />
+					))}
+				</Group>
+			)}
 		</Stack>
 	);
 }

@@ -50,7 +50,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
 							{navLinks.map(({ to, label }) => {
 								const isActive = location.pathname.startsWith(to);
 								return (
-									<UnstyledButton key={to} component={Link} to={to} c={isActive ? "turquoise.3" : "white"} fw={isActive ? 700 : 500} style={{ whiteSpace: "nowrap" }}>
+									<UnstyledButton key={to} component={Link} to={to} c={isActive ? "turquoise.4" : "white"} fw={isActive ? 700 : 500} style={{ whiteSpace: "nowrap" }}>
 										{label}
 									</UnstyledButton>
 								);
@@ -59,7 +59,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
 						<Group gap="xs">
 							<Menu position="bottom-end">
 								<Menu.Target>
-									<Avatar name={user?.name} variant="transparent" style={{ cursor: "pointer" }} />
+									<Avatar name={user?.name} variant="transparent" color="white" style={{ cursor: "pointer" }} />
 								</Menu.Target>
 								<Menu.Dropdown>
 									{user?.email && <Menu.Label>{user.email}</Menu.Label>}
@@ -80,7 +80,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
 					{navLinks.map(({ to, label, icon }) => {
 						const isActive = location.pathname.startsWith(to);
 						return (
-							<UnstyledButton key={to} component={Link} to={to} onClick={close} c={isActive ? "turquoise.3" : "white"} fw={isActive ? 700 : 500} w="100%">
+							<UnstyledButton key={to} component={Link} to={to} onClick={close} c={isActive ? "turquoise.4" : "white"} fw={isActive ? 700 : 500} w="100%">
 								<Group gap="xs">
 									{icon}
 									{label}
