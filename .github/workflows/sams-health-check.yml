@@ -74,7 +74,7 @@ jobs:
       - name: Run bug checks
         env:
           SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
-        run: vp run scripts/check-sams-bugs.ts > bug-results.json
+        run: vpx scripts/check-sams-bugs.ts > bug-results.json
 
       - name: Parse results and set outputs
         id: parse
