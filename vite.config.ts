@@ -64,7 +64,7 @@ export default defineConfig({
 	},
 	test: {
 		root: ".",
-		setupFiles: ["./test-setup.ts"],
+		setupFiles: ["./utils/test-setup.ts"],
 		silent: true,
 		reporters: process.env.GITHUB_ACTIONS === "true" ? ["agent", "github-actions"] : ["agent"],
 	},

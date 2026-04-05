@@ -87,7 +87,6 @@ describe("WebAppStack", () => {
 		process.env.BETTER_AUTH_SECRET = "test-auth-secret";
 		delete process.env.CDK_DESTROY;
 		delete process.env.SAMS_API_KEY;
-		delete process.env.SAMS_SERVER;
 	});
 
 	afterEach(() => {

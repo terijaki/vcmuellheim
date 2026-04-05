@@ -44,9 +44,18 @@ export const DNS = {
 	},
 	// Development DNS (new.vcmuellheim.de subdomain)
 	dev: {
-		hostedZoneId: "Z02942671E3POXRRRHI0L" as const,
+		hostedZoneId: "Z03321631DB0YW48LDV0Z" as const,
 		hostedZoneName: "new.vcmuellheim.de" as const,
-		certificateArn: "arn:aws:acm:eu-central-1:041632640830:certificate/292a270b-9335-49a7-839a-9909cdac8d2e" as const,
-		cloudFrontCertificateArn: "arn:aws:acm:us-east-1:041632640830:certificate/36c8e7e3-c67c-4929-8b2d-00304e5b074f" as const,
+		certificateArn: "arn:aws:acm:eu-central-1:418553863544:certificate/10ad4348-defc-4490-a8f2-e6a2809536b6" as const,
+		cloudFrontCertificateArn: "arn:aws:acm:us-east-1:418553863544:certificate/6de199cf-4cf8-4833-aa5e-bae58f3fe6a7" as const,
+	},
+} as const;
+/** AWS Lambda layer ARNs (manually published, environment-specific). */
+export const LambdaLayers = {
+	prod: {
+		imageMagick: "arn:aws:lambda:eu-central-1:041632640830:layer:image-magick:1" as const,
+	},
+	dev: {
+		imageMagick: "arn:aws:lambda:eu-central-1:418553863544:layer:image-magick:1" as const,
 	},
 } as const;

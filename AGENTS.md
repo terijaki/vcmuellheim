@@ -23,7 +23,7 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
   - `vpr verify:all` (combined check + tests)
 - **Tests:** `vp test` (or `vp test <path/to/test>` for a single file).
 - **DB / scripts:** `vpr db:seed`, `vpr db:seed:sams`
-- **CDK:** `vpr cdk:synth`, `vpr cdk:deploy`, `vpr cdk:deploy:all` (scripts use AWS profile `vcmuellheim`).
+- **CDK:** `vpr cdk:synth`, `vpr cdk:deploy`, `vpr cdk:deploy:all` (dev scripts use AWS profile `vcm-dev`; prod scripts use `vcm-prod`). Authenticate via AWS SSO before running CDK commands — see `docs/SETUP.md` for setup instructions.
 - **WebApp build prep:** `vpr build` (outputs `.output/` with Nitro server + static assets).
 
 ## Global codebase conventions

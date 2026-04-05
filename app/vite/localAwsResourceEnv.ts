@@ -36,7 +36,6 @@ function applyLocalAwsResourceEnv(environment: string) {
 
 	setDefaultEnv("SAMS_TABLE_NAME", getSamsDataTableName(environment, sanitizedBranch));
 	setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
-	setDefaultEnv("SAMS_SERVER", "https://www.volleyball-baden.de");
 
 	const isProd = environment === "prod";
 	const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
