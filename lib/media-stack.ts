@@ -13,7 +13,7 @@ import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3Notifications from "aws-cdk-lib/aws-s3-notifications";
 import type { Construct } from "constructs";
-import { Club } from "@/project.config";
+import { Club, LambdaLayers } from "@/project.config";
 
 export interface MediaStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -107,7 +107,7 @@ export class MediaStack extends cdk.Stack {
 
 		// === Image Processing Lambda ===
 		// Add ImageMagick Lambda layer for image processing
-		const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(this, "ImageMagickLayer", "arn:aws:lambda:eu-central-1:041632640830:layer:image-magick:1");
+		const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(this, "ImageMagickLayer", isProd ? LambdaLayers.prod.imageMagick : LambdaLayers.dev.imageMagick); // TODO investigate if we can avoid the layer and bundle resources instead
 
 		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
 		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);

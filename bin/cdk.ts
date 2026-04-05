@@ -32,7 +32,6 @@ const awsRegion = process.env.CDK_REGION || "eu-central-1";
 
 const commonStackProps = {
 	env: {
-		account: process.env.CDK_ACCOUNT,
 		region: awsRegion,
 	},
 	tags: {

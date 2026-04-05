@@ -8,7 +8,6 @@ import { optionalEnvString, requiredEnvString } from "../utils/env";
 
 export const SamsCommonLambdaEnvironmentSchema = z.object({
 	SAMS_API_KEY: requiredEnvString,
-	SAMS_SERVER: requiredEnvString,
 	CDK_ENVIRONMENT: optionalEnvString,
 });
 

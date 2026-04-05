@@ -6,7 +6,6 @@ import { createTestApp } from "./test-helpers";
 // Set required environment variables before tests
 beforeAll(() => {
 	process.env.SAMS_API_KEY = "test-api-key";
-	process.env.SAMS_SERVER = "test-server.com";
 });
 
 describe("SamsApiStack", () => {
@@ -148,12 +147,11 @@ describe("SamsApiStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// All Lambdas should have SAMS_API_KEY and SAMS_SERVER
+			// All Lambdas should have SAMS_API_KEY
 			template.hasResourceProperties("AWS::Lambda::Function", {
 				Environment: {
 					Variables: {
 						SAMS_API_KEY: "test-api-key",
-						SAMS_SERVER: "test-server.com",
 					},
 				},
 			});

@@ -50,6 +50,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 		links: [
 			{ rel: "icon", href: "/assets/logos/logo-366273-250.png", type: "image/png" },
 			{ rel: "icon", href: "/assets/logos/logo-363B40-250.png", type: "image/png", media: "(prefers-color-scheme: dark)" },
+			{ rel: "apple-touch-icon", href: "/assets/logos/logo-366273-500.png" },
+			{ rel: "manifest", href: "/assets/manifest.webmanifest" },
 			{ rel: "canonical", href: Club.url },
 		],
 	}),

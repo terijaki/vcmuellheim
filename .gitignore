@@ -5,6 +5,7 @@ node_modules
 
 # cache
 .temp/
+temp/
 
 # misc
 .DS_Store

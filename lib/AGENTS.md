@@ -27,7 +27,8 @@ This file provides instructions specific to the `lib/` directory, which contains
 
 ## CDK conventions
 
-- Use the `vcmuellheim` AWS profile for all CDK CLI operations.
+- Use AWS SSO for authentication. Authenticate with your configured SSO session and export credentials for the appropriate profile before running CDK commands — see `docs/SETUP.md` for setup instructions.
+- Dev CDK commands use the `vcm-dev` profile; prod commands use the `vcm-prod` profile.
 - Before deploying, always run `vpr cdk:synth` and `vpr cdk:diff` to verify changes.
 - Deploy a single stack: `vpr cdk:deploy {StackName}`
 - Deploy all stacks: `vpr cdk:deploy:all`
@@ -35,7 +36,7 @@ This file provides instructions specific to the `lib/` directory, which contains
 
 ## Integration points / external services
 
-- **AWS:** CDK stacks create Lambdas, DynamoDB tables, S3 buckets, and Cognito resources. Use the `vcmuellheim` AWS profile.
+- **AWS:** CDK stacks create Lambdas, DynamoDB tables, S3 buckets, and Cognito resources. Use the `vcm-dev` profile for dev and `vcm-prod` for prod.
 - **SAMS API:** `codegen/sams/` contains the Swagger spec and client generation for the external SAMS sports data API used by sync Lambdas. Regenerate the client with `vpr sams:codegen`.
 - **Background/schedulers:** EventBridge rules are defined in CDK constructs.
 

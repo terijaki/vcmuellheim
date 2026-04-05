@@ -9,7 +9,7 @@ function checkAwsSession() {
 	try {
 		execSync("aws sts get-caller-identity", { stdio: "ignore" });
 	} catch {
-		console.error("❌ No active AWS session found. Please run 'aws login' or authenticate with AWS CLI.");
+		console.error("❌ No active AWS session found. Please authenticate via AWS SSO before running this script. See docs/SETUP.md for setup instructions.");
 		process.exit(1);
 	}
 }
@@ -21,7 +21,6 @@ import { getSanitizedBranch } from "@/utils/git";
 const ENVIRONMENT = process.env.CDK_ENVIRONMENT || "dev";
 const BRANCH = ENVIRONMENT === "prod" ? "" : getSanitizedBranch();
 const REGION = process.env.CDK_REGION || "eu-central-1";
-process.env.AWS_PROFILE = "vcmuellheim";
 
 /** List of SAMS sync Lambda functions to invoke */
 const lambdaNames = [`sams-clubs-sync`, `sams-teams-sync`].map((name) => (BRANCH ? `${name}-${ENVIRONMENT}-${BRANCH}` : `${name}-${ENVIRONMENT}`));

@@ -49,7 +49,7 @@ function checkAwsSession() {
 	try {
 		execSync("aws sts get-caller-identity", { stdio: "ignore" });
 	} catch {
-		console.error("❌ No active AWS session found. Please run 'aws login' or authenticate with AWS CLI.");
+		console.error("❌ No active AWS session found. Please authenticate via AWS SSO before running this script. See docs/SETUP.md for setup instructions.");
 		process.exit(1);
 	}
 }

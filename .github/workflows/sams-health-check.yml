@@ -74,7 +74,7 @@ jobs:
       - name: Run bug checks
         env:
           SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
-        run: vp run scripts/check-sams-bugs.ts > bug-results.json
+        run: bun scripts/check-sams-bugs.ts > bug-results.json
 
       - name: Parse results and set outputs
         id: parse
@@ -203,4 +203,4 @@ jobs:
           SWAGGER_DRIFT_RESULT: ${{ needs.swagger-drift.result }}
           BUG_CHECK_RESULT: ${{ needs.bug-check.result }}
           REGENERATE_RESULT: ${{ needs.regenerate.result }}
-        run: vp run scripts/sams-notify.ts
+        run: bun scripts/sams-notify.ts
