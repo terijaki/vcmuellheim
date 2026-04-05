@@ -107,7 +107,7 @@ export class MediaStack extends cdk.Stack {
 
 		// === Image Processing Lambda ===
 		// Add ImageMagick Lambda layer for image processing
-		const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(this, "ImageMagickLayer", isProd ? LambdaLayers.prod.imageMagick : LambdaLayers.dev.imageMagick); // TODO investigage if we can avoid the layer and bundle resources instead
+		const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(this, "ImageMagickLayer", isProd ? LambdaLayers.prod.imageMagick : LambdaLayers.dev.imageMagick); // TODO investigate if we can avoid the layer and bundle resources instead
 
 		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
 		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
