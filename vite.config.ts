@@ -65,8 +65,7 @@ export default defineConfig({
 	test: {
 		root: ".",
 		setupFiles: ["./test-setup.ts"],
-		sequence: {
-			shuffle: true,
-		},
+		silent: true,
+		reporters: process.env.GITHUB_ACTIONS === "true" ? ["agent", "github-actions"] : ["agent"],
 	},
 });
