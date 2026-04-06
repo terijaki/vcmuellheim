@@ -41,7 +41,7 @@ async function fetchMatchesForTeam(teamUuid: string): Promise<LeagueMatchDto[]> 
 				page: currentPage,
 				size: 100,
 			},
-		})
+		});
 
 		if (!data) break;
 		if (data.content) {
@@ -93,7 +93,7 @@ function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
 		summary: event.title,
 		description: event.description || "",
 		location: event.location || "",
-	}
+	};
 }
 
 function convertMatchToIcs(match: LeagueMatchDto, teamLeagueName: string | undefined, timestamp: Date): IcsEvent | null {
@@ -124,7 +124,7 @@ function convertMatchToIcs(match: LeagueMatchDto, teamLeagueName: string | undef
 		summary: `${team1?.name} vs ${team2?.name}`,
 		description,
 		location: locationParts.join(", "),
-	}
+	};
 }
 
 export const Route = createFileRoute("/ics/$teamSlug")({
@@ -142,9 +142,7 @@ export const Route = createFileRoute("/ics/$teamSlug")({
 					if (!teamSlug || teamSlug === "all") {
 						calendarTitle = `${calendarTitle} - Vereinskalender`;
 						const allTeamsResult = await db().team.query.byType({ type: "team" }).go({ pages: "all" });
-						teamSamsUuids = allTeamsResult.data
-							.map((t) => teamSchema.parse(t).sbvvTeamId)
-							.filter((id): id is string => !!id);
+						teamSamsUuids = allTeamsResult.data.map((t) => teamSchema.parse(t).sbvvTeamId).filter((id): id is string => !!id);
 					} else {
 						const teamResult = await db().team.query.bySlug({ slug: teamSlug }).go({ limit: 1 });
 						const foundTeam = teamResult.data[0] ? teamSchema.parse(teamResult.data[0]) : null;
@@ -152,7 +150,7 @@ export const Route = createFileRoute("/ics/$teamSlug")({
 							return new Response("Team nicht gefunden", {
 								status: 404,
 								headers: { "Content-Type": "text/plain", "Cache-Control": "public, max-age=3600" },
-							})
+							});
 						}
 						if (foundTeam.name) calendarTitle = `${calendarTitle} - ${foundTeam.name}`;
 						if (foundTeam.league) teamLeagueName = foundTeam.league;
@@ -172,7 +170,7 @@ export const Route = createFileRoute("/ics/$teamSlug")({
 						version: "2.0",
 						events: [...matchEvents, ...customIcsEvents],
 						name: calendarTitle,
-					}
+					};
 
 					return new Response(generateIcsCalendar(icsCalendar), {
 						status: 200,
@@ -181,13 +179,13 @@ export const Route = createFileRoute("/ics/$teamSlug")({
 							"Content-Disposition": `attachment; filename="${teamSlug || "all"}.ics"`,
 							"Cache-Control": "public, max-age=1800, s-maxage=1800",
 						},
-					})
+					});
 				} catch (error) {
 					console.error("Error generating calendar:", error);
 					return new Response("Es gab ein Problem beim Erzeugen des Kalenders", {
 						status: 500,
 						headers: { "Content-Type": "text/plain", "Cache-Control": "public, max-age=3600" },
-					})
+					});
 				}
 			},
 		},

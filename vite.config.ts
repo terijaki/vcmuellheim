@@ -81,6 +81,17 @@ export default defineConfig({
 				dependsOn: ["lint", "test"],
 				cache: false,
 			},
+			// Database seeding script
+			"seed-initial": {
+				command: "bun run db:seed",
+				dependsOn: ["lint", "test"],
+				cache: false,
+			},
+			seed: {
+				command: "bun run db:seed:sams",
+				dependsOn: ["seed-initial"],
+				cache: false,
+			},
 		},
 	},
 });
