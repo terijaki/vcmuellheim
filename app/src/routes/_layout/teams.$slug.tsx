@@ -98,7 +98,7 @@ function RouteComponent() {
 function TeamCalendar({ slug, loaderSamsTeam }: { slug: string; loaderSamsTeam: ReturnType<typeof Route.useLoaderData>["samsTeam"] }) {
 	if (!loaderSamsTeam) return null;
 
-	const webcalLink = createWebcalLink(`/api/ics/${slug}.ics`);
+	const webcalLink = createWebcalLink(`/ics/${slug}.ics`);
 
 	return (
 		<Card>

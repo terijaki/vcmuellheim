@@ -25,11 +25,10 @@ describe("SamsApiStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Should have HTTP API (ApiGatewayV2)
-			template.resourceCountIs("AWS::ApiGatewayV2::Api", 1);
+			// Should have 2 Lambda functions (clubs sync + teams sync)
+			template.resourceCountIs("AWS::Lambda::Function", 2);
 
-			// Should have 8 Lambda functions after removing the legacy SAMS logo proxy Lambda.
-			template.resourceCountIs("AWS::Lambda::Function", 8); // Should have 1 DynamoDB table
+			// Should have 1 DynamoDB table
 			template.resourceCountIs("AWS::DynamoDB::Table", 1);
 
 			// Should have 2 EventBridge rules (for nightly syncs)
@@ -65,7 +64,7 @@ describe("SamsApiStack", () => {
 
 			// Check Lambda function names include branch suffix
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "sams-league-matches-dev-feature-xyz",
+				FunctionName: "sams-clubs-sync-dev-feature-xyz",
 			});
 
 			// Check DynamoDB table names include branch suffix
@@ -106,7 +105,7 @@ describe("SamsApiStack", () => {
 
 			// Prod function names should not have branch suffix
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "sams-league-matches-prod",
+				FunctionName: "sams-clubs-sync-prod",
 			});
 		});
 	});
@@ -129,10 +128,10 @@ describe("SamsApiStack", () => {
 				Timeout: 600, // 10 minutes
 			});
 
-			// Regular API functions should have shorter timeouts
+			// Teams sync should also have 10 minute timeout
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "sams-seasons-dev",
-				Timeout: 30,
+				FunctionName: "sams-teams-sync-dev",
+				Timeout: 600, // 10 minutes
 			});
 		});
 

@@ -42,5 +42,10 @@
 		}
 	},
 	"github-actions.workflows.pinned.workflows": [".github/workflows/cdk-deploy.yml"],
-	"window.autoDetectColorScheme": true
+	"window.autoDetectColorScheme": true,
+	"chat.mcp.serverSampling": {
+		"vcmuellheim/.vscode/mcp.json: Sentry.io": {
+			"allowedModels": ["copilot/auto"]
+		}
+	}
 }

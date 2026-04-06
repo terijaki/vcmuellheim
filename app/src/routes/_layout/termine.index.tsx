@@ -25,7 +25,7 @@ export const Route = createFileRoute("/_layout/termine/")({
 
 function RouteComponent() {
 	const { events, matches, matchesError } = Route.useLoaderData();
-	const webcalLink = createWebcalLink("/api/ics/all.ics");
+	const webcalLink = createWebcalLink("/ics/all.ics");
 
 	return (
 		<PageWithHeading title="Termine" description="Alle Termine, Spieltage und Events von Volleyballclub Müllheim im Überblick">
