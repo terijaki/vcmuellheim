@@ -93,8 +93,8 @@ export default defineConfig({
 				cache: false,
 			},
 			// Deploy + seed in one command for new branches
-			"deploy-seed": {
-				command: "vpr seed-initial",
+			"deploy-seeded": {
+				command: "vpr seed",
 				dependsOn: ["deploy-all"],
 				cache: false,
 			},
