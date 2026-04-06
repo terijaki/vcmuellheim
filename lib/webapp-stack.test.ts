@@ -116,7 +116,7 @@ describe("WebAppStack", () => {
 			expect.objectContaining({
 				cwd: process.cwd(),
 				env: expect.objectContaining({
-					VITE_CDK_ENVIRONMENT: "dev",
+					CDK_ENVIRONMENT: "dev",
 				}),
 				stdio: "inherit",
 			}),

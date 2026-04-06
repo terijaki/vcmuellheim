@@ -4,6 +4,7 @@ import { loadEnv, type PluginOption } from "vite-plus";
 import { CONTENT_TABLE_ENV_VAR, getSamsDataTableName } from "../../lib/db/env.ts";
 import { Club } from "../../project.config.ts";
 import { getSanitizedBranch } from "../../utils/git.ts";
+import { ENV } from 'varlock/env';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -14,7 +15,7 @@ export function getAppEnvironment(mode = process.env.NODE_ENV === "production" ?
 		setDefaultEnv(name, value);
 	}
 
-	return process.env.VITE_CDK_ENVIRONMENT || process.env.CDK_ENVIRONMENT || "dev";
+	return ENV.CDK_ENVIRONMENT;
 }
 
 function setDefaultEnv(name: string, value: string) {
