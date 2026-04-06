@@ -1,6 +1,7 @@
 // Script to trigger SAMS sync Lambda functions (associations, clubs, teams)
 // See docs/SAMS_API_TESTING.md for details
 
+import "varlock/auto-load";
 import { execSync } from "node:child_process";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 

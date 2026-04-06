@@ -18,6 +18,7 @@
  *   bun run db:seed --user email@example.com  # Create a CMS user (Admin role, passwordless)
  */
 
+import "varlock/auto-load";
 import { execSync } from "node:child_process";
 import https from "node:https";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";

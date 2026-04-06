@@ -109,21 +109,21 @@ vpr cdk:deploy:prod # Deploy all stacks (prod, requires vcm-prod credentials)
 
 ### How deployments work
 
-| Branch   | AWS account | Role secret          |
-| -------- | ----------- | -------------------- |
-| `main`   | prod        | `AWS_ROLE_ARN_PROD`  |
-| any other | dev        | `AWS_ROLE_ARN_DEV`   |
+| Branch    | AWS account | Role secret         |
+| --------- | ----------- | ------------------- |
+| `main`    | prod        | `AWS_ROLE_ARN_PROD` |
+| any other | dev         | `AWS_ROLE_ARN_DEV`  |
 
 Deployments use OIDC — no long-lived access keys. The trust policies are in:
+
 - `github-actions-trust-policy.json` — prod account (`041632640830`)
 - `github-actions-trust-policy-dev.json` — dev account (`418553863544`)
 
 ### Required repository secrets
 
-| Secret                   | Description                                              |
-| ------------------------ | -------------------------------------------------------- |
-| `AWS_ROLE_ARN_DEV`       | ARN of the GitHub Actions OIDC role in the dev account   |
-| `AWS_ROLE_ARN_PROD`      | ARN of the GitHub Actions OIDC role in the prod account  |
-| `SAMS_API_KEY`           | SAMS API key                                             |
-| `BETTER_AUTH_SECRET`     | Secret used to sign auth sessions                        |
-| `CDK_BUDGET_ALERT_EMAIL` | Email for AWS budget alerts                              |
+| Secret              | Description                                             |
+| ------------------- | ------------------------------------------------------- |
+| `AWS_ROLE_ARN_DEV`  | ARN of the GitHub Actions OIDC role in the dev account  |
+| `AWS_ROLE_ARN_PROD` | ARN of the GitHub Actions OIDC role in the prod account |
+
+Application and deployment environment values such as `SAMS_API_KEY`, `BETTER_AUTH_SECRET`, and `CDK_BUDGET_ALERT_EMAIL` are **not** stored as GitHub repository secrets. GitHub Actions assumes the appropriate AWS role via OIDC, then Varlock loads those values from AWS SSM Parameter Store / AWS Secrets Manager as defined by the environment schema.
