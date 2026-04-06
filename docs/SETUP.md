@@ -121,10 +121,9 @@ Deployments use OIDC — no long-lived access keys. The trust policies are in:
 
 ### Required repository secrets
 
-| Secret                   | Description                                             |
-| ------------------------ | ------------------------------------------------------- |
-| `AWS_ROLE_ARN_DEV`       | ARN of the GitHub Actions OIDC role in the dev account  |
-| `AWS_ROLE_ARN_PROD`      | ARN of the GitHub Actions OIDC role in the prod account |
-| `SAMS_API_KEY`           | SAMS API key                                            |
-| `BETTER_AUTH_SECRET`     | Secret used to sign auth sessions                       |
-| `CDK_BUDGET_ALERT_EMAIL` | Email for AWS budget alerts                             |
+| Secret              | Description                                             |
+| ------------------- | ------------------------------------------------------- |
+| `AWS_ROLE_ARN_DEV`  | ARN of the GitHub Actions OIDC role in the dev account  |
+| `AWS_ROLE_ARN_PROD` | ARN of the GitHub Actions OIDC role in the prod account |
+
+Application and deployment environment values such as `SAMS_API_KEY`, `BETTER_AUTH_SECRET`, and `CDK_BUDGET_ALERT_EMAIL` are **not** stored as GitHub repository secrets. GitHub Actions assumes the appropriate AWS role via OIDC, then Varlock loads those values from AWS SSM Parameter Store / AWS Secrets Manager as defined by the environment schema.
