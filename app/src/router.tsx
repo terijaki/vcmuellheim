@@ -32,7 +32,7 @@ export function getRouter() {
 		Sentry.init({
 			dsn: SentryConfig.dsn,
 			enabled: Boolean(SentryConfig.dsn),
-			environment: import.meta.env.VITE_CDK_ENVIRONMENT || import.meta.env.MODE || "development",
+			environment: import.meta.env.CDK_ENVIRONMENT ?? "dev",
 		});
 	}
 

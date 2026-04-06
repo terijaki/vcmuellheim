@@ -14,7 +14,7 @@ export function getAppEnvironment(mode = process.env.NODE_ENV === "production" ?
 		setDefaultEnv(name, value);
 	}
 
-	return process.env.VITE_CDK_ENVIRONMENT || process.env.CDK_ENVIRONMENT || "dev";
+	return process.env.CDK_ENVIRONMENT || "dev";
 }
 
 function setDefaultEnv(name: string, value: string) {
