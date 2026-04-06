@@ -14,7 +14,7 @@ export default defineConfig({
 		"*": "vp check --fix",
 	},
 	fmt: {
-		ignorePatterns: ["app/src/routeTree.gen.ts", "codegen/sams/generated/**"],
+		ignorePatterns: ["app/src/routeTree.gen.ts", "codegen/sams/generated/**", "env.d.ts"],
 		useTabs: true,
 		tabWidth: 2,
 		printWidth: 200,
