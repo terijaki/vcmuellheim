@@ -28,7 +28,7 @@ export default defineConfig({
 		},
 	},
 	plugins: [
-		varlockVitePlugin({ ssrInjectMode: "init-only" }),
+		varlockVitePlugin({ ssrInjectMode: "auto-load" }),
 		localAwsResourceEnvPlugin(),
 		nitro({
 			preset: "aws-lambda",
