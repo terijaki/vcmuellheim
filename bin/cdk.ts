@@ -1,4 +1,5 @@
 import "varlock/auto-load";
+import { ENV } from "varlock/env";
 import { getSanitizedBranch } from "@utils/git";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";
@@ -13,7 +14,7 @@ import { WebAppStack } from "../lib/webapp-stack";
 
 const app = new cdk.App();
 
-const environment = process.env.CDK_ENVIRONMENT || "dev";
+const environment = ENV.CDK_ENVIRONMENT || "dev";
 const isProd = environment === "prod";
 const isDestroy = process.env.CDK_DESTROY === "true";
 
@@ -100,7 +101,7 @@ const webappStack = new WebAppStack(app, webappStackName, {
 });
 
 // Budget monitoring - requires email for alerts
-const budgetEmail = process.env.CDK_BUDGET_ALERT_EMAIL;
+const budgetEmail = ENV.CDK_BUDGET_ALERT_EMAIL;
 if (budgetEmail || isDestroy) {
 	new BudgetStack(app, budgetStackName, {
 		...commonStackProps,
@@ -119,7 +120,7 @@ if (budgetEmail || isDestroy) {
 }
 
 // Monitoring stack - setup alerts and dashboards
-const monitoringEmail = process.env.CDK_MONITORING_ALERT_EMAIL || budgetEmail;
+const monitoringEmail = ENV.CDK_MONITORING_ALERT_EMAIL || budgetEmail;
 if (monitoringEmail || isDestroy) {
 	new MonitoringStack(app, monitoringStackName, {
 		...commonStackProps,

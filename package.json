@@ -14,9 +14,9 @@
 	"scripts": {
 		"start": "node app/.output/server/index.mjs",
 		"check:fix": "vp check --fix",
-		"db:seed": "vp exec tsx scripts/db-seed.ts",
-		"db:seed:sams": "vp exec tsx scripts/data-trigger-syncs.ts",
-		"sams:codegen": "vp exec tsx codegen/sams/generate-client.ts",
+		"db:seed": "bunx scripts/db-seed.ts",
+		"db:seed:sams": "bunx scripts/data-trigger-syncs.ts",
+		"sams:codegen": "bunx codegen/sams/generate-client.ts",
 		"verify:all": "vp check --fix && vp test",
 		"cdk:deploy": "cdk deploy --require-approval=never",
 		"cdk:deploy:all": "cdk deploy --all --require-approval=never",
