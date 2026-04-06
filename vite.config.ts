@@ -92,6 +92,12 @@ export default defineConfig({
 				dependsOn: ["seed-initial"],
 				cache: false,
 			},
+			// Deploy + seed in one command for new branches
+			"deploy-seed": {
+				command: "vpr seed-initial",
+				dependsOn: ["deploy-all"],
+				cache: false,
+			},
 		},
 	},
 });
