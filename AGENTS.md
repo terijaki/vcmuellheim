@@ -17,14 +17,14 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 - **Install deps:** `vp install` at repo root.
 - **Run webapp locally:**
   - `vp dev` — start unified webapp dev server (includes website public routes + admin auth).
-- **Build:** `vpr build`.
+- **Build:** `vp build`.
 - **Lint / format / typecheck:**
   - `vp check` / `vp check --fix` (lint + format + typecheck)
   - `vpr verify:all` (combined check + tests)
 - **Tests:** `vp test` (or `vp test <path/to/test>` for a single file).
 - **DB / scripts:** `vpr db:seed`, `vpr db:seed:sams`
 - **CDK:** `vpr cdk:synth`, `vpr cdk:deploy`, `vpr cdk:deploy:all` (dev scripts use AWS profile `vcm-dev`; prod scripts use `vcm-prod`). Authenticate via AWS SSO before running CDK commands — see `docs/SETUP.md` for setup instructions.
-- **WebApp build prep:** `vpr build` (outputs `.output/` with Nitro server + static assets).
+- **WebApp build prep:** `vp build` (outputs `.output/` with Nitro server + static assets).
 
 ## Global codebase conventions
 
@@ -36,6 +36,7 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 - **Dates:** use `dayjs` (project-wide convention — do not introduce other date libraries).
 - **Iteration patterns:** prefer `for...of` over `.forEach` in shared code.
 - **Avoid adding new dependencies** without strong justification — prefer reusing packages listed in `package.json` catalog.
+- **Environment variables:** use Varlock (https://varlock.dev/llms.txt.) for secure management of secrets and environment variables. Avoid hardcoding sensitive values or using `.env` files.
 
 ## What NOT to change / be cautious about
 

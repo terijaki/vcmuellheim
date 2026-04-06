@@ -1,23 +1,23 @@
 {
-  "name": "Volleyballclub Müllheim e.V.",
-  "short_name": "VC Müllheim",
-  "description": "Willkommen beim Volleyballclub Müllheim e.V. - Dein Volleyballverein für alle Altersklassen mit Damen-, Herren- und Jugendteams.",
-  "start_url": "/",
-  "display": "standalone",
-  "theme_color": "#366273",
-  "background_color": "#ffffff",
-  "lang": "de",
-  "icons": [
-    {
-      "src": "/assets/logos/logo-366273-250.png",
-      "sizes": "250x250",
-      "type": "image/png"
-    },
-    {
-      "src": "/assets/logos/logo-366273-500.png",
-      "sizes": "500x500",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+	"name": "Volleyballclub Müllheim e.V.",
+	"short_name": "VC Müllheim",
+	"description": "Willkommen beim Volleyballclub Müllheim e.V. - Dein Volleyballverein für alle Altersklassen mit Damen-, Herren- und Jugendteams.",
+	"start_url": "/",
+	"display": "standalone",
+	"theme_color": "#366273",
+	"background_color": "#ffffff",
+	"lang": "de",
+	"icons": [
+		{
+			"src": "/assets/logos/logo-366273-250.png",
+			"sizes": "250x250",
+			"type": "image/png"
+		},
+		{
+			"src": "/assets/logos/logo-366273-500.png",
+			"sizes": "500x500",
+			"type": "image/png",
+			"purpose": "any maskable"
+		}
+	]
 }

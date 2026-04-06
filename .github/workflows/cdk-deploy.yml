@@ -21,6 +21,9 @@ jobs:
   deploy:
     name: Deploy CDK Stack
     runs-on: ubuntu-latest
+    env:
+      CDK_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+      SENTRY_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
 
     steps:
       - name: Checkout code
@@ -31,8 +34,6 @@ jobs:
           node-version: "25"
           cache: true
 
-      - uses: oven-sh/setup-bun@v2
-
       - name: Install dependencies
         run: vp install
 
@@ -42,20 +43,8 @@ jobs:
           role-to-assume: ${{ github.ref == 'refs/heads/main' && secrets.AWS_ROLE_ARN_PROD || secrets.AWS_ROLE_ARN_DEV }}
           aws-region: eu-central-1
 
-      - name: Determine environment
-        id: env
-        run: |
-          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            echo "environment=prod" >> $GITHUB_OUTPUT
-            echo "is_main=true" >> $GITHUB_OUTPUT
-            echo "env_name=Production" >> $GITHUB_OUTPUT
-            echo "env_icon=🚀" >> $GITHUB_OUTPUT
-          else
-            echo "environment=dev" >> $GITHUB_OUTPUT
-            echo "is_main=false" >> $GITHUB_OUTPUT
-            echo "env_name=Development" >> $GITHUB_OUTPUT
-            echo "env_icon=🔧" >> $GITHUB_OUTPUT
-          fi
+      - name: Load environment variables
+        uses: dmno-dev/varlock-action@v1.0.1
 
       - name: Lint check
         run: vp lint
@@ -64,31 +53,19 @@ jobs:
         run: vp test
 
       - name: CDK Diff
-        env:
-          CDK_BUDGET_ALERT_EMAIL: ${{ secrets.CDK_BUDGET_ALERT_EMAIL }}
-          CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
-          VITE_CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
-          SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
-          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
         run: vp exec cdk diff --all
 
       - name: CDK Deploy
-        env:
-          CDK_BUDGET_ALERT_EMAIL: ${{ secrets.CDK_BUDGET_ALERT_EMAIL }}
-          CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
-          VITE_CDK_ENVIRONMENT: ${{ steps.env.outputs.environment }}
-          SAMS_API_KEY: ${{ secrets.SAMS_API_KEY }}
-          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
         run: |
           vp exec cdk deploy --require-approval never --all --outputs-file cdk-outputs.json
 
       - name: Add deployment summary
         run: |
-          echo "## ${{ steps.env.outputs.env_icon }} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## ${{ github.ref == 'refs/heads/main' && '🚀' || '🔧' }} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Environment** | ${{ steps.env.outputs.env_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }} |" >> $GITHUB_STEP_SUMMARY
           echo "| **Branch** | \`${{ github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
 
@@ -106,7 +83,7 @@ jobs:
             done || true
           fi
 
-          if [ "${{ steps.env.outputs.is_main }}" == "false" ]; then
+          if [ "${{ github.ref }}" != "refs/heads/main" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### 💡 Cleanup" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY

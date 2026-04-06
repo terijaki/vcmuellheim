@@ -4,6 +4,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite-plus";
+import { varlockVitePlugin } from "@varlock/vite-integration";
 import { getAppEnvironment, localAwsResourceEnvPlugin } from "./app/vite/localAwsResourceEnv.ts";
 
 const isProd = getAppEnvironment() === "prod";
@@ -27,6 +28,7 @@ export default defineConfig({
 		},
 	},
 	plugins: [
+		varlockVitePlugin({ ssrInjectMode: "init-only" }),
 		localAwsResourceEnvPlugin(),
 		nitro({
 			preset: "aws-lambda",
@@ -39,14 +41,12 @@ export default defineConfig({
 		tanstackStart({ srcDirectory: "app/src" }),
 		react(),
 		babel({ presets: [reactCompilerPreset()] }),
-		...(process.env.SENTRY_AUTH_TOKEN
-			? sentryTanstackStart({
-					org: "volleyballclub-mullheim-ev",
-					project: "volleyball-webapp",
-					authToken: process.env.SENTRY_AUTH_TOKEN,
-					silent: !isProd,
-				})
-			: []),
+		sentryTanstackStart({
+			org: "volleyballclub-mullheim-ev",
+			project: "volleyball-webapp",
+			authToken: process.env.SENTRY_AUTH_TOKEN,
+			silent: !isProd,
+		}),
 	],
 	build: {
 		sourcemap: true,

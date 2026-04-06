@@ -27,8 +27,6 @@ jobs:
           node-version: "25"
           cache: true
 
-      - uses: oven-sh/setup-bun@v2
-
       - name: Install dependencies
         run: vp install
 
@@ -37,6 +35,9 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN_DEV }}
           aws-region: eu-central-1
+
+      - name: Load environment variables
+        uses: dmno-dev/varlock-action@v1.0.1
 
       - name: Determine branch name
         id: branch
