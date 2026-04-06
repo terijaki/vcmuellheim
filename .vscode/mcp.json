@@ -1,7 +1,7 @@
 {
 	"servers": {
 		"Sentry.io": {
-			"url": "https://mcp.sentry.dev/mcp",
+			"url": "https://mcp.sentry.dev/mcp/volleyballclub-mullheim-ev",
 			"type": "http"
 		}
 	},

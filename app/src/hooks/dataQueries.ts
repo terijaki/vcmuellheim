@@ -4,11 +4,13 @@
  */
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { z } from "zod";
 import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
 import type { PaginationCursor } from "@/lib/db/types";
 import { getEventByIdFn, getUpcomingEventsFn } from "../server/functions/events";
 import { listLocationsFn } from "../server/functions/locations";
 import { listMembersFn } from "../server/functions/members";
+
 // Server functions
 import { getGalleryImagesFn, getNewsByIdFn, getPublishedNewsFn } from "../server/functions/news";
 import { getClubLogoUrlFn, getClubLogoUrlsBatchFn, getSamsMatchesFn, getSamsRankingByLeagueUuidFn, getSamsTickerFn, listSamsTeamsFn } from "../server/functions/sams";
@@ -33,7 +35,7 @@ export const useNewsById = (id: string) => {
 	return useQuery({
 		queryKey: ["news", "id", id],
 		queryFn: () => getNewsByIdFn({ data: { id } }),
-		enabled: !!id,
+		enabled: !!id && z.uuid().safeParse(id).success,
 	});
 };
 
@@ -61,7 +63,7 @@ export const useEventById = (id: string) => {
 	return useQuery({
 		queryKey: ["events", "id", id],
 		queryFn: () => getEventByIdFn({ data: { id } }),
-		enabled: !!id,
+		enabled: !!id && z.uuid().safeParse(id).success,
 	});
 };
 

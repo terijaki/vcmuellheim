@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as IcsTeamSlugRouteImport } from './routes/ics/$teamSlug'
 import { Route as AdminOtpLoginRouteImport } from './routes/admin/otp-login'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminLayoutRouteImport } from './routes/admin/_layout'
@@ -30,7 +31,6 @@ import { Route as AdminLayoutIndexRouteImport } from './routes/admin/_layout/ind
 import { Route as LayoutTermineIndexRouteImport } from './routes/_layout/termine.index'
 import { Route as LayoutTeamsIndexRouteImport } from './routes/_layout/teams.index'
 import { Route as LayoutNewsIndexRouteImport } from './routes/_layout/news.index'
-import { Route as ApiIcsTeamSlugRouteImport } from './routes/api/ics/$teamSlug'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AdminLayoutUsersRouteImport } from './routes/admin/_layout/users'
 import { Route as AdminLayoutTeamsRouteImport } from './routes/admin/_layout/teams'
@@ -53,6 +53,11 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => LayoutRoute,
+} as any)
+const IcsTeamSlugRoute = IcsTeamSlugRouteImport.update({
+  id: '/ics/$teamSlug',
+  path: '/ics/$teamSlug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminOtpLoginRoute = AdminOtpLoginRouteImport.update({
   id: '/admin/otp-login',
@@ -149,11 +154,6 @@ const LayoutNewsIndexRoute = LayoutNewsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LayoutNewsRoute,
 } as any)
-const ApiIcsTeamSlugRoute = ApiIcsTeamSlugRouteImport.update({
-  id: '/api/ics/$teamSlug',
-  path: '/api/ics/$teamSlug',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -237,6 +237,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminLayoutRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
+  '/ics/$teamSlug': typeof IcsTeamSlugRoute
   '/news/$id': typeof LayoutNewsIdRoute
   '/teams/$slug': typeof LayoutTeamsSlugRoute
   '/termine/$id': typeof LayoutTermineIdRoute
@@ -250,7 +251,6 @@ export interface FileRoutesByFullPath {
   '/admin/teams': typeof AdminLayoutTeamsRoute
   '/admin/users': typeof AdminLayoutUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/ics/$teamSlug': typeof ApiIcsTeamSlugRoute
   '/news/': typeof LayoutNewsIndexRoute
   '/teams/': typeof LayoutTeamsIndexRoute
   '/termine/': typeof LayoutTermineIndexRoute
@@ -268,6 +268,7 @@ export interface FileRoutesByTo {
   '/tabelle': typeof LayoutTabelleRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
+  '/ics/$teamSlug': typeof IcsTeamSlugRoute
   '/': typeof LayoutIndexRoute
   '/news/$id': typeof LayoutNewsIdRoute
   '/teams/$slug': typeof LayoutTeamsSlugRoute
@@ -282,7 +283,6 @@ export interface FileRoutesByTo {
   '/admin/teams': typeof AdminLayoutTeamsRoute
   '/admin/users': typeof AdminLayoutUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/ics/$teamSlug': typeof ApiIcsTeamSlugRoute
   '/news': typeof LayoutNewsIndexRoute
   '/teams': typeof LayoutTeamsIndexRoute
   '/termine': typeof LayoutTermineIndexRoute
@@ -306,6 +306,7 @@ export interface FileRoutesById {
   '/admin/_layout': typeof AdminLayoutRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/admin/otp-login': typeof AdminOtpLoginRoute
+  '/ics/$teamSlug': typeof IcsTeamSlugRoute
   '/_layout/': typeof LayoutIndexRoute
   '/_layout/news/$id': typeof LayoutNewsIdRoute
   '/_layout/teams/$slug': typeof LayoutTeamsSlugRoute
@@ -320,7 +321,6 @@ export interface FileRoutesById {
   '/admin/_layout/teams': typeof AdminLayoutTeamsRoute
   '/admin/_layout/users': typeof AdminLayoutUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/ics/$teamSlug': typeof ApiIcsTeamSlugRoute
   '/_layout/news/': typeof LayoutNewsIndexRoute
   '/_layout/teams/': typeof LayoutTeamsIndexRoute
   '/_layout/termine/': typeof LayoutTermineIndexRoute
@@ -345,6 +345,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/login'
     | '/admin/otp-login'
+    | '/ics/$teamSlug'
     | '/news/$id'
     | '/teams/$slug'
     | '/termine/$id'
@@ -358,7 +359,6 @@ export interface FileRouteTypes {
     | '/admin/teams'
     | '/admin/users'
     | '/api/auth/$'
-    | '/api/ics/$teamSlug'
     | '/news/'
     | '/teams/'
     | '/termine/'
@@ -376,6 +376,7 @@ export interface FileRouteTypes {
     | '/tabelle'
     | '/admin/login'
     | '/admin/otp-login'
+    | '/ics/$teamSlug'
     | '/'
     | '/news/$id'
     | '/teams/$slug'
@@ -390,7 +391,6 @@ export interface FileRouteTypes {
     | '/admin/teams'
     | '/admin/users'
     | '/api/auth/$'
-    | '/api/ics/$teamSlug'
     | '/news'
     | '/teams'
     | '/termine'
@@ -413,6 +413,7 @@ export interface FileRouteTypes {
     | '/admin/_layout'
     | '/admin/login'
     | '/admin/otp-login'
+    | '/ics/$teamSlug'
     | '/_layout/'
     | '/_layout/news/$id'
     | '/_layout/teams/$slug'
@@ -427,7 +428,6 @@ export interface FileRouteTypes {
     | '/admin/_layout/teams'
     | '/admin/_layout/users'
     | '/api/auth/$'
-    | '/api/ics/$teamSlug'
     | '/_layout/news/'
     | '/_layout/teams/'
     | '/_layout/termine/'
@@ -439,8 +439,8 @@ export interface RootRouteChildren {
   AdminLayoutRoute: typeof AdminLayoutRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOtpLoginRoute: typeof AdminOtpLoginRoute
+  IcsTeamSlugRoute: typeof IcsTeamSlugRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
-  ApiIcsTeamSlugRoute: typeof ApiIcsTeamSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -458,6 +458,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRoute
+    }
+    '/ics/$teamSlug': {
+      id: '/ics/$teamSlug'
+      path: '/ics/$teamSlug'
+      fullPath: '/ics/$teamSlug'
+      preLoaderRoute: typeof IcsTeamSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/otp-login': {
       id: '/admin/otp-login'
@@ -591,13 +598,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/news/'
       preLoaderRoute: typeof LayoutNewsIndexRouteImport
       parentRoute: typeof LayoutNewsRoute
-    }
-    '/api/ics/$teamSlug': {
-      id: '/api/ics/$teamSlug'
-      path: '/api/ics/$teamSlug'
-      fullPath: '/api/ics/$teamSlug'
-      preLoaderRoute: typeof ApiIcsTeamSlugRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -805,8 +805,8 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLayoutRoute: AdminLayoutRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
   AdminOtpLoginRoute: AdminOtpLoginRoute,
+  IcsTeamSlugRoute: IcsTeamSlugRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
-  ApiIcsTeamSlugRoute: ApiIcsTeamSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

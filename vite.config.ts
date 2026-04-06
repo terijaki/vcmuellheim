@@ -68,4 +68,19 @@ export default defineConfig({
 		silent: true,
 		reporters: process.env.GITHUB_ACTIONS === "true" ? ["agent", "github-actions"] : ["agent"],
 	},
+	run: {
+		tasks: {
+			// CDK deploy guarded by full check + tests
+			deploy: {
+				command: "bun run cdk:deploy",
+				dependsOn: ["lint", "test"],
+				cache: false,
+			},
+			"deploy-all": {
+				command: "bun run cdk:deploy:all",
+				dependsOn: ["lint", "test"],
+				cache: false,
+			},
+		},
+	},
 });

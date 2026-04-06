@@ -71,9 +71,6 @@ const mediaStack = new MediaStack(app, mediaStackName, {
 const samsApiStack = new SamsApiStack(app, samsStackName, {
 	...commonStackProps,
 	description: `SAMS API Services (${environment}${branchSuffix})`,
-	hostedZone: dnsStack.hostedZone,
-	regionalCertificate: dnsStack.regionalCertificate,
-	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 	mediaBucket: mediaStack.bucket,
 	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 });
