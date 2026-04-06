@@ -82,14 +82,13 @@ export default defineConfig({
 				cache: false,
 			},
 			// Database seeding script
-			"seed-initial": {
+			seed: {
 				command: "bun run db:seed",
 				dependsOn: ["lint", "test"],
 				cache: false,
 			},
-			seed: {
+			"seed-sams": {
 				command: "bun run db:seed:sams",
-				dependsOn: ["seed-initial"],
 				cache: false,
 			},
 			// Deploy + seed in one command for new branches
