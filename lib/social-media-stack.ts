@@ -1,12 +1,14 @@
 import * as path from "node:path";
 import * as cdk from "aws-cdk-lib";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as events from "aws-cdk-lib/aws-events";
+import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { DynamoEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
-import type { MastodonShareLambdaEnvironment, MastodonStreamHandlerLambdaEnvironment } from "@/lambda/social/types";
+import type { BeholdSyncLambdaEnvironment, MastodonShareLambdaEnvironment, MastodonStreamHandlerLambdaEnvironment } from "@/lambda/social/types";
 
 interface SocialMediaStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -72,6 +74,44 @@ export class SocialMediaStack extends cdk.Stack {
 		// Grant S3 read permissions to Mastodon Lambda for image uploads
 		if (props.mediaBucket) {
 			props.mediaBucket.grantRead(mastodonShare);
+		}
+
+		// Create scheduled Lambda to proactively sync Behold Instagram posts to DynamoDB.
+		// Runs 3× per day (10:00, 14:00, 18:00 UTC = afternoon German time) to stay well
+		// within Behold's 1200 views/month free-tier limit (~90 calls/month).
+		if (props.contentTable) {
+			const beholdSync = new NodejsFunction(this, "BeholdSync", {
+				functionName: `behold-sync-${environment}${branchSuffix}`,
+				runtime: lambda.Runtime.NODEJS_24_X,
+				handler: "handler",
+				entry: path.join(__dirname, "../lambda/social/behold-sync.ts"),
+				environment: {
+					...commonEnvironment,
+					CONTENT_TABLE_NAME: props.contentTable.tableName,
+				} satisfies Omit<BeholdSyncLambdaEnvironment, "AWS_REGION">,
+				timeout: cdk.Duration.seconds(30),
+				memorySize: 256,
+				layers: [powertoolsLayer],
+				logGroup: new cdk.aws_logs.LogGroup(this, "BeholdSyncLogGroup", {
+					retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+					removalPolicy: cdk.RemovalPolicy.DESTROY,
+				}),
+				bundling: {
+					externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core", "@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb"],
+					minify: true,
+					sourceMap: true,
+				},
+			});
+
+			props.contentTable.grantReadWriteData(beholdSync);
+
+			// Trigger 3× per day during afternoon German time (10:00, 14:00, 18:00 UTC)
+			const beholdSyncRule = new events.Rule(this, "BeholdSyncRule", {
+				ruleName: `behold-sync-schedule-${environment}${branchSuffix}`,
+				description: `Trigger Behold Instagram feed sync 3× per day (${environment}${branchSuffix})`,
+				schedule: events.Schedule.cron({ minute: "0", hour: "10,14,18" }),
+			});
+			beholdSyncRule.addTarget(new targets.LambdaFunction(beholdSync));
 		}
 
 		// Create Lambda function for Mastodon stream handler (DynamoDB streams)
