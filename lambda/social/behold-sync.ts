@@ -1,13 +1,13 @@
 /**
  * Scheduled Lambda that proactively syncs Behold Instagram posts to DynamoDB.
  *
- * Runs 3× per day during German afternoon hours (10:00, 14:00, 18:00 UTC) to keep
- * the cache fresh without consuming Behold's 1200 views/month free-tier limit.
+ * Runs every 2 hours to keep the cache fresh without consuming Behold's
+ * 1200 views/month free-tier limit (~360 calls/month ≈ 30% of the limit).
  *
  * The webapp route reads exclusively from DynamoDB — no live Behold API calls
  * happen on the main request path.
  *
- * DDB key scheme (content table, same as sams-ddb-cache.ts):
+ * DDB key scheme (content table, same as ddb-cache.ts):
  *   PK: `sams_cache#<cacheKey>`
  *   SK: `sams_cache`
  */
@@ -41,7 +41,7 @@ const DDB_TTL_SECONDS = 90 * 24 * 60 * 60;
 /** Cache key must match the one used by app/src/server/functions/social.ts */
 export const BEHOLD_CACHE_KEY = createCacheKey({ type: "behold_feed" });
 
-const SAMS_CACHE_SK = "sams_cache";
+const CACHE_SK = "sams_cache";
 
 const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 	logger.info("Starting Behold Instagram feed sync", { event });
@@ -75,7 +75,7 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 			TableName: TABLE_NAME,
 			Item: {
 				pk: `sams_cache#${BEHOLD_CACHE_KEY}`,
-				sk: SAMS_CACHE_SK,
+				sk: CACHE_SK,
 				data: JSON.stringify(posts),
 				cachedAt: new Date(nowMs).toISOString(),
 				ttl: Math.floor(nowMs / 1000) + DDB_TTL_SECONDS,

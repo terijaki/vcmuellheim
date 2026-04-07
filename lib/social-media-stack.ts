@@ -77,8 +77,7 @@ export class SocialMediaStack extends cdk.Stack {
 		}
 
 		// Create scheduled Lambda to proactively sync Behold Instagram posts to DynamoDB.
-		// Runs 3× per day (10:00, 14:00, 18:00 UTC = afternoon German time) to stay well
-		// within Behold's 1200 views/month free-tier limit (~90 calls/month).
+		// Runs every 2 hours — ~360 calls/month (~30% of Behold's 1200/month free-tier limit).
 		if (props.contentTable) {
 			const beholdSync = new NodejsFunction(this, "BeholdSync", {
 				functionName: `behold-sync-${environment}${branchSuffix}`,
@@ -105,11 +104,11 @@ export class SocialMediaStack extends cdk.Stack {
 
 			props.contentTable.grantReadWriteData(beholdSync);
 
-			// Trigger 3× per day during afternoon German time (10:00, 14:00, 18:00 UTC)
+			// Trigger every 2 hours — ~360 calls/month, ~30% of Behold's free-tier limit
 			const beholdSyncRule = new events.Rule(this, "BeholdSyncRule", {
 				ruleName: `behold-sync-schedule-${environment}${branchSuffix}`,
-				description: `Trigger Behold Instagram feed sync 3× per day (${environment}${branchSuffix})`,
-				schedule: events.Schedule.cron({ minute: "0", hour: "10,14,18" }),
+				description: `Trigger Behold Instagram feed sync every 2 hours (${environment}${branchSuffix})`,
+				schedule: events.Schedule.cron({ minute: "0", hour: "*/2" }),
 			});
 			beholdSyncRule.addTarget(new targets.LambdaFunction(beholdSync));
 		}

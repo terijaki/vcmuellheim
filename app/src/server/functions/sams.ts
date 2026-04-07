@@ -23,7 +23,7 @@ import {
 	RankingResponseSchema,
 } from "@/lambda/sams/types";
 import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByNameSlugPrefix, getSamsClubBySportsclubUuid } from "../queries";
-import { readSamsCacheEntry, writeSamsCacheEntry } from "../sams-ddb-cache";
+import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
 import { parseServerData } from "../schema-parse";
 
 const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
@@ -32,7 +32,7 @@ const SAMS_API_TIMEOUT_MS = 10_000;
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
 	const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
-	const cached = await readSamsCacheEntry<RankingResponse>(cacheKey, 5 * 60 * 1000);
+	const cached = await readCacheEntry<RankingResponse>(cacheKey, 5 * 60 * 1000);
 	if (cached) return cached;
 
 	const [{ data: rankingsData }, { data: leagueData }] = await Promise.all([
@@ -74,7 +74,7 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
 		"Failed to parse SAMS rankings response",
 	);
 
-	await writeSamsCacheEntry(cacheKey, result);
+	await writeCacheEntry(cacheKey, result);
 	return result;
 }
 
@@ -110,7 +110,7 @@ export const getSamsMatchesFn = createServerFn()
 		// Build cache key from the resolved (effective) params so callers that rely on
 		// the default sportsclub filter get the same cache entry as explicit callers.
 		const cacheKey = createCacheKey({ type: "sams_matches", league, season, sportsclub, team, limit: data?.limit, range: data?.range });
-		const cachedMatches = await readSamsCacheEntry<LeagueMatchesResponse>(cacheKey, 5 * 60 * 1000);
+		const cachedMatches = await readCacheEntry<LeagueMatchesResponse>(cacheKey, 5 * 60 * 1000);
 		if (cachedMatches) return cachedMatches;
 
 		const defaultQueryParams: Record<string, string> = {};
@@ -151,7 +151,7 @@ export const getSamsMatchesFn = createServerFn()
 		if (data?.limit) filteredMatches = filteredMatches.slice(0, data.limit);
 
 		const result = parseServerData(LeagueMatchesResponseSchema, { matches: filteredMatches, timestamp: new Date().toISOString() }, "Failed to parse SAMS matches response");
-		await writeSamsCacheEntry(cacheKey, result);
+		await writeCacheEntry(cacheKey, result);
 		return result;
 	});
 
@@ -178,7 +178,7 @@ export const peekSamsRankingsCacheFn = createServerFn()
 		const results = await Promise.all(
 			data.leagueUuids.map((leagueUuid) => {
 				const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
-				return readSamsCacheEntry<RankingResponse>(cacheKey, Infinity);
+				return readCacheEntry<RankingResponse>(cacheKey, Infinity);
 			}),
 		);
 		return results.filter((r): r is RankingResponse => r !== null);
@@ -217,7 +217,7 @@ export const peekSamsMatchesCacheFn = createServerFn()
 		}
 
 		const cacheKey = createCacheKey({ type: "sams_matches", league, season, sportsclub, team, limit: data?.limit, range: data?.range });
-		return readSamsCacheEntry<LeagueMatchesResponse>(cacheKey, Infinity);
+		return readCacheEntry<LeagueMatchesResponse>(cacheKey, Infinity);
 	});
 
 export const listSamsClubsFn = createServerFn().handler(async () => {

@@ -9,14 +9,14 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { BeholdPost } from "@/lambda/social/types";
 import { createCacheKey } from "@utils/cache";
-import { readSamsCacheEntry } from "../sams-ddb-cache";
+import { readCacheEntry } from "../ddb-cache";
 
 /** Cache key must match the one used by lambda/social/behold-sync.ts */
 const BEHOLD_CACHE_KEY = createCacheKey({ type: "behold_feed" });
 
 export const getInstagramPostsFn = createServerFn({ method: "GET" }).handler(async (): Promise<BeholdPost[]> => {
 	try {
-		const cached = await readSamsCacheEntry<BeholdPost[]>(BEHOLD_CACHE_KEY, Infinity);
+		const cached = await readCacheEntry<BeholdPost[]>(BEHOLD_CACHE_KEY, Infinity);
 		return cached ?? [];
 	} catch {
 		return [];
