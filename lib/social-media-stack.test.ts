@@ -95,7 +95,7 @@ describe("SocialMediaStack", () => {
 
 			template.hasResourceProperties("AWS::Events::Rule", {
 				Name: "behold-sync-schedule-dev",
-				ScheduleExpression: "cron(0 */2 * * ? *)",
+				ScheduleExpression: "cron(0 7-21 * * ? *)",
 			});
 		});
 

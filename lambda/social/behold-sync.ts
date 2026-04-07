@@ -1,8 +1,9 @@
 /**
  * Scheduled Lambda that proactively syncs Behold Instagram posts to DynamoDB.
  *
- * Runs every 2 hours to keep the cache fresh without consuming Behold's
- * 1200 views/month free-tier limit (~360 calls/month ≈ 30% of the limit).
+ * Runs hourly during German daytime hours (7:00–21:00 UTC = 8–22h CET / 9–23h CEST) to keep
+ * the cache fresh without consuming Behold's 1200 views/month free-tier limit
+ * (~15 runs/day, ~465 calls/month ≈ 39% of the free-tier limit).
  *
  * The webapp route reads exclusively from DynamoDB — no live Behold API calls
  * happen on the main request path.

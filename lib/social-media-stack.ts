@@ -104,11 +104,12 @@ export class SocialMediaStack extends cdk.Stack {
 
 			props.contentTable.grantReadWriteData(beholdSync);
 
-			// Trigger every 2 hours — ~360 calls/month, ~30% of Behold's free-tier limit
+			// Trigger hourly during German daytime (7:00–21:00 UTC = 8–22h CET / 9–23h CEST)
+			// ~15 runs/day, ~465 calls/month (~39% of Behold's 1200/month free-tier limit)
 			const beholdSyncRule = new events.Rule(this, "BeholdSyncRule", {
 				ruleName: `behold-sync-schedule-${environment}${branchSuffix}`,
-				description: `Trigger Behold Instagram feed sync every 2 hours (${environment}${branchSuffix})`,
-				schedule: events.Schedule.cron({ minute: "0", hour: "*/2" }),
+				description: `Trigger Behold Instagram feed sync hourly during German daytime (${environment}${branchSuffix})`,
+				schedule: events.Schedule.cron({ minute: "0", hour: "7-21" }),
 			});
 			beholdSyncRule.addTarget(new targets.LambdaFunction(beholdSync));
 		}
