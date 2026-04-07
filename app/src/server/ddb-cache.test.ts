@@ -40,8 +40,8 @@ it("returns null when cachedAt is older than the TTL", async () => {
 const staleTime = new Date(Date.now() - TTL_MS - 1000).toISOString();
 ddbMock.on(GetCommand).resolves({
 Item: {
-pk: "sams_cache#league-abc",
-sk: "sams_cache",
+pk: "cache#league-abc",
+sk: "cache",
 data: JSON.stringify(SAMPLE_PAYLOAD),
 cachedAt: staleTime,
 },
@@ -56,8 +56,8 @@ it("returns the deserialized value when the entry is fresh", async () => {
 const freshTime = new Date(Date.now() - 1000).toISOString(); // 1 second ago
 ddbMock.on(GetCommand).resolves({
 Item: {
-pk: "sams_cache#league-abc",
-sk: "sams_cache",
+pk: "cache#league-abc",
+sk: "cache",
 data: JSON.stringify(SAMPLE_PAYLOAD),
 cachedAt: freshTime,
 },
@@ -73,8 +73,8 @@ const fixedNow = 1_000_000;
 const staleTime = new Date(fixedNow - TTL_MS).toISOString();
 ddbMock.on(GetCommand).resolves({
 Item: {
-pk: "sams_cache#league-abc",
-sk: "sams_cache",
+pk: "cache#league-abc",
+sk: "cache",
 data: JSON.stringify(SAMPLE_PAYLOAD),
 cachedAt: staleTime,
 },
@@ -98,8 +98,8 @@ const putCalls = ddbMock.commandCalls(PutCommand);
 expect(putCalls).toHaveLength(1);
 
 const item = putCalls[0].args[0].input.Item as Record<string, unknown>;
-expect(item.pk).toBe("sams_cache#league-xyz");
-expect(item.sk).toBe("sams_cache");
+expect(item.pk).toBe("cache#league-xyz");
+expect(item.sk).toBe("cache");
 expect(item.cachedAt).toBe("2026-01-01T12:00:00.000Z");
 expect(JSON.parse(item.data as string)).toEqual(SAMPLE_PAYLOAD);
 
@@ -140,8 +140,8 @@ it("returns data that is far beyond a normal TTL when Infinity is passed", async
 const oneYearAgoMs = Date.now() - 365 * 24 * 60 * 60 * 1000;
 ddbMock.on(GetCommand).resolves({
 Item: {
-pk: "sams_cache#old-key",
-sk: "sams_cache",
+pk: "cache#old-key",
+sk: "cache",
 data: JSON.stringify(SAMPLE_PAYLOAD),
 cachedAt: new Date(oneYearAgoMs).toISOString(),
 },

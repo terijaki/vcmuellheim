@@ -5,8 +5,8 @@
  * Lambda instances and visitor sessions.
  *
  * Key scheme (single content table, single-table design):
- *   PK: `sams_cache#<cacheKey>`
- *   SK: `sams_cache`
+ *   PK: `cache#<cacheKey>`
+ *   SK: `cache`
  *
  * Entry shape: `{ data: JSON-serialized payload, cachedAt: ISO timestamp string }`
  *
@@ -17,13 +17,13 @@ import { GetCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
 import { getContentTableName } from "@/lib/db/env";
 
-const CACHE_SK = "sams_cache";
+const CACHE_SK = "cache";
 
 /** 3 months — DynamoDB hygiene TTL to reclaim storage for orphaned cache keys */
 const DDB_TTL_SECONDS = 90 * 24 * 60 * 60;
 
 function buildPk(cacheKey: string): string {
-	return `sams_cache#${cacheKey}`;
+	return `cache#${cacheKey}`;
 }
 
 type CacheEntry = {

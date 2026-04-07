@@ -9,8 +9,8 @@
  * happen on the main request path.
  *
  * DDB key scheme (content table, same as ddb-cache.ts):
- *   PK: `sams_cache#<cacheKey>`
- *   SK: `sams_cache`
+ *   PK: `cache#<cacheKey>`
+ *   SK: `cache`
  */
 
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
@@ -42,7 +42,7 @@ const DDB_TTL_SECONDS = 90 * 24 * 60 * 60;
 /** Cache key must match the one used by app/src/server/functions/social.ts */
 export const BEHOLD_CACHE_KEY = createCacheKey({ type: "behold_feed" });
 
-const CACHE_SK = "sams_cache";
+const CACHE_SK = "cache";
 
 const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 	logger.info("Starting Behold Instagram feed sync", { event });
@@ -75,7 +75,7 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 		new PutCommand({
 			TableName: TABLE_NAME,
 			Item: {
-				pk: `sams_cache#${BEHOLD_CACHE_KEY}`,
+				pk: `cache#${BEHOLD_CACHE_KEY}`,
 				sk: CACHE_SK,
 				data: JSON.stringify(posts),
 				cachedAt: new Date(nowMs).toISOString(),
