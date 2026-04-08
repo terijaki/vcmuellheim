@@ -120,7 +120,7 @@ function createAuth() {
 
 					await sesClient.send(
 						new SendEmailCommand({
-							Source: "no-reply@vcmuellheim.de",
+							Source: "no-reply@vcmuellheim.de", // TODO set to new.vcmuellheim.de for dev
 							Destination: { ToAddresses: [email] },
 							Message: {
 								Subject: {
