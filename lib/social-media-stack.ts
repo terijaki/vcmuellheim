@@ -77,7 +77,7 @@ export class SocialMediaStack extends cdk.Stack {
 		}
 
 		// Create scheduled Lambda to proactively sync Behold Instagram posts to DynamoDB.
-		// Runs every 2 hours — ~360 calls/month (~30% of Behold's 1200/month free-tier limit).
+		// Runs hourly during German daytime — ~465 calls/month (~39% of Behold's 1200/month free-tier limit).
 		if (props.contentTable) {
 			const beholdSync = new NodejsFunction(this, "BeholdSync", {
 				functionName: `behold-sync-${environment}${branchSuffix}`,
