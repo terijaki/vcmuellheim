@@ -6,10 +6,11 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { MAX_UPLOAD_SIZE } from "@utils/image-config";
 import { useNotification } from "@webapp/hooks/useNotification";
-import { createMemberFn, deleteMemberFn, listMembersFn, updateMemberFn } from "@webapp/server/functions/members";
+import { adminListMembersFn, checkProxyEmailFn, createMemberFn, deleteMemberFn, suggestProxyAliasFn, updateMemberFn } from "@webapp/server/functions/members";
 import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
 import { Pencil, Plus, Trash2, Upload, User, X } from "lucide-react";
 import { useState } from "react";
+import z from "zod";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
 
@@ -168,7 +169,7 @@ function CurrentAvatarDisplay({
 							Profilfoto hierher ziehen oder klicken zum Auswählen
 						</Text>
 						<Text size="sm" c="dimmed" inline mt={7}>
-							JPG oder PNG, max. ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB
+							JPG oder PNG, max. {bytesToMB(MAX_UPLOAD_SIZE, 0)}MB
 						</Text>
 					</Stack>
 				</Flex>
@@ -186,16 +187,29 @@ function MembersPage() {
 	const [uploading, setUploading] = useState(false);
 	const [formData, setFormData] = useState<Partial<MemberInput>>({
 		name: "",
-		email: "",
+		privateEmail: "",
+		proxyEmail: "",
 		phone: "",
 		isBoardMember: false,
 		isTrainer: false,
 		roleTitle: "",
 		avatarS3Key: undefined,
 	});
+	const [proxyEmailAvailable, setProxyEmailAvailable] = useState<boolean | null>(null);
+	const [showAliasEdit, setShowAliasEdit] = useState(false);
+
+	const autoSuggestAlias = async (name: string) => {
+		try {
+			const { alias } = await suggestProxyAliasFn({ data: { name } });
+			setFormData((prev) => ({ ...prev, proxyEmail: alias }));
+			setProxyEmailAvailable(true);
+		} catch {
+			// ignore
+		}
+	};
 
 	const notification = useNotification();
-	const { data: members, isLoading, refetch } = useQuery({ queryKey: ["members", "list"], queryFn: () => listMembersFn() });
+	const { data: members, isLoading, refetch } = useQuery({ queryKey: ["members", "list"], queryFn: () => adminListMembersFn() });
 	const uploadMutation = useMutation({
 		mutationFn: (data: Parameters<typeof getPresignedUrlFn>[0]["data"]) => getPresignedUrlFn({ data }),
 		onError: (error: unknown) => {
@@ -259,7 +273,8 @@ function MembersPage() {
 	const resetForm = () => {
 		setFormData({
 			name: "",
-			email: "",
+			privateEmail: "",
+			proxyEmail: "",
 			phone: "",
 			isBoardMember: false,
 			isTrainer: false,
@@ -267,6 +282,8 @@ function MembersPage() {
 			avatarS3Key: undefined,
 		});
 		setAvatarFile(null);
+		setProxyEmailAvailable(null);
+		setShowAliasEdit(false);
 	};
 	const handleSubmit = async () => {
 		if (!formData.name) return;
@@ -305,7 +322,7 @@ function MembersPage() {
 
 			// Filter out empty strings to avoid DynamoDB GSI errors
 			// When editing, convert empty optional string fields to null so they can be cleared
-			const clearableOptionalFields = new Set(["email", "phone", "roleTitle"]);
+			const clearableOptionalFields = new Set(["privateEmail", "proxyEmail", "phone", "roleTitle"]);
 			const cleanedData: Record<string, unknown> = {};
 			for (const [key, value] of Object.entries({ ...formData, avatarS3Key })) {
 				if (key === "avatarS3Key") {
@@ -336,7 +353,8 @@ function MembersPage() {
 	const handleEdit = (member: MemberInput & { id: string }) => {
 		setFormData({
 			name: member.name,
-			email: member.email || "",
+			privateEmail: member.privateEmail || "",
+			proxyEmail: member.proxyEmail || "",
 			phone: member.phone || "",
 			isBoardMember: member.isBoardMember || false,
 			isTrainer: member.isTrainer || false,
@@ -346,6 +364,8 @@ function MembersPage() {
 		setEditingId(member.id);
 		setDeleteAvatar(false);
 		setAvatarFile(null);
+		setProxyEmailAvailable(null);
+		setShowAliasEdit(false);
 		open();
 	};
 
@@ -374,8 +394,64 @@ function MembersPage() {
 
 			<Modal opened={opened} onClose={close} title={editingId ? "Mitglied bearbeiten" : "Neues Mitglied"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
 				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
-					<TextInput label="Name" placeholder="z.B. Max Mustermann" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
-					<TextInput label="E-Mail" placeholder="max@vcmuellheim.de" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+					<TextInput
+						label="Name"
+						placeholder="z.B. Max Mustermann"
+						value={formData.name}
+						onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+						onBlur={(e) => {
+							const name = e.target.value;
+							if (name && formData.privateEmail) {
+								void autoSuggestAlias(name);
+							}
+						}}
+						required
+					/>
+
+					<TextInput
+						label="Private E-Mail"
+						placeholder="max.mustermann@gmail.com"
+						type="email"
+						value={formData.privateEmail}
+						onChange={(e) => {
+							setFormData({ ...formData, privateEmail: e.target.value });
+							const validatedEmail = z.email().safeParse(e.target.value);
+							if (validatedEmail.success && formData.name && !formData.proxyEmail) {
+								void autoSuggestAlias(formData.name);
+							}
+						}}
+						description="Wird nicht öffentlich angezeigt. Eingehende Mails werden hierhin weitergeleitet."
+					/>
+					{formData.privateEmail && (
+						<TextInput
+							label="Email Alias"
+							placeholder="erika.mustermann"
+							value={formData.proxyEmail?.split("@")[0] ?? ""}
+							rightSection={
+								<Text size="sm" c="dimmed" pr="xs">
+									@vcmuellheim.de
+								</Text>
+							}
+							rightSectionWidth={130}
+							onChange={async (e) => {
+								const local = e.target.value;
+								const full = local ? `${local}@vcmuellheim.de` : "";
+								setFormData({ ...formData, proxyEmail: full });
+								if (full) {
+									try {
+										const { available } = await checkProxyEmailFn({ data: { proxyEmail: full, excludeMemberId: editingId ?? undefined } });
+										setProxyEmailAvailable(available);
+									} catch {
+										setProxyEmailAvailable(null);
+									}
+								} else {
+									setProxyEmailAvailable(null);
+								}
+							}}
+							description="Öffentliche Weiterleitung. Erscheint in Kontaktlinks auf der Website."
+							error={proxyEmailAvailable === false ? "Alias bereits vergeben" : undefined}
+						/>
+					)}
 					<TextInput label="Telefon" placeholder="+49 123 456789" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
 					<TextInput label="Funktion" placeholder="z.B. Abteilungsleiter" value={formData.roleTitle} onChange={(e) => setFormData({ ...formData, roleTitle: e.target.value })} />
 					<Group gap="md">
@@ -406,7 +482,7 @@ function MembersPage() {
 								</Button>
 							</>
 						)}
-						<Group gap="xs">
+						<Group gap="xs" ms="auto">
 							<Button variant="light" onClick={close}>
 								Abbrechen
 							</Button>
@@ -441,7 +517,7 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 		queryFn: () => resolveFileUrl(member.avatarS3Key),
 		enabled: !!member.avatarS3Key,
 	});
-	const hasDetails = Boolean(member.roleTitle || member.email || member.phone);
+	const hasDetails = Boolean(member.roleTitle || member.proxyEmail || member.phone);
 	const hasBadges = member.isBoardMember || member.isTrainer;
 
 	return (
@@ -475,9 +551,9 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 										{member.roleTitle}
 									</Text>
 								)}
-								{member.email && (
+								{member.proxyEmail && (
 									<Text size="sm" c="dimmed" style={{ overflowWrap: "anywhere" }}>
-										{member.email}
+										{member.proxyEmail}
 									</Text>
 								)}
 								{member.phone && (
@@ -535,9 +611,9 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 										{member.roleTitle}
 									</Text>
 								)}
-								{member.email && (
+								{member.proxyEmail && (
 									<Text size="sm" c="dimmed" lineClamp={1} style={{ overflowWrap: "anywhere" }}>
-										{member.email}
+										{member.proxyEmail}
 									</Text>
 								)}
 								{member.phone && (

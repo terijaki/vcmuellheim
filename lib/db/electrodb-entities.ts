@@ -175,7 +175,8 @@ export const MemberEntity = new Entity({
 		id: { type: "string", required: true },
 		type: { type: "string", required: true, default: () => "member" as const },
 		name: { type: "string", required: true },
-		email: { type: "string" },
+		privateEmail: { type: "string" },
+		proxyEmail: { type: "string" },
 		phone: { type: "string" },
 		isBoardMember: { type: "boolean" },
 		isTrainer: { type: "boolean" },
@@ -193,6 +194,11 @@ export const MemberEntity = new Entity({
 			index: ContentTableIndexes.gsi1,
 			pk: { field: "gsi1pk", composite: ["type"] },
 			sk: { field: "gsi1sk", composite: ["updatedAt"] },
+		},
+		byProxyEmail: {
+			index: ContentTableIndexes.gsi4,
+			pk: { field: "gsi4pk", composite: ["proxyEmail"] },
+			sk: { field: "gsi4sk", composite: [] },
 		},
 	},
 } as const);

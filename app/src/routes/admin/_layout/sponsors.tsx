@@ -163,7 +163,7 @@ function CurrentLogoDisplay({
 							Logo hierher ziehen oder klicken zum Auswählen
 						</Text>
 						<Text size="sm" opacity={0.7} inline mt={7}>
-							PNG, JPG oder SVG, max. ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB
+							PNG, JPG oder SVG, max. {bytesToMB(MAX_UPLOAD_SIZE, 0)}MB
 						</Text>
 					</Stack>
 				</Flex>
