@@ -4,14 +4,14 @@ import { mockClient } from "aws-sdk-client-mock";
 
 const ddbMock = mockClient(DynamoDBDocumentClient);
 
-let readSamsCacheEntry: typeof import("./sams-ddb-cache").readSamsCacheEntry;
-let writeSamsCacheEntry: typeof import("./sams-ddb-cache").writeSamsCacheEntry;
+let readCacheEntry: typeof import("./ddb-cache").readCacheEntry;
+let writeCacheEntry: typeof import("./ddb-cache").writeCacheEntry;
 
 beforeAll(async () => {
 	process.env.CONTENT_TABLE_NAME = "test-content-table";
-	const module = await import("./sams-ddb-cache");
-	readSamsCacheEntry = module.readSamsCacheEntry;
-	writeSamsCacheEntry = module.writeSamsCacheEntry;
+	const module = await import("./ddb-cache");
+	readCacheEntry = module.readCacheEntry;
+	writeCacheEntry = module.writeCacheEntry;
 });
 
 beforeEach(() => {
@@ -27,11 +27,11 @@ const SAMPLE_PAYLOAD: TestPayload = {
 	rankings: ["Team A", "Team B"],
 };
 
-describe("readSamsCacheEntry", () => {
+describe("readCacheEntry", () => {
 	it("returns null on a cache miss (item not in DDB)", async () => {
 		ddbMock.on(GetCommand).resolves({ Item: undefined });
 
-		const result = await readSamsCacheEntry<TestPayload>("league-abc", TTL_MS);
+		const result = await readCacheEntry<TestPayload>("league-abc", TTL_MS);
 
 		expect(result).toBeNull();
 	});
@@ -40,14 +40,14 @@ describe("readSamsCacheEntry", () => {
 		const staleTime = new Date(Date.now() - TTL_MS - 1000).toISOString();
 		ddbMock.on(GetCommand).resolves({
 			Item: {
-				pk: "sams_cache#league-abc",
-				sk: "sams_cache",
+				pk: "cache#league-abc",
+				sk: "cache",
 				data: JSON.stringify(SAMPLE_PAYLOAD),
 				cachedAt: staleTime,
 			},
 		});
 
-		const result = await readSamsCacheEntry<TestPayload>("league-abc", TTL_MS);
+		const result = await readCacheEntry<TestPayload>("league-abc", TTL_MS);
 
 		expect(result).toBeNull();
 	});
@@ -56,14 +56,14 @@ describe("readSamsCacheEntry", () => {
 		const freshTime = new Date(Date.now() - 1000).toISOString(); // 1 second ago
 		ddbMock.on(GetCommand).resolves({
 			Item: {
-				pk: "sams_cache#league-abc",
-				sk: "sams_cache",
+				pk: "cache#league-abc",
+				sk: "cache",
 				data: JSON.stringify(SAMPLE_PAYLOAD),
 				cachedAt: freshTime,
 			},
 		});
 
-		const result = await readSamsCacheEntry<TestPayload>("league-abc", TTL_MS);
+		const result = await readCacheEntry<TestPayload>("league-abc", TTL_MS);
 
 		expect(result).toEqual(SAMPLE_PAYLOAD);
 	});
@@ -73,33 +73,33 @@ describe("readSamsCacheEntry", () => {
 		const staleTime = new Date(fixedNow - TTL_MS).toISOString();
 		ddbMock.on(GetCommand).resolves({
 			Item: {
-				pk: "sams_cache#league-abc",
-				sk: "sams_cache",
+				pk: "cache#league-abc",
+				sk: "cache",
 				data: JSON.stringify(SAMPLE_PAYLOAD),
 				cachedAt: staleTime,
 			},
 		});
 
-		const result = await readSamsCacheEntry<TestPayload>("league-abc", TTL_MS, () => fixedNow);
+		const result = await readCacheEntry<TestPayload>("league-abc", TTL_MS, () => fixedNow);
 
 		// age === TTL_MS, which is NOT > TTL_MS so it's still fresh
 		expect(result).toEqual(SAMPLE_PAYLOAD);
 	});
 });
 
-describe("writeSamsCacheEntry", () => {
+describe("writeCacheEntry", () => {
 	it("puts an item into DynamoDB with the correct key scheme and a 3-month DynamoDB TTL", async () => {
 		ddbMock.on(PutCommand).resolves({});
 
 		const fixedNow = new Date("2026-01-01T12:00:00.000Z").getTime();
-		await writeSamsCacheEntry("league-xyz", SAMPLE_PAYLOAD, () => fixedNow);
+		await writeCacheEntry("league-xyz", SAMPLE_PAYLOAD, () => fixedNow);
 
 		const putCalls = ddbMock.commandCalls(PutCommand);
 		expect(putCalls).toHaveLength(1);
 
 		const item = putCalls[0].args[0].input.Item as Record<string, unknown>;
-		expect(item.pk).toBe("sams_cache#league-xyz");
-		expect(item.sk).toBe("sams_cache");
+		expect(item.pk).toBe("cache#league-xyz");
+		expect(item.sk).toBe("cache");
 		expect(item.cachedAt).toBe("2026-01-01T12:00:00.000Z");
 		expect(JSON.parse(item.data as string)).toEqual(SAMPLE_PAYLOAD);
 
@@ -116,7 +116,7 @@ describe("round-trip: write then read", () => {
 
 		ddbMock.on(PutCommand).resolves({});
 
-		await writeSamsCacheEntry("round-trip-key", SAMPLE_PAYLOAD, () => fixedNow);
+		await writeCacheEntry("round-trip-key", SAMPLE_PAYLOAD, () => fixedNow);
 
 		// Extract what was written and feed it back for the read
 		const putCalls = ddbMock.commandCalls(PutCommand);
@@ -125,29 +125,30 @@ describe("round-trip: write then read", () => {
 
 		ddbMock.on(GetCommand).resolves({ Item: writtenItem });
 
-		const result = await readSamsCacheEntry<TestPayload>("round-trip-key", TTL_MS, () => fixedNow + 1000);
+		const result = await readCacheEntry<TestPayload>("round-trip-key", TTL_MS, () => fixedNow + 1000);
 
 		expect(result).toEqual(SAMPLE_PAYLOAD);
 		expect(writtenItem.cachedAt).toBe(expectedCachedAt);
 	});
 });
+
 describe("Infinity TTL (loader peek contract)", () => {
 	// Route loaders use Infinity as the TTL so they always return whatever is cached,
 	// regardless of age. This prevents the loader from blocking navigation while waiting
-	// for a SAMS API call. React Query handles freshness client-side after render.
+	// for a stale refresh. React Query handles freshness client-side after render.
 	it("returns data that is far beyond a normal TTL when Infinity is passed", async () => {
 		// Data cached 1 year ago
 		const oneYearAgoMs = Date.now() - 365 * 24 * 60 * 60 * 1000;
 		ddbMock.on(GetCommand).resolves({
 			Item: {
-				pk: "sams_cache#old-key",
-				sk: "sams_cache",
+				pk: "cache#old-key",
+				sk: "cache",
 				data: JSON.stringify(SAMPLE_PAYLOAD),
 				cachedAt: new Date(oneYearAgoMs).toISOString(),
 			},
 		});
 
-		const result = await readSamsCacheEntry<TestPayload>("old-key", Infinity);
+		const result = await readCacheEntry<TestPayload>("old-key", Infinity);
 
 		expect(result).toEqual(SAMPLE_PAYLOAD);
 	});
@@ -155,7 +156,7 @@ describe("Infinity TTL (loader peek contract)", () => {
 	it("still returns null on a cache miss even with Infinity TTL", async () => {
 		ddbMock.on(GetCommand).resolves({ Item: undefined });
 
-		const result = await readSamsCacheEntry<TestPayload>("no-entry", Infinity);
+		const result = await readCacheEntry<TestPayload>("no-entry", Infinity);
 
 		expect(result).toBeNull();
 	});

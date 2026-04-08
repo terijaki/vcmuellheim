@@ -5,6 +5,13 @@ import { optionalEnvString, requiredEnvString } from "../utils/env";
 // Lambda Environment Contracts
 // ============================================================================
 
+export const BeholdSyncLambdaEnvironmentSchema = z.object({
+	CDK_ENVIRONMENT: optionalEnvString,
+	CONTENT_TABLE_NAME: requiredEnvString,
+});
+
+export type BeholdSyncLambdaEnvironment = z.infer<typeof BeholdSyncLambdaEnvironmentSchema>;
+
 export const MastodonShareLambdaEnvironmentSchema = z.object({
 	CDK_ENVIRONMENT: optionalEnvString,
 	MASTODON_ACCESS_TOKEN: requiredEnvString,

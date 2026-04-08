@@ -1,27 +1,26 @@
 /**
- * Social media server functions — fetches Instagram posts from Behold.so CDN feed.
- * Public, no auth required.
+ * Social media server functions — reads cached Behold Instagram posts from DynamoDB.
+ *
+ * Posts are proactively synced by the scheduled `behold-sync` Lambda, which runs
+ * hourly from 07:00-21:00 UTC (15 times per day). This route never calls the
+ * Behold API directly, eliminating any risk of hitting the 1200 views/month
+ * free-tier limit on the main request path.
  */
 
 import { createServerFn } from "@tanstack/react-start";
-import dayjs from "dayjs";
 import type { BeholdPost } from "@/lambda/social/types";
-import { BeholdFeedSchema } from "@/lambda/social/types";
-import { Instagram } from "@project.config";
-import { parseServerData } from "../schema-parse";
+import { createCacheKey } from "@utils/cache";
+import { readCacheEntry } from "../ddb-cache";
 
-const MAX_POSTS = 2;
-const MAX_AGE_DAYS = process.env.NODE_ENV === "development" ? 365 : 14;
+/** Cache key must match the one used by lambda/social/behold-sync.ts */
+const BEHOLD_CACHE_KEY = createCacheKey({ type: "behold_feed" });
 
 export const getInstagramPostsFn = createServerFn({ method: "GET" }).handler(async (): Promise<BeholdPost[]> => {
-	const response = await fetch(Instagram.beholdFeedUrl);
-	if (!response.ok) {
-		throw new Error(`Failed to fetch Behold feed: ${response.status}`);
+	try {
+		const cached = await readCacheEntry<BeholdPost[]>(BEHOLD_CACHE_KEY, Infinity);
+		return cached ?? [];
+	} catch {
+		return [];
 	}
-
-	const raw: unknown = await response.json();
-	const feed = parseServerData(BeholdFeedSchema, raw, "Failed to parse Behold feed");
-
-	const cutoff = dayjs().subtract(MAX_AGE_DAYS, "day");
-	return feed.posts.filter((post) => dayjs(post.timestamp).isAfter(cutoff)).slice(0, MAX_POSTS);
 });
+
