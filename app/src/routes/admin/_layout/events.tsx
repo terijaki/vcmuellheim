@@ -1,9 +1,9 @@
 import { ActionIcon, Button, Card, Center, Group, Modal, MultiSelect, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { Calendar, DateTimePicker, getTimeRange } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import { useState } from "react";
 import "dayjs/locale/de";
 import type { EventInput } from "@lib/db/schemas";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -14,22 +14,60 @@ import { Plus, SquarePen, Trash2 } from "lucide-react";
 
 dayjs.locale("de");
 
+const defaultFormValues = {
+	id: undefined as string | undefined,
+	title: "",
+	description: "",
+	startDate: null as Date | null,
+	endDate: undefined as Date | undefined,
+	location: "",
+	variant: "",
+	teamIds: [] as string[] | undefined,
+};
+
 function EventsPage() {
 	const [opened, { open, close }] = useDisclosure(false);
-	const [editingId, setEditingId] = useState<string | null>(null);
-	const [formData, setFormData] = useState({
-		title: "",
-		description: "",
-		startDate: null as Date | null,
-		endDate: undefined as Date | undefined,
-		location: "",
-		variant: "",
-		teamIds: [] as string[] | undefined,
-	});
 
 	const notification = useNotification();
 	const { data: eventsData, isLoading, refetch } = useQuery({ queryKey: ["events", "list"], queryFn: () => listAllEventsFn() });
 	const { data: teams } = useQuery({ queryKey: ["teams", "list"], queryFn: () => listTeamsFn() });
+	const form = useForm({
+		defaultValues: defaultFormValues,
+		onSubmit: async ({ value }) => {
+			const currentEditingId = value.id;
+			if (!value.startDate) {
+				return;
+			}
+
+			if (currentEditingId) {
+				updateMutation.mutate({
+					id: currentEditingId,
+					data: {
+						type: "event" as const,
+						title: value.title,
+						description: value.description || null,
+						startDate: value.startDate.toISOString(),
+						endDate: value.endDate ? value.endDate.toISOString() : undefined,
+						location: value.location || null,
+						variant: value.variant || null,
+						teamIds: value.teamIds || undefined,
+					},
+				});
+			} else {
+				createMutation.mutate({
+					type: "event" as const,
+					title: value.title,
+					description: value.description || undefined,
+					startDate: value.startDate.toISOString(),
+					endDate: value.endDate ? value.endDate.toISOString() : undefined,
+					location: value.location || undefined,
+					variant: value.variant || undefined,
+					teamIds: value.teamIds || undefined,
+				});
+			}
+		},
+	});
+	const editingId = form.getFieldValue("id");
 
 	const events = eventsData?.items || [];
 	const isMobile = useMediaQuery("(max-width: 768px)");
@@ -87,64 +125,18 @@ function EventsPage() {
 		},
 	});
 	const resetForm = () => {
-		setFormData({
-			title: "",
-			description: "",
-			startDate: null,
-			endDate: undefined,
-			location: "",
-			variant: "",
-			teamIds: undefined,
-		});
-		setEditingId(null);
-	};
-
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-
-		if (!formData.startDate) {
-			return;
-		}
-
-		if (editingId) {
-			updateMutation.mutate({
-				id: editingId,
-				data: {
-					type: "event" as const,
-					title: formData.title,
-					description: formData.description || null, // null = clear existing value
-					startDate: formData.startDate.toISOString(),
-					endDate: formData.endDate ? formData.endDate.toISOString() : undefined,
-					location: formData.location || null, // null = clear existing value
-					variant: formData.variant || null, // null = clear existing value
-					teamIds: formData.teamIds || undefined,
-				},
-			});
-		} else {
-			createMutation.mutate({
-				type: "event" as const,
-				title: formData.title,
-				description: formData.description || undefined,
-				startDate: formData.startDate.toISOString(),
-				endDate: formData.endDate ? formData.endDate.toISOString() : undefined,
-				location: formData.location || undefined,
-				variant: formData.variant || undefined,
-				teamIds: formData.teamIds || undefined,
-			});
-		}
+		form.reset();
 	};
 
 	const handleEdit = (event: EventInput) => {
-		setEditingId(event.id);
-		setFormData({
-			title: event.title,
-			description: event.description || "",
-			startDate: new Date(event.startDate),
-			endDate: event.endDate ? new Date(event.endDate) : undefined,
-			location: event.location || "",
-			variant: event.variant || "",
-			teamIds: event.teamIds || [],
-		});
+		form.setFieldValue("id", event.id);
+		form.setFieldValue("title", event.title);
+		form.setFieldValue("description", event.description || "");
+		form.setFieldValue("startDate", new Date(event.startDate));
+		form.setFieldValue("endDate", event.endDate ? new Date(event.endDate) : undefined);
+		form.setFieldValue("location", event.location || "");
+		form.setFieldValue("variant", event.variant || "");
+		form.setFieldValue("teamIds", event.teamIds || []);
 		open();
 	};
 
@@ -297,129 +289,152 @@ function EventsPage() {
 				size={isMobile ? "100%" : "lg"}
 				fullScreen={isMobile}
 			>
-				<form onSubmit={handleSubmit}>
-					<Stack>
-						<TextInput label="Titel" placeholder="z.B. Heimspiel gegen Team X" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						void form.handleSubmit();
+					}}
+				>
+					<form.Subscribe selector={(state) => state.values}>
+						{(formData) => (
+							<Stack>
+								<form.Field name="title">
+									{(field) => <TextInput label="Titel" placeholder="z.B. Heimspiel gegen Team X" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} required />}
+								</form.Field>
 
-						<TextInput label="Terminart" placeholder="z.B. Spiel, Training, Versammlung" value={formData.variant} onChange={(e) => setFormData({ ...formData, variant: e.target.value })} />
+								<form.Field name="variant">
+									{(field) => <TextInput label="Terminart" placeholder="z.B. Spiel, Training, Versammlung" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+								</form.Field>
 
-						<DateTimePicker
-							label="Startdatum & Uhrzeit"
-							placeholder="Beginn wählen"
-							locale="de"
-							value={formData.startDate}
-							onChange={(date) => setFormData({ ...formData, startDate: date ? new Date(date) : null })}
-							valueFormat="D MMMM YYYY - HH:mm [Uhr]"
-							getDayProps={(date) => {
-								const dateStr = dayjs(date).format("YYYY-MM-DD");
-								if (eventDates.has(dateStr)) {
-									return {
-										style: {
-											backgroundColor: "var(--mantine-color-turquoise-4)",
-											border: "1px solid var(--mantine-color-turquoise-6)",
-											color: "var(--mantine-color-white)",
-										},
-									};
-								}
-								return {};
-							}}
-							required
-							highlightToday
-							timePickerProps={{
-								withDropdown: true,
-								format: "24h",
-								presets: getTimeRange({ startTime: "09:00:00", endTime: "14:00:00", interval: "00:30:00" }),
-							}}
-							presets={
-								isMobile
-									? undefined
-									: [
-											{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
-											{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
-											{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
-										]
-							}
-						/>
+								<form.Field name="startDate">
+									{(field) => (
+										<DateTimePicker
+											label="Startdatum & Uhrzeit"
+											placeholder="Beginn wählen"
+											locale="de"
+											value={field.state.value}
+											onChange={(date) => field.handleChange(date ? new Date(date) : null)}
+											valueFormat="D MMMM YYYY - HH:mm [Uhr]"
+											getDayProps={(date) => {
+												const dateStr = dayjs(date).format("YYYY-MM-DD");
+												if (eventDates.has(dateStr)) {
+													return {
+														style: {
+															backgroundColor: "var(--mantine-color-turquoise-4)",
+															border: "1px solid var(--mantine-color-turquoise-6)",
+															color: "var(--mantine-color-white)",
+														},
+													};
+												}
+												return {};
+											}}
+											required
+											highlightToday
+											timePickerProps={{
+												withDropdown: true,
+												format: "24h",
+												presets: getTimeRange({ startTime: "09:00:00", endTime: "14:00:00", interval: "00:30:00" }),
+											}}
+											presets={
+												isMobile
+													? undefined
+													: [
+															{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
+															{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
+															{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
+														]
+											}
+										/>
+									)}
+								</form.Field>
 
-						<DateTimePicker
-							label="Enddatum & Uhrzeit"
-							placeholder="Ende wählen"
-							locale="de"
-							value={formData.endDate}
-							onChange={(date) => setFormData({ ...formData, endDate: date ? new Date(date) : undefined })}
-							valueFormat="D MMMM YYYY - HH:mm [Uhr]"
-							getDayProps={(date) => {
-								const dateStr = dayjs(date).format("YYYY-MM-DD");
-								if (eventDates.has(dateStr)) {
-									return {
-										style: {
-											backgroundColor: "var(--mantine-color-turquoise-4)",
-											border: "1px solid var(--mantine-color-turquoise-6)",
-											color: "var(--mantine-color-white)",
-										},
-									};
-								}
-								return {};
-							}}
-							clearable
-							highlightToday
-							timePickerProps={{
-								withDropdown: true,
-								format: "24h",
-								presets: getTimeRange({ startTime: "16:00:00", endTime: "22:00:00", interval: "00:30:00" }),
-							}}
-							presets={
-								isMobile
-									? undefined
-									: [
-											{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
-											{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
-											{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
-										]
-							}
-						/>
+								<form.Field name="endDate">
+									{(field) => (
+										<DateTimePicker
+											label="Enddatum & Uhrzeit"
+											placeholder="Ende wählen"
+											locale="de"
+											value={field.state.value}
+											onChange={(date) => field.handleChange(date ? new Date(date) : undefined)}
+											valueFormat="D MMMM YYYY - HH:mm [Uhr]"
+											getDayProps={(date) => {
+												const dateStr = dayjs(date).format("YYYY-MM-DD");
+												if (eventDates.has(dateStr)) {
+													return {
+														style: {
+															backgroundColor: "var(--mantine-color-turquoise-4)",
+															border: "1px solid var(--mantine-color-turquoise-6)",
+															color: "var(--mantine-color-white)",
+														},
+													};
+												}
+												return {};
+											}}
+											clearable
+											highlightToday
+											timePickerProps={{
+												withDropdown: true,
+												format: "24h",
+												presets: getTimeRange({ startTime: "16:00:00", endTime: "22:00:00", interval: "00:30:00" }),
+											}}
+											presets={
+												isMobile
+													? undefined
+													: [
+															{ value: dayjs().add(1, "day").format("YYYY-MM-DD HH:mm:ss"), label: "Morgen" },
+															{ value: dayjs().add(1, "week").format("YYYY-MM-DD HH:mm:ss"), label: "Nächste Woche" },
+															{ value: dayjs().add(1, "month").format("YYYY-MM-DD HH:mm:ss"), label: "Nächster Monat" },
+														]
+											}
+										/>
+									)}
+								</form.Field>
 
-						<TextInput label="Ort" placeholder="z.B. Sporthalle Müllheim" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} />
+								<form.Field name="location">
+									{(field) => <TextInput label="Ort" placeholder="z.B. Sporthalle Müllheim" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+								</form.Field>
 
-						<Textarea
-							label="Beschreibung"
-							placeholder="Zusätzliche Informationen..."
-							value={formData.description}
-							onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-							minRows={3}
-						/>
+								<form.Field name="description">
+									{(field) => <Textarea label="Beschreibung" placeholder="Zusätzliche Informationen..." value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} minRows={3} />}
+								</form.Field>
 
-						<MultiSelect
-							label="Team (optional)"
-							placeholder="Dazugehörige Teams auswählen"
-							data={teams ? teams.items.map((team) => ({ value: team.id, label: team.name })) : []}
-							value={formData.teamIds}
-							onChange={(value) => setFormData({ ...formData, teamIds: value || [] })}
-							clearable
-							hidePickedOptions
-						/>
+								<form.Field name="teamIds">
+									{(field) => (
+										<MultiSelect
+											label="Team (optional)"
+											placeholder="Dazugehörige Teams auswählen"
+											data={teams ? teams.items.map((team) => ({ value: team.id, label: team.name })) : []}
+											value={field.state.value}
+											onChange={(value) => field.handleChange(value || [])}
+											clearable
+											hidePickedOptions
+										/>
+									)}
+								</form.Field>
 
-						<Group justify="space-between" mt="md">
-							{editingId && (
-								<>
-									<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
-										<Trash2 />
-									</ActionIcon>
-									<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
-										Löschen
-									</Button>
-								</>
-							)}
-							<Group gap="xs">
-								<Button variant="light" onClick={close}>
-									Abbrechen
-								</Button>
-								<Button variant="filled" type="submit" loading={createMutation.isPending || updateMutation.isPending}>
-									{editingId ? "Aktualisieren" : "Erstellen"}
-								</Button>
-							</Group>
-						</Group>
-					</Stack>
+								<Group justify="space-between" mt="md">
+									{editingId && (
+										<>
+											<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+												<Trash2 />
+											</ActionIcon>
+											<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+												Löschen
+											</Button>
+										</>
+									)}
+									<Group gap="xs">
+										<Button variant="light" type="button" onClick={close}>
+											Abbrechen
+										</Button>
+										<Button variant="filled" type="submit" loading={createMutation.isPending || updateMutation.isPending} disabled={!formData.title || !formData.startDate}>
+											{editingId ? "Aktualisieren" : "Erstellen"}
+										</Button>
+									</Group>
+								</Group>
+							</Stack>
+						)}
+					</form.Subscribe>
 				</form>
 			</Modal>
 		</Stack>

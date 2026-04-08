@@ -1,27 +1,50 @@
 import type { LocationInput } from "@lib/db/schemas";
 import { ActionIcon, Button, Card, Group, Modal, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useForm } from "@tanstack/react-form-start";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useNotification } from "@webapp/hooks/useNotification";
 import { createLocationFn, deleteLocationFn, listLocationsFn, updateLocationFn } from "@webapp/server/functions/locations";
 import { Plus, SquarePen, Trash2 } from "lucide-react";
-import { useState } from "react";
+
+const defaultFormValues = {
+	id: undefined as string | undefined,
+	name: "",
+	description: "",
+	street: "",
+	postal: "",
+	city: "",
+};
 
 function LocationsPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
-	const [editingId, setEditingId] = useState<string | null>(null);
-	const [formData, setFormData] = useState<Partial<LocationInput>>({
-		name: "",
-		description: "",
-		street: "",
-		postal: "",
-		city: "",
-	});
 
 	const notification = useNotification();
 	const { data: locations, isLoading, refetch } = useQuery({ queryKey: ["locations", "list"], queryFn: () => listLocationsFn() });
+	const form = useForm({
+		defaultValues: defaultFormValues,
+		onSubmit: async ({ value }) => {
+			const { id, ...payload } = value;
+			if (!value.name || !value.street || !value.postal || !value.city) {
+				notification.error({
+					message: "Bitte füllen Sie alle Pflichtfelder aus",
+				});
+				return;
+			}
+
+			if (id) {
+				updateMutation.mutate({
+					id,
+					data: payload,
+				});
+			} else {
+				createMutation.mutate(payload as Omit<LocationInput, "id" | "createdAt" | "updatedAt">);
+			}
+		},
+	});
+	const editingId = form.getFieldValue("id");
 
 	const createMutation = useMutation({
 		mutationFn: (data: Parameters<typeof createLocationFn>[0]["data"]) => createLocationFn({ data }),
@@ -61,7 +84,6 @@ function LocationsPage() {
 			refetch();
 			close();
 			resetForm();
-			setEditingId(null);
 			notification.success("Ort wurde erfolgreich gelöscht");
 		},
 		onError: (error: unknown) => {
@@ -73,43 +95,16 @@ function LocationsPage() {
 	});
 
 	const resetForm = () => {
-		setFormData({
-			name: "",
-			description: "",
-			street: "",
-			postal: "",
-			city: "",
-		});
-		setEditingId(null);
-	};
-
-	const handleSubmit = () => {
-		if (!formData.name || !formData.street || !formData.postal || !formData.city) {
-			notification.error({
-				message: "Bitte füllen Sie alle Pflichtfelder aus",
-			});
-			return;
-		}
-
-		if (editingId) {
-			updateMutation.mutate({
-				id: editingId,
-				data: formData,
-			});
-		} else {
-			createMutation.mutate(formData as Omit<LocationInput, "id" | "createdAt" | "updatedAt">);
-		}
+		form.reset();
 	};
 
 	const handleEdit = (location: LocationInput) => {
-		setFormData({
-			name: location.name,
-			description: location.description,
-			street: location.street,
-			postal: location.postal,
-			city: location.city,
-		});
-		setEditingId(location.id);
+		form.setFieldValue("id", location.id);
+		form.setFieldValue("name", location.name);
+		form.setFieldValue("description", location.description || "");
+		form.setFieldValue("street", location.street);
+		form.setFieldValue("postal", location.postal);
+		form.setFieldValue("city", location.city);
 		open();
 	};
 
@@ -139,46 +134,69 @@ function LocationsPage() {
 			</Group>
 
 			<Modal opened={opened} onClose={close} title={editingId ? "Ort bearbeiten" : "Neuer Ort"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
-				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
-					<TextInput label="Name" placeholder="z.B. Sporthalle Müllheim" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
-					<Textarea
-						label="Beschreibung"
-						placeholder="Optional: Zusätzliche Informationen zum Ort"
-						value={formData.description}
-						onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-						minRows={3}
-					/>
-					<TextInput label="Straße" placeholder="z.B. Sportplatzweg 1" value={formData.street} onChange={(e) => setFormData({ ...formData, street: e.target.value })} required />
-					<Group grow>
-						<TextInput label="PLZ" placeholder="z.B. 79379" value={formData.postal} onChange={(e) => setFormData({ ...formData, postal: e.target.value })} required />
-						<TextInput label="Stadt" placeholder="z.B. Müllheim" value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} required />
-					</Group>
-					<Group justify="space-between" mt="md">
-						{editingId && (
-							<>
-								<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
-									<Trash2 />
-								</ActionIcon>
-								<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
-									Löschen
-								</Button>
-							</>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						void form.handleSubmit();
+					}}
+				>
+					<form.Subscribe selector={(state) => state.values}>
+						{(formData) => (
+							<Stack gap="md" p={{ base: "md", sm: "sm" }}>
+								<form.Field name="name">
+									{(field) => <TextInput label="Name" placeholder="z.B. Sporthalle Müllheim" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} required />}
+								</form.Field>
+								<form.Field name="description">
+									{(field) => (
+										<Textarea
+											label="Beschreibung"
+											placeholder="Optional: Zusätzliche Informationen zum Ort"
+											value={field.state.value}
+											onChange={(e) => field.handleChange(e.target.value)}
+											minRows={3}
+										/>
+									)}
+								</form.Field>
+								<form.Field name="street">
+									{(field) => <TextInput label="Straße" placeholder="z.B. Sportplatzweg 1" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} required />}
+								</form.Field>
+								<Group grow>
+									<form.Field name="postal">
+										{(field) => <TextInput label="PLZ" placeholder="z.B. 79379" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} required />}
+									</form.Field>
+									<form.Field name="city">
+										{(field) => <TextInput label="Stadt" placeholder="z.B. Müllheim" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} required />}
+									</form.Field>
+								</Group>
+								<Group justify="space-between" mt="md">
+									{editingId && (
+										<>
+											<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+												<Trash2 />
+											</ActionIcon>
+											<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+												Löschen
+											</Button>
+										</>
+									)}
+									<Group gap="xs">
+										<Button variant="light" type="button" onClick={close}>
+											Abbrechen
+										</Button>
+										<Button
+											variant="filled"
+											type="submit"
+											loading={createMutation.isPending || updateMutation.isPending}
+											disabled={!formData.name || !formData.street || !formData.postal || !formData.city}
+										>
+											{editingId ? "Aktualisieren" : "Erstellen"}
+										</Button>
+									</Group>
+								</Group>
+							</Stack>
 						)}
-						<Group gap="xs">
-							<Button variant="light" onClick={close}>
-								Abbrechen
-							</Button>
-							<Button
-								variant="filled"
-								onClick={handleSubmit}
-								loading={createMutation.isPending || updateMutation.isPending}
-								disabled={!formData.name || !formData.street || !formData.postal || !formData.city}
-							>
-								{editingId ? "Aktualisieren" : "Erstellen"}
-							</Button>
-						</Group>
-					</Group>
-				</Stack>
+					</form.Subscribe>
+				</form>
 			</Modal>
 
 			{isLoading ? (

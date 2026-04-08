@@ -3,6 +3,7 @@ import { ActionIcon, Anchor, Box, Button, Card, Flex, Group, Image, Modal, Simpl
 import { DatePickerInput } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useForm } from "@tanstack/react-form-start";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { MAX_UPLOAD_SIZE } from "@utils/image-config";
@@ -14,6 +15,15 @@ import { Globe, Pencil, Plus, Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
+
+const defaultFormValues = {
+	id: undefined as string | undefined,
+	name: "",
+	description: "",
+	websiteUrl: "",
+	logoS3Key: undefined as string | undefined,
+	ttl: undefined as number | undefined,
+};
 
 function CurrentLogoDisplay({
 	logoS3Key,
@@ -175,18 +185,14 @@ function CurrentLogoDisplay({
 function SponsorsPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
-	const [editingId, setEditingId] = useState<string | null>(null);
 	const [logoFile, setLogoFile] = useState<File | null>(null);
 	const [deleteLogo, setDeleteLogo] = useState(false);
 	const [uploading, setUploading] = useState(false);
 	const [expiryDate, setExpiryDate] = useState<Date | null>(null);
-	const [formData, setFormData] = useState<Partial<SponsorInput>>({
-		name: "",
-		description: "",
-		websiteUrl: "",
-		logoS3Key: undefined,
-		ttl: undefined,
+	const form = useForm({
+		defaultValues: defaultFormValues,
 	});
+	const editingId = form.getFieldValue("id");
 
 	const notification = useNotification();
 	const { data: sponsors, isLoading, refetch } = useQuery({ queryKey: ["sponsors", "list"], queryFn: () => listSponsorsFn() });
@@ -227,7 +233,6 @@ function SponsorsPage() {
 			refetch();
 			close();
 			resetForm();
-			setEditingId(null);
 			notification.success("Sponsor wurde erfolgreich gelöscht");
 		},
 		onError: (error: unknown) => {
@@ -236,21 +241,16 @@ function SponsorsPage() {
 	});
 
 	const resetForm = () => {
-		setFormData({
-			name: "",
-			description: "",
-			websiteUrl: "",
-			logoS3Key: undefined,
-			ttl: undefined,
-		});
+		form.reset();
 		setLogoFile(null);
 		setDeleteLogo(false);
-		setEditingId(null);
 		setExpiryDate(null);
 	};
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (formData: typeof defaultFormValues) => {
 		if (!formData.name) return;
+		const currentEditingId = formData.id;
+		const { id: _id, ...formFields } = formData;
 
 		setUploading(true);
 		try {
@@ -287,15 +287,15 @@ function SponsorsPage() {
 			const ttl = expiryDate ? Math.floor(dayjs(expiryDate).unix()) : undefined;
 
 			const cleanedData = Object.fromEntries(
-				Object.entries({ ...formData, logoS3Key, ttl }).filter(([key, value]) => {
+				Object.entries({ ...formFields, logoS3Key, ttl }).filter(([key, value]) => {
 					if (key === "logoS3Key" || key === "ttl") return true;
 					return value !== "" && value !== undefined;
 				}),
 			);
 
-			if (editingId) {
+			if (currentEditingId) {
 				updateMutation.mutate({
-					id: editingId,
+					id: currentEditingId,
 					data: {
 						...cleanedData,
 						description: formData.description || null, // null = clear existing value
@@ -314,16 +314,14 @@ function SponsorsPage() {
 	};
 
 	const handleEdit = (sponsor: SponsorInput & { id: string }) => {
-		setFormData({
-			name: sponsor.name,
-			description: sponsor.description || "",
-			websiteUrl: sponsor.websiteUrl || "",
-			logoS3Key: sponsor.logoS3Key,
-			ttl: sponsor.ttl,
-		});
+		form.setFieldValue("id", sponsor.id);
+		form.setFieldValue("name", sponsor.name);
+		form.setFieldValue("description", sponsor.description || "");
+		form.setFieldValue("websiteUrl", sponsor.websiteUrl || "");
+		form.setFieldValue("logoS3Key", sponsor.logoS3Key);
+		form.setFieldValue("ttl", sponsor.ttl);
 		// Convert Unix timestamp back to Date if it exists
 		setExpiryDate(sponsor.ttl ? dayjs.unix(sponsor.ttl).toDate() : null);
-		setEditingId(sponsor.id);
 		setDeleteLogo(false);
 		setLogoFile(null);
 		open();
@@ -353,56 +351,72 @@ function SponsorsPage() {
 			</Group>
 
 			<Modal opened={opened} onClose={close} title={editingId ? "Sponsor bearbeiten" : "Neuer Sponsor"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
-				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
-					<TextInput label="Name" placeholder="z.B. Firma Mustermann" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
-					<Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} minRows={3} />
-					<TextInput label="Website" placeholder="https://..." value={formData.websiteUrl} onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })} />
-					<DatePickerInput
-						label="Ablaufdatum"
-						placeholder="Optionales Ablaufdatum auswählen"
-						description="Wann dieser Sponsor automatisch gelöscht werden soll"
-						value={expiryDate}
-						onChange={(date) => {
-							if (date) setExpiryDate(dayjs(date).toDate());
-							else setExpiryDate(null);
-						}}
-						clearable
-						minDate={dayjs().add(1, "day").toDate()}
-					/>
-					<CurrentLogoDisplay
-						logoS3Key={formData.logoS3Key}
-						logoFile={logoFile}
-						deleteLogo={deleteLogo}
-						onFileChange={setLogoFile}
-						onDeleteToggle={() => {
-							setDeleteLogo(!deleteLogo);
-							setLogoFile(null);
-						}}
-						onFileSizeError={(message) => {
-							notification.error({ message });
-						}}
-					/>{" "}
-					<Group justify="space-between" mt="md">
-						{editingId && (
-							<>
-								<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
-									<Trash2 />
-								</ActionIcon>
-								<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
-									Löschen
-								</Button>
-							</>
-						)}
-						<Group gap="xs">
-							<Button variant="light" onClick={close}>
-								Abbrechen
-							</Button>
-							<Button variant="filled" onClick={handleSubmit} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.name}>
-								{editingId ? "Aktualisieren" : "Erstellen"}
-							</Button>
-						</Group>
-					</Group>
-				</Stack>
+				<form.Subscribe selector={(state) => state.values}>
+					{(formData) => (
+						<Stack gap="md" p={{ base: "md", sm: "sm" }}>
+							<form.Field name="name">
+								{(field) => <TextInput label="Name" placeholder="z.B. Firma Mustermann" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} required />}
+							</form.Field>
+							<form.Field name="description">
+								{(field) => <Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} minRows={3} />}
+							</form.Field>
+							<form.Field name="websiteUrl">
+								{(field) => <TextInput label="Website" placeholder="https://..." value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+							</form.Field>
+							<DatePickerInput
+								label="Ablaufdatum"
+								placeholder="Optionales Ablaufdatum auswählen"
+								description="Wann dieser Sponsor automatisch gelöscht werden soll"
+								value={expiryDate}
+								onChange={(date) => {
+									if (date) setExpiryDate(dayjs(date).toDate());
+									else setExpiryDate(null);
+								}}
+								clearable
+								minDate={dayjs().add(1, "day").toDate()}
+							/>
+							<CurrentLogoDisplay
+								logoS3Key={formData.logoS3Key}
+								logoFile={logoFile}
+								deleteLogo={deleteLogo}
+								onFileChange={setLogoFile}
+								onDeleteToggle={() => {
+									setDeleteLogo(!deleteLogo);
+									setLogoFile(null);
+								}}
+								onFileSizeError={(message) => {
+									notification.error({ message });
+								}}
+							/>{" "}
+							<Group justify="space-between" mt="md">
+								{editingId && (
+									<>
+										<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+											<Trash2 />
+										</ActionIcon>
+										<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+											Löschen
+										</Button>
+									</>
+								)}
+								<Group gap="xs">
+									<Button variant="light" type="button" onClick={close}>
+										Abbrechen
+									</Button>
+									<Button
+										variant="filled"
+										type="button"
+										onClick={() => void handleSubmit(formData)}
+										loading={uploading || createMutation.isPending || updateMutation.isPending}
+										disabled={!formData.name}
+									>
+										{editingId ? "Aktualisieren" : "Erstellen"}
+									</Button>
+								</Group>
+							</Group>
+						</Stack>
+					)}
+				</form.Subscribe>
 			</Modal>
 
 			{isLoading ? (

@@ -27,6 +27,7 @@ import {
 import { TimeInput } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useForm } from "@tanstack/react-form-start";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { MAX_UPLOAD_SIZE } from "@utils/image-config";
@@ -47,6 +48,21 @@ const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFix
 
 dayjs.locale(de);
 dayjs.extend(weekday);
+
+const defaultFormValues = {
+	id: undefined as string | undefined,
+	type: "team" as const,
+	name: "",
+	description: "",
+	sbvvTeamId: "",
+	ageGroup: "",
+	gender: undefined as TeamInput["gender"] | undefined,
+	league: "",
+	trainerIds: [] as string[],
+	pointOfContactIds: [] as string[],
+	pictureS3Keys: [] as string[],
+	trainingSchedules: [] as TrainingScheduleInput[],
+};
 
 function PersonAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: string }) {
 	const { data: avatarUrl } = useQuery({ queryKey: ["upload", "fileUrl", avatarS3Key], queryFn: () => getFileUrlFn({ data: { s3Key: avatarS3Key || "" } }), enabled: !!avatarS3Key });
@@ -280,22 +296,13 @@ function TrainingScheduleManager({
 function TeamsPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
-	const [editingId, setEditingId] = useState<string | null>(null);
 	const [pictureFiles, setPictureFiles] = useState<File[]>([]);
 	const [deletePictureKeys, setDeletePictureKeys] = useState<string[]>([]);
 	const [uploading, setUploading] = useState(false);
-	const [formData, setFormData] = useState<Partial<TeamInput>>({
-		type: "team",
-		name: "",
-		description: "",
-		sbvvTeamId: "",
-		ageGroup: "",
-		gender: undefined,
-		league: "",
-		trainerIds: [],
-		pictureS3Keys: [],
-		trainingSchedules: [],
+	const form = useForm({
+		defaultValues: defaultFormValues,
 	});
+	const editingId = form.getFieldValue("id");
 
 	const notification = useNotification();
 	const { data: teams, isLoading, refetch } = useQuery({ queryKey: ["teams", "list"], queryFn: () => listTeamsFn() });
@@ -346,7 +353,6 @@ function TeamsPage() {
 			refetch();
 			close();
 			resetForm();
-			setEditingId(null);
 			notification.success("Mannschaft wurde erfolgreich gelöscht");
 		},
 		onError: (error: unknown) => {
@@ -354,25 +360,15 @@ function TeamsPage() {
 		},
 	});
 	const resetForm = () => {
-		setFormData({
-			type: "team",
-			name: "",
-			description: "",
-			sbvvTeamId: "",
-			ageGroup: "",
-			gender: undefined,
-			league: "",
-			trainerIds: [],
-			pictureS3Keys: [],
-			trainingSchedules: [],
-		});
+		form.reset();
 		setPictureFiles([]);
 		setDeletePictureKeys([]);
-		setEditingId(null);
 	};
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (formData: typeof defaultFormValues) => {
 		if (!formData.name || !formData.gender) return;
+		const currentEditingId = formData.id;
+		const { id: _id, ...formFields } = formData;
 
 		setUploading(true);
 		try {
@@ -406,19 +402,19 @@ function TeamsPage() {
 			const clearableOptionalFields = new Set(["league", "description", "sbvvTeamId", "ageGroup"]);
 			const cleanedData: Record<string, unknown> = {};
 			for (const [key, value] of Object.entries({
-				...formData,
-				pictureS3Keys: editingId ? pictureS3Keys : pictureS3Keys.length > 0 ? pictureS3Keys : undefined,
+				...formFields,
+				pictureS3Keys: currentEditingId ? pictureS3Keys : pictureS3Keys.length > 0 ? pictureS3Keys : undefined,
 			})) {
-				if (editingId && clearableOptionalFields.has(key) && value === "") {
+				if (currentEditingId && clearableOptionalFields.has(key) && value === "") {
 					cleanedData[key] = null; // null signals the server to remove this attribute
 				} else if (value !== "" && value !== undefined) {
 					cleanedData[key] = value;
 				}
 			}
 
-			if (editingId) {
+			if (currentEditingId) {
 				updateMutation.mutate({
-					id: editingId,
+					id: currentEditingId,
 					data: cleanedData,
 				});
 			} else {
@@ -431,21 +427,20 @@ function TeamsPage() {
 	};
 
 	const handleEdit = (team: TeamInput & { id: string }) => {
-		setFormData({
-			name: team.name,
-			description: team.description || "",
-			sbvvTeamId: team.sbvvTeamId || "",
-			ageGroup: team.ageGroup || "",
-			gender: team.gender,
-			league: team.league || "",
-			trainerIds: team.trainerIds || [],
-			pointOfContactIds: team.pointOfContactIds || [],
-			pictureS3Keys: team.pictureS3Keys || [],
-			trainingSchedules: team.trainingSchedules || [],
-		});
+		form.setFieldValue("id", team.id);
+		form.setFieldValue("type", "team");
+		form.setFieldValue("name", team.name);
+		form.setFieldValue("description", team.description || "");
+		form.setFieldValue("sbvvTeamId", team.sbvvTeamId || "");
+		form.setFieldValue("ageGroup", team.ageGroup || "");
+		form.setFieldValue("gender", team.gender);
+		form.setFieldValue("league", team.league || "");
+		form.setFieldValue("trainerIds", team.trainerIds || []);
+		form.setFieldValue("pointOfContactIds", team.pointOfContactIds || []);
+		form.setFieldValue("pictureS3Keys", team.pictureS3Keys || []);
+		form.setFieldValue("trainingSchedules", team.trainingSchedules || []);
 		setPictureFiles([]);
 		setDeletePictureKeys([]);
-		setEditingId(team.id);
 		open();
 	};
 	const handleDelete = (id: string) => {
@@ -473,148 +468,166 @@ function TeamsPage() {
 				</ActionIcon>
 			</Group>{" "}
 			<Modal opened={opened} onClose={close} title={editingId ? "Mannschaft bearbeiten" : "Neue Mannschaft"} size={isMobile ? "100%" : "xl"} fullScreen={isMobile}>
-				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
-					<Group align="top" grow>
-						<Stack>
-							<TextInput label="Name" placeholder="z.B. 1. Herren" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
-							<SegmentedControl
-								fullWidth
-								color={formData.gender === "male" ? "blue" : formData.gender === "female" ? "pink" : "onyx"}
-								data={[
-									{
-										value: "male",
-										label: (
-											<Center style={{ gap: 10 }}>
-												<Mars size={16} />
-												<Text size="sm" visibleFrom="md">
-													Männlich
-												</Text>
-											</Center>
-										),
-									},
-									{
-										value: "female",
-										label: (
-											<Center style={{ gap: 10 }}>
-												<Venus size={16} />
-												<Text size="sm" visibleFrom="md">
-													Weiblich
-												</Text>
-											</Center>
-										),
-									},
-									{
-										value: "mixed",
-										label: (
-											<Center style={{ gap: 10 }}>
-												<VenusAndMars size={16} />
-												<Text size="sm" visibleFrom="md">
-													Gemischt
-												</Text>
-											</Center>
-										),
-									},
-								]}
-								value={formData.gender || ""}
-								onChange={(value: string) => setFormData({ ...formData, gender: value as "male" | "female" | "mixed" })}
-								aria-label="Geschlecht"
-							/>
-							<TextInput label="Alter" placeholder="z.B. U16, ab 18 Jahren" value={formData.ageGroup} onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })} />
-						</Stack>
-						<Stack>
-							<TextInput label="Liga" placeholder="z.B. Landesliga" value={formData.league} onChange={(e) => setFormData({ ...formData, league: e.target.value })} />
-							<Select
-								label="SBVV Team"
-								placeholder="Wählen..."
-								value={formData.sbvvTeamId}
-								onChange={(value) => setFormData({ ...formData, sbvvTeamId: value || "" })}
+				<form.Subscribe selector={(state) => state.values}>
+					{(formData) => (
+						<Stack gap="md" p={{ base: "md", sm: "sm" }}>
+							<Group align="top" grow>
+								<Stack>
+									<form.Field name="name">
+										{(field) => <TextInput label="Name" placeholder="z.B. 1. Herren" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} required />}
+									</form.Field>
+									<SegmentedControl
+										fullWidth
+										color={formData.gender === "male" ? "blue" : formData.gender === "female" ? "pink" : "onyx"}
+										data={[
+											{
+												value: "male",
+												label: (
+													<Center style={{ gap: 10 }}>
+														<Mars size={16} />
+														<Text size="sm" visibleFrom="md">
+															Männlich
+														</Text>
+													</Center>
+												),
+											},
+											{
+												value: "female",
+												label: (
+													<Center style={{ gap: 10 }}>
+														<Venus size={16} />
+														<Text size="sm" visibleFrom="md">
+															Weiblich
+														</Text>
+													</Center>
+												),
+											},
+											{
+												value: "mixed",
+												label: (
+													<Center style={{ gap: 10 }}>
+														<VenusAndMars size={16} />
+														<Text size="sm" visibleFrom="md">
+															Gemischt
+														</Text>
+													</Center>
+												),
+											},
+										]}
+										value={formData.gender || ""}
+										onChange={(value: string) => form.setFieldValue("gender", value as "male" | "female" | "mixed")}
+										aria-label="Geschlecht"
+									/>
+									<form.Field name="ageGroup">
+										{(field) => <TextInput label="Alter" placeholder="z.B. U16, ab 18 Jahren" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+									</form.Field>
+								</Stack>
+								<Stack>
+									<form.Field name="league">
+										{(field) => <TextInput label="Liga" placeholder="z.B. Landesliga" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+									</form.Field>
+									<Select
+										label="SBVV Team"
+										placeholder="Wählen..."
+										value={formData.sbvvTeamId}
+										onChange={(value) => form.setFieldValue("sbvvTeamId", value || "")}
+										data={
+											samsTeams?.items.map((team) => ({
+												value: team.uuid,
+												label: `${team.name} (${team.leagueName || "Keine Liga"})`,
+											})) || []
+										}
+										description="für Spielpläne, Ergebnisse und Tabelle"
+										searchable
+										clearable
+									/>
+								</Stack>
+							</Group>
+							<form.Field name="description">
+								{(field) => <Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} minRows={3} />}
+							</form.Field>
+							<MultiSelect
+								label="Trainer"
+								placeholder="Trainer auswählen..."
+								value={formData.trainerIds || []}
+								onChange={(value) => form.setFieldValue("trainerIds", value)}
 								data={
-									samsTeams?.items.map((team) => ({
-										value: team.uuid,
-										label: `${team.name} (${team.leagueName || "Keine Liga"})`,
+									trainers?.items.map((trainer) => ({
+										value: trainer.id,
+										label: trainer.name,
 									})) || []
 								}
-								description="für Spielpläne, Ergebnisse und Tabelle"
+								description="Mehrere Trainer können ausgewählt werden"
 								searchable
 								clearable
 							/>
+							<MultiSelect
+								label="Ansprechpersonen"
+								placeholder="Personen auswählen..."
+								value={formData.pointOfContactIds || []}
+								onChange={(value) => form.setFieldValue("pointOfContactIds", value)}
+								data={
+									members?.items.map((member) => ({
+										value: member.id,
+										label: member.name,
+									})) || []
+								}
+								description="Mehrere Personen können ausgewählt werden"
+								searchable
+								clearable
+							/>
+							<TrainingScheduleManager
+								schedules={formData.trainingSchedules || []}
+								onSchedulesChange={(schedules) => form.setFieldValue("trainingSchedules", schedules)}
+								locations={locations?.items || []}
+							/>
+							<Divider />
+							<TeamPicturesManager
+								pictureS3Keys={formData.pictureS3Keys || []}
+								pictureFiles={pictureFiles}
+								deletePictureKeys={deletePictureKeys}
+								onFilesAdd={(files) => setPictureFiles([...pictureFiles, ...files])}
+								onFileRemove={(index) => setPictureFiles(pictureFiles.filter((_, i) => i !== index))}
+								onDeleteToggle={(key) => {
+									if (deletePictureKeys.includes(key)) {
+										setDeletePictureKeys(deletePictureKeys.filter((k) => k !== key));
+									} else {
+										setDeletePictureKeys([...deletePictureKeys, key]);
+									}
+								}}
+								onFileSizeError={(message) => {
+									notification.error({ message });
+								}}
+							/>{" "}
+							<Group justify="space-between" mt="md">
+								{editingId && (
+									<>
+										<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+											<Trash2 />
+										</ActionIcon>
+										<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+											Löschen
+										</Button>
+									</>
+								)}
+								<Group gap="xs">
+									<Button variant="light" type="button" onClick={close}>
+										Abbrechen
+									</Button>
+									<Button
+										variant="filled"
+										type="button"
+										onClick={() => void handleSubmit(formData)}
+										loading={uploading || createMutation.isPending || updateMutation.isPending}
+										disabled={!formData.name || !formData.gender}
+									>
+										{editingId ? "Aktualisieren" : "Erstellen"}
+									</Button>
+								</Group>
+							</Group>
 						</Stack>
-					</Group>
-					<Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} minRows={3} />
-					<MultiSelect
-						label="Trainer"
-						placeholder="Trainer auswählen..."
-						value={formData.trainerIds || []}
-						onChange={(value) => setFormData({ ...formData, trainerIds: value })}
-						data={
-							trainers?.items.map((trainer) => ({
-								value: trainer.id,
-								label: trainer.name,
-							})) || []
-						}
-						description="Mehrere Trainer können ausgewählt werden"
-						searchable
-						clearable
-					/>
-					<MultiSelect
-						label="Ansprechpersonen"
-						placeholder="Personen auswählen..."
-						value={formData.pointOfContactIds || []}
-						onChange={(value) => setFormData({ ...formData, pointOfContactIds: value })}
-						data={
-							members?.items.map((member) => ({
-								value: member.id,
-								label: member.name,
-							})) || []
-						}
-						description="Mehrere Personen können ausgewählt werden"
-						searchable
-						clearable
-					/>
-					<TrainingScheduleManager
-						schedules={formData.trainingSchedules || []}
-						onSchedulesChange={(schedules) => setFormData({ ...formData, trainingSchedules: schedules })}
-						locations={locations?.items || []}
-					/>
-					<Divider />
-					<TeamPicturesManager
-						pictureS3Keys={formData.pictureS3Keys || []}
-						pictureFiles={pictureFiles}
-						deletePictureKeys={deletePictureKeys}
-						onFilesAdd={(files) => setPictureFiles([...pictureFiles, ...files])}
-						onFileRemove={(index) => setPictureFiles(pictureFiles.filter((_, i) => i !== index))}
-						onDeleteToggle={(key) => {
-							if (deletePictureKeys.includes(key)) {
-								setDeletePictureKeys(deletePictureKeys.filter((k) => k !== key));
-							} else {
-								setDeletePictureKeys([...deletePictureKeys, key]);
-							}
-						}}
-						onFileSizeError={(message) => {
-							notification.error({ message });
-						}}
-					/>{" "}
-					<Group justify="space-between" mt="md">
-						{editingId && (
-							<>
-								<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
-									<Trash2 />
-								</ActionIcon>
-								<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
-									Löschen
-								</Button>
-							</>
-						)}
-						<Group gap="xs">
-							<Button variant="light" onClick={close}>
-								Abbrechen
-							</Button>
-							<Button variant="filled" onClick={handleSubmit} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.name || !formData.gender}>
-								{editingId ? "Aktualisieren" : "Erstellen"}
-							</Button>
-						</Group>
-					</Group>
-				</Stack>
+					)}
+				</form.Subscribe>
 			</Modal>
 			{isLoading ? (
 				<Text>Laden...</Text>

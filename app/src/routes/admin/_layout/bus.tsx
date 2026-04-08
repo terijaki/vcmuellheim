@@ -1,6 +1,7 @@
 import { ActionIcon, Button, Card, Center, Group, Modal, SegmentedControl, SimpleGrid, Stack, Table, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { Calendar, DatePickerInput } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { useMemo, useState } from "react";
@@ -13,19 +14,54 @@ import { Plus, SquarePen, Trash2 } from "lucide-react";
 
 dayjs.locale("de");
 
+const defaultFormValues = {
+	id: undefined as string | undefined,
+	driver: "",
+	dateRange: [null, null] as [Date | null, Date | null],
+	comment: "",
+};
+
 function BusSchedulesPage() {
 	const notification = useNotification();
 	const [opened, { open, close }] = useDisclosure(false);
-	const [editingId, setEditingId] = useState<string | null>(null);
 	const [timeFilter, setTimeFilter] = useState<"upcoming" | "past">("upcoming");
-	const [formData, setFormData] = useState({
-		driver: "",
-		dateRange: [null, null] as [Date | null, Date | null],
-		comment: "",
+
+	const form = useForm({
+		defaultValues: defaultFormValues,
+		onSubmit: async ({ value }) => {
+			const [from, to] = value.dateRange;
+			if (!from || !to) {
+				return;
+			}
+
+			const fromISO = from.toISOString();
+			const toISO = to.toISOString();
+			const currentEditingId = value.id;
+
+			if (currentEditingId) {
+				updateMutation.mutate({
+					id: currentEditingId,
+					data: {
+						driver: value.driver,
+						from: fromISO,
+						to: toISO,
+						comment: value.comment || undefined,
+					},
+				});
+			} else {
+				createMutation.mutate({
+					driver: value.driver,
+					from: fromISO,
+					to: toISO,
+					comment: value.comment || undefined,
+				});
+			}
+		},
 	});
 
 	const { data: schedules, isLoading, refetch } = useQuery({ queryKey: ["bus", "list"], queryFn: () => listBusFn() });
 	const isMobile = useMediaQuery("(max-width: 768px)");
+	const editingId = form.getFieldValue("id");
 
 	// Create a set of all booked dates (excluding the one being edited)
 	const bookedDates = useMemo(() => {
@@ -81,7 +117,6 @@ function BusSchedulesPage() {
 			refetch();
 			close();
 			resetForm();
-			setEditingId(null);
 			notification.success("Fahrt wurde erfolgreich gelöscht");
 		},
 		onError: () => {
@@ -90,48 +125,14 @@ function BusSchedulesPage() {
 	});
 
 	const resetForm = () => {
-		setFormData({ driver: "", dateRange: [null, null], comment: "" });
-		setEditingId(null);
-	};
-
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-
-		const [from, to] = formData.dateRange;
-		if (!from || !to) {
-			return;
-		}
-
-		const fromISO = from.toISOString();
-		const toISO = to.toISOString();
-
-		if (editingId) {
-			updateMutation.mutate({
-				id: editingId,
-				data: {
-					driver: formData.driver,
-					from: fromISO,
-					to: toISO,
-					comment: formData.comment || undefined,
-				},
-			});
-		} else {
-			createMutation.mutate({
-				driver: formData.driver,
-				from: fromISO,
-				to: toISO,
-				comment: formData.comment || undefined,
-			});
-		}
+		form.reset();
 	};
 
 	const handleEdit = (schedule: BusInput) => {
-		setEditingId(schedule.id);
-		setFormData({
-			driver: schedule.driver,
-			dateRange: [new Date(schedule.from), new Date(schedule.to)],
-			comment: schedule.comment || "",
-		});
+		form.setFieldValue("id", schedule.id);
+		form.setFieldValue("driver", schedule.driver);
+		form.setFieldValue("dateRange", [new Date(schedule.from), new Date(schedule.to)]);
+		form.setFieldValue("comment", schedule.comment || "");
 		open();
 	};
 
@@ -189,22 +190,24 @@ function BusSchedulesPage() {
 			</Group>
 
 			<Center pb="md">
-				<Calendar
-					numberOfColumns={isMobile ? 1 : 2}
-					getDayProps={(date) => {
-						const dateStr = dayjs(date).format("YYYY-MM-DD");
-						if (bookedDates.has(dateStr)) {
-							return {
-								style: {
-									backgroundColor: "var(--mantine-color-turquoise-6)",
-									border: "1px solid var(--mantine-color-turquoise-8)",
-									color: "var(--mantine-color-white)",
-								},
-							};
-						}
-						return {};
-					}}
-				/>
+				<Card>
+					<Calendar
+						numberOfColumns={isMobile ? 1 : 2}
+						getDayProps={(date) => {
+							const dateStr = dayjs(date).format("YYYY-MM-DD");
+							if (bookedDates.has(dateStr)) {
+								return {
+									style: {
+										backgroundColor: "var(--mantine-color-turquoise-6)",
+										border: "1px solid var(--mantine-color-turquoise-8)",
+										color: "var(--mantine-color-white)",
+									},
+								};
+							}
+							return {};
+						}}
+					/>
+				</Card>
 			</Center>
 
 			<SegmentedControl
@@ -303,77 +306,96 @@ function BusSchedulesPage() {
 				size={isMobile ? "100%" : "lg"}
 				fullScreen={isMobile}
 			>
-				<form onSubmit={handleSubmit}>
-					<Stack>
-						<TextInput label="Fahrer" placeholder="z.B. Max Mustermann" value={formData.driver} onChange={(e) => setFormData({ ...formData, driver: e.target.value })} required />
-						<DatePickerInput
-							type="range"
-							locale="de"
-							allowSingleDateInRange
-							label="Zeitraum"
-							placeholder="Von - Bis auswählen"
-							value={formData.dateRange}
-							onChange={(value) => {
-								const [start, end] = value || [null, null];
-								setFormData({
-									...formData,
-									dateRange: [start ? new Date(start) : null, end ? new Date(end) : null],
-								});
-							}}
-							getDayProps={(date) => {
-								const dateStr = dayjs(date).format("YYYY-MM-DD");
-								if (bookedDates.has(dateStr)) {
-									return {
-										style: {
-											backgroundColor: "var(--mantine-color-turquoise-6)",
-											border: "1px solid var(--mantine-color-turquoise-8)",
-											color: "var(--mantine-color-white)",
-										},
-									};
-								}
-								return {};
-							}}
-							valueFormat="D MMM YYYY"
-							required
-							presets={
-								isMobile
-									? undefined
-									: [
-											{ value: [dayjs().add(1, "day").format("YYYY-MM-DD"), dayjs().add(1, "day").format("YYYY-MM-DD")], label: "Morgen" },
-											{
-												value: [dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD"), dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD")],
-												label: "Nächsten Samstag",
-											},
-											{
-												value: [dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD"), dayjs().endOf("week").add(1, "week").format("YYYY-MM-DD")],
-												label: "Nächstes Wochenende",
-											},
-											{ value: [dayjs().endOf("month").add(1, "day").format("YYYY-MM-DD"), dayjs().endOf("month").add(1, "day").format("YYYY-MM-DD")], label: "Nächster Monat" },
-										]
-							}
-						/>
-						<Textarea label="Kommentar" placeholder="Zusätzliche Informationen..." value={formData.comment} onChange={(e) => setFormData({ ...formData, comment: e.target.value })} minRows={3} />
-						<Group justify="space-between" mt="md">
-							{editingId && (
-								<>
-									<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
-										<Trash2 />
-									</ActionIcon>
-									<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
-										Löschen
-									</Button>
-								</>
-							)}
-							<Group gap="xs">
-								<Button variant="light" onClick={close}>
-									Abbrechen
-								</Button>
-								<Button variant="filled" type="submit" loading={createMutation.isPending || updateMutation.isPending}>
-									{editingId ? "Aktualisieren" : "Erstellen"}
-								</Button>
-							</Group>
-						</Group>
-					</Stack>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						void form.handleSubmit();
+					}}
+				>
+					<form.Subscribe selector={(state) => state.values}>
+						{(formData) => (
+							<Stack>
+								<form.Field name="driver">
+									{(field) => <TextInput label="Fahrer" placeholder="z.B. Max Mustermann" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} required />}
+								</form.Field>
+								<form.Field name="dateRange">
+									{(field) => (
+										<DatePickerInput
+											type="range"
+											locale="de"
+											allowSingleDateInRange
+											label="Zeitraum"
+											placeholder="Von - Bis auswählen"
+											value={field.state.value}
+											onChange={(value) => {
+												const [start, end] = value || [null, null];
+												field.handleChange([start ? new Date(start) : null, end ? new Date(end) : null]);
+											}}
+											getDayProps={(date) => {
+												const dateStr = dayjs(date).format("YYYY-MM-DD");
+												if (bookedDates.has(dateStr)) {
+													return {
+														style: {
+															backgroundColor: "var(--mantine-color-turquoise-6)",
+															border: "1px solid var(--mantine-color-turquoise-8)",
+															color: "var(--mantine-color-white)",
+														},
+													};
+												}
+												return {};
+											}}
+											valueFormat="D MMM YYYY"
+											required
+											presets={
+												isMobile
+													? undefined
+													: [
+															{ value: [dayjs().add(1, "day").format("YYYY-MM-DD"), dayjs().add(1, "day").format("YYYY-MM-DD")], label: "Morgen" },
+															{
+																value: [dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD"), dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD")],
+																label: "Nächsten Samstag",
+															},
+															{
+																value: [dayjs().endOf("week").subtract(1, "day").add(1, "week").format("YYYY-MM-DD"), dayjs().endOf("week").add(1, "week").format("YYYY-MM-DD")],
+																label: "Nächstes Wochenende",
+															},
+															{ value: [dayjs().endOf("month").add(1, "day").format("YYYY-MM-DD"), dayjs().endOf("month").add(1, "day").format("YYYY-MM-DD")], label: "Nächster Monat" },
+														]
+											}
+										/>
+									)}
+								</form.Field>
+								<form.Field name="comment">
+									{(field) => <Textarea label="Kommentar" placeholder="Zusätzliche Informationen..." value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} minRows={3} />}
+								</form.Field>
+								<Group justify="space-between" mt="md">
+									{editingId && (
+										<>
+											<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+												<Trash2 />
+											</ActionIcon>
+											<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+												Löschen
+											</Button>
+										</>
+									)}
+									<Group gap="xs">
+										<Button variant="light" type="button" onClick={close}>
+											Abbrechen
+										</Button>
+										<Button
+											variant="filled"
+											type="submit"
+											loading={createMutation.isPending || updateMutation.isPending}
+											disabled={!formData.driver || !formData.dateRange[0] || !formData.dateRange[1]}
+										>
+											{editingId ? "Aktualisieren" : "Erstellen"}
+										</Button>
+									</Group>
+								</Group>
+							</Stack>
+						)}
+					</form.Subscribe>
 				</form>
 			</Modal>
 		</Stack>

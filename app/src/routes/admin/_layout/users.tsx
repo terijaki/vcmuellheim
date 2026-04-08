@@ -1,5 +1,6 @@
 import { ActionIcon, Badge, Box, Button, Card, Group, Modal, Radio, SimpleGrid, Stack, Table, Text, TextInput, Title } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useForm } from "@tanstack/react-form-start";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useNotification } from "@webapp/hooks/useNotification";
@@ -7,6 +8,22 @@ import { adminUsersGuard } from "@webapp/lib/auth-guards";
 import { createUserFn, deleteUserFn, listUsersFn, updateUserFn } from "@webapp/server/functions/users";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
+
+type UserRole = "Admin" | "Moderator";
+
+const defaultCreateFormValues = {
+	email: "",
+	givenName: "",
+	familyName: "",
+	role: "Moderator" as UserRole,
+};
+
+const defaultEditFormValues = {
+	email: "",
+	givenName: "",
+	familyName: "",
+	role: "Moderator" as UserRole,
+};
 
 export const Route = createFileRoute("/admin/_layout/users")({
 	beforeLoad: ({ context }) => {
@@ -24,11 +41,6 @@ function UsersPage() {
 	const [createOpened, { open: openCreate, close: closeCreate }] = useDisclosure(false);
 	const [editOpened, { open: openEdit, close: closeEdit }] = useDisclosure(false);
 	const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
-	const [editingEmail, setEditingEmail] = useState("");
-	const [email, setEmail] = useState("");
-	const [givenName, setGivenName] = useState("");
-	const [familyName, setFamilyName] = useState("");
-	const [role, setRole] = useState<"Admin" | "Moderator">("Moderator");
 
 	const { data: users = [], refetch } = useQuery({ queryKey: ["users", "list"], queryFn: () => listUsersFn() });
 	const createMutation = useMutation({
@@ -43,57 +55,54 @@ function UsersPage() {
 		mutationFn: (data: Parameters<typeof deleteUserFn>[0]["data"]) => deleteUserFn({ data }),
 		onSuccess: () => refetch(),
 	});
+	const createForm = useForm({
+		defaultValues: defaultCreateFormValues,
+		onSubmit: async ({ value }) => {
+			if (!value.email || !value.givenName || !value.familyName) return;
 
-	const handleCreate = async (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!email || !givenName || !familyName) return;
+			try {
+				await createMutation.mutateAsync({
+					email: value.email,
+					givenName: value.givenName,
+					familyName: value.familyName,
+					role: value.role,
+				});
+				notification.success(`${value.givenName} ${value.familyName} wurde eingeladen`);
+				createForm.reset();
+				closeCreate();
+			} catch (error) {
+				notification.error({ title: "Fehler beim Erstellen", message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
+			}
+		},
+	});
+	const editForm = useForm({
+		defaultValues: defaultEditFormValues,
+		onSubmit: async ({ value }) => {
+			if (!value.email || !value.givenName || !value.familyName) return;
 
-		try {
-			await createMutation.mutateAsync({
-				email,
-				givenName,
-				familyName,
-				role,
-			});
-			notification.success(`${givenName} ${familyName} wurde eingeladen`);
-			setEmail("");
-			setGivenName("");
-			setFamilyName("");
-			setRole("Moderator");
-			closeCreate();
-		} catch (error) {
-			notification.error({ title: "Fehler beim Erstellen", message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
-		}
-	};
+			try {
+				await updateMutation.mutateAsync({
+					email: value.email,
+					givenName: value.givenName,
+					familyName: value.familyName,
+					role: value.role,
+				});
+				notification.success("Benutzerdaten aktualisiert");
+				editForm.reset();
+				closeEdit();
+			} catch (error) {
+				notification.error({ title: "Fehler beim Aktualisieren", message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
+			}
+		},
+	});
+	const editingEmail = editForm.getFieldValue("email");
 
 	const handleOpenEdit = (user: { email: string; givenName: string; familyName: string; groups: string[] }) => {
-		setEditingEmail(user.email);
-		setGivenName(user.givenName);
-		setFamilyName(user.familyName);
-		setRole((user.groups[0] || "Moderator") as "Admin" | "Moderator");
+		editForm.setFieldValue("email", user.email);
+		editForm.setFieldValue("givenName", user.givenName);
+		editForm.setFieldValue("familyName", user.familyName);
+		editForm.setFieldValue("role", (user.groups[0] || "Moderator") as UserRole);
 		openEdit();
-	};
-
-	const handleUpdate = async (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!editingEmail || !givenName || !familyName) return;
-
-		try {
-			await updateMutation.mutateAsync({
-				email: editingEmail,
-				givenName,
-				familyName,
-				role,
-			});
-			notification.success("Benutzerdaten aktualisiert");
-			setEditingEmail("");
-			setGivenName("");
-			setFamilyName("");
-			setRole("Moderator");
-			closeEdit();
-		} catch (error) {
-			notification.error({ title: "Fehler beim Aktualisieren", message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
-		}
 	};
 
 	const handleDelete = async (email: string) => {
@@ -189,22 +198,37 @@ function UsersPage() {
 
 			{/* Create User Modal */}
 			<Modal opened={createOpened} onClose={closeCreate} title="Neuen Benutzer erstellen" size={isMobile ? "100%" : "md"} fullScreen={isMobile}>
-				<form onSubmit={handleCreate}>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						void createForm.handleSubmit();
+					}}
+				>
 					<Stack gap="md">
-						<TextInput label="E-Mail" placeholder={`person@example.com`} required value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
-						<TextInput label="Vorname" placeholder="Erika" required value={givenName} onChange={(e) => setGivenName(e.currentTarget.value)} />
-						<TextInput label="Nachname" placeholder="Mustermann" required value={familyName} onChange={(e) => setFamilyName(e.currentTarget.value)} />
-						<Radio.Group label="Rolle" required value={role} onChange={(value) => setRole(value as "Admin" | "Moderator")}>
-							<Stack gap="xs">
-								<Radio value="Admin" label="Admin (voller Zugriff)" />
-								<Radio value="Moderator" label="Moderator (nur Inhalte)" />
-							</Stack>
-						</Radio.Group>
+						<createForm.Field name="email">
+							{(field) => <TextInput label="E-Mail" placeholder={`person@example.com`} required value={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.value)} />}
+						</createForm.Field>
+						<createForm.Field name="givenName">
+							{(field) => <TextInput label="Vorname" placeholder="Erika" required value={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.value)} />}
+						</createForm.Field>
+						<createForm.Field name="familyName">
+							{(field) => <TextInput label="Nachname" placeholder="Mustermann" required value={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.value)} />}
+						</createForm.Field>
+						<createForm.Field name="role">
+							{(field) => (
+								<Radio.Group label="Rolle" required value={field.state.value} onChange={(value) => field.handleChange(value as UserRole)}>
+									<Stack gap="xs">
+										<Radio value="Admin" label="Admin (voller Zugriff)" />
+										<Radio value="Moderator" label="Moderator (nur Inhalte)" />
+									</Stack>
+								</Radio.Group>
+							)}
+						</createForm.Field>
 						<Text size="sm" c="dimmed">
 							Eine Einladungs-E-Mail mit temporären Zugangsdaten wird an den Benutzer gesendet.
 						</Text>
 						<Group justify="flex-end" gap="sm">
-							<Button variant="subtle" onClick={closeCreate}>
+							<Button variant="subtle" type="button" onClick={closeCreate}>
 								Abbrechen
 							</Button>
 							<Button type="submit" loading={createMutation.isPending}>
@@ -217,16 +241,29 @@ function UsersPage() {
 
 			{/* Edit User Modal */}
 			<Modal opened={editOpened} onClose={closeEdit} title="Benutzer bearbeiten" size={isMobile ? "100%" : "md"} fullScreen={isMobile}>
-				<form onSubmit={handleUpdate}>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						void editForm.handleSubmit();
+					}}
+				>
 					<Stack gap="md">
-						<TextInput label="Vorname" placeholder="Max" required value={givenName} onChange={(e) => setGivenName(e.currentTarget.value)} />
-						<TextInput label="Nachname" placeholder="Mustermann" required value={familyName} onChange={(e) => setFamilyName(e.currentTarget.value)} />
-						<Radio.Group label="Rolle" required value={role} onChange={(value) => setRole(value as "Admin" | "Moderator")}>
-							<Stack gap="xs">
-								<Radio value="Admin" label="Admin (voller Zugriff)" />
-								<Radio value="Moderator" label="Moderator (nur Inhalte)" />
-							</Stack>
-						</Radio.Group>
+						<editForm.Field name="givenName">
+							{(field) => <TextInput label="Vorname" placeholder="Max" required value={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.value)} />}
+						</editForm.Field>
+						<editForm.Field name="familyName">
+							{(field) => <TextInput label="Nachname" placeholder="Mustermann" required value={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.value)} />}
+						</editForm.Field>
+						<editForm.Field name="role">
+							{(field) => (
+								<Radio.Group label="Rolle" required value={field.state.value} onChange={(value) => field.handleChange(value as UserRole)}>
+									<Stack gap="xs">
+										<Radio value="Admin" label="Admin (voller Zugriff)" />
+										<Radio value="Moderator" label="Moderator (nur Inhalte)" />
+									</Stack>
+								</Radio.Group>
+							)}
+						</editForm.Field>
 						<Group justify="space-between">
 							{editingEmail && currentUser?.email !== editingEmail ? (
 								<ActionIcon color="red" variant="light" onClick={() => setDeleteTarget(editingEmail)} loading={deleteMutation.isPending} title="Benutzer dauerhaft löschen" radius="xl" size="lg">
@@ -236,7 +273,7 @@ function UsersPage() {
 								<Box />
 							)}
 							<Group gap="sm">
-								<Button variant="light" onClick={closeEdit}>
+								<Button variant="light" type="button" onClick={closeEdit}>
 									Abbrechen
 								</Button>
 								<Button variant="filled" type="submit" loading={updateMutation.isPending}>

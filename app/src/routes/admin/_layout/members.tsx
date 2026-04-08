@@ -3,14 +3,14 @@ import { ActionIcon, Badge, Box, Button, Card, Checkbox, Flex, Group, Image, Mod
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useForm } from "@tanstack/react-form-start";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { MAX_UPLOAD_SIZE } from "@utils/image-config";
 import { useNotification } from "@webapp/hooks/useNotification";
 import { adminListMembersFn, checkProxyEmailFn, createMemberFn, deleteMemberFn, suggestProxyAliasFn, updateMemberFn } from "@webapp/server/functions/members";
 import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
 import { Pencil, Plus, Trash2, Upload, User, X } from "lucide-react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import z from "zod";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
@@ -181,6 +181,7 @@ function CurrentAvatarDisplay({
 }
 
 const defaultFormValues = {
+	id: undefined as string | undefined,
 	name: "",
 	privateEmail: "",
 	proxyEmail: "",
@@ -194,12 +195,13 @@ const defaultFormValues = {
 function MembersPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
-	const [editingId, setEditingId] = useState<string | null>(null);
 	const [avatarFile, setAvatarFile] = useState<File | null>(null);
 	const [deleteAvatar, setDeleteAvatar] = useState(false);
+	const queryClient = useQueryClient();
 
 	const notification = useNotification();
 	const { data: members, isLoading, refetch } = useQuery({ queryKey: ["members", "list"], queryFn: () => adminListMembersFn() });
+
 	const form = useForm({
 		defaultValues: defaultFormValues,
 		validators: {
@@ -231,6 +233,7 @@ function MembersPage() {
 			},
 		},
 		onSubmit: async ({ value }) => {
+			const currentEditingId = value.id;
 			let avatarS3Key: string | null | undefined = value.avatarS3Key;
 
 			// Handle avatar deletion
@@ -262,9 +265,13 @@ function MembersPage() {
 			const clearableOptionalFields = new Set(["privateEmail", "proxyEmail", "phone", "roleTitle"]);
 			const cleanedData: Record<string, unknown> = {};
 			for (const [key, val] of Object.entries({ ...value, avatarS3Key })) {
+				if (key === "id") {
+					continue;
+				}
+
 				if (key === "avatarS3Key") {
 					cleanedData[key] = avatarS3Key; // always include (null for deletion, string for set, undefined for no change)
-				} else if (editingId && clearableOptionalFields.has(key) && val === "") {
+				} else if (currentEditingId && clearableOptionalFields.has(key) && val === "") {
 					cleanedData[key] = null; // null signals the server to remove this attribute
 				} else if (val !== "" && val !== undefined) {
 					cleanedData[key] = val;
@@ -272,8 +279,8 @@ function MembersPage() {
 			}
 
 			try {
-				if (editingId) {
-					await updateMemberFn({ data: { id: editingId, data: cleanedData } });
+				if (currentEditingId) {
+					await updateMemberFn({ data: { id: currentEditingId, data: cleanedData } });
 					notification.success("Mitglied wurde aktualisiert");
 				} else {
 					await createMemberFn({ data: cleanedData as MemberInput });
@@ -291,28 +298,32 @@ function MembersPage() {
 			}
 		},
 	});
-
-	const lastSuggestedKeyRef = useRef<string | null>(null);
+	const editingId = form.getFieldValue("id");
 
 	const maybeSuggestAlias = async () => {
 		const name = form.getFieldValue("name");
 		const privateEmail = form.getFieldValue("privateEmail");
 		const proxyEmail = form.getFieldValue("proxyEmail");
-		const key = `${name}|${privateEmail}`;
+		const requestKey = `${name}|${privateEmail}`;
 
 		if (!name || !isValidEmail(privateEmail) || proxyEmail) {
 			return;
 		}
 
-		if (lastSuggestedKeyRef.current === key) {
-			return;
-		}
-
-		lastSuggestedKeyRef.current = key;
-
 		try {
-			const { alias } = await suggestProxyAliasFn({ data: { name } });
-			if (!form.getFieldValue("proxyEmail")) {
+			const alias = await queryClient.fetchQuery({
+				queryKey: ["members", "suggestProxyAlias", name, privateEmail],
+				queryFn: async () => {
+					const { alias } = await suggestProxyAliasFn({ data: { name } });
+					return alias;
+				},
+				staleTime: 5 * 60 * 1000,
+			});
+
+			const currentName = form.getFieldValue("name");
+			const currentPrivateEmail = form.getFieldValue("privateEmail");
+			const currentProxyEmail = form.getFieldValue("proxyEmail");
+			if (`${currentName}|${currentPrivateEmail}` === requestKey && !currentProxyEmail) {
 				form.setFieldValue("proxyEmail", alias);
 			}
 		} catch {
@@ -328,7 +339,6 @@ function MembersPage() {
 			form.reset();
 			setAvatarFile(null);
 			setDeleteAvatar(false);
-			setEditingId(null);
 			notification.success("Mitglied wurde erfolgreich gelöscht");
 		},
 		onError: (error: unknown) => {
@@ -339,18 +349,15 @@ function MembersPage() {
 	});
 
 	const handleEdit = (member: MemberInput & { id: string }) => {
-		lastSuggestedKeyRef.current = null;
-		form.reset({
-			name: member.name,
-			privateEmail: member.privateEmail ?? "",
-			proxyEmail: member.proxyEmail ?? "",
-			phone: member.phone ?? "",
-			isBoardMember: member.isBoardMember ?? false,
-			isTrainer: member.isTrainer ?? false,
-			roleTitle: member.roleTitle ?? "",
-			avatarS3Key: member.avatarS3Key,
-		});
-		setEditingId(member.id);
+		form.setFieldValue("id", member.id);
+		form.setFieldValue("name", member.name);
+		form.setFieldValue("privateEmail", member.privateEmail ?? "");
+		form.setFieldValue("proxyEmail", member.proxyEmail ?? "");
+		form.setFieldValue("phone", member.phone ?? "");
+		form.setFieldValue("isBoardMember", member.isBoardMember ?? false);
+		form.setFieldValue("isTrainer", member.isTrainer ?? false);
+		form.setFieldValue("roleTitle", member.roleTitle ?? "");
+		form.setFieldValue("avatarS3Key", member.avatarS3Key);
 		setDeleteAvatar(false);
 		setAvatarFile(null);
 		open();
@@ -363,9 +370,7 @@ function MembersPage() {
 	};
 
 	const handleOpenNew = () => {
-		lastSuggestedKeyRef.current = null;
 		form.reset();
-		setEditingId(null);
 		setDeleteAvatar(false);
 		setAvatarFile(null);
 		open();
