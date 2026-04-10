@@ -1,6 +1,6 @@
 /**
  * SAMS server functions — replaces lib/trpc/routers/samsClubs.ts + samsTeams.ts
- * plus the read lambdas from SamsApiStack (matches, rankings).
+ * plus the read lambdas from SamsStack (matches, rankings).
  * All read-only, public.
  */
 

@@ -10,7 +10,7 @@ import { DnsStack } from "../lib/dns-stack";
 import { MailStack } from "../lib/mail-stack";
 import { MediaStack } from "../lib/media-stack";
 import { MonitoringStack } from "../lib/monitoring-stack";
-import { SamsApiStack } from "../lib/sams-api-stack";
+import { SamsStack } from "../lib/sams-stack";
 import { SocialMediaStack } from "../lib/social-media-stack";
 import { WebAppStack } from "../lib/webapp-stack";
 
@@ -28,7 +28,7 @@ const { stackName, envLabel } = getCdkNaming(isProd, branch);
 const contentDbStackName = stackName("ContentDbStack");
 const mediaStackName = stackName("MediaStack");
 const webappStackName = stackName("WebAppStack");
-const samsStackName = stackName("SamsApiStack");
+const samsStackName = stackName("SamsStack");
 const socialMediaStackName = stackName("SocialMediaStack");
 const dnsStackName = stackName("DnsStack");
 const budgetStackName = stackName("BudgetStack");
@@ -71,7 +71,7 @@ const mediaStack = new MediaStack(app, mediaStackName, {
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
-const samsApiStack = new SamsApiStack(app, samsStackName, {
+const samsStack = new SamsStack(app, samsStackName, {
 	...commonStackProps,
 	description: `SAMS API Services (${envLabel})`,
 	mediaBucketName: mediaStack.bucketName,
@@ -96,8 +96,8 @@ const webappStack = new WebAppStack(app, webappStackName, {
 	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 	hostedZone: dnsStack.hostedZone,
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
-	samsClubsSyncFunctionName: samsApiStack.samsClubsSyncFunctionName,
-	samsTeamsSyncFunctionName: samsApiStack.samsTeamsSyncFunctionName,
+	samsClubsSyncFunctionName: samsStack.samsClubsSyncFunctionName,
+	samsTeamsSyncFunctionName: samsStack.samsTeamsSyncFunctionName,
 });
 
 // Budget monitoring - requires email for alerts

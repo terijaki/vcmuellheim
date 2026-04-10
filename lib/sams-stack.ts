@@ -10,7 +10,7 @@ import type { SamsClubsSyncLambdaEnvironment, SamsCommonLambdaEnvironment, SamsT
 import { getSamsDataTableName } from "./db/env";
 import { buildLambdaFunctionName, VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
-interface SamsApiStackProps extends cdk.StackProps {
+interface SamsStackProps extends cdk.StackProps {
 	stackProps?: {
 		environment: string;
 		branch: string;
@@ -19,7 +19,7 @@ interface SamsApiStackProps extends cdk.StackProps {
 	mediaCloudFrontUrl?: string;
 }
 
-export class SamsApiStack extends cdk.Stack {
+export class SamsStack extends cdk.Stack {
 	public readonly samsDataTable: dynamodb.Table;
 	public readonly samsClubsSync: NodejsFunction;
 	public readonly samsTeamsSync: NodejsFunction;
@@ -27,7 +27,7 @@ export class SamsApiStack extends cdk.Stack {
 	public readonly samsClubsSyncFunctionName: string;
 	public readonly samsTeamsSyncFunctionName: string;
 
-	constructor(scope: Construct, id: string, props?: SamsApiStackProps) {
+	constructor(scope: Construct, id: string, props?: SamsStackProps) {
 		super(scope, id, props);
 
 		const environment = props?.stackProps?.environment || "dev";
@@ -36,15 +36,15 @@ export class SamsApiStack extends cdk.Stack {
 		const branchSuffix = branch ? `-${branch}` : "";
 
 		// Environment variables for all Lambda functions
-		const samsApiKey = process.env.SAMS_API_KEY;
+		const samsKey = process.env.SAMS_API_KEY;
 		const isCdkDestroy = process.env.CDK_DESTROY === "true";
 
 		if (!isCdkDestroy) {
-			if (!samsApiKey) throw new Error("❌ SAMS_API_KEY environment variable is required");
+			if (!samsKey) throw new Error("❌ SAMS_API_KEY environment variable is required");
 		}
 
 		const commonEnvironment = {
-			SAMS_API_KEY: samsApiKey || "",
+			SAMS_API_KEY: samsKey || "",
 			CDK_ENVIRONMENT: environment,
 		} satisfies SamsCommonLambdaEnvironment;
 

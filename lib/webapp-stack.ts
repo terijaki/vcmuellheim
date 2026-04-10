@@ -40,8 +40,8 @@ export interface WebAppStackProps extends cdk.StackProps {
 	hostedZone?: route53.IHostedZone;
 	/** CloudFront certificate (must be in us-east-1) */
 	cloudFrontCertificate?: acm.ICertificate;
-	/** Optional sync Lambda function names from SamsApiStack — grants invoke permissions to the webapp Lambda.
-	 * Use function names (strings) instead of CDK cross-stack object references so SamsApiStack can be updated independently without CF blocking export deletion. */
+	/** Optional sync Lambda function names from SamsStack — grants invoke permissions to the webapp Lambda.
+	 * Use function names (strings) instead of CDK cross-stack object references so SamsStack can be updated independently without CF blocking export deletion. */
 	samsClubsSyncFunctionName?: string;
 	samsTeamsSyncFunctionName?: string;
 }

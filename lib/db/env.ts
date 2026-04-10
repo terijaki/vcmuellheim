@@ -41,7 +41,7 @@ export function computeContentTableName(environment: string, branch: string): st
 
 /**
  * Compute the canonical SAMS data table name for a given environment and branch.
- * Single source of truth used by SamsApiStack, WebAppStack, and the local dev
+ * Single source of truth used by SamsStack, WebAppStack, and the local dev
  * vite plugin — keeping them in sync without a CloudFormation cross-stack reference.
  */
 export function getSamsDataTableName(environment: string, branch: string): string {
