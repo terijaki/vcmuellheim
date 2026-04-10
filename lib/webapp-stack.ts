@@ -160,7 +160,7 @@ export class WebAppStack extends cdk.Stack {
 			new cdk.aws_iam.PolicyStatement({
 				effect: cdk.aws_iam.Effect.ALLOW,
 				actions: ["ses:SendEmail", "ses:SendRawEmail"],
-				resources: [`arn:aws:ses:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:identity/vcmuellheim.de`],
+				resources: [`arn:aws:ses:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:identity/${baseDomain}`],
 			}),
 		);
 
