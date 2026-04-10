@@ -20,22 +20,25 @@ const isProd = environment === "prod";
 const isDestroy = process.env.CDK_DESTROY === "true";
 
 const branch = getSanitizedBranch();
-const branchSuffix = branch ? `-${branch}` : "";
+const branchSuffix = branch ? (`-${branch}` as const) : "";
 
 // Environment-specific configuration
-const contentDbStackName = isProd ? `ContentDbStack-Prod${branchSuffix}` : `ContentDbStack-Dev${branchSuffix}`;
-const mediaStackName = isProd ? `MediaStack-Prod${branchSuffix}` : `MediaStack-Dev${branchSuffix}`;
-const webappStackName = isProd ? `WebAppStack-Prod${branchSuffix}` : `WebAppStack-Dev${branchSuffix}`;
-const samsStackName = isProd ? `SamsApiStack-Prod${branchSuffix}` : `SamsApiStack-Dev${branchSuffix}`;
-const socialMediaStackName = isProd ? `SocialMediaStack-Prod${branchSuffix}` : `SocialMediaStack-Dev${branchSuffix}`;
-const dnsStackName = isProd ? `DnsStack-Prod${branchSuffix}` : `DnsStack-Dev${branchSuffix}`;
-const budgetStackName = isProd ? `BudgetStack-Prod${branchSuffix}` : `BudgetStack-Dev${branchSuffix}`;
-const monitoringStackName = isProd ? `MonitoringStack-Prod${branchSuffix}` : `MonitoringStack-Dev${branchSuffix}`;
-const awsRegion = process.env.CDK_REGION || "eu-central-1";
+const stackName = (base: string) => `${base}-${isProd ? "Prod" : "Dev"}${branchSuffix}` as const;
+const envLabel = `${environment}${branchSuffix}` as const;
+
+const contentDbStackName = stackName("ContentDbStack");
+const mediaStackName = stackName("MediaStack");
+const webappStackName = stackName("WebAppStack");
+const samsStackName = stackName("SamsApiStack");
+const socialMediaStackName = stackName("SocialMediaStack");
+const dnsStackName = stackName("DnsStack");
+const budgetStackName = stackName("BudgetStack");
+const monitoringStackName = stackName("MonitoringStack");
+const mailStackName = stackName("MailStack");
 
 const commonStackProps = {
 	env: {
-		region: awsRegion,
+		region: process.env.CDK_REGION || "eu-central-1",
 	},
 	tags: {
 		Environment: environment,
@@ -50,7 +53,7 @@ const commonStackProps = {
 
 const dnsStack = new DnsStack(app, dnsStackName, {
 	...commonStackProps,
-	description: `DNS & Route53 (${environment}${branchSuffix})`,
+	description: `DNS & Route53 (${envLabel})`,
 	hostedZoneId: isProd ? DNS.prod.hostedZoneId : DNS.dev.hostedZoneId,
 	hostedZoneName: isProd ? DNS.prod.hostedZoneName : DNS.dev.hostedZoneName,
 	regionalCertificateArn: isProd ? DNS.prod.certificateArn : DNS.dev.certificateArn,
@@ -59,38 +62,38 @@ const dnsStack = new DnsStack(app, dnsStackName, {
 
 const contentDbStack = new ContentDbStack(app, contentDbStackName, {
 	...commonStackProps,
-	description: `Content Database Tables (${environment}${branchSuffix})`,
+	description: `Content Database Tables (${envLabel})`,
 });
 
 const mediaStack = new MediaStack(app, mediaStackName, {
 	...commonStackProps,
-	description: `Media Storage (S3) (${environment}${branchSuffix})`,
+	description: `Media Storage (S3) (${envLabel})`,
 	hostedZone: dnsStack.hostedZone,
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
 const samsApiStack = new SamsApiStack(app, samsStackName, {
 	...commonStackProps,
-	description: `SAMS API Services (${environment}${branchSuffix})`,
-	mediaBucket: mediaStack.bucket,
+	description: `SAMS API Services (${envLabel})`,
+	mediaBucketName: mediaStack.bucketName,
 	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 });
 
 // Social Media Stack with Mastodon integration
 new SocialMediaStack(app, socialMediaStackName, {
 	...commonStackProps,
-	description: `Social Media API Services (${environment}${branchSuffix})`,
+	description: `Social Media API Services (${envLabel})`,
 	contentTable: contentDbStack.contentTable,
 	// Pass the webapp URL for Mastodon news-sharing links
-	websiteUrl: isProd ? `https://${DNS.prod.hostedZoneName}` : `https://${environment}${branchSuffix}.${DNS.dev.hostedZoneName}`,
-	mediaBucket: mediaStack.bucket,
+	websiteUrl: isProd ? `https://${DNS.prod.hostedZoneName}` : `https://${envLabel}.${DNS.dev.hostedZoneName}`,
+	mediaBucketName: mediaStack.bucketName,
 });
 
 const webappStack = new WebAppStack(app, webappStackName, {
 	...commonStackProps,
-	description: `VCM WebApp + Admin (${environment}${branchSuffix})`,
-	contentTable: contentDbStack.contentTable,
-	mediaBucket: mediaStack.bucket,
+	description: `VCM WebApp + Admin (${envLabel})`,
+	contentTableName: contentDbStack.contentTableName,
+	mediaBucketName: mediaStack.bucketName,
 	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 	hostedZone: dnsStack.hostedZone,
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
@@ -102,17 +105,16 @@ const webappStack = new WebAppStack(app, webappStackName, {
 const budgetEmail = ENV.CDK_BUDGET_ALERT_EMAIL;
 
 // Mail forwarding stack — branch-scoped Lambda/EventBridge/DLQ/alarms
-const mailStackName = isProd ? `MailStack-Prod${branchSuffix}` : `MailStack-Dev${branchSuffix}`;
 new MailStack(app, mailStackName, {
 	...commonStackProps,
-	description: `Inbound Mail Forwarding (${environment}${branchSuffix})`,
-	contentTable: contentDbStack.contentTable,
+	description: `Inbound Mail Forwarding (${envLabel})`,
+	contentTableName: contentDbStack.contentTableName,
 	alertEmail: ENV.CDK_MONITORING_ALERT_EMAIL || budgetEmail,
 });
 if (budgetEmail || isDestroy) {
 	new BudgetStack(app, budgetStackName, {
 		...commonStackProps,
-		description: `Cost Budget & Alerts (${environment}${branchSuffix})`,
+		description: `Cost Budget & Alerts (${envLabel})`,
 		alertEmail: budgetEmail || "cleanup@example.com",
 	});
 } else {
@@ -131,7 +133,7 @@ const monitoringEmail = ENV.CDK_MONITORING_ALERT_EMAIL || budgetEmail;
 if (monitoringEmail || isDestroy) {
 	new MonitoringStack(app, monitoringStackName, {
 		...commonStackProps,
-		description: `Monitoring & Alerting (${environment}${branchSuffix})`,
+		description: `Monitoring & Alerting (${envLabel})`,
 		alertEmail: monitoringEmail || "cleanup@example.com",
 		webappLambda: webappStack.webappLambda,
 		contentTables: {

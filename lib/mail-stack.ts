@@ -21,7 +21,7 @@ interface MailStackProps extends cdk.StackProps {
 		environment: string;
 		branch: string;
 	};
-	contentTable: dynamodb.ITable;
+	contentTableName: string;
 	alertEmail?: string;
 }
 
@@ -71,7 +71,7 @@ export class MailStack extends cdk.Stack {
 			environment: {
 				CDK_ENVIRONMENT: environment,
 				BRANCH_NAME: isProd ? "" : branch,
-				CONTENT_TABLE_NAME: props.contentTable.tableName,
+				CONTENT_TABLE_NAME: props.contentTableName,
 				FORWARD_FROM_EMAIL: mailConfig.systemFromEmail,
 				RECIPIENT_DOMAIN: mailConfig.recipientDomain,
 			} satisfies MailForwardLambdaEnvironment,
@@ -81,7 +81,8 @@ export class MailStack extends cdk.Stack {
 		inboundBucket.grantRead(mailForward);
 
 		// Grant DynamoDB read access for proxy email → privateEmail lookups
-		props.contentTable.grantReadData(mailForward);
+		const contentTableArn = cdk.Stack.of(this).formatArn({ service: "dynamodb", resource: "table", resourceName: props.contentTableName });
+		dynamodb.Table.fromTableArn(this, "ContentTableRef", contentTableArn).grantReadData(mailForward);
 
 		// Grant SES send-email permission for forwarding
 		mailForward.addToRolePolicy(

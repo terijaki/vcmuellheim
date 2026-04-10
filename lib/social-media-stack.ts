@@ -5,9 +5,10 @@ import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { DynamoEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
-import type * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3Bucket from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type { BeholdSyncLambdaEnvironment, MastodonShareLambdaEnvironment, MastodonStreamHandlerLambdaEnvironment } from "@/lambda/social/types";
+import { computeContentTableName } from "./db/env";
 import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
 interface SocialMediaStackProps extends cdk.StackProps {
@@ -17,7 +18,7 @@ interface SocialMediaStackProps extends cdk.StackProps {
 	};
 	contentTable?: dynamodb.ITable;
 	websiteUrl?: string;
-	mediaBucket?: s3.IBucket;
+	mediaBucketName?: string;
 }
 
 export class SocialMediaStack extends cdk.Stack {
@@ -51,17 +52,18 @@ export class SocialMediaStack extends cdk.Stack {
 			environment: {
 				...commonEnvironment,
 				MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
-				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
+				...(props.mediaBucketName ? { MEDIA_BUCKET_NAME: props.mediaBucketName } : {}),
 			} satisfies MastodonShareLambdaEnvironment,
 		}).lambdaFunction;
 
 		// Grant S3 read permissions to Mastodon Lambda for image uploads
-		if (props.mediaBucket) {
-			props.mediaBucket.grantRead(mastodonShare);
+		if (props.mediaBucketName) {
+			s3Bucket.Bucket.fromBucketName(this, "MediaBucketRef", props.mediaBucketName).grantRead(mastodonShare);
 		}
 
 		// Create scheduled Lambda to proactively sync Behold Instagram posts to DynamoDB.
 		// Runs hourly during German daytime — ~465 calls/month (~39% of Behold's 1200/month free-tier limit).
+		const contentTableName = computeContentTableName(environment, branch);
 		if (props.contentTable) {
 			const beholdSync = new VcmNodejsFunction(this, "BeholdSync", {
 				namespace: "social",
@@ -70,7 +72,7 @@ export class SocialMediaStack extends cdk.Stack {
 				memorySize: 128,
 				environment: {
 					...commonEnvironment,
-					CONTENT_TABLE_NAME: props.contentTable.tableName,
+					CONTENT_TABLE_NAME: contentTableName,
 				} satisfies BeholdSyncLambdaEnvironment,
 			}).lambdaFunction;
 
@@ -98,7 +100,7 @@ export class SocialMediaStack extends cdk.Stack {
 					MASTODON_LAMBDA_NAME: mastodonShare.functionName,
 					ENVIRONMENT: environment,
 					WEBSITE_URL: props.websiteUrl,
-					CONTENT_TABLE_NAME: props.contentTable.tableName,
+					CONTENT_TABLE_NAME: contentTableName,
 				} satisfies MastodonStreamHandlerLambdaEnvironment,
 			}).lambdaFunction;
 

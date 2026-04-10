@@ -2,6 +2,7 @@ import * as cdk from "aws-cdk-lib";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import type { Construct } from "constructs";
 import { ContentTableIndexes } from "./db/electrodb-entities";
+import { computeContentTableName } from "./db/env";
 
 interface ContentDbStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -18,18 +19,20 @@ interface ContentDbStackProps extends cdk.StackProps {
  */
 export class ContentDbStack extends cdk.Stack {
 	public readonly contentTable: dynamodb.Table;
+	/** Stable plain-string table name — safe to pass cross-stack without creating CloudFormation exports. */
+	public readonly contentTableName: string;
 
 	constructor(scope: Construct, id: string, props?: ContentDbStackProps) {
 		super(scope, id, props);
 
 		const environment = props?.stackProps?.environment || "dev";
 		const branch = props?.stackProps?.branch || "";
-		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
 
 		// Single content table — all entities share this table using composite PK/SK
+		this.contentTableName = computeContentTableName(environment, branch);
 		this.contentTable = new dynamodb.Table(this, "ContentTable", {
-			tableName: `vcm-content-${environment}${branchSuffix}`,
+			tableName: this.contentTableName,
 			partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
 			sortKey: { name: "sk", type: dynamodb.AttributeType.STRING },
 			billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,

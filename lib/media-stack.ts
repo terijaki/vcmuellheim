@@ -15,6 +15,16 @@ import type { Construct } from "constructs";
 import { Club, LambdaLayers } from "@/project.config";
 import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
+/**
+ * Compute the canonical media S3 bucket name for a given environment and branch.
+ * Single source of truth shared by MediaStack and any consuming stack that needs the
+ * bucket name as a plain string (no CloudFormation cross-stack reference).
+ */
+export function computeMediaBucketName(environment: string, branch: string): string {
+	const branchSuffix = branch ? `-${branch}` : "";
+	return `${Club.slug}-media-${environment}${branchSuffix}`;
+}
+
 export interface MediaStackProps extends cdk.StackProps {
 	stackProps?: {
 		environment?: string;
@@ -28,6 +38,8 @@ export class MediaStack extends cdk.Stack {
 	public readonly bucket: s3.Bucket;
 	public readonly distribution: cloudfront.Distribution;
 	public readonly cloudFrontUrl: string;
+	/** Stable plain-string bucket name — safe to pass cross-stack without creating CloudFormation exports. */
+	public readonly bucketName: string;
 
 	constructor(scope: Construct, id: string, props?: MediaStackProps) {
 		super(scope, id, props);
@@ -41,8 +53,9 @@ export class MediaStack extends cdk.Stack {
 		const mediaDomain = `${envPrefix}media.${baseDomain}`;
 
 		// S3 Bucket for media storage
+		this.bucketName = computeMediaBucketName(environment, branch);
 		this.bucket = new s3.Bucket(this, "MediaBucket", {
-			bucketName: `${Club.slug}-media-${environment}${branchSuffix}`,
+			bucketName: this.bucketName,
 			encryption: s3.BucketEncryption.S3_MANAGED,
 			cors: [
 				{

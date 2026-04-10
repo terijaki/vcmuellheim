@@ -4,7 +4,7 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import type * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type { SamsClubsSyncLambdaEnvironment, SamsCommonLambdaEnvironment, SamsTeamsSyncLambdaEnvironment } from "@/lambda/sams/types";
 import { getSamsDataTableName } from "./db/env";
@@ -15,7 +15,7 @@ interface SamsApiStackProps extends cdk.StackProps {
 		environment: string;
 		branch: string;
 	};
-	mediaBucket?: s3.IBucket;
+	mediaBucketName?: string;
 	mediaCloudFrontUrl?: string;
 }
 
@@ -91,14 +91,16 @@ export class SamsApiStack extends cdk.Stack {
 			environment: {
 				...commonEnvironment,
 				SAMS_TABLE_NAME: samsDataTable.tableName,
-				MEDIA_BUCKET_NAME: props?.mediaBucket?.bucketName ?? "",
+				MEDIA_BUCKET_NAME: props?.mediaBucketName ?? "",
 				MEDIA_CLOUDFRONT_URL: props?.mediaCloudFrontUrl ?? "",
 			} satisfies SamsClubsSyncLambdaEnvironment,
 		}).lambdaFunction;
 
 		// Grant DynamoDB permissions to clubs sync Lambda
 		samsDataTable.grantReadWriteData(this.samsClubsSync);
-		props?.mediaBucket?.grantWrite(this.samsClubsSync);
+		if (props?.mediaBucketName) {
+			s3.Bucket.fromBucketName(this, "MediaBucketRef", props.mediaBucketName).grantWrite(this.samsClubsSync);
+		}
 
 		// Create Lambda function for nightly teams sync
 		this.samsTeamsSync = new VcmNodejsFunction(this, "SamsTeamsSync", {
