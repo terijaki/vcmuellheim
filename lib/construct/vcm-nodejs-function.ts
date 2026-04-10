@@ -10,7 +10,7 @@ export interface VcmNodejsFunctionProps extends Omit<NodejsFunctionProps, "runti
 	name: string;
 }
 
-function buildLambdaFunctionName(baseName: string): string {
+export function buildLambdaFunctionName(baseName: string): string {
 	const environment = process.env.CDK_ENVIRONMENT || "dev";
 	const branch = getSanitizedBranch();
 	const branchSuffix = branch ? `-${branch}` : "";

@@ -8,7 +8,7 @@ import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type { SamsClubsSyncLambdaEnvironment, SamsCommonLambdaEnvironment, SamsTeamsSyncLambdaEnvironment } from "@/lambda/sams/types";
 import { getSamsDataTableName } from "./db/env";
-import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
+import { buildLambdaFunctionName, VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
 interface SamsApiStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -23,6 +23,9 @@ export class SamsApiStack extends cdk.Stack {
 	public readonly samsDataTable: dynamodb.Table;
 	public readonly samsClubsSync: NodejsFunction;
 	public readonly samsTeamsSync: NodejsFunction;
+	/** Stable plain-string function names — safe to pass cross-stack without creating CloudFormation exports. */
+	public readonly samsClubsSyncFunctionName: string;
+	public readonly samsTeamsSyncFunctionName: string;
 
 	constructor(scope: Construct, id: string, props?: SamsApiStackProps) {
 		super(scope, id, props);
@@ -74,10 +77,15 @@ export class SamsApiStack extends cdk.Stack {
 		// Expose table for cross-stack reference
 		this.samsDataTable = samsDataTable;
 
+		const CLUBS_SYNC_FUNCTION_NAME = "sams-clubs-sync";
+		const TEAMS_SYNC_FUNCTION_NAME = "sams-teams-sync";
+		this.samsClubsSyncFunctionName = buildLambdaFunctionName(CLUBS_SYNC_FUNCTION_NAME);
+		this.samsTeamsSyncFunctionName = buildLambdaFunctionName(TEAMS_SYNC_FUNCTION_NAME);
+
 		// Create Lambda function for nightly clubs sync
 		this.samsClubsSync = new VcmNodejsFunction(this, "SamsClubsSync", {
 			namespace: "sams",
-			name: "sams-clubs-sync",
+			name: CLUBS_SYNC_FUNCTION_NAME,
 			entry: path.join(__dirname, "../lambda/sams/sams-clubs-sync.ts"),
 			timeout: cdk.Duration.minutes(3),
 			environment: {
@@ -95,7 +103,7 @@ export class SamsApiStack extends cdk.Stack {
 		// Create Lambda function for nightly teams sync
 		this.samsTeamsSync = new VcmNodejsFunction(this, "SamsTeamsSync", {
 			namespace: "sams",
-			name: "sams-teams-sync",
+			name: TEAMS_SYNC_FUNCTION_NAME,
 			entry: path.join(__dirname, "../lambda/sams/sams-teams-sync.ts"),
 			timeout: cdk.Duration.minutes(3),
 			environment: {

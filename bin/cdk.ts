@@ -94,8 +94,8 @@ const webappStack = new WebAppStack(app, webappStackName, {
 	mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
 	hostedZone: dnsStack.hostedZone,
 	cloudFrontCertificate: dnsStack.cloudFrontCertificate,
-	samsClubsSyncFn: samsApiStack.samsClubsSync,
-	samsTeamsSyncFn: samsApiStack.samsTeamsSync,
+	samsClubsSyncFunctionName: samsApiStack.samsClubsSyncFunctionName,
+	samsTeamsSyncFunctionName: samsApiStack.samsTeamsSyncFunctionName,
 });
 
 // Budget monitoring - requires email for alerts
