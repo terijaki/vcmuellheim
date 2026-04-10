@@ -91,6 +91,7 @@ export class WebAppStack extends cdk.Stack {
 			BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
 			MEDIA_BUCKET_NAME: props.mediaBucket.bucketName,
 			SAMS_TABLE_NAME: samsTableName,
+			...(branch ? { BRANCH_NAME: branch } : {}),
 			...(process.env.SAMS_API_KEY ? { SAMS_API_KEY: process.env.SAMS_API_KEY } : {}),
 			...(props.mediaCloudFrontUrl ? { CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
 			...(props.samsClubsSyncFn ? { SAMS_CLUBS_SYNC_FUNCTION_NAME: props.samsClubsSyncFn.functionName } : {}),

@@ -227,7 +227,7 @@ function UsersPage() {
 						<Text size="sm" c="dimmed">
 							Eine Einladungs-E-Mail mit temporären Zugangsdaten wird an den Benutzer gesendet.
 						</Text>
-						<Group justify="flex-end" gap="sm">
+						<Group justify="flex-end" gap="sm" ms="auto">
 							<Button variant="subtle" type="button" onClick={closeCreate}>
 								Abbrechen
 							</Button>
@@ -272,7 +272,7 @@ function UsersPage() {
 							) : (
 								<Box />
 							)}
-							<Group gap="sm">
+							<Group gap="sm" ms="auto">
 								<Button variant="light" type="button" onClick={closeEdit}>
 									Abbrechen
 								</Button>

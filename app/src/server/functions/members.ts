@@ -10,8 +10,7 @@ import { requireAdminMiddleware, requireAuthMiddleware } from "../../middleware"
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 import { resolveNullableUpdates } from "./patch-helpers";
-import { normalizeProxyAlias } from "./member-alias";
-import { Club } from "@/project.config";
+import { canonicalizeProxyAlias, getProxyAliasBranchName, getProxyAliasDomain, suggestProxyAlias } from "./member-alias";
 
 // ── Public member schema (excludes privateEmail for privacy boundary) ────────
 export const publicMemberSchema = memberSchema.omit({ privateEmail: true });
@@ -48,8 +47,10 @@ export const createMemberFn = createServerFn()
 	.middleware([requireAuthMiddleware])
 	.inputValidator(memberSchema.omit({ id: true, createdAt: true, updatedAt: true }))
 	.handler(async ({ data }) => {
+		const canonicalProxyEmail = data.proxyEmail ? canonicalizeProxyAlias(data.proxyEmail) : undefined;
 		const member = withTimestamps({
 			...data,
+			proxyEmail: canonicalProxyEmail,
 			id: crypto.randomUUID(),
 		});
 
@@ -77,9 +78,10 @@ export const updateMemberFn = createServerFn()
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
 		const { privateEmail, proxyEmail, phone, roleTitle, avatarS3Key, ...restUpdates } = updates;
+		const canonicalProxyEmail = proxyEmail && typeof proxyEmail === "string" ? canonicalizeProxyAlias(proxyEmail) : proxyEmail;
 		const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
 			privateEmail,
-			proxyEmail,
+			proxyEmail: canonicalProxyEmail,
 			phone,
 			roleTitle,
 			avatarS3Key,
@@ -139,14 +141,14 @@ export const suggestProxyAliasFn = createServerFn()
 	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ name: z.string().min(1), excludeMemberId: z.uuid().optional() }))
 	.handler(async ({ data: { name, excludeMemberId } }) => {
-		const baseAlias = normalizeProxyAlias(name, Club.domain);
-		const [baseLocal] = baseAlias.split("@");
-		let alias = baseAlias;
+		const aliasDomain = getProxyAliasDomain();
+		const aliasBranchName = getProxyAliasBranchName();
+		let alias = suggestProxyAlias(name, aliasDomain, aliasBranchName);
 		for (let counter = 2; counter <= 99; counter++) {
 			const result = await db().member.query.byProxyEmail({ proxyEmail: alias }).go();
 			const existing = result.data.filter((m) => m.id !== excludeMemberId);
 			if (existing.length === 0) break;
-			alias = `${baseLocal}${counter}@${Club.domain}`;
+			alias = suggestProxyAlias(name, aliasDomain, aliasBranchName, counter);
 		}
 		return { alias };
 	});
@@ -155,7 +157,8 @@ export const checkProxyEmailFn = createServerFn()
 	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ proxyEmail: z.email(), excludeMemberId: z.uuid().optional() }))
 	.handler(async ({ data: { proxyEmail, excludeMemberId } }) => {
-		const result = await db().member.query.byProxyEmail({ proxyEmail }).go();
+		const canonicalProxyEmail = canonicalizeProxyAlias(proxyEmail);
+		const result = await db().member.query.byProxyEmail({ proxyEmail: canonicalProxyEmail }).go();
 		const existing = result.data.filter((m) => m.id !== excludeMemberId);
 		return { available: existing.length === 0 };
 	});

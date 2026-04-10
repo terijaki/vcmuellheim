@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import { normalizeAliasLocalPart, normalizeProxyAlias } from "./member-alias";
+import { canonicalizeProxyAlias, getProxyAliasBranchName, getProxyAliasDomain, normalizeAliasLocalPart, parseProxyAlias, suggestProxyAlias } from "./member-alias";
 
 describe("normalizeAliasLocalPart", () => {
 	test("lowercases plain ASCII names", () => {
@@ -35,21 +35,73 @@ describe("normalizeAliasLocalPart", () => {
 	});
 });
 
-describe("normalizeProxyAlias", () => {
+describe("suggestProxyAlias", () => {
 	test("builds full email address from name and domain", () => {
-		expect(normalizeProxyAlias("Max Müller", "vcmuellheim.de")).toBe("max.mueller@vcmuellheim.de");
+		expect(suggestProxyAlias("Max Müller", "vcmuellheim.de")).toBe("max.mueller@vcmuellheim.de");
 	});
 
 	test("appends plus-address branch suffix when branchName is provided", () => {
-		expect(normalizeProxyAlias("Max Müller", "vcmuellheim.de", "feat-x")).toBe("max.mueller+feat-x@vcmuellheim.de");
+		expect(suggestProxyAlias("Max Müller", "vcmuellheim.de", "feat-x")).toBe("max.mueller+feat-x@vcmuellheim.de");
 	});
 
 	test("omits branch suffix when branchName is undefined", () => {
-		expect(normalizeProxyAlias("Anna Trainer", "vcmuellheim.de", undefined)).toBe("anna.trainer@vcmuellheim.de");
+		expect(suggestProxyAlias("Anna Trainer", "vcmuellheim.de", undefined)).toBe("anna.trainer@vcmuellheim.de");
 	});
 
 	test("omits branch suffix when branchName is empty string", () => {
 		// Empty string is falsy — no suffix should be added
-		expect(normalizeProxyAlias("Anna Trainer", "vcmuellheim.de", "")).toBe("anna.trainer@vcmuellheim.de");
+		expect(suggestProxyAlias("Anna Trainer", "vcmuellheim.de", "")).toBe("anna.trainer@vcmuellheim.de");
+	});
+
+	test("uses the dev branch suffix on the new domain", () => {
+		expect(suggestProxyAlias("Max Müller", "new.vcmuellheim.de", "email-proxy")).toBe("max.mueller+email-proxy@new.vcmuellheim.de");
+	});
+
+	test("applies duplicate numbering before the branch suffix", () => {
+		expect(suggestProxyAlias("Max Müller", "new.vcmuellheim.de", "email-proxy", 2)).toBe("max.mueller2+email-proxy@new.vcmuellheim.de");
+	});
+});
+
+describe("proxy alias environment helpers", () => {
+	test("uses the production recipient domain in prod", () => {
+		expect(getProxyAliasDomain("prod")).toBe("vcmuellheim.de");
+		expect(getProxyAliasBranchName("prod", "email-proxy")).toBeUndefined();
+	});
+
+	test("uses the development recipient domain and branch suffix outside prod", () => {
+		expect(getProxyAliasDomain("dev")).toBe("new.vcmuellheim.de");
+		expect(getProxyAliasBranchName("dev", "email-proxy")).toBe("email-proxy");
+	});
+});
+
+describe("parseProxyAlias", () => {
+	test("splits base local part, branch suffix and domain", () => {
+		expect(parseProxyAlias("max.mueller+email-proxy@new.vcmuellheim.de", "fallback.de")).toEqual({
+			baseLocalPart: "max.mueller",
+			branchName: "email-proxy",
+			domain: "new.vcmuellheim.de",
+		});
+	});
+
+	test("uses fallback domain and no branch for plain local-part", () => {
+		expect(parseProxyAlias("max.mueller", "new.vcmuellheim.de")).toEqual({
+			baseLocalPart: "max.mueller",
+			branchName: undefined,
+			domain: "new.vcmuellheim.de",
+		});
+	});
+});
+
+describe("canonicalizeProxyAlias", () => {
+	test("adds current branch suffix in dev", () => {
+		expect(canonicalizeProxyAlias("max.mueller@new.vcmuellheim.de", "dev", "email-proxy")).toBe("max.mueller+email-proxy@new.vcmuellheim.de");
+	});
+
+	test("rewrites stale branch suffix to current branch in dev", () => {
+		expect(canonicalizeProxyAlias("max.mueller+old-branch@new.vcmuellheim.de", "dev", "email-proxy")).toBe("max.mueller+email-proxy@new.vcmuellheim.de");
+	});
+
+	test("removes branch suffix in prod", () => {
+		expect(canonicalizeProxyAlias("max.mueller+email-proxy@vcmuellheim.de", "prod", "email-proxy")).toBe("max.mueller@vcmuellheim.de");
 	});
 });

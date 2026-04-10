@@ -19,7 +19,7 @@
 		"db:seed": "bunx scripts/db-seed.ts",
 		"db:seed:sams": "bunx scripts/data-trigger-syncs.ts",
 		"sams:codegen": "bunx codegen/sams/generate-client.ts",
-		"verify:all": "vp check --fix && vp test",
+		"verify": "vp check --fix && vp test",
 		"cdk:deploy": "cdk deploy --require-approval=never",
 		"cdk:deploy:all": "cdk deploy --all --require-approval=never",
 		"cdk:deploy:prod": "CDK_ENVIRONMENT=prod cdk deploy --all",

@@ -92,6 +92,11 @@ describe("mail-forward Lambda", () => {
 	let handler: typeof import("./mail-forward").handler;
 
 	beforeEach(async () => {
+		process.env.FORWARD_FROM_EMAIL = "no-reply@vcmuellheim.de";
+		process.env.RECIPIENT_DOMAIN = "vcmuellheim.de";
+		process.env.BRANCH_NAME = "";
+		vi.resetModules();
+
 		s3Mock.reset();
 		sesMock.reset();
 		ddbMock.reset();
@@ -180,6 +185,34 @@ describe("mail-forward Lambda", () => {
 
 			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
 			expect(sesCalls).toHaveLength(1);
+			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@gmail.com"]);
+			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
+		});
+
+		test("in dev, matches new.vcmuellheim.de and keeps the branch suffix for member lookup", async () => {
+			vi.resetModules();
+			process.env.FORWARD_FROM_EMAIL = "no-reply@new.vcmuellheim.de";
+			process.env.RECIPIENT_DOMAIN = "new.vcmuellheim.de";
+			process.env.BRANCH_NAME = "feat-x";
+
+			s3Mock.reset();
+			sesMock.reset();
+			s3Mock.on(GetObjectCommand).resolves({
+				Body: {
+					transformToString: vi.fn().mockResolvedValue(makeMime("max.mustermann+feat-x@new.vcmuellheim.de")),
+				} as never,
+			});
+			sesMock.on(SendRawEmailCommand).resolves({ MessageId: "test-message-id" });
+			mockByProxyEmailGo.mockResolvedValue({
+				data: [{ id: "m1", proxyEmail: "max.mustermann+feat-x@new.vcmuellheim.de", privateEmail: "max@gmail.com" }],
+			});
+
+			const { handler: devHandler } = await import("./mail-forward");
+			const result = await devHandler(makeEvent("emails/test-dev-domain.eml"), mockLambdaContext as never);
+
+			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+			expect(sesCalls).toHaveLength(1);
+			expect(sesCalls[0].args[0].input.Source).toBe("no-reply@new.vcmuellheim.de");
 			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@gmail.com"]);
 			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
 		});

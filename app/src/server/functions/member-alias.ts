@@ -5,6 +5,8 @@
  * - Dev branch suffix support (plus-addressing)
  */
 
+import { Mail } from "@/project.config";
+
 /** Map of German special characters to ASCII equivalents */
 const GERMAN_CHAR_MAP: Record<string, string> = {
 	ä: "ae",
@@ -35,19 +37,51 @@ export function normalizeAliasLocalPart(name: string): string {
 		.replace(/^\.+|\.+$/g, "");
 }
 
-/**
- * Build the full suggested proxy email address for a member.
- *
- * In non-production environments a `branchName` can be supplied to add a
- * plus-address suffix so that multiple dev branch Lambdas do not
- * double-forward the same message.
- *
- * @param name       Member display name (e.g. "Max Müller")
- * @param domain     Recipient domain (e.g. "vcmuellheim.de")
- * @param branchName Optional sanitized branch name for dev environments
- */
-export function normalizeProxyAlias(name: string, domain: string, branchName?: string): string {
-	const localPart = normalizeAliasLocalPart(name);
+export function formatProxyAlias(localPart: string, domain: string, branchName?: string): string {
 	const suffix = branchName ? `+${branchName}` : "";
 	return `${localPart}${suffix}@${domain}`;
+}
+
+type ParsedProxyAlias = {
+	baseLocalPart: string;
+	branchName?: string;
+	domain: string;
+};
+
+export function parseProxyAlias(proxyEmail: string, fallbackDomain: string): ParsedProxyAlias {
+	const [localPart = "", domain = fallbackDomain] = proxyEmail.split("@");
+	const [baseLocalPart = "", ...branchParts] = localPart.split("+");
+	const branchName = branchParts.length > 0 ? branchParts.join("+") : undefined;
+
+	return {
+		baseLocalPart,
+		branchName,
+		domain,
+	};
+}
+
+export function canonicalizeProxyAlias(proxyEmail: string, cdkEnvironment = process.env.CDK_ENVIRONMENT, branchName = process.env.BRANCH_NAME): string {
+	const fallbackDomain = getProxyAliasDomain(cdkEnvironment);
+	const { baseLocalPart, domain } = parseProxyAlias(proxyEmail, fallbackDomain);
+	const canonicalBranchName = getProxyAliasBranchName(cdkEnvironment, branchName);
+
+	return formatProxyAlias(baseLocalPart, domain, canonicalBranchName);
+}
+
+export function suggestProxyAlias(name: string, domain: string, branchName?: string, counter?: number): string {
+	const localPart = normalizeAliasLocalPart(name);
+	const localPartWithCounter = counter && counter > 1 ? `${localPart}${counter}` : localPart;
+	return formatProxyAlias(localPartWithCounter, domain, branchName);
+}
+
+export function getProxyAliasDomain(cdkEnvironment = process.env.CDK_ENVIRONMENT): string {
+	return cdkEnvironment === "prod" ? Mail.prod.recipientDomain : Mail.dev.recipientDomain;
+}
+
+export function getProxyAliasBranchName(cdkEnvironment = process.env.CDK_ENVIRONMENT, branchName = process.env.BRANCH_NAME): string | undefined {
+	if (cdkEnvironment === "prod") {
+		return undefined;
+	}
+
+	return branchName || undefined;
 }

@@ -179,7 +179,7 @@ function LocationsPage() {
 											</Button>
 										</>
 									)}
-									<Group gap="xs">
+									<Group gap="xs" ms="auto">
 										<Button variant="light" type="button" onClick={close}>
 											Abbrechen
 										</Button>

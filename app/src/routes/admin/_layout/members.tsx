@@ -7,6 +7,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { MAX_UPLOAD_SIZE } from "@utils/image-config";
 import { useNotification } from "@webapp/hooks/useNotification";
+import { formatProxyAlias, getProxyAliasDomain, parseProxyAlias } from "@webapp/server/functions/member-alias";
 import { adminListMembersFn, checkProxyEmailFn, createMemberFn, deleteMemberFn, suggestProxyAliasFn, updateMemberFn } from "@webapp/server/functions/members";
 import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
 import { Pencil, Plus, Trash2, Upload, User, X } from "lucide-react";
@@ -15,6 +16,26 @@ import z from "zod";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
 const isValidEmail = (value: string) => z.email().safeParse(value).success;
+const defaultProxyAliasDomain = getProxyAliasDomain(import.meta.env.CDK_ENVIRONMENT);
+const branchNameFromEnv = (import.meta.env as Record<string, string | undefined>).VITE_BRANCH_NAME;
+
+const getProxyAliasInputParts = (proxyEmail?: string) => {
+	if (!proxyEmail) {
+		return {
+			domain: defaultProxyAliasDomain,
+			baseLocalPart: "",
+			branchName: branchNameFromEnv,
+		};
+	}
+
+	const parsed = parseProxyAlias(proxyEmail, defaultProxyAliasDomain);
+
+	return {
+		domain: parsed.domain,
+		baseLocalPart: parsed.baseLocalPart,
+		branchName: branchNameFromEnv || parsed.branchName,
+	};
+};
 
 const resolveFileUrl = async (s3Key?: string) => {
 	if (!s3Key) return null;
@@ -475,26 +496,33 @@ function MembersPage() {
 											onChangeAsyncDebounceMs: 400,
 										}}
 									>
-										{(field) => (
-											<TextInput
-												label="Email Alias"
-												placeholder="erika.mustermann"
-												value={field.state.value?.split("@")[0] ?? ""}
-												rightSection={
-													<Text size="sm" c="dimmed" pr="xs">
-														@vcmuellheim.de
-													</Text>
-												}
-												rightSectionWidth={130}
-												onChange={(e) => {
-													const local = e.target.value;
-													field.handleChange(local ? `${local}@vcmuellheim.de` : "");
-												}}
-												onBlur={() => field.handleBlur()}
-												description="Öffentliche Weiterleitung. Erscheint in Kontaktlinks auf der Website."
-												error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
-											/>
-										)}
+										{(field) =>
+											(() => {
+												const { domain, baseLocalPart, branchName } = getProxyAliasInputParts(field.state.value);
+												const aliasSuffix = branchName ? `+${branchName}` : "";
+
+												return (
+													<TextInput
+														label="Email Alias"
+														placeholder="erika.mustermann"
+														value={baseLocalPart}
+														rightSection={
+															<Text size="sm" c="dimmed" pr="xs" style={{ textWrap: "nowrap", pointerEvents: "none" }}>
+																{aliasSuffix}@{domain}
+															</Text>
+														}
+														rightSectionWidth={"auto"}
+														onChange={(e) => {
+															const local = e.target.value;
+															field.handleChange(local ? formatProxyAlias(local, domain, branchName) : "");
+														}}
+														onBlur={() => field.handleBlur()}
+														description="Öffentliche Weiterleitung. Erscheint in Kontaktlinks auf der Website."
+														error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
+													/>
+												);
+											})()
+										}
 									</form.Field>
 								) : null
 							}

@@ -31,6 +31,9 @@ function applyLocalAwsResourceEnv(environment: string) {
 	const sanitizedBranch = getSanitizedBranch();
 	const branchSuffix = sanitizedBranch ? `-${sanitizedBranch}` : "";
 
+	setDefaultEnv("BRANCH_NAME", sanitizedBranch);
+	setDefaultEnv("VITE_BRANCH_NAME", sanitizedBranch);
+
 	// Single content table for all entities
 	setDefaultEnv(CONTENT_TABLE_ENV_VAR, `vcm-content-${environment}${branchSuffix}`);
 

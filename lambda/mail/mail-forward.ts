@@ -96,7 +96,7 @@ async function resolveGroupAlias(localPart: string): Promise<string[] | null> {
  * against a hardcoded group alias name (trainer, vorstand, info).
  *
  * Individual member aliases are stored in DDB **with** the suffix
- * (e.g. `max.mueller+feat-x@vcmuellheim.de`), so their lookup uses the raw
+ * (e.g. `max.mueller+feat-x@new.vcmuellheim.de`), so their lookup uses the raw
  * to-address unchanged. Only group-alias recognition needs the stripped form.
  */
 function stripBranchSuffix(localPart: string): string {
@@ -264,7 +264,7 @@ const lambdaHandler = async (event: unknown) => {
 		}
 
 		// Individual alias lookup via proxyEmail GSI.
-		// toAddress already contains the branch suffix in dev (e.g. max.mueller+feat-x@vcmuellheim.de),
+		// toAddress already contains the branch suffix in dev (e.g. max.mueller+feat-x@new.vcmuellheim.de),
 		// which matches what the admin stored when they confirmed the alias suggestion.
 		const memberResult = await db.member.query.byProxyEmail({ proxyEmail: toAddress }).go();
 		const member = memberResult.data?.[0];
