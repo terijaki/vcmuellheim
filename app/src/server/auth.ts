@@ -101,7 +101,7 @@ function createAuth() {
 			},
 			// Scope cookies to the parent domain in production so auth state is shared across subdomains.
 			// Disabled in local dev since vcmuellheim.de doesn't match localhost.
-			crossSubDomainCookies: isLocalDev ? { enabled: false } : { enabled: true, domain: isProd ? Club.domain : `new.${Club.domain}` },
+			crossSubDomainCookies: isLocalDev ? { enabled: false } : { enabled: !isProd, domain: `new.${Club.domain}` },
 		},
 		session: {
 			storeSessionInDatabase: false,
