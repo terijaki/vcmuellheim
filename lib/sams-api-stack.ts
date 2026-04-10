@@ -3,12 +3,12 @@ import * as cdk from "aws-cdk-lib";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
-import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type { SamsClubsSyncLambdaEnvironment, SamsCommonLambdaEnvironment, SamsTeamsSyncLambdaEnvironment } from "@/lambda/sams/types";
 import { getSamsDataTableName } from "./db/env";
+import { NodejsFunctionConstruct } from "./nodejs-function-construct";
 
 interface SamsApiStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -31,9 +31,6 @@ export class SamsApiStack extends cdk.Stack {
 		const isProd = environment === "prod";
 		const branch = props?.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
-
-		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
-		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
 
 		// Environment variables for all Lambda functions
 		const samsApiKey = process.env.SAMS_API_KEY;
@@ -78,58 +75,34 @@ export class SamsApiStack extends cdk.Stack {
 		this.samsDataTable = samsDataTable;
 
 		// Create Lambda function for nightly clubs sync
-		this.samsClubsSync = new NodejsFunction(this, "SamsClubsSync", {
-			functionName: `sams-clubs-sync-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_24_X,
-			handler: "handler",
+		this.samsClubsSync = new NodejsFunctionConstruct(this, "SamsClubsSync", {
+			namespace: "sams",
+			name: "sams-clubs-sync",
 			entry: path.join(__dirname, "../lambda/sams/sams-clubs-sync.ts"),
+			timeout: cdk.Duration.minutes(3),
 			environment: {
 				...commonEnvironment,
 				SAMS_TABLE_NAME: samsDataTable.tableName,
 				MEDIA_BUCKET_NAME: props?.mediaBucket?.bucketName ?? "",
 				MEDIA_CLOUDFRONT_URL: props?.mediaCloudFrontUrl ?? "",
 			} satisfies SamsClubsSyncLambdaEnvironment,
-			timeout: cdk.Duration.minutes(10), // Longer timeout for paginated sync
-			memorySize: 512,
-			layers: [powertoolsLayer],
-			logGroup: new cdk.aws_logs.LogGroup(this, "SamsClubsSyncLogGroup", {
-				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-				removalPolicy: cdk.RemovalPolicy.DESTROY,
-			}),
-			bundling: {
-				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
-				minify: true,
-				sourceMap: true,
-			},
-		});
+		}).lambdaFunction;
 
 		// Grant DynamoDB permissions to clubs sync Lambda
 		samsDataTable.grantReadWriteData(this.samsClubsSync);
 		props?.mediaBucket?.grantWrite(this.samsClubsSync);
 
 		// Create Lambda function for nightly teams sync
-		this.samsTeamsSync = new NodejsFunction(this, "SamsTeamsSync", {
-			functionName: `sams-teams-sync-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_24_X,
-			handler: "handler",
+		this.samsTeamsSync = new NodejsFunctionConstruct(this, "SamsTeamsSync", {
+			namespace: "sams",
+			name: "sams-teams-sync",
 			entry: path.join(__dirname, "../lambda/sams/sams-teams-sync.ts"),
+			timeout: cdk.Duration.minutes(3),
 			environment: {
 				...commonEnvironment,
 				SAMS_TABLE_NAME: samsDataTable.tableName,
 			} satisfies SamsTeamsSyncLambdaEnvironment,
-			timeout: cdk.Duration.minutes(10),
-			memorySize: 512,
-			layers: [powertoolsLayer],
-			logGroup: new cdk.aws_logs.LogGroup(this, "SamsTeamsSyncLogGroup", {
-				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-				removalPolicy: cdk.RemovalPolicy.DESTROY,
-			}),
-			bundling: {
-				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
-				minify: true,
-				sourceMap: true,
-			},
-		});
+		}).lambdaFunction;
 
 		// Grant DynamoDB permissions to teams sync Lambda
 		samsDataTable.grantReadWriteData(this.samsTeamsSync);

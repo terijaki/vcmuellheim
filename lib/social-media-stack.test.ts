@@ -1,9 +1,19 @@
-import { describe, it } from "vite-plus/test";
+import { afterEach, beforeEach, describe, it } from "vite-plus/test";
 import * as cdk from "aws-cdk-lib";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import { Template } from "aws-cdk-lib/assertions";
 import { SocialMediaStack } from "./social-media-stack";
 import { createTestApp } from "./test-helpers";
+
+beforeEach(() => {
+	process.env.CDK_ENVIRONMENT = "dev";
+	process.env.CDK_BRANCH_OVERWRITE = "main";
+});
+
+afterEach(() => {
+	Reflect.deleteProperty(process.env, "CDK_ENVIRONMENT");
+	process.env.CDK_BRANCH_OVERWRITE = "main";
+});
 
 /** Create a minimal DynamoDB table in a separate stack for cross-stack references in tests. */
 function createTestContentTable(app: cdk.App): dynamodb.ITable {
@@ -60,7 +70,7 @@ describe("SocialMediaStack", () => {
 			const template = Template.fromStack(stack);
 
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "mastodon-share-dev",
+				FunctionName: "vcm-mastodon-share-dev",
 				Timeout: 60,
 				MemorySize: 512,
 			});
@@ -88,7 +98,7 @@ describe("SocialMediaStack", () => {
 			template.resourceCountIs("AWS::Events::Rule", 1);
 
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "behold-sync-dev",
+				FunctionName: "vcm-behold-sync-dev",
 				Timeout: 30,
 				MemorySize: 256,
 			});
@@ -100,6 +110,7 @@ describe("SocialMediaStack", () => {
 		});
 
 		it("should include branch suffix in Behold sync resource names", () => {
+			process.env.CDK_BRANCH_OVERWRITE = "feature-x";
 			const app = createTestApp();
 			const contentTable = createTestContentTable(app);
 			const stack = new SocialMediaStack(app, "TestStack", {
@@ -113,7 +124,7 @@ describe("SocialMediaStack", () => {
 			const template = Template.fromStack(stack);
 
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "behold-sync-dev-feature-x",
+				FunctionName: "vcm-behold-sync-dev-feature-x",
 			});
 
 			template.hasResourceProperties("AWS::Events::Rule", {

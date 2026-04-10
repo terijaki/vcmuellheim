@@ -45,7 +45,7 @@ const docClient = DynamoDBDocumentClient.from(dynamoBaseClient);
 const db = createDb(docClient, CONTENT_TABLE_NAME);
 
 const s3 = tracer.captureAWSv3Client(new S3Client({}));
-const ses = tracer.captureAWSv3Client(new SESClient({ region: env.AWS_REGION }));
+const ses = tracer.captureAWSv3Client(new SESClient({}));
 
 type ParsedOriginalSender = {
 	name: string;

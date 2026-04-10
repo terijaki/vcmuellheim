@@ -396,7 +396,7 @@ export const getSamsTickerFn = createServerFn().handler(async () => {
 
 /** Invokes a SAMS sync Lambda asynchronously (InvocationType: "Event"). Exported for testing. */
 export async function invokeSamsLambdaAsync(functionName: string, label: string): Promise<void> {
-	const client = new LambdaClient({});
+	const client = new LambdaClient();
 	const result = await client.send(new InvokeCommand({ FunctionName: functionName, InvocationType: "Event" }));
 	if (result.StatusCode !== 202) {
 		throw new Error(`${label} trigger failed: StatusCode=${result.StatusCode}`);

@@ -7,7 +7,6 @@ import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as sns from "aws-cdk-lib/aws-sns";
 import * as snsSubscriptions from "aws-cdk-lib/aws-sns-subscriptions";
@@ -15,6 +14,7 @@ import * as sqs from "aws-cdk-lib/aws-sqs";
 import type { Construct } from "constructs";
 import { Mail } from "@/project.config";
 import type { MailForwardLambdaEnvironment } from "@/lambda/mail/types";
+import { NodejsFunctionConstruct } from "./nodejs-function-construct";
 
 interface MailStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -50,9 +50,6 @@ export class MailStack extends cdk.Stack {
 
 		const mailConfig = isProd ? Mail.prod : Mail.dev;
 
-		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
-		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
-
 		// Dead-letter queue — catches emails that could not be forwarded
 		const dlq = new sqs.Queue(this, "MailForwardDlq", {
 			queueName: `mail-forward-dlq-${environment}${branchSuffix}`,
@@ -64,41 +61,21 @@ export class MailStack extends cdk.Stack {
 		const inboundBucket = s3.Bucket.fromBucketName(this, "InboundBucket", mailConfig.inboundBucketName);
 
 		// Lambda for mail forwarding
-		const mailForward = new NodejsFunction(this, "MailForward", {
-			functionName: `mail-forward-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_24_X,
-			handler: "handler",
+		const mailForward = new NodejsFunctionConstruct(this, "MailForward", {
+			namespace: "mail",
+			name: "mail-forward",
 			entry: path.join(__dirname, "../lambda/mail/mail-forward.ts"),
+			memorySize: 128,
+			deadLetterQueue: dlq,
+			retryAttempts: 2,
 			environment: {
 				CDK_ENVIRONMENT: environment,
 				BRANCH_NAME: isProd ? "" : branch,
 				CONTENT_TABLE_NAME: props.contentTable.tableName,
 				FORWARD_FROM_EMAIL: mailConfig.systemFromEmail,
 				RECIPIENT_DOMAIN: mailConfig.recipientDomain,
-			} satisfies Omit<MailForwardLambdaEnvironment, "AWS_REGION">,
-			timeout: cdk.Duration.seconds(30),
-			memorySize: 128,
-			deadLetterQueue: dlq,
-			retryAttempts: 2,
-			layers: [powertoolsLayer],
-			logGroup: new cdk.aws_logs.LogGroup(this, "MailForwardLogGroup", {
-				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-				removalPolicy: cdk.RemovalPolicy.DESTROY,
-			}),
-			bundling: {
-				externalModules: [
-					"@aws-lambda-powertools/logger",
-					"@aws-lambda-powertools/tracer",
-					"aws-xray-sdk-core",
-					"@aws-sdk/client-dynamodb",
-					"@aws-sdk/lib-dynamodb",
-					"@aws-sdk/client-s3",
-					"@aws-sdk/client-ses",
-				],
-				minify: true,
-				sourceMap: true,
-			},
-		});
+			} satisfies MailForwardLambdaEnvironment,
+		}).lambdaFunction;
 
 		// Grant S3 read access for retrieving raw MIME email objects
 		inboundBucket.grantRead(mailForward);

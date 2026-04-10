@@ -15,7 +15,6 @@ export const MailForwardLambdaEnvironmentSchema = z.object({
 	FORWARD_FROM_EMAIL: requiredEnvString,
 	/** Recipient domain — used for group alias routing (e.g. "vcmuellheim.de"). */
 	RECIPIENT_DOMAIN: requiredEnvString,
-	AWS_REGION: requiredEnvString,
 });
 
 export type MailForwardLambdaEnvironment = z.infer<typeof MailForwardLambdaEnvironmentSchema>;

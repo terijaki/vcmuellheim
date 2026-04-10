@@ -3,7 +3,6 @@ import { tableEnvironmentSchema } from "@/lib/db/env";
 import { optionalEnvString, requiredEnvString } from "../utils/env";
 
 export const TrpcLambdaEnvironmentSchema = tableEnvironmentSchema.extend({
-	AWS_REGION: requiredEnvString,
 	CDK_ENVIRONMENT: requiredEnvString,
 	BETTER_AUTH_SECRET: requiredEnvString,
 	MEDIA_BUCKET_NAME: requiredEnvString,
@@ -21,7 +20,6 @@ export const S3CleanupLambdaEnvironmentSchema = z.object({
 export type S3CleanupLambdaEnvironment = z.infer<typeof S3CleanupLambdaEnvironmentSchema>;
 
 export const ContentAuthEnvironmentSchema = z.object({
-	AWS_REGION: requiredEnvString,
 	BETTER_AUTH_SECRET: requiredEnvString,
 });
 

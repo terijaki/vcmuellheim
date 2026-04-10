@@ -16,7 +16,7 @@ import { MastodonStreamHandlerLambdaEnvironmentSchema } from "./types";
 
 const { logger } = createLambdaResources("mastodon-stream-handler");
 const env = parseLambdaEnv(MastodonStreamHandlerLambdaEnvironmentSchema);
-const lambdaClient = new LambdaClient({ region: env.AWS_REGION });
+const lambdaClient = new LambdaClient();
 const MASTODON_LAMBDA_NAME = env.MASTODON_LAMBDA_NAME;
 const ENVIRONMENT = env.ENVIRONMENT;
 const WEBSITE_URL = env.WEBSITE_URL;

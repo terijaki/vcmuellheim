@@ -5,10 +5,10 @@ import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { DynamoEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type { BeholdSyncLambdaEnvironment, MastodonShareLambdaEnvironment, MastodonStreamHandlerLambdaEnvironment } from "@/lambda/social/types";
+import { NodejsFunctionConstruct } from "./nodejs-function-construct";
 
 interface SocialMediaStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -31,9 +31,6 @@ export class SocialMediaStack extends cdk.Stack {
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
 
-		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
-		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
-
 		const isCdkDestroy = process.env.CDK_DESTROY === "true";
 		const commonEnvironment = {
 			CDK_ENVIRONMENT: environment,
@@ -47,29 +44,16 @@ export class SocialMediaStack extends cdk.Stack {
 		}
 
 		// Create Lambda function for Mastodon sharing
-		const mastodonShare = new NodejsFunction(this, "MastodonShare", {
-			functionName: `mastodon-share-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_24_X,
-			handler: "handler",
+		const mastodonShare = new NodejsFunctionConstruct(this, "MastodonShare", {
+			namespace: "social",
+			name: "mastodon-share",
 			entry: path.join(__dirname, "../lambda/social/mastodon-share.ts"),
 			environment: {
 				...commonEnvironment,
 				MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
 				...(props.mediaBucket ? { MEDIA_BUCKET_NAME: props.mediaBucket.bucketName } : {}),
-			} satisfies Omit<MastodonShareLambdaEnvironment, "AWS_REGION">,
-			timeout: cdk.Duration.seconds(60), // Increased timeout for image uploads
-			memorySize: 512, // Increased memory for image processing
-			layers: [powertoolsLayer],
-			logGroup: new cdk.aws_logs.LogGroup(this, "MastodonShareLogGroup", {
-				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-				removalPolicy: cdk.RemovalPolicy.DESTROY,
-			}),
-			bundling: {
-				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core", "@aws-sdk/client-s3"],
-				minify: true,
-				sourceMap: true,
-			},
-		});
+			} satisfies MastodonShareLambdaEnvironment,
+		}).lambdaFunction;
 
 		// Grant S3 read permissions to Mastodon Lambda for image uploads
 		if (props.mediaBucket) {
@@ -79,28 +63,16 @@ export class SocialMediaStack extends cdk.Stack {
 		// Create scheduled Lambda to proactively sync Behold Instagram posts to DynamoDB.
 		// Runs hourly during German daytime — ~465 calls/month (~39% of Behold's 1200/month free-tier limit).
 		if (props.contentTable) {
-			const beholdSync = new NodejsFunction(this, "BeholdSync", {
-				functionName: `behold-sync-${environment}${branchSuffix}`,
-				runtime: lambda.Runtime.NODEJS_24_X,
-				handler: "handler",
+			const beholdSync = new NodejsFunctionConstruct(this, "BeholdSync", {
+				namespace: "social",
+				name: "behold-sync",
 				entry: path.join(__dirname, "../lambda/social/behold-sync.ts"),
+				memorySize: 128,
 				environment: {
 					...commonEnvironment,
 					CONTENT_TABLE_NAME: props.contentTable.tableName,
-				} satisfies Omit<BeholdSyncLambdaEnvironment, "AWS_REGION">,
-				timeout: cdk.Duration.seconds(30),
-				memorySize: 256,
-				layers: [powertoolsLayer],
-				logGroup: new cdk.aws_logs.LogGroup(this, "BeholdSyncLogGroup", {
-					retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-					removalPolicy: cdk.RemovalPolicy.DESTROY,
-				}),
-				bundling: {
-					externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core", "@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb"],
-					minify: true,
-					sourceMap: true,
-				},
-			});
+				} satisfies BeholdSyncLambdaEnvironment,
+			}).lambdaFunction;
 
 			props.contentTable.grantReadWriteData(beholdSync);
 
@@ -116,31 +88,19 @@ export class SocialMediaStack extends cdk.Stack {
 
 		// Create Lambda function for Mastodon stream handler (DynamoDB streams)
 		if (props.contentTable && props.websiteUrl) {
-			const mastodonStreamHandler = new NodejsFunction(this, "MastodonStreamHandler", {
-				functionName: `mastodon-stream-handler-${environment}${branchSuffix}`,
-				runtime: lambda.Runtime.NODEJS_24_X,
-				handler: "handler",
+			const mastodonStreamHandler = new NodejsFunctionConstruct(this, "MastodonStreamHandler", {
+				namespace: "social",
+				name: "mastodon-stream-handler",
 				entry: path.join(__dirname, "../lambda/social/mastodon-stream-handler.ts"),
+				memorySize: 256,
 				environment: {
 					...commonEnvironment,
 					MASTODON_LAMBDA_NAME: mastodonShare.functionName,
 					ENVIRONMENT: environment,
 					WEBSITE_URL: props.websiteUrl,
 					CONTENT_TABLE_NAME: props.contentTable.tableName,
-				} satisfies Omit<MastodonStreamHandlerLambdaEnvironment, "AWS_REGION">,
-				timeout: cdk.Duration.seconds(30),
-				memorySize: 256,
-				layers: [powertoolsLayer],
-				logGroup: new cdk.aws_logs.LogGroup(this, "MastodonStreamHandlerLogGroup2", {
-					retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-					removalPolicy: cdk.RemovalPolicy.DESTROY,
-				}),
-				bundling: {
-					externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core", "@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb", "@aws-sdk/client-lambda"],
-					minify: true,
-					sourceMap: true,
-				},
-			});
+				} satisfies MastodonStreamHandlerLambdaEnvironment,
+			}).lambdaFunction;
 
 			// Grant permissions
 			props.contentTable.grantStreamRead(mastodonStreamHandler);

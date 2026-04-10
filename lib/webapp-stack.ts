@@ -110,12 +110,10 @@ export class WebAppStack extends cdk.Stack {
 
 		// ── Lambda Function (Nitro aws-lambda output) ────────────────────────────
 		const logGroup = new cdk.aws_logs.LogGroup(this, "WebAppLogGroup", {
+			logGroupName: `/vcm/${environment}${branchSuffix}/webapp/webapp`,
 			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			removalPolicy: cdk.RemovalPolicy.DESTROY,
 		});
-
-		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
-		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
 
 		// Nitro's aws-lambda preset outputs a single ESM handler file
 		this.webappLambda = new lambda.Function(this, "WebAppLambda", {
@@ -126,7 +124,6 @@ export class WebAppStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_24_X,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 1024,
-			layers: [powertoolsLayer],
 			logGroup,
 			environment: lambdaEnvironment,
 			tracing: lambda.Tracing.ACTIVE,

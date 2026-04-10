@@ -19,7 +19,6 @@ import { mockClient } from "aws-sdk-client-mock";
 process.env.CONTENT_TABLE_NAME = "test-content-table";
 process.env.FORWARD_FROM_EMAIL = "postmaster@vcmuellheim.de";
 process.env.RECIPIENT_DOMAIN = "vcmuellheim.de";
-process.env.AWS_REGION = "eu-central-1";
 process.env.BRANCH_NAME = "";
 
 // ── AWS SDK mocks ────────────────────────────────────────────────────────────

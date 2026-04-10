@@ -17,7 +17,7 @@ const MASTODON_INSTANCE = "https://freiburg.social";
 const MASTODON_BASE_URL = `${MASTODON_INSTANCE}/api/v1`;
 const MEDIA_BUCKET_NAME = env.MEDIA_BUCKET_NAME;
 
-const s3Client = new S3Client({ region: env.AWS_REGION });
+const s3Client = new S3Client({});
 
 interface MastodonShareRequest {
 	newsArticle: News;
