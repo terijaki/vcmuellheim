@@ -59,7 +59,6 @@
 		"@tiptap/react": "^3.22.3",
 		"@tiptap/starter-kit": "^3.22.3",
 		"@varlock/aws-secrets-plugin": "^0.0.6",
-		"@varlock/vite-integration": "^0.2.10",
 		"@voidzero-dev/vite-plus-core": "^0.1.16",
 		"@voidzero-dev/vite-plus-test": "^0.1.16",
 		"better-auth": "1.6.0",
