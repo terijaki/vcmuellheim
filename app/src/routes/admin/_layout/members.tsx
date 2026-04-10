@@ -8,7 +8,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { MAX_UPLOAD_SIZE } from "@utils/image-config";
 import { useNotification } from "@webapp/hooks/useNotification";
 import { formatProxyAlias, getProxyAliasDomain, parseProxyAlias } from "@webapp/server/functions/member-alias";
-import { adminListMembersFn, checkProxyEmailFn, createMemberFn, deleteMemberFn, suggestProxyAliasFn, updateMemberFn } from "@webapp/server/functions/members";
+import { adminListMembersFn, checkProxyEmailFn, createMemberFn, deleteMemberFn, listMembersFn, suggestProxyAliasFn, updateMemberFn } from "@webapp/server/functions/members";
 import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
 import { Pencil, Plus, Trash2, Upload, User, X } from "lucide-react";
 import { useState } from "react";
@@ -213,15 +213,27 @@ const defaultFormValues = {
 	avatarS3Key: undefined as string | undefined,
 };
 
+type PublicMemberListItem = Awaited<ReturnType<typeof listMembersFn>>["items"][number];
+type MemberListItem = PublicMemberListItem & { privateEmail?: string };
+
 function MembersPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
 	const [avatarFile, setAvatarFile] = useState<File | null>(null);
 	const [deleteAvatar, setDeleteAvatar] = useState(false);
 	const queryClient = useQueryClient();
+	const { currentUser } = Route.useRouteContext();
+	const canManageMembers = currentUser.role === "Admin";
 
 	const notification = useNotification();
-	const { data: members, isLoading, refetch } = useQuery({ queryKey: ["members", "list"], queryFn: () => adminListMembersFn() });
+	const {
+		data: members,
+		isLoading,
+		refetch,
+	} = useQuery({
+		queryKey: ["members", "list", canManageMembers ? "admin" : "public"],
+		queryFn: () => (canManageMembers ? adminListMembersFn() : listMembersFn()),
+	});
 
 	const form = useForm({
 		defaultValues: defaultFormValues,
@@ -254,6 +266,11 @@ function MembersPage() {
 			},
 		},
 		onSubmit: async ({ value }) => {
+			if (!canManageMembers) {
+				notification.error("Keine Berechtigung zum Bearbeiten von Mitgliedern");
+				return;
+			}
+
 			const currentEditingId = value.id;
 			let avatarS3Key: string | null | undefined = value.avatarS3Key;
 
@@ -322,6 +339,10 @@ function MembersPage() {
 	const editingId = form.getFieldValue("id");
 
 	const maybeSuggestAlias = async () => {
+		if (!canManageMembers) {
+			return;
+		}
+
 		const name = form.getFieldValue("name");
 		const privateEmail = form.getFieldValue("privateEmail");
 		const proxyEmail = form.getFieldValue("proxyEmail");
@@ -369,7 +390,11 @@ function MembersPage() {
 		},
 	});
 
-	const handleEdit = (member: MemberInput & { id: string }) => {
+	const handleEdit = (member: MemberListItem) => {
+		if (!canManageMembers) {
+			return;
+		}
+
 		form.setFieldValue("id", member.id);
 		form.setFieldValue("name", member.name);
 		form.setFieldValue("privateEmail", member.privateEmail ?? "");
@@ -385,12 +410,20 @@ function MembersPage() {
 	};
 
 	const handleDelete = (id: string) => {
+		if (!canManageMembers) {
+			return;
+		}
+
 		if (window.confirm("Möchten Sie dieses Mitglied wirklich löschen?")) {
 			deleteMutation.mutate({ id });
 		}
 	};
 
 	const handleOpenNew = () => {
+		if (!canManageMembers) {
+			return;
+		}
+
 		form.reset();
 		setDeleteAvatar(false);
 		setAvatarFile(null);
@@ -401,197 +434,207 @@ function MembersPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>Mitglieder</Title>
-				<Button onClick={handleOpenNew} leftSection={<Plus />} visibleFrom="sm">
-					Neues Mitglied
-				</Button>
-				<ActionIcon onClick={handleOpenNew} hiddenFrom="sm" variant="filled" radius="xl">
-					<Plus size={20} />
-				</ActionIcon>
+				{canManageMembers && (
+					<>
+						<Button onClick={handleOpenNew} leftSection={<Plus />} visibleFrom="sm">
+							Neues Mitglied
+						</Button>
+						<ActionIcon onClick={handleOpenNew} hiddenFrom="sm" variant="filled" radius="xl">
+							<Plus size={20} />
+						</ActionIcon>
+					</>
+				)}
 			</Group>
 
-			<Modal opened={opened} onClose={close} title={editingId ? "Mitglied bearbeiten" : "Neues Mitglied"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
-				<form
-					onSubmit={(e) => {
-						e.preventDefault();
-						void form.handleSubmit();
-					}}
-				>
-					<Stack gap="md" p={{ base: "md", sm: "sm" }}>
-						<form.Field
-							name="name"
-							listeners={{
-								onChange: () => {
-									void maybeSuggestAlias();
-								},
-								onChangeDebounceMs: 350,
-							}}
-							validators={{
-								onChange: ({ value }) => (!value ? "Name ist erforderlich" : undefined),
-							}}
-						>
-							{(field) => (
-								<TextInput
-									label="Name"
-									placeholder="z.B. Max Mustermann"
-									value={field.state.value}
-									onChange={(e) => field.handleChange(e.target.value)}
-									onBlur={() => field.handleBlur()}
-									error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
-									required
-								/>
-							)}
-						</form.Field>
+			{canManageMembers && (
+				<Modal opened={opened} onClose={close} title={editingId ? "Mitglied bearbeiten" : "Neues Mitglied"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+							void form.handleSubmit();
+						}}
+					>
+						<Stack gap="md" p={{ base: "md", sm: "sm" }}>
+							<form.Field
+								name="name"
+								listeners={{
+									onChange: () => {
+										void maybeSuggestAlias();
+									},
+									onChangeDebounceMs: 350,
+								}}
+								validators={{
+									onChange: ({ value }) => (!value ? "Name ist erforderlich" : undefined),
+								}}
+							>
+								{(field) => (
+									<TextInput
+										label="Name"
+										placeholder="z.B. Max Mustermann"
+										value={field.state.value}
+										onChange={(e) => field.handleChange(e.target.value)}
+										onBlur={() => field.handleBlur()}
+										error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
+										required
+									/>
+								)}
+							</form.Field>
 
-						<form.Field
-							name="privateEmail"
-							listeners={{
-								onChange: () => {
-									void maybeSuggestAlias();
-								},
-								onChangeDebounceMs: 350,
-							}}
-							validators={{
-								onChange: ({ value }) => {
-									if (!value) return undefined;
-									return isValidEmail(value) ? undefined : "Bitte eine gültige E-Mail eingeben";
-								},
-							}}
-						>
-							{(field) => (
-								<TextInput
-									label="Private E-Mail"
-									placeholder="max.mustermann@gmail.com"
-									type="email"
-									value={field.state.value}
-									onChange={(e) => field.handleChange(e.target.value)}
-									onBlur={() => field.handleBlur()}
-									description="Wird nicht öffentlich angezeigt. Eingehende Mails werden hierhin weitergeleitet."
-									error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
-								/>
-							)}
-						</form.Field>
+							<form.Field
+								name="privateEmail"
+								listeners={{
+									onChange: () => {
+										void maybeSuggestAlias();
+									},
+									onChangeDebounceMs: 350,
+								}}
+								validators={{
+									onChange: ({ value }) => {
+										if (!value) return undefined;
+										return isValidEmail(value) ? undefined : "Bitte eine gültige E-Mail eingeben";
+									},
+								}}
+							>
+								{(field) => (
+									<TextInput
+										label="Private E-Mail"
+										placeholder="max.mustermann@gmail.com"
+										type="email"
+										value={field.state.value}
+										onChange={(e) => field.handleChange(e.target.value)}
+										onBlur={() => field.handleBlur()}
+										description="Wird nicht öffentlich angezeigt. Eingehende Mails werden hierhin weitergeleitet."
+										error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
+									/>
+								)}
+							</form.Field>
 
-						<form.Subscribe selector={(state) => state.values.privateEmail}>
-							{(privateEmail) =>
-								isValidEmail(privateEmail) ? (
-									<form.Field
-										name="proxyEmail"
-										validators={{
-											onChange: ({ value }) => {
-												if (!value) return undefined;
-												return isValidEmail(value) ? undefined : "Bitte eine gültige E-Mail eingeben";
-											},
-											onChangeAsync: async ({ value }) => {
-												if (!value) return undefined;
-												if (!isValidEmail(value)) return undefined;
-												try {
-													const { available } = await checkProxyEmailFn({
-														data: { proxyEmail: value, excludeMemberId: editingId ?? undefined },
-													});
-													return available ? undefined : "Alias bereits vergeben";
-												} catch {
-													return undefined;
-												}
-											},
-											onChangeAsyncDebounceMs: 400,
-										}}
-									>
-										{(field) =>
-											(() => {
-												const { domain, baseLocalPart, branchName } = getProxyAliasInputParts(field.state.value);
-												const aliasSuffix = branchName ? `+${branchName}` : "";
+							<form.Subscribe selector={(state) => state.values.privateEmail}>
+								{(privateEmail) =>
+									isValidEmail(privateEmail) ? (
+										<form.Field
+											name="proxyEmail"
+											validators={{
+												onChange: ({ value }) => {
+													if (!value) return undefined;
+													return isValidEmail(value) ? undefined : "Bitte eine gültige E-Mail eingeben";
+												},
+												onChangeAsync: async ({ value }) => {
+													if (!value) return undefined;
+													if (!isValidEmail(value)) return undefined;
+													try {
+														const { available } = await checkProxyEmailFn({
+															data: { proxyEmail: value, excludeMemberId: editingId ?? undefined },
+														});
+														return available ? undefined : "Alias bereits vergeben";
+													} catch {
+														return undefined;
+													}
+												},
+												onChangeAsyncDebounceMs: 400,
+											}}
+										>
+											{(field) =>
+												(() => {
+													const { domain, baseLocalPart, branchName } = getProxyAliasInputParts(field.state.value);
+													const aliasSuffix = branchName ? `+${branchName}` : "";
 
-												return (
-													<TextInput
-														label="Email Alias"
-														placeholder="erika.mustermann"
-														value={baseLocalPart}
-														rightSection={
-															<Text size="sm" c="dimmed" pr="xs" style={{ textWrap: "nowrap", pointerEvents: "none" }}>
-																{aliasSuffix}@{domain}
-															</Text>
-														}
-														rightSectionWidth={"auto"}
-														onChange={(e) => {
-															const local = e.target.value;
-															field.handleChange(local ? formatProxyAlias(local, domain, branchName) : "");
-														}}
-														onBlur={() => field.handleBlur()}
-														description="Öffentliche Weiterleitung. Erscheint in Kontaktlinks auf der Website."
-														error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
-													/>
-												);
-											})()
-										}
-									</form.Field>
-								) : null
-							}
-						</form.Subscribe>
+													return (
+														<TextInput
+															label="Email Alias"
+															placeholder="erika.mustermann"
+															value={baseLocalPart}
+															rightSection={
+																<Text size="sm" c="dimmed" pr="xs" style={{ textWrap: "nowrap", pointerEvents: "none" }}>
+																	{aliasSuffix}@{domain}
+																</Text>
+															}
+															rightSectionWidth={"auto"}
+															onChange={(e) => {
+																const local = e.target.value;
+																field.handleChange(local ? formatProxyAlias(local, domain, branchName) : "");
+															}}
+															onBlur={() => field.handleBlur()}
+															description="Öffentliche Weiterleitung. Erscheint in Kontaktlinks auf der Website."
+															error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
+														/>
+													);
+												})()
+											}
+										</form.Field>
+									) : null
+								}
+							</form.Subscribe>
 
-						<form.Field name="phone">{(field) => <TextInput label="Telefon" placeholder="+49 123 456789" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
+							<form.Field name="phone">
+								{(field) => <TextInput label="Telefon" placeholder="+49 123 456789" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+							</form.Field>
 
-						<form.Field name="roleTitle">
-							{(field) => <TextInput label="Funktion" placeholder="z.B. Abteilungsleiter" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
-						</form.Field>
+							<form.Field name="roleTitle">
+								{(field) => <TextInput label="Funktion" placeholder="z.B. Abteilungsleiter" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+							</form.Field>
 
-						<Group gap="md">
-							<form.Field name="isBoardMember">{(field) => <Checkbox label="Board Member" checked={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.checked)} />}</form.Field>
-							<form.Field name="isTrainer">{(field) => <Checkbox label="Trainer" checked={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.checked)} />}</form.Field>
-						</Group>
-
-						<form.Field name="avatarS3Key">
-							{(field) => (
-								<CurrentAvatarDisplay
-									avatarS3Key={field.state.value}
-									avatarFile={avatarFile}
-									deleteAvatar={deleteAvatar}
-									onFileChange={setAvatarFile}
-									onDeleteToggle={() => {
-										setDeleteAvatar(!deleteAvatar);
-										setAvatarFile(null);
-									}}
-									onFileSizeError={(message) => {
-										notification.error({ message });
-									}}
-								/>
-							)}
-						</form.Field>
-
-						<Group justify="space-between" mt="md">
-							{editingId && (
-								<>
-									<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
-										<Trash2 />
-									</ActionIcon>
-									<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
-										Löschen
-									</Button>
-								</>
-							)}
-							<Group gap="xs" ms="auto">
-								<Button type="button" variant="light" onClick={close}>
-									Abbrechen
-								</Button>
-								<form.Subscribe selector={(state) => ({ isSubmitting: state.isSubmitting, canSubmit: state.canSubmit })}>
-									{({ isSubmitting, canSubmit }) => (
-										<Button type="submit" variant="filled" loading={isSubmitting} disabled={!canSubmit}>
-											{editingId ? "Aktualisieren" : "Erstellen"}
-										</Button>
-									)}
-								</form.Subscribe>
+							<Group gap="md">
+								<form.Field name="isBoardMember">{(field) => <Checkbox label="Board Member" checked={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.checked)} />}</form.Field>
+								<form.Field name="isTrainer">{(field) => <Checkbox label="Trainer" checked={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.checked)} />}</form.Field>
 							</Group>
-						</Group>
-					</Stack>
-				</form>
-			</Modal>
+
+							<form.Field name="avatarS3Key">
+								{(field) => (
+									<CurrentAvatarDisplay
+										avatarS3Key={field.state.value}
+										avatarFile={avatarFile}
+										deleteAvatar={deleteAvatar}
+										onFileChange={setAvatarFile}
+										onDeleteToggle={() => {
+											setDeleteAvatar(!deleteAvatar);
+											setAvatarFile(null);
+										}}
+										onFileSizeError={(message) => {
+											notification.error({ message });
+										}}
+									/>
+								)}
+							</form.Field>
+
+							<Group justify="space-between" mt="md">
+								{editingId && (
+									<>
+										<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+											<Trash2 />
+										</ActionIcon>
+										<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+											Löschen
+										</Button>
+									</>
+								)}
+								<Group gap="xs" ms="auto">
+									<Button type="button" variant="light" onClick={close}>
+										Abbrechen
+									</Button>
+									<form.Subscribe selector={(state) => ({ isSubmitting: state.isSubmitting, canSubmit: state.canSubmit })}>
+										{({ isSubmitting, canSubmit }) => (
+											<Button type="submit" variant="filled" loading={isSubmitting} disabled={!canSubmit}>
+												{editingId ? "Aktualisieren" : "Erstellen"}
+											</Button>
+										)}
+									</form.Subscribe>
+								</Group>
+							</Group>
+						</Stack>
+					</form>
+				</Modal>
+			)}
 
 			{isLoading ? (
 				<Text>Laden...</Text>
 			) : members && members.items.length > 0 ? (
 				<SimpleGrid cols={{ base: 1, sm: 2, xl: 3 }} spacing="md">
-					{members.items.map((member) => (
-						<MemberCard key={member.id} member={member} onEdit={handleEdit} onDelete={handleDelete} isDeleting={deleteMutation.isPending} />
-					))}
+					{members.items
+						.sort((a, b) => a.name.localeCompare(b.name))
+						.map((member) => (
+							<MemberCard key={member.id} member={member} onEdit={canManageMembers ? handleEdit : undefined} />
+						))}
 				</SimpleGrid>
 			) : (
 				<Text c="dimmed" ta="center" py="xl">
@@ -602,7 +645,7 @@ function MembersPage() {
 	);
 }
 
-function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; onEdit: (member: MemberInput & { id: string }) => void; onDelete: (id: string) => void; isDeleting: boolean }) {
+function MemberCard({ member, onEdit }: { member: MemberListItem; onEdit?: (member: MemberListItem) => void }) {
 	const { data: avatarUrl } = useQuery({
 		queryKey: ["upload", "fileUrl", member.avatarS3Key],
 		queryFn: () => resolveFileUrl(member.avatarS3Key),
@@ -630,9 +673,11 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 								{member.name}
 							</Title>
 
-							<ActionIcon variant="filled" radius="xl" size="lg" onClick={() => onEdit(member)} aria-label="Bearbeiten" style={{ flexShrink: 0 }}>
-								<Pencil size={16} />
-							</ActionIcon>
+							{onEdit && (
+								<ActionIcon variant="filled" radius="xl" size="lg" onClick={() => onEdit(member)} aria-label="Bearbeiten" style={{ flexShrink: 0 }}>
+									<Pencil size={16} />
+								</ActionIcon>
+							)}
 						</Group>
 
 						{hasDetails && (
@@ -690,9 +735,11 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 								{member.name}
 							</Title>
 
-							<ActionIcon variant="filled" radius="xl" onClick={() => onEdit(member)} aria-label="Bearbeiten">
-								<Pencil size={16} />
-							</ActionIcon>
+							{onEdit && (
+								<ActionIcon variant="filled" radius="xl" onClick={() => onEdit(member)} aria-label="Bearbeiten">
+									<Pencil size={16} />
+								</ActionIcon>
+							)}
 						</Group>
 
 						{hasDetails && (
@@ -736,5 +783,8 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 	);
 }
 export const Route = createFileRoute("/admin/_layout/members")({
+	beforeLoad: ({ context }) => {
+		return { currentUser: context.user };
+	},
 	component: MembersPage,
 });

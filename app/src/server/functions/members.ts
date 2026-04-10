@@ -6,7 +6,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { memberSchema } from "@/lib/db/schemas";
-import { requireAdminMiddleware, requireAuthMiddleware } from "../../middleware";
+import { requireAdminMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 import { resolveNullableUpdates } from "./patch-helpers";
@@ -60,7 +60,7 @@ export const createMemberFn = createServerFn()
 	});
 
 export const updateMemberFn = createServerFn()
-	.middleware([requireAuthMiddleware])
+	.middleware([requireAdminMiddleware])
 	.inputValidator(
 		z.object({
 			id: z.uuid(),
@@ -105,7 +105,7 @@ export const updateMemberFn = createServerFn()
 	});
 
 export const deleteMemberFn = createServerFn()
-	.middleware([requireAuthMiddleware])
+	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
 		// Remove this member from all teams that reference them as a trainer

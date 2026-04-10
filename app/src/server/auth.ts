@@ -12,6 +12,10 @@ import { betterAuth } from "better-auth";
 import { emailOTP } from "better-auth/plugins";
 import { dynamoDBAdapter } from "@/lambda/utils/better-auth-dynamodb-adapter";
 
+const OTP_EXPIRATION_MINUTS = 10;
+
+const isProd = process.env.CDK_ENVIRONMENT === "prod";
+
 function getSesClient() {
 	return new SESClient({
 		region: process.env.AWS_REGION || "eu-central-1",
@@ -57,8 +61,21 @@ function createOtpLoginLink(email: string, otp: string, request?: Request): stri
 	return loginUrl.toString();
 }
 
-function getOtpSourceEmail(cdkEnvironment = process.env.CDK_ENVIRONMENT): string {
-	return cdkEnvironment === "prod" ? Mail.prod.systemFromEmail : Mail.dev.systemFromEmail;
+function getTrusedOrigins({ isLocalDev = false } = {}): string[] {
+	const origins = [
+		`https://${Club.domain}`,
+		`https://*.${Club.domain}`,
+		// , "https://*.lambda-url.eu-central-1.on.aws" // TODO check if this is fine without
+	];
+
+	if (isProd) {
+		origins.push(`https://*.new.${Club.domain}`);
+	}
+	if (isLocalDev) {
+		origins.push("http://localhost:*", "http://127.0.0.1:*");
+	}
+
+	return origins;
 }
 
 function createAuth() {
@@ -66,7 +83,6 @@ function createAuth() {
 	if (!secret) {
 		throw new Error("BETTER_AUTH_SECRET environment variable is required");
 	}
-
 	const isLocalDev = process.env.NODE_ENV === "development";
 
 	return betterAuth({
@@ -75,13 +91,7 @@ function createAuth() {
 			protocol: isLocalDev ? "http" : "https",
 		},
 		secret,
-		trustedOrigins: [
-			...(isLocalDev ? ["http://localhost:*", "http://127.0.0.1:*"] : []),
-			`https://${Club.domain}`,
-			`https://*.${Club.domain}`,
-			`https://*.new.${Club.domain}`,
-			"https://*.lambda-url.eu-central-1.on.aws",
-		],
+		trustedOrigins: getTrusedOrigins({ isLocalDev }),
 		database: dynamoDBAdapter,
 		advanced: {
 			// In production: force Secure cookies since the server doesn't set NODE_ENV=production.
@@ -91,7 +101,7 @@ function createAuth() {
 			},
 			// Scope cookies to the parent domain in production so auth state is shared across subdomains.
 			// Disabled in local dev since vcmuellheim.de doesn't match localhost.
-			crossSubDomainCookies: isLocalDev ? { enabled: false } : { enabled: true, domain: "vcmuellheim.de" },
+			crossSubDomainCookies: isLocalDev ? { enabled: false } : { enabled: true, domain: isProd ? Club.domain : `new.${Club.domain}` },
 		},
 		session: {
 			storeSessionInDatabase: false,
@@ -117,14 +127,14 @@ function createAuth() {
 		plugins: [
 			emailOTP({
 				disableSignUp: true,
-				expiresIn: 10 * 60,
+				expiresIn: OTP_EXPIRATION_MINUTS * 60,
 				async sendVerificationOTP({ email, otp }, ctx) {
 					const otpLoginLink = createOtpLoginLink(email, otp, ctx?.request);
 					const sesClient = getSesClient();
 
 					await sesClient.send(
 						new SendEmailCommand({
-							Source: getOtpSourceEmail(),
+							Source: isProd ? Mail.prod.systemFromEmail : Mail.dev.systemFromEmail,
 							Destination: { ToAddresses: [email] },
 							Message: {
 								Subject: {
@@ -137,22 +147,21 @@ function createAuth() {
 <p>Hallo,</p>
 <p>dein Anmeldecode für das ${Club.shortName} CMS lautet:</p>
 <h2 style="letter-spacing: 4px; font-size: 32px;">${otp}</h2>
-<p style="margin: 8px 0 20px; color: #4b5563;">${otp} ist dein Sicherheitscode für das ${Club.shortName} CMS.</p>
-<p>Du kannst dich entweder direkt anmelden:</p>
-<p style="margin: 16px 0 20px;">
-	<a href="${otpLoginLink}" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 10px 16px; border-radius: 6px; background: #366273; color: #ffffff; text-decoration: none; font-weight: 600;">
-		Direkt im CMS anmelden
+<p>Du kannst dich entweder::</p>
+<p>
+	<a href="${otpLoginLink}" target="_blank" rel="noopener noreferrer">
+		Per Link im CMS anmelden
 	</a>
 </p>
 <p>Oder gib den Code manuell auf der Login-Seite ein.</p>
-<p>Dieser Code ist <strong>10 Minuten</strong> gültig.</p>
+<p>Dieser Code ist <strong>${OTP_EXPIRATION_MINUTS} Minuten</strong> gültig.</p>
 <p>Falls du diese Anfrage nicht gestellt hast, kannst du diese E-Mail ignorieren.</p>
 <p>Sportliche Grüße,<br>${Club.shortName}</p>
 `,
 										Charset: "UTF-8",
 									},
 									Text: {
-										Data: `Dein Anmeldecode für das ${Club.shortName} CMS: ${otp}\n\nDirekt im CMS anmelden: ${otpLoginLink}\n\nWenn der Link nicht funktioniert, gib den Code manuell auf der Login-Seite ein.\n\nDieser Code ist 10 Minuten gültig.`,
+										Data: `Dein Anmeldecode für das ${Club.shortName} CMS: ${otp}\n\nPer Link im CMS anmelden: ${otpLoginLink}\n\nWenn der Link nicht funktioniert, gib den Code manuell auf der Login-Seite ein.\n\nDieser Code ist ${OTP_EXPIRATION_MINUTS} Minuten gültig.`,
 										Charset: "UTF-8",
 									},
 								},
