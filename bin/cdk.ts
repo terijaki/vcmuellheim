@@ -1,6 +1,7 @@
 import "varlock/auto-load";
 import { ENV } from "varlock/env";
 import { getSanitizedBranch } from "@utils/git";
+import { getCdkNaming } from "@utils/cdk-naming";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";
 import { BudgetStack } from "../lib/budget-stack";
@@ -20,11 +21,9 @@ const isProd = environment === "prod";
 const isDestroy = process.env.CDK_DESTROY === "true";
 
 const branch = getSanitizedBranch();
-const branchSuffix = branch ? (`-${branch}` as const) : "";
 
 // Environment-specific configuration
-const stackName = (base: string) => `${base}-${isProd ? "Prod" : "Dev"}${branchSuffix}` as const;
-const envLabel = `${environment}${branchSuffix}` as const;
+const { stackName, envLabel } = getCdkNaming(isProd, branch);
 
 const contentDbStackName = stackName("ContentDbStack");
 const mediaStackName = stackName("MediaStack");
