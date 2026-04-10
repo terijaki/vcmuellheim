@@ -167,6 +167,25 @@ describe("mail-forward Lambda", () => {
 			expect(rawMime).toMatch(/^From: no-reply@vcmuellheim\.de/im);
 		});
 
+		test("removes original Return-Path before forwarding", async () => {
+			mockByProxyEmailGo.mockResolvedValue({
+				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@gmail.com" }],
+			});
+			s3Mock.on(GetObjectCommand).resolves({
+				Body: {
+					transformToString: vi
+						.fn()
+						.mockResolvedValue(["Return-Path: <mail@terijaki.eu>", "From: mail@terijaki.eu", "To: max.mustermann@vcmuellheim.de", "Subject: Test", "", "Hello world"].join("\n")),
+				} as never,
+			});
+
+			await handler(makeEvent("emails/return-path-test.eml"), mockLambdaContext as never);
+
+			const rawMime = Buffer.from(sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!).toString();
+			expect(rawMime).not.toMatch(/^Return-Path:/im);
+			expect(rawMime).toMatch(/^From: no-reply@vcmuellheim\.de/im);
+		});
+
 		test("in dev, looks up DDB with the full plus-address (suffix included)", async () => {
 			// In dev the admin stores max.mueller+feat-x@vcmuellheim.de in DDB.
 			// The inbound email also carries that full address in To:.

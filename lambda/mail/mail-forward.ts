@@ -148,8 +148,26 @@ function rewriteMimeHeaders(rawMime: string, originalFrom: string, newFrom: stri
 
 	const headers = rawMime.slice(0, headerBodySplit);
 	const body = rawMime.slice(headerBodySplit);
+	const headerLines = headers.split(/\r?\n/);
+	const strippedHeaders: string[] = [];
+	let skipContinuation = false;
 
-	let rewritten = headers
+	for (const line of headerLines) {
+		if (/^[ \t]/.test(line)) {
+			if (!skipContinuation) {
+				strippedHeaders.push(line);
+			}
+			continue;
+		}
+
+		skipContinuation = /^(return-path|sender):/i.test(line);
+		if (!skipContinuation) {
+			strippedHeaders.push(line);
+		}
+	}
+
+	let rewritten = strippedHeaders
+		.join("\r\n")
 		// Replace From header
 		.replace(/^from:.*$/im, `From: ${newFrom}`)
 		// Replace To header
