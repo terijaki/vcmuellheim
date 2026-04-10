@@ -71,7 +71,7 @@ describe("SocialMediaStack", () => {
 
 			template.hasResourceProperties("AWS::Lambda::Function", {
 				FunctionName: "vcm-mastodon-share-dev",
-				Timeout: 60,
+				Timeout: 30,
 				MemorySize: 512,
 			});
 		});
@@ -100,7 +100,7 @@ describe("SocialMediaStack", () => {
 			template.hasResourceProperties("AWS::Lambda::Function", {
 				FunctionName: "vcm-behold-sync-dev",
 				Timeout: 30,
-				MemorySize: 256,
+				MemorySize: 128,
 			});
 
 			template.hasResourceProperties("AWS::Events::Rule", {
