@@ -24,7 +24,7 @@ const BRANCH = ENVIRONMENT === "prod" ? "" : getSanitizedBranch();
 const REGION = process.env.CDK_REGION || "eu-central-1";
 
 /** List of SAMS sync Lambda functions to invoke */
-const lambdaNames = [`sams-clubs-sync`, `sams-teams-sync`].map((name) => (BRANCH ? `${name}-${ENVIRONMENT}-${BRANCH}` : `${name}-${ENVIRONMENT}`));
+const lambdaNames = [`vcm-sams-clubs-sync`, `vcm-sams-teams-sync`].map((name) => (BRANCH ? `${name}-${ENVIRONMENT}-${BRANCH}` : `${name}-${ENVIRONMENT}`));
 
 const client = new LambdaClient({ region: REGION });
 
