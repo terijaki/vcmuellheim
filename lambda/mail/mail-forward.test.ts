@@ -144,38 +144,38 @@ describe("mail-forward Lambda", () => {
 	describe("individual alias forwarding", () => {
 		test("forwards email to privateEmail when alias matches", async () => {
 			mockByProxyEmailGo.mockResolvedValue({
-				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@gmail.com" }],
+				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@example.com" }],
 			});
 
 			const result = await handler(makeEvent("emails/test-match.eml"), mockLambdaContext as never);
 
 			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
 			expect(sesCalls).toHaveLength(1);
-			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@gmail.com"]);
+			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@example.com"]);
 			expect(sesCalls[0].args[0].input.Source).toBe("postmaster@vcmuellheim.de");
 			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
 		});
 
 		test("rewrites From header to forward-from address in MIME", async () => {
 			mockByProxyEmailGo.mockResolvedValue({
-				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@gmail.com" }],
+				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@example.com" }],
 			});
 
 			await handler(makeEvent("emails/rewrite-test.eml"), mockLambdaContext as never);
 
 			const rawMime = Buffer.from(sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!).toString();
-			expect(rawMime).toMatch(/^From: postmaster@vcmuellheim\.de/im);
+			expect(rawMime).toMatch(/^From: "sender \(sender@example\.com\)" <postmaster@vcmuellheim\.de>$/im);
 		});
 
 		test("removes original Return-Path before forwarding", async () => {
 			mockByProxyEmailGo.mockResolvedValue({
-				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@gmail.com" }],
+				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@example.com" }],
 			});
 			s3Mock.on(GetObjectCommand).resolves({
 				Body: {
 					transformToString: vi
 						.fn()
-						.mockResolvedValue(["Return-Path: <mail@terijaki.eu>", "From: mail@terijaki.eu", "To: max.mustermann@vcmuellheim.de", "Subject: Test", "", "Hello world"].join("\n")),
+						.mockResolvedValue(["Return-Path: <mail@example.com>", "From: mail@example.com", "To: max.mustermann@vcmuellheim.de", "Subject: Test", "", "Hello world"].join("\n")),
 				} as never,
 			});
 
@@ -183,7 +183,7 @@ describe("mail-forward Lambda", () => {
 
 			const rawMime = Buffer.from(sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!).toString();
 			expect(rawMime).not.toMatch(/^Return-Path:/im);
-			expect(rawMime).toMatch(/^From: postmaster@vcmuellheim\.de/im);
+			expect(rawMime).toMatch(/^From: "mail \(mail@example\.com\)" <postmaster@vcmuellheim\.de>$/im);
 		});
 
 		test("in dev, looks up DDB with the full plus-address (suffix included)", async () => {
@@ -197,14 +197,14 @@ describe("mail-forward Lambda", () => {
 			});
 			// DDB entry stores the full suffixed alias as written by the admin in dev
 			mockByProxyEmailGo.mockResolvedValue({
-				data: [{ id: "m1", proxyEmail: "max.mustermann+feat-x@vcmuellheim.de", privateEmail: "max@gmail.com" }],
+				data: [{ id: "m1", proxyEmail: "max.mustermann+feat-x@vcmuellheim.de", privateEmail: "max@example.com" }],
 			});
 
 			const result = await handler(makeEvent("emails/test-dev-branch.eml"), mockLambdaContext as never);
 
 			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
 			expect(sesCalls).toHaveLength(1);
-			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@gmail.com"]);
+			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@example.com"]);
 			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
 		});
 
@@ -223,7 +223,7 @@ describe("mail-forward Lambda", () => {
 			});
 			sesMock.on(SendRawEmailCommand).resolves({ MessageId: "test-message-id" });
 			mockByProxyEmailGo.mockResolvedValue({
-				data: [{ id: "m1", proxyEmail: "max.mustermann+feat-x@new.vcmuellheim.de", privateEmail: "max@gmail.com" }],
+				data: [{ id: "m1", proxyEmail: "max.mustermann+feat-x@new.vcmuellheim.de", privateEmail: "max@example.com" }],
 			});
 
 			const { handler: devHandler } = await import("./mail-forward");
@@ -232,13 +232,13 @@ describe("mail-forward Lambda", () => {
 			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
 			expect(sesCalls).toHaveLength(1);
 			expect(sesCalls[0].args[0].input.Source).toBe("postmaster@new.vcmuellheim.de");
-			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@gmail.com"]);
+			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@example.com"]);
 			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
 		});
 
 		test("adds Reply-To with original sender in forwarded MIME", async () => {
 			mockByProxyEmailGo.mockResolvedValue({
-				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@gmail.com" }],
+				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@example.com" }],
 			});
 			s3Mock.on(GetObjectCommand).resolves({
 				Body: {
@@ -249,7 +249,25 @@ describe("mail-forward Lambda", () => {
 			await handler(makeEvent("emails/reply-to-test.eml"), mockLambdaContext as never);
 
 			const rawMime = Buffer.from(sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!).toString();
+			expect(rawMime).toMatch(/^From: "original\.sender \(original\.sender@example\.com\)" <postmaster@vcmuellheim\.de>$/im);
 			expect(rawMime).toMatch(/Reply-To:.*original\.sender@example\.com/i);
+		});
+
+		test("includes original name and email in From display name", async () => {
+			mockByProxyEmailGo.mockResolvedValue({
+				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@example.com" }],
+			});
+			s3Mock.on(GetObjectCommand).resolves({
+				Body: {
+					transformToString: vi.fn().mockResolvedValue(makeMime("max.mustermann@vcmuellheim.de", '"Max Mustermann" <max.mustermann@example.com>')),
+				} as never,
+			});
+
+			await handler(makeEvent("emails/from-display-test.eml"), mockLambdaContext as never);
+
+			const rawMime = Buffer.from(sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!).toString();
+			expect(rawMime).toMatch(/^From: "Max Mustermann \(max\.mustermann@example\.com\)" <postmaster@vcmuellheim\.de>$/im);
+			expect(rawMime).toMatch(/Reply-To:.*"Max Mustermann" <max\.mustermann@example\.com>/i);
 		});
 		test("forwards to all matching To addresses in a single email", async () => {
 			s3Mock.on(GetObjectCommand).resolves({
@@ -258,16 +276,16 @@ describe("mail-forward Lambda", () => {
 				} as never,
 			});
 			mockByProxyEmailGo
-				.mockResolvedValueOnce({ data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@gmail.com" }] })
-				.mockResolvedValueOnce({ data: [{ id: "m2", proxyEmail: "erika.mustermann@vcmuellheim.de", privateEmail: "erika@gmail.com" }] });
+				.mockResolvedValueOnce({ data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@example.com" }] })
+				.mockResolvedValueOnce({ data: [{ id: "m2", proxyEmail: "erika.mustermann@vcmuellheim.de", privateEmail: "erika@example.com" }] });
 
 			const result = await handler(makeEvent("emails/multi-to.eml"), mockLambdaContext as never);
 
 			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
 			expect(sesCalls).toHaveLength(2);
 			const destinations = sesCalls.map((c) => c.args[0].input.Destinations![0]);
-			expect(destinations).toContain("max@gmail.com");
-			expect(destinations).toContain("erika@gmail.com");
+			expect(destinations).toContain("max@example.com");
+			expect(destinations).toContain("erika@example.com");
 			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
 		});
 	});
@@ -311,8 +329,8 @@ describe("mail-forward Lambda", () => {
 			});
 			mockByTypeWhereGo.mockResolvedValue({
 				data: [
-					{ id: "t1", isTrainer: true, privateEmail: "trainer1@gmail.com" },
-					{ id: "t2", isTrainer: true, privateEmail: "trainer2@gmail.com" },
+					{ id: "t1", isTrainer: true, privateEmail: "trainer1@example.com" },
+					{ id: "t2", isTrainer: true, privateEmail: "trainer2@example.com" },
 					{ id: "t3", isTrainer: true, privateEmail: undefined }, // excluded
 				],
 			});
@@ -322,8 +340,8 @@ describe("mail-forward Lambda", () => {
 			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
 			expect(sesCalls).toHaveLength(2);
 			const destinations = sesCalls.map((c) => c.args[0].input.Destinations![0]);
-			expect(destinations).toContain("trainer1@gmail.com");
-			expect(destinations).toContain("trainer2@gmail.com");
+			expect(destinations).toContain("trainer1@example.com");
+			expect(destinations).toContain("trainer2@example.com");
 			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
 		});
 
@@ -334,10 +352,10 @@ describe("mail-forward Lambda", () => {
 				} as never,
 			});
 			// Two parallel queries (trainers, board) — a member in both is deduplicated via Set
-			mockByTypeWhereGo.mockResolvedValueOnce({ data: [{ id: "t1", isTrainer: true, privateEmail: "trainer@gmail.com" }] }).mockResolvedValueOnce({
+			mockByTypeWhereGo.mockResolvedValueOnce({ data: [{ id: "t1", isTrainer: true, privateEmail: "trainer@example.com" }] }).mockResolvedValueOnce({
 				data: [
-					{ id: "b1", isBoardMember: true, privateEmail: "board@gmail.com" },
-					{ id: "t1", isTrainer: true, isBoardMember: true, privateEmail: "trainer@gmail.com" }, // also a trainer — deduplicated
+					{ id: "b1", isBoardMember: true, privateEmail: "board@example.com" },
+					{ id: "t1", isTrainer: true, isBoardMember: true, privateEmail: "trainer@example.com" }, // also a trainer — deduplicated
 				],
 			});
 
@@ -346,8 +364,8 @@ describe("mail-forward Lambda", () => {
 			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
 			expect(sesCalls).toHaveLength(2);
 			const destinations = sesCalls.map((c) => c.args[0].input.Destinations![0]);
-			expect(destinations).toContain("trainer@gmail.com");
-			expect(destinations).toContain("board@gmail.com");
+			expect(destinations).toContain("trainer@example.com");
+			expect(destinations).toContain("board@example.com");
 			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
 		});
 	});

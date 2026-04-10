@@ -47,6 +47,33 @@ const db = createDb(docClient, CONTENT_TABLE_NAME);
 const s3 = tracer.captureAWSv3Client(new S3Client({}));
 const ses = tracer.captureAWSv3Client(new SESClient({ region: env.AWS_REGION }));
 
+type ParsedOriginalSender = {
+	name: string;
+	email: string;
+};
+
+type ForwardSendResult =
+	| {
+			success: true;
+	  }
+	| {
+			success: false;
+			error: string;
+			target: string;
+	  };
+
+type SendForwardedEmailInput = {
+	rawMime: string;
+	originalFrom: string;
+	newFrom: string;
+	target: string;
+	s3Key: string;
+	errorContext: {
+		kind: "group" | "individual";
+		toAddress?: string;
+	};
+};
+
 /**
  * Hardcoded group aliases mapped to DynamoDB query predicates.
  */
@@ -106,29 +133,39 @@ function stripBranchSuffix(localPart: string): string {
 }
 
 /**
+ * Extract a single RFC 2822 header value (with folded continuation lines).
+ */
+function extractHeaderValue(rawMime: string, headerName: string): string {
+	const lines = rawMime.split(/\r?\n/);
+	let value = "";
+	let collecting = false;
+	const headerPattern = new RegExp(`^${headerName}:`, "i");
+
+	for (const line of lines) {
+		if (!line) break; // blank line = end of headers
+		if (headerPattern.test(line)) {
+			collecting = true;
+			value = line.replace(headerPattern, "").trim();
+		} else if (collecting && /^[ \t]/.test(line)) {
+			value += ` ${line.trim()}`;
+		} else if (collecting) {
+			break;
+		}
+	}
+
+	return value;
+}
+
+/**
  * Extract all To addresses from a raw MIME string.
  * Handles multiple comma-separated addresses and RFC 2822 folded headers.
  */
 function extractToAddresses(rawMime: string): string[] {
-	const lines = rawMime.split(/\r?\n/);
-	let toLine = "";
-	let collecting = false;
-
-	for (const line of lines) {
-		if (!line) break; // blank line = end of headers
-		if (/^to:/i.test(line)) {
-			collecting = true;
-			toLine = line.replace(/^to:\s*/i, "");
-		} else if (collecting && /^[ \t]/.test(line)) {
-			toLine += " " + line.trim(); // folded continuation
-		} else if (collecting) {
-			break; // next non-folded header ends To
-		}
-	}
+	const toLine = extractHeaderValue(rawMime, "to");
 
 	if (!toLine) return [];
 	const addresses: string[] = [];
-	const regex = /<([^>@]+@[^>]+)>|([^\s,<>]+@[^\s,<>]+)/g;
+	const regex = /<([^<>]+@[^<>]+)>|([^\s,<>]+@[^\s,<>]+)/g;
 	let match;
 	while ((match = regex.exec(toLine)) !== null) {
 		addresses.push((match[1] || match[2]).toLowerCase().trim());
@@ -136,18 +173,40 @@ function extractToAddresses(rawMime: string): string[] {
 	return addresses;
 }
 
-/**
- * Rewrite MIME headers for forwarding:
- * - Replace From with the verified domain sender
- * - Add Reply-To with the original From
- * - Replace To with the private destination
- */
-function rewriteMimeHeaders(rawMime: string, originalFrom: string, newFrom: string, newTo: string): string {
-	const headerBodySplit = rawMime.indexOf("\r\n\r\n") !== -1 ? rawMime.indexOf("\r\n\r\n") : rawMime.indexOf("\n\n");
-	if (headerBodySplit === -1) return rawMime;
+function parseOriginalSender(originalFrom: string): ParsedOriginalSender {
+	const normalizedOriginalFrom = originalFrom.replace(/\s+/g, " ").trim();
+	const angleAddressMatch = normalizedOriginalFrom.match(/<([^<>]+@[^<>]+)>/);
+	const bareAddressMatch = normalizedOriginalFrom.match(/(^|\s|"|'|\()([^\s<>]+@[^\s<>]+)(?=$|\s|"|'|\))/);
+	const originalEmail = (angleAddressMatch?.[1] || bareAddressMatch?.[2] || "unknown@example.com").trim();
 
-	const headers = rawMime.slice(0, headerBodySplit);
-	const body = rawMime.slice(headerBodySplit);
+	let originalName = "";
+	if (angleAddressMatch) {
+		const beforeAddress = normalizedOriginalFrom.slice(0, angleAddressMatch.index).trim();
+		originalName = beforeAddress.replace(/^"|"$/g, "").trim();
+	}
+	if (!originalName) {
+		originalName = originalEmail.split("@")[0] || "unknown";
+	}
+
+	return {
+		name: originalName,
+		email: originalEmail,
+	};
+}
+
+function splitMimeIntoHeadersAndBody(rawMime: string): { headers: string; body: string } | null {
+	const hasCrlfSeparator = rawMime.includes("\r\n\r\n");
+	const separator = hasCrlfSeparator ? "\r\n\r\n" : "\n\n";
+	const separatorIndex = rawMime.indexOf(separator);
+	if (separatorIndex === -1) return null;
+
+	return {
+		headers: rawMime.slice(0, separatorIndex),
+		body: rawMime.slice(separatorIndex),
+	};
+}
+
+function stripBlockedForwardHeaders(headers: string): string {
 	const headerLines = headers.split(/\r?\n/);
 	const strippedHeaders: string[] = [];
 	let skipContinuation = false;
@@ -166,19 +225,46 @@ function rewriteMimeHeaders(rawMime: string, originalFrom: string, newFrom: stri
 		}
 	}
 
-	let rewritten = strippedHeaders
-		.join("\r\n")
+	return strippedHeaders.join("\r\n");
+}
+
+function buildForwardFromHeaderValue(originalFrom: string, newFrom: string): string {
+	const sender = parseOriginalSender(originalFrom);
+	const fromDisplayText = `${sender.name} (${sender.email})`;
+	const escapedFromDisplayText = fromDisplayText.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+	return `"${escapedFromDisplayText}" <${newFrom}>`;
+}
+
+function applyForwardingHeaderRewrites(headers: string, originalFrom: string, rewrittenFrom: string, newTo: string): string {
+	let rewritten = headers
 		// Replace From header
-		.replace(/^from:.*$/im, `From: ${newFrom}`)
+		.replace(/^from:.*$/im, `From: ${rewrittenFrom}`)
 		// Replace To header
 		.replace(/^to:.*$/im, `To: ${newTo}`);
 
 	// Add Reply-To header if not already present
 	if (!/^reply-to:/im.test(rewritten)) {
-		rewritten = rewritten.replace(/^from:.*$/im, (fromLine) => `${fromLine}\r\nReply-To: ${originalFrom}`);
+		rewritten += `\r\nReply-To: ${originalFrom}`;
 	}
 
-	return rewritten + body;
+	return rewritten;
+}
+
+/**
+ * Rewrite MIME headers for forwarding:
+ * - Replace From with the verified domain sender
+ * - Add Reply-To with the original From
+ * - Replace To with the private destination
+ */
+function rewriteMimeHeaders(rawMime: string, originalFrom: string, newFrom: string, newTo: string): string {
+	const sections = splitMimeIntoHeadersAndBody(rawMime);
+	if (!sections) return rawMime;
+
+	const strippedHeaders = stripBlockedForwardHeaders(sections.headers);
+	const rewrittenFrom = buildForwardFromHeaderValue(originalFrom, newFrom);
+	const rewrittenHeaders = applyForwardingHeaderRewrites(strippedHeaders, originalFrom, rewrittenFrom, newTo);
+
+	return rewrittenHeaders + sections.body;
 }
 
 /**
@@ -186,23 +272,47 @@ function rewriteMimeHeaders(rawMime: string, originalFrom: string, newFrom: stri
  * Handles RFC 2822 folded headers.
  */
 function extractFromAddress(rawMime: string): string {
-	const lines = rawMime.split(/\r?\n/);
-	let fromLine = "";
-	let collecting = false;
-
-	for (const line of lines) {
-		if (!line) break;
-		if (/^from:/i.test(line)) {
-			collecting = true;
-			fromLine = line.replace(/^from:\s*/i, "").trim();
-		} else if (collecting && /^[ \t]/.test(line)) {
-			fromLine += " " + line.trim();
-		} else if (collecting) {
-			break;
-		}
-	}
-
+	const fromLine = extractHeaderValue(rawMime, "from");
 	return fromLine || "unknown@example.com";
+}
+
+async function sendForwardedEmail(input: SendForwardedEmailInput): Promise<ForwardSendResult> {
+	const { rawMime, originalFrom, newFrom, target, s3Key, errorContext } = input;
+
+	try {
+		const rewritten = rewriteMimeHeaders(rawMime, originalFrom, newFrom, target);
+		await ses.send(
+			new SendRawEmailCommand({
+				Source: newFrom,
+				Destinations: [target],
+				RawMessage: { Data: Buffer.from(rewritten) },
+			}),
+		);
+
+		if (errorContext.kind === "group") {
+			logger.info("Forwarded to group member", { target });
+		} else {
+			logger.info("Email forwarded", { s3Key, target });
+		}
+
+		return { success: true };
+	} catch (err) {
+		const message = err instanceof Error ? err.message : String(err);
+
+		if (errorContext.kind === "group") {
+			logger.error("Failed to forward to group member", { target, error: message });
+			Sentry.captureException(err, { extra: { target, s3Key } });
+		} else {
+			logger.error("Failed to forward individual alias", { toAddress: errorContext.toAddress, error: message });
+			Sentry.captureException(err, { extra: { toAddress: errorContext.toAddress, s3Key } });
+		}
+
+		return {
+			success: false,
+			error: message,
+			target,
+		};
+	}
 }
 
 const lambdaHandler = async (event: unknown) => {
@@ -259,23 +369,20 @@ const lambdaHandler = async (event: unknown) => {
 			logger.info("Forwarding to group alias recipients", { localPart: localPartForGroupCheck, count: groupTargets.length });
 
 			for (const target of groupTargets) {
-				try {
-					const rewritten = rewriteMimeHeaders(rawMime, originalFrom, FORWARD_FROM_EMAIL, target);
-					await ses.send(
-						new SendRawEmailCommand({
-							Source: FORWARD_FROM_EMAIL,
-							Destinations: [target],
-							RawMessage: { Data: Buffer.from(rewritten) },
-						}),
-					);
-					logger.info("Forwarded to group member", { target });
+				const result = await sendForwardedEmail({
+					rawMime,
+					originalFrom,
+					newFrom: FORWARD_FROM_EMAIL,
+					target,
+					s3Key,
+					errorContext: { kind: "group" },
+				});
+
+				if (result.success) {
 					totalSent++;
-				} catch (err) {
-					const msg = err instanceof Error ? err.message : String(err);
-					allErrors.push(`${target}: ${msg}`);
+				} else {
+					allErrors.push(`${result.target}: ${result.error}`);
 					totalFailed++;
-					logger.error("Failed to forward to group member", { target, error: msg });
-					Sentry.captureException(err, { extra: { target, s3Key } });
 				}
 			}
 			continue;
@@ -292,24 +399,21 @@ const lambdaHandler = async (event: unknown) => {
 			continue;
 		}
 
-		try {
-			logger.info("Forwarding individual alias", { toAddress, targetMember: member.id });
-			const rewritten = rewriteMimeHeaders(rawMime, originalFrom, FORWARD_FROM_EMAIL, member.privateEmail);
-			await ses.send(
-				new SendRawEmailCommand({
-					Source: FORWARD_FROM_EMAIL,
-					Destinations: [member.privateEmail],
-					RawMessage: { Data: Buffer.from(rewritten) },
-				}),
-			);
-			logger.info("Email forwarded", { s3Key, target: member.privateEmail });
+		logger.info("Forwarding individual alias", { toAddress, targetMember: member.id });
+		const result = await sendForwardedEmail({
+			rawMime,
+			originalFrom,
+			newFrom: FORWARD_FROM_EMAIL,
+			target: member.privateEmail,
+			s3Key,
+			errorContext: { kind: "individual", toAddress },
+		});
+
+		if (result.success) {
 			totalSent++;
-		} catch (err) {
-			const msg = err instanceof Error ? err.message : String(err);
-			allErrors.push(`${member.privateEmail}: ${msg}`);
+		} else {
+			allErrors.push(`${result.target}: ${result.error}`);
 			totalFailed++;
-			logger.error("Failed to forward individual alias", { toAddress, error: msg });
-			Sentry.captureException(err, { extra: { toAddress, s3Key } });
 		}
 	}
 
