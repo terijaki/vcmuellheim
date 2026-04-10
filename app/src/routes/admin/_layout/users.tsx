@@ -224,9 +224,6 @@ function UsersPage() {
 								</Radio.Group>
 							)}
 						</createForm.Field>
-						<Text size="sm" c="dimmed">
-							Eine Einladungs-E-Mail mit temporären Zugangsdaten wird an den Benutzer gesendet.
-						</Text>
 						<Group justify="flex-end" gap="sm" ms="auto">
 							<Button variant="subtle" type="button" onClick={closeCreate}>
 								Abbrechen
