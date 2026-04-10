@@ -24,7 +24,7 @@ const GERMAN_CHAR_MAP: Record<string, string> = {
  * Examples:
  *   "Max Müller"   → "max.mueller"
  *   "Björn Koß" → "bjoern.koss"
- *   "Anna-Lisa"    → "anna-lisa" (hyphens preserved as dots)
+ *   "Anna-Lisa"    → "anna.lisa" (hyphens converted to dots)
  */
 export function normalizeAliasLocalPart(name: string): string {
 	return name
