@@ -8,7 +8,7 @@ import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type { SamsClubsSyncLambdaEnvironment, SamsCommonLambdaEnvironment, SamsTeamsSyncLambdaEnvironment } from "@/lambda/sams/types";
 import { getSamsDataTableName } from "./db/env";
-import { NodejsFunctionConstruct } from "./nodejs-function-construct";
+import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
 interface SamsApiStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -75,7 +75,7 @@ export class SamsApiStack extends cdk.Stack {
 		this.samsDataTable = samsDataTable;
 
 		// Create Lambda function for nightly clubs sync
-		this.samsClubsSync = new NodejsFunctionConstruct(this, "SamsClubsSync", {
+		this.samsClubsSync = new VcmNodejsFunction(this, "SamsClubsSync", {
 			namespace: "sams",
 			name: "sams-clubs-sync",
 			entry: path.join(__dirname, "../lambda/sams/sams-clubs-sync.ts"),
@@ -93,7 +93,7 @@ export class SamsApiStack extends cdk.Stack {
 		props?.mediaBucket?.grantWrite(this.samsClubsSync);
 
 		// Create Lambda function for nightly teams sync
-		this.samsTeamsSync = new NodejsFunctionConstruct(this, "SamsTeamsSync", {
+		this.samsTeamsSync = new VcmNodejsFunction(this, "SamsTeamsSync", {
 			namespace: "sams",
 			name: "sams-teams-sync",
 			entry: path.join(__dirname, "../lambda/sams/sams-teams-sync.ts"),

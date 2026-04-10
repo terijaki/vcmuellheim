@@ -13,7 +13,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3Notifications from "aws-cdk-lib/aws-s3-notifications";
 import type { Construct } from "constructs";
 import { Club, LambdaLayers } from "@/project.config";
-import { NodejsFunctionConstruct } from "./nodejs-function-construct";
+import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
 export interface MediaStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -110,7 +110,7 @@ export class MediaStack extends cdk.Stack {
 		const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(this, "ImageMagickLayer", isProd ? LambdaLayers.prod.imageMagick : LambdaLayers.dev.imageMagick); // TODO investigate if we can avoid the layer and bundle resources instead
 
 		// Create image processor Lambda function
-		const imageProcessorFunction = new NodejsFunctionConstruct(this, "ImageProcessor", {
+		const imageProcessorFunction = new VcmNodejsFunction(this, "ImageProcessor", {
 			namespace: "media",
 			name: "image-processor",
 			entry: "lambda/content/image-processor.ts",

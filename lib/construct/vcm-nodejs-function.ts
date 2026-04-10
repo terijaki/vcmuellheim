@@ -5,7 +5,7 @@ import * as logs from "aws-cdk-lib/aws-logs";
 import type { Construct } from "constructs";
 import { getSanitizedBranch } from "@utils/git";
 
-export interface NodejsFunctionConstructProps extends Omit<NodejsFunctionProps, "runtime" | "handler" | "logGroup"> {
+export interface VcmNodejsFunctionProps extends Omit<NodejsFunctionProps, "runtime" | "handler" | "logGroup"> {
 	namespace: string;
 	name: string;
 }
@@ -27,10 +27,10 @@ function buildLogGroupName(namespace: string, baseName: string): string {
 }
 
 /** Shared NodejsFunction defaults with managed CloudWatch log group. */
-export class NodejsFunctionConstruct extends cdk.Resource {
+export class VcmNodejsFunction extends cdk.Resource {
 	public readonly lambdaFunction: NodejsFunction;
 
-	constructor(scope: Construct, id: string, props: NodejsFunctionConstructProps) {
+	constructor(scope: Construct, id: string, props: VcmNodejsFunctionProps) {
 		super(scope, id);
 
 		const { bundling, namespace, name, ...restProps } = props;

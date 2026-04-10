@@ -8,7 +8,7 @@ import { DynamoEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
 import type * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type { BeholdSyncLambdaEnvironment, MastodonShareLambdaEnvironment, MastodonStreamHandlerLambdaEnvironment } from "@/lambda/social/types";
-import { NodejsFunctionConstruct } from "./nodejs-function-construct";
+import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
 interface SocialMediaStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -44,7 +44,7 @@ export class SocialMediaStack extends cdk.Stack {
 		}
 
 		// Create Lambda function for Mastodon sharing
-		const mastodonShare = new NodejsFunctionConstruct(this, "MastodonShare", {
+		const mastodonShare = new VcmNodejsFunction(this, "MastodonShare", {
 			namespace: "social",
 			name: "mastodon-share",
 			entry: path.join(__dirname, "../lambda/social/mastodon-share.ts"),
@@ -63,7 +63,7 @@ export class SocialMediaStack extends cdk.Stack {
 		// Create scheduled Lambda to proactively sync Behold Instagram posts to DynamoDB.
 		// Runs hourly during German daytime — ~465 calls/month (~39% of Behold's 1200/month free-tier limit).
 		if (props.contentTable) {
-			const beholdSync = new NodejsFunctionConstruct(this, "BeholdSync", {
+			const beholdSync = new VcmNodejsFunction(this, "BeholdSync", {
 				namespace: "social",
 				name: "behold-sync",
 				entry: path.join(__dirname, "../lambda/social/behold-sync.ts"),
@@ -88,7 +88,7 @@ export class SocialMediaStack extends cdk.Stack {
 
 		// Create Lambda function for Mastodon stream handler (DynamoDB streams)
 		if (props.contentTable && props.websiteUrl) {
-			const mastodonStreamHandler = new NodejsFunctionConstruct(this, "MastodonStreamHandler", {
+			const mastodonStreamHandler = new VcmNodejsFunction(this, "MastodonStreamHandler", {
 				namespace: "social",
 				name: "mastodon-stream-handler",
 				entry: path.join(__dirname, "../lambda/social/mastodon-stream-handler.ts"),

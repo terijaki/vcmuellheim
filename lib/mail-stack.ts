@@ -14,7 +14,7 @@ import * as sqs from "aws-cdk-lib/aws-sqs";
 import type { Construct } from "constructs";
 import { Mail } from "@/project.config";
 import type { MailForwardLambdaEnvironment } from "@/lambda/mail/types";
-import { NodejsFunctionConstruct } from "./nodejs-function-construct";
+import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
 interface MailStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -61,7 +61,7 @@ export class MailStack extends cdk.Stack {
 		const inboundBucket = s3.Bucket.fromBucketName(this, "InboundBucket", mailConfig.inboundBucketName);
 
 		// Lambda for mail forwarding
-		const mailForward = new NodejsFunctionConstruct(this, "MailForward", {
+		const mailForward = new VcmNodejsFunction(this, "MailForward", {
 			namespace: "mail",
 			name: "mail-forward",
 			entry: path.join(__dirname, "../lambda/mail/mail-forward.ts"),
