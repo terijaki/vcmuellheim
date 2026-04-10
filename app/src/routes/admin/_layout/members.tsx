@@ -2,16 +2,40 @@ import type { MemberInput } from "@lib/db/schemas";
 import { ActionIcon, Badge, Box, Button, Card, Checkbox, Flex, Group, Image, Modal, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useForm } from "@tanstack/react-form-start";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { MAX_UPLOAD_SIZE } from "@utils/image-config";
 import { useNotification } from "@webapp/hooks/useNotification";
-import { createMemberFn, deleteMemberFn, listMembersFn, updateMemberFn } from "@webapp/server/functions/members";
+import { formatProxyAlias, getProxyAliasDomain, parseProxyAlias } from "@webapp/server/functions/member-alias";
+import { adminListMembersFn, checkProxyEmailFn, createMemberFn, deleteMemberFn, listMembersFn, suggestProxyAliasFn, updateMemberFn } from "@webapp/server/functions/members";
 import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
 import { Pencil, Plus, Trash2, Upload, User, X } from "lucide-react";
 import { useState } from "react";
+import z from "zod";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
+const isValidEmail = (value: string) => z.email().safeParse(value).success;
+const defaultProxyAliasDomain = getProxyAliasDomain(import.meta.env.CDK_ENVIRONMENT);
+const branchNameFromEnv = (import.meta.env as Record<string, string | undefined>).VITE_BRANCH_NAME;
+
+const getProxyAliasInputParts = (proxyEmail?: string) => {
+	if (!proxyEmail) {
+		return {
+			domain: defaultProxyAliasDomain,
+			baseLocalPart: "",
+			branchName: branchNameFromEnv,
+		};
+	}
+
+	const parsed = parseProxyAlias(proxyEmail, defaultProxyAliasDomain);
+
+	return {
+		domain: parsed.domain,
+		baseLocalPart: parsed.baseLocalPart,
+		branchName: branchNameFromEnv || parsed.branchName,
+	};
+};
 
 const resolveFileUrl = async (s3Key?: string) => {
 	if (!s3Key) return null;
@@ -168,7 +192,7 @@ function CurrentAvatarDisplay({
 							Profilfoto hierher ziehen oder klicken zum Auswählen
 						</Text>
 						<Text size="sm" c="dimmed" inline mt={7}>
-							JPG oder PNG, max. ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB
+							JPG oder PNG, max. {bytesToMB(MAX_UPLOAD_SIZE, 0)}MB
 						</Text>
 					</Stack>
 				</Flex>
@@ -177,103 +201,78 @@ function CurrentAvatarDisplay({
 	);
 }
 
+const defaultFormValues = {
+	id: undefined as string | undefined,
+	name: "",
+	privateEmail: "",
+	proxyEmail: "",
+	phone: "",
+	isBoardMember: false,
+	isTrainer: false,
+	roleTitle: "",
+	avatarS3Key: undefined as string | undefined,
+};
+
+type PublicMemberListItem = Awaited<ReturnType<typeof listMembersFn>>["items"][number];
+type MemberListItem = PublicMemberListItem & { privateEmail?: string };
+
 function MembersPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
-	const [editingId, setEditingId] = useState<string | null>(null);
 	const [avatarFile, setAvatarFile] = useState<File | null>(null);
 	const [deleteAvatar, setDeleteAvatar] = useState(false);
-	const [uploading, setUploading] = useState(false);
-	const [formData, setFormData] = useState<Partial<MemberInput>>({
-		name: "",
-		email: "",
-		phone: "",
-		isBoardMember: false,
-		isTrainer: false,
-		roleTitle: "",
-		avatarS3Key: undefined,
-	});
+	const queryClient = useQueryClient();
+	const { currentUser } = Route.useRouteContext();
+	const canManageMembers = currentUser.role === "Admin";
 
 	const notification = useNotification();
-	const { data: members, isLoading, refetch } = useQuery({ queryKey: ["members", "list"], queryFn: () => listMembersFn() });
-	const uploadMutation = useMutation({
-		mutationFn: (data: Parameters<typeof getPresignedUrlFn>[0]["data"]) => getPresignedUrlFn({ data }),
-		onError: (error: unknown) => {
-			setUploading(false);
-			notification.error({
-				message: error instanceof Error ? error.message : "Upload fehlgeschlagen",
-			});
-		},
+	const {
+		data: members,
+		isLoading,
+		refetch,
+	} = useQuery({
+		queryKey: ["members", "list", canManageMembers ? "admin" : "public"],
+		queryFn: () => (canManageMembers ? adminListMembersFn() : listMembersFn()),
 	});
 
-	const createMutation = useMutation({
-		mutationFn: (data: Parameters<typeof createMemberFn>[0]["data"]) => createMemberFn({ data }),
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notification.success("Mitglied wurde erfolgreich erstellt");
-		},
-		onError: (error: unknown) => {
-			setUploading(false);
-			notification.error({
-				message: error instanceof Error ? error.message : "Mitglied konnte nicht erstellt werden",
-			});
-		},
-	});
+	const form = useForm({
+		defaultValues: defaultFormValues,
+		validators: {
+			onChange: ({ value }) => {
+				const hasProxyEmail = Boolean(value.proxyEmail);
+				const hasPrivateEmail = Boolean(value.privateEmail);
+				const privateEmailIsValid = !value.privateEmail || isValidEmail(value.privateEmail);
+				const proxyEmailIsValid = !value.proxyEmail || isValidEmail(value.proxyEmail);
 
-	const updateMutation = useMutation({
-		mutationFn: (data: Parameters<typeof updateMemberFn>[0]["data"]) => updateMemberFn({ data }),
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notification.success("Mitglied wurde aktualisiert");
-		},
-		onError: (error: unknown) => {
-			setUploading(false);
-			notification.error({
-				message: error instanceof Error ? error.message : "Mitglied konnte nicht aktualisiert werden",
-			});
-		},
-	});
+				const fieldErrors: Partial<Record<keyof typeof defaultFormValues, string>> = {};
 
-	const deleteMutation = useMutation({
-		mutationFn: (data: Parameters<typeof deleteMemberFn>[0]["data"]) => deleteMemberFn({ data }),
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setEditingId(null);
-			notification.success("Mitglied wurde erfolgreich gelöscht");
-		},
-		onError: (error: unknown) => {
-			notification.error({
-				message: error instanceof Error ? error.message : "Mitglied konnte nicht gelöscht werden",
-			});
-		},
-	});
+				if (!privateEmailIsValid) {
+					fieldErrors.privateEmail = "Bitte eine gültige E-Mail eingeben";
+				}
 
-	const resetForm = () => {
-		setFormData({
-			name: "",
-			email: "",
-			phone: "",
-			isBoardMember: false,
-			isTrainer: false,
-			roleTitle: "",
-			avatarS3Key: undefined,
-		});
-		setAvatarFile(null);
-	};
-	const handleSubmit = async () => {
-		if (!formData.name) return;
+				if (!proxyEmailIsValid) {
+					fieldErrors.proxyEmail = "Bitte eine gültige E-Mail eingeben";
+				}
 
-		setUploading(true);
-		try {
-			let avatarS3Key: string | null | undefined = formData.avatarS3Key;
+				if (hasProxyEmail && !hasPrivateEmail) {
+					fieldErrors.privateEmail = "Private E-Mail erforderlich";
+				}
+
+				if (Object.keys(fieldErrors).length === 0) {
+					return undefined;
+				}
+
+				return { fields: fieldErrors };
+			},
+		},
+		onSubmit: async ({ value }) => {
+			if (!canManageMembers) {
+				notification.error("Keine Berechtigung zum Bearbeiten von Mitgliedern");
+				return;
+			}
+
+			const currentEditingId = value.id;
+			let avatarS3Key: string | null | undefined = value.avatarS3Key;
 
 			// Handle avatar deletion
 			if (deleteAvatar) {
@@ -281,19 +280,15 @@ function MembersPage() {
 			}
 			// Upload new avatar if a file was selected
 			else if (avatarFile) {
-				const { uploadUrl, key } = await uploadMutation.mutateAsync({
-					filename: avatarFile.name,
-					contentType: avatarFile.type,
-					folder: "members",
+				const { uploadUrl, key } = await getPresignedUrlFn({
+					data: { filename: avatarFile.name, contentType: avatarFile.type, folder: "members" },
 				});
 
 				// Upload file to S3
 				const uploadResponse = await fetch(uploadUrl, {
 					method: "PUT",
 					body: avatarFile,
-					headers: {
-						"Content-Type": avatarFile.type,
-					},
+					headers: { "Content-Type": avatarFile.type },
 				});
 
 				if (!uploadResponse.ok) {
@@ -303,60 +298,135 @@ function MembersPage() {
 				avatarS3Key = key;
 			}
 
-			// Filter out empty strings to avoid DynamoDB GSI errors
-			// When editing, convert empty optional string fields to null so they can be cleared
-			const clearableOptionalFields = new Set(["email", "phone", "roleTitle"]);
+			// Filter out empty strings to avoid DynamoDB GSI errors.
+			// When editing, convert empty optional string fields to null so they can be cleared.
+			const clearableOptionalFields = new Set(["privateEmail", "proxyEmail", "phone", "roleTitle"]);
 			const cleanedData: Record<string, unknown> = {};
-			for (const [key, value] of Object.entries({ ...formData, avatarS3Key })) {
+			for (const [key, val] of Object.entries({ ...value, avatarS3Key })) {
+				if (key === "id") {
+					continue;
+				}
+
 				if (key === "avatarS3Key") {
 					cleanedData[key] = avatarS3Key; // always include (null for deletion, string for set, undefined for no change)
-				} else if (editingId && clearableOptionalFields.has(key) && value === "") {
+				} else if (currentEditingId && clearableOptionalFields.has(key) && val === "") {
 					cleanedData[key] = null; // null signals the server to remove this attribute
-				} else if (value !== "" && value !== undefined) {
-					cleanedData[key] = value;
+				} else if (val !== "" && val !== undefined) {
+					cleanedData[key] = val;
 				}
 			}
 
-			if (editingId) {
-				updateMutation.mutate({
-					id: editingId,
-					data: cleanedData,
+			try {
+				if (currentEditingId) {
+					await updateMemberFn({ data: { id: currentEditingId, data: cleanedData } });
+					notification.success("Mitglied wurde aktualisiert");
+				} else {
+					await createMemberFn({ data: cleanedData as MemberInput });
+					notification.success("Mitglied wurde erfolgreich erstellt");
+				}
+				void refetch();
+				close();
+				form.reset();
+				setAvatarFile(null);
+				setDeleteAvatar(false);
+			} catch (error) {
+				notification.error({
+					message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten",
 				});
-			} else {
-				createMutation.mutate(cleanedData as MemberInput);
 			}
-		} catch (error) {
-			notification.error({
-				message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten",
+		},
+	});
+	const editingId = form.getFieldValue("id");
+
+	const maybeSuggestAlias = async () => {
+		if (!canManageMembers) {
+			return;
+		}
+
+		const name = form.getFieldValue("name");
+		const privateEmail = form.getFieldValue("privateEmail");
+		const proxyEmail = form.getFieldValue("proxyEmail");
+		const requestKey = `${name}|${privateEmail}`;
+
+		if (!name || !isValidEmail(privateEmail) || proxyEmail) {
+			return;
+		}
+
+		try {
+			const alias = await queryClient.fetchQuery({
+				queryKey: ["members", "suggestProxyAlias", name, privateEmail],
+				queryFn: async () => {
+					const { alias } = await suggestProxyAliasFn({ data: { name } });
+					return alias;
+				},
+				staleTime: 5 * 60 * 1000,
 			});
-			setUploading(false);
+
+			const currentName = form.getFieldValue("name");
+			const currentPrivateEmail = form.getFieldValue("privateEmail");
+			const currentProxyEmail = form.getFieldValue("proxyEmail");
+			if (`${currentName}|${currentPrivateEmail}` === requestKey && !currentProxyEmail) {
+				form.setFieldValue("proxyEmail", alias);
+			}
+		} catch {
+			// ignore
 		}
 	};
 
-	const handleEdit = (member: MemberInput & { id: string }) => {
-		setFormData({
-			name: member.name,
-			email: member.email || "",
-			phone: member.phone || "",
-			isBoardMember: member.isBoardMember || false,
-			isTrainer: member.isTrainer || false,
-			roleTitle: member.roleTitle || "",
-			avatarS3Key: member.avatarS3Key,
-		});
-		setEditingId(member.id);
+	const deleteMutation = useMutation({
+		mutationFn: (data: Parameters<typeof deleteMemberFn>[0]["data"]) => deleteMemberFn({ data }),
+		onSuccess: () => {
+			void refetch();
+			close();
+			form.reset();
+			setAvatarFile(null);
+			setDeleteAvatar(false);
+			notification.success("Mitglied wurde erfolgreich gelöscht");
+		},
+		onError: (error: unknown) => {
+			notification.error({
+				message: error instanceof Error ? error.message : "Mitglied konnte nicht gelöscht werden",
+			});
+		},
+	});
+
+	const handleEdit = (member: MemberListItem) => {
+		if (!canManageMembers) {
+			return;
+		}
+
+		form.setFieldValue("id", member.id);
+		form.setFieldValue("name", member.name);
+		form.setFieldValue("privateEmail", member.privateEmail ?? "");
+		form.setFieldValue("proxyEmail", member.proxyEmail ?? "");
+		form.setFieldValue("phone", member.phone ?? "");
+		form.setFieldValue("isBoardMember", member.isBoardMember ?? false);
+		form.setFieldValue("isTrainer", member.isTrainer ?? false);
+		form.setFieldValue("roleTitle", member.roleTitle ?? "");
+		form.setFieldValue("avatarS3Key", member.avatarS3Key);
 		setDeleteAvatar(false);
 		setAvatarFile(null);
 		open();
 	};
 
 	const handleDelete = (id: string) => {
+		if (!canManageMembers) {
+			return;
+		}
+
 		if (window.confirm("Möchten Sie dieses Mitglied wirklich löschen?")) {
 			deleteMutation.mutate({ id });
 		}
 	};
 
 	const handleOpenNew = () => {
-		resetForm();
+		if (!canManageMembers) {
+			return;
+		}
+
+		form.reset();
+		setDeleteAvatar(false);
+		setAvatarFile(null);
 		open();
 	};
 
@@ -364,67 +434,207 @@ function MembersPage() {
 		<Stack gap="md">
 			<Group justify="space-between">
 				<Title order={2}>Mitglieder</Title>
-				<Button onClick={handleOpenNew} leftSection={<Plus />} visibleFrom="sm">
-					Neues Mitglied
-				</Button>
-				<ActionIcon onClick={handleOpenNew} hiddenFrom="sm" variant="filled" radius="xl">
-					<Plus size={20} />
-				</ActionIcon>
+				{canManageMembers && (
+					<>
+						<Button onClick={handleOpenNew} leftSection={<Plus />} visibleFrom="sm">
+							Neues Mitglied
+						</Button>
+						<ActionIcon onClick={handleOpenNew} hiddenFrom="sm" variant="filled" radius="xl">
+							<Plus size={20} />
+						</ActionIcon>
+					</>
+				)}
 			</Group>
 
-			<Modal opened={opened} onClose={close} title={editingId ? "Mitglied bearbeiten" : "Neues Mitglied"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
-				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
-					<TextInput label="Name" placeholder="z.B. Max Mustermann" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
-					<TextInput label="E-Mail" placeholder="max@vcmuellheim.de" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
-					<TextInput label="Telefon" placeholder="+49 123 456789" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
-					<TextInput label="Funktion" placeholder="z.B. Abteilungsleiter" value={formData.roleTitle} onChange={(e) => setFormData({ ...formData, roleTitle: e.target.value })} />
-					<Group gap="md">
-						<Checkbox label="Board Member" checked={formData.isBoardMember} onChange={(e) => setFormData({ ...formData, isBoardMember: e.currentTarget.checked })} />
-						<Checkbox label="Trainer" checked={formData.isTrainer} onChange={(e) => setFormData({ ...formData, isTrainer: e.currentTarget.checked })} />
-					</Group>
-					<CurrentAvatarDisplay
-						avatarS3Key={formData.avatarS3Key}
-						avatarFile={avatarFile}
-						deleteAvatar={deleteAvatar}
-						onFileChange={setAvatarFile}
-						onDeleteToggle={() => {
-							setDeleteAvatar(!deleteAvatar);
-							setAvatarFile(null);
+			{canManageMembers && (
+				<Modal opened={opened} onClose={close} title={editingId ? "Mitglied bearbeiten" : "Neues Mitglied"} size={isMobile ? "100%" : "lg"} fullScreen={isMobile}>
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+							void form.handleSubmit();
 						}}
-						onFileSizeError={(message) => {
-							notification.error({ message });
-						}}
-					/>
-					<Group justify="space-between" mt="md">
-						{editingId && (
-							<>
-								<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
-									<Trash2 />
-								</ActionIcon>
-								<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
-									Löschen
-								</Button>
-							</>
-						)}
-						<Group gap="xs">
-							<Button variant="light" onClick={close}>
-								Abbrechen
-							</Button>
-							<Button variant="filled" onClick={handleSubmit} loading={uploading || createMutation.isPending || updateMutation.isPending} disabled={!formData.name}>
-								{editingId ? "Aktualisieren" : "Erstellen"}
-							</Button>
-						</Group>
-					</Group>
-				</Stack>
-			</Modal>
+					>
+						<Stack gap="md" p={{ base: "md", sm: "sm" }}>
+							<form.Field
+								name="name"
+								listeners={{
+									onChange: () => {
+										void maybeSuggestAlias();
+									},
+									onChangeDebounceMs: 350,
+								}}
+								validators={{
+									onChange: ({ value }) => (!value ? "Name ist erforderlich" : undefined),
+								}}
+							>
+								{(field) => (
+									<TextInput
+										label="Name"
+										placeholder="z.B. Max Mustermann"
+										value={field.state.value}
+										onChange={(e) => field.handleChange(e.target.value)}
+										onBlur={() => field.handleBlur()}
+										error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
+										required
+									/>
+								)}
+							</form.Field>
+
+							<form.Field
+								name="privateEmail"
+								listeners={{
+									onChange: () => {
+										void maybeSuggestAlias();
+									},
+									onChangeDebounceMs: 350,
+								}}
+								validators={{
+									onChange: ({ value }) => {
+										if (!value) return undefined;
+										return isValidEmail(value) ? undefined : "Bitte eine gültige E-Mail eingeben";
+									},
+								}}
+							>
+								{(field) => (
+									<TextInput
+										label="Private E-Mail"
+										placeholder="max.mustermann@gmail.com"
+										type="email"
+										value={field.state.value}
+										onChange={(e) => field.handleChange(e.target.value)}
+										onBlur={() => field.handleBlur()}
+										description="Wird nicht öffentlich angezeigt. Eingehende Mails werden hierhin weitergeleitet."
+										error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
+									/>
+								)}
+							</form.Field>
+
+							<form.Subscribe selector={(state) => state.values.privateEmail}>
+								{(privateEmail) =>
+									isValidEmail(privateEmail) ? (
+										<form.Field
+											name="proxyEmail"
+											validators={{
+												onChange: ({ value }) => {
+													if (!value) return undefined;
+													return isValidEmail(value) ? undefined : "Bitte eine gültige E-Mail eingeben";
+												},
+												onChangeAsync: async ({ value }) => {
+													if (!value) return undefined;
+													if (!isValidEmail(value)) return undefined;
+													try {
+														const { available } = await checkProxyEmailFn({
+															data: { proxyEmail: value, excludeMemberId: editingId ?? undefined },
+														});
+														return available ? undefined : "Alias bereits vergeben";
+													} catch {
+														return undefined;
+													}
+												},
+												onChangeAsyncDebounceMs: 400,
+											}}
+										>
+											{(field) =>
+												(() => {
+													const { domain, baseLocalPart, branchName } = getProxyAliasInputParts(field.state.value);
+													const aliasSuffix = branchName ? `+${branchName}` : "";
+
+													return (
+														<TextInput
+															label="Email Alias"
+															placeholder="erika.mustermann"
+															value={baseLocalPart}
+															rightSection={
+																<Text size="sm" c="dimmed" pr="xs" style={{ textWrap: "nowrap", pointerEvents: "none" }}>
+																	{aliasSuffix}@{domain}
+																</Text>
+															}
+															rightSectionWidth={"auto"}
+															onChange={(e) => {
+																const local = e.target.value;
+																field.handleChange(local ? formatProxyAlias(local, domain, branchName) : "");
+															}}
+															onBlur={() => field.handleBlur()}
+															description="Öffentliche Weiterleitung. Erscheint in Kontaktlinks auf der Website."
+															error={field.state.meta.isTouched ? field.state.meta.errors[0] : undefined}
+														/>
+													);
+												})()
+											}
+										</form.Field>
+									) : null
+								}
+							</form.Subscribe>
+
+							<form.Field name="phone">
+								{(field) => <TextInput label="Telefon" placeholder="+49 123 456789" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+							</form.Field>
+
+							<form.Field name="roleTitle">
+								{(field) => <TextInput label="Funktion" placeholder="z.B. Abteilungsleiter" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+							</form.Field>
+
+							<Group gap="md">
+								<form.Field name="isBoardMember">{(field) => <Checkbox label="Board Member" checked={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.checked)} />}</form.Field>
+								<form.Field name="isTrainer">{(field) => <Checkbox label="Trainer" checked={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.checked)} />}</form.Field>
+							</Group>
+
+							<form.Field name="avatarS3Key">
+								{(field) => (
+									<CurrentAvatarDisplay
+										avatarS3Key={field.state.value}
+										avatarFile={avatarFile}
+										deleteAvatar={deleteAvatar}
+										onFileChange={setAvatarFile}
+										onDeleteToggle={() => {
+											setDeleteAvatar(!deleteAvatar);
+											setAvatarFile(null);
+										}}
+										onFileSizeError={(message) => {
+											notification.error({ message });
+										}}
+									/>
+								)}
+							</form.Field>
+
+							<Group justify="space-between" mt="md">
+								{editingId && (
+									<>
+										<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+											<Trash2 />
+										</ActionIcon>
+										<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+											Löschen
+										</Button>
+									</>
+								)}
+								<Group gap="xs" ms="auto">
+									<Button type="button" variant="light" onClick={close}>
+										Abbrechen
+									</Button>
+									<form.Subscribe selector={(state) => ({ isSubmitting: state.isSubmitting, canSubmit: state.canSubmit })}>
+										{({ isSubmitting, canSubmit }) => (
+											<Button type="submit" variant="filled" loading={isSubmitting} disabled={!canSubmit}>
+												{editingId ? "Aktualisieren" : "Erstellen"}
+											</Button>
+										)}
+									</form.Subscribe>
+								</Group>
+							</Group>
+						</Stack>
+					</form>
+				</Modal>
+			)}
 
 			{isLoading ? (
 				<Text>Laden...</Text>
 			) : members && members.items.length > 0 ? (
 				<SimpleGrid cols={{ base: 1, sm: 2, xl: 3 }} spacing="md">
-					{members.items.map((member) => (
-						<MemberCard key={member.id} member={member} onEdit={handleEdit} onDelete={handleDelete} isDeleting={deleteMutation.isPending} />
-					))}
+					{members.items
+						.sort((a, b) => a.name.localeCompare(b.name))
+						.map((member) => (
+							<MemberCard key={member.id} member={member} onEdit={canManageMembers ? handleEdit : undefined} />
+						))}
 				</SimpleGrid>
 			) : (
 				<Text c="dimmed" ta="center" py="xl">
@@ -435,13 +645,13 @@ function MembersPage() {
 	);
 }
 
-function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; onEdit: (member: MemberInput & { id: string }) => void; onDelete: (id: string) => void; isDeleting: boolean }) {
+function MemberCard({ member, onEdit }: { member: MemberListItem; onEdit?: (member: MemberListItem) => void }) {
 	const { data: avatarUrl } = useQuery({
 		queryKey: ["upload", "fileUrl", member.avatarS3Key],
 		queryFn: () => resolveFileUrl(member.avatarS3Key),
 		enabled: !!member.avatarS3Key,
 	});
-	const hasDetails = Boolean(member.roleTitle || member.email || member.phone);
+	const hasDetails = Boolean(member.roleTitle || member.proxyEmail || member.phone);
 	const hasBadges = member.isBoardMember || member.isTrainer;
 
 	return (
@@ -463,9 +673,11 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 								{member.name}
 							</Title>
 
-							<ActionIcon variant="filled" radius="xl" size="lg" onClick={() => onEdit(member)} aria-label="Bearbeiten" style={{ flexShrink: 0 }}>
-								<Pencil size={16} />
-							</ActionIcon>
+							{onEdit && (
+								<ActionIcon variant="filled" radius="xl" size="lg" onClick={() => onEdit(member)} aria-label="Bearbeiten" style={{ flexShrink: 0 }}>
+									<Pencil size={16} />
+								</ActionIcon>
+							)}
 						</Group>
 
 						{hasDetails && (
@@ -475,9 +687,9 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 										{member.roleTitle}
 									</Text>
 								)}
-								{member.email && (
+								{member.proxyEmail && (
 									<Text size="sm" c="dimmed" style={{ overflowWrap: "anywhere" }}>
-										{member.email}
+										{member.proxyEmail}
 									</Text>
 								)}
 								{member.phone && (
@@ -523,9 +735,11 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 								{member.name}
 							</Title>
 
-							<ActionIcon variant="filled" radius="xl" onClick={() => onEdit(member)} aria-label="Bearbeiten">
-								<Pencil size={16} />
-							</ActionIcon>
+							{onEdit && (
+								<ActionIcon variant="filled" radius="xl" onClick={() => onEdit(member)} aria-label="Bearbeiten">
+									<Pencil size={16} />
+								</ActionIcon>
+							)}
 						</Group>
 
 						{hasDetails && (
@@ -535,9 +749,9 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 										{member.roleTitle}
 									</Text>
 								)}
-								{member.email && (
+								{member.proxyEmail && (
 									<Text size="sm" c="dimmed" lineClamp={1} style={{ overflowWrap: "anywhere" }}>
-										{member.email}
+										{member.proxyEmail}
 									</Text>
 								)}
 								{member.phone && (
@@ -569,5 +783,8 @@ function MemberCard({ member, onEdit }: { member: MemberInput & { id: string }; 
 	);
 }
 export const Route = createFileRoute("/admin/_layout/members")({
+	beforeLoad: ({ context }) => {
+		return { currentUser: context.user };
+	},
 	component: MembersPage,
 });

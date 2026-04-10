@@ -105,12 +105,12 @@ export default function TeamCard(props: Team) {
 							<Box>
 								{coaches?.map((trainer, index) => {
 									if (typeof trainer !== "object") return null;
-									if (trainer.email) emailAddresses.set(trainer.email, trainer.email);
+									if (trainer.proxyEmail) emailAddresses.set(trainer.proxyEmail, trainer.proxyEmail);
 									return (
 										<Fragment key={trainer.name}>
 											{index !== 0 && " & "}
-											{trainer.email ? (
-												<Anchor component="a" href={`mailto:${trainer.email}`} underline="never">
+											{trainer.proxyEmail ? (
+												<Anchor component="a" href={`mailto:${trainer.proxyEmail}`} underline="never">
 													{trainer.name}
 												</Anchor>
 											) : (
@@ -131,12 +131,12 @@ export default function TeamCard(props: Team) {
 							<Box>
 								{contactPeople?.map((person, index) => {
 									if (typeof person !== "object") return null;
-									if (person.email) emailAddresses.set(person.email, person.email);
+									if (person.proxyEmail) emailAddresses.set(person.proxyEmail, person.proxyEmail);
 									return (
 										<Fragment key={person.name}>
 											{index !== 0 && " & "}
-											{person.email ? (
-												<Anchor component="a" href={`mailto:${person.email}`} underline="never">
+											{person.proxyEmail ? (
+												<Anchor component="a" href={`mailto:${person.proxyEmail}`} underline="never">
 													{person.name}
 												</Anchor>
 											) : (

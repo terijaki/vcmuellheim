@@ -196,6 +196,32 @@ describe("WebAppStack", () => {
 		});
 	});
 
+	it("passes BRANCH_NAME to the webapp Lambda for branch deployments", () => {
+		const app = createTestApp();
+		const dependencies = createDependencies(app);
+
+		const stack = new WebAppStack(app, "TestStack", {
+			env: testEnv,
+			stackProps: {
+				environment: "dev",
+				branch: "email-proxy",
+			},
+			...dependencies,
+		});
+
+		const template = Template.fromStack(stack);
+
+		template.hasResourceProperties("AWS::Lambda::Function", {
+			FunctionName: "vcm-webapp-dev-email-proxy",
+			Environment: {
+				Variables: Match.objectLike({
+					BRANCH_NAME: "email-proxy",
+					CDK_ENVIRONMENT: "dev",
+				}),
+			},
+		});
+	});
+
 	it("maps all public folders to CloudFront S3 behaviors", () => {
 		const app = createTestApp();
 		const dependencies = createDependencies(app);

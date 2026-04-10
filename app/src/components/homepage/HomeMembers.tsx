@@ -1,4 +1,4 @@
-import type { Member } from "@lib/db/types";
+import type { PublicMember } from "@webapp/server/functions/members";
 import { Container, Group, Stack } from "@mantine/core";
 import { shuffleArray } from "@utils/shuffleArray";
 import { useMembers } from "../../hooks/dataQueries";
@@ -42,7 +42,7 @@ export default function HomeMembers() {
 	);
 }
 
-function MemberList({ members, showRole }: { members: Member[]; showRole?: boolean }) {
+function MemberList({ members, showRole }: { members: PublicMember[]; showRole?: boolean }) {
 	return (
 		<Group justify="center" align="stretch">
 			{members?.map((member) => (

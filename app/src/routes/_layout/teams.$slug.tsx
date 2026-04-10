@@ -237,18 +237,18 @@ function TeamTrainers({ team }: { team: NonNullable<ReturnType<typeof useTeamByS
 									<Text fw="bold" c="turquoise">
 										{member.name}
 									</Text>
-									{member.email && (
+									{member.proxyEmail && (
 										<Text c="dimmed" size="xs">
-											{member.email}
+											{member.proxyEmail}
 										</Text>
 									)}
 								</Stack>
 							</Group>
 						);
 
-						if (member.email) {
+						if (member.proxyEmail) {
 							return (
-								<Anchor key={member.id} href={`mailto:${member.email}`} underline="never">
+								<Anchor key={member.id} href={`mailto:${member.proxyEmail}`} underline="never">
 									<Person />
 								</Anchor>
 							);

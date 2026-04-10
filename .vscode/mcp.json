@@ -3,6 +3,15 @@
 		"Sentry.io": {
 			"url": "https://mcp.sentry.dev/mcp/volleyballclub-mullheim-ev",
 			"type": "http"
+		},
+		"CloudWatch MCP Server": {
+			"command": "uvx",
+			"args": ["awslabs.cloudwatch-mcp-server@latest"],
+			"env": {
+				"AWS_PROFILE": "[The AWS Profile Name to use for AWS access]",
+				"FASTMCP_LOG_LEVEL": "ERROR"
+			},
+			"type": "stdio"
 		}
 	},
 	"inputs": []

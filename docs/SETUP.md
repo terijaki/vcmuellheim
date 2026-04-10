@@ -94,7 +94,7 @@ For prod operations, replace `vcm-dev` with `vcm-prod` in step 2.
 vp dev              # Start local dev server
 vp check            # Lint + typecheck
 vp test             # Run tests
-vpr verify:all      # Lint + typecheck + tests (full quality gate)
+vpr verify      # Lint + typecheck + tests (full quality gate)
 
 vpr db:seed         # Seed dev DynamoDB with fake data
 vpr db:seed:sams    # Trigger SAMS sync Lambdas

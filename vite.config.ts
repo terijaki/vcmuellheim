@@ -4,7 +4,6 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite-plus";
-import { varlockVitePlugin } from "@varlock/vite-integration";
 import { getAppEnvironment, localAwsResourceEnvPlugin } from "./app/vite/localAwsResourceEnv.ts";
 
 const isProd = getAppEnvironment() === "prod";
@@ -28,7 +27,6 @@ export default defineConfig({
 		},
 	},
 	plugins: [
-		varlockVitePlugin({ ssrInjectMode: "auto-load" }),
 		localAwsResourceEnvPlugin(),
 		nitro({
 			preset: "aws-lambda",
@@ -71,11 +69,6 @@ export default defineConfig({
 	run: {
 		tasks: {
 			// CDK deploy guarded by full check + tests
-			deploy: {
-				command: "bun run cdk:deploy",
-				dependsOn: ["lint", "test"],
-				cache: false,
-			},
 			"deploy-all": {
 				command: "bun run cdk:deploy:all",
 				dependsOn: ["lint", "test"],

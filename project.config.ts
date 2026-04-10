@@ -59,3 +59,23 @@ export const LambdaLayers = {
 		imageMagick: "arn:aws:lambda:eu-central-1:418553863544:layer:image-magick:1" as const,
 	},
 } as const;
+
+/** AWS SES mail configuration (manually created, environment-specific). */
+export const Mail = {
+	prod: {
+		recipientDomain: "vcmuellheim.de" as const,
+		inboundBucketName: "vcm-mail-inbound-041632640830-eu-central-1-an" as const,
+		receiptRuleSetName: "vcm-inbound-prod" as const,
+		receiptRuleName: "store-inbound-prod" as const,
+		systemFromEmail: "postmaster@vcmuellheim.de" as const,
+		sesRegion: "eu-central-1" as const,
+	},
+	dev: {
+		recipientDomain: "new.vcmuellheim.de" as const,
+		inboundBucketName: "vcm-mail-inbound-418553863544-eu-central-1-an" as const,
+		receiptRuleSetName: "vcm-inbound-dev" as const,
+		receiptRuleName: "store-inbound-dev" as const,
+		systemFromEmail: "postmaster@new.vcmuellheim.de" as const,
+		sesRegion: "eu-central-1" as const,
+	},
+} as const;

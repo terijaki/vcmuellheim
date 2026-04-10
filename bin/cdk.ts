@@ -6,6 +6,7 @@ import { DNS } from "@/project.config";
 import { BudgetStack } from "../lib/budget-stack";
 import { ContentDbStack } from "../lib/content-db-stack";
 import { DnsStack } from "../lib/dns-stack";
+import { MailStack } from "../lib/mail-stack";
 import { MediaStack } from "../lib/media-stack";
 import { MonitoringStack } from "../lib/monitoring-stack";
 import { SamsApiStack } from "../lib/sams-api-stack";
@@ -99,6 +100,15 @@ const webappStack = new WebAppStack(app, webappStackName, {
 
 // Budget monitoring - requires email for alerts
 const budgetEmail = ENV.CDK_BUDGET_ALERT_EMAIL;
+
+// Mail forwarding stack — branch-scoped Lambda/EventBridge/DLQ/alarms
+const mailStackName = isProd ? `MailStack-Prod${branchSuffix}` : `MailStack-Dev${branchSuffix}`;
+new MailStack(app, mailStackName, {
+	...commonStackProps,
+	description: `Inbound Mail Forwarding (${environment}${branchSuffix})`,
+	contentTable: contentDbStack.contentTable,
+	alertEmail: ENV.CDK_MONITORING_ALERT_EMAIL || budgetEmail,
+});
 if (budgetEmail || isDestroy) {
 	new BudgetStack(app, budgetStackName, {
 		...commonStackProps,

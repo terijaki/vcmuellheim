@@ -1,13 +1,13 @@
 import { Card, Center, Group, Image, Stack, Text } from "@mantine/core";
 import { FaUser as IconAvatar } from "react-icons/fa6";
-import type { Member } from "@/lib/db/types";
+import type { PublicMember } from "@webapp/server/functions/members";
 import { useFileUrl } from "../hooks/dataQueries";
 
-export default function MemberCard({ member, show, dark }: { member: Member; show?: "roles" | "email" | "phone"; dark?: boolean }) {
-	const { id, name, email, phone, avatarS3Key, roleTitle } = member;
+export default function MemberCard({ member, show, dark }: { member: PublicMember; show?: "roles" | "email" | "phone"; dark?: boolean }) {
+	const { id, name, proxyEmail, phone, avatarS3Key, roleTitle } = member;
 	const { data: avatarUrl } = useFileUrl(avatarS3Key);
 	return (
-		<Card component="a" data-member-id={id} href={email ? `mailto:${email}` : ""} p={0} withBorder bg={dark ? "onyx" : undefined} w={{ base: "100%", xs: 208 }} maw={280} mih={72}>
+		<Card component="a" data-member-id={id} href={proxyEmail ? `mailto:${proxyEmail}` : ""} p={0} withBorder bg={dark ? "onyx" : undefined} w={{ base: "100%", xs: 208 }} maw={280} mih={72}>
 			<Stack gap={0} h="100%">
 				<Group gap={0} align="stretch" h="100%">
 					<Stack bg={dark ? "blumine" : "lion"} w={{ base: 72, xs: 56 }} c="white" align="center" justify="center">
@@ -36,9 +36,9 @@ export default function MemberCard({ member, show, dark }: { member: Member; sho
 						<Text size="xs">{phone}</Text>
 					</Center>
 				)}
-				{show === "email" && email && (
+				{show === "email" && proxyEmail && (
 					<Center p={2} c="white" bg="blumine">
-						<Text size="xs">{email}</Text>
+						<Text size="xs">{proxyEmail}</Text>
 					</Center>
 				)}
 			</Stack>

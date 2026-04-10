@@ -3,6 +3,7 @@ import { ActionIcon, Badge, Box, Button, Card, Flex, Group, Image, Modal, Pill, 
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { RichTextEditor } from "@mantine/tiptap";
+import { useForm } from "@tanstack/react-form-start";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Image as ImageExtension } from "@tiptap/extension-image";
@@ -15,47 +16,47 @@ import { createNewsFn, deleteNewsFn, listAllNewsFn, updateNewsFn } from "@webapp
 import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
 import dayjs from "dayjs";
 import { Plus, Search, SquarePen, Trash2, Upload, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
+
+const defaultFormValues = {
+	id: undefined as string | undefined,
+	title: "",
+	content: "",
+	excerpt: "",
+	status: undefined as NewsInput["status"] | undefined,
+	imageS3Keys: [] as string[],
+	tags: [] as string[],
+};
 
 function NewsPage() {
 	const notification = useNotification();
 	const isMobile = useMediaQuery("(max-width: 48em)");
 	const [opened, { open, close }] = useDisclosure(false);
-	const [editingId, setEditingId] = useState<string | null>(null);
 	const [imageFiles, setImageFiles] = useState<File[]>([]);
 	const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
 	const [uploading, setUploading] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [statusFilter, setStatusFilter] = useState<"all" | "published" | "draft" | "archived">("all");
 	const [searchOpen, setSearchOpen] = useState(false);
-	const [formData, setFormData] = useState<Partial<NewsInput>>({
-		title: "",
-		content: "",
-		excerpt: "",
-		status: undefined,
-		imageS3Keys: [],
-		tags: [],
+	const form = useForm({
+		defaultValues: defaultFormValues,
 	});
+	const editingId = form.getFieldValue("id");
 
 	const editor = useEditor({
 		extensions: [StarterKit, LinkExtension, ImageExtension],
-		content: formData.content || "",
+		content: "",
 		immediatelyRender: false,
 		onUpdate: ({ editor }) => {
 			const html = editor.getHTML();
 			const text = editor.getText();
 			const excerpt = text.slice(0, 500);
-			setFormData((currentFormData) => ({ ...currentFormData, content: html, excerpt }));
+			form.setFieldValue("content", html);
+			form.setFieldValue("excerpt", excerpt);
 		},
 	});
-
-	useEffect(() => {
-		if (editor && formData.content !== editor.getHTML()) {
-			editor.commands.setContent(formData.content || "");
-		}
-	}, [formData.content, editor]);
 
 	const { data: news, isLoading, refetch } = useQuery({ queryKey: ["news", "list"], queryFn: () => listAllNewsFn({ data: { limit: 100 } }) });
 	const uploadMutation = useMutation({ mutationFn: (data: Parameters<typeof getPresignedUrlFn>[0]["data"]) => getPresignedUrlFn({ data }) });
@@ -93,7 +94,6 @@ function NewsPage() {
 			refetch();
 			close();
 			resetForm();
-			setEditingId(null);
 			notification.success("News wurde erfolgreich gelöscht");
 		},
 		onError: (error) => {
@@ -102,23 +102,16 @@ function NewsPage() {
 	});
 
 	const resetForm = () => {
-		setFormData({
-			title: "",
-			content: "",
-			excerpt: "",
-			status: undefined,
-			imageS3Keys: [],
-			tags: [],
-		});
+		form.reset();
 		editor?.commands.clearContent();
 		setImageFiles([]);
 		setImagesToDelete([]);
-		setEditingId(null);
 	};
 
-	const handleSubmit = async (newStatus: "draft" | "published" | "archived") => {
+	const handleSubmit = async (newStatus: "draft" | "published" | "archived", formData: typeof defaultFormValues) => {
 		const { title, content } = formData;
 		if (!title || !content) return;
+		const currentEditingId = formData.id;
 
 		setUploading(true);
 		try {
@@ -161,9 +154,9 @@ function NewsPage() {
 				tags: formData.tags && formData.tags.length > 0 ? formData.tags : undefined,
 			};
 
-			if (editingId) {
+			if (currentEditingId) {
 				updateMutation.mutate({
-					id: editingId,
+					id: currentEditingId,
 					data: submitData,
 				});
 			} else {
@@ -176,17 +169,16 @@ function NewsPage() {
 	};
 
 	const handleEdit = (article: NewsInput & { id: string }) => {
-		setFormData({
-			title: article.title,
-			content: article.content,
-			excerpt: article.excerpt || "",
-			status: article.status,
-			imageS3Keys: article.imageS3Keys || [],
-			tags: article.tags || [],
-		});
+		form.setFieldValue("id", article.id);
+		form.setFieldValue("title", article.title);
+		form.setFieldValue("content", article.content);
+		form.setFieldValue("excerpt", article.excerpt || "");
+		form.setFieldValue("status", article.status);
+		form.setFieldValue("imageS3Keys", article.imageS3Keys || []);
+		form.setFieldValue("tags", article.tags || []);
+		editor?.commands.setContent(article.content || "");
 		setImageFiles([]);
 		setImagesToDelete([]);
-		setEditingId(article.id);
 		open();
 	};
 
@@ -273,197 +265,212 @@ function NewsPage() {
 			</Group>
 
 			<Modal opened={opened} onClose={close} title={editingId ? "News bearbeiten" : "News erstellen"} size="100%" fullScreen={isMobile}>
-				<Stack gap="md" p={{ base: "md", sm: "sm" }}>
-					<TextInput label="Titel" placeholder="Artikeltitel" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
-					<Box>
-						<Text size="sm" fw={500} mb="xs">
-							Inhalt{" "}
-							<Text component="span" c="red">
-								*
-							</Text>
-						</Text>
-						<RichTextEditor
-							editor={editor}
-							styles={{
-								content: {
-									"& .ProseMirror": {
-										minHeight: 300,
-									},
-								},
-							}}
-						>
-							<RichTextEditor.Toolbar sticky stickyOffset={60}>
-								<RichTextEditor.ControlsGroup>
-									<RichTextEditor.Bold />
-									<RichTextEditor.Italic />
-									<RichTextEditor.Strikethrough />
-									<RichTextEditor.ClearFormatting />
-								</RichTextEditor.ControlsGroup>
-
-								<RichTextEditor.ControlsGroup>
-									<RichTextEditor.H1 />
-									<RichTextEditor.H2 />
-									<RichTextEditor.H3 />
-								</RichTextEditor.ControlsGroup>
-
-								<RichTextEditor.ControlsGroup>
-									<RichTextEditor.Blockquote />
-									<RichTextEditor.Hr />
-									<RichTextEditor.BulletList />
-									<RichTextEditor.OrderedList />
-								</RichTextEditor.ControlsGroup>
-
-								<RichTextEditor.ControlsGroup>
-									<RichTextEditor.Link />
-									<RichTextEditor.Unlink />
-								</RichTextEditor.ControlsGroup>
-							</RichTextEditor.Toolbar>
-
-							<RichTextEditor.Content />
-						</RichTextEditor>
-					</Box>
-
-					{/* Image Gallery Upload */}
-					<Box>
-						{formData.imageS3Keys && formData.imageS3Keys.length > 0 && (
-							<Stack gap={0}>
+				<form.Subscribe selector={(state) => state.values}>
+					{(formData) => (
+						<Stack gap="md" p={{ base: "md", sm: "sm" }}>
+							<form.Field name="title">
+								{(field) => <TextInput label="Titel" placeholder="Artikeltitel" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} required />}
+							</form.Field>
+							<Box>
 								<Text size="sm" fw={500} mb="xs">
-									Bildergalerie
+									Inhalt{" "}
+									<Text component="span" c="red">
+										*
+									</Text>
 								</Text>
-								<Text size="xs" c="dimmed" mb="sm">
-									Ein zufälliges Bild wird als Vorschaubild auf der News-Seite verwendet.
-								</Text>
-							</Stack>
-						)}
+								<RichTextEditor
+									editor={editor}
+									styles={{
+										content: {
+											"& .ProseMirror": {
+												minHeight: 300,
+											},
+										},
+									}}
+								>
+									<RichTextEditor.Toolbar sticky stickyOffset={60}>
+										<RichTextEditor.ControlsGroup>
+											<RichTextEditor.Bold />
+											<RichTextEditor.Italic />
+											<RichTextEditor.Strikethrough />
+											<RichTextEditor.ClearFormatting />
+										</RichTextEditor.ControlsGroup>
 
-						{/* Existing images */}
-						{formData.imageS3Keys && formData.imageS3Keys.length > 0 && (
-							<Group gap="sm" mb="md">
-								{formData.imageS3Keys.map((s3Key) => (
-									<ExistingImage
-										key={s3Key}
-										s3Key={s3Key}
-										isDeleted={imagesToDelete.includes(s3Key)}
-										onDelete={() => setImagesToDelete([...imagesToDelete, s3Key])}
-										onRestore={() => setImagesToDelete(imagesToDelete.filter((k) => k !== s3Key))}
-									/>
-								))}
-							</Group>
-						)}
+										<RichTextEditor.ControlsGroup>
+											<RichTextEditor.H1 />
+											<RichTextEditor.H2 />
+											<RichTextEditor.H3 />
+										</RichTextEditor.ControlsGroup>
 
-						{/* New image previews */}
-						{imageFiles.length > 0 && (
-							<Group gap="sm" mb="md">
-								{imageFiles.map((file, index) => {
-									const previewUrl = URL.createObjectURL(file);
-									return (
-										<Card key={`${file.name}-${index}`} withBorder p="xs" pos="relative" w={120}>
-											<ActionIcon pos="absolute" top={4} right={4} size="sm" variant="filled" color="red" onClick={() => setImageFiles(imageFiles.filter((_, i) => i !== index))} style={{ zIndex: 1 }}>
-												<X size={14} />
-											</ActionIcon>
-											<Image src={previewUrl} height={100} fit="cover" alt={file.name} radius="sm" />
-											<Text size="xs" c="dimmed" mt="xs" lineClamp={1} ta="center">
-												{file.name}
-											</Text>
-										</Card>
-									);
-								})}
-							</Group>
-						)}
+										<RichTextEditor.ControlsGroup>
+											<RichTextEditor.Blockquote />
+											<RichTextEditor.Hr />
+											<RichTextEditor.BulletList />
+											<RichTextEditor.OrderedList />
+										</RichTextEditor.ControlsGroup>
 
-						{/* Dropzone - always visible for adding more images */}
-						<Dropzone
-							onDrop={(files) => {
-								const validFiles = files.filter((file) => {
-									if (file.size > MAX_UPLOAD_SIZE) {
-										notification.error({
-											message: `${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`,
+										<RichTextEditor.ControlsGroup>
+											<RichTextEditor.Link />
+											<RichTextEditor.Unlink />
+										</RichTextEditor.ControlsGroup>
+									</RichTextEditor.Toolbar>
+
+									<RichTextEditor.Content />
+								</RichTextEditor>
+							</Box>
+
+							{/* Image Gallery Upload */}
+							<Box>
+								{formData.imageS3Keys && formData.imageS3Keys.length > 0 && (
+									<Stack gap={0}>
+										<Text size="sm" fw={500} mb="xs">
+											Bildergalerie
+										</Text>
+										<Text size="xs" c="dimmed" mb="sm">
+											Ein zufälliges Bild wird als Vorschaubild auf der News-Seite verwendet.
+										</Text>
+									</Stack>
+								)}
+
+								{/* Existing images */}
+								{formData.imageS3Keys && formData.imageS3Keys.length > 0 && (
+									<Group gap="sm" mb="md">
+										{formData.imageS3Keys.map((s3Key) => (
+											<ExistingImage
+												key={s3Key}
+												s3Key={s3Key}
+												isDeleted={imagesToDelete.includes(s3Key)}
+												onDelete={() => setImagesToDelete([...imagesToDelete, s3Key])}
+												onRestore={() => setImagesToDelete(imagesToDelete.filter((k) => k !== s3Key))}
+											/>
+										))}
+									</Group>
+								)}
+
+								{/* New image previews */}
+								{imageFiles.length > 0 && (
+									<Group gap="sm" mb="md">
+										{imageFiles.map((file, index) => {
+											const previewUrl = URL.createObjectURL(file);
+											return (
+												<Card key={`${file.name}-${index}`} withBorder p="xs" pos="relative" w={120}>
+													<ActionIcon
+														pos="absolute"
+														top={4}
+														right={4}
+														size="sm"
+														variant="filled"
+														color="red"
+														onClick={() => setImageFiles(imageFiles.filter((_, i) => i !== index))}
+														style={{ zIndex: 1 }}
+													>
+														<X size={14} />
+													</ActionIcon>
+													<Image src={previewUrl} height={100} fit="cover" alt={file.name} radius="sm" />
+													<Text size="xs" c="dimmed" mt="xs" lineClamp={1} ta="center">
+														{file.name}
+													</Text>
+												</Card>
+											);
+										})}
+									</Group>
+								)}
+
+								{/* Dropzone - always visible for adding more images */}
+								<Dropzone
+									onDrop={(files) => {
+										const validFiles = files.filter((file) => {
+											if (file.size > MAX_UPLOAD_SIZE) {
+												notification.error({
+													message: `${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`,
+												});
+												return false;
+											}
+											return true;
 										});
-										return false;
-									}
-									return true;
-								});
-								setImageFiles([...imageFiles, ...validFiles]);
-							}}
-							accept={IMAGE_MIME_TYPE}
-							maxSize={MAX_UPLOAD_SIZE}
-							bd="1px dashed var(--mantine-color-dimmed)"
-							p="xs"
-						>
-							<Flex direction={{ base: "row", md: "column" }} justify="center" align="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
-								<Dropzone.Accept>
-									<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
-								</Dropzone.Accept>
-								<Dropzone.Reject>
-									<X size={50} style={{ color: "var(--mantine-color-red-6)" }} />
-								</Dropzone.Reject>
-								<Dropzone.Idle>
-									<Upload size={50} style={{ color: "var(--mantine-color-dimmed)" }} />
-								</Dropzone.Idle>
-
-								<Stack gap="xs" align="center">
-									<Text size="lg" inline>
-										Bilder hierher ziehen oder klicken zum Auswählen
-									</Text>
-									<Text size="sm" c="dimmed" inline mt={7}>
-										Mehrere Bilder möglich, max. {bytesToMB(MAX_UPLOAD_SIZE, 0)}MB pro Bild
-									</Text>
-									<Text size="xs" c="dimmed" mt="xs">
-										{(formData.imageS3Keys?.length || 0) - imagesToDelete.length + imageFiles.length} Bild
-										{(formData.imageS3Keys?.length || 0) - imagesToDelete.length + imageFiles.length !== 1 ? "er" : ""}
-									</Text>
-								</Stack>
-							</Flex>
-						</Dropzone>
-					</Box>
-
-					<Group justify="space-between" align="flex-end" wrap="nowrap">
-						{editingId ? (
-							<>
-								<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
-									<Trash2 />
-								</ActionIcon>
-								<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
-									Löschen
-								</Button>
-							</>
-						) : (
-							<div aria-hidden="true" />
-						)}
-						<Group gap="xs" justify="flex-end" align="flex-end" wrap="nowrap">
-							{(formData.status === "draft" || !formData.status) && (
-								<Button
-									variant="light"
-									onClick={() => handleSubmit("draft")}
-									loading={uploading || createMutation.isPending || updateMutation.isPending}
-									disabled={!formData.title || !formData.content}
+										setImageFiles([...imageFiles, ...validFiles]);
+									}}
+									accept={IMAGE_MIME_TYPE}
+									maxSize={MAX_UPLOAD_SIZE}
+									bd="1px dashed var(--mantine-color-dimmed)"
+									p="xs"
 								>
-									Speichern
-								</Button>
-							)}
+									<Flex direction={{ base: "row", md: "column" }} justify="center" align="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
+										<Dropzone.Accept>
+											<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
+										</Dropzone.Accept>
+										<Dropzone.Reject>
+											<X size={50} style={{ color: "var(--mantine-color-red-6)" }} />
+										</Dropzone.Reject>
+										<Dropzone.Idle>
+											<Upload size={50} style={{ color: "var(--mantine-color-dimmed)" }} />
+										</Dropzone.Idle>
 
-							{(formData.status === "draft" || formData.status === "published") && (
-								<Button
-									variant="light"
-									onClick={() => handleSubmit("archived")}
-									loading={uploading || createMutation.isPending || updateMutation.isPending}
-									disabled={!formData.title || !formData.content}
-								>
-									Archivieren
-								</Button>
-							)}
+										<Stack gap="xs" align="center">
+											<Text size="lg" inline>
+												Bilder hierher ziehen oder klicken zum Auswählen
+											</Text>
+											<Text size="sm" c="dimmed" inline mt={7}>
+												Mehrere Bilder möglich, max. {bytesToMB(MAX_UPLOAD_SIZE, 0)}MB pro Bild
+											</Text>
+											<Text size="xs" c="dimmed" mt="xs">
+												{(formData.imageS3Keys?.length || 0) - imagesToDelete.length + imageFiles.length} Bild
+												{(formData.imageS3Keys?.length || 0) - imagesToDelete.length + imageFiles.length !== 1 ? "er" : ""}
+											</Text>
+										</Stack>
+									</Flex>
+								</Dropzone>
+							</Box>
 
-							<Button
-								variant="filled"
-								onClick={() => handleSubmit("published")}
-								loading={uploading || createMutation.isPending || updateMutation.isPending}
-								disabled={!formData.title || !formData.content}
-							>
-								{formData.status !== "published" ? "Veröffentlichen" : "Aktualisieren"}
-							</Button>
-						</Group>
-					</Group>
-				</Stack>
+							<Group justify="space-between" align="flex-end" wrap="nowrap">
+								{editingId ? (
+									<>
+										<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
+											<Trash2 />
+										</ActionIcon>
+										<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
+											Löschen
+										</Button>
+									</>
+								) : (
+									<div aria-hidden="true" />
+								)}
+								<Group gap="xs" justify="flex-end" align="flex-end" wrap="nowrap">
+									{(formData.status === "draft" || !formData.status) && (
+										<Button
+											variant="light"
+											onClick={() => void handleSubmit("draft", formData)}
+											loading={uploading || createMutation.isPending || updateMutation.isPending}
+											disabled={!formData.title || !formData.content}
+										>
+											Speichern
+										</Button>
+									)}
+
+									{(formData.status === "draft" || formData.status === "published") && (
+										<Button
+											variant="light"
+											onClick={() => void handleSubmit("archived", formData)}
+											loading={uploading || createMutation.isPending || updateMutation.isPending}
+											disabled={!formData.title || !formData.content}
+										>
+											Archivieren
+										</Button>
+									)}
+
+									<Button
+										variant="filled"
+										onClick={() => void handleSubmit("published", formData)}
+										loading={uploading || createMutation.isPending || updateMutation.isPending}
+										disabled={!formData.title || !formData.content}
+									>
+										{formData.status !== "published" ? "Veröffentlichen" : "Aktualisieren"}
+									</Button>
+								</Group>
+							</Group>
+						</Stack>
+					)}
+				</form.Subscribe>
 			</Modal>
 
 			{isLoading ? (
