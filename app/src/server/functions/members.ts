@@ -44,7 +44,7 @@ export const getTrainersFn = createServerFn().handler(async () => {
 // ── Protected ────────────────────────────────────────────────────────────────
 
 export const createMemberFn = createServerFn()
-	.middleware([requireAuthMiddleware])
+	.middleware([requireAdminMiddleware])
 	.inputValidator(memberSchema.omit({ id: true, createdAt: true, updatedAt: true }))
 	.handler(async ({ data }) => {
 		const canonicalProxyEmail = data.proxyEmail ? canonicalizeProxyAlias(data.proxyEmail) : undefined;
