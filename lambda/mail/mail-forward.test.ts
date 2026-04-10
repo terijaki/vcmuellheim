@@ -17,7 +17,7 @@ import { mockClient } from "aws-sdk-client-mock";
 
 // ── Environment setup (must happen before module import) ─────────────────────
 process.env.CONTENT_TABLE_NAME = "test-content-table";
-process.env.FORWARD_FROM_EMAIL = "no-reply@vcmuellheim.de";
+process.env.FORWARD_FROM_EMAIL = "postmaster@vcmuellheim.de";
 process.env.RECIPIENT_DOMAIN = "vcmuellheim.de";
 process.env.AWS_REGION = "eu-central-1";
 process.env.BRANCH_NAME = "";
@@ -92,7 +92,7 @@ describe("mail-forward Lambda", () => {
 	let handler: typeof import("./mail-forward").handler;
 
 	beforeEach(async () => {
-		process.env.FORWARD_FROM_EMAIL = "no-reply@vcmuellheim.de";
+		process.env.FORWARD_FROM_EMAIL = "postmaster@vcmuellheim.de";
 		process.env.RECIPIENT_DOMAIN = "vcmuellheim.de";
 		process.env.BRANCH_NAME = "";
 		vi.resetModules();
@@ -152,7 +152,7 @@ describe("mail-forward Lambda", () => {
 			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
 			expect(sesCalls).toHaveLength(1);
 			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@gmail.com"]);
-			expect(sesCalls[0].args[0].input.Source).toBe("no-reply@vcmuellheim.de");
+			expect(sesCalls[0].args[0].input.Source).toBe("postmaster@vcmuellheim.de");
 			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
 		});
 
@@ -164,7 +164,7 @@ describe("mail-forward Lambda", () => {
 			await handler(makeEvent("emails/rewrite-test.eml"), mockLambdaContext as never);
 
 			const rawMime = Buffer.from(sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!).toString();
-			expect(rawMime).toMatch(/^From: no-reply@vcmuellheim\.de/im);
+			expect(rawMime).toMatch(/^From: postmaster@vcmuellheim\.de/im);
 		});
 
 		test("removes original Return-Path before forwarding", async () => {
@@ -183,7 +183,7 @@ describe("mail-forward Lambda", () => {
 
 			const rawMime = Buffer.from(sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!).toString();
 			expect(rawMime).not.toMatch(/^Return-Path:/im);
-			expect(rawMime).toMatch(/^From: no-reply@vcmuellheim\.de/im);
+			expect(rawMime).toMatch(/^From: postmaster@vcmuellheim\.de/im);
 		});
 
 		test("in dev, looks up DDB with the full plus-address (suffix included)", async () => {
@@ -210,7 +210,7 @@ describe("mail-forward Lambda", () => {
 
 		test("in dev, matches new.vcmuellheim.de and keeps the branch suffix for member lookup", async () => {
 			vi.resetModules();
-			process.env.FORWARD_FROM_EMAIL = "no-reply@new.vcmuellheim.de";
+			process.env.FORWARD_FROM_EMAIL = "postmaster@new.vcmuellheim.de";
 			process.env.RECIPIENT_DOMAIN = "new.vcmuellheim.de";
 			process.env.BRANCH_NAME = "feat-x";
 
@@ -231,7 +231,7 @@ describe("mail-forward Lambda", () => {
 
 			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
 			expect(sesCalls).toHaveLength(1);
-			expect(sesCalls[0].args[0].input.Source).toBe("no-reply@new.vcmuellheim.de");
+			expect(sesCalls[0].args[0].input.Source).toBe("postmaster@new.vcmuellheim.de");
 			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@gmail.com"]);
 			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
 		});

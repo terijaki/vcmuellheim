@@ -138,7 +138,7 @@ export const auth = betterAuth({
 
 				await sesClient.send(
 					new SendEmailCommand({
-						Source: "no-reply@vcmuellheim.de",
+						Source: "postmaster@vcmuellheim.de",
 						Destination: { ToAddresses: [email] },
 						Message: {
 							Subject: {
