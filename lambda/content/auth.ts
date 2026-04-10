@@ -10,7 +10,7 @@ import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import { betterAuth } from "better-auth";
 import { emailOTP } from "better-auth/plugins";
 import { dynamoDBAdapter } from "@/lambda/utils/better-auth-dynamodb-adapter";
-import { Club } from "@/project.config";
+import { Club, Mail } from "@/project.config";
 import { parseLambdaEnv } from "../utils/env";
 import { ContentAuthEnvironmentSchema } from "./types";
 
@@ -80,6 +80,10 @@ function createOtpLoginLink(email: string, otp: string, request?: Request): stri
 	return loginUrl.toString();
 }
 
+function getOtpSourceEmail(cdkEnvironment = process.env.CDK_ENVIRONMENT): string {
+	return cdkEnvironment === "prod" ? Mail.prod.systemFromEmail : Mail.dev.systemFromEmail;
+}
+
 export const auth = betterAuth({
 	baseURL: {
 		allowedHosts: [Club.domain, `*.${Club.domain}`, `*.new.${Club.domain}`, "localhost:*"],
@@ -138,7 +142,7 @@ export const auth = betterAuth({
 
 				await sesClient.send(
 					new SendEmailCommand({
-						Source: "postmaster@vcmuellheim.de",
+						Source: getOtpSourceEmail(),
 						Destination: { ToAddresses: [email] },
 						Message: {
 							Subject: {

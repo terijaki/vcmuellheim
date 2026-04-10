@@ -73,7 +73,7 @@ export class MailStack extends cdk.Stack {
 				CDK_ENVIRONMENT: environment,
 				BRANCH_NAME: isProd ? "" : branch,
 				CONTENT_TABLE_NAME: props.contentTable.tableName,
-				FORWARD_FROM_EMAIL: mailConfig.forwardFromEmail,
+				FORWARD_FROM_EMAIL: mailConfig.systemFromEmail,
 				RECIPIENT_DOMAIN: mailConfig.recipientDomain,
 			} satisfies Omit<MailForwardLambdaEnvironment, "AWS_REGION">,
 			timeout: cdk.Duration.seconds(30),

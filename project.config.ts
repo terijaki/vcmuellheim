@@ -67,7 +67,7 @@ export const Mail = {
 		inboundBucketName: "vcm-mail-inbound-041632640830-eu-central-1-an" as const,
 		receiptRuleSetName: "vcm-inbound-prod" as const,
 		receiptRuleName: "store-inbound-prod" as const,
-		forwardFromEmail: "postmaster@vcmuellheim.de" as const,
+		systemFromEmail: "postmaster@vcmuellheim.de" as const,
 		sesRegion: "eu-central-1" as const,
 	},
 	dev: {
@@ -75,7 +75,7 @@ export const Mail = {
 		inboundBucketName: "vcm-mail-inbound-418553863544-eu-central-1-an" as const,
 		receiptRuleSetName: "vcm-inbound-dev" as const,
 		receiptRuleName: "store-inbound-dev" as const,
-		forwardFromEmail: "postmaster@new.vcmuellheim.de" as const,
+		systemFromEmail: "postmaster@new.vcmuellheim.de" as const,
 		sesRegion: "eu-central-1" as const,
 	},
 } as const;

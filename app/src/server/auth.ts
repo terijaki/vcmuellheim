@@ -7,7 +7,7 @@
  */
 
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
-import { Club } from "@project.config";
+import { Club, Mail } from "@project.config";
 import { betterAuth } from "better-auth";
 import { emailOTP } from "better-auth/plugins";
 import { dynamoDBAdapter } from "@/lambda/utils/better-auth-dynamodb-adapter";
@@ -55,6 +55,10 @@ function createOtpLoginLink(email: string, otp: string, request?: Request): stri
 	loginUrl.searchParams.set("email", email);
 	loginUrl.searchParams.set("otp", otp);
 	return loginUrl.toString();
+}
+
+function getOtpSourceEmail(cdkEnvironment = process.env.CDK_ENVIRONMENT): string {
+	return cdkEnvironment === "prod" ? Mail.prod.systemFromEmail : Mail.dev.systemFromEmail;
 }
 
 function createAuth() {
@@ -120,7 +124,7 @@ function createAuth() {
 
 					await sesClient.send(
 						new SendEmailCommand({
-							Source: "postmaster@vcmuellheim.de", // TODO set to new.vcmuellheim.de for dev
+							Source: getOtpSourceEmail(),
 							Destination: { ToAddresses: [email] },
 							Message: {
 								Subject: {
