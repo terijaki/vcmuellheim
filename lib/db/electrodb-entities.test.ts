@@ -61,7 +61,7 @@ function assertNoSurplusAttributes(
 }
 
 /** Key fields that ElectroDB injects and are not part of the Zod schema */
-const GENERATED_KEY_FIELDS = ["pk", "sk", "gsi1pk", "gsi1sk", "gsi2pk", "gsi2sk", "gsi3pk", "gsi3sk", "gsi4pk", "gsi4sk", "__edb_e__", "__edb_v__"];
+const GENERATED_KEY_FIELDS = ["pk", "sk", "gsi1pk", "gsi1sk", "gsi2pk", "gsi2sk", "gsi3pk", "gsi3sk", "gsi4pk", "gsi4sk", "gsi5pk", "gsi5sk", "__edb_e__", "__edb_v__"];
 
 function checkDrift(entityName: string, zodSchema: Parameters<typeof getZodFieldNames>[0], entity: Parameters<typeof getEntityAttributeNames>[0]): void {
 	const zodFields = getZodFieldNames(zodSchema);

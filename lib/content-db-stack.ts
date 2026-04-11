@@ -76,14 +76,23 @@ export class ContentDbStack extends cdk.Stack {
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 
-		// GSI4 — email / identifier lookups
-		// Used by: users (by email), auth verifications (by identifier)
+		// GSI4 — proxy email / identifier lookups
+		// Used by: members (by proxyEmail), auth verifications (by identifier)
 		// The SK (gsi4sk) is populated by ElectroDB with a constant entity-type prefix,
-		// enabling safe co-existence of user and verification items under the same GSI partition.
+		// enabling safe co-existence of member and verification items under the same GSI partition.
 		this.contentTable.addGlobalSecondaryIndex({
 			indexName: ContentTableIndexes.gsi4,
 			partitionKey: { name: "gsi4pk", type: dynamodb.AttributeType.STRING },
 			sortKey: { name: "gsi4sk", type: dynamodb.AttributeType.STRING },
+			projectionType: dynamodb.ProjectionType.ALL,
+		});
+
+		// GSI5 — private email lookups
+		// Used by: members (by privateEmail)
+		this.contentTable.addGlobalSecondaryIndex({
+			indexName: ContentTableIndexes.gsi5,
+			partitionKey: { name: "gsi5pk", type: dynamodb.AttributeType.STRING },
+			sortKey: { name: "gsi5sk", type: dynamodb.AttributeType.STRING },
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 	}

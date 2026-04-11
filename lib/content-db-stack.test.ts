@@ -147,7 +147,7 @@ describe("ContentDbStack", () => {
 	});
 
 	describe("GSI configuration", () => {
-		it("should create all four required GSIs", () => {
+		it("should create all five required GSIs", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: { environment: "dev", branch: "" },
@@ -161,6 +161,7 @@ describe("ContentDbStack", () => {
 					Match.objectLike({ IndexName: ContentTableIndexes.gsi2 }),
 					Match.objectLike({ IndexName: ContentTableIndexes.gsi3 }),
 					Match.objectLike({ IndexName: ContentTableIndexes.gsi4 }),
+					Match.objectLike({ IndexName: ContentTableIndexes.gsi5 }),
 				]),
 			});
 		});

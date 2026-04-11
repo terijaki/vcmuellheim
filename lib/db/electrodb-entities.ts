@@ -25,8 +25,10 @@ export const ContentTableIndexes = {
 	gsi2: "GSI2-ByStatus",
 	/** Slug lookups (news, teams) */
 	gsi3: "GSI3-BySlug",
-	/** Email / identifier lookups (users, auth verifications) */
+	/** Proxy email / identifier lookups (members by proxyEmail, auth verifications) */
 	gsi4: "GSI4-ByIdentifier",
+	/** Private email lookups (members by privateEmail) */
+	gsi5: "GSI5-ByPrivateEmail",
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -198,9 +200,9 @@ export const MemberEntity = new Entity({
 			sk: { field: "gsi1sk", composite: ["updatedAt"] },
 		},
 		byPrivateEmail: {
-			index: ContentTableIndexes.gsi3,
-			pk: { field: "gsi3pk", composite: ["privateEmail"] },
-			sk: { field: "gsi3sk", composite: [] },
+			index: ContentTableIndexes.gsi5,
+			pk: { field: "gsi5pk", composite: ["privateEmail"] },
+			sk: { field: "gsi5sk", composite: [] },
 		},
 		byProxyEmail: {
 			index: ContentTableIndexes.gsi4,
