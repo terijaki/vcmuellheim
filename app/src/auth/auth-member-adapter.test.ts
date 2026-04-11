@@ -9,7 +9,6 @@ type FakeMember = {
 	privateEmail?: string;
 	proxyEmail?: string;
 	authRole?: "Admin" | "Moderator";
-	emailVerified?: boolean;
 	createdAt: string;
 	updatedAt: string;
 };
@@ -74,7 +73,6 @@ const ADMIN_MEMBER: FakeMember = {
 	privateEmail: "admin@example.com",
 	proxyEmail: "public-admin@proxy.example.com",
 	authRole: "Admin",
-	emailVerified: true,
 	createdAt: "2024-01-01T00:00:00.000Z",
 	updatedAt: "2024-01-01T00:00:00.000Z",
 };
@@ -85,7 +83,6 @@ const MODERATOR_MEMBER: FakeMember = {
 	privateEmail: "mod@example.com",
 	proxyEmail: "public-mod@proxy.example.com",
 	authRole: "Moderator",
-	emailVerified: false,
 	createdAt: "2024-01-01T00:00:00.000Z",
 	updatedAt: "2024-01-01T00:00:00.000Z",
 };
@@ -118,6 +115,17 @@ describe("findOne — user model", () => {
 		expect(result).not.toBeNull();
 		expect(result.id).toBe("m-mod");
 		expect(result.email).toBe("mod@example.com");
+	});
+
+	it("always returns emailVerified: true in auth view", async () => {
+		// toAuthView must always inject emailVerified: true so better-auth does not call updateUser(),
+		// which would crash because our update() no-op returns null.
+		const result = (await findOne({ model: "user", where: [{ field: "email", value: "mod@example.com" }] })) as Record<string, unknown>;
+		expect(result).not.toBeNull();
+		expect(result.emailVerified).toBe(true);
+
+		const admin = (await findOne({ model: "user", where: [{ field: "email", value: "admin@example.com" }] })) as Record<string, unknown>;
+		expect(admin.emailVerified).toBe(true);
 	});
 
 	it("finds a member by proxyEmail alias when privateEmail lookup fails, and still exposes privateEmail as email", async () => {

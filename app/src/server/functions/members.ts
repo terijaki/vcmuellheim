@@ -13,7 +13,7 @@ import { resolveNullableUpdates } from "./patch-helpers";
 import { canonicalizeProxyAlias, getProxyAliasBranchName, getProxyAliasDomain, suggestProxyAlias } from "./member-alias";
 
 // ── Public member schema (excludes admin-only fields for privacy boundary) ───
-export const publicMemberSchema = memberSchema.omit({ privateEmail: true, authRole: true, emailVerified: true });
+export const publicMemberSchema = memberSchema.omit({ privateEmail: true, authRole: true });
 export type PublicMember = z.infer<typeof publicMemberSchema>;
 
 // ── Public ──────────────────────────────────────────────────────────────────

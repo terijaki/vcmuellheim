@@ -22,10 +22,15 @@ type ElectroItem = Record<string, unknown>;
 /**
  * Converts a member DynamoDB item to the "auth view" better-auth expects:
  * exposes `privateEmail` as `email` (canonical auth identity).
+ *
+ * `emailVerified` is always set to `true` because members with Admin/Moderator
+ * authRole are pre-configured by admins, and OTP delivery proves email ownership.
+ * Without this, better-auth's signInEmailOTP calls updateUser() to flip the flag,
+ * but our update() no-op returns null which crashes refreshUserSessions().
  */
 function toAuthView(member: ElectroItem): ElectroItem {
 	const { privateEmail, ...rest } = member as { privateEmail?: unknown } & ElectroItem;
-	return { ...rest, email: privateEmail ?? "" };
+	return { ...rest, email: privateEmail ?? "", emailVerified: true };
 }
 
 export const memberAuthAdapter = createAdapterFactory({
