@@ -82,7 +82,8 @@ const samsStack = new SamsStack(app, samsStackName, {
 new SocialMediaStack(app, socialMediaStackName, {
 	...commonStackProps,
 	description: `Social Media API Services (${envLabel})`,
-	contentTable: contentDbStack.contentTable,
+	contentTableName: contentDbStack.contentTableName,
+	contentTableStreamArn: contentDbStack.contentTableStreamArn,
 	// Pass the webapp URL for Mastodon news-sharing links
 	websiteUrl: isProd ? `https://${DNS.prod.hostedZoneName}` : `https://${envLabel}.${DNS.dev.hostedZoneName}`,
 	mediaBucketName: mediaStack.bucketName,

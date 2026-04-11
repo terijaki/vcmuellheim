@@ -21,6 +21,8 @@ export class ContentDbStack extends cdk.Stack {
 	public readonly contentTable: dynamodb.Table;
 	/** Stable plain-string table name — safe to pass cross-stack without creating CloudFormation exports. */
 	public readonly contentTableName: string;
+	/** DynamoDB stream ARN — a CFN token, but passed as a single scalar to avoid exporting the full table object. */
+	public readonly contentTableStreamArn: string;
 
 	constructor(scope: Construct, id: string, props?: ContentDbStackProps) {
 		super(scope, id, props);
@@ -44,6 +46,8 @@ export class ContentDbStack extends cdk.Stack {
 			stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
 			timeToLiveAttribute: "ttl",
 		});
+
+		this.contentTableStreamArn = this.contentTable.tableStreamArn!;
 
 		// GSI1 — type-based list queries sorted by a date/slug field
 		// Used by: news (by type+updatedAt), events (by type+startDate), teams (by type+slug)

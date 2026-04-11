@@ -1,5 +1,6 @@
 import * as path from "node:path";
 import * as cdk from "aws-cdk-lib";
+import * as iam from "aws-cdk-lib/aws-iam";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
@@ -16,7 +17,10 @@ interface SocialMediaStackProps extends cdk.StackProps {
 		environment: string;
 		branch: string;
 	};
-	contentTable?: dynamodb.ITable;
+	/** Plain-string table name — avoids CloudFormation cross-stack export of the full table object. */
+	contentTableName?: string;
+	/** Stream ARN for the content table — needed by DynamoEventSource on the stream handler. */
+	contentTableStreamArn?: string;
 	websiteUrl?: string;
 	mediaBucketName?: string;
 }
@@ -63,8 +67,11 @@ export class SocialMediaStack extends cdk.Stack {
 
 		// Create scheduled Lambda to proactively sync Behold Instagram posts to DynamoDB.
 		// Runs hourly during German daytime — ~465 calls/month (~39% of Behold's 1200/month free-tier limit).
-		const contentTableName = computeContentTableName(environment, branch);
-		if (props.contentTable) {
+		const contentTableName = props.contentTableName ?? computeContentTableName(environment, branch);
+		if (props.contentTableName) {
+			const contentTableArn = cdk.Stack.of(this).formatArn({ service: "dynamodb", resource: "table", resourceName: contentTableName });
+			const contentTableRef = dynamodb.Table.fromTableArn(this, "ContentTableRef", contentTableArn);
+
 			const beholdSync = new VcmNodejsFunction(this, "BeholdSync", {
 				namespace: "social",
 				name: "behold-sync",
@@ -76,7 +83,13 @@ export class SocialMediaStack extends cdk.Stack {
 				} satisfies BeholdSyncLambdaEnvironment,
 			}).lambdaFunction;
 
-			props.contentTable.grantReadWriteData(beholdSync);
+			contentTableRef.grantReadWriteData(beholdSync);
+			beholdSync.addToRolePolicy(
+				new iam.PolicyStatement({
+					actions: ["dynamodb:Query"],
+					resources: [`${contentTableArn}/index/*`],
+				}),
+			);
 
 			// Trigger hourly during German daytime (7:00–21:00 UTC = 8–22h CET / 9–23h CEST)
 			// ~15 runs/day, ~465 calls/month (~39% of Behold's 1200/month free-tier limit)
@@ -89,7 +102,14 @@ export class SocialMediaStack extends cdk.Stack {
 		}
 
 		// Create Lambda function for Mastodon stream handler (DynamoDB streams)
-		if (props.contentTable && props.websiteUrl) {
+		if (props.contentTableName && props.contentTableStreamArn && props.websiteUrl) {
+			const contentTableArn = cdk.Stack.of(this).formatArn({ service: "dynamodb", resource: "table", resourceName: contentTableName });
+			// fromTableAttributes includes the stream ARN so DynamoEventSource can access it
+			const contentTableWithStream = dynamodb.Table.fromTableAttributes(this, "ContentTableWithStream", {
+				tableArn: contentTableArn,
+				tableStreamArn: props.contentTableStreamArn,
+			});
+
 			const mastodonStreamHandler = new VcmNodejsFunction(this, "MastodonStreamHandler", {
 				namespace: "social",
 				name: "mastodon-stream-handler",
@@ -105,13 +125,19 @@ export class SocialMediaStack extends cdk.Stack {
 			}).lambdaFunction;
 
 			// Grant permissions
-			props.contentTable.grantStreamRead(mastodonStreamHandler);
-			props.contentTable.grantReadWriteData(mastodonStreamHandler);
+			contentTableWithStream.grantStreamRead(mastodonStreamHandler);
+			contentTableWithStream.grantReadWriteData(mastodonStreamHandler);
+			mastodonStreamHandler.addToRolePolicy(
+				new iam.PolicyStatement({
+					actions: ["dynamodb:Query"],
+					resources: [`${contentTableArn}/index/*`],
+				}),
+			);
 			mastodonShare.grantInvoke(mastodonStreamHandler);
 
 			// Attach DynamoDB stream event source
 			mastodonStreamHandler.addEventSource(
-				new DynamoEventSource(props.contentTable, {
+				new DynamoEventSource(contentTableWithStream, {
 					startingPosition: lambda.StartingPosition.LATEST,
 					bisectBatchOnError: true,
 					retryAttempts: 2,

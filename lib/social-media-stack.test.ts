@@ -1,6 +1,4 @@
 import { afterEach, beforeEach, describe, it } from "vite-plus/test";
-import * as cdk from "aws-cdk-lib";
-import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import { Template } from "aws-cdk-lib/assertions";
 import { SocialMediaStack } from "./social-media-stack";
 import { createTestApp } from "./test-helpers";
@@ -14,17 +12,6 @@ afterEach(() => {
 	Reflect.deleteProperty(process.env, "CDK_ENVIRONMENT");
 	process.env.CDK_BRANCH_OVERWRITE = "main";
 });
-
-/** Create a minimal DynamoDB table in a separate stack for cross-stack references in tests. */
-function createTestContentTable(app: cdk.App): dynamodb.ITable {
-	const tableStack = new cdk.Stack(app, "TestTableStack");
-	return new dynamodb.Table(tableStack, "ContentTable", {
-		tableName: "test-content-table",
-		partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
-		sortKey: { name: "sk", type: dynamodb.AttributeType.STRING },
-		billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-	});
-}
 
 describe("SocialMediaStack", () => {
 	describe("Development environment", () => {
@@ -78,15 +65,14 @@ describe("SocialMediaStack", () => {
 	});
 
 	describe("Behold sync Lambda", () => {
-		it("should create BeholdSync Lambda and schedule when contentTable is provided", () => {
+		it("should create BeholdSync Lambda and schedule when contentTableName is provided", () => {
 			const app = createTestApp();
-			const contentTable = createTestContentTable(app);
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
 					branch: "",
 				},
-				contentTable,
+				contentTableName: "vcm-content-dev",
 			});
 
 			const template = Template.fromStack(stack);
@@ -112,13 +98,12 @@ describe("SocialMediaStack", () => {
 		it("should include branch suffix in Behold sync resource names", () => {
 			process.env.CDK_BRANCH_OVERWRITE = "feature-x";
 			const app = createTestApp();
-			const contentTable = createTestContentTable(app);
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
 					branch: "feature-x",
 				},
-				contentTable,
+				contentTableName: "vcm-content-dev-feature-x",
 			});
 
 			const template = Template.fromStack(stack);
