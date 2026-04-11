@@ -7,7 +7,7 @@ export interface AdminSessionUser {
 	id: string;
 	email: string;
 	name?: string;
-	role?: string;
+	authRole?: string;
 }
 
 /**
@@ -19,6 +19,6 @@ export function mapSessionUser(user: { id: string; email: string; name?: string 
 		id: user.id,
 		email: user.email,
 		name: user.name ?? undefined,
-		role: typeof user.role === "string" ? user.role : undefined,
+		authRole: typeof user.authRole === "string" ? user.authRole : undefined,
 	};
 }

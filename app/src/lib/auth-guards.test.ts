@@ -2,8 +2,8 @@ import { describe, expect, it } from "vite-plus/test";
 import type { AdminSessionUser } from "../server/functions/session-utils";
 import { adminLayoutGuard, loginPageGuard } from "./auth-guards";
 
-const adminSession: AdminSessionUser = { id: "u1", email: "admin@example.com", name: "Admin", role: "Admin" };
-const moderatorSession: AdminSessionUser = { id: "u2", email: "mod@example.com", name: "Moderator", role: "Moderator" };
+const adminSession: AdminSessionUser = { id: "u1", email: "admin@example.com", name: "Admin", authRole: "Admin" };
+const moderatorSession: AdminSessionUser = { id: "u2", email: "mod@example.com", name: "Moderator", authRole: "Moderator" };
 const _noRoleSession: AdminSessionUser = { id: "u3", email: "norole@example.com" };
 
 describe("adminLayoutGuard", () => {
@@ -24,12 +24,12 @@ describe("adminLayoutGuard", () => {
 	it("returns { user } context for an authenticated session", () => {
 		const result = adminLayoutGuard(adminSession, "/admin");
 		expect(result.user.id).toBe("u1");
-		expect(result.user.role).toBe("Admin");
+		expect(result.user.authRole).toBe("Admin");
 	});
 
 	it("returns { user } context for a Moderator session", () => {
 		const result = adminLayoutGuard(moderatorSession, "/admin/news");
-		expect(result.user.role).toBe("Moderator");
+		expect(result.user.authRole).toBe("Moderator");
 	});
 });
 

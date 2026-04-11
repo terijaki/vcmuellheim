@@ -279,15 +279,5 @@ export class WebAppStack extends cdk.Stack {
 			description: "VCM WebApp URL",
 			exportName: `vcm-webapp-url-${environment}${branchSuffix}`,
 		});
-
-		new cdk.CfnOutput(this, "WebAppDistributionId", {
-			value: this.distribution.distributionId,
-			description: "CloudFront Distribution ID",
-		});
-
-		new cdk.CfnOutput(this, "WebAppLambdaArn", {
-			value: this.webappLambda.functionArn,
-			description: "WebApp Lambda Function ARN",
-		});
 	}
 }

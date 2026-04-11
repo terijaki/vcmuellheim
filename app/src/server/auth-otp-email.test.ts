@@ -83,6 +83,6 @@ describe("buildOtpEmailText", () => {
 
 	it("ends with the WICG autofill origin-binding line for Safari/iOS autofill", () => {
 		const text = buildOtpEmailText(BASE_OPTIONS);
-		expect(text.trimEnd().endsWith("@vcmuellheim.de #123456")).toBe(true);
+		expect(text.trimEnd()).toMatch(/@vcmuellheim\.de #123456$/);
 	});
 });

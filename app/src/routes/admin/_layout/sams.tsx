@@ -16,7 +16,7 @@ const POLL_INTERVAL_MS = 20_000;
 
 function SamsDashboardPage() {
 	const { user } = adminLayoutRoute.useRouteContext();
-	const isAdmin = user.role === "Admin";
+	const isAdmin = user.authRole === "Admin";
 	const queryClient = useQueryClient();
 
 	const [clubsSyncTriggeredAt, setClubsSyncTriggeredAt] = useState<number | null>(null);

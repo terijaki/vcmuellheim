@@ -215,7 +215,7 @@ const defaultFormValues = {
 };
 
 type PublicMemberListItem = Awaited<ReturnType<typeof listMembersFn>>["items"][number];
-type MemberListItem = PublicMemberListItem & { privateEmail?: string; role?: "Admin" | "Moderator" };
+type MemberListItem = PublicMemberListItem & { privateEmail?: string; authRole?: "Admin" | "Moderator" };
 
 function MembersPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
@@ -224,7 +224,7 @@ function MembersPage() {
 	const [deleteAvatar, setDeleteAvatar] = useState(false);
 	const queryClient = useQueryClient();
 	const { currentUser } = Route.useRouteContext();
-	const canManageMembers = currentUser.role === "Admin";
+	const canManageMembers = currentUser.authRole === "Admin";
 
 	const notification = useNotification();
 	const {
@@ -412,7 +412,7 @@ function MembersPage() {
 		form.setFieldValue("isTrainer", member.isTrainer ?? false);
 		form.setFieldValue("roleTitle", member.roleTitle ?? "");
 		form.setFieldValue("avatarS3Key", member.avatarS3Key);
-		form.setFieldValue("adminRole", member.role ?? "");
+		form.setFieldValue("adminRole", member.authRole ?? "");
 		setDeleteAvatar(false);
 		setAvatarFile(null);
 		open();
@@ -678,7 +678,7 @@ function MemberCard({ member, onEdit }: { member: MemberListItem; onEdit?: (memb
 		enabled: !!member.avatarS3Key,
 	});
 	const hasDetails = Boolean(member.roleTitle || member.proxyEmail || member.phone);
-	const hasBadges = member.isBoardMember || member.isTrainer || Boolean(member.role);
+	const hasBadges = member.isBoardMember || member.isTrainer || Boolean(member.authRole);
 
 	return (
 		<Card shadow="sm" p="0" radius="md" withBorder h={{ base: "auto", sm: 188 }} style={{ overflow: "hidden" }}>
@@ -738,9 +738,9 @@ function MemberCard({ member, onEdit }: { member: MemberListItem; onEdit?: (memb
 										Trainer
 									</Badge>
 								)}
-								{member.role && (
-									<Badge size="sm" variant="light" color={member.role === "Admin" ? "red" : "blumine"}>
-										{member.role}
+								{member.authRole && (
+									<Badge size="sm" variant="light" color={member.authRole === "Admin" ? "red" : "blumine"}>
+										{member.authRole}
 									</Badge>
 								)}
 							</Group>
@@ -805,9 +805,9 @@ function MemberCard({ member, onEdit }: { member: MemberListItem; onEdit?: (memb
 										Trainer
 									</Badge>
 								)}
-								{member.role && (
-									<Badge size="sm" variant="light" color={member.role === "Admin" ? "red" : "blumine"}>
-										{member.role}
+								{member.authRole && (
+									<Badge size="sm" variant="light" color={member.authRole === "Admin" ? "red" : "blumine"}>
+										{member.authRole}
 									</Badge>
 								)}
 							</Group>
