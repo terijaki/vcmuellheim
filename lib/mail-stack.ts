@@ -83,6 +83,12 @@ export class MailStack extends cdk.Stack {
 		// Grant DynamoDB read access for proxy email → privateEmail lookups
 		const contentTableArn = cdk.Stack.of(this).formatArn({ service: "dynamodb", resource: "table", resourceName: props.contentTableName });
 		dynamodb.Table.fromTableArn(this, "ContentTableRef", contentTableArn).grantReadData(mailForward);
+		mailForward.addToRolePolicy(
+			new iam.PolicyStatement({
+				actions: ["dynamodb:Query"],
+				resources: [`${contentTableArn}/index/*`],
+			}),
+		);
 
 		// Grant SES send-email permission for forwarding
 		mailForward.addToRolePolicy(
