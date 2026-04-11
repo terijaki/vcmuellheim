@@ -319,9 +319,9 @@ function MembersPage() {
 
 			// Handle adminRole: "" = remove role, "Admin"/"Moderator" = set role
 			if (currentEditingId) {
-				cleanedData.role = value.adminRole === "" ? null : value.adminRole;
+				cleanedData.authRole = value.adminRole === "" ? null : value.adminRole;
 			} else if (value.adminRole !== "") {
-				cleanedData.role = value.adminRole;
+				cleanedData.authRole = value.adminRole;
 			}
 
 			try {

@@ -13,7 +13,7 @@ import { emailOTP } from "better-auth/plugins";
 import { buildOtpEmailHtml, buildOtpEmailSubject, buildOtpEmailText } from "./auth-otp-email";
 import { memberAuthAdapter } from "./auth-member-adapter";
 import { dynamoDBSecondaryStorage } from "./auth-secondary-storage";
-import { getMemberByProxyEmail } from "./queries";
+import { getMemberByProxyEmail } from "../server/queries";
 
 const OTP_EXPIRATION_MINUTES = 10;
 

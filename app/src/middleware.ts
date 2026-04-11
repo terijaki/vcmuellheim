@@ -17,7 +17,7 @@
 
 import { createMiddleware } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
-import { getAuth } from "./server/auth";
+import { getAuth } from "./auth/auth-server-config";
 
 export type UserRole = "Admin" | "Moderator";
 
