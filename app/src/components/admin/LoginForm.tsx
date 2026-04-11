@@ -1,7 +1,14 @@
 import { Alert, Button, PinInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
+import type { EMAIL_OTP_ERROR_CODES } from "better-auth/client/plugins";
 import { useState } from "react";
 import { authClient } from "../../lib/auth-client";
+
+const OTP_ERROR_MESSAGES = {
+	OTP_EXPIRED: "Der Anmeldecode ist abgelaufen. Bitte fordere einen neuen Code an.",
+	INVALID_OTP: "Ungültiger Code. Bitte überprüfe deine Eingabe.",
+	TOO_MANY_ATTEMPTS: "Zu viele Versuche. Bitte fordere einen neuen Code an.",
+} satisfies Record<keyof typeof EMAIL_OTP_ERROR_CODES, string>;
 
 export interface LoginFormProps {
 	redirectTo?: "/admin";
@@ -16,7 +23,7 @@ export function LoginForm({ redirectTo = "/admin" }: LoginFormProps) {
 	const [info, setInfo] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [submitting, setSubmitting] = useState(false);
-	const sendCodeInfoMessage = "Wenn die E-Mail-Adresse registriert ist, wurde ein Anmeldecode verschickt.";
+	const sendCodeInfoMessage = `Wenn die E-Mail-Adresse (${otpEmail}) registriert ist, wurde ein Anmeldecode verschickt.`;
 
 	const sendOtp = async (targetEmail: string) => {
 		const normalizedEmail = targetEmail.trim().toLowerCase();
@@ -57,7 +64,9 @@ export function LoginForm({ redirectTo = "/admin" }: LoginFormProps) {
 		});
 
 		if (result.error) {
-			setError(result.error.message || "Ungültiger Code");
+			const code = result.error.code;
+			const message = code && code in OTP_ERROR_MESSAGES ? OTP_ERROR_MESSAGES[code as keyof typeof OTP_ERROR_MESSAGES] : "Ungültiger Code";
+			setError(message);
 			setSubmitting(false);
 			return;
 		}
@@ -66,7 +75,7 @@ export function LoginForm({ redirectTo = "/admin" }: LoginFormProps) {
 	};
 
 	return (
-		<Stack gap="md" w={360} p="xl">
+		<Stack gap="md" miw={360} maw={500} p="xl">
 			<Title order={2} ta="center">
 				VC Müllheim Anmeldung
 			</Title>
@@ -104,7 +113,7 @@ export function LoginForm({ redirectTo = "/admin" }: LoginFormProps) {
 			) : (
 				<>
 					<Text c="dimmed" ta="center" size="sm">
-						Falls die Adresse registriert ist, wurde ein Anmeldecode an <strong>{otpEmail}</strong> gesendet. Bitte den 6-stelligen Code eingeben.
+						Bitte gib den 6-stelligen Code ein, der dir zugeschickt wurde.
 					</Text>
 					<Stack align="center" gap="md">
 						<PinInput
@@ -114,37 +123,18 @@ export function LoginForm({ redirectTo = "/admin" }: LoginFormProps) {
 							onChange={setOtp}
 							onComplete={(value) => void handleVerifyOtp(value)}
 							disabled={submitting}
+							error={!!error}
 							autoFocus
 							oneTimeCode
 							inputMode="numeric"
 							ariaLabel="Anmeldecode"
+							fw="bolder"
+							placeholder="_"
+							size="md"
 						/>
 					</Stack>
 					<Button onClick={() => void handleVerifyOtp()} loading={submitting} disabled={otp.length < 6} fullWidth>
 						Anmelden
-					</Button>
-					<Button
-						variant="subtle"
-						onClick={async () => {
-							if (!otpEmail) return;
-
-							setOtp("");
-							setError(null);
-							setInfo(null);
-							setSubmitting(true);
-
-							try {
-								await sendOtp(otpEmail);
-								setInfo(sendCodeInfoMessage);
-							} catch {
-								setError("Der Anmeldecode konnte gerade nicht angefordert werden.");
-							}
-
-							setSubmitting(false);
-						}}
-						disabled={submitting}
-					>
-						Code erneut anfordern
 					</Button>
 					<Button
 						variant="subtle"
@@ -158,7 +148,7 @@ export function LoginForm({ redirectTo = "/admin" }: LoginFormProps) {
 						}}
 						disabled={submitting}
 					>
-						E-Mail-Adresse ändern
+						Neu versuchen
 					</Button>
 				</>
 			)}

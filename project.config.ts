@@ -27,7 +27,6 @@ export const Mastodon = {
 /** The clubs Instagram settings. */
 export const Instagram = {
 	mainAccount: "vcmuellheim" as const,
-	beholdFeedUrl: "https://feeds.behold.so/X3Yv8tq2h6eumDnoiywZ" as const,
 };
 /** Shared Sentry configuration for the webapp runtime. */
 export const Sentry = {

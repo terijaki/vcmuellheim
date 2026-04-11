@@ -41,23 +41,5 @@ export class DnsStack extends cdk.Stack {
 
 		// Import CloudFront certificate if provided (must be in us-east-1)
 		this.cloudFrontCertificate = props.cloudFrontCertificateArn ? acm.Certificate.fromCertificateArn(this, "CloudFrontCertificate", props.cloudFrontCertificateArn) : undefined;
-
-		// Outputs for reference
-		new cdk.CfnOutput(this, "HostedZoneId", {
-			value: this.hostedZone.hostedZoneId,
-			description: "Route53 Hosted Zone ID (manually created)",
-		});
-
-		new cdk.CfnOutput(this, "RegionalCertificateArn", {
-			value: this.regionalCertificate.certificateArn,
-			description: "ACM Regional Certificate ARN for API Gateway in eu-central-1 (manually created)",
-		});
-
-		if (this.cloudFrontCertificate) {
-			new cdk.CfnOutput(this, "CloudFrontCertificateArn", {
-				value: this.cloudFrontCertificate.certificateArn,
-				description: "ACM Certificate ARN for CloudFront (manually created)",
-			});
-		}
 	}
 }

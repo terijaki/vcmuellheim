@@ -7,7 +7,7 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type { SamsClubsSyncLambdaEnvironment, SamsCommonLambdaEnvironment, SamsTeamsSyncLambdaEnvironment } from "@/lambda/sams/types";
-import { getSamsDataTableName } from "./db/env";
+import { computeSamsDataTableName } from "./db/env";
 import { buildLambdaFunctionName, VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
 interface SamsStackProps extends cdk.StackProps {
@@ -50,7 +50,7 @@ export class SamsStack extends cdk.Stack {
 
 		// Create single DynamoDB table for all SAMS data
 		const samsDataTable = new dynamodb.Table(this, "SamsDataTable", {
-			tableName: getSamsDataTableName(environment, branch),
+			tableName: computeSamsDataTableName(environment, branch),
 			partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
 			sortKey: { name: "sk", type: dynamodb.AttributeType.STRING },
 			billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,

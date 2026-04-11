@@ -12,8 +12,8 @@ import { parseServerArray, parseServerData } from "../schema-parse";
 import { resolveNullableUpdates } from "./patch-helpers";
 import { canonicalizeProxyAlias, getProxyAliasBranchName, getProxyAliasDomain, suggestProxyAlias } from "./member-alias";
 
-// ── Public member schema (excludes privateEmail for privacy boundary) ────────
-export const publicMemberSchema = memberSchema.omit({ privateEmail: true });
+// ── Public member schema (excludes admin-only fields for privacy boundary) ───
+export const publicMemberSchema = memberSchema.omit({ privateEmail: true, authRole: true, emailVerified: true });
 export type PublicMember = z.infer<typeof publicMemberSchema>;
 
 // ── Public ──────────────────────────────────────────────────────────────────
@@ -73,11 +73,17 @@ export const updateMemberFn = createServerFn()
 					phone: z.string().nullable().optional(),
 					roleTitle: z.string().max(100).nullable().optional(),
 					avatarS3Key: z.string().nullable().optional(),
+					authRole: z.enum(["Admin", "Moderator"]).nullable().optional(),
 				}),
 		}),
 	)
-	.handler(async ({ data: { id, data: updates } }) => {
-		const { privateEmail, proxyEmail, phone, roleTitle, avatarS3Key, ...restUpdates } = updates;
+	.handler(async ({ data: { id, data: updates }, context }) => {
+		// Guard: prevent admins from removing their own role
+		if (id === context.userId && updates.authRole !== "Admin") {
+			throw new Error("You cannot remove your own admin role");
+		}
+
+		const { privateEmail, proxyEmail, phone, roleTitle, avatarS3Key, authRole, ...restUpdates } = updates;
 		const canonicalProxyEmail = proxyEmail && typeof proxyEmail === "string" ? canonicalizeProxyAlias(proxyEmail) : proxyEmail;
 		const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
 			privateEmail,
@@ -85,6 +91,7 @@ export const updateMemberFn = createServerFn()
 			phone,
 			roleTitle,
 			avatarS3Key,
+			authRole,
 		});
 
 		const setFields = {

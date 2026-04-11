@@ -12,6 +12,6 @@ export const getSessionFn = createServerFn()
 		return {
 			id: context.session.userId,
 			email: context.session.userEmail,
-			role: context.session.userRole,
+			authRole: context.session.userRole,
 		};
 	});

@@ -8,7 +8,7 @@
  * The webapp route reads exclusively from DynamoDB — no live Behold API calls
  * happen on the main request path.
  *
- * DDB key scheme (content table, same as ddb-cache.ts):
+ * DDB key scheme (cache table, same as ddb-cache.ts):
  *   PK: `cache#<cacheKey>`
  *   SK: `cache`
  */
@@ -19,7 +19,6 @@ import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
 import type { EventBridgeEvent } from "aws-lambda";
 import dayjs from "dayjs";
-import { Instagram } from "@/project.config";
 import { createCacheKey } from "@/utils/cache";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
@@ -30,7 +29,7 @@ const { logger, tracer } = createLambdaResources("behold-sync");
 const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(BeholdSyncLambdaEnvironmentSchema);
-const TABLE_NAME = env.CONTENT_TABLE_NAME;
+const TABLE_NAME = env.CACHE_TABLE_NAME;
 
 const MAX_POSTS = 2;
 const MAX_AGE_DAYS = 14;
@@ -48,7 +47,7 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 	logger.info("Starting Behold Instagram feed sync", { event });
 	Sentry.addBreadcrumb({ category: "sync", message: "Starting Behold feed sync", level: "info" });
 
-	const response = await fetch(Instagram.beholdFeedUrl, { signal: AbortSignal.timeout(BEHOLD_TIMEOUT_MS) });
+	const response = await fetch(env.BEHOLD_FEED_URL, { signal: AbortSignal.timeout(BEHOLD_TIMEOUT_MS) });
 
 	if (!response.ok) {
 		const msg = `Behold feed returned ${response.status}`;

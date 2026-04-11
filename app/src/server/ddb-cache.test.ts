@@ -8,7 +8,7 @@ let readCacheEntry: typeof import("./ddb-cache").readCacheEntry;
 let writeCacheEntry: typeof import("./ddb-cache").writeCacheEntry;
 
 beforeAll(async () => {
-	process.env.CONTENT_TABLE_NAME = "test-content-table";
+	process.env.CACHE_TABLE_NAME = "test-cache-table";
 	const module = await import("./ddb-cache");
 	readCacheEntry = module.readCacheEntry;
 	writeCacheEntry = module.writeCacheEntry;

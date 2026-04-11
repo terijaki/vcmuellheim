@@ -26,14 +26,3 @@ export function loginPageGuard(session: AdminSessionUser | null): void {
 		throw redirect({ to: "/admin", replace: true });
 	}
 }
-
-/**
- * Guards the /admin/users page.
- * Only the "Admin" role may manage users; all others are sent back to /admin.
- */
-export function adminUsersGuard(user: AdminSessionUser): { currentUser: AdminSessionUser } {
-	if (user.role !== "Admin") {
-		throw redirect({ to: "/admin", replace: true });
-	}
-	return { currentUser: user };
-}

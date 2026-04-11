@@ -1,4 +1,4 @@
-import { BadgeEuro, Building2, Bus, CalendarDays, Contact, MapPinned, Newspaper, UserCog, Users } from "lucide-react";
+import { BadgeEuro, Building2, Bus, CalendarDays, Contact, MapPinned, Newspaper, Users } from "lucide-react";
 import type { ReactElement } from "react";
 
 type AdminRoute = {
@@ -8,7 +8,7 @@ type AdminRoute = {
 	description: string;
 };
 
-export function getAdminRoutesWithLabels(admin = false): AdminRoute[] {
+export function getAdminRoutesWithLabels(): AdminRoute[] {
 	const routes: AdminRoute[] = [
 		{
 			to: "/admin/news",
@@ -59,15 +59,6 @@ export function getAdminRoutesWithLabels(admin = false): AdminRoute[] {
 			description: "SAMS Teams Übersicht.",
 		},
 	];
-
-	if (admin) {
-		routes.splice(7, 0, {
-			to: "/admin/users",
-			label: "Benutzer",
-			icon: <UserCog />,
-			description: "Benutzerverwaltung für den CMS-Zugang.",
-		});
-	}
 
 	return routes;
 }

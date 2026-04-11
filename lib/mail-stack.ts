@@ -144,15 +144,5 @@ export class MailStack extends cdk.Stack {
 		}
 
 		this.mailForwardLambda = mailForward;
-
-		new cdk.CfnOutput(this, "MailForwardLambdaArn", {
-			value: mailForward.functionArn,
-			description: "Mail Forwarding Lambda ARN",
-		});
-
-		new cdk.CfnOutput(this, "MailForwardDlqUrl", {
-			value: dlq.queueUrl,
-			description: "Mail Forwarding DLQ URL",
-		});
 	}
 }

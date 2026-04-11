@@ -8,22 +8,9 @@
  */
 
 import { describe, it } from "vite-plus/test";
-import { AuthVerificationEntity, BusEntity, CmsUserEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
+import { BusEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
 import { SamsClubEntity, SamsTeamEntity } from "./sams-electrodb-entities";
-import {
-	authVerificationSchema,
-	busSchema,
-	cmsUserSchema,
-	eventSchema,
-	locationSchema,
-	mediaSchema,
-	memberSchema,
-	newsSchema,
-	samsClubSchema,
-	samsTeamSchema,
-	sponsorSchema,
-	teamSchema,
-} from "./schemas";
+import { busSchema, eventSchema, locationSchema, mediaSchema, memberSchema, newsSchema, samsClubSchema, samsTeamSchema, sponsorSchema, teamSchema } from "./schemas";
 
 /** Extract sorted top-level attribute names from an ElectroDB entity schema */
 function getEntityAttributeNames(entity: { schema: { attributes: Record<string, unknown> } }): string[] {
@@ -74,7 +61,7 @@ function assertNoSurplusAttributes(
 }
 
 /** Key fields that ElectroDB injects and are not part of the Zod schema */
-const GENERATED_KEY_FIELDS = ["pk", "sk", "gsi1pk", "gsi1sk", "gsi2pk", "gsi2sk", "gsi3pk", "gsi3sk", "gsi4pk", "gsi4sk", "__edb_e__", "__edb_v__"];
+const GENERATED_KEY_FIELDS = ["pk", "sk", "gsi1pk", "gsi1sk", "gsi2pk", "gsi2sk", "gsi3pk", "gsi3sk", "gsi4pk", "gsi4sk", "gsi5pk", "gsi5sk", "__edb_e__", "__edb_v__"];
 
 function checkDrift(entityName: string, zodSchema: Parameters<typeof getZodFieldNames>[0], entity: Parameters<typeof getEntityAttributeNames>[0]): void {
 	const zodFields = getZodFieldNames(zodSchema);
@@ -118,14 +105,6 @@ describe("ElectroDB ↔ Zod drift detection", () => {
 
 	it("Bus entity attributes match busSchema", () => {
 		checkDrift("Bus", busSchema, BusEntity);
-	});
-
-	it("CmsUser entity attributes match cmsUserSchema", () => {
-		checkDrift("CmsUser", cmsUserSchema, CmsUserEntity);
-	});
-
-	it("AuthVerification entity attributes match authVerificationSchema", () => {
-		checkDrift("AuthVerification", authVerificationSchema, AuthVerificationEntity);
 	});
 });
 

@@ -84,21 +84,5 @@ export class BudgetStack extends cdk.Stack {
 				},
 			],
 		});
-
-		// Outputs
-		new cdk.CfnOutput(this, "BudgetName", {
-			value: `vcm-monthly-budget-${environment}${branchSuffix}`,
-			description: "AWS Budget name for cost monitoring",
-		});
-
-		new cdk.CfnOutput(this, "AlertThreshold", {
-			value: `$${alertThreshold} USD`,
-			description: "First alert threshold",
-		});
-
-		new cdk.CfnOutput(this, "BudgetCap", {
-			value: `$${capThreshold} USD (~€10 EUR)`,
-			description: "Monthly budget cap",
-		});
 	}
 }

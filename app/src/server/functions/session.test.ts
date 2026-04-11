@@ -3,8 +3,8 @@ import { mapSessionUser } from "./session-utils";
 
 describe("mapSessionUser", () => {
 	it("maps id, email, name, and role from a complete user object", () => {
-		const result = mapSessionUser({ id: "u1", email: "test@example.com", name: "Alice", role: "Admin" });
-		expect(result).toEqual({ id: "u1", email: "test@example.com", name: "Alice", role: "Admin" });
+		const result = mapSessionUser({ id: "u1", email: "test@example.com", name: "Alice", authRole: "Admin" });
+		expect(result).toEqual({ id: "u1", email: "test@example.com", name: "Alice", authRole: "Admin" });
 	});
 
 	it("sets name to undefined when null", () => {
@@ -17,19 +17,19 @@ describe("mapSessionUser", () => {
 		expect(result.name).toBeUndefined();
 	});
 
-	it("sets role to undefined for non-string role value", () => {
-		const result = mapSessionUser({ id: "u1", email: "test@example.com", role: 42 });
-		expect(result.role).toBeUndefined();
+	it("sets authRole to undefined for non-string authRole value", () => {
+		const result = mapSessionUser({ id: "u1", email: "test@example.com", authRole: 42 });
+		expect(result.authRole).toBeUndefined();
 	});
 
-	it("sets role to undefined when absent", () => {
+	it("sets authRole to undefined when absent", () => {
 		const result = mapSessionUser({ id: "u1", email: "test@example.com" });
-		expect(result.role).toBeUndefined();
+		expect(result.authRole).toBeUndefined();
 	});
 
-	it("preserves role as a string", () => {
-		const result = mapSessionUser({ id: "u1", email: "test@example.com", role: "Moderator" });
-		expect(result.role).toBe("Moderator");
+	it("preserves authRole as a string", () => {
+		const result = mapSessionUser({ id: "u1", email: "test@example.com", authRole: "Moderator" });
+		expect(result.authRole).toBe("Moderator");
 	});
 
 	it("ignores unknown extra fields", () => {

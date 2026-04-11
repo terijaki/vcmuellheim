@@ -5,16 +5,6 @@
 import { Tracer } from "@aws-lambda-powertools/tracer";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { getContentTableName, type TableEntity } from "./env";
-
-/**
- * Get the content table name for any entity.
- * All content entities share a single DynamoDB table (single-table design).
- * @deprecated Prefer `getContentTableName()` directly. Kept for backward compatibility.
- */
-export function getTableName(_entity: TableEntity): string {
-	return getContentTableName();
-}
 
 /** DynamoDB client instance with X-Ray tracing */
 const dynamoDBClient = new DynamoDBClient({});

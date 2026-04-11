@@ -69,7 +69,7 @@ export default defineConfig({
 	run: {
 		tasks: {
 			// CDK deploy guarded by full check + tests
-			"deploy-all": {
+			deploy: {
 				command: "bun run cdk:deploy:all",
 				dependsOn: ["lint", "test"],
 				cache: false,
@@ -87,7 +87,7 @@ export default defineConfig({
 			// Deploy + seed in one command for new branches
 			"deploy-seeded": {
 				command: "vpr seed",
-				dependsOn: ["deploy-all"],
+				dependsOn: ["deploy"],
 				cache: false,
 			},
 		},

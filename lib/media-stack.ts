@@ -147,16 +147,5 @@ export class MediaStack extends cdk.Stack {
 				suffix: ext,
 			});
 		});
-
-		// Outputs
-		new cdk.CfnOutput(this, "MediaBucketName", {
-			value: this.bucket.bucketName,
-			description: "S3 Bucket for media storage",
-		});
-
-		new cdk.CfnOutput(this, "CloudFrontUrl", {
-			value: this.cloudFrontUrl,
-			description: "CloudFront URL for media distribution",
-		});
 	}
 }

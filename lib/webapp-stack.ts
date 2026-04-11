@@ -26,7 +26,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
-import { CONTENT_TABLE_ENV_VAR, getSamsDataTableName } from "./db/env";
+import { CACHE_TABLE_ENV_VAR, CONTENT_TABLE_ENV_VAR, computeCacheTableName, computeSamsDataTableName } from "./db/env";
 
 export interface WebAppStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -79,11 +79,14 @@ export class WebAppStack extends cdk.Stack {
 		// Compute ARNs for cross-stack table and bucket grants (no CF cross-stack reference)
 		const stack = cdk.Stack.of(this);
 		const contentTableArn = stack.formatArn({ service: "dynamodb", resource: "table", resourceName: props.contentTableName });
-		const samsTableName = getSamsDataTableName(environment, branch);
+		const samsTableName = computeSamsDataTableName(environment, branch);
 		const samsTableArn = stack.formatArn({ service: "dynamodb", resource: "table", resourceName: samsTableName });
+		const cacheTableName = computeCacheTableName(environment, branch);
+		const cacheTableArn = stack.formatArn({ service: "dynamodb", resource: "table", resourceName: cacheTableName });
 
 		const lambdaEnvironment: Record<string, string> = {
 			[CONTENT_TABLE_ENV_VAR]: props.contentTableName,
+			[CACHE_TABLE_ENV_VAR]: cacheTableName,
 			CDK_ENVIRONMENT: environment,
 			BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
 			MEDIA_BUCKET_NAME: props.mediaBucketName,
@@ -126,8 +129,9 @@ export class WebAppStack extends cdk.Stack {
 			tracing: lambda.Tracing.ACTIVE,
 		});
 
-		// Grant Lambda access to content and SAMS tables via computed ARNs (no CF cross-stack exports)
+		// Grant Lambda access to content, cache, and SAMS tables via computed ARNs (no CF cross-stack exports)
 		dynamodb.Table.fromTableArn(this, "ContentTableRef", contentTableArn).grantReadWriteData(this.webappLambda);
+		dynamodb.Table.fromTableArn(this, "CacheTableRef", cacheTableArn).grantReadWriteData(this.webappLambda);
 		this.webappLambda.addToRolePolicy(
 			new cdk.aws_iam.PolicyStatement({
 				effect: cdk.aws_iam.Effect.ALLOW,
@@ -278,16 +282,6 @@ export class WebAppStack extends cdk.Stack {
 			value: this.webappUrl,
 			description: "VCM WebApp URL",
 			exportName: `vcm-webapp-url-${environment}${branchSuffix}`,
-		});
-
-		new cdk.CfnOutput(this, "WebAppDistributionId", {
-			value: this.distribution.distributionId,
-			description: "CloudFront Distribution ID",
-		});
-
-		new cdk.CfnOutput(this, "WebAppLambdaArn", {
-			value: this.webappLambda.functionArn,
-			description: "WebApp Lambda Function ARN",
 		});
 	}
 }

@@ -84,7 +84,7 @@ describe("DnsStack", () => {
 		}
 	});
 
-	it("should create correct outputs", () => {
+	it("should create no stack outputs", () => {
 		const app = createTestApp();
 		const stack = new DnsStack(app, "TestStack", {
 			...testProps,
@@ -93,34 +93,12 @@ describe("DnsStack", () => {
 
 		const template = Template.fromStack(stack);
 
-		// Should have outputs for hosted zone, regional certificate, and CloudFront certificate
+		// DNS stack only imports resources, it creates no CloudFormation outputs
 		const outputs = template.findOutputs("*");
 		const outputKeys = Object.keys(outputs);
 
-		if (!outputKeys.includes("HostedZoneId")) {
-			throw new Error("Expected HostedZoneId output");
-		}
-
-		if (!outputKeys.includes("RegionalCertificateArn")) {
-			throw new Error("Expected RegionalCertificateArn output");
-		}
-
-		if (!outputKeys.includes("CloudFrontCertificateArn")) {
-			throw new Error("Expected CloudFrontCertificateArn output");
-		}
-	});
-
-	it("should not create CloudFront certificate output when not provided", () => {
-		const app = createTestApp();
-		const stack = new DnsStack(app, "TestStack", testProps);
-
-		const template = Template.fromStack(stack);
-
-		const outputs = template.findOutputs("*");
-		const outputKeys = Object.keys(outputs);
-
-		if (outputKeys.includes("CloudFrontCertificateArn")) {
-			throw new Error("Should not have CloudFrontCertificateArn output when not provided");
+		if (outputKeys.length !== 0) {
+			throw new Error(`Expected no outputs, got: ${outputKeys.join(", ")}`);
 		}
 	});
 });

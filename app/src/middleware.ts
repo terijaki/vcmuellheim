@@ -17,7 +17,7 @@
 
 import { createMiddleware } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
-import { getAuth } from "./server/auth";
+import { getAuth } from "./auth/auth-server-config";
 
 export type UserRole = "Admin" | "Moderator";
 
@@ -80,13 +80,13 @@ async function tryGetSession(request: Request): Promise<SessionContext | null> {
 		const result = await auth.api.getSession({ headers: request.headers });
 		if (!result?.user) return null;
 
-		const role = (result.user as { role?: string }).role as UserRole | undefined;
-		if (!role || (role !== "Admin" && role !== "Moderator")) return null;
+		const userRole = (result.user as { authRole?: string }).authRole as UserRole | undefined;
+		if (!userRole || (userRole !== "Admin" && userRole !== "Moderator")) return null;
 
 		return {
 			userId: result.user.id,
 			userEmail: result.user.email,
-			userRole: role,
+			userRole,
 		};
 	} catch {
 		return null;

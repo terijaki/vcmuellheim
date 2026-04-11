@@ -17,7 +17,7 @@ interface AdminHeaderProps {
 export default function AdminHeader({ user }: AdminHeaderProps) {
 	const [opened, { toggle, close }] = useDisclosure();
 	const { location } = useRouterState();
-	const navLinks = getAdminRoutesWithLabels(user?.role === "Admin");
+	const navLinks = getAdminRoutesWithLabels();
 	const navigate = useNavigate();
 	const [loggingOut, setLoggingOut] = useState(false);
 
@@ -63,7 +63,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
 								</Menu.Target>
 								<Menu.Dropdown>
 									{user?.email && <Menu.Label>{user.email}</Menu.Label>}
-									{user?.role && <Menu.Label>{user.role}</Menu.Label>}
+									{user?.authRole && <Menu.Label>{user.authRole}</Menu.Label>}
 									<Menu.Divider />
 									<Menu.Item leftSection={<LogOut size={16} />} onClick={logout} disabled={loggingOut}>
 										Abmelden

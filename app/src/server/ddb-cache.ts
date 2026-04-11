@@ -15,7 +15,7 @@
 
 import { GetCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
-import { getContentTableName } from "@/lib/db/env";
+import { getCacheTableName } from "@/lib/db/env";
 
 const CACHE_SK = "cache";
 
@@ -43,7 +43,7 @@ type CacheEntry = {
 export async function readCacheEntry<T>(cacheKey: string, ttlMs: number, now: () => number = Date.now): Promise<T | null> {
 	const result = await docClient.send(
 		new GetCommand({
-			TableName: getContentTableName(),
+			TableName: getCacheTableName(),
 			Key: { pk: buildPk(cacheKey), sk: CACHE_SK },
 		}),
 	);
@@ -79,7 +79,7 @@ export async function writeCacheEntry<T>(cacheKey: string, value: T, now: () => 
 
 	await docClient.send(
 		new PutCommand({
-			TableName: getContentTableName(),
+			TableName: getCacheTableName(),
 			Item: entry,
 		}),
 	);

@@ -8,18 +8,33 @@
 
 import { z } from "zod";
 
+/** Environment variable name for the dedicated cache table */
+export const CACHE_TABLE_ENV_VAR = "CACHE_TABLE_NAME" as const;
+
+/** Get the cache table name from the environment, throwing if not configured */
+export function getCacheTableName(): string {
+	const tableName = process.env[CACHE_TABLE_ENV_VAR];
+	if (!tableName) {
+		throw new Error(`Cache table not configured. Missing environment variable: ${CACHE_TABLE_ENV_VAR}`);
+	}
+	return tableName;
+}
+/**
+ * Compute the canonical cache table name for a given environment and branch.
+ * Single source of truth used by CacheStack, WebAppStack, and SocialMediaStack.
+ */
+export function computeCacheTableName(environment: string, branch: string): string {
+	const branchSuffix = branch ? `-${branch}` : "";
+	return `vcm-cache-${environment}${branchSuffix}`;
+}
+
 /** Environment variable name for the single content table */
 export const CONTENT_TABLE_ENV_VAR = "CONTENT_TABLE_NAME" as const;
-
-/** Environment variable name for the single SAMS data table */
-export const SAMS_TABLE_ENV_VAR = "SAMS_TABLE_NAME" as const;
 
 export const tableEnvironmentSchema = z.object({
 	CONTENT_TABLE_NAME: z.string().trim().min(1),
 });
-
 export type TableEnvironment = z.infer<typeof tableEnvironmentSchema>;
-
 /** Get the single content table name from the environment, throwing if not configured */
 export function getContentTableName(): string {
 	const tableName = process.env[CONTENT_TABLE_ENV_VAR];
@@ -28,7 +43,6 @@ export function getContentTableName(): string {
 	}
 	return tableName;
 }
-
 /**
  * Compute the canonical content table name for a given environment and branch.
  * Single source of truth used by ContentDbStack, WebAppStack, MailStack, and SocialMediaStack
@@ -39,16 +53,8 @@ export function computeContentTableName(environment: string, branch: string): st
 	return `vcm-content-${environment}${branchSuffix}`;
 }
 
-/**
- * Compute the canonical SAMS data table name for a given environment and branch.
- * Single source of truth used by SamsStack, WebAppStack, and the local dev
- * vite plugin — keeping them in sync without a CloudFormation cross-stack reference.
- */
-export function getSamsDataTableName(environment: string, branch: string): string {
-	const branchSuffix = branch ? `-${branch}` : "";
-	return `sams-data-${environment}${branchSuffix}`;
-}
-
+/** Environment variable name for the single SAMS data table */
+export const SAMS_TABLE_ENV_VAR = "SAMS_TABLE_NAME" as const;
 /** Get the SAMS data table name from the environment, throwing if not configured */
 export function getSamsTableName(): string {
 	const tableName = process.env[SAMS_TABLE_ENV_VAR];
@@ -57,19 +63,12 @@ export function getSamsTableName(): string {
 	}
 	return tableName;
 }
-
-// ---------------------------------------------------------------------------
-// Legacy compatibility — kept so existing callers (server functions, lambdas)
-// that still use tableEnvVar() continue to compile without changes.
-// All entity keys resolve to the same single content table.
-// ---------------------------------------------------------------------------
-
-/** All content entity keys (kept for legacy compatibility) */
-export const TABLES = ["NEWS", "EVENTS", "TEAMS", "MEMBERS", "MEDIA", "SPONSORS", "LOCATIONS", "BUS", "USERS", "AUTH_VERIFICATIONS"] as const;
-
-export type TableEntity = (typeof TABLES)[number];
-
-/** Returns the single content table env var for any entity (single-table design) */
-export function tableEnvVar(_entity: TableEntity): typeof CONTENT_TABLE_ENV_VAR {
-	return CONTENT_TABLE_ENV_VAR;
+/**
+ * Compute the canonical SAMS data table name for a given environment and branch.
+ * Single source of truth used by SamsStack, WebAppStack, and the local dev
+ * vite plugin — keeping them in sync without a CloudFormation cross-stack reference.
+ */
+export function computeSamsDataTableName(environment: string, branch: string): string {
+	const branchSuffix = branch ? `-${branch}` : "";
+	return `sams-data-${environment}${branchSuffix}`;
 }

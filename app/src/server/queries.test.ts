@@ -1,15 +1,13 @@
 import { DynamoDBDocumentClient, GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
 import { beforeAll, beforeEach, describe, expect, it } from "vite-plus/test";
-import type { CmsUser, News } from "@/lib/db/types";
+import type { News } from "@/lib/db/types";
 
 const ddbMock = mockClient(DynamoDBDocumentClient);
 
 let getAllNews: typeof import("./queries").getAllNews;
 let getPublishedNews: typeof import("./queries").getPublishedNews;
 let getNewsBySlug: typeof import("./queries").getNewsBySlug;
-let getCmsUserByEmail: typeof import("./queries").getCmsUserByEmail;
-let getAllCmsUsers: typeof import("./queries").getAllCmsUsers;
 let getAllSamsClubs: typeof import("./queries").getAllSamsClubs;
 let getSamsClubBySportsclubUuid: typeof import("./queries").getSamsClubBySportsclubUuid;
 let getSamsClubByNameSlug: typeof import("./queries").getSamsClubByNameSlug;
@@ -25,8 +23,6 @@ describe("server/queries", () => {
 		getAllNews = q.getAllNews;
 		getPublishedNews = q.getPublishedNews;
 		getNewsBySlug = q.getNewsBySlug;
-		getCmsUserByEmail = q.getCmsUserByEmail;
-		getAllCmsUsers = q.getAllCmsUsers;
 		getAllSamsClubs = q.getAllSamsClubs;
 		getSamsClubBySportsclubUuid = q.getSamsClubBySportsclubUuid;
 		getSamsClubByNameSlug = q.getSamsClubByNameSlug;
@@ -155,80 +151,6 @@ describe("server/queries", () => {
 			ddbMock.on(QueryCommand).resolves({ Items: [] });
 			const result = await getNewsBySlug("unknown");
 			expect(result).toBeNull();
-		});
-	});
-
-	describe("getCmsUserByEmail", () => {
-		it("queries GSI4-ByIdentifier by email via ElectroDB", async () => {
-			const domainUser: CmsUser = {
-				id: "44444444-4444-4444-8444-444444444444",
-				type: "user",
-				email: "admin@test.com",
-				name: "Admin",
-				emailVerified: true,
-				role: "Admin",
-				createdAt: "2024-01-01T00:00:00Z",
-				updatedAt: "2024-01-01T00:00:00Z",
-			};
-			const dbItem = { ...domainUser, __edb_e__: "user", __edb_v__: "1" };
-			ddbMock.on(QueryCommand).resolves({ Items: [dbItem] });
-
-			const result = await getCmsUserByEmail("admin@test.com");
-
-			expect(result).toEqual(domainUser);
-			const calls = ddbMock.commandCalls(QueryCommand);
-			expect(calls[0].args[0].input).toMatchObject({
-				TableName: "test-content-table",
-				IndexName: "GSI4-ByIdentifier",
-				Limit: 1,
-			});
-		});
-
-		it("returns null when user not found", async () => {
-			ddbMock.on(QueryCommand).resolves({ Items: [] });
-			const result = await getCmsUserByEmail("nobody@test.com");
-			expect(result).toBeNull();
-		});
-	});
-
-	describe("getAllCmsUsers", () => {
-		it("queries the content table by type index for users", async () => {
-			const mockUsers = [
-				{
-					id: "55555555-5555-4555-8555-555555555555",
-					email: "a@test.com",
-					name: "A",
-					role: "Admin",
-					emailVerified: true,
-					createdAt: "2024-01-01T00:00:00Z",
-					updatedAt: "2024-01-01T00:00:00Z",
-					type: "user",
-					__edb_e__: "user",
-					__edb_v__: "1",
-				},
-				{
-					id: "66666666-6666-4666-8666-666666666666",
-					email: "b@test.com",
-					name: "B",
-					role: "Moderator",
-					emailVerified: false,
-					createdAt: "2024-01-01T00:00:00Z",
-					updatedAt: "2024-01-01T00:00:00Z",
-					type: "user",
-					__edb_e__: "user",
-					__edb_v__: "1",
-				},
-			];
-			ddbMock.on(QueryCommand).resolves({ Items: mockUsers });
-
-			const result = await getAllCmsUsers();
-
-			expect(result).toHaveLength(2);
-			expect(result[0].id).toBe("55555555-5555-4555-8555-555555555555");
-			const calls = ddbMock.commandCalls(QueryCommand);
-			const userQueryCall = calls.find((c) => c.args[0].input.IndexName === "GSI1-ByTypeAndDate");
-			expect(userQueryCall).toBeDefined();
-			expect(userQueryCall?.args[0].input.TableName).toBe("test-content-table");
 		});
 	});
 
