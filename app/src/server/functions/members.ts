@@ -79,7 +79,7 @@ export const updateMemberFn = createServerFn()
 	)
 	.handler(async ({ data: { id, data: updates }, context }) => {
 		// Guard: prevent admins from removing their own role
-		if (updates.authRole === null && id === context.userId) {
+		if (id === context.userId && updates.authRole !== "Admin") {
 			throw new Error("You cannot remove your own admin role");
 		}
 
