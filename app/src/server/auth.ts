@@ -113,7 +113,7 @@ function createAuth() {
 		},
 		user: {
 			additionalFields: {
-				role: {
+				authRole: {
 					type: "string",
 					required: true,
 				},
