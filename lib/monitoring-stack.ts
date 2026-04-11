@@ -187,18 +187,5 @@ export class MonitoringStack extends cdk.Stack {
 			});
 			apiLatencyAlarm.addAlarmAction(new cw_actions.SnsAction(this.warningTopic));
 		}
-
-		// ==================== Outputs ====================
-		new cdk.CfnOutput(this, "AlertTopicArn", {
-			value: this.alertTopic.topicArn,
-			description: "SNS Alert Topic ARN",
-			exportName: `vcm-alert-topic-${environment}${branchSuffix}`,
-		});
-
-		new cdk.CfnOutput(this, "WarningTopicArn", {
-			value: this.warningTopic.topicArn,
-			description: "SNS Warning Topic ARN",
-			exportName: `vcm-warning-topic-${environment}${branchSuffix}`,
-		});
 	}
 }
