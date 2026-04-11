@@ -64,10 +64,7 @@ function createOtpLoginLink(email: string, otp: string, request?: Request): stri
 }
 
 function getTrusedOrigins({ isLocalDev = false } = {}): string[] {
-	const origins = [
-		`https://${Club.domain}`,
-		// , "https://*.lambda-url.eu-central-1.on.aws" // TODO check if this is fine without
-	];
+	const origins = [`https://${Club.domain}`];
 
 	if (!isProd) {
 		origins.push(`https://*.new.${Club.domain}`);
