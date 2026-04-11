@@ -51,7 +51,7 @@ export class VcmNodejsFunction extends cdk.Resource {
 			bundling: {
 				minify: true,
 				sourceMap: true,
-				externalModules: ["@aws-sdk/*"],
+				externalModules: ["aws-sdk"],
 				...bundling,
 			},
 			logGroup,
