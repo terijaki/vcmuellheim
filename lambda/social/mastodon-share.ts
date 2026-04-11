@@ -6,6 +6,7 @@ import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import type { News } from "@/lib/db/types";
 import { parseLambdaEnv } from "../utils/env";
 import { createLambdaResources } from "../utils/resources";
+import { Sentry } from "../utils/sentry";
 import { MastodonShareLambdaEnvironmentSchema } from "./types";
 
 const { logger } = createLambdaResources("mastodon-share");
@@ -186,7 +187,7 @@ function buildMastodonStatus(newsArticle: News, articleUrl: string): string {
 /**
  * Lambda handler for direct invocation
  */
-export async function handler(event: MastodonShareRequest): Promise<MastodonStatusResponse> {
+async function lambdaHandler(event: MastodonShareRequest): Promise<MastodonStatusResponse> {
 	logger.info("Mastodon sharing Lambda triggered", { event });
 
 	try {
@@ -197,3 +198,5 @@ export async function handler(event: MastodonShareRequest): Promise<MastodonStat
 		throw error;
 	}
 }
+
+export const handler = Sentry.wrapHandler(lambdaHandler);

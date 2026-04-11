@@ -1,6 +1,13 @@
 import { beforeEach, describe, expect, test, vi } from "vite-plus/test";
 import type { News } from "@/lib/db/types";
 
+// Mock Sentry (no-op in tests)
+vi.mock("../utils/sentry", () => ({
+	Sentry: {
+		wrapHandler: vi.fn((fn) => fn),
+	},
+}));
+
 // Mock fetch globally
 const mockFetch = vi.fn((_url: string, _init?: RequestInit) =>
 	Promise.resolve({
@@ -334,6 +341,7 @@ describe("Mastodon Share Lambda", () => {
 
 	test("handler function should pass request to shareToMastodon", async () => {
 		const { handler } = await import("./mastodon-share");
+		const callHandler = handler as unknown as (event: unknown) => Promise<unknown>;
 
 		const newsArticle: News = {
 			id: "handler-test-id",
@@ -346,10 +354,10 @@ describe("Mastodon Share Lambda", () => {
 			updatedAt: "2024-01-01T00:00:00.000Z",
 		};
 
-		const result = await handler({
+		const result = (await callHandler({
 			newsArticle,
 			websiteUrl: "https://vcmuellheim.de",
-		});
+		})) as { id: string; url: string };
 
 		expect(result.id).toBe("123456789");
 		expect(result.url).toBe("https://freiburg.social/@VCM/123456789");

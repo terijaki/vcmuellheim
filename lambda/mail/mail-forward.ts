@@ -430,6 +430,8 @@ const lambdaHandler = async (event: unknown) => {
 	};
 };
 
-export const handler = middy(lambdaHandler)
-	.use(captureLambdaHandler(tracer))
-	.use(injectLambdaContext(logger, { logEvent: true }));
+export const handler = Sentry.wrapHandler(
+	middy(lambdaHandler)
+		.use(captureLambdaHandler(tracer))
+		.use(injectLambdaContext(logger, { logEvent: true })),
+);
