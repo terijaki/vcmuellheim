@@ -83,6 +83,8 @@ export const memberSchema = z.object({
 	isTrainer: z.boolean().optional(),
 	roleTitle: z.string().max(100).optional(),
 	avatarS3Key: z.string().optional(),
+	role: z.enum(["Admin", "Moderator"]).optional().describe("CMS admin role — when set, this member may log in to the admin panel"),
+	emailVerified: z.boolean().optional().describe("Whether the member's private email has been verified via OTP login"),
 });
 
 /** Media schema */

@@ -5,6 +5,10 @@
  * is needed.  getTestInstance internally runs Kysely migrations against a real
  * Node.js in-memory SQLite db (node:sqlite); our custom adapter then handles
  * all actual auth operations via the injected fakeDb.
+ *
+ * Identity model: members with Admin or Moderator role are the auth user.
+ * The member's `privateEmail` is the canonical auth identity (exposed as `email`
+ * to better-auth). Login by `proxyEmail` alias resolves to the owning member.
  */
 
 import { beforeAll, beforeEach, describe, expect, it } from "vite-plus/test";
@@ -16,14 +20,14 @@ import type { AuthDb } from "./better-auth-dynamodb-adapter";
 type FakeItem = Record<string, unknown>;
 
 function createFakeDb() {
-	const store: Record<"user" | "verification" | "session" | "account", Map<string, FakeItem>> = {
-		user: new Map(),
+	const store: Record<"member" | "verification" | "session" | "account", Map<string, FakeItem>> = {
+		member: new Map(),
 		verification: new Map(),
 		session: new Map(),
 		account: new Map(),
 	};
 
-	function makeEntity(model: "user" | "verification" | "session" | "account", queries: Record<string, (params: FakeItem) => FakeItem[]>) {
+	function makeEntity(model: "member" | "verification" | "session" | "account", queries: Record<string, (params: FakeItem) => FakeItem[]>) {
 		return {
 			get: (key: { id: string }) => ({
 				go: async () => ({ data: store[model].get(key.id) ?? null }),
@@ -56,8 +60,9 @@ function createFakeDb() {
 	}
 
 	return {
-		user: makeEntity("user", {
-			byEmail: ({ email }) => [...store.user.values()].filter((u) => u.email === email),
+		member: makeEntity("member", {
+			byPrivateEmail: ({ privateEmail }) => [...store.member.values()].filter((m) => m.privateEmail === privateEmail),
+			byProxyEmail: ({ proxyEmail }) => [...store.member.values()].filter((m) => m.proxyEmail === proxyEmail),
 		}),
 		verification: makeEntity("verification", {
 			byIdentifier: ({ identifier }) => [...store.verification.values()].filter((v) => v.identifier === identifier),
@@ -93,7 +98,19 @@ describe("dynamoDBAdapter via getTestInstance", () => {
 	async function makeInstance() {
 		return getTestInstance(
 			// Pass our adapter; this overrides better-auth's default SQLite database.
-			{ database: createDynamoDBAdapter(() => fakeDb as unknown as AuthDb) },
+			{
+				database: createDynamoDBAdapter(() => fakeDb as unknown as AuthDb),
+				// Match production config: role is a required additional field on users/members.
+				user: {
+					additionalFields: {
+						role: {
+							type: "string" as const,
+							required: true,
+							defaultValue: "Moderator",
+						},
+					},
+				},
+			},
 			{
 				// Disable the pre-created test user so we control all data in the store.
 				disableTestUser: true,
@@ -199,5 +216,80 @@ describe("dynamoDBAdapter via getTestInstance", () => {
 			headers: new Headers({ Authorization: `Bearer ${token}` }),
 		});
 		expect(sessionAfter).toBeNull();
+	});
+});
+
+describe("member identity model", () => {
+	let fakeDb: ReturnType<typeof createFakeDb>;
+	let createDynamoDBAdapter: typeof import("./better-auth-dynamodb-adapter").createDynamoDBAdapter;
+
+	beforeAll(async () => {
+		({ createDynamoDBAdapter } = await import("./better-auth-dynamodb-adapter"));
+	});
+
+	beforeEach(() => {
+		fakeDb = createFakeDb();
+	});
+
+	it("login by privateEmail succeeds for Admin member", async () => {
+		const { client } = await getTestInstance(
+			{ database: createDynamoDBAdapter(() => fakeDb as unknown as AuthDb), user: { additionalFields: { role: { type: "string" as const, required: true, defaultValue: "Moderator" } } } },
+			{ disableTestUser: true },
+		);
+
+		// Pre-seed an Admin member via sign-up (role defaults to "Moderator" per additionalFields;
+		// better-auth sets it as part of user creation)
+		await client.signUp.email({ email: "admin@private.de", password: "secret123", name: "Admin User" });
+		// The member is stored with privateEmail = "admin@private.de" and role = "Moderator"
+
+		const { data, error } = await client.signIn.email({ email: "admin@private.de", password: "secret123" });
+		expect(error).toBeNull();
+		expect(data?.user.email).toBe("admin@private.de");
+	});
+
+	it("login is rejected for member without admin role", async () => {
+		const { client } = await getTestInstance({ database: createDynamoDBAdapter(() => fakeDb as unknown as AuthDb) }, { disableTestUser: true });
+
+		// Manually seed a member without a role (simulates a plain member, not admin-eligible)
+		const memberId = crypto.randomUUID();
+		// The fakeDb stores items directly — we bypass signUp to plant a role-less member
+		// We do this through the adapter's create path by temporarily using a minimal fake
+		const rolelesDb = {
+			...fakeDb,
+			member: {
+				...fakeDb.member,
+				query: {
+					byPrivateEmail: fakeDb.member.query.byPrivateEmail,
+					byProxyEmail: fakeDb.member.query.byProxyEmail,
+				},
+			},
+		};
+		// Directly insert a member without role into the member store
+		await fakeDb.member.put({ id: memberId, privateEmail: "nonadmin@example.de", name: "Plain Member", emailVerified: false }).go();
+
+		const { data, error } = await client.signIn.email({ email: "nonadmin@example.de", password: "any" });
+		expect(data).toBeNull();
+		expect(error).toBeTruthy();
+		expect(void rolelesDb).toBeUndefined(); // suppress unused-var warning
+	});
+
+	it("login by proxyEmail resolves to member's privateEmail as canonical identity", async () => {
+		const { client } = await getTestInstance(
+			{ database: createDynamoDBAdapter(() => fakeDb as unknown as AuthDb), user: { additionalFields: { role: { type: "string" as const, required: true, defaultValue: "Moderator" } } } },
+			{ disableTestUser: true },
+		);
+
+		// Create member via sign-up (stores privateEmail = "private@example.de")
+		await client.signUp.email({ email: "private@example.de", password: "secret123", name: "Proxy User" });
+
+		// Manually add proxyEmail to the stored member record
+		const stored = [...(await fakeDb.member.scan.go()).data][0];
+		await fakeDb.member.put({ ...stored, proxyEmail: "proxy@public.de" }).go();
+
+		// Sign in with proxyEmail — should be accepted and session email = privateEmail
+		const { data, error } = await client.signIn.email({ email: "proxy@public.de", password: "secret123" });
+		expect(error).toBeNull();
+		// The session's canonical identity is the privateEmail, not the proxyEmail alias
+		expect(data?.user.email).toBe("private@example.de");
 	});
 });

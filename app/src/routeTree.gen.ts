@@ -32,7 +32,6 @@ import { Route as LayoutTermineIndexRouteImport } from './routes/_layout/termine
 import { Route as LayoutTeamsIndexRouteImport } from './routes/_layout/teams.index'
 import { Route as LayoutNewsIndexRouteImport } from './routes/_layout/news.index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as AdminLayoutUsersRouteImport } from './routes/admin/_layout/users'
 import { Route as AdminLayoutTeamsRouteImport } from './routes/admin/_layout/teams'
 import { Route as AdminLayoutSponsorsRouteImport } from './routes/admin/_layout/sponsors'
 import { Route as AdminLayoutSamsRouteImport } from './routes/admin/_layout/sams'
@@ -159,11 +158,6 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminLayoutUsersRoute = AdminLayoutUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
-  getParentRoute: () => AdminLayoutRoute,
-} as any)
 const AdminLayoutTeamsRoute = AdminLayoutTeamsRouteImport.update({
   id: '/teams',
   path: '/teams',
@@ -249,7 +243,6 @@ export interface FileRoutesByFullPath {
   '/admin/sams': typeof AdminLayoutSamsRoute
   '/admin/sponsors': typeof AdminLayoutSponsorsRoute
   '/admin/teams': typeof AdminLayoutTeamsRoute
-  '/admin/users': typeof AdminLayoutUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/news/': typeof LayoutNewsIndexRoute
   '/teams/': typeof LayoutTeamsIndexRoute
@@ -281,7 +274,6 @@ export interface FileRoutesByTo {
   '/admin/sams': typeof AdminLayoutSamsRoute
   '/admin/sponsors': typeof AdminLayoutSponsorsRoute
   '/admin/teams': typeof AdminLayoutTeamsRoute
-  '/admin/users': typeof AdminLayoutUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/news': typeof LayoutNewsIndexRoute
   '/teams': typeof LayoutTeamsIndexRoute
@@ -319,7 +311,6 @@ export interface FileRoutesById {
   '/admin/_layout/sams': typeof AdminLayoutSamsRoute
   '/admin/_layout/sponsors': typeof AdminLayoutSponsorsRoute
   '/admin/_layout/teams': typeof AdminLayoutTeamsRoute
-  '/admin/_layout/users': typeof AdminLayoutUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_layout/news/': typeof LayoutNewsIndexRoute
   '/_layout/teams/': typeof LayoutTeamsIndexRoute
@@ -357,7 +348,6 @@ export interface FileRouteTypes {
     | '/admin/sams'
     | '/admin/sponsors'
     | '/admin/teams'
-    | '/admin/users'
     | '/api/auth/$'
     | '/news/'
     | '/teams/'
@@ -389,7 +379,6 @@ export interface FileRouteTypes {
     | '/admin/sams'
     | '/admin/sponsors'
     | '/admin/teams'
-    | '/admin/users'
     | '/api/auth/$'
     | '/news'
     | '/teams'
@@ -426,7 +415,6 @@ export interface FileRouteTypes {
     | '/admin/_layout/sams'
     | '/admin/_layout/sponsors'
     | '/admin/_layout/teams'
-    | '/admin/_layout/users'
     | '/api/auth/$'
     | '/_layout/news/'
     | '/_layout/teams/'
@@ -606,13 +594,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/_layout/users': {
-      id: '/admin/_layout/users'
-      path: '/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AdminLayoutUsersRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
     '/admin/_layout/teams': {
       id: '/admin/_layout/teams'
       path: '/teams'
@@ -779,7 +760,6 @@ interface AdminLayoutRouteChildren {
   AdminLayoutSamsRoute: typeof AdminLayoutSamsRoute
   AdminLayoutSponsorsRoute: typeof AdminLayoutSponsorsRoute
   AdminLayoutTeamsRoute: typeof AdminLayoutTeamsRoute
-  AdminLayoutUsersRoute: typeof AdminLayoutUsersRoute
   AdminLayoutIndexRoute: typeof AdminLayoutIndexRoute
 }
 
@@ -792,7 +772,6 @@ const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
   AdminLayoutSamsRoute: AdminLayoutSamsRoute,
   AdminLayoutSponsorsRoute: AdminLayoutSponsorsRoute,
   AdminLayoutTeamsRoute: AdminLayoutTeamsRoute,
-  AdminLayoutUsersRoute: AdminLayoutUsersRoute,
   AdminLayoutIndexRoute: AdminLayoutIndexRoute,
 }
 

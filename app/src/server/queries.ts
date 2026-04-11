@@ -1,7 +1,7 @@
 import { type ClubResponse, ClubResponseSchema, type TeamResponse, TeamResponseSchema } from "@/lambda/sams/types";
 import { db, samsDb } from "@/lib/db/electrodb-client";
-import { cmsUserSchema, newsSchema } from "@/lib/db/schemas";
-import type { CmsUser, News, PaginationCursor } from "@/lib/db/types";
+import { cmsUserSchema, memberSchema, newsSchema } from "@/lib/db/schemas";
+import type { CmsUser, Member, News, PaginationCursor } from "@/lib/db/types";
 
 type PaginatedResult<T> = {
 	items: T[];
@@ -45,6 +45,26 @@ export async function getCmsUserByEmail(email: string): Promise<CmsUser | null> 
 export async function getAllCmsUsers(): Promise<CmsUser[]> {
 	const result = await db().user.query.byType({ type: "user" }).go({ pages: "all" });
 	return result.data.map((item) => cmsUserSchema.parse(item));
+}
+
+/**
+ * Find an admin-eligible member by their private email (canonical auth identity).
+ * Only returns members with Admin or Moderator role.
+ */
+export async function getAdminMemberByPrivateEmail(privateEmail: string): Promise<Member | null> {
+	const result = await db().member.query.byPrivateEmail({ privateEmail }).go({ limit: 1 });
+	const item = result.data.find((m) => m.role === "Admin" || m.role === "Moderator");
+	return item ? memberSchema.parse(item) : null;
+}
+
+/**
+ * Find a member by their proxy email alias.
+ * Returns any member (not gated by role) — used to resolve proxy → privateEmail for OTP delivery.
+ */
+export async function getMemberByProxyEmail(proxyEmail: string): Promise<Member | null> {
+	const result = await db().member.query.byProxyEmail({ proxyEmail }).go({ limit: 1 });
+	const item = result.data[0] ? memberSchema.parse(result.data[0]) : null;
+	return item ?? null;
 }
 
 // ── SAMS entity queries (ElectroDB — single SAMS data table) ─────────────────

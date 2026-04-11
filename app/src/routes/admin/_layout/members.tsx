@@ -1,5 +1,5 @@
 import type { MemberInput } from "@lib/db/schemas";
-import { ActionIcon, Badge, Box, Button, Card, Checkbox, Flex, Group, Image, Modal, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Badge, Box, Button, Card, Checkbox, Flex, Group, Image, Modal, Select, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useForm } from "@tanstack/react-form-start";
@@ -211,10 +211,11 @@ const defaultFormValues = {
 	isTrainer: false,
 	roleTitle: "",
 	avatarS3Key: undefined as string | undefined,
+	adminRole: "" as "" | "Admin" | "Moderator",
 };
 
 type PublicMemberListItem = Awaited<ReturnType<typeof listMembersFn>>["items"][number];
-type MemberListItem = PublicMemberListItem & { privateEmail?: string };
+type MemberListItem = PublicMemberListItem & { privateEmail?: string; role?: "Admin" | "Moderator" };
 
 function MembersPage() {
 	const isMobile = useMediaQuery("(max-width: 48em)");
@@ -303,7 +304,7 @@ function MembersPage() {
 			const clearableOptionalFields = new Set(["privateEmail", "proxyEmail", "phone", "roleTitle"]);
 			const cleanedData: Record<string, unknown> = {};
 			for (const [key, val] of Object.entries({ ...value, avatarS3Key })) {
-				if (key === "id") {
+				if (key === "id" || key === "adminRole") {
 					continue;
 				}
 
@@ -314,6 +315,13 @@ function MembersPage() {
 				} else if (val !== "" && val !== undefined) {
 					cleanedData[key] = val;
 				}
+			}
+
+			// Handle adminRole: "" = remove role, "Admin"/"Moderator" = set role
+			if (currentEditingId) {
+				cleanedData.role = value.adminRole === "" ? null : value.adminRole;
+			} else if (value.adminRole !== "") {
+				cleanedData.role = value.adminRole;
 			}
 
 			try {
@@ -404,6 +412,7 @@ function MembersPage() {
 		form.setFieldValue("isTrainer", member.isTrainer ?? false);
 		form.setFieldValue("roleTitle", member.roleTitle ?? "");
 		form.setFieldValue("avatarS3Key", member.avatarS3Key);
+		form.setFieldValue("adminRole", member.role ?? "");
 		setDeleteAvatar(false);
 		setAvatarFile(null);
 		open();
@@ -579,6 +588,23 @@ function MembersPage() {
 								<form.Field name="isTrainer">{(field) => <Checkbox label="Trainer" checked={field.state.value} onChange={(e) => field.handleChange(e.currentTarget.checked)} />}</form.Field>
 							</Group>
 
+							<form.Field name="adminRole">
+								{(field) => (
+									<Select
+										label="CMS-Zugang"
+										description="Ermöglicht die Anmeldung im Admin-Bereich. Nur für autorisierte Personen."
+										placeholder="Kein CMS-Zugang"
+										clearable
+										data={[
+											{ value: "Moderator", label: "Moderator" },
+											{ value: "Admin", label: "Admin" },
+										]}
+										value={field.state.value || null}
+										onChange={(val) => field.handleChange((val ?? "") as "" | "Admin" | "Moderator")}
+									/>
+								)}
+							</form.Field>
+
 							<form.Field name="avatarS3Key">
 								{(field) => (
 									<CurrentAvatarDisplay
@@ -652,7 +678,7 @@ function MemberCard({ member, onEdit }: { member: MemberListItem; onEdit?: (memb
 		enabled: !!member.avatarS3Key,
 	});
 	const hasDetails = Boolean(member.roleTitle || member.proxyEmail || member.phone);
-	const hasBadges = member.isBoardMember || member.isTrainer;
+	const hasBadges = member.isBoardMember || member.isTrainer || Boolean(member.role);
 
 	return (
 		<Card shadow="sm" p="0" radius="md" withBorder h={{ base: "auto", sm: 188 }} style={{ overflow: "hidden" }}>
@@ -710,6 +736,11 @@ function MemberCard({ member, onEdit }: { member: MemberListItem; onEdit?: (memb
 								{member.isTrainer && (
 									<Badge size="sm" variant="light" color="green">
 										Trainer
+									</Badge>
+								)}
+								{member.role && (
+									<Badge size="sm" variant="light" color={member.role === "Admin" ? "red" : "blumine"}>
+										{member.role}
 									</Badge>
 								)}
 							</Group>
@@ -772,6 +803,11 @@ function MemberCard({ member, onEdit }: { member: MemberListItem; onEdit?: (memb
 								{member.isTrainer && (
 									<Badge size="sm" variant="light" color="green">
 										Trainer
+									</Badge>
+								)}
+								{member.role && (
+									<Badge size="sm" variant="light" color={member.role === "Admin" ? "red" : "blumine"}>
+										{member.role}
 									</Badge>
 								)}
 							</Group>

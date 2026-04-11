@@ -1,17 +1,12 @@
 import { ActionIcon, Button, Card, Flex, Group, SimpleGrid, Stack, Text, ThemeIcon } from "@mantine/core";
-import { createFileRoute, getRouteApi, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { getAdminRoutesWithLabels } from "@webapp/utils/adminNavLinks";
 import { ArrowRight, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/admin/_layout/")({
 	component: DashboardIndexPage,
 });
-
-const adminLayoutRoute = getRouteApi("/admin/_layout");
-
 function DashboardIndexPage() {
-	const { user } = adminLayoutRoute.useRouteContext();
-
 	return (
 		<Stack gap="lg">
 			<Text c="dimmed" size="sm">
@@ -19,7 +14,7 @@ function DashboardIndexPage() {
 			</Text>
 
 			<SimpleGrid spacing="md" cols={{ base: 1, sm: 2, xl: 3 }}>
-				{getAdminRoutesWithLabels(user?.role === "Admin").map(({ to, label, icon, description }) => {
+				{getAdminRoutesWithLabels().map(({ to, label, icon, description }) => {
 					return (
 						<Card key={to} component={Link} to={to} withBorder radius="md" p="lg" shadow="xs" style={{ height: "100%", textDecoration: "none" }}>
 							<Card.Section withBorder inheritPadding py="sm" mb="md">

@@ -182,6 +182,8 @@ export const MemberEntity = new Entity({
 		isTrainer: { type: "boolean" },
 		roleTitle: { type: "string" },
 		avatarS3Key: { type: "string" },
+		role: { type: ["Admin", "Moderator"] as const },
+		emailVerified: { type: "boolean" },
 		createdAt: { type: "string", required: true },
 		updatedAt: { type: "string", required: true },
 	},
@@ -194,6 +196,11 @@ export const MemberEntity = new Entity({
 			index: ContentTableIndexes.gsi1,
 			pk: { field: "gsi1pk", composite: ["type"] },
 			sk: { field: "gsi1sk", composite: ["updatedAt"] },
+		},
+		byPrivateEmail: {
+			index: ContentTableIndexes.gsi3,
+			pk: { field: "gsi3pk", composite: ["privateEmail"] },
+			sk: { field: "gsi3sk", composite: [] },
 		},
 		byProxyEmail: {
 			index: ContentTableIndexes.gsi4,

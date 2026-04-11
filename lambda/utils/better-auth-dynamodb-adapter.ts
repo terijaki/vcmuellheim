@@ -1,8 +1,13 @@
 /**
  * DynamoDB adapter for better-auth
- * Uses ElectroDB entities (CmsUserEntity, AuthVerificationEntity, SessionEntity)
+ * Uses ElectroDB entities (MemberEntity, AuthVerificationEntity, SessionEntity)
  * so that all auth records land in the single shared content table with
  * the correct pk/sk composite keys.
+ *
+ * Identity model: members with an Admin or Moderator role serve as the auth
+ * user identity. The member's `privateEmail` is the canonical auth destination
+ * and is exposed as `email` to better-auth. Login by `proxyEmail` alias is
+ * supported — it resolves to the owning member's `privateEmail`.
  */
 
 import { createAdapterFactory } from "better-auth/adapters";
@@ -170,19 +175,67 @@ type MinimalEntity = {
 
 /**
  * Subset of the ElectroDB db() result that the adapter actually needs.
- * `account` is optional — the production DynamoDB schema stores credentials
- * separately; inject a fake account entity in tests that exercise
+ * Uses `member` entity as the auth user identity (members with role Admin/Moderator).
+ * `account` is optional — inject a fake account entity in tests that exercise
  * email/password sign-up and sign-in.
  */
-export type AuthDb = Pick<ReturnType<typeof createDb>, "user" | "verification" | "session"> & {
+export type AuthDb = Pick<ReturnType<typeof createDb>, "member" | "verification" | "session"> & {
 	account?: MinimalEntity;
 };
+
+// ── Member auth field mapping ─────────────────────────────────────────────────
+
+/**
+ * Converts a raw member DB item into the "auth view" better-auth expects:
+ * exposes `privateEmail` as `email` (canonical auth identity).
+ */
+function toAuthView(member: ElectroItem): ElectroItem {
+	const { privateEmail, ...rest } = member as { privateEmail?: unknown } & ElectroItem;
+	return { ...rest, email: privateEmail ?? "" };
+}
+
+/**
+ * Converts an auth-view item back into member field names before writing to DynamoDB.
+ * Maps `email` → `privateEmail`.
+ */
+function toMemberFields(authItem: ElectroItem): ElectroItem {
+	const { email, ...rest } = authItem as { email?: unknown } & ElectroItem;
+	return email !== undefined ? { ...rest, privateEmail: email } : rest;
+}
+
+/**
+ * Wraps the member entity to look like a user entity for better-auth.
+ * - Translates `privateEmail` ↔ `email` transparently on get/put/scan.
+ * - Used by `entityFor` when resolving the "user" model.
+ */
+function createMemberAuthProxy(entities: AuthDb): MinimalEntity {
+	const memberEntity = entities.member as unknown as MinimalEntity;
+	return {
+		get: (key: { id: string }) => ({
+			go: async () => {
+				const result = await memberEntity.get(key).go();
+				if (!result.data) return { data: null };
+				return { data: toAuthView(result.data as ElectroItem) };
+			},
+		}),
+		put: (item: ElectroItem) => ({
+			go: async () => memberEntity.put(toMemberFields(item)).go(),
+		}),
+		delete: (key: { id: string }) => memberEntity.delete(key),
+		scan: {
+			go: async (opts?: { pages?: "all" | number }) => {
+				const result = await memberEntity.scan.go(opts);
+				return { data: (result.data as ElectroItem[]).map(toAuthView) };
+			},
+		},
+	};
+}
 
 /** Resolve the correct ElectroDB entity for a given better-auth model name. */
 function entityFor(entities: AuthDb, model: string): MinimalEntity {
 	switch (model) {
 		case "user":
-			return entities.user as unknown as MinimalEntity;
+			return createMemberAuthProxy(entities);
 		case "verification":
 			return entities.verification as unknown as MinimalEntity;
 		case "session":
@@ -204,8 +257,9 @@ async function withSessionUserJoin(getDb: () => AuthDb, item: ElectroItem | null
 	const userId = item.userId;
 	if (typeof userId !== "string" || !userId) return { ...item, user: null };
 
-	const userResult = await getDb().user.get({ id: userId }).go();
-	return { ...item, user: userResult.data ?? null };
+	const memberResult = await (getDb().member as unknown as MinimalEntity).get({ id: userId }).go();
+	const memberData = memberResult.data ? toAuthView(memberResult.data as ElectroItem) : null;
+	return { ...item, user: memberData ?? null };
 }
 
 // ── Adapter factory ───────────────────────────────────────────────────────────
@@ -256,16 +310,27 @@ export function createDynamoDBAdapter(getDb: () => AuthDb) {
 						return withSessionUserJoin(getDb, projected, resolvedModel, join) as ReturnType<typeof Object.assign>;
 					}
 
-					// ── User by email → GSI4-ByIdentifier ─────────────────────────────────
+					// ── User by email: try privateEmail (canonical) then proxyEmail (alias) ──
 					if (resolvedModel === "user") {
 						const emailWhere = where.find((w) => w.field === "email");
 						if (emailWhere) {
-							const { data: items } = await getDb()
-								.user.query.byEmail({ email: emailWhere.value as string })
-								.go({ limit: 1 });
-							const first = (items[0] as ElectroItem | undefined) ?? null;
-							if (!first) return null;
-							return withSessionUserJoin(getDb, selectFields(first, select), resolvedModel, join) as ReturnType<typeof Object.assign>;
+							const inputEmail = emailWhere.value as string;
+
+							// 1. Try byPrivateEmail — canonical auth identity (GSI3)
+							const { data: byPrivate } = await getDb().member.query.byPrivateEmail({ privateEmail: inputEmail }).go({ limit: 1 });
+							const privateMatch = (byPrivate as ElectroItem[]).find((m) => m.role === "Admin" || m.role === "Moderator");
+							if (privateMatch) {
+								return withSessionUserJoin(getDb, selectFields(toAuthView(privateMatch), select), resolvedModel, join) as ReturnType<typeof Object.assign>;
+							}
+
+							// 2. Try byProxyEmail — alias path; OTP will be sent to privateEmail (GSI4)
+							const { data: byProxy } = await getDb().member.query.byProxyEmail({ proxyEmail: inputEmail }).go({ limit: 1 });
+							const proxyMatch = (byProxy as ElectroItem[]).find((m) => m.role === "Admin" || m.role === "Moderator");
+							if (proxyMatch) {
+								return withSessionUserJoin(getDb, selectFields(toAuthView(proxyMatch), select), resolvedModel, join) as ReturnType<typeof Object.assign>;
+							}
+
+							return null;
 						}
 					}
 

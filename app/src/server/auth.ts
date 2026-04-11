@@ -11,6 +11,7 @@ import { Club, Mail } from "@project.config";
 import { betterAuth } from "better-auth";
 import { emailOTP } from "better-auth/plugins";
 import { dynamoDBAdapter } from "@/lambda/utils/better-auth-dynamodb-adapter";
+import { getMemberByProxyEmail } from "./queries";
 
 const OTP_EXPIRATION_MINUTS = 10;
 
@@ -128,13 +129,21 @@ function createAuth() {
 				disableSignUp: true,
 				expiresIn: OTP_EXPIRATION_MINUTS * 60,
 				async sendVerificationOTP({ email, otp }, ctx) {
+					// When the login input is a proxy alias, resolve it to the member's
+					// privateEmail so the OTP is always delivered to the canonical address.
+					let targetEmail = email;
+					const proxyMember = await getMemberByProxyEmail(email);
+					if (proxyMember?.privateEmail) {
+						targetEmail = proxyMember.privateEmail;
+					}
+
 					const otpLoginLink = createOtpLoginLink(email, otp, ctx?.request);
 					const sesClient = getSesClient();
 
 					await sesClient.send(
 						new SendEmailCommand({
 							Source: isProd ? Mail.prod.systemFromEmail : Mail.dev.systemFromEmail,
-							Destination: { ToAddresses: [email] },
+							Destination: { ToAddresses: [targetEmail] },
 							Message: {
 								Subject: {
 									Data: `Dein Anmeldecode für das ${Club.shortName} CMS`,

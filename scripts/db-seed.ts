@@ -15,7 +15,7 @@
  *   bun run db:seed --locations        # Seeds only locations
  *   bun run db:seed --sponsors         # Seeds only sponsors
  *   bun run db:seed --bus              # Seeds only bus bookings
- *   bun run db:seed --user email@example.com  # Create a CMS user (Admin role, passwordless)
+ *   bun run db:seed --user email@example.com  # Grant Admin role to a member (creates minimal member if not found)
  */
 
 import "varlock/auto-load";
@@ -167,29 +167,37 @@ const teamCache: TeamInput[] = [];
  * The user can then sign in via email OTP (passwordless) at the CMS admin panel.
  */
 async function createCmsUser(email: string): Promise<void> {
-	console.log(`\n👤 Creating CMS user: ${email}...`);
+	console.log(`\n👤 Granting Admin role to member: ${email}...`);
 
-	// Check if user already exists (by email via GSI4)
-	const existing = await entities.user.query.byEmail({ email }).go();
+	// Check if a member with this privateEmail already exists
+	const existing = await entities.member.query.byPrivateEmail({ privateEmail: email }).go();
 	if (existing.data && existing.data.length > 0) {
-		console.error(`❌ User ${email} already exists`);
-		process.exit(1);
+		const member = existing.data[0];
+		if (member.role) {
+			console.log(`ℹ️  Member ${email} already has role: ${member.role}`);
+			process.exit(0);
+		}
+		// Grant Admin role to existing member
+		await entities.member.patch({ id: member.id }).set({ role: "Admin", updatedAt: new Date().toISOString() }).go();
+		console.log(`✅ Admin role granted to existing member ${email}`);
+		console.log(`   The member can now sign in at the CMS with email OTP (passwordless).`);
+		return;
 	}
 
-	await entities.user
+	// No member found — create a minimal one
+	await entities.member
 		.create({
 			id: crypto.randomUUID(),
-			email,
 			name: email.split("@")[0],
-			emailVerified: false,
+			privateEmail: email,
 			role: "Admin",
 			createdAt: new Date().toISOString(),
 			updatedAt: new Date().toISOString(),
 		})
 		.go();
 
-	console.log(`✅ CMS user ${email} created (role: Admin)`);
-	console.log(`   The user can now sign in at the CMS with email OTP (passwordless).`);
+	console.log(`✅ Member ${email} created with Admin role`);
+	console.log(`   The member can now sign in at the CMS with email OTP (passwordless).`);
 }
 
 /**
