@@ -8,7 +8,7 @@
  * The webapp route reads exclusively from DynamoDB — no live Behold API calls
  * happen on the main request path.
  *
- * DDB key scheme (content table, same as ddb-cache.ts):
+ * DDB key scheme (cache table, same as ddb-cache.ts):
  *   PK: `cache#<cacheKey>`
  *   SK: `cache`
  */
@@ -30,7 +30,7 @@ const { logger, tracer } = createLambdaResources("behold-sync");
 const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(BeholdSyncLambdaEnvironmentSchema);
-const TABLE_NAME = env.CONTENT_TABLE_NAME;
+const TABLE_NAME = env.CACHE_TABLE_NAME;
 
 const MAX_POSTS = 2;
 const MAX_AGE_DAYS = 14;

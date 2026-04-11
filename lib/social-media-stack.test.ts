@@ -33,14 +33,14 @@ describe("SocialMediaStack", () => {
 			// Should have no API Gateway (removed with Instagram pipeline)
 			template.resourceCountIs("AWS::ApiGatewayV2::Api", 0);
 
-			// Should have 1 Lambda function (MastodonShare only — BeholdSync and MastodonStreamHandler require contentTable)
-			template.resourceCountIs("AWS::Lambda::Function", 1);
+			// MastodonShare + BeholdSync (always created)
+			template.resourceCountIs("AWS::Lambda::Function", 2);
 
 			// Should have no DynamoDB tables (Instagram table removed)
 			template.resourceCountIs("AWS::DynamoDB::Table", 0);
 
-			// Should have no EventBridge rules (BeholdSync requires contentTable; MastodonShare has no schedule)
-			template.resourceCountIs("AWS::Events::Rule", 0);
+			// BeholdSync always has its schedule
+			template.resourceCountIs("AWS::Events::Rule", 1);
 		});
 	});
 
@@ -65,14 +65,13 @@ describe("SocialMediaStack", () => {
 	});
 
 	describe("Behold sync Lambda", () => {
-		it("should create BeholdSync Lambda and schedule when contentTableName is provided", () => {
+		it("should create BeholdSync Lambda and schedule unconditionally", () => {
 			const app = createTestApp();
 			const stack = new SocialMediaStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
 					branch: "",
 				},
-				contentTableName: "vcm-content-dev",
 			});
 
 			const template = Template.fromStack(stack);
@@ -103,7 +102,6 @@ describe("SocialMediaStack", () => {
 					environment: "dev",
 					branch: "feature-x",
 				},
-				contentTableName: "vcm-content-dev-feature-x",
 			});
 
 			const template = Template.fromStack(stack);

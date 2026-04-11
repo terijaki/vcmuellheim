@@ -5,6 +5,7 @@ import { getCdkNaming } from "@utils/cdk-naming";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";
 import { BudgetStack } from "../lib/budget-stack";
+import { CacheStack } from "../lib/cache-stack";
 import { ContentDbStack } from "../lib/content-db-stack";
 import { DnsStack } from "../lib/dns-stack";
 import { MailStack } from "../lib/mail-stack";
@@ -26,6 +27,7 @@ const branch = getSanitizedBranch();
 const { stackName, envLabel } = getCdkNaming(isProd, branch);
 
 const contentDbStackName = stackName("ContentDbStack");
+const cacheStackName = stackName("CacheStack");
 const mediaStackName = stackName("MediaStack");
 const webappStackName = stackName("WebAppStack");
 const samsStackName = stackName("SamsStack");
@@ -62,6 +64,11 @@ const dnsStack = new DnsStack(app, dnsStackName, {
 const contentDbStack = new ContentDbStack(app, contentDbStackName, {
 	...commonStackProps,
 	description: `Content Database Tables (${envLabel})`,
+});
+
+const cacheStack = new CacheStack(app, cacheStackName, {
+	...commonStackProps,
+	description: `Cache Table (${envLabel})`,
 });
 
 const mediaStack = new MediaStack(app, mediaStackName, {

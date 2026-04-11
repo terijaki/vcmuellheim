@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:
 import { join } from "node:path";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { CONTENT_TABLE_ENV_VAR } from "./db/env";
+import { CACHE_TABLE_ENV_VAR, CONTENT_TABLE_ENV_VAR } from "./db/env";
 import { createTestApp } from "./test-helpers";
 
 const { buildMock } = vi.hoisted(() => ({
@@ -62,6 +62,7 @@ function ensureNitroOutputFixtures() {
 function createDependencies() {
 	return {
 		contentTableName: "vcm-content-dev",
+		cacheTableName: "vcm-cache-dev",
 		mediaBucketName: "vcmuellheim-media-dev",
 	};
 }
@@ -138,6 +139,7 @@ describe("WebAppStack", () => {
 			Environment: {
 				Variables: {
 					[CONTENT_TABLE_ENV_VAR]: Match.anyValue(),
+					[CACHE_TABLE_ENV_VAR]: Match.anyValue(),
 					BETTER_AUTH_SECRET: "test-auth-secret",
 					CDK_ENVIRONMENT: "dev",
 					CLOUDFRONT_URL: "https://media.example.com",
