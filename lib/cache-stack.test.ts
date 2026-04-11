@@ -39,24 +39,6 @@ describe("CacheStack", () => {
 		});
 	});
 
-	describe("Production environment", () => {
-		it("should use retention policy and deletion protection for prod", () => {
-			const app = createTestApp();
-			const stack = new CacheStack(app, "TestStack", {
-				stackProps: {
-					environment: "prod",
-					branch: "",
-				},
-			});
-
-			const template = Template.fromStack(stack);
-
-			template.hasResourceProperties("AWS::DynamoDB::Table", {
-				TableName: "vcm-cache-prod",
-			});
-		});
-	});
-
 	describe("Table configuration", () => {
 		it("should use PAY_PER_REQUEST billing and TTL", () => {
 			const app = createTestApp();

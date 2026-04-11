@@ -5,7 +5,6 @@
 import { Tracer } from "@aws-lambda-powertools/tracer";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { getContentTableName } from "./env";
 
 /** DynamoDB client instance with X-Ray tracing */
 const dynamoDBClient = new DynamoDBClient({});

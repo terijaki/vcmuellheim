@@ -66,7 +66,7 @@ const contentDbStack = new ContentDbStack(app, contentDbStackName, {
 	description: `Content Database Tables (${envLabel})`,
 });
 
-const cacheStack = new CacheStack(app, cacheStackName, {
+new CacheStack(app, cacheStackName, {
 	...commonStackProps,
 	description: `Cache Table (${envLabel})`,
 });
