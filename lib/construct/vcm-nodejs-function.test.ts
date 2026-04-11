@@ -23,7 +23,7 @@ beforeEach(() => {
 
 afterEach(() => {
 	Reflect.deleteProperty(process.env, "CDK_ENVIRONMENT");
-	process.env.CDK_BRANCH_OVERWRITE = "main";
+	Reflect.deleteProperty(process.env, "CDK_BRANCH_OVERWRITE");
 });
 
 describe("VcmNodejsFunction", () => {
