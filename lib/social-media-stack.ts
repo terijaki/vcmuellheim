@@ -80,6 +80,7 @@ export class SocialMediaStack extends cdk.Stack {
 			environment: {
 				...commonEnvironment,
 				CACHE_TABLE_NAME: cacheTableName,
+				BEHOLD_FEED_URL: process.env.BEHOLD_FEED_URL,
 			} satisfies BeholdSyncLambdaEnvironment,
 		}).lambdaFunction;
 
