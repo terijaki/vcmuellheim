@@ -23,8 +23,6 @@ export function LoginForm({ redirectTo = "/admin" }: LoginFormProps) {
 	const [info, setInfo] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [submitting, setSubmitting] = useState(false);
-	const sendCodeInfoMessage = `Wenn die E-Mail-Adresse (${otpEmail}) registriert ist, wurde ein Anmeldecode verschickt.`;
-
 	const sendOtp = async (targetEmail: string) => {
 		const normalizedEmail = targetEmail.trim().toLowerCase();
 		await authClient.emailOtp.sendVerificationOtp({
@@ -45,7 +43,7 @@ export function LoginForm({ redirectTo = "/admin" }: LoginFormProps) {
 			setOtp("");
 			setOtpEmail(normalizedEmail);
 			setOtpSent(true);
-			setInfo(sendCodeInfoMessage);
+			setInfo(`Wenn die E-Mail-Adresse (${normalizedEmail}) registriert ist, wurde ein Anmeldecode verschickt.`);
 		} catch {
 			setError("Der Anmeldecode konnte gerade nicht angefordert werden. Bitte versuche es erneut.");
 		}
