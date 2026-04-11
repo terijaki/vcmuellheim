@@ -69,7 +69,7 @@ export default defineConfig({
 	run: {
 		tasks: {
 			// CDK deploy guarded by full check + tests
-			"deploy": {
+			deploy: {
 				command: "bun run cdk:deploy:all",
 				dependsOn: ["lint", "test"],
 				cache: false,

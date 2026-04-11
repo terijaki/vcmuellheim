@@ -10,6 +10,7 @@ import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import { Club, Mail } from "@project.config";
 import { betterAuth } from "better-auth";
 import { emailOTP } from "better-auth/plugins";
+import { buildOtpEmailHtml, buildOtpEmailSubject, buildOtpEmailText } from "./auth-otp-email";
 import { memberAuthAdapter } from "./auth-member-adapter";
 import { dynamoDBSecondaryStorage } from "./auth-secondary-storage";
 import { getMemberByProxyEmail } from "./queries";
@@ -134,36 +135,30 @@ function createAuth() {
 					const otpLoginLink = createOtpLoginLink(email, otp, ctx?.request);
 					const sesClient = getSesClient();
 
+					const emailOpts = {
+						otp,
+						otpLoginLink,
+						clubShortName: Club.shortName,
+						domain: Club.domain,
+						expirationMinutes: OTP_EXPIRATION_MINUTES,
+					};
+
 					await sesClient.send(
 						new SendEmailCommand({
 							Source: isProd ? Mail.prod.systemFromEmail : Mail.dev.systemFromEmail,
 							Destination: { ToAddresses: [targetEmail] },
 							Message: {
 								Subject: {
-									Data: `Dein Anmeldecode für das ${Club.shortName} CMS`,
+									Data: buildOtpEmailSubject(Club.shortName),
 									Charset: "UTF-8",
 								},
 								Body: {
 									Html: {
-										Data: `
-<p>Hallo,</p>
-<p>dein Anmeldecode für das ${Club.shortName} CMS lautet:</p>
-<h2 style="letter-spacing: 4px; font-size: 32px;">${otp}</h2>
-<p>Du kannst dich entweder::</p>
-<p>
-	<a href="${otpLoginLink}" target="_blank" rel="noopener noreferrer">
-		Per Link im CMS anmelden
-	</a>
-</p>
-<p>Oder gib den Code manuell auf der Login-Seite ein.</p>
-<p>Dieser Code ist <strong>${OTP_EXPIRATION_MINUTES} Minuten</strong> gültig.</p>
-<p>Falls du diese Anfrage nicht gestellt hast, kannst du diese E-Mail ignorieren.</p>
-<p>Sportliche Grüße,<br>${Club.shortName}</p>
-`,
+										Data: buildOtpEmailHtml(emailOpts),
 										Charset: "UTF-8",
 									},
 									Text: {
-										Data: `Dein Anmeldecode für das ${Club.shortName} CMS: ${otp}\n\nPer Link im CMS anmelden: ${otpLoginLink}\n\nWenn der Link nicht funktioniert, gib den Code manuell auf der Login-Seite ein.\n\nDieser Code ist ${OTP_EXPIRATION_MINUTES} Minuten gültig.`,
+										Data: buildOtpEmailText(emailOpts),
 										Charset: "UTF-8",
 									},
 								},
