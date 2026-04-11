@@ -185,7 +185,6 @@ export const MemberEntity = new Entity({
 		roleTitle: { type: "string" },
 		avatarS3Key: { type: "string" },
 		authRole: { type: ["Admin", "Moderator"] as const },
-		emailVerified: { type: "boolean" },
 		createdAt: { type: "string", required: true },
 		updatedAt: { type: "string", required: true },
 	},
