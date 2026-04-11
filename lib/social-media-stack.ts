@@ -149,10 +149,5 @@ export class SocialMediaStack extends cdk.Stack {
 
 		// Export Mastodon Lambda for use in other stacks
 		this.mastodonLambda = mastodonShare;
-
-		new cdk.CfnOutput(this, "MastodonLambdaArn", {
-			value: mastodonShare.functionArn,
-			description: "Mastodon Sharing Lambda ARN",
-		});
 	}
 }
