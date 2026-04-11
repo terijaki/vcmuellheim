@@ -19,7 +19,6 @@ import { mockClient } from "aws-sdk-client-mock";
 process.env.CONTENT_TABLE_NAME = "test-content-table";
 process.env.FORWARD_FROM_EMAIL = "postmaster@vcmuellheim.de";
 process.env.RECIPIENT_DOMAIN = "vcmuellheim.de";
-process.env.AWS_REGION = "eu-central-1";
 process.env.BRANCH_NAME = "";
 
 // ── AWS SDK mocks ────────────────────────────────────────────────────────────
@@ -57,6 +56,7 @@ vi.mock("../utils/sentry", () => ({
 		addBreadcrumb: vi.fn(),
 		captureException: vi.fn(),
 		captureMessage: vi.fn(),
+		wrapHandler: vi.fn((fn) => fn),
 	},
 }));
 
@@ -89,7 +89,9 @@ const mockLambdaContext = {
 // ── Tests ────────────────────────────────────────────────────────────────────
 
 describe("mail-forward Lambda", () => {
-	let handler: typeof import("./mail-forward").handler;
+	// Typed loosely because Sentry.wrapHandler wraps to the full 3-arg Lambda Handler
+	// signature; tests only need to call it as async (event, context).
+	let handler: (event: unknown, context: unknown) => Promise<unknown>;
 
 	beforeEach(async () => {
 		process.env.FORWARD_FROM_EMAIL = "postmaster@vcmuellheim.de";
@@ -116,7 +118,7 @@ describe("mail-forward Lambda", () => {
 		mockByTypeWhereGo.mockResolvedValue({ data: [] });
 
 		const mod = await import("./mail-forward");
-		handler = mod.handler;
+		handler = mod.handler as unknown as (event: unknown, context: unknown) => Promise<unknown>;
 	});
 
 	describe("unknown alias", () => {
@@ -227,7 +229,7 @@ describe("mail-forward Lambda", () => {
 			});
 
 			const { handler: devHandler } = await import("./mail-forward");
-			const result = await devHandler(makeEvent("emails/test-dev-domain.eml"), mockLambdaContext as never);
+			const result = await (devHandler as unknown as (e: unknown, c: unknown) => Promise<unknown>)(makeEvent("emails/test-dev-domain.eml"), mockLambdaContext as never);
 
 			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
 			expect(sesCalls).toHaveLength(1);

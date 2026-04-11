@@ -22,7 +22,6 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
-import type * as s3Bucket from "aws-cdk-lib/aws-s3";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import type { Construct } from "constructs";
@@ -34,16 +33,17 @@ export interface WebAppStackProps extends cdk.StackProps {
 		environment: string;
 		branch: string;
 	};
-	contentTable: dynamodb.Table;
-	mediaBucket: s3Bucket.Bucket;
+	contentTableName: string;
+	mediaBucketName: string;
 	/** CloudFront URL of the media stack — used for serving uploaded images */
 	mediaCloudFrontUrl?: string;
 	hostedZone?: route53.IHostedZone;
 	/** CloudFront certificate (must be in us-east-1) */
 	cloudFrontCertificate?: acm.ICertificate;
-	/** Optional sync Lambdas from SamsApiStack — grants invoke permissions to the webapp Lambda */
-	samsClubsSyncFn?: lambda.IFunction;
-	samsTeamsSyncFn?: lambda.IFunction;
+	/** Optional sync Lambda function names from SamsStack — grants invoke permissions to the webapp Lambda.
+	 * Use function names (strings) instead of CDK cross-stack object references so SamsStack can be updated independently without CF blocking export deletion. */
+	samsClubsSyncFunctionName?: string;
+	samsTeamsSyncFunctionName?: string;
 }
 
 export class WebAppStack extends cdk.Stack {
@@ -76,26 +76,23 @@ export class WebAppStack extends cdk.Stack {
 			});
 		}
 
-		// Reference the SAMS table by computed ARN rather than a CDK cross-stack reference, so SamsApiStack can be updated independently without CF blocking the deletion of its exports.
-		const samsTableName = getSamsDataTableName(environment, branch);
+		// Compute ARNs for cross-stack table and bucket grants (no CF cross-stack reference)
 		const stack = cdk.Stack.of(this);
-		const samsTableArn = stack.formatArn({
-			service: "dynamodb",
-			resource: "table",
-			resourceName: samsTableName,
-		});
+		const contentTableArn = stack.formatArn({ service: "dynamodb", resource: "table", resourceName: props.contentTableName });
+		const samsTableName = getSamsDataTableName(environment, branch);
+		const samsTableArn = stack.formatArn({ service: "dynamodb", resource: "table", resourceName: samsTableName });
 
 		const lambdaEnvironment: Record<string, string> = {
-			[CONTENT_TABLE_ENV_VAR]: props.contentTable.tableName,
+			[CONTENT_TABLE_ENV_VAR]: props.contentTableName,
 			CDK_ENVIRONMENT: environment,
 			BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
-			MEDIA_BUCKET_NAME: props.mediaBucket.bucketName,
+			MEDIA_BUCKET_NAME: props.mediaBucketName,
 			SAMS_TABLE_NAME: samsTableName,
 			...(branch ? { BRANCH_NAME: branch } : {}),
 			...(process.env.SAMS_API_KEY ? { SAMS_API_KEY: process.env.SAMS_API_KEY } : {}),
 			...(props.mediaCloudFrontUrl ? { CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
-			...(props.samsClubsSyncFn ? { SAMS_CLUBS_SYNC_FUNCTION_NAME: props.samsClubsSyncFn.functionName } : {}),
-			...(props.samsTeamsSyncFn ? { SAMS_TEAMS_SYNC_FUNCTION_NAME: props.samsTeamsSyncFn.functionName } : {}),
+			...(props.samsClubsSyncFunctionName ? { SAMS_CLUBS_SYNC_FUNCTION_NAME: props.samsClubsSyncFunctionName } : {}),
+			...(props.samsTeamsSyncFunctionName ? { SAMS_TEAMS_SYNC_FUNCTION_NAME: props.samsTeamsSyncFunctionName } : {}),
 			NODE_ENV: "production",
 		};
 
@@ -110,12 +107,10 @@ export class WebAppStack extends cdk.Stack {
 
 		// ── Lambda Function (Nitro aws-lambda output) ────────────────────────────
 		const logGroup = new cdk.aws_logs.LogGroup(this, "WebAppLogGroup", {
+			logGroupName: `/vcm/${environment}${branchSuffix}/webapp/webapp`,
 			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
 			removalPolicy: cdk.RemovalPolicy.DESTROY,
 		});
-
-		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
-		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
 
 		// Nitro's aws-lambda preset outputs a single ESM handler file
 		this.webappLambda = new lambda.Function(this, "WebAppLambda", {
@@ -126,14 +121,20 @@ export class WebAppStack extends cdk.Stack {
 			runtime: lambda.Runtime.NODEJS_24_X,
 			timeout: cdk.Duration.seconds(30),
 			memorySize: 1024,
-			layers: [powertoolsLayer],
 			logGroup,
 			environment: lambdaEnvironment,
 			tracing: lambda.Tracing.ACTIVE,
 		});
 
-		// Grant Lambda access to the single content table
-		props.contentTable.grantReadWriteData(this.webappLambda);
+		// Grant Lambda access to content and SAMS tables via computed ARNs (no CF cross-stack exports)
+		dynamodb.Table.fromTableArn(this, "ContentTableRef", contentTableArn).grantReadWriteData(this.webappLambda);
+		this.webappLambda.addToRolePolicy(
+			new cdk.aws_iam.PolicyStatement({
+				effect: cdk.aws_iam.Effect.ALLOW,
+				actions: ["dynamodb:Query"],
+				resources: [`${contentTableArn}/index/*`],
+			}),
+		);
 		dynamodb.Table.fromTableArn(this, "SamsDataTableRef", samsTableArn).grantReadWriteData(this.webappLambda);
 		this.webappLambda.addToRolePolicy(
 			new cdk.aws_iam.PolicyStatement({
@@ -144,18 +145,22 @@ export class WebAppStack extends cdk.Stack {
 		);
 
 		// Grant S3 access for media uploads and reads
-		props.mediaBucket.grantReadWrite(this.webappLambda);
+		s3.Bucket.fromBucketName(this, "MediaBucketRef", props.mediaBucketName).grantReadWrite(this.webappLambda);
 
 		// Grant invoke permissions for SAMS sync Lambdas if provided
-		props.samsClubsSyncFn?.grantInvoke(this.webappLambda);
-		props.samsTeamsSyncFn?.grantInvoke(this.webappLambda);
+		if (props.samsClubsSyncFunctionName) {
+			lambda.Function.fromFunctionName(this, "SamsClubsSyncRef", props.samsClubsSyncFunctionName).grantInvoke(this.webappLambda);
+		}
+		if (props.samsTeamsSyncFunctionName) {
+			lambda.Function.fromFunctionName(this, "SamsTeamsSyncRef", props.samsTeamsSyncFunctionName).grantInvoke(this.webappLambda);
+		}
 
 		// Grant SES access for OTP emails
 		this.webappLambda.addToRolePolicy(
 			new cdk.aws_iam.PolicyStatement({
 				effect: cdk.aws_iam.Effect.ALLOW,
 				actions: ["ses:SendEmail", "ses:SendRawEmail"],
-				resources: [`arn:aws:ses:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:identity/vcmuellheim.de`],
+				resources: [`arn:aws:ses:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:identity/${baseDomain}`],
 			}),
 		);
 

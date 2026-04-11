@@ -17,10 +17,7 @@ export function getTableName(_entity: TableEntity): string {
 }
 
 /** DynamoDB client instance with X-Ray tracing */
-const dynamoDBClient = new DynamoDBClient({
-	// AWS_REGION is automatically set by Lambda runtime
-	region: process.env.AWS_REGION || "eu-central-1",
-});
+const dynamoDBClient = new DynamoDBClient({});
 
 // Instrument DynamoDB client with X-Ray tracing to capture query timings
 const tracer = new Tracer({ serviceName: "vcm-api" });

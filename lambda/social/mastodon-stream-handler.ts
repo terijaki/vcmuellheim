@@ -12,11 +12,12 @@ import { docClient } from "@/lib/db/client";
 import type { News } from "@/lib/db/types";
 import { parseLambdaEnv } from "../utils/env";
 import { createLambdaResources } from "../utils/resources";
+import { Sentry } from "../utils/sentry";
 import { MastodonStreamHandlerLambdaEnvironmentSchema } from "./types";
 
 const { logger } = createLambdaResources("mastodon-stream-handler");
 const env = parseLambdaEnv(MastodonStreamHandlerLambdaEnvironmentSchema);
-const lambdaClient = new LambdaClient({ region: env.AWS_REGION });
+const lambdaClient = new LambdaClient();
 const MASTODON_LAMBDA_NAME = env.MASTODON_LAMBDA_NAME;
 const ENVIRONMENT = env.ENVIRONMENT;
 const WEBSITE_URL = env.WEBSITE_URL;
@@ -30,7 +31,7 @@ interface MastodonShareRequest {
 /**
  * Process DynamoDB stream records and trigger Mastodon sharing for newly published articles
  */
-export async function handler(event: DynamoDBStreamEvent): Promise<void> {
+async function lambdaHandler(event: DynamoDBStreamEvent): Promise<void> {
 	logger.info("Processing DynamoDB stream event", { recordCount: event.Records.length });
 
 	// Only process in production
@@ -127,3 +128,5 @@ export async function handler(event: DynamoDBStreamEvent): Promise<void> {
 
 	logger.info("Finished processing DynamoDB stream event");
 }
+
+export const handler = Sentry.wrapHandler(lambdaHandler);

@@ -1,9 +1,6 @@
 import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
-import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
-import * as s3 from "aws-cdk-lib/aws-s3";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { CONTENT_TABLE_ENV_VAR } from "./db/env";
 import { createTestApp } from "./test-helpers";
@@ -62,21 +59,10 @@ function ensureNitroOutputFixtures() {
 	};
 }
 
-function createDependencies(app: cdk.App) {
-	const dependencyStack = new cdk.Stack(app, "Dependencies", {
-		env: testEnv,
-	});
-
-	const createTable = (id: string) =>
-		new dynamodb.Table(dependencyStack, id, {
-			partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
-			sortKey: { name: "sk", type: dynamodb.AttributeType.STRING },
-			billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-		});
-
+function createDependencies() {
 	return {
-		contentTable: createTable("ContentTable"),
-		mediaBucket: new s3.Bucket(dependencyStack, "MediaBucket"),
+		contentTableName: "vcm-content-dev",
+		mediaBucketName: "vcmuellheim-media-dev",
 	};
 }
 
@@ -96,7 +82,7 @@ describe("WebAppStack", () => {
 
 	it("builds the webapp once and creates the core dev resources", () => {
 		const app = createTestApp();
-		const dependencies = createDependencies(app);
+		const dependencies = createDependencies();
 
 		const stack = new WebAppStack(app, "TestStack", {
 			env: testEnv,
@@ -131,7 +117,7 @@ describe("WebAppStack", () => {
 
 	it("configures Lambda environment and CloudFront behaviors for the dev stack", () => {
 		const app = createTestApp();
-		const dependencies = createDependencies(app);
+		const dependencies = createDependencies();
 
 		const stack = new WebAppStack(app, "TestStack", {
 			env: testEnv,
@@ -198,7 +184,7 @@ describe("WebAppStack", () => {
 
 	it("passes BRANCH_NAME to the webapp Lambda for branch deployments", () => {
 		const app = createTestApp();
-		const dependencies = createDependencies(app);
+		const dependencies = createDependencies();
 
 		const stack = new WebAppStack(app, "TestStack", {
 			env: testEnv,
@@ -224,7 +210,7 @@ describe("WebAppStack", () => {
 
 	it("maps all public folders to CloudFront S3 behaviors", () => {
 		const app = createTestApp();
-		const dependencies = createDependencies(app);
+		const dependencies = createDependencies();
 
 		const stack = new WebAppStack(app, "TestStack", {
 			env: testEnv,
@@ -266,7 +252,7 @@ describe("WebAppStack", () => {
 		process.env.CDK_DESTROY = "true";
 
 		const app = createTestApp();
-		const dependencies = createDependencies(app);
+		const dependencies = createDependencies();
 
 		expect(() => {
 			new WebAppStack(app, "TestStack", {

@@ -39,6 +39,22 @@
 		"/^aws dynamodb (scan|query|get-item|describe-table|list-tables) .*$/": {
 			"approve": true,
 			"matchCommandLine": true
+		},
+		"/^aws lambda (list-functions|get-function-configuration) .*$/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
+		"/^aws logs (describe-log-groups) .*$/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
+		"/^aws sts get-caller-identity .*$/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
+		"/^aws cloudformation (describe-stack-events) .*$/": {
+			"approve": true,
+			"matchCommandLine": true
 		}
 	},
 	"github-actions.workflows.pinned.workflows": [".github/workflows/cdk-deploy.yml"],

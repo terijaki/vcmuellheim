@@ -1,6 +1,6 @@
-import { beforeAll, describe, it } from "vite-plus/test";
+import { afterEach, beforeAll, beforeEach, describe, it } from "vite-plus/test";
 import { Match, Template } from "aws-cdk-lib/assertions";
-import { SamsApiStack } from "./sams-api-stack";
+import { SamsStack } from "./sams-stack";
 import { createTestApp } from "./test-helpers";
 
 // Set required environment variables before tests
@@ -8,11 +8,21 @@ beforeAll(() => {
 	process.env.SAMS_API_KEY = "test-api-key";
 });
 
-describe("SamsApiStack", () => {
+beforeEach(() => {
+	process.env.CDK_ENVIRONMENT = "dev";
+	process.env.CDK_BRANCH_OVERWRITE = "main";
+});
+
+afterEach(() => {
+	Reflect.deleteProperty(process.env, "CDK_ENVIRONMENT");
+	process.env.CDK_BRANCH_OVERWRITE = "main";
+});
+
+describe("SamsStack", () => {
 	describe("Development environment", () => {
 		it("should create stack with correct resources", () => {
 			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
+			const stack = new SamsStack(app, "TestStack", {
 				env: {
 					account: "123456789012",
 					region: "eu-central-1",
@@ -37,7 +47,7 @@ describe("SamsApiStack", () => {
 
 		it("should set correct removal policy for dev", () => {
 			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
+			const stack = new SamsStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
 					branch: "",
@@ -52,8 +62,9 @@ describe("SamsApiStack", () => {
 		});
 
 		it("should include branch suffix in resource names", () => {
+			process.env.CDK_BRANCH_OVERWRITE = "feature-xyz";
 			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
+			const stack = new SamsStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
 					branch: "feature-xyz",
@@ -64,7 +75,7 @@ describe("SamsApiStack", () => {
 
 			// Check Lambda function names include branch suffix
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "sams-clubs-sync-dev-feature-xyz",
+				FunctionName: "vcm-sams-clubs-sync-dev-feature-xyz",
 			});
 
 			// Check DynamoDB table names include branch suffix
@@ -75,9 +86,13 @@ describe("SamsApiStack", () => {
 	});
 
 	describe("Production environment", () => {
+		beforeEach(() => {
+			process.env.CDK_ENVIRONMENT = "prod";
+		});
+
 		it("should set RETAIN removal policy for prod tables", () => {
 			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
+			const stack = new SamsStack(app, "TestStack", {
 				stackProps: {
 					environment: "prod",
 					branch: "",
@@ -94,7 +109,7 @@ describe("SamsApiStack", () => {
 
 		it("should not include branch suffix in prod", () => {
 			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
+			const stack = new SamsStack(app, "TestStack", {
 				stackProps: {
 					environment: "prod",
 					branch: "",
@@ -105,7 +120,7 @@ describe("SamsApiStack", () => {
 
 			// Prod function names should not have branch suffix
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "sams-clubs-sync-prod",
+				FunctionName: "vcm-sams-clubs-sync-prod",
 			});
 		});
 	});
@@ -113,7 +128,7 @@ describe("SamsApiStack", () => {
 	describe("Lambda function configuration", () => {
 		it("should configure Lambda timeouts correctly", () => {
 			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
+			const stack = new SamsStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
 					branch: "",
@@ -122,22 +137,22 @@ describe("SamsApiStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Sync functions should have 10 minute timeout
+			// Sync functions should have 3 minute timeout
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "sams-clubs-sync-dev",
-				Timeout: 600, // 10 minutes
+				FunctionName: "vcm-sams-clubs-sync-dev",
+				Timeout: 180, // 3 minutes
 			});
 
-			// Teams sync should also have 10 minute timeout
+			// Teams sync should also have 3 minute timeout
 			template.hasResourceProperties("AWS::Lambda::Function", {
-				FunctionName: "sams-teams-sync-dev",
-				Timeout: 600, // 10 minutes
+				FunctionName: "vcm-sams-teams-sync-dev",
+				Timeout: 180, // 3 minutes
 			});
 		});
 
 		it("should set environment variables for all Lambdas", () => {
 			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
+			const stack = new SamsStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
 					branch: "",
@@ -160,7 +175,7 @@ describe("SamsApiStack", () => {
 	describe("DynamoDB tables", () => {
 		it("should create sams data table with correct GSIs", () => {
 			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
+			const stack = new SamsStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
 					branch: "",
@@ -178,7 +193,7 @@ describe("SamsApiStack", () => {
 
 		it("should enable TTL on the sams data table", () => {
 			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
+			const stack = new SamsStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
 					branch: "",
@@ -200,7 +215,7 @@ describe("SamsApiStack", () => {
 	describe("EventBridge schedules", () => {
 		it("should create nightly sync schedules", () => {
 			const app = createTestApp();
-			const stack = new SamsApiStack(app, "TestStack", {
+			const stack = new SamsStack(app, "TestStack", {
 				stackProps: {
 					environment: "dev",
 					branch: "",

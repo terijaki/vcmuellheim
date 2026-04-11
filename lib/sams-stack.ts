@@ -3,28 +3,31 @@ import * as cdk from "aws-cdk-lib";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
-import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import type * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type { SamsClubsSyncLambdaEnvironment, SamsCommonLambdaEnvironment, SamsTeamsSyncLambdaEnvironment } from "@/lambda/sams/types";
 import { getSamsDataTableName } from "./db/env";
+import { buildLambdaFunctionName, VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
-interface SamsApiStackProps extends cdk.StackProps {
+interface SamsStackProps extends cdk.StackProps {
 	stackProps?: {
 		environment: string;
 		branch: string;
 	};
-	mediaBucket?: s3.IBucket;
+	mediaBucketName?: string;
 	mediaCloudFrontUrl?: string;
 }
 
-export class SamsApiStack extends cdk.Stack {
+export class SamsStack extends cdk.Stack {
 	public readonly samsDataTable: dynamodb.Table;
 	public readonly samsClubsSync: NodejsFunction;
 	public readonly samsTeamsSync: NodejsFunction;
+	/** Stable plain-string function names — safe to pass cross-stack without creating CloudFormation exports. */
+	public readonly samsClubsSyncFunctionName: string;
+	public readonly samsTeamsSyncFunctionName: string;
 
-	constructor(scope: Construct, id: string, props?: SamsApiStackProps) {
+	constructor(scope: Construct, id: string, props?: SamsStackProps) {
 		super(scope, id, props);
 
 		const environment = props?.stackProps?.environment || "dev";
@@ -32,19 +35,16 @@ export class SamsApiStack extends cdk.Stack {
 		const branch = props?.stackProps?.branch || "";
 		const branchSuffix = branch ? `-${branch}` : "";
 
-		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
-		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
-
 		// Environment variables for all Lambda functions
-		const samsApiKey = process.env.SAMS_API_KEY;
+		const samsKey = process.env.SAMS_API_KEY;
 		const isCdkDestroy = process.env.CDK_DESTROY === "true";
 
 		if (!isCdkDestroy) {
-			if (!samsApiKey) throw new Error("❌ SAMS_API_KEY environment variable is required");
+			if (!samsKey) throw new Error("❌ SAMS_API_KEY environment variable is required");
 		}
 
 		const commonEnvironment = {
-			SAMS_API_KEY: samsApiKey || "",
+			SAMS_API_KEY: samsKey || "",
 			CDK_ENVIRONMENT: environment,
 		} satisfies SamsCommonLambdaEnvironment;
 
@@ -77,59 +77,42 @@ export class SamsApiStack extends cdk.Stack {
 		// Expose table for cross-stack reference
 		this.samsDataTable = samsDataTable;
 
+		const CLUBS_SYNC_FUNCTION_NAME = "sams-clubs-sync";
+		const TEAMS_SYNC_FUNCTION_NAME = "sams-teams-sync";
+		this.samsClubsSyncFunctionName = buildLambdaFunctionName(CLUBS_SYNC_FUNCTION_NAME);
+		this.samsTeamsSyncFunctionName = buildLambdaFunctionName(TEAMS_SYNC_FUNCTION_NAME);
+
 		// Create Lambda function for nightly clubs sync
-		this.samsClubsSync = new NodejsFunction(this, "SamsClubsSync", {
-			functionName: `sams-clubs-sync-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_24_X,
-			handler: "handler",
+		this.samsClubsSync = new VcmNodejsFunction(this, "SamsClubsSync", {
+			namespace: "sams",
+			name: CLUBS_SYNC_FUNCTION_NAME,
 			entry: path.join(__dirname, "../lambda/sams/sams-clubs-sync.ts"),
+			timeout: cdk.Duration.minutes(3),
 			environment: {
 				...commonEnvironment,
 				SAMS_TABLE_NAME: samsDataTable.tableName,
-				MEDIA_BUCKET_NAME: props?.mediaBucket?.bucketName ?? "",
+				MEDIA_BUCKET_NAME: props?.mediaBucketName ?? "",
 				MEDIA_CLOUDFRONT_URL: props?.mediaCloudFrontUrl ?? "",
 			} satisfies SamsClubsSyncLambdaEnvironment,
-			timeout: cdk.Duration.minutes(10), // Longer timeout for paginated sync
-			memorySize: 512,
-			layers: [powertoolsLayer],
-			logGroup: new cdk.aws_logs.LogGroup(this, "SamsClubsSyncLogGroup", {
-				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-				removalPolicy: cdk.RemovalPolicy.DESTROY,
-			}),
-			bundling: {
-				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
-				minify: true,
-				sourceMap: true,
-			},
-		});
+		}).lambdaFunction;
 
 		// Grant DynamoDB permissions to clubs sync Lambda
 		samsDataTable.grantReadWriteData(this.samsClubsSync);
-		props?.mediaBucket?.grantWrite(this.samsClubsSync);
+		if (props?.mediaBucketName) {
+			s3.Bucket.fromBucketName(this, "MediaBucketRef", props.mediaBucketName).grantWrite(this.samsClubsSync);
+		}
 
 		// Create Lambda function for nightly teams sync
-		this.samsTeamsSync = new NodejsFunction(this, "SamsTeamsSync", {
-			functionName: `sams-teams-sync-${environment}${branchSuffix}`,
-			runtime: lambda.Runtime.NODEJS_24_X,
-			handler: "handler",
+		this.samsTeamsSync = new VcmNodejsFunction(this, "SamsTeamsSync", {
+			namespace: "sams",
+			name: TEAMS_SYNC_FUNCTION_NAME,
 			entry: path.join(__dirname, "../lambda/sams/sams-teams-sync.ts"),
+			timeout: cdk.Duration.minutes(3),
 			environment: {
 				...commonEnvironment,
 				SAMS_TABLE_NAME: samsDataTable.tableName,
 			} satisfies SamsTeamsSyncLambdaEnvironment,
-			timeout: cdk.Duration.minutes(10),
-			memorySize: 512,
-			layers: [powertoolsLayer],
-			logGroup: new cdk.aws_logs.LogGroup(this, "SamsTeamsSyncLogGroup", {
-				retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-				removalPolicy: cdk.RemovalPolicy.DESTROY,
-			}),
-			bundling: {
-				externalModules: ["@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
-				minify: true,
-				sourceMap: true,
-			},
-		});
+		}).lambdaFunction;
 
 		// Grant DynamoDB permissions to teams sync Lambda
 		samsDataTable.grantReadWriteData(this.samsTeamsSync);

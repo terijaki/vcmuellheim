@@ -7,13 +7,23 @@ import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as lambda from "aws-cdk-lib/aws-lambda";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3Notifications from "aws-cdk-lib/aws-s3-notifications";
 import type { Construct } from "constructs";
 import { Club, LambdaLayers } from "@/project.config";
+import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
+
+/**
+ * Compute the canonical media S3 bucket name for a given environment and branch.
+ * Single source of truth shared by MediaStack and any consuming stack that needs the
+ * bucket name as a plain string (no CloudFormation cross-stack reference).
+ */
+export function computeMediaBucketName(environment: string, branch: string): string {
+	const branchSuffix = branch ? `-${branch}` : "";
+	return `${Club.slug}-media-${environment}${branchSuffix}`;
+}
 
 export interface MediaStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -28,6 +38,8 @@ export class MediaStack extends cdk.Stack {
 	public readonly bucket: s3.Bucket;
 	public readonly distribution: cloudfront.Distribution;
 	public readonly cloudFrontUrl: string;
+	/** Stable plain-string bucket name — safe to pass cross-stack without creating CloudFormation exports. */
+	public readonly bucketName: string;
 
 	constructor(scope: Construct, id: string, props?: MediaStackProps) {
 		super(scope, id, props);
@@ -41,8 +53,9 @@ export class MediaStack extends cdk.Stack {
 		const mediaDomain = `${envPrefix}media.${baseDomain}`;
 
 		// S3 Bucket for media storage
+		this.bucketName = computeMediaBucketName(environment, branch);
 		this.bucket = new s3.Bucket(this, "MediaBucket", {
-			bucketName: `${Club.slug}-media-${environment}${branchSuffix}`,
+			bucketName: this.bucketName,
 			encryption: s3.BucketEncryption.S3_MANAGED,
 			cors: [
 				{
@@ -109,32 +122,17 @@ export class MediaStack extends cdk.Stack {
 		// Add ImageMagick Lambda layer for image processing
 		const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(this, "ImageMagickLayer", isProd ? LambdaLayers.prod.imageMagick : LambdaLayers.dev.imageMagick); // TODO investigate if we can avoid the layer and bundle resources instead
 
-		// AWS Lambda Powertools Layer for structured logging and X-Ray tracing
-		const powertoolsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "PowertoolsLayer", `arn:aws:lambda:${cdk.Stack.of(this).region}:094274105915:layer:AWSLambdaPowertoolsTypeScriptV2:41`);
-
 		// Create image processor Lambda function
-		const imageProcessorLogGroup = new cdk.aws_logs.LogGroup(this, "ImageProcessorLogGroup", {
-			retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
-			removalPolicy: cdk.RemovalPolicy.DESTROY,
-		});
-
-		const imageProcessorFunction = new NodejsFunction(this, "ImageProcessor", {
-			runtime: lambda.Runtime.NODEJS_24_X,
-			handler: "handler",
+		const imageProcessorFunction = new VcmNodejsFunction(this, "ImageProcessor", {
+			namespace: "media",
+			name: "image-processor",
 			entry: "lambda/content/image-processor.ts",
+			timeout: cdk.Duration.minutes(5),
+			layers: [imageMagickLayer],
 			environment: {
 				CDK_ENVIRONMENT: environment,
 			},
-			timeout: cdk.Duration.minutes(5),
-			memorySize: 512, // Need more memory for image processing
-			layers: [imageMagickLayer, powertoolsLayer],
-			logGroup: imageProcessorLogGroup,
-			bundling: {
-				minify: true,
-				sourceMap: true,
-				externalModules: ["@aws-sdk/client-s3", "@aws-lambda-powertools/logger", "@aws-lambda-powertools/tracer", "aws-xray-sdk-core"],
-			},
-		});
+		}).lambdaFunction;
 
 		// Grant Lambda permission to read/write to S3 bucket
 		this.bucket.grantRead(imageProcessorFunction);
