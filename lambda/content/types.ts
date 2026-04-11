@@ -24,9 +24,3 @@ export const ContentAuthEnvironmentSchema = z.object({
 });
 
 export type ContentAuthEnvironment = z.infer<typeof ContentAuthEnvironmentSchema>;
-
-export const BetterAuthAdapterEnvironmentSchema = z.object({
-	CONTENT_TABLE_NAME: requiredEnvString,
-});
-
-export type BetterAuthAdapterEnvironment = z.infer<typeof BetterAuthAdapterEnvironmentSchema>;

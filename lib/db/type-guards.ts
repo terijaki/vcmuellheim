@@ -10,8 +10,8 @@
  */
 
 import type { EntityItem } from "electrodb";
-import type { AuthVerificationEntity, BusEntity, CmsUserEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
-import type { AuthVerification, Bus, CmsUser, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
+import type { BusEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
+import type { Bus, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
 
 // ---------------------------------------------------------------------------
 // Compile-time drift detection via type compatibility assertions.
@@ -60,15 +60,6 @@ export type _LocationCheck = AssertAssignable<Required<Pick<Location, "id" | "na
 
 // Bus
 export type _BusCheck = AssertAssignable<Required<Pick<Bus, "id" | "driver" | "from" | "to" | "ttl" | "createdAt" | "updatedAt">>, EntityItem<typeof BusEntity>>;
-
-// CmsUser
-export type _CmsUserCheck = AssertAssignable<Required<Pick<CmsUser, "id" | "email" | "name" | "emailVerified" | "createdAt" | "updatedAt">>, EntityItem<typeof CmsUserEntity>>;
-
-// AuthVerification
-export type _AuthVerificationCheck = AssertAssignable<
-	Required<Pick<AuthVerification, "id" | "identifier" | "value" | "expiresAt" | "ttl" | "createdAt" | "updatedAt">>,
-	EntityItem<typeof AuthVerificationEntity>
->;
 
 // ---------------------------------------------------------------------------
 // Runtime type guards — use these to safely narrow unknown DynamoDB items
@@ -170,36 +161,6 @@ export function isBus(item: unknown): item is Bus {
 		typeof obj.driver === "string" &&
 		typeof obj.from === "string" &&
 		typeof obj.to === "string" &&
-		typeof obj.ttl === "number" &&
-		typeof obj.createdAt === "string" &&
-		typeof obj.updatedAt === "string"
-	);
-}
-
-/** Type guard: checks that `item` has the minimum shape of a CmsUser */
-export function isCmsUser(item: unknown): item is CmsUser {
-	if (!item || typeof item !== "object") return false;
-	const obj = item as Record<string, unknown>;
-	return (
-		typeof obj.id === "string" &&
-		typeof obj.email === "string" &&
-		typeof obj.name === "string" &&
-		typeof obj.emailVerified === "boolean" &&
-		(obj.role === "Admin" || obj.role === "Moderator") &&
-		typeof obj.createdAt === "string" &&
-		typeof obj.updatedAt === "string"
-	);
-}
-
-/** Type guard: checks that `item` has the minimum shape of an AuthVerification */
-export function isAuthVerification(item: unknown): item is AuthVerification {
-	if (!item || typeof item !== "object") return false;
-	const obj = item as Record<string, unknown>;
-	return (
-		typeof obj.id === "string" &&
-		typeof obj.identifier === "string" &&
-		typeof obj.value === "string" &&
-		typeof obj.expiresAt === "string" &&
 		typeof obj.ttl === "number" &&
 		typeof obj.createdAt === "string" &&
 		typeof obj.updatedAt === "string"

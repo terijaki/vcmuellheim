@@ -173,12 +173,12 @@ async function createCmsUser(email: string): Promise<void> {
 	const existing = await entities.member.query.byPrivateEmail({ privateEmail: email }).go();
 	if (existing.data && existing.data.length > 0) {
 		const member = existing.data[0];
-		if (member.role) {
-			console.log(`ℹ️  Member ${email} already has role: ${member.role}`);
+		if (member.authRole) {
+			console.log(`ℹ️  Member ${email} already has authRole: ${member.authRole}`);
 			process.exit(0);
 		}
 		// Grant Admin role to existing member
-		await entities.member.patch({ id: member.id }).set({ role: "Admin", updatedAt: new Date().toISOString() }).go();
+		await entities.member.patch({ id: member.id }).set({ authRole: "Admin", updatedAt: new Date().toISOString() }).go();
 		console.log(`✅ Admin role granted to existing member ${email}`);
 		console.log(`   The member can now sign in at the CMS with email OTP (passwordless).`);
 		return;
@@ -190,7 +190,7 @@ async function createCmsUser(email: string): Promise<void> {
 			id: crypto.randomUUID(),
 			name: email.split("@")[0],
 			privateEmail: email,
-			role: "Admin",
+			authRole: "Admin",
 			createdAt: new Date().toISOString(),
 			updatedAt: new Date().toISOString(),
 		})

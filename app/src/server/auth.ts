@@ -10,10 +10,11 @@ import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import { Club, Mail } from "@project.config";
 import { betterAuth } from "better-auth";
 import { emailOTP } from "better-auth/plugins";
-import { dynamoDBAdapter } from "@/lambda/utils/better-auth-dynamodb-adapter";
+import { memberAuthAdapter } from "./auth-member-adapter";
+import { dynamoDBSecondaryStorage } from "./auth-secondary-storage";
 import { getMemberByProxyEmail } from "./queries";
 
-const OTP_EXPIRATION_MINUTS = 10;
+const OTP_EXPIRATION_MINUTES = 10;
 
 const isProd = process.env.CDK_ENVIRONMENT === "prod";
 
@@ -92,15 +93,12 @@ function createAuth() {
 		},
 		secret,
 		trustedOrigins: getTrusedOrigins({ isLocalDev }),
-		database: dynamoDBAdapter,
+		database: memberAuthAdapter,
+		secondaryStorage: dynamoDBSecondaryStorage,
 		advanced: {
-			// In production: force Secure cookies since the server doesn't set NODE_ENV=production.
-			// In local dev: allow non-secure cookies so they can be set over http://localhost.
 			defaultCookieAttributes: {
 				secure: !isLocalDev,
 			},
-			// Scope cookies to the parent domain in production so auth state is shared across subdomains.
-			// Disabled in local dev since vcmuellheim.de doesn't match localhost.
 			crossSubDomainCookies: isLocalDev ? { enabled: false } : { enabled: !isProd, domain: `new.${Club.domain}` },
 		},
 		session: {
@@ -120,14 +118,13 @@ function createAuth() {
 				role: {
 					type: "string",
 					required: true,
-					defaultValue: "Moderator",
 				},
 			},
 		},
 		plugins: [
 			emailOTP({
 				disableSignUp: true,
-				expiresIn: OTP_EXPIRATION_MINUTS * 60,
+				expiresIn: OTP_EXPIRATION_MINUTES * 60,
 				async sendVerificationOTP({ email, otp }, ctx) {
 					// When the login input is a proxy alias, resolve it to the member's
 					// privateEmail so the OTP is always delivered to the canonical address.
@@ -162,14 +159,14 @@ function createAuth() {
 	</a>
 </p>
 <p>Oder gib den Code manuell auf der Login-Seite ein.</p>
-<p>Dieser Code ist <strong>${OTP_EXPIRATION_MINUTS} Minuten</strong> gültig.</p>
+<p>Dieser Code ist <strong>${OTP_EXPIRATION_MINUTES} Minuten</strong> gültig.</p>
 <p>Falls du diese Anfrage nicht gestellt hast, kannst du diese E-Mail ignorieren.</p>
 <p>Sportliche Grüße,<br>${Club.shortName}</p>
 `,
 										Charset: "UTF-8",
 									},
 									Text: {
-										Data: `Dein Anmeldecode für das ${Club.shortName} CMS: ${otp}\n\nPer Link im CMS anmelden: ${otpLoginLink}\n\nWenn der Link nicht funktioniert, gib den Code manuell auf der Login-Seite ein.\n\nDieser Code ist ${OTP_EXPIRATION_MINUTS} Minuten gültig.`,
+										Data: `Dein Anmeldecode für das ${Club.shortName} CMS: ${otp}\n\nPer Link im CMS anmelden: ${otpLoginLink}\n\nWenn der Link nicht funktioniert, gib den Code manuell auf der Login-Seite ein.\n\nDieser Code ist ${OTP_EXPIRATION_MINUTES} Minuten gültig.`,
 										Charset: "UTF-8",
 									},
 								},

@@ -182,7 +182,7 @@ export const MemberEntity = new Entity({
 		isTrainer: { type: "boolean" },
 		roleTitle: { type: "string" },
 		avatarS3Key: { type: "string" },
-		role: { type: ["Admin", "Moderator"] as const },
+		authRole: { type: ["Admin", "Moderator"] as const },
 		emailVerified: { type: "boolean" },
 		createdAt: { type: "string", required: true },
 		updatedAt: { type: "string", required: true },
@@ -346,120 +346,6 @@ export const BusEntity = new Entity({
 	},
 } as const);
 
-// ---------------------------------------------------------------------------
-// CMS User entity
-// ---------------------------------------------------------------------------
-
-export const CmsUserEntity = new Entity({
-	model: {
-		entity: "user",
-		service: "vcm",
-		version: "1",
-	},
-	attributes: {
-		id: { type: "string", required: true },
-		type: { type: "string", required: true, default: () => "user" as const },
-		email: { type: "string", required: true },
-		name: { type: "string", required: true },
-		emailVerified: { type: "boolean", required: true, default: () => false },
-		role: { type: ["Admin", "Moderator"] as const, required: true },
-		createdAt: { type: "string", required: true },
-		updatedAt: { type: "string", required: true },
-	},
-	indexes: {
-		byId: {
-			pk: { field: "pk", composite: ["id"] },
-			sk: { field: "sk", composite: [] },
-		},
-		byType: {
-			index: ContentTableIndexes.gsi1,
-			pk: { field: "gsi1pk", composite: ["type"] },
-			sk: { field: "gsi1sk", composite: ["updatedAt"] },
-		},
-		byEmail: {
-			index: ContentTableIndexes.gsi4,
-			pk: { field: "gsi4pk", composite: ["email"] },
-			sk: { field: "gsi4sk", composite: [] },
-		},
-	},
-} as const);
-
-// ---------------------------------------------------------------------------
-// Auth Verification entity
-// ---------------------------------------------------------------------------
-
-export const AuthVerificationEntity = new Entity({
-	model: {
-		entity: "authverification",
-		service: "vcm",
-		version: "1",
-	},
-	attributes: {
-		id: { type: "string", required: true },
-		identifier: { type: "string", required: true },
-		value: { type: "string", required: true },
-		expiresAt: { type: "string", required: true },
-		ttl: { type: "number", required: true },
-		createdAt: { type: "string", required: true },
-		updatedAt: { type: "string", required: true },
-	},
-	indexes: {
-		byId: {
-			pk: { field: "pk", composite: ["id"] },
-			sk: { field: "sk", composite: [] },
-		},
-		byIdentifier: {
-			index: ContentTableIndexes.gsi4,
-			pk: { field: "gsi4pk", composite: ["identifier"] },
-			sk: { field: "gsi4sk", composite: [] },
-		},
-	},
-} as const);
-
-// ---------------------------------------------------------------------------
-// Session entity (better-auth session model)
-//
-// Not included in ContentEntities / drift tests because the schema
-// is owned by better-auth, not by our Zod schemas.
-// ---------------------------------------------------------------------------
-
-export const SessionEntity = new Entity({
-	model: {
-		entity: "session",
-		service: "vcm",
-		version: "1",
-	},
-	attributes: {
-		id: { type: "string", required: true },
-		userId: { type: "string", required: true },
-		token: { type: "string", required: true },
-		expiresAt: { type: "string", required: true },
-		ipAddress: { type: "string" },
-		userAgent: { type: "string" },
-		ttl: { type: "number", required: true },
-		createdAt: { type: "string", required: true },
-		updatedAt: { type: "string", required: true },
-	},
-	indexes: {
-		byId: {
-			pk: { field: "pk", composite: ["id"] },
-			sk: { field: "sk", composite: [] },
-		},
-		/** GSI1 — look up all sessions for a given user */
-		byUserId: {
-			index: ContentTableIndexes.gsi1,
-			pk: { field: "gsi1pk", composite: ["userId"] },
-			sk: { field: "gsi1sk", composite: ["createdAt"] },
-		},
-		/** GSI3 — look up a session by its token (used during session validation) */
-		byToken: {
-			index: ContentTableIndexes.gsi3,
-			pk: { field: "gsi3pk", composite: ["token"] },
-			sk: { field: "gsi3sk", composite: [] },
-		},
-	},
-} as const);
-
 /** All content entities — useful for iteration (e.g. in tests) */
 export const ContentEntities = {
 	news: NewsEntity,
@@ -470,8 +356,6 @@ export const ContentEntities = {
 	sponsor: SponsorEntity,
 	location: LocationEntity,
 	bus: BusEntity,
-	user: CmsUserEntity,
-	authverification: AuthVerificationEntity,
 } as const;
 
 export type ContentEntityName = keyof typeof ContentEntities;

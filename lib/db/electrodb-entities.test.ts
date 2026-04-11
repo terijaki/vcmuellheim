@@ -8,22 +8,9 @@
  */
 
 import { describe, it } from "vite-plus/test";
-import { AuthVerificationEntity, BusEntity, CmsUserEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
+import { BusEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
 import { SamsClubEntity, SamsTeamEntity } from "./sams-electrodb-entities";
-import {
-	authVerificationSchema,
-	busSchema,
-	cmsUserSchema,
-	eventSchema,
-	locationSchema,
-	mediaSchema,
-	memberSchema,
-	newsSchema,
-	samsClubSchema,
-	samsTeamSchema,
-	sponsorSchema,
-	teamSchema,
-} from "./schemas";
+import { busSchema, eventSchema, locationSchema, mediaSchema, memberSchema, newsSchema, samsClubSchema, samsTeamSchema, sponsorSchema, teamSchema } from "./schemas";
 
 /** Extract sorted top-level attribute names from an ElectroDB entity schema */
 function getEntityAttributeNames(entity: { schema: { attributes: Record<string, unknown> } }): string[] {
@@ -118,14 +105,6 @@ describe("ElectroDB ↔ Zod drift detection", () => {
 
 	it("Bus entity attributes match busSchema", () => {
 		checkDrift("Bus", busSchema, BusEntity);
-	});
-
-	it("CmsUser entity attributes match cmsUserSchema", () => {
-		checkDrift("CmsUser", cmsUserSchema, CmsUserEntity);
-	});
-
-	it("AuthVerification entity attributes match authVerificationSchema", () => {
-		checkDrift("AuthVerification", authVerificationSchema, AuthVerificationEntity);
 	});
 });
 
