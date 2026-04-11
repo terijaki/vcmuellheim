@@ -62,7 +62,6 @@ function ensureNitroOutputFixtures() {
 function createDependencies() {
 	return {
 		contentTableName: "vcm-content-dev",
-		cacheTableName: "vcm-cache-dev",
 		mediaBucketName: "vcmuellheim-media-dev",
 	};
 }
