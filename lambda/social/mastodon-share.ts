@@ -17,6 +17,7 @@ const MASTODON_ACCESS_TOKEN = env.MASTODON_ACCESS_TOKEN;
 const MASTODON_INSTANCE = "https://freiburg.social";
 const MASTODON_BASE_URL = `${MASTODON_INSTANCE}/api/v1`;
 const MEDIA_BUCKET_NAME = env.MEDIA_BUCKET_NAME;
+const MASTODON_CHAR_LIMIT = 2500;
 
 const s3Client = new S3Client({});
 
@@ -136,7 +137,7 @@ export async function shareToMastodon(request: MastodonShareRequest): Promise<Ma
 		},
 		body: JSON.stringify({
 			status,
-			visibility: "public",
+			visibility: "unlisted",
 			language: "de",
 			...(mediaIds.length > 0 ? { media_ids: mediaIds } : {}),
 		}),
@@ -154,34 +155,65 @@ export async function shareToMastodon(request: MastodonShareRequest): Promise<Ma
 }
 
 /**
+ * Strip HTML tags from content, converting block elements to newlines and
+ * decoding common HTML entities, to produce clean plain text.
+ */
+function stripHtml(html: string): string {
+	// Convert closing block-level elements to newlines to preserve paragraph structure
+	let text = html.replace(/<\/(p|h[1-6]|div|blockquote|li)>/gi, "\n");
+	// Convert self-closing and opening block elements to newlines
+	text = text.replace(/<(br|hr)(\/?\s*)>/gi, "\n");
+	// Strip all remaining HTML tags
+	text = text.replace(/<[^>]+>/g, "");
+	// Decode common HTML entities in a single pass to avoid double-unescaping
+	const entityMap: Record<string, string> = {
+		amp: "&",
+		lt: "<",
+		gt: ">",
+		nbsp: " ",
+		quot: '"',
+		"#x27": "'",
+	};
+	text = text.replace(/&(amp|lt|gt|nbsp|quot|#x27);/g, (_, entity: string) => {
+		return entityMap[entity] ?? `&${entity};`;
+	});
+	// Collapse runs of 3 or more consecutive newlines to 2
+	text = text.replace(/\n{3,}/g, "\n\n");
+	return text.trim();
+}
+
+/**
  * Build Mastodon status text from news article
  */
 function buildMastodonStatus(newsArticle: News, articleUrl: string): string {
 	const title = newsArticle.title;
-	const excerpt = newsArticle.excerpt || "";
+	const plainContent = stripHtml(newsArticle.content);
 
-	// Mastodon has a 500 character limit
-	// Format: Title + excerpt (if available) + URL
-	let status = title;
-
-	if (excerpt) {
-		// Add excerpt if there's room (leaving space for URL and formatting)
-		const urlLength = articleUrl.length + 4; // URL + "\n\n" + space
-		const availableLength = 500 - title.length - urlLength;
-
-		if (availableLength > 20 && excerpt.length <= availableLength) {
-			status = `${title}\n\n${excerpt}`;
-		} else if (availableLength > 20) {
-			// Truncate excerpt if needed
-			const truncatedExcerpt = `${excerpt.slice(0, availableLength - 3)}...`;
-			status = `${title}\n\n${truncatedExcerpt}`;
-		}
+	// Try sharing the full article when it fits within the character limit
+	const fullPost = `${title}\n\n${plainContent}`;
+	if (fullPost.length <= MASTODON_CHAR_LIMIT) {
+		return fullPost;
 	}
 
-	// Add URL at the end
-	status = `${status}\n\n${articleUrl}`;
+	// Fall back to excerpt (or truncated content) + URL
+	const excerpt = newsArticle.excerpt;
+	// overhead: title + "\n\n" + "\n\n" + url
+	const overhead = title.length + 4 + articleUrl.length;
+	const available = MASTODON_CHAR_LIMIT - overhead;
 
-	return status;
+	const textToFit = excerpt ?? plainContent;
+
+	if (textToFit.length <= available) {
+		// Text fits within the available space
+		return `${title}\n\n${textToFit}\n\n${articleUrl}`;
+	}
+
+	// Need at least 20 available chars to produce a meaningful truncated snippet
+	if (available > 20) {
+		return `${title}\n\n${textToFit.slice(0, available - 1)}…\n\n${articleUrl}`;
+	}
+
+	return `${title}\n\n${articleUrl}`;
 }
 
 /**
