@@ -173,7 +173,7 @@ describe("SamsStack", () => {
 	});
 
 	describe("DynamoDB tables", () => {
-		it("should create sams data table with correct GSIs", () => {
+		it("should create sams data table with the active GSI", () => {
 			const app = createTestApp();
 			const stack = new SamsStack(app, "TestStack", {
 				stackProps: {
@@ -184,10 +184,10 @@ describe("SamsStack", () => {
 
 			const template = Template.fromStack(stack);
 
-			// Sams data table should have GSI1-BySamsType and GSI2-BySamsSeasonUuid
+			// Sams data table should have GSI1-BySamsType
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				TableName: "sams-data-dev",
-				GlobalSecondaryIndexes: Match.arrayWith([Match.objectLike({ IndexName: "GSI1-BySamsType" }), Match.objectLike({ IndexName: "GSI2-BySamsSeasonUuid" })]),
+				GlobalSecondaryIndexes: Match.arrayWith([Match.objectLike({ IndexName: "GSI1-BySamsType" })]),
 			});
 		});
 

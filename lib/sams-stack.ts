@@ -66,14 +66,6 @@ export class SamsStack extends cdk.Stack {
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 
-		// GSI2 — season-scoped team queries
-		samsDataTable.addGlobalSecondaryIndex({
-			indexName: "GSI2-BySamsSeasonUuid",
-			partitionKey: { name: "gsi2pk", type: dynamodb.AttributeType.STRING },
-			sortKey: { name: "gsi2sk", type: dynamodb.AttributeType.STRING },
-			projectionType: dynamodb.ProjectionType.ALL,
-		});
-
 		// Expose table for cross-stack reference
 		this.samsDataTable = samsDataTable;
 
