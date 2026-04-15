@@ -161,14 +161,10 @@ export async function shareToMastodon(request: MastodonShareRequest): Promise<Ma
 function stripHtml(html: string): string {
 	// Convert closing block-level elements to newlines to preserve paragraph structure
 	let text = html.replace(/<\/(p|h[1-6]|div|blockquote|li)>/gi, "\n");
-	// Convert self-closing and opening block elements to newlines
-	text = text.replace(/<(br|hr)(\/?\s*)>/gi, "\n");
-	// Strip all remaining HTML tags (repeat until stable to avoid incomplete multi-character sanitization)
-	let previous: string;
-	do {
-		previous = text;
-		text = text.replace(/<[^>]+>/g, "");
-	} while (text !== previous);
+	// Convert opening/self-closing line-break elements to newlines, handling attributes and all spacing variants
+	text = text.replace(/<(br|hr)\b[^>]*>/gi, "\n");
+	// Strip all remaining HTML tags
+	text = text.replace(/<[^>]+>/g, "");
 	// Decode common HTML entities in a single pass to avoid double-unescaping
 	const entityMap: Record<string, string> = {
 		amp: "&",
@@ -194,27 +190,29 @@ function buildMastodonStatus(newsArticle: News, articleUrl: string): string {
 	const plainContent = stripHtml(newsArticle.content);
 
 	// Try sharing the full article when it fits within the character limit
+	// Use Array.from for Unicode-safe code-point counting (avoids splitting surrogate pairs)
 	const fullPost = `${title}\n\n${plainContent}`;
-	if (fullPost.length <= MASTODON_CHAR_LIMIT) {
+	if (Array.from(fullPost).length <= MASTODON_CHAR_LIMIT) {
 		return fullPost;
 	}
 
 	// Fall back to excerpt (or truncated content) + URL
 	const excerpt = newsArticle.excerpt;
-	// overhead: title + "\n\n" + "\n\n" + url
-	const overhead = title.length + 4 + articleUrl.length;
+	// overhead: title + "\n\n" + "\n\n" + url (code-point counts)
+	const overhead = Array.from(title).length + 4 + Array.from(articleUrl).length;
 	const available = MASTODON_CHAR_LIMIT - overhead;
 
 	const textToFit = excerpt ?? plainContent;
+	const textToFitCodePoints = Array.from(textToFit);
 
-	if (textToFit.length <= available) {
+	if (textToFitCodePoints.length <= available) {
 		// Text fits within the available space
 		return `${title}\n\n${textToFit}\n\n${articleUrl}`;
 	}
 
 	// Need at least 20 available chars to produce a meaningful truncated snippet
 	if (available > 20) {
-		return `${title}\n\n${textToFit.slice(0, available - 1)}…\n\n${articleUrl}`;
+		return `${title}\n\n${textToFitCodePoints.slice(0, available - 1).join("")}…\n\n${articleUrl}`;
 	}
 
 	return `${title}\n\n${articleUrl}`;
