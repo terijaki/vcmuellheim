@@ -527,4 +527,35 @@ describe("Mastodon Share Lambda", () => {
 		expect(body.status).toContain("Schöner Tag & Sonnenschein"); // &amp; decoded
 		expect(body.status).toContain("Zweiter Absatz."); // <strong> stripped
 	});
+
+	test("HTML stripping: entity-encoded HTML tags are fully removed from output", async () => {
+		// Validates that &lt;script&gt; (entity-encoded tags) are also stripped,
+		// addressing the CodeQL 'Incomplete multi-character sanitization' finding.
+		const { shareToMastodon } = await import("./mastodon-share");
+
+		const newsArticle: News = {
+			id: "entity-test-id",
+			type: "article",
+			title: "Entity Test",
+			slug: "entity-test",
+			content:
+				"<p>Normal text &lt;b&gt;bold&lt;/b&gt; and &lt;script&gt;alert(1)&lt;/script&gt; end.</p>",
+			status: "published",
+			createdAt: "2024-01-01T00:00:00.000Z",
+			updatedAt: "2024-01-01T00:00:00.000Z",
+		};
+
+		await shareToMastodon({
+			newsArticle,
+			websiteUrl: "https://vcmuellheim.de",
+		});
+
+		const calls = mockFetch.mock.calls as Array<[string, RequestInit?]>;
+		const body = JSON.parse(calls[0][1]?.body as string);
+		// No literal HTML tags in output (entity-encoded tags must also be stripped)
+		expect(body.status).not.toMatch(/<[^>]+>/);
+		// Plain text content is preserved
+		expect(body.status).toContain("Normal text");
+		expect(body.status).toContain("end.");
+	});
 });
