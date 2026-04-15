@@ -159,25 +159,25 @@ export async function shareToMastodon(request: MastodonShareRequest): Promise<Ma
  * decoding common HTML entities, to produce clean plain text.
  */
 function stripHtml(html: string): string {
-	// Decode common HTML entities first (single-pass to avoid double-unescaping),
-	// so entity-encoded tags (e.g. &lt;script&gt;) are also caught by the tag stripper below
+	// Convert closing block-level elements to newlines to preserve paragraph structure
+	let text = html.replace(/<\/(p|h[1-6]|div|blockquote|li)>/gi, "\n");
+	// Convert opening/self-closing line-break elements to newlines, handling attributes and all spacing variants
+	text = text.replace(/<(br|hr)\b[^>]*>/gi, "\n");
+	// Strip all remaining complete HTML tags
+	text = text.replace(/<[^>]+>/g, "");
+	// Remove any remaining angle brackets (handles unclosed tags such as `<script` without closing `>`)
+	text = text.replace(/[<>]/g, "");
+	// Decode safe HTML entities in a single pass; intentionally excludes &lt;/&gt; to avoid
+	// reintroducing angle brackets after the sanitization steps above
 	const entityMap: Record<string, string> = {
 		amp: "&",
-		lt: "<",
-		gt: ">",
 		nbsp: " ",
 		quot: '"',
 		"#x27": "'",
 	};
-	let text = html.replace(/&(amp|lt|gt|nbsp|quot|#x27);/g, (_, entity: string) => {
+	text = text.replace(/&(amp|nbsp|quot|#x27);/g, (_, entity: string) => {
 		return entityMap[entity] ?? `&${entity};`;
 	});
-	// Convert closing block-level elements to newlines to preserve paragraph structure
-	text = text.replace(/<\/(p|h[1-6]|div|blockquote|li)>/gi, "\n");
-	// Convert opening/self-closing line-break elements to newlines, handling attributes and all spacing variants
-	text = text.replace(/<(br|hr)\b[^>]*>/gi, "\n");
-	// Strip all remaining HTML tags (including any tags introduced by entity decoding above)
-	text = text.replace(/<[^>]+>/g, "");
 	// Collapse runs of 3 or more consecutive newlines to 2
 	text = text.replace(/\n{3,}/g, "\n\n");
 	return text.trim();
