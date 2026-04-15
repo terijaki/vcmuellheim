@@ -1,4 +1,4 @@
-import { BadgeEuro, Building2, Bus, CalendarDays, Contact, MapPinned, Newspaper, Users } from "lucide-react";
+import { BadgeEuro, Building2, Bus, CalendarDays, Contact, HandHelping, MapPinned, Newspaper, Users } from "lucide-react";
 import type { ReactElement } from "react";
 
 type AdminRoute = {
@@ -57,6 +57,12 @@ export function getAdminRoutesWithLabels(): AdminRoute[] {
 			label: "SAMS",
 			icon: <Building2 />,
 			description: "SAMS Teams Übersicht.",
+		},
+		{
+			to: "/admin/volunteerEvent",
+			label: "Helfer",
+			icon: <HandHelping />,
+			description: "Erstelle und verwalte Helfereinsätze (z. B. Stadtfest).",
 		},
 	];
 

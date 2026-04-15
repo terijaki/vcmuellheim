@@ -185,3 +185,79 @@ export const samsTeamSchema = z.object({
 
 export type SamsClubInput = z.infer<typeof samsClubSchema>;
 export type SamsTeamInput = z.infer<typeof samsTeamSchema>;
+
+// ---------------------------------------------------------------------------
+// Volunteer Event Planner schemas
+// ---------------------------------------------------------------------------
+
+/** Job role within a volunteer shift */
+export const volunteerRoleSchema = z.object({
+	id: z.uuid(),
+	label: z.string().min(1).max(100),
+	minCapacity: z.number().int().min(0),
+	maxCapacity: z.number().int().min(1),
+});
+
+/** Shift within a volunteer event */
+export const volunteerShiftSchema = z.object({
+	id: z.uuid(),
+	label: z.string().min(1).max(200),
+	startDate: z.iso.datetime(),
+	endDate: z.iso.datetime().optional(),
+	roles: z.array(volunteerRoleSchema),
+});
+
+/** Volunteer event with nested shifts and roles */
+export const volunteerEventSchema = z.object({
+	...baseEntityFields,
+	type: z.literal("volunteerEvent").default("volunteerEvent").describe("Entity type, primary key for GSI queries"),
+	title: z.string().min(1).max(200),
+	description: z.string().optional(),
+	location: z.string().optional(),
+	shifts: z.array(volunteerShiftSchema),
+});
+
+/** Signup payload stored inside a verification token */
+export const volunteerSignupDataSchema = z.object({
+	firstName: z.string().min(1).max(100),
+	lastName: z.string().min(1).max(100),
+	email: z.email(),
+	dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
+	preferredRoleIds: z.array(z.uuid()).min(2),
+	association: z.string().max(500),
+	eventId: z.uuid(),
+	shiftId: z.uuid(),
+});
+
+/** Volunteer signup record */
+export const volunteerSignupSchema = z.object({
+	...baseEntityFields,
+	type: z.literal("volunteerSignup").default("volunteerSignup").describe("Entity type discriminator"),
+	eventId: z.uuid(),
+	shiftId: z.uuid(),
+	firstName: z.string().min(1).max(100),
+	lastName: z.string().min(1).max(100),
+	email: z.email(),
+	dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
+	preferredRoleIds: z.array(z.uuid()).min(2),
+	association: z.string().max(500),
+	status: z.enum(["pending", "confirmed"]),
+	assignedRoleId: z.uuid().optional().describe("Role assigned by admin, overrides helper preference"),
+});
+
+/** Short-lived verification token for confirming a volunteer signup */
+export const volunteerTokenSchema = z.object({
+	id: z.uuid(),
+	type: z.literal("volunteerToken").default("volunteerToken").describe("Entity type discriminator"),
+	eventId: z.uuid(),
+	signupData: volunteerSignupDataSchema.describe("Full signup payload carried by the token"),
+	ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (72h expiry)"),
+	createdAt: z.iso.datetime(),
+});
+
+export type VolunteerEventInput = z.infer<typeof volunteerEventSchema>;
+export type VolunteerShiftInput = z.infer<typeof volunteerShiftSchema>;
+export type VolunteerRoleInput = z.infer<typeof volunteerRoleSchema>;
+export type VolunteerSignupInput = z.infer<typeof volunteerSignupSchema>;
+export type VolunteerSignupData = z.infer<typeof volunteerSignupDataSchema>;
+export type VolunteerTokenInput = z.infer<typeof volunteerTokenSchema>;
