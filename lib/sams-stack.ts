@@ -8,6 +8,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import type { SamsClubsSyncLambdaEnvironment, SamsCommonLambdaEnvironment, SamsTeamsSyncLambdaEnvironment } from "@/lambda/sams/types";
 import { computeSamsDataTableName } from "./db/env";
+import { SamsTableIndexes } from "./db/sams-electrodb-entities";
 import { buildLambdaFunctionName, VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
 interface SamsStackProps extends cdk.StackProps {
@@ -60,17 +61,9 @@ export class SamsStack extends cdk.Stack {
 
 		// GSI1 — type-based list queries for clubs and teams
 		samsDataTable.addGlobalSecondaryIndex({
-			indexName: "GSI1-BySamsType",
+			indexName: SamsTableIndexes.gsi1,
 			partitionKey: { name: "gsi1pk", type: dynamodb.AttributeType.STRING },
 			sortKey: { name: "gsi1sk", type: dynamodb.AttributeType.STRING },
-			projectionType: dynamodb.ProjectionType.ALL,
-		});
-
-		// GSI2 — season-scoped team queries
-		samsDataTable.addGlobalSecondaryIndex({
-			indexName: "GSI2-BySamsSeasonUuid",
-			partitionKey: { name: "gsi2pk", type: dynamodb.AttributeType.STRING },
-			sortKey: { name: "gsi2sk", type: dynamodb.AttributeType.STRING },
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
 

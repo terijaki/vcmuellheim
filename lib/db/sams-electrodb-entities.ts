@@ -7,7 +7,6 @@
  *   PK  (pk)     — entity_type#uuid  (e.g. "samsclub#uuid")
  *   SK  (sk)     — entity_type#      (constant per entity)
  *   GSI1: gsi1pk / gsi1sk  — type-based list queries sorted by nameSlug
- *   GSI2: gsi2pk / gsi2sk  — season-scoped team queries (teams only)
  */
 
 import { Entity } from "electrodb";
@@ -18,8 +17,6 @@ export const SamsTableIndexes = {
 	table: "table",
 	/** Type + nameSlug sorted queries (club list, team list by slug) */
 	gsi1: "GSI1-BySamsType",
-	/** Season-scoped team queries (teams only) */
-	gsi2: "GSI2-BySamsSeasonUuid",
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -91,11 +88,6 @@ export const SamsTeamEntity = new Entity({
 			index: SamsTableIndexes.gsi1,
 			pk: { field: "gsi1pk", composite: ["type"] },
 			sk: { field: "gsi1sk", composite: ["nameSlug"] },
-		},
-		bySeasonUuid: {
-			index: SamsTableIndexes.gsi2,
-			pk: { field: "gsi2pk", composite: ["seasonUuid"] },
-			sk: { field: "gsi2sk", composite: ["name"] },
 		},
 	},
 } as const);
