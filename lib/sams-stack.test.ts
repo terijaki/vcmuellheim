@@ -1,6 +1,7 @@
 import { afterEach, beforeAll, beforeEach, describe, it } from "vite-plus/test";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { SamsStack } from "./sams-stack";
+import { SamsTableIndexes } from "./db/sams-electrodb-entities";
 import { createTestApp } from "./test-helpers";
 
 // Set required environment variables before tests
@@ -187,7 +188,7 @@ describe("SamsStack", () => {
 			// Sams data table should have GSI1-BySamsType
 			template.hasResourceProperties("AWS::DynamoDB::Table", {
 				TableName: "sams-data-dev",
-				GlobalSecondaryIndexes: Match.arrayWith([Match.objectLike({ IndexName: "GSI1-BySamsType" })]),
+				GlobalSecondaryIndexes: Match.arrayWith([Match.objectLike({ IndexName: SamsTableIndexes.gsi1 })]),
 			});
 		});
 
