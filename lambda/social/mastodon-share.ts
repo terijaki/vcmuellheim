@@ -163,8 +163,12 @@ function stripHtml(html: string): string {
 	let text = html.replace(/<\/(p|h[1-6]|div|blockquote|li)>/gi, "\n");
 	// Convert self-closing and opening block elements to newlines
 	text = text.replace(/<(br|hr)(\/?\s*)>/gi, "\n");
-	// Strip all remaining HTML tags
-	text = text.replace(/<[^>]+>/g, "");
+	// Strip all remaining HTML tags (repeat until stable to avoid incomplete multi-character sanitization)
+	let previous: string;
+	do {
+		previous = text;
+		text = text.replace(/<[^>]+>/g, "");
+	} while (text !== previous);
 	// Decode common HTML entities in a single pass to avoid double-unescaping
 	const entityMap: Record<string, string> = {
 		amp: "&",
