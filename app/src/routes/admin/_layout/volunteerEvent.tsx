@@ -30,7 +30,7 @@ import {
 	Tooltip,
 } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -48,7 +48,7 @@ import {
 import { Club } from "@project.config";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
-import { ChevronDown, ChevronUp, ClipboardCopy, Link, Plus, SquarePen, Trash2 } from "lucide-react";
+import { ChevronDown, ChevronUp, ClipboardCopy, Info, Link, Mail, Plus, SquarePen, Trash2 } from "lucide-react";
 import { useState } from "react";
 import type { VolunteerEvent } from "@/lib/db/types";
 
@@ -375,6 +375,8 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 
 	const signups = signupsData?.items ?? [];
 	const allRoles = event.shifts.flatMap((s) => s.roles.map((r) => ({ ...r, shiftId: s.id, shiftLabel: s.label })));
+	const isMobile = useMediaQuery("(max-width: 62em)");
+	const hasMultipleShifts = event.shifts.length > 1;
 
 	return (
 		<Box>
@@ -402,18 +404,103 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 									<Text size="sm" c="dimmed">
 										Noch keine Anmeldungen.
 									</Text>
+								) : isMobile ? (
+									<Stack gap="sm">
+										{shiftSignups.map((signup) => {
+											const preferredLabels = signup.preferredRoleIds.map((rid) => allRoles.find((r) => r.id === rid)?.label ?? rid).join(", ");
+											const shiftOptions = event.shifts.filter((s) => s.id !== signup.shiftId).map((s) => ({ value: s.id, label: s.label }));
+											const ageAtEvent = dayjs(shift.startDate).diff(dayjs(signup.dateOfBirth), "year");
+											const ageColor = ageAtEvent >= 18 ? "green" : ageAtEvent >= 16 ? "blue" : "orange";
+											return (
+												<Card key={signup.id} withBorder p="xs">
+													<Group justify="space-between" wrap="nowrap" mb={4}>
+														<Text fw={500} size="sm">
+															{signup.firstName} {signup.lastName}
+														</Text>
+														<Group gap={4} wrap="nowrap">
+															<Badge color={signup.status === "confirmed" ? "green" : "yellow"} variant="light" size="xs">
+																{signup.status === "confirmed" ? "Bestätigt" : "Ausstehend"}
+															</Badge>
+															<Tooltip label={signup.email}>
+																<ActionIcon size="sm" variant="subtle" component="a" href={`mailto:${signup.email}`}>
+																	<Mail size={14} />
+																</ActionIcon>
+															</Tooltip>
+															<Tooltip label={signup.association}>
+																<ActionIcon size="sm" variant="subtle">
+																	<Info size={14} />
+																</ActionIcon>
+															</Tooltip>
+														</Group>
+													</Group>
+													<Text size="xs" c="dimmed" mb={4}>
+														<Badge size="xs" variant="light" color={ageColor}>
+															{ageAtEvent}
+														</Badge>
+														{preferredLabels ? ` · ${preferredLabels}` : ""}
+													</Text>
+													<Group gap="xs" align="flex-end">
+														<Select
+															size="xs"
+															placeholder="Rolle zuweisen"
+															clearable
+															value={signup.assignedRoleId ?? null}
+															onChange={(val) => assignRoleMutation.mutate({ id: signup.id, assignedRoleId: val })}
+															data={shift.roles.map((r) => ({ value: r.id, label: r.label }))}
+															style={{ flex: 1 }}
+														/>
+														{shiftOptions.length > 0 && (
+															<Select
+																size="xs"
+																placeholder="Schicht ändern"
+																value={null}
+																onChange={(val) => {
+																	if (val) moveShiftMutation.mutate({ id: signup.id, shiftId: val });
+																}}
+																data={shiftOptions}
+																style={{ flex: 1 }}
+															/>
+														)}
+														<Group gap={4} wrap="nowrap">
+															{signup.status === "pending" && (
+																<Tooltip label="Manuell bestätigen">
+																	<ActionIcon size="sm" color="green" variant="subtle" onClick={() => confirmMutation.mutate(signup.id)} loading={confirmMutation.isPending}>
+																		<SquarePen size={14} />
+																	</ActionIcon>
+																</Tooltip>
+															)}
+															<Tooltip label="Löschen">
+																<ActionIcon
+																	size="sm"
+																	color="red"
+																	variant="subtle"
+																	onClick={() => {
+																		if (window.confirm("Anmeldung wirklich löschen?")) {
+																			deleteMutation.mutate(signup.id);
+																		}
+																	}}
+																>
+																	<Trash2 size={14} />
+																</ActionIcon>
+															</Tooltip>
+														</Group>
+													</Group>
+												</Card>
+											);
+										})}
+									</Stack>
 								) : (
 									<Table striped highlightOnHover withRowBorders>
 										<Table.Thead>
 											<Table.Tr>
 												<Table.Th>Name</Table.Th>
 												<Table.Th>E-Mail</Table.Th>
-												<Table.Th>Geburtsdatum</Table.Th>
+												<Table.Th>Alter</Table.Th>
 												<Table.Th>Bevorzugte Aufgaben</Table.Th>
 												<Table.Th>Zugehörigkeit</Table.Th>
 												<Table.Th>Status</Table.Th>
 												<Table.Th>Zugewiesene Rolle</Table.Th>
-												<Table.Th>Schicht ändern</Table.Th>
+												{hasMultipleShifts && <Table.Th>Schicht ändern</Table.Th>}
 												<Table.Th>Aktionen</Table.Th>
 											</Table.Tr>
 										</Table.Thead>
@@ -421,16 +508,33 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 											{shiftSignups.map((signup) => {
 												const preferredLabels = signup.preferredRoleIds.map((rid) => allRoles.find((r) => r.id === rid)?.label ?? rid).join(", ");
 												const shiftOptions = event.shifts.filter((s) => s.id !== signup.shiftId).map((s) => ({ value: s.id, label: s.label }));
-
+												const ageAtEvent = dayjs(shift.startDate).diff(dayjs(signup.dateOfBirth), "year");
+												const ageColor = ageAtEvent >= 18 ? "green" : ageAtEvent >= 16 ? "blue" : "orange";
 												return (
 													<Table.Tr key={signup.id}>
 														<Table.Td>
 															{signup.firstName} {signup.lastName}
 														</Table.Td>
-														<Table.Td>{signup.email}</Table.Td>
-														<Table.Td>{signup.dateOfBirth}</Table.Td>
+														<Table.Td>
+															<Tooltip label={signup.email}>
+																<ActionIcon size="sm" variant="subtle" component="a" href={`mailto:${signup.email}`}>
+																	<Mail size={14} />
+																</ActionIcon>
+															</Tooltip>
+														</Table.Td>
+														<Table.Td>
+															<Badge size="xs" variant="light" color={ageColor}>
+																{ageAtEvent}
+															</Badge>
+														</Table.Td>
 														<Table.Td>{preferredLabels}</Table.Td>
-														<Table.Td>{signup.association}</Table.Td>
+														<Table.Td>
+															<Tooltip label={signup.association}>
+																<ActionIcon size="sm" variant="subtle">
+																	<Info size={14} />
+																</ActionIcon>
+															</Tooltip>
+														</Table.Td>
 														<Table.Td>
 															<Badge color={signup.status === "confirmed" ? "green" : "yellow"} variant="light">
 																{signup.status === "confirmed" ? "Bestätigt" : "Ausstehend"}
@@ -447,20 +551,22 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																w={130}
 															/>
 														</Table.Td>
-														<Table.Td>
-															{shiftOptions.length > 0 && (
-																<Select
-																	size="xs"
-																	placeholder="Schicht ändern"
-																	value={null}
-																	onChange={(val) => {
-																		if (val) moveShiftMutation.mutate({ id: signup.id, shiftId: val });
-																	}}
-																	data={shiftOptions}
-																	w={130}
-																/>
-															)}
-														</Table.Td>
+														{hasMultipleShifts && (
+															<Table.Td>
+																{shiftOptions.length > 0 && (
+																	<Select
+																		size="xs"
+																		placeholder="Schicht ändern"
+																		value={null}
+																		onChange={(val) => {
+																			if (val) moveShiftMutation.mutate({ id: signup.id, shiftId: val });
+																		}}
+																		data={shiftOptions}
+																		w={130}
+																	/>
+																)}
+															</Table.Td>
+														)}
 														<Table.Td>
 															<Group gap="xs" wrap="nowrap">
 																{signup.status === "pending" && (
@@ -543,7 +649,7 @@ function VolunteerEventAdminPage() {
 
 	return (
 		<>
-			<EventFormModal opened={formOpened} onClose={closeForm} editingEvent={editingEvent} onSaved={refetch} />
+			<EventFormModal key={editingEvent?.id ?? "new"} opened={formOpened} onClose={closeForm} editingEvent={editingEvent} onSaved={refetch} />
 
 			<Stack gap="lg">
 				<Group justify="space-between">

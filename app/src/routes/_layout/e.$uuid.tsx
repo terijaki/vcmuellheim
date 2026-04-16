@@ -6,7 +6,7 @@
  */
 
 import { Alert, Badge, Button, Card, Container, Divider, Group, Loader, MultiSelect, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
-import { DateInput } from "@mantine/dates";
+import { DatePickerInput } from "@mantine/dates";
 import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -260,21 +260,25 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 					<form.Field name="lastName">{(field) => <TextInput label="Nachname" required value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
 				</SimpleGrid>
 
-				<form.Field name="email">{(field) => <TextInput label="E-Mail-Adresse" type="email" required value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
+				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
+					<form.Field name="email">{(field) => <TextInput label="E-Mail-Adresse" type="email" required value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
 
-				<form.Field name="dateOfBirth">
-					{(field) => (
-						<DateInput
-							label="Geburtsdatum"
-							required
-							value={field.state.value}
-							onChange={(val) => field.handleChange(val ? new Date(val) : null)}
-							valueFormat="DD.MM.YYYY"
-							locale="de"
-							maxDate={new Date()}
-						/>
-					)}
-				</form.Field>
+					<form.Field name="dateOfBirth">
+						{(field) => (
+							<DatePickerInput
+								defaultLevel="decade"
+								label="Geburtsdatum"
+								required
+								value={field.state.value}
+								onChange={(val) => field.handleChange(val ? new Date(val) : null)}
+								valueFormat="DD.MM.YYYY"
+								locale="de"
+								maxDate={dayjs().subtract(9, "year").toDate()}
+								minDate={dayjs().subtract(90, "year").toDate()}
+							/>
+						)}
+					</form.Field>
+				</SimpleGrid>
 
 				<form.Field name="preferredRoleIds">
 					{(field) => (
