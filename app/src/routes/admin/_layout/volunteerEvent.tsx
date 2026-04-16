@@ -422,12 +422,12 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																{signup.status === "confirmed" ? "Bestätigt" : "Ausstehend"}
 															</Badge>
 															<Tooltip label={signup.email}>
-																<ActionIcon size="sm" variant="subtle" component="a" href={`mailto:${signup.email}`}>
+																<ActionIcon size="sm" variant="transparent" component="a" href={`mailto:${signup.email}`}>
 																	<Mail size={14} />
 																</ActionIcon>
 															</Tooltip>
-															<Tooltip label={signup.association}>
-																<ActionIcon size="sm" variant="subtle">
+															<Tooltip label={signup.association || "Keine Zugehörigkeit angegeben"}>
+																<ActionIcon size="sm" variant="transparent" disabled={!signup.association}>
 																	<Info size={14} />
 																</ActionIcon>
 															</Tooltip>
@@ -628,9 +628,9 @@ function VolunteerEventAdminPage() {
 		mutationFn: (id: string) => deleteVolunteerEventFn({ data: { id } }),
 		onSuccess: () => {
 			refetch();
-			notification.success("Helfereinsatz wurde gelöscht");
+			notification.success("Veranstaltung wurde gelöscht");
 		},
-		onError: () => notification.error({ message: "Helfereinsatz konnte nicht gelöscht werden" }),
+		onError: () => notification.error({ message: "Veranstaltung konnte nicht gelöscht werden" }),
 	});
 
 	const events = eventsData.items;
@@ -653,15 +653,15 @@ function VolunteerEventAdminPage() {
 
 			<Stack gap="lg">
 				<Group justify="space-between">
-					<Title order={2}>Helfereinsätze</Title>
+					<Title order={2}>Veranstaltungen</Title>
 					<Button leftSection={<Plus size={16} />} onClick={openCreate}>
-						Neuer Einsatz
+						Neue Veranstaltung
 					</Button>
 				</Group>
 
 				{events.length === 0 && (
 					<Card>
-						<Text c="dimmed">Noch keine Helfereinsätze erstellt.</Text>
+						<Text c="dimmed">Noch keine Veranstaltungen erstellt.</Text>
 					</Card>
 				)}
 
@@ -700,7 +700,7 @@ function VolunteerEventAdminPage() {
 											color="red"
 											variant="subtle"
 											onClick={() => {
-												if (window.confirm("Helfereinsatz wirklich löschen?")) {
+												if (window.confirm("Veranstaltung wirklich löschen?")) {
 													deleteMutation.mutate(event.id);
 												}
 											}}
