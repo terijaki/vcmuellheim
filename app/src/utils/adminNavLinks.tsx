@@ -53,16 +53,16 @@ export function getAdminRoutesWithLabels(): AdminRoute[] {
 			description: "Trage Buchungen für den Vereinsbus ein.",
 		},
 		{
+			to: "/admin/volunteerEvent",
+			label: "Veranstaltung",
+			icon: <HandHelping />,
+			description: "Erstelle und verwalte ehrenamtliche Veranstaltungen mit Anmeldungen (z. B. Stadtfest).",
+		},
+		{
 			to: "/admin/sams",
 			label: "SAMS",
 			icon: <Building2 />,
 			description: "SAMS Teams Übersicht.",
-		},
-		{
-			to: "/admin/volunteerEvent",
-			label: "Helfer",
-			icon: <HandHelping />,
-			description: "Erstelle und verwalte Helfereinsätze (z. B. Stadtfest).",
 		},
 	];
 
