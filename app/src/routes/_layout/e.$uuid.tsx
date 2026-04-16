@@ -61,6 +61,8 @@ function VolunteerEventPage() {
 
 	if (!event) return <Loader />;
 
+	const [activeShiftId, setActiveShiftId] = useState<string | null>(null);
+
 	return (
 		<PageWithHeading title={event.title}>
 			<Container size="lg">
@@ -106,6 +108,9 @@ function VolunteerEventPage() {
 							signupCounts={event.signupCounts[shift.id] ?? {}}
 							confirmedHelpers={event.confirmedHelpers.filter((h) => h.shiftId === shift.id)}
 							onSignedUp={refetch}
+							activeShiftId={activeShiftId}
+							onFormOpen={() => setActiveShiftId(shift.id)}
+							onFormClose={() => setActiveShiftId(null)}
 						/>
 					))}
 				</Stack>
@@ -120,11 +125,14 @@ type ShiftCardProps = {
 	signupCounts: Record<string, number>;
 	confirmedHelpers: { displayName: string; roleId: string | null }[];
 	onSignedUp: () => void;
+	activeShiftId: string | null;
+	onFormOpen: () => void;
+	onFormClose: () => void;
 };
 
-function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }: ShiftCardProps) {
+function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp, activeShiftId, onFormOpen, onFormClose }: ShiftCardProps) {
 	const isPast = new Date(shift.startDate) <= new Date();
-	const [showForm, setShowForm] = useState(false);
+	const showForm = activeShiftId === shift.id;
 	const [submitted, setSubmitted] = useState(false);
 
 	const startFormatted = dayjs(shift.startDate).format("dddd, D. MMMM YYYY [um] HH:mm [Uhr]");
@@ -184,13 +192,15 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
 								roles={shift.roles}
 								onSuccess={() => {
 									setSubmitted(true);
-									setShowForm(false);
+									onFormClose();
 									onSignedUp();
 								}}
-								onCancel={() => setShowForm(false)}
+								onCancel={onFormClose}
 							/>
 						) : (
-							<Button onClick={() => setShowForm(true)}>Anmelden</Button>
+							<Button onClick={onFormOpen} disabled={activeShiftId !== null} ms="auto">
+								Anmelden für {shift.label}
+							</Button>
 						)}
 					</>
 				)}

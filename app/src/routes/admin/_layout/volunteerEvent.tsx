@@ -330,13 +330,22 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 // ---------------------------------------------------------------------------
 
 function SignupDashboard({ event }: { event: VolunteerEvent }) {
-	const [expanded, setExpanded] = useState(false);
+	const [expandedShifts, setExpandedShifts] = useState<Set<string>>(new Set());
+
+	const toggleShift = (id: string) => {
+		setExpandedShifts((prev) => {
+			const next = new Set(prev);
+			if (next.has(id)) next.delete(id);
+			else next.add(id);
+			return next;
+		});
+	};
 	const notification = useNotification();
 
 	const { data: signupsData, refetch } = useQuery({
 		queryKey: ["volunteerSignups", event.id],
 		queryFn: () => listVolunteerSignupsFn({ data: { eventId: event.id } }),
-		enabled: expanded,
+		enabled: expandedShifts.size > 0,
 	});
 
 	const deleteMutation = useMutation({
@@ -379,25 +388,42 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 
 	return (
 		<Box>
-			<Button variant="subtle" size="xs" leftSection={expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />} onClick={() => setExpanded((v) => !v)}>
-				Anmeldungen {expanded ? "ausblenden" : "anzeigen"}
-			</Button>
-
-			<Collapse expanded={expanded}>
-				<Stack gap="md" mt="md">
-					{event.shifts.map((shift) => {
-						const shiftSignups = signups.filter((s) => s.shiftId === shift.id);
-						return (
-							<Card key={shift.id} withBorder p="sm">
-							<Box fw={500} mb="sm">
-								{shift.label} —{" "}
-								<Text span size="sm" c="dimmed">
-									{dayjs(shift.startDate).format("DD.MM.YYYY HH:mm")}
-								</Text>{" "}
-								<Badge size="sm" variant="outline">
-									{shiftSignups.length} Anmeldung{shiftSignups.length !== 1 ? "en" : ""}
-								</Badge>
-							</Box>
+			<Stack gap="md" mt="sm">
+				{event.shifts.map((shift) => {
+					const shiftExpanded = expandedShifts.has(shift.id);
+					const shiftSignups = signups.filter((s) => s.shiftId === shift.id);
+					return (
+						<Card key={shift.id} withBorder p="sm">
+							<Group justify="space-between" mb={shiftExpanded ? "sm" : 0} wrap="nowrap" align="flex-start">
+								<Box>
+									<Text fw={500}>
+										{shift.label} —{" "}
+										<Text span size="sm" c="dimmed">
+											{dayjs(shift.startDate).format("DD.MM.YYYY HH:mm")}
+										</Text>
+									</Text>
+									<Group gap="xs" mt={4}>
+										{shift.roles.map((role) => {
+											const count = shiftSignups.filter((s) => s.assignedRoleId === role.id || (!s.assignedRoleId && s.preferredRoleIds.includes(role.id))).length;
+											const color = count >= role.maxCapacity ? "red" : count >= role.minCapacity ? "green" : "yellow";
+											return (
+												<Badge key={role.id} size="sm" variant="light" color={color}>
+													{role.label}: {count}/{role.maxCapacity}
+												</Badge>
+											);
+										})}
+										{shift.roles.length === 0 && (
+											<Badge size="sm" variant="outline">
+												{shiftSignups.length} Anmeldung{shiftSignups.length !== 1 ? "en" : ""}
+											</Badge>
+										)}
+									</Group>
+								</Box>
+								<Button variant="subtle" size="xs" leftSection={shiftExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />} onClick={() => toggleShift(shift.id)}>
+									{shiftExpanded ? "Ausblenden" : "Anmeldungen"}
+								</Button>
+							</Group>
+							<Collapse expanded={shiftExpanded}>
 								{shiftSignups.length === 0 ? (
 									<Text size="sm" c="dimmed">
 										Noch keine Anmeldungen.
@@ -431,12 +457,12 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 															</Tooltip>
 														</Group>
 													</Group>
-											<Box fz="xs" c="dimmed" mb={4}>
-													<Badge size="xs" variant="light" color={ageColor}>
-														{ageAtEvent}
-													</Badge>
-													{preferredLabels ? ` · ${preferredLabels}` : ""}
-												</Box>
+													<Box fz="xs" c="dimmed" mb={4}>
+														<Badge size="xs" variant="light" color={ageColor}>
+															{ageAtEvent}
+														</Badge>
+														{preferredLabels ? ` · ${preferredLabels}` : ""}
+													</Box>
 													<Group gap="xs" align="flex-end">
 														<Select
 															size="xs"
@@ -596,11 +622,11 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 										</Table.Tbody>
 									</Table>
 								)}
-							</Card>
-						);
-					})}
-				</Stack>
-			</Collapse>
+							</Collapse>
+						</Card>
+					);
+				})}
+			</Stack>
 		</Box>
 	);
 }
