@@ -2,7 +2,7 @@ import { SESClient } from "@aws-sdk/client-ses";
 import { mockClient } from "aws-sdk-client-mock";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { sendVolunteerConfirmationEmail, sendVolunteerReceiptEmail } from "./volunteer-email";
-import { confirmVolunteerSignup, createVolunteerSignup, getPublicVolunteerEvent, verifyVolunteerToken } from "./volunteer";
+import { confirmVolunteerSignup, createVolunteerSignup, getPublicVolunteerEvent, verifyVolunteerToken } from "./volunteer-handlers";
 
 // ── Environment setup ────────────────────────────────────────────────────────
 process.env.CONTENT_TABLE_NAME = "test-content-table";

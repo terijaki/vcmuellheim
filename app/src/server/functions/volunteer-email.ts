@@ -9,12 +9,12 @@
 
 import { SendEmailCommand, SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
 import { Club, Mail } from "@project.config";
-import { getRouter } from "@webapp/router";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsEvent } from "ts-ics";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
+import { getRouter } from "../../router";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -54,7 +54,6 @@ function buildIcsAttachment(event: VolunteerEvent, shiftId: string): string {
 		duration: remainingMinutes > 0 ? { hours: durationHours, minutes: remainingMinutes } : { hours: durationHours || 6 },
 		stamp: { date: new Date(), type: "DATE-TIME" },
 		description: `${event.title}\nVeranstaltungsseite: ${appBaseUrl()}${getRouter().buildLocation({ to: "/e/$uuid", params: { uuid: event.id } }).href}`,
-
 		location: event.location ?? "",
 	};
 
