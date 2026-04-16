@@ -150,28 +150,29 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
 				<SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="xs">
 					{shift.roles.map((role) => {
 						const count = signupCounts[role.id] ?? 0;
+						const roleHelpers = confirmedHelpers.filter((h) => h.roleId === role.id);
 						return (
 							<Card key={role.id} withBorder p="xs" bg="gray.0">
-								<Text size="sm" fw={500}>
-									{role.label}
-								</Text>
-								<Text size="xs" c="dimmed">
-									{count} / {role.maxCapacity} angemeldet
-								</Text>
+								<Group justify="space-between">
+									<Text size="sm" fw={500}>
+										{role.label}
+									</Text>
+									<Badge size="xs" color={count === 0 ? "red" : role.minCapacity > count ? "orange" : "green"} variant="light">
+										{count} / {role.minCapacity}
+									</Badge>
+								</Group>
+								{roleHelpers.length > 0 && (
+									<>
+										<Divider my="xs" />
+										<Text size="xs" c="dimmed" mt={4}>
+											{roleHelpers.map((h) => h.displayName).join(", ")}
+										</Text>
+									</>
+								)}
 							</Card>
 						);
 					})}
 				</SimpleGrid>
-
-				{/* Confirmed helpers */}
-				{confirmedHelpers.length > 0 && (
-					<>
-						<Divider />
-						<Text size="sm" c="dimmed">
-							Bestätigte Helfer:innen: {confirmedHelpers.map((h) => h.displayName).join(", ")}
-						</Text>
-					</>
-				)}
 
 				{!isPast && !submitted && (
 					<>
@@ -189,9 +190,7 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
 								onCancel={() => setShowForm(false)}
 							/>
 						) : (
-							<Button variant="light" onClick={() => setShowForm(true)}>
-								Als Helfer:in anmelden
-							</Button>
+							<Button onClick={() => setShowForm(true)}>Anmelden</Button>
 						)}
 					</>
 				)}
@@ -254,14 +253,23 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 		>
 			<Stack gap="sm">
 				<Title order={5}>Anmeldung</Title>
-
+				<Text c="dimmed" size="sm">
+					Vielen Dank, dass du dich für diese Veranstaltung anmelden möchtest! Damit wir die Organisation erleichtern können und im Nachgang die Kommunikation sicherstellen können, bitten wir dich
+					folgende Informationen anzugeben.
+				</Text>
 				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
-					<form.Field name="firstName">{(field) => <TextInput label="Vorname" required value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
-					<form.Field name="lastName">{(field) => <TextInput label="Nachname" required value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
+					<form.Field name="firstName">
+						{(field) => <TextInput label="Vorname" required autoComplete="given-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+					</form.Field>
+					<form.Field name="lastName">
+						{(field) => <TextInput label="Nachname" required autoComplete="family-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+					</form.Field>
 				</SimpleGrid>
 
 				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
-					<form.Field name="email">{(field) => <TextInput label="E-Mail-Adresse" type="email" required value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
+					<form.Field name="email">
+						{(field) => <TextInput label="E-Mail-Adresse" type="email" required autoComplete="email" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+					</form.Field>
 
 					<form.Field name="dateOfBirth">
 						{(field) => (

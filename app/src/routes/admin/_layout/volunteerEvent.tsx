@@ -389,16 +389,15 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 						const shiftSignups = signups.filter((s) => s.shiftId === shift.id);
 						return (
 							<Card key={shift.id} withBorder p="sm">
-								<Text fw={500} mb="sm">
-									{shift.label} —{" "}
-									<Text span size="sm" c="dimmed">
-										{dayjs(shift.startDate).format("DD.MM.YYYY HH:mm")}
-									</Text>{" "}
-									<Badge size="sm" variant="outline">
-										{shiftSignups.length} Anmeldung{shiftSignups.length !== 1 ? "en" : ""}
-									</Badge>
-								</Text>
-
+							<Box fw={500} mb="sm">
+								{shift.label} —{" "}
+								<Text span size="sm" c="dimmed">
+									{dayjs(shift.startDate).format("DD.MM.YYYY HH:mm")}
+								</Text>{" "}
+								<Badge size="sm" variant="outline">
+									{shiftSignups.length} Anmeldung{shiftSignups.length !== 1 ? "en" : ""}
+								</Badge>
+							</Box>
 								{shiftSignups.length === 0 ? (
 									<Text size="sm" c="dimmed">
 										Noch keine Anmeldungen.
@@ -432,12 +431,12 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 															</Tooltip>
 														</Group>
 													</Group>
-													<Text size="xs" c="dimmed" mb={4}>
-														<Badge size="xs" variant="light" color={ageColor}>
-															{ageAtEvent}
-														</Badge>
-														{preferredLabels ? ` · ${preferredLabels}` : ""}
-													</Text>
+											<Box fz="xs" c="dimmed" mb={4}>
+													<Badge size="xs" variant="light" color={ageColor}>
+														{ageAtEvent}
+													</Badge>
+													{preferredLabels ? ` · ${preferredLabels}` : ""}
+												</Box>
 													<Group gap="xs" align="flex-end">
 														<Select
 															size="xs"
@@ -662,7 +661,7 @@ function VolunteerEventAdminPage() {
 				)}
 
 				{events.map((event) => {
-					const deeplink = `${window.location.origin}/e/${event.id}`;
+					const deeplink = `${typeof window !== "undefined" ? window.location.origin : ""}/e/${event.id}`;
 					return (
 						<Card key={event.id} withBorder>
 							<Stack gap="sm">
