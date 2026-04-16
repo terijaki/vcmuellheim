@@ -8,13 +8,15 @@
  */
 
 import { SendEmailCommand, SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import { interpolatePath } from "@tanstack/react-router";
+import type { FileRoutesByPath } from "@tanstack/react-router";
 import { Club, Mail } from "@project.config";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsEvent } from "ts-ics";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
-import { getRouter } from "../../router";
+import { getAppBaseUrl } from "./app-base-url";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -30,7 +32,15 @@ function fromEmail(): string {
 }
 
 function appBaseUrl(): string {
-	return isProd ? `https://${Club.domain}` : `https://new.${Club.domain}`;
+	return getAppBaseUrl();
+}
+
+/** Union of every route's real URL path (without layout-group prefixes). */
+type RoutePaths = FileRoutesByPath[keyof FileRoutesByPath]["fullPath"];
+
+/** Build a type-safe route path — TypeScript errors if the path is invalid. */
+function routePath(path: RoutePaths, params: Record<string, string>): string {
+	return interpolatePath({ path, params }).interpolatedPath;
 }
 
 // ---------------------------------------------------------------------------
@@ -53,7 +63,7 @@ function buildIcsAttachment(event: VolunteerEvent, shiftId: string): string {
 		start: { date: start.toDate(), type: "DATE-TIME" },
 		duration: remainingMinutes > 0 ? { hours: durationHours, minutes: remainingMinutes } : { hours: durationHours || 6 },
 		stamp: { date: new Date(), type: "DATE-TIME" },
-		description: `${event.title}\nVeranstaltungsseite: ${appBaseUrl()}${getRouter().buildLocation({ to: "/e/$uuid", params: { uuid: event.id } }).href}`,
+		description: `${event.title}\nVeranstaltungsseite: ${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}`,
 		location: event.location ?? "",
 	};
 
@@ -125,9 +135,7 @@ export async function sendVolunteerConfirmationEmail(opts: { toEmail: string; fi
 	const shift = event.shifts.find((s) => s.id === shiftId);
 	if (!shift) throw new Error(`Shift ${shiftId} not found on event ${event.id}`);
 
-	const router = getRouter();
-	const location = router.buildLocation({ to: "/e/$uuid", params: { uuid: event.id }, search: { token: tokenId } });
-	const confirmationUrl = `${appBaseUrl()}${location.href}`;
+	const confirmationUrl = `${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}?token=${encodeURIComponent(tokenId)}`;
 	const shiftDate = formatShiftDate(shift);
 
 	const html = buildConfirmationHtml({
@@ -165,7 +173,7 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 	if (!shift) throw new Error(`Shift ${signup.shiftId} not found on event ${event.id}`);
 
 	const icsContent = buildIcsAttachment(event, signup.shiftId);
-	const eventUrl = `${appBaseUrl()}${getRouter().buildLocation({ to: "/e/$uuid", params: { uuid: event.id } }).href}`;
+	const eventUrl = `${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}`;
 	const shiftDate = formatShiftDate(shift);
 
 	const html = buildReceiptHtml({

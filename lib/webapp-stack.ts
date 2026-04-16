@@ -25,8 +25,9 @@ import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import type { Construct } from "constructs";
-import { Club } from "@/project.config";
+import { Club } from "@project.config";
 import { CACHE_TABLE_ENV_VAR, CONTENT_TABLE_ENV_VAR, computeCacheTableName, computeSamsDataTableName } from "./db/env";
+import { buildWebappDomain, buildWebappUrl } from "@utils/webapp-url";
 
 export interface WebAppStackProps extends cdk.StackProps {
 	stackProps?: {
@@ -59,10 +60,9 @@ export class WebAppStack extends cdk.Stack {
 		const branchSuffix = branch ? `-${branch}` : "";
 		const isProd = environment === "prod";
 		const isCdkDestroy = process.env.CDK_DESTROY === "true";
-		const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
-		// prod: vcmuellheim.de  dev: new.vcmuellheim.de  feature: dev-<branch>.new.vcmuellheim.de
-		const envPrefix = isProd ? "" : `${environment}${branchSuffix}.`;
-		const webappDomain = isProd ? Club.domain : `${envPrefix}${baseDomain}`;
+		// prod: vcmuellheim.de  dev: dev.new.vcmuellheim.de  feature: dev-<branch>.new.vcmuellheim.de
+		const webappDomain = buildWebappDomain(environment, branch);
+		const webappUrl = buildWebappUrl(environment, branch);
 
 		if (!isCdkDestroy && !process.env.BETTER_AUTH_SECRET) {
 			throw new Error("❌ BETTER_AUTH_SECRET environment variable is required");
@@ -88,12 +88,13 @@ export class WebAppStack extends cdk.Stack {
 			[CONTENT_TABLE_ENV_VAR]: props.contentTableName,
 			[CACHE_TABLE_ENV_VAR]: cacheTableName,
 			CDK_ENVIRONMENT: environment,
+			APP_BASE_URL: webappUrl,
 			BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
 			MEDIA_BUCKET_NAME: props.mediaBucketName,
 			SAMS_TABLE_NAME: samsTableName,
 			...(branch ? { BRANCH_NAME: branch } : {}),
 			...(process.env.SAMS_API_KEY ? { SAMS_API_KEY: process.env.SAMS_API_KEY } : {}),
-			...(props.mediaCloudFrontUrl ? { CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
+			...(props.mediaCloudFrontUrl ? { MEDIA_CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
 			...(props.samsClubsSyncFunctionName ? { SAMS_CLUBS_SYNC_FUNCTION_NAME: props.samsClubsSyncFunctionName } : {}),
 			...(props.samsTeamsSyncFunctionName ? { SAMS_TEAMS_SYNC_FUNCTION_NAME: props.samsTeamsSyncFunctionName } : {}),
 			NODE_ENV: "production",
@@ -164,7 +165,7 @@ export class WebAppStack extends cdk.Stack {
 			new cdk.aws_iam.PolicyStatement({
 				effect: cdk.aws_iam.Effect.ALLOW,
 				actions: ["ses:SendEmail", "ses:SendRawEmail"],
-				resources: [`arn:aws:ses:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:identity/${baseDomain}`],
+				resources: [`arn:aws:ses:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:identity/${isProd ? Club.domain : `new.${Club.domain}`}`],
 			}),
 		);
 
@@ -272,7 +273,7 @@ export class WebAppStack extends cdk.Stack {
 				target: route53.RecordTarget.fromAlias(new route53Targets.CloudFrontTarget(this.distribution)),
 			});
 
-			this.webappUrl = `https://${webappDomain}`;
+			this.webappUrl = webappUrl;
 		} else {
 			this.webappUrl = `https://${this.distribution.distributionDomainName}`;
 		}

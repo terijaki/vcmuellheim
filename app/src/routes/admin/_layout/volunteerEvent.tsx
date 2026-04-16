@@ -45,7 +45,6 @@ import {
 	updateVolunteerEventFn,
 	updateVolunteerSignupFn,
 } from "@webapp/server/functions/volunteer";
-import { Club } from "@project.config";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { ChevronDown, ChevronUp, ClipboardCopy, Info, Link, Mail, Plus, SquarePen, Trash2 } from "lucide-react";
@@ -634,9 +633,6 @@ function VolunteerEventAdminPage() {
 	});
 
 	const events = eventsData.items;
-	const isProd = typeof window !== "undefined" && window.location.hostname === Club.domain;
-	const baseUrl = isProd ? `https://${Club.domain}` : `https://new.${Club.domain}`;
-
 	function openCreate() {
 		setEditingEvent(null);
 		openForm();
@@ -666,7 +662,7 @@ function VolunteerEventAdminPage() {
 				)}
 
 				{events.map((event) => {
-					const deeplink = `${baseUrl}/e/${event.id}`;
+					const deeplink = `${window.location.origin}/e/${event.id}`;
 					return (
 						<Card key={event.id} withBorder>
 							<Stack gap="sm">
