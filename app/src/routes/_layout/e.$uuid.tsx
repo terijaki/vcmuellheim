@@ -5,7 +5,7 @@
  * Handles ?token= query param for email verification.
  */
 
-import { Alert, Badge, Button, Card, Container, Divider, Group, Loader, MultiSelect, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Alert, Badge, Button, Card, Container, Divider, Group, Loader, MultiSelect, Select, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
@@ -234,7 +234,7 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 			lastName: "",
 			email: "",
 			dateOfBirth: null as Date | null,
-			preferredRoleIds: [] as string[],
+			preferredRoleIds: (roles.length === 1 ? [roles[0].id] : []) as string[],
 			association: "",
 		},
 		onSubmit: async ({ value }) => {
@@ -298,18 +298,31 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 					</form.Field>
 				</SimpleGrid>
 
-				<form.Field name="preferredRoleIds">
-					{(field) => (
-						<MultiSelect
-							label="Bevorzugte Aufgaben (mind. 2)"
-							required
-							data={roleOptions}
-							value={field.state.value}
-							onChange={(val) => field.handleChange(val)}
-							description="Wähle mindestens 2 Aufgaben aus, in denen du helfen kannst."
-						/>
-					)}
-				</form.Field>
+				{roles.length > 1 && (
+					<form.Field name="preferredRoleIds">
+						{(field) =>
+							roles.length <= 3 ? (
+								<Select
+									label="Bevorzugte Aufgabe"
+									required
+									data={roleOptions}
+									value={field.state.value[0] ?? null}
+									onChange={(val) => field.handleChange(val ? [val] : [])}
+									description="Wähle die Aufgabe aus, in der du helfen kannst."
+								/>
+							) : (
+								<MultiSelect
+									label="Bevorzugte Aufgaben (mind. 2)"
+									required
+									data={roleOptions}
+									value={field.state.value}
+									onChange={(val) => field.handleChange(val)}
+									description="Wähle mindestens 2 Aufgaben aus, in denen du helfen kannst."
+								/>
+							)
+						}
+					</form.Field>
+				)}
 
 				<form.Field name="association">
 					{(field) => <TextInput label="Vereinszugehörigkeit" placeholder="z. B. Mitglied, Familie, Freund/in, …" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}

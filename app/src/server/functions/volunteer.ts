@@ -66,6 +66,24 @@ export const updateVolunteerEventFn = createServerFn()
 		}),
 	)
 	.handler(async ({ data: { id, data: updates } }) => {
+		// When shifts are updated, clear assignedRoleId on any signup that
+		// referenced a role that no longer exists in the new shift structure.
+		if (updates.shifts) {
+			const current = await db().volunteerEvent.get({ id }).go();
+			if (current.data) {
+				const currentEvent = parseServerData(volunteerEventSchema, current.data, "Failed to parse volunteer event");
+				const oldRoleIds = new Set(currentEvent.shifts.flatMap((s) => s.roles.map((r) => r.id)));
+				const newRoleIds = new Set(updates.shifts.flatMap((s) => s.roles.map((r) => r.id)));
+				const deletedRoleIds = new Set([...oldRoleIds].filter((rid) => !newRoleIds.has(rid)));
+
+				if (deletedRoleIds.size > 0) {
+					const signupsResult = await db().volunteerSignup.query.byEvent({ eventId: id }).go({ pages: "all" });
+					const affectedSignups = signupsResult.data.filter((s) => s.assignedRoleId && deletedRoleIds.has(s.assignedRoleId));
+					await Promise.all(affectedSignups.map((s) => db().volunteerSignup.patch({ id: s.id }).set({ updatedAt: new Date().toISOString() }).remove(["assignedRoleId"]).go()));
+				}
+			}
+		}
+
 		await db()
 			.volunteerEvent.patch({ id })
 			.set({ ...updates, updatedAt: new Date().toISOString() })

@@ -17,6 +17,7 @@ import {
 	CopyButton,
 	Divider,
 	Group,
+	Menu,
 	Modal,
 	NumberInput,
 	Select,
@@ -47,7 +48,7 @@ import {
 } from "@webapp/server/functions/volunteer";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
-import { ChevronDown, ChevronUp, ClipboardCopy, Info, Link, Mail, Plus, SquarePen, Trash2 } from "lucide-react";
+import { ArrowLeftRight, ChevronDown, ChevronUp, ClipboardCopy, Link, Mail, Plus, SquarePen, Trash2, SquareCheckBig } from "lucide-react";
 import { useState } from "react";
 import type { VolunteerEvent } from "@/lib/db/types";
 
@@ -112,7 +113,6 @@ function ShiftsManager({ shifts, onShiftsChange }: { shifts: ShiftFormValue[]; o
 
 			<Stack gap="md">
 				{shifts.map((shift, index) => (
-					// biome-ignore lint/suspicious/noArrayIndexKey: shifts use stable IDs generated on add; index key needed for collapse/expand state
 					<Card key={shift.id} withBorder p="md">
 						<Group justify="space-between" mb="md">
 							<Text size="sm" fw={500}>
@@ -139,6 +139,7 @@ function ShiftsManager({ shifts, onShiftsChange }: { shifts: ShiftFormValue[]; o
 									value={shift.endDate}
 									onChange={(val) => updateShift(index, { endDate: val ? new Date(val) : null })}
 									locale="de"
+									minDate={shift.startDate || undefined}
 									valueFormat="DD.MM.YYYY HH:mm"
 									clearable
 								/>
@@ -155,12 +156,24 @@ function ShiftsManager({ shifts, onShiftsChange }: { shifts: ShiftFormValue[]; o
 }
 
 function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRolesChange: (roles: RoleFormValue[]) => void }) {
+	const [deleteModalOpened, { open: openDeleteModal, close: closeDeleteModal }] = useDisclosure(false);
+	const [pendingDeleteIndex, setPendingDeleteIndex] = useState<number | null>(null);
+
 	const addRole = () => {
-		onRolesChange([...roles, { id: crypto.randomUUID(), label: "", minCapacity: 0, maxCapacity: 5 }]);
+		onRolesChange([...roles, { id: crypto.randomUUID(), label: "", minCapacity: 1, maxCapacity: 5 }]);
 	};
 
-	const removeRole = (index: number) => {
-		onRolesChange(roles.filter((_, i) => i !== index));
+	const requestRemoveRole = (index: number) => {
+		setPendingDeleteIndex(index);
+		openDeleteModal();
+	};
+
+	const confirmRemoveRole = () => {
+		if (pendingDeleteIndex !== null) {
+			onRolesChange(roles.filter((_, i) => i !== pendingDeleteIndex));
+		}
+		closeDeleteModal();
+		setPendingDeleteIndex(null);
 	};
 
 	const updateRole = (index: number, updates: Partial<RoleFormValue>) => {
@@ -171,6 +184,18 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 
 	return (
 		<Box pl="md" style={{ borderLeft: "2px solid var(--mantine-color-gray-3)" }}>
+			<Modal opened={deleteModalOpened} onClose={closeDeleteModal} title="Rolle löschen?" size="sm">
+				<Text size="sm">Soll diese Rolle wirklich gelöscht werden? Bestehende Anmeldungen verlieren ihre Rollenzuweisung, bleiben aber erhalten und können neu zugewiesen werden.</Text>
+				<Group justify="flex-end" mt="md">
+					<Button variant="subtle" onClick={closeDeleteModal}>
+						Abbrechen
+					</Button>
+					<Button color="red" onClick={confirmRemoveRole}>
+						Löschen
+					</Button>
+				</Group>
+			</Modal>
+
 			<Group justify="space-between" mb="xs">
 				<Text size="xs" c="dimmed" fw={500}>
 					Aufgaben / Rollen
@@ -193,9 +218,9 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 								onChange={(e) => updateRole(index, { label: e.target.value })}
 								style={{ flex: 1 }}
 							/>
-							<NumberInput size="xs" label="Min" min={0} value={role.minCapacity} onChange={(val) => updateRole(index, { minCapacity: Number(val) || 0 })} w={70} />
+							<NumberInput size="xs" label="Min" min={1} value={role.minCapacity} onChange={(val) => updateRole(index, { minCapacity: Number(val) || 1 })} w={70} />
 							<NumberInput size="xs" label="Max" min={1} value={role.maxCapacity} onChange={(val) => updateRole(index, { maxCapacity: Number(val) || 1 })} w={70} />
-							<ActionIcon size="sm" color="red" variant="subtle" onClick={() => removeRole(index)} mb={2}>
+							<ActionIcon size="sm" color="red" variant="subtle" onClick={() => requestRemoveRole(index)} mb={2}>
 								<Trash2 size={14} />
 							</ActionIcon>
 						</Group>
@@ -345,7 +370,6 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 	const { data: signupsData, refetch } = useQuery({
 		queryKey: ["volunteerSignups", event.id],
 		queryFn: () => listVolunteerSignupsFn({ data: { eventId: event.id } }),
-		enabled: expandedShifts.size > 0,
 	});
 
 	const deleteMutation = useMutation({
@@ -399,13 +423,16 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 									<Text fw={500}>
 										{shift.label} —{" "}
 										<Text span size="sm" c="dimmed">
-											{dayjs(shift.startDate).format("DD.MM.YYYY HH:mm")}
+											{dayjs(shift.startDate).format("DD.MM.YYYY HH:mm")}{" "}
+											{shift.endDate && (
+												<> – {dayjs(shift.endDate).isSame(dayjs(shift.startDate), "day") ? dayjs(shift.endDate).format("HH:mm") : dayjs(shift.endDate).format("DD.MM.YYYY HH:mm")}</>
+											)}{" "}
 										</Text>
 									</Text>
 									<Group gap="xs" mt={4}>
 										{shift.roles.map((role) => {
 											const count = shiftSignups.filter((s) => s.assignedRoleId === role.id || (!s.assignedRoleId && s.preferredRoleIds.includes(role.id))).length;
-											const color = count >= role.maxCapacity ? "red" : count >= role.minCapacity ? "green" : "yellow";
+											const color = count < role.maxCapacity ? "red" : count >= role.minCapacity ? "green" : "yellow";
 											return (
 												<Badge key={role.id} size="sm" variant="light" color={color}>
 													{role.label}: {count}/{role.maxCapacity}
@@ -419,9 +446,15 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 										)}
 									</Group>
 								</Box>
-								<Button variant="subtle" size="xs" leftSection={shiftExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />} onClick={() => toggleShift(shift.id)}>
-									{shiftExpanded ? "Ausblenden" : "Anmeldungen"}
-								</Button>
+								{isMobile ? (
+									<ActionIcon variant="subtle" size="md" onClick={() => toggleShift(shift.id)}>
+										{shiftExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+									</ActionIcon>
+								) : (
+									<Button variant="subtle" size="xs" leftSection={shiftExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />} onClick={() => toggleShift(shift.id)}>
+										{shiftExpanded ? "Ausblenden" : "Anmeldungen"}
+									</Button>
+								)}
 							</Group>
 							<Collapse expanded={shiftExpanded}>
 								{shiftSignups.length === 0 ? (
@@ -431,71 +464,79 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 								) : isMobile ? (
 									<Stack gap="sm">
 										{shiftSignups.map((signup) => {
-											const preferredLabels = signup.preferredRoleIds.map((rid) => allRoles.find((r) => r.id === rid)?.label ?? rid).join(", ");
+											const preferredLabels = signup.preferredRoleIds.map((rid) => allRoles.find((r) => r.id === rid)?.label ?? "(gelöscht)").join(", ");
 											const shiftOptions = event.shifts.filter((s) => s.id !== signup.shiftId).map((s) => ({ value: s.id, label: s.label }));
 											const ageAtEvent = dayjs(shift.startDate).diff(dayjs(signup.dateOfBirth), "year");
 											const ageColor = ageAtEvent >= 18 ? "green" : ageAtEvent >= 16 ? "blue" : "orange";
 											return (
 												<Card key={signup.id} withBorder p="xs">
 													<Group justify="space-between" wrap="nowrap" mb={4}>
-														<Text fw={500} size="sm">
-															{signup.firstName} {signup.lastName}
-														</Text>
-														<Group gap={4} wrap="nowrap">
-															<Badge color={signup.status === "confirmed" ? "green" : "yellow"} variant="light" size="xs">
-																{signup.status === "confirmed" ? "Bestätigt" : "Ausstehend"}
+														<Group gap={6} wrap="nowrap">
+															<Badge size="xs" variant="light" color={ageColor}>
+																{ageAtEvent}
 															</Badge>
+															<Tooltip label={signup.association || "Keine Zugehörigkeit angegeben"}>
+																<Text fw={600} size="sm">
+																	{signup.firstName} {signup.lastName}
+																</Text>
+															</Tooltip>
+														</Group>
+														<Group gap={4} wrap="nowrap">
+															{signup.status !== "confirmed" && (
+																<Badge color="yellow" variant="light" size="xs">
+																	Ausstehend
+																</Badge>
+															)}
 															<Tooltip label={signup.email}>
 																<ActionIcon size="sm" variant="transparent" component="a" href={`mailto:${signup.email}`}>
 																	<Mail size={14} />
 																</ActionIcon>
 															</Tooltip>
-															<Tooltip label={signup.association || "Keine Zugehörigkeit angegeben"}>
-																<ActionIcon size="sm" variant="transparent" disabled={!signup.association}>
-																	<Info size={14} />
-																</ActionIcon>
-															</Tooltip>
 														</Group>
 													</Group>
 													<Box fz="xs" c="dimmed" mb={4}>
-														<Badge size="xs" variant="light" color={ageColor}>
-															{ageAtEvent}
-														</Badge>
-														{preferredLabels ? ` · ${preferredLabels}` : ""}
+														{preferredLabels || ""}
 													</Box>
-													<Group gap="xs" align="flex-end">
+													<Group gap="xs">
 														<Select
-															size="xs"
+															size="sm"
 															placeholder="Rolle zuweisen"
 															clearable
 															value={signup.assignedRoleId ?? null}
 															onChange={(val) => assignRoleMutation.mutate({ id: signup.id, assignedRoleId: val })}
 															data={shift.roles.map((r) => ({ value: r.id, label: r.label }))}
 															style={{ flex: 1 }}
+															clearSectionMode="rightSection"
 														/>
 														{shiftOptions.length > 0 && (
-															<Select
-																size="xs"
-																placeholder="Schicht ändern"
-																value={null}
-																onChange={(val) => {
-																	if (val) moveShiftMutation.mutate({ id: signup.id, shiftId: val });
-																}}
-																data={shiftOptions}
-																style={{ flex: 1 }}
-															/>
+															<Menu>
+																<Tooltip label="Schicht ändern">
+																	<Menu.Target>
+																		<ActionIcon size="md" variant="subtle">
+																			<ArrowLeftRight size={14} />
+																		</ActionIcon>
+																	</Menu.Target>
+																</Tooltip>
+																<Menu.Dropdown>
+																	{shiftOptions.map((opt) => (
+																		<Menu.Item key={opt.value} onClick={() => moveShiftMutation.mutate({ id: signup.id, shiftId: opt.value })}>
+																			{opt.label}
+																		</Menu.Item>
+																	))}
+																</Menu.Dropdown>
+															</Menu>
 														)}
 														<Group gap={4} wrap="nowrap">
 															{signup.status === "pending" && (
 																<Tooltip label="Manuell bestätigen">
-																	<ActionIcon size="sm" color="green" variant="subtle" onClick={() => confirmMutation.mutate(signup.id)} loading={confirmMutation.isPending}>
-																		<SquarePen size={14} />
+																	<ActionIcon size="md" color="green" variant="subtle" onClick={() => confirmMutation.mutate(signup.id)} loading={confirmMutation.isPending}>
+																		<SquareCheckBig size={14} />
 																	</ActionIcon>
 																</Tooltip>
 															)}
 															<Tooltip label="Löschen">
 																<ActionIcon
-																	size="sm"
+																	size="md"
 																	color="red"
 																	variant="subtle"
 																	onClick={() => {
@@ -521,7 +562,6 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 												<Table.Th>E-Mail</Table.Th>
 												<Table.Th>Alter</Table.Th>
 												<Table.Th>Bevorzugte Aufgaben</Table.Th>
-												<Table.Th>Zugehörigkeit</Table.Th>
 												<Table.Th>Status</Table.Th>
 												<Table.Th>Zugewiesene Rolle</Table.Th>
 												{hasMultipleShifts && <Table.Th>Schicht ändern</Table.Th>}
@@ -530,14 +570,18 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 										</Table.Thead>
 										<Table.Tbody>
 											{shiftSignups.map((signup) => {
-												const preferredLabels = signup.preferredRoleIds.map((rid) => allRoles.find((r) => r.id === rid)?.label ?? rid).join(", ");
+												const preferredLabels = signup.preferredRoleIds.map((rid) => allRoles.find((r) => r.id === rid)?.label ?? "(gelöscht)").join(", ");
 												const shiftOptions = event.shifts.filter((s) => s.id !== signup.shiftId).map((s) => ({ value: s.id, label: s.label }));
 												const ageAtEvent = dayjs(shift.startDate).diff(dayjs(signup.dateOfBirth), "year");
 												const ageColor = ageAtEvent >= 18 ? "green" : ageAtEvent >= 16 ? "blue" : "orange";
 												return (
 													<Table.Tr key={signup.id}>
 														<Table.Td>
-															{signup.firstName} {signup.lastName}
+															<Tooltip label={signup.association || "Keine Zugehörigkeit angegeben"}>
+																<span>
+																	{signup.firstName} {signup.lastName}
+																</span>
+															</Tooltip>
 														</Table.Td>
 														<Table.Td>
 															<Tooltip label={signup.email}>
@@ -553,13 +597,6 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 														</Table.Td>
 														<Table.Td>{preferredLabels}</Table.Td>
 														<Table.Td>
-															<Tooltip label={signup.association}>
-																<ActionIcon size="sm" variant="subtle">
-																	<Info size={14} />
-																</ActionIcon>
-															</Tooltip>
-														</Table.Td>
-														<Table.Td>
 															<Badge color={signup.status === "confirmed" ? "green" : "yellow"} variant="light">
 																{signup.status === "confirmed" ? "Bestätigt" : "Ausstehend"}
 															</Badge>
@@ -573,21 +610,28 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																onChange={(val) => assignRoleMutation.mutate({ id: signup.id, assignedRoleId: val })}
 																data={shift.roles.map((r) => ({ value: r.id, label: r.label }))}
 																w={130}
+																clearSectionMode="rightSection"
 															/>
 														</Table.Td>
 														{hasMultipleShifts && (
 															<Table.Td>
 																{shiftOptions.length > 0 && (
-																	<Select
-																		size="xs"
-																		placeholder="Schicht ändern"
-																		value={null}
-																		onChange={(val) => {
-																			if (val) moveShiftMutation.mutate({ id: signup.id, shiftId: val });
-																		}}
-																		data={shiftOptions}
-																		w={130}
-																	/>
+																	<Menu>
+																		<Tooltip label="Schicht ändern">
+																			<Menu.Target>
+																				<ActionIcon size="sm" variant="subtle">
+																					<ArrowLeftRight size={14} />
+																				</ActionIcon>
+																			</Menu.Target>
+																		</Tooltip>
+																		<Menu.Dropdown>
+																			{shiftOptions.map((opt) => (
+																				<Menu.Item key={opt.value} onClick={() => moveShiftMutation.mutate({ id: signup.id, shiftId: opt.value })}>
+																					{opt.label}
+																				</Menu.Item>
+																			))}
+																		</Menu.Dropdown>
+																	</Menu>
 																)}
 															</Table.Td>
 														)}
@@ -596,7 +640,7 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																{signup.status === "pending" && (
 																	<Tooltip label="Manuell bestätigen">
 																		<ActionIcon size="sm" color="green" variant="subtle" onClick={() => confirmMutation.mutate(signup.id)} loading={confirmMutation.isPending}>
-																			<SquarePen size={14} />
+																			<SquareCheckBig size={14} />
 																		</ActionIcon>
 																	</Tooltip>
 																)}

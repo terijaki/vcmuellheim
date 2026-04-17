@@ -31,7 +31,7 @@ export function getRouter() {
 	if (!router.isServer && !Sentry.getClient()) {
 		Sentry.init({
 			dsn: SentryConfig.dsn,
-			enabled: Boolean(SentryConfig.dsn),
+			enabled: Boolean(SentryConfig.dsn) && Boolean(import.meta.env.CDK_ENVIRONMENT),
 			environment: import.meta.env.CDK_ENVIRONMENT ?? "dev",
 		});
 	}
