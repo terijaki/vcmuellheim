@@ -334,7 +334,23 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 						)}
 					</form.Field>
 
-					<form.Field name="dateOfBirth">
+					<form.Field
+						name="dateOfBirth"
+						listeners={{
+							onChange: ({ value }) => {
+								if (!value) return;
+								const ageAtShift = dayjs(shiftStartDate).diff(dayjs(value), "year");
+								const currentIds = form.getFieldValue("preferredRoleIds") as string[];
+								const eligible = currentIds.filter((id) => {
+									const role = roles.find((r) => r.id === id);
+									return role?.minAge === undefined || ageAtShift >= role.minAge;
+								});
+								if (eligible.length !== currentIds.length) {
+									form.setFieldValue("preferredRoleIds", eligible);
+								}
+							},
+						}}
+					>
 						{(field) => (
 							<DatePickerInput
 								defaultLevel="decade"
@@ -360,10 +376,17 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 								const role = roles.find((r) => r.id === opt.value);
 								return { ...opt, disabled: ageAtShift !== null && role?.minAge !== undefined && ageAtShift < role.minAge };
 							});
+
 							return (
-								<form.Field name="preferredRoleIds">
-									{(field) =>
-										roles.length <= 3 ? (
+								<form.Field
+									name="preferredRoleIds"
+									validators={{
+										onChangeListenTo: ["dateOfBirth"],
+										onChange: ({ value }) => ((value as string[]).length < 2 ? "Bitte wähle mindestens eine Aufgabe aus." : undefined),
+									}}
+								>
+									{(field) => {
+										return roles.length <= 3 ? (
 											<Select
 												label="Bevorzugte Aufgabe"
 												required
@@ -383,8 +406,8 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 												onChange={(val) => field.handleChange(val)}
 												description="Wähle mindestens 2 Aufgaben aus, in denen du helfen kannst."
 											/>
-										)
-									}
+										);
+									}}
 								</form.Field>
 							);
 						}}
