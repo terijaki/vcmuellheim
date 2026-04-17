@@ -206,6 +206,7 @@ export const volunteerShiftSchema = z.object({
 	label: z.string().min(1).max(200),
 	startDate: z.iso.datetime(),
 	endDate: z.iso.datetime().optional(),
+	archivedAt: z.iso.datetime().optional().describe("Set when the shift is archived; hides it from public signup form"),
 	roles: z.array(volunteerRoleSchema),
 });
 
@@ -218,6 +219,7 @@ export const volunteerEventSchema = z.object({
 	location: z.string().optional(),
 	locationUrl: z.string().optional().describe("Optional URL for the location (e.g. Google Maps link)"),
 	shifts: z.array(volunteerShiftSchema),
+	archivedAt: z.iso.datetime().optional().describe("Set when the event is archived; hides it from public view"),
 });
 
 /** Signup payload stored inside a verification token */

@@ -3,7 +3,8 @@
  *
  * Admin functions (requireAdminMiddleware):
  *   listVolunteerEventsFn, getVolunteerEventFn, createVolunteerEventFn,
- *   updateVolunteerEventFn, deleteVolunteerEventFn,
+ *   updateVolunteerEventFn, deleteVolunteerEventFn (blocked if signups exist),
+ *   archiveVolunteerEventFn, restoreVolunteerEventFn,
  *   listVolunteerSignupsFn, updateVolunteerSignupFn, deleteVolunteerSignupFn,
  *   confirmVolunteerSignupFn (force-confirm)
  *
@@ -97,7 +98,28 @@ export const deleteVolunteerEventFn = createServerFn()
 	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
+		// Block deletion if any signups exist — use archive instead
+		const signupsResult = await db().volunteerSignup.query.byEvent({ eventId: data.id }).go({ pages: "all" });
+		if (signupsResult.data.length > 0) {
+			throw new Error("Cannot delete an event with existing signups. Archive it instead.");
+		}
 		await db().volunteerEvent.delete({ id: data.id }).go();
+		return { success: true };
+	});
+
+export const archiveVolunteerEventFn = createServerFn()
+	.middleware([requireAdminMiddleware])
+	.inputValidator(z.object({ id: z.uuid() }))
+	.handler(async ({ data }) => {
+		await db().volunteerEvent.patch({ id: data.id }).set({ archivedAt: new Date().toISOString(), updatedAt: new Date().toISOString() }).go();
+		return { success: true };
+	});
+
+export const restoreVolunteerEventFn = createServerFn()
+	.middleware([requireAdminMiddleware])
+	.inputValidator(z.object({ id: z.uuid() }))
+	.handler(async ({ data }) => {
+		await db().volunteerEvent.patch({ id: data.id }).set({ updatedAt: new Date().toISOString() }).remove(["archivedAt"]).go();
 		return { success: true };
 	});
 

@@ -60,6 +60,12 @@ export async function getPublicVolunteerEvent(data: { id: string }): Promise<Pub
 	if (!eventResult.data) throw new Error("Event not found");
 	const event = parseServerData(volunteerEventSchema, eventResult.data, "Failed to parse event") satisfies VolunteerEvent;
 
+	// Archived events are hidden from public view
+	if (event.archivedAt) throw new Error("Event not found");
+
+	// Filter out archived shifts before returning
+	const activeShifts = event.shifts.filter((s) => !s.archivedAt);
+
 	const signupsResult = await db().volunteerSignup.query.byEvent({ eventId: data.id }).go({ pages: "all" });
 	const allSignups = parseServerArray(volunteerSignupSchema, signupsResult.data, "Failed to parse signups");
 
@@ -86,7 +92,7 @@ export async function getPublicVolunteerEvent(data: { id: string }): Promise<Pub
 		}
 	}
 
-	return { ...event, signupCounts, confirmedHelpers };
+	return { ...event, shifts: activeShifts, signupCounts, confirmedHelpers };
 }
 
 // ---------------------------------------------------------------------------
@@ -101,6 +107,7 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
 
 	const shift = event.shifts.find((s) => s.id === data.shiftId);
 	if (!shift) throw new Error("Shift not found");
+	if (shift.archivedAt) throw new Error("Diese Schicht ist nicht mehr verfügbar");
 	if (new Date(shift.startDate) <= new Date()) throw new Error("This shift has already started");
 
 	// Validate minimum age requirements for each preferred role

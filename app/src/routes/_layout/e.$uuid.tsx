@@ -5,7 +5,7 @@
  * Handles ?token= query param for email verification.
  */
 
-import { Alert, Badge, Button, Card, Container, Divider, Group, Loader, MultiSelect, Select, SimpleGrid, Stack, Text, TextInput, Title, Typography } from "@mantine/core";
+import { Alert, Badge, Button, Card, Container, Divider, Group, MultiSelect, Select, SimpleGrid, Stack, Text, TextInput, Title, Typography } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
@@ -25,8 +25,12 @@ export const Route = createFileRoute("/_layout/e/$uuid")({
 		token: typeof search.token === "string" ? search.token : undefined,
 	}),
 	loader: async ({ params }) => {
-		const event = await getPublicVolunteerEventFn({ data: { id: params.uuid } });
-		return { event };
+		try {
+			const event = await getPublicVolunteerEventFn({ data: { id: params.uuid } });
+			return { event };
+		} catch {
+			return { event: null };
+		}
 	},
 	component: VolunteerEventPage,
 });
@@ -39,7 +43,13 @@ function VolunteerEventPage() {
 
 	const { data: event, refetch } = useQuery({
 		queryKey: ["volunteerEvent", "public", uuid],
-		queryFn: () => getPublicVolunteerEventFn({ data: { id: uuid } }),
+		queryFn: async () => {
+			try {
+				return await getPublicVolunteerEventFn({ data: { id: uuid } });
+			} catch {
+				return null;
+			}
+		},
 		initialData: initialEvent,
 	});
 
@@ -59,7 +69,17 @@ function VolunteerEventPage() {
 		verifyMutation.mutate(tokenParam);
 	}
 
-	if (!event) return <Loader />;
+	if (!event) {
+		return (
+			<PageWithHeading title="404 Fehler">
+				<Container size="lg">
+					<Alert color="blumine" title="Veranstaltung nicht gefunden" mt="xl" variant="white">
+						Diese Veranstaltung existiert nicht oder ist nicht mehr verfügbar.
+					</Alert>
+				</Container>
+			</PageWithHeading>
+		);
+	}
 
 	const [activeShiftId, setActiveShiftId] = useState<string | null>(null);
 
@@ -132,7 +152,7 @@ function VolunteerEventPage() {
 
 type ShiftCardProps = {
 	shift: VolunteerEvent["shifts"][number];
-	event: ReturnType<typeof Route.useLoaderData>["event"];
+	event: NonNullable<ReturnType<typeof Route.useLoaderData>["event"]>;
 	signupCounts: Record<string, number>;
 	confirmedHelpers: { displayName: string; roleId: string | null }[];
 	onSignedUp: () => void;

@@ -6,6 +6,7 @@
  *  - Create / edit form with dynamic shifts and roles (TrainingScheduleManager-style)
  *  - Signup dashboard grouped by shift (view signups, assign roles, force-confirm, move shift, delete)
  */
+import { Link as RouterLink } from "@tanstack/react-router";
 
 import {
 	ActionIcon,
@@ -18,6 +19,7 @@ import {
 	Divider,
 	Fieldset,
 	Group,
+	Loader,
 	Menu,
 	Modal,
 	NumberInput,
@@ -42,19 +44,21 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNotification } from "@webapp/hooks/useNotification";
 import {
+	archiveVolunteerEventFn,
 	confirmVolunteerSignupFn,
 	createVolunteerEventFn,
 	deleteVolunteerEventFn,
 	deleteVolunteerSignupFn,
 	listVolunteerEventsFn,
 	listVolunteerSignupsFn,
+	restoreVolunteerEventFn,
 	updateVolunteerEventFn,
 	updateVolunteerSignupFn,
 } from "@webapp/server/functions/volunteer";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
-import { ArrowLeftRight, ChevronDown, ChevronUp, ClipboardCopy, Link, Mail, Plus, SquarePen, Trash2, SquareCheckBig } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Archive, ArrowLeftRight, ChevronDown, ExternalLink, ChevronUp, ClipboardCopy, Link, Mail, Plus, SquarePen, Trash2, SquareCheckBig } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import type { VolunteerEvent } from "@/lib/db/types";
 
 dayjs.locale("de");
@@ -85,6 +89,7 @@ type ShiftFormValue = {
 	label: string;
 	startDate: Date | null;
 	endDate: Date | null;
+	archivedAt?: string;
 	roles: RoleFormValue[];
 };
 
@@ -92,13 +97,38 @@ type ShiftFormValue = {
 // Shift + role manager (TrainingScheduleManager-style)
 // ---------------------------------------------------------------------------
 
-function ShiftsManager({ shifts, onShiftsChange }: { shifts: ShiftFormValue[]; onShiftsChange: (shifts: ShiftFormValue[]) => void }) {
+function ShiftsManager({
+	shifts,
+	onShiftsChange,
+	signupCountsByShiftId,
+}: {
+	shifts: ShiftFormValue[];
+	onShiftsChange: (shifts: ShiftFormValue[]) => void;
+	signupCountsByShiftId: Record<string, number>;
+}) {
+	const [shiftActionModal, setShiftActionModal] = useState<{ index: number; action: "delete" | "archive" } | null>(null);
+
 	const addShift = () => {
 		onShiftsChange([...shifts, { id: crypto.randomUUID(), label: "", startDate: null, endDate: null, roles: [] }]);
 	};
 
-	const removeShift = (index: number) => {
-		onShiftsChange(shifts.filter((_, i) => i !== index));
+	const confirmShiftAction = () => {
+		if (!shiftActionModal) return;
+		const { index, action } = shiftActionModal;
+		if (action === "delete") {
+			onShiftsChange(shifts.filter((_, i) => i !== index));
+		} else {
+			const updated = [...shifts];
+			updated[index] = { ...updated[index], archivedAt: new Date().toISOString() };
+			onShiftsChange(updated);
+		}
+		setShiftActionModal(null);
+	};
+
+	const restoreShift = (index: number) => {
+		const updated = [...shifts];
+		updated[index] = { ...updated[index], archivedAt: undefined };
+		onShiftsChange(updated);
 	};
 
 	const updateShift = (index: number, updates: Partial<ShiftFormValue>) => {
@@ -107,8 +137,26 @@ function ShiftsManager({ shifts, onShiftsChange }: { shifts: ShiftFormValue[]; o
 		onShiftsChange(updated);
 	};
 
+	const pendingShift = shiftActionModal ? shifts[shiftActionModal.index] : null;
+
 	return (
 		<Box>
+			<Modal opened={!!shiftActionModal} onClose={() => setShiftActionModal(null)} title={shiftActionModal?.action === "delete" ? "Schicht löschen?" : "Schicht archivieren?"} size="sm">
+				<Text size="sm">
+					{shiftActionModal?.action === "delete"
+						? `Soll die Schicht "${pendingShift?.label || ""}" wirklich gelöscht werden?`
+						: `Soll die Schicht "${pendingShift?.label || ""}" archiviert werden? Bestehende Anmeldungen bleiben erhalten, aber die Schicht wird für neue Anmeldungen geschlossen.`}
+				</Text>
+				<Group justify="flex-end" mt="md">
+					<Button variant="subtle" onClick={() => setShiftActionModal(null)}>
+						Abbrechen
+					</Button>
+					<Button color={shiftActionModal?.action === "delete" ? "red" : "orange"} onClick={confirmShiftAction}>
+						{shiftActionModal?.action === "delete" ? "Löschen" : "Archivieren"}
+					</Button>
+				</Group>
+			</Modal>
+
 			<Group justify="space-between" mb="xs">
 				<Text size="sm" fw={500}>
 					Schichten
@@ -119,44 +167,78 @@ function ShiftsManager({ shifts, onShiftsChange }: { shifts: ShiftFormValue[]; o
 			</Group>
 
 			<Stack gap="md">
-				{shifts.map((shift, index) => (
-					<Card key={shift.id} withBorder p="md">
-						<Group justify="space-between" mb="md">
-							<Text size="sm" fw={500}>
-								Schicht {index + 1}
-							</Text>
-							<ActionIcon size="sm" color="red" variant="subtle" onClick={() => removeShift(index)}>
-								<Trash2 size={16} />
-							</ActionIcon>
-						</Group>
+				{shifts.map((shift, index) => {
+					if (shift.archivedAt) {
+						return (
+							<Fieldset key={shift.id} p="md" legend={shift.label || "Archivierte Schicht"} style={{ opacity: 0.65 }}>
+								<Group justify="space-between" align="center">
+									<Group gap="xs">
+										<Text size="sm" c="dimmed">
+											{shift.label}
+										</Text>
+										<Badge size="sm" variant="outline" color="gray">
+											Archiviert
+										</Badge>
+									</Group>
+									<Button size="xs" variant="subtle" color="blue" onClick={() => restoreShift(index)}>
+										Wiederherstellen
+									</Button>
+								</Group>
+							</Fieldset>
+						);
+					}
 
-						<Stack gap="sm">
-							<TextInput label="Bezeichnung" required placeholder="z. B. Aufbau, Mittagsschicht, Abbau" value={shift.label} onChange={(e) => updateShift(index, { label: e.target.value })} />
-							<SimpleGrid cols={{ base: 1, sm: 2 }}>
-								<DateTimePicker
-									label="Beginn"
-									required
-									value={shift.startDate}
-									onChange={(val) => updateShift(index, { startDate: val ? new Date(val) : null })}
-									locale="de"
-									valueFormat="DD.MM.YYYY HH:mm"
-								/>
-								<DateTimePicker
-									label="Ende (optional)"
-									value={shift.endDate}
-									onChange={(val) => updateShift(index, { endDate: val ? new Date(val) : null })}
-									locale="de"
-									minDate={shift.startDate || undefined}
-									valueFormat="DD.MM.YYYY HH:mm"
-									clearable
-								/>
-							</SimpleGrid>
+					const signupCount = signupCountsByShiftId[shift.id] ?? 0;
+					return (
+						<Fieldset key={shift.id} p="md" legend={shift.label || "Neue Schicht"}>
+							<Stack gap="sm">
+								<Group justify="space-between" align="flex-end" mb="md">
+									<TextInput
+										label="Bezeichnung"
+										required
+										placeholder="z. B. Aufbau, Mittagsschicht, Abbau"
+										value={shift.label}
+										onChange={(e) => updateShift(index, { label: e.target.value })}
+										style={{ flex: 1 }}
+									/>
+									{signupCount > 0 ? (
+										<Tooltip label={`${signupCount} Anmeldung${signupCount !== 1 ? "en" : ""} – nur Archivieren möglich`}>
+											<ActionIcon size="sm" color="orange" variant="subtle" onClick={() => setShiftActionModal({ index, action: "archive" })} mb="xs">
+												<Archive size={16} />
+											</ActionIcon>
+										</Tooltip>
+									) : (
+										<ActionIcon size="sm" color="red" variant="subtle" onClick={() => setShiftActionModal({ index, action: "delete" })} mb="xs">
+											<Trash2 size={16} />
+										</ActionIcon>
+									)}
+								</Group>
+								<SimpleGrid cols={{ base: 1, sm: 2 }}>
+									<DateTimePicker
+										label="Beginn"
+										required
+										value={shift.startDate}
+										onChange={(val) => updateShift(index, { startDate: val ? new Date(val) : null })}
+										locale="de"
+										valueFormat="DD.MM.YYYY HH:mm"
+									/>
+									<DateTimePicker
+										label="Ende (optional)"
+										value={shift.endDate}
+										onChange={(val) => updateShift(index, { endDate: val ? new Date(val) : null })}
+										locale="de"
+										minDate={shift.startDate || undefined}
+										valueFormat="DD.MM.YYYY HH:mm"
+										clearable
+									/>
+								</SimpleGrid>
 
-							{/* Roles within shift */}
-							<RolesManager roles={shift.roles} onRolesChange={(roles) => updateShift(index, { roles })} />
-						</Stack>
-					</Card>
-				))}
+								{/* Roles within shift */}
+								<RolesManager roles={shift.roles} onRolesChange={(roles) => updateShift(index, { roles })} />
+							</Stack>
+						</Fieldset>
+					);
+				})}
 			</Stack>
 		</Box>
 	);
@@ -271,6 +353,7 @@ function serializeShifts(shifts: ShiftFormValue[]): VolunteerEvent["shifts"] {
 		label: s.label,
 		startDate: s.startDate?.toISOString() ?? new Date().toISOString(),
 		endDate: s.endDate?.toISOString() ?? undefined,
+		...(s.archivedAt ? { archivedAt: s.archivedAt } : {}),
 		roles: s.roles.map(({ minAge, ...r }) => ({
 			...r,
 			...(minAge !== null && minAge > 0 ? { minAge } : {}),
@@ -284,12 +367,14 @@ function deserializeShifts(shifts: VolunteerEvent["shifts"]): ShiftFormValue[] {
 		label: s.label,
 		startDate: new Date(s.startDate),
 		endDate: s.endDate ? new Date(s.endDate) : null,
+		archivedAt: s.archivedAt,
 		roles: s.roles.map((r) => ({ ...r, description: r.description ?? "", minAge: r.minAge ?? null })),
 	}));
 }
 
 function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: boolean; onClose: () => void; editingEvent: VolunteerEvent | null; onSaved: () => void }) {
 	const notification = useNotification();
+	const isMobile = useMediaQuery("(max-width: 48em)");
 
 	const editor = useEditor({
 		extensions: [StarterKit, LinkExtension],
@@ -321,6 +406,21 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 	});
 
 	const [shifts, setShifts] = useState<ShiftFormValue[]>(() => (editingEvent ? deserializeShifts(editingEvent.shifts) : []));
+
+	// Query signups to determine per-shift whether deletion or archiving is required
+	const { data: signupsForForm } = useQuery({
+		queryKey: ["volunteerSignups", editingEvent?.id, "forShiftManager"],
+		queryFn: () => listVolunteerSignupsFn({ data: { eventId: editingEvent!.id } }),
+		enabled: !!editingEvent,
+	});
+
+	const signupCountsByShiftId = useMemo(() => {
+		const counts: Record<string, number> = {};
+		for (const signup of signupsForForm?.items ?? []) {
+			counts[signup.shiftId] = (counts[signup.shiftId] ?? 0) + 1;
+		}
+		return counts;
+	}, [signupsForForm]);
 
 	// Sync editor content when editingEvent changes (e.g. when modal re-opens for a different event)
 	useEffect(() => {
@@ -364,7 +464,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 	const isPending = createMutation.isPending || updateMutation.isPending;
 
 	return (
-		<Modal opened={opened} onClose={onClose} title={editingEvent ? "Helfereinsatz bearbeiten" : "Neuer Helfereinsatz"} size="xl">
+		<Modal opened={opened} onClose={onClose} title={editingEvent ? "Helfereinsatz bearbeiten" : "Neuer Helfereinsatz"} size={isMobile ? "100%" : "xl"} fullScreen={isMobile}>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
@@ -401,8 +501,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 						{(field) => <TextInput label="Link zum Ort (optional)" placeholder="https://maps.google.com/..." value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
 					</form.Field>
 					<Divider label="Schichten" />
-					<ShiftsManager shifts={shifts} onShiftsChange={setShifts} />
-
+					<ShiftsManager shifts={shifts} onShiftsChange={setShifts} signupCountsByShiftId={signupCountsByShiftId} />
 					<Group justify="flex-end">
 						<Button variant="subtle" onClick={onClose} disabled={isPending}>
 							Abbrechen
@@ -743,6 +842,79 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 }
 
 // ---------------------------------------------------------------------------
+// Event delete / archive confirmation modal
+// ---------------------------------------------------------------------------
+
+function EventDeleteArchiveModal({ opened, onClose, event, onDone }: { opened: boolean; onClose: () => void; event: VolunteerEvent | null; onDone: () => void }) {
+	const notification = useNotification();
+
+	const { data: signupsData, isLoading } = useQuery({
+		queryKey: ["volunteerSignups", event?.id, "deleteCheck"],
+		queryFn: () => listVolunteerSignupsFn({ data: { eventId: event!.id } }),
+		enabled: !!event && opened,
+	});
+
+	const hasSignups = (signupsData?.items.length ?? 0) > 0;
+
+	const deleteMutation = useMutation({
+		mutationFn: () => deleteVolunteerEventFn({ data: { id: event!.id } }),
+		onSuccess: () => {
+			onDone();
+			notification.success("Veranstaltung wurde gelöscht");
+		},
+		onError: () => notification.error({ message: "Veranstaltung konnte nicht gelöscht werden" }),
+	});
+
+	const archiveMutation = useMutation({
+		mutationFn: () => archiveVolunteerEventFn({ data: { id: event!.id } }),
+		onSuccess: () => {
+			onDone();
+			notification.success("Veranstaltung wurde archiviert");
+		},
+		onError: () => notification.error({ message: "Veranstaltung konnte nicht archiviert werden" }),
+	});
+
+	const isPending = deleteMutation.isPending || archiveMutation.isPending;
+
+	return (
+		<Modal opened={opened} onClose={onClose} title="Veranstaltung entfernen" size="sm">
+			{isLoading ? (
+				<Group justify="center" py="md">
+					<Loader size="sm" />
+				</Group>
+			) : hasSignups ? (
+				<Stack gap="md">
+					<Text size="sm">
+						Diese Veranstaltung hat bestehende Anmeldungen und kann daher nicht gelöscht werden. Sie kann stattdessen archiviert werden — archivierte Veranstaltungen sind nicht mehr öffentlich
+						zugänglich und können jederzeit wiederhergestellt werden.
+					</Text>
+					<Group justify="flex-end">
+						<Button variant="subtle" onClick={onClose} disabled={isPending}>
+							Abbrechen
+						</Button>
+						<Button color="orange" onClick={() => archiveMutation.mutate()} loading={archiveMutation.isPending}>
+							Archivieren
+						</Button>
+					</Group>
+				</Stack>
+			) : (
+				<Stack gap="md">
+					<Text size="sm">Soll diese Veranstaltung wirklich endgültig gelöscht werden? Diese Aktion kann nicht rückgängig gemacht werden.</Text>
+					<Group justify="flex-end">
+						<Button variant="subtle" onClick={onClose} disabled={isPending}>
+							Abbrechen
+						</Button>
+						<Button color="red" onClick={() => deleteMutation.mutate()} loading={deleteMutation.isPending}>
+							Löschen
+						</Button>
+					</Group>
+				</Stack>
+			)}
+		</Modal>
+	);
+}
+
+// ---------------------------------------------------------------------------
 // Main page
 // ---------------------------------------------------------------------------
 
@@ -758,17 +930,23 @@ function VolunteerEventAdminPage() {
 
 	const [formOpened, { open: openForm, close: closeForm }] = useDisclosure(false);
 	const [editingEvent, setEditingEvent] = useState<VolunteerEvent | null>(null);
+	const [deleteModalOpened, { open: openDeleteModal, close: closeDeleteModal }] = useDisclosure(false);
+	const [pendingDeleteEvent, setPendingDeleteEvent] = useState<VolunteerEvent | null>(null);
+	const [archivedVisible, { toggle: toggleArchived }] = useDisclosure(false);
 
-	const deleteMutation = useMutation({
-		mutationFn: (id: string) => deleteVolunteerEventFn({ data: { id } }),
+	const restoreEventMutation = useMutation({
+		mutationFn: (id: string) => restoreVolunteerEventFn({ data: { id } }),
 		onSuccess: () => {
 			refetch();
-			notification.success("Veranstaltung wurde gelöscht");
+			notification.success("Veranstaltung wurde wiederhergestellt");
 		},
-		onError: () => notification.error({ message: "Veranstaltung konnte nicht gelöscht werden" }),
+		onError: () => notification.error({ message: "Veranstaltung konnte nicht wiederhergestellt werden" }),
 	});
 
 	const events = eventsData.items;
+	const activeEvents = events.filter((e) => !e.archivedAt);
+	const archivedEvents = events.filter((e) => !!e.archivedAt);
+
 	function openCreate() {
 		setEditingEvent(null);
 		openForm();
@@ -782,6 +960,15 @@ function VolunteerEventAdminPage() {
 	return (
 		<>
 			<EventFormModal key={editingEvent?.id ?? "new"} opened={formOpened} onClose={closeForm} editingEvent={editingEvent} onSaved={refetch} />
+			<EventDeleteArchiveModal
+				opened={deleteModalOpened}
+				onClose={closeDeleteModal}
+				event={pendingDeleteEvent}
+				onDone={() => {
+					refetch();
+					closeDeleteModal();
+				}}
+			/>
 
 			<Stack gap="lg">
 				<Group justify="space-between">
@@ -791,13 +978,13 @@ function VolunteerEventAdminPage() {
 					</Button>
 				</Group>
 
-				{events.length === 0 && (
+				{activeEvents.length === 0 && archivedEvents.length === 0 && (
 					<Card>
 						<Text c="dimmed">Noch keine Veranstaltungen erstellt.</Text>
 					</Card>
 				)}
 
-				{events.map((event) => {
+				{activeEvents.map((event) => {
 					const deeplink = `${typeof window !== "undefined" ? window.location.origin : ""}/e/${event.id}`;
 					return (
 						<Card key={event.id} withBorder>
@@ -822,6 +1009,9 @@ function VolunteerEventAdminPage() {
 										</Text>
 									</div>
 									<Group gap="xs">
+										<Button size="xs" variant="light" leftSection={<ExternalLink size={14} />} component={RouterLink} to={`/e/${event.id}`} target="_blank">
+											Öffnen
+										</Button>
 										<CopyButton value={deeplink}>
 											{({ copied, copy }) => (
 												<Tooltip label={copied ? "Kopiert!" : "Deeplink kopieren"}>
@@ -839,9 +1029,8 @@ function VolunteerEventAdminPage() {
 											color="red"
 											variant="subtle"
 											onClick={() => {
-												if (window.confirm("Veranstaltung wirklich löschen?")) {
-													deleteMutation.mutate(event.id);
-												}
+												setPendingDeleteEvent(event as VolunteerEvent);
+												openDeleteModal();
 											}}
 										>
 											<Trash2 size={16} />
@@ -855,6 +1044,48 @@ function VolunteerEventAdminPage() {
 						</Card>
 					);
 				})}
+
+				{archivedEvents.length > 0 && (
+					<>
+						<Group justify="space-between" mt="md">
+							<Title order={3} c="dimmed">
+								Archivierte Veranstaltungen
+							</Title>
+							<Button size="xs" variant="subtle" rightSection={archivedVisible ? <ChevronUp size={14} /> : <ChevronDown size={14} />} onClick={toggleArchived}>
+								{archivedVisible ? "Ausblenden" : `Anzeigen (${archivedEvents.length})`}
+							</Button>
+						</Group>
+						<Collapse expanded={archivedVisible}>
+							<Stack gap="lg">
+								{archivedEvents.map((event) => (
+									<Card key={event.id} withBorder style={{ opacity: 0.65 }}>
+										<Group justify="space-between" align="flex-start">
+											<div>
+												<Group gap="xs" mb={2}>
+													<Title order={4}>{event.title}</Title>
+													<Badge variant="outline" color="gray" size="sm">
+														Archiviert
+													</Badge>
+												</Group>
+												{event.location && (
+													<Text size="sm" c="dimmed">
+														{event.location}
+													</Text>
+												)}
+												<Text size="xs" c="dimmed">
+													{event.shifts.length} Schicht{event.shifts.length !== 1 ? "en" : ""}
+												</Text>
+											</div>
+											<Button size="xs" variant="subtle" color="blue" loading={restoreEventMutation.isPending} onClick={() => restoreEventMutation.mutate(event.id)}>
+												Wiederherstellen
+											</Button>
+										</Group>
+									</Card>
+								))}
+							</Stack>
+						</Collapse>
+					</>
+				)}
 			</Stack>
 		</>
 	);
