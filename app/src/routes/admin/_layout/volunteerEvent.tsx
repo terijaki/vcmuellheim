@@ -944,8 +944,8 @@ function VolunteerEventAdminPage() {
 	});
 
 	const events = eventsData.items;
-	const activeEvents = events.filter((e) => !e.archivedAt);
-	const archivedEvents = events.filter((e) => !!e.archivedAt);
+	const activeEvents = events.filter((e) => !e.archivedAt).sort((a, b) => dayjs(a.shifts[0]?.startDate).diff(dayjs(b.shifts[0]?.startDate)));
+	const archivedEvents = events.filter((e) => !!e.archivedAt).sort((a, b) => dayjs(b.shifts[0]?.startDate).diff(dayjs(a.shifts[0]?.startDate)));
 
 	function openCreate() {
 		setEditingEvent(null);
@@ -1048,7 +1048,7 @@ function VolunteerEventAdminPage() {
 				{archivedEvents.length > 0 && (
 					<>
 						<Group justify="space-between" mt="md">
-							<Title order={3} c="dimmed">
+							<Title order={4} c="dimmed">
 								Archivierte Veranstaltungen
 							</Title>
 							<Button size="xs" variant="subtle" rightSection={archivedVisible ? <ChevronUp size={14} /> : <ChevronDown size={14} />} onClick={toggleArchived}>

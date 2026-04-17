@@ -224,12 +224,12 @@ export const volunteerEventSchema = z.object({
 
 /** Signup payload stored inside a verification token */
 export const volunteerSignupDataSchema = z.object({
-	firstName: z.string().min(1).max(100),
-	lastName: z.string().min(1).max(100),
+	firstName: z.string().trim().min(1).max(100),
+	lastName: z.string().trim().min(1).max(100),
 	email: z.email(),
 	dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
 	preferredRoleIds: z.array(z.uuid()).min(1),
-	association: z.string().max(500),
+	association: z.string().trim().max(500),
 	eventId: z.uuid(),
 	shiftId: z.uuid(),
 });
@@ -240,12 +240,12 @@ export const volunteerSignupSchema = z.object({
 	type: z.literal("volunteerSignup").default("volunteerSignup").describe("Entity type discriminator"),
 	eventId: z.uuid(),
 	shiftId: z.uuid(),
-	firstName: z.string().min(1).max(100),
-	lastName: z.string().min(1).max(100),
+	firstName: z.string().trim().min(1).max(100),
+	lastName: z.string().trim().min(1).max(100),
 	email: z.email(),
 	dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
 	preferredRoleIds: z.array(z.uuid()).min(1),
-	association: z.string().max(500),
+	association: z.string().max(500).trim(),
 	status: z.enum(["pending", "confirmed"]),
 	assignedRoleId: z.uuid().optional().describe("Role assigned by admin, overrides helper preference"),
 });

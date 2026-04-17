@@ -17,6 +17,7 @@ import { CheckCircle, MapPin } from "lucide-react";
 import { useState } from "react";
 import { createVolunteerSignupFn, getPublicVolunteerEventFn, verifyVolunteerTokenFn } from "@webapp/server/functions/volunteer";
 import type { VolunteerEvent } from "@/lib/db/types";
+import { volunteerSignupDataSchema } from "@/lib/db/schemas";
 
 dayjs.locale("de");
 
@@ -105,30 +106,32 @@ function VolunteerEventPage() {
 					)}
 
 					{/* Event meta */}
-					<Card>
-						<Stack gap="xs">
-							{event.description && (
-								<Typography>
-									{/* biome-ignore lint/security/noDangerouslySetInnerHtml: description is author-supplied rich text */}
-									<div dangerouslySetInnerHTML={{ __html: event.description }} />
-								</Typography>
-							)}
-							{event.location && (
-								<Group gap="xs">
-									<MapPin size={16} />
-									{event.locationUrl ? (
-										<Text size="sm" c="dimmed" component="a" href={event.locationUrl} target="_blank" rel="noopener noreferrer">
-											{event.location}
-										</Text>
-									) : (
-										<Text size="sm" c="dimmed">
-											{event.location}
-										</Text>
-									)}
-								</Group>
-							)}
-						</Stack>
-					</Card>
+					{(event.description || event.location) && (
+						<Card>
+							<Stack gap="xs">
+								{event.description && (
+									<Typography>
+										{/* biome-ignore lint/security/noDangerouslySetInnerHtml: description is author-supplied rich text */}
+										<div dangerouslySetInnerHTML={{ __html: event.description }} />
+									</Typography>
+								)}
+								{event.location && (
+									<Group gap="xs">
+										<MapPin size={16} />
+										{event.locationUrl ? (
+											<Text size="sm" c="dimmed" component="a" href={event.locationUrl} target="_blank" rel="noopener noreferrer">
+												{event.location}
+											</Text>
+										) : (
+											<Text size="sm" c="dimmed">
+												{event.location}
+											</Text>
+										)}
+									</Group>
+								)}
+							</Stack>
+						</Card>
+					)}
 
 					{/* Shifts */}
 					{event.shifts.map((shift) => (
@@ -274,12 +277,18 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 
 	const form = useForm({
 		defaultValues: {
+			eventId: event.id,
+			shiftId,
 			firstName: "",
 			lastName: "",
 			email: "",
-			dateOfBirth: null as Date | null,
+			dateOfBirth: null as string | null,
 			preferredRoleIds: (roles.length === 1 ? [roles[0].id] : []) as string[],
 			association: "",
+		},
+		validators: {
+			onChange: volunteerSignupDataSchema,
+			onSubmit: volunteerSignupDataSchema,
 		},
 		onSubmit: async ({ value }) => {
 			if (!value.dateOfBirth) return;
@@ -333,7 +342,7 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 								required
 								withAsterisk={false}
 								value={field.state.value}
-								onChange={(val) => field.handleChange(val ? new Date(val) : null)}
+								onChange={(val) => field.handleChange(val ? val : null)}
 								valueFormat="DD.MM.YYYY"
 								locale="de"
 								maxDate={dayjs().subtract(9, "year").toDate()}
@@ -388,14 +397,18 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 
 				{mutation.isError && <Alert color="red">{mutation.error instanceof Error ? mutation.error.message : "Ein Fehler ist aufgetreten."}</Alert>}
 
-				<Group justify="flex-end" gap="sm">
-					<Button variant="subtle" onClick={onCancel} disabled={mutation.isPending}>
-						Abbrechen
-					</Button>
-					<Button type="submit" loading={mutation.isPending}>
-						Anmeldung absenden
-					</Button>
-				</Group>
+				<form.Subscribe selector={(state) => ({ isValid: state.isValid, isDirty: state.isDirty })}>
+					{({ isValid, isDirty }) => (
+						<Group justify="flex-end" gap="sm">
+							<Button variant="subtle" onClick={onCancel} disabled={mutation.isPending}>
+								Abbrechen
+							</Button>
+							<Button type="submit" loading={mutation.isPending} disabled={!isDirty || !isValid}>
+								Anmelden
+							</Button>
+						</Group>
+					)}
+				</form.Subscribe>
 			</Stack>
 		</form>
 	);
