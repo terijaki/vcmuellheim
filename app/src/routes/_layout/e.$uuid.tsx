@@ -88,69 +88,67 @@ function VolunteerEventPage() {
 
 	return (
 		<PageWithHeading title={event.title}>
-			<Container size="lg">
-				<Stack gap="xl" pb="xl">
-					{/* Verification feedback */}
-					{verifyMutation.isPending && (
-						<Alert color="blue" title="Anmeldung wird bestätigt…">
-							Bitte warten.
-						</Alert>
-					)}
-					{verifyMutation.isSuccess && verifyMutation.data?.success && (
-						<Alert color="green" icon={<CheckCircle size={18} />} title="Anmeldung bestätigt!">
-							Deine Anmeldung wurde erfolgreich bestätigt. Du erhältst in Kürze eine Bestätigungsmail mit dem Termin.
-						</Alert>
-					)}
-					{verifyMutation.isSuccess && !verifyMutation.data?.success && (
-						<Alert color="orange" title="Link ungültig oder abgelaufen">
-							Dieser Bestätigungslink ist ungültig oder bereits abgelaufen. Bitte melde dich erneut an, um einen neuen Link zu erhalten.
-						</Alert>
-					)}
+			<Stack gap="xl" pb="xl">
+				{/* Verification feedback */}
+				{verifyMutation.isPending && (
+					<Alert color="blue" title="Anmeldung wird bestätigt…">
+						Bitte warten.
+					</Alert>
+				)}
+				{verifyMutation.isSuccess && verifyMutation.data?.success && (
+					<Alert color="green" icon={<CheckCircle size={18} />} title="Anmeldung bestätigt!">
+						Deine Anmeldung wurde erfolgreich bestätigt. Du erhältst in Kürze eine Bestätigungsmail mit dem Termin.
+					</Alert>
+				)}
+				{verifyMutation.isSuccess && !verifyMutation.data?.success && (
+					<Alert color="orange" title="Link ungültig oder abgelaufen">
+						Dieser Bestätigungslink ist ungültig oder bereits abgelaufen. Bitte melde dich erneut an, um einen neuen Link zu erhalten.
+					</Alert>
+				)}
 
-					{/* Event meta */}
-					{(event.description || event.location) && (
-						<Card>
-							<Stack gap="xs">
-								{event.description && (
-									<Typography>
-										{/* biome-ignore lint/security/noDangerouslySetInnerHtml: description is author-supplied rich text */}
-										<div dangerouslySetInnerHTML={{ __html: event.description }} />
-									</Typography>
-								)}
-								{event.location && (
-									<Group gap="xs">
-										<MapPin size={16} />
-										{event.locationUrl ? (
-											<Text size="sm" c="dimmed" component="a" href={event.locationUrl} target="_blank" rel="noopener noreferrer">
-												{event.location}
-											</Text>
-										) : (
-											<Text size="sm" c="dimmed">
-												{event.location}
-											</Text>
-										)}
-									</Group>
-								)}
-							</Stack>
-						</Card>
-					)}
+				{/* Event meta */}
+				{(event.description || event.location) && (
+					<Card>
+						<Stack gap="xs">
+							{event.description && (
+								<Typography>
+									{/* biome-ignore lint/security/noDangerouslySetInnerHtml: description is author-supplied rich text */}
+									<div dangerouslySetInnerHTML={{ __html: event.description }} />
+								</Typography>
+							)}
+							{event.location && (
+								<Group gap="xs">
+									<MapPin size={16} />
+									{event.locationUrl ? (
+										<Text size="sm" c="dimmed" component="a" href={event.locationUrl} target="_blank" rel="noopener noreferrer">
+											{event.location}
+										</Text>
+									) : (
+										<Text size="sm" c="dimmed">
+											{event.location}
+										</Text>
+									)}
+								</Group>
+							)}
+						</Stack>
+					</Card>
+				)}
 
-					{/* Shifts */}
-					{event.shifts.map((shift) => (
-						<ShiftCard
-							key={shift.id}
-							shift={shift}
-							event={event}
-							signupCounts={event.signupCounts[shift.id] ?? {}}
-							confirmedHelpers={event.confirmedHelpers.filter((h) => h.shiftId === shift.id)}
-							onSignedUp={refetch}
-							activeShiftId={activeShiftId}
-							onFormOpen={() => setActiveShiftId(shift.id)}
-							onFormClose={() => setActiveShiftId(null)}
-						/>
-					))}
-				</Stack>
-			</Container>
+				{/* Shifts */}
+				{event.shifts.map((shift) => (
+					<ShiftCard
+						key={shift.id}
+						shift={shift}
+						event={event}
+						signupCounts={event.signupCounts[shift.id] ?? {}}
+						confirmedHelpers={event.confirmedHelpers.filter((h) => h.shiftId === shift.id)}
+						onSignedUp={refetch}
+						activeShiftId={activeShiftId}
+						onFormOpen={() => setActiveShiftId(shift.id)}
+						onFormClose={() => setActiveShiftId(null)}
+					/>
+				))}
+			</Stack>
 		</PageWithHeading>
 	);
 }
