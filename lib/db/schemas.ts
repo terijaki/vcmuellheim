@@ -194,8 +194,10 @@ export type SamsTeamInput = z.infer<typeof samsTeamSchema>;
 export const volunteerRoleSchema = z.object({
 	id: z.uuid(),
 	label: z.string().min(1).max(100),
+	description: z.string().max(500).optional(),
 	minCapacity: z.number().int().min(0),
 	maxCapacity: z.number().int().min(1),
+	minAge: z.number().int().min(0).max(120).optional(),
 });
 
 /** Shift within a volunteer event */

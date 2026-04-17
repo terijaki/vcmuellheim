@@ -179,7 +179,12 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp, a
 									<Badge size="xs" color={count === 0 ? "red" : role.minCapacity > count ? "orange" : "green"} variant="light">
 										{count} / {role.minCapacity}
 									</Badge>
-								</Group>
+								</Group>{" "}
+								{role.description && (
+									<Text size="xs" c="dimmed" mt={4}>
+										{role.description}
+									</Text>
+								)}{" "}
 								{roleHelpers.length > 0 && (
 									<>
 										<Divider my="xs" />
@@ -234,6 +239,14 @@ type SignupFormProps = {
 };
 
 function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormProps) {
+	const shiftStartDate = event.shifts.find((s: { id: string }) => s.id === shiftId)?.startDate ?? new Date().toISOString();
+
+	const roleOptions = roles.map((r) => ({
+		value: r.id,
+		label: r.minAge ? `${r.label} (ab ${r.minAge} J.)` : r.label,
+		disabled: false as boolean,
+	}));
+
 	const mutation = useMutation({
 		mutationFn: (formData: Parameters<typeof createVolunteerSignupFn>[0]["data"]) => createVolunteerSignupFn({ data: formData }),
 		onSuccess,
@@ -262,8 +275,6 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 			});
 		},
 	});
-
-	const roleOptions = roles.map((r) => ({ value: r.id, label: r.label }));
 
 	return (
 		<form
@@ -310,29 +321,40 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 				</SimpleGrid>
 
 				{roles.length > 1 && (
-					<form.Field name="preferredRoleIds">
-						{(field) =>
-							roles.length <= 3 ? (
-								<Select
-									label="Bevorzugte Aufgabe"
-									required
-									data={roleOptions}
-									value={field.state.value[0] ?? null}
-									onChange={(val) => field.handleChange(val ? [val] : [])}
-									description="Wähle die Aufgabe aus, in der du helfen kannst."
-								/>
-							) : (
-								<MultiSelect
-									label="Bevorzugte Aufgaben (mind. 2)"
-									required
-									data={roleOptions}
-									value={field.state.value}
-									onChange={(val) => field.handleChange(val)}
-									description="Wähle mindestens 2 Aufgaben aus, in denen du helfen kannst."
-								/>
-							)
-						}
-					</form.Field>
+					<form.Subscribe selector={(state) => state.values.dateOfBirth}>
+						{(dateOfBirth) => {
+							const ageAtShift = dateOfBirth ? dayjs(shiftStartDate).diff(dayjs(dateOfBirth), "year") : null;
+							const computedRoleOptions = roleOptions.map((opt) => {
+								const role = roles.find((r) => r.id === opt.value);
+								return { ...opt, disabled: ageAtShift !== null && role?.minAge !== undefined && ageAtShift < role.minAge };
+							});
+							return (
+								<form.Field name="preferredRoleIds">
+									{(field) =>
+										roles.length <= 3 ? (
+											<Select
+												label="Bevorzugte Aufgabe"
+												required
+												data={computedRoleOptions}
+												value={field.state.value[0] ?? null}
+												onChange={(val) => field.handleChange(val ? [val] : [])}
+												description="Wähle die Aufgabe aus, in der du helfen kannst."
+											/>
+										) : (
+											<MultiSelect
+												label="Bevorzugte Aufgaben (mind. 2)"
+												required
+												data={computedRoleOptions}
+												value={field.state.value}
+												onChange={(val) => field.handleChange(val)}
+												description="Wähle mindestens 2 Aufgaben aus, in denen du helfen kannst."
+											/>
+										)
+									}
+								</form.Field>
+							);
+						}}
+					</form.Subscribe>
 				)}
 
 				<form.Field name="association">

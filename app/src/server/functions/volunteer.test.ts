@@ -159,6 +159,60 @@ describe("createVolunteerSignup", () => {
 		expect(mockSignupCreate).not.toHaveBeenCalled();
 		expect(mockTokenCreate).not.toHaveBeenCalled();
 	});
+
+	it("rejects signup when a preferred role has minAge and user is too young", async () => {
+		const restrictedEvent = {
+			...mockEvent,
+			shifts: [
+				{
+					...mockEvent.shifts[0],
+					// shift starts in 1 week; signupData.dateOfBirth = "1990-01-15" so user is ~35 — fine
+					// Use a 40-year minAge to trigger rejection
+					roles: [
+						{ id: roleId1, label: "Theke", minCapacity: 1, maxCapacity: 3, minAge: 40 },
+						{ id: roleId2, label: "Einlass", minCapacity: 1, maxCapacity: 2 },
+					],
+				},
+			],
+		};
+		mockEventGet.mockResolvedValue({ data: restrictedEvent });
+
+		// signupData selects roleId1 as first preference — fails minAge 40 for a ~35-year-old
+		await expect(createVolunteerSignup(signupData)).rejects.toThrow("Mindestalter");
+		expect(mockSignupCreate).not.toHaveBeenCalled();
+		expect(mockTokenCreate).not.toHaveBeenCalled();
+	});
+
+	it("allows signup when user meets the minAge requirement", async () => {
+		const restrictedEvent = {
+			...mockEvent,
+			shifts: [
+				{
+					...mockEvent.shifts[0],
+					roles: [
+						{ id: roleId1, label: "Theke", minCapacity: 1, maxCapacity: 3, minAge: 18 },
+						{ id: roleId2, label: "Einlass", minCapacity: 1, maxCapacity: 2 },
+					],
+				},
+			],
+		};
+		mockEventGet.mockResolvedValue({ data: restrictedEvent });
+		mockSignupCreate.mockResolvedValue({ data: makeSignup() });
+
+		// signupData.dateOfBirth = "1990-01-15", ~35 years old — well above 18
+		await createVolunteerSignup(signupData);
+		expect(mockSignupCreate).toHaveBeenCalledTimes(1);
+		expect(mockTokenCreate).toHaveBeenCalledTimes(1);
+	});
+
+	it("allows signup for a role with no minAge regardless of age", async () => {
+		// roleId2 has no minAge — only roleId2 is selected
+		const singleRoleData = { ...signupData, preferredRoleIds: [roleId2] };
+		mockSignupCreate.mockResolvedValue({ data: makeSignup({ preferredRoleIds: [roleId2] }) });
+
+		await createVolunteerSignup(singleRoleData);
+		expect(mockSignupCreate).toHaveBeenCalledTimes(1);
+	});
 });
 
 describe("verifyVolunteerToken", () => {

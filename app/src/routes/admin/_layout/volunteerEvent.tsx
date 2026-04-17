@@ -7,7 +7,29 @@
  *  - Signup dashboard grouped by shift (view signups, assign roles, force-confirm, move shift, delete)
  */
 
-import { ActionIcon, Badge, Box, Button, Card, Collapse, CopyButton, Divider, Group, Menu, Modal, NumberInput, Select, SimpleGrid, Stack, Table, Text, TextInput, Title, Tooltip } from "@mantine/core";
+import {
+	ActionIcon,
+	Badge,
+	Box,
+	Button,
+	Card,
+	Collapse,
+	CopyButton,
+	Divider,
+	Group,
+	Menu,
+	Modal,
+	NumberInput,
+	Select,
+	SimpleGrid,
+	Stack,
+	Table,
+	Text,
+	Textarea,
+	TextInput,
+	Title,
+	Tooltip,
+} from "@mantine/core";
 import { RichTextEditor } from "@mantine/tiptap";
 import { Link as LinkExtension } from "@tiptap/extension-link";
 import { useEditor } from "@tiptap/react";
@@ -51,8 +73,10 @@ export const Route = createFileRoute("/admin/_layout/volunteerEvent")({
 type RoleFormValue = {
 	id: string;
 	label: string;
+	description: string;
 	minCapacity: number;
 	maxCapacity: number;
+	minAge: number | null;
 };
 
 type ShiftFormValue = {
@@ -142,7 +166,7 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 	const [pendingDeleteIndex, setPendingDeleteIndex] = useState<number | null>(null);
 
 	const addRole = () => {
-		onRolesChange([...roles, { id: crypto.randomUUID(), label: "", minCapacity: 1, maxCapacity: 5 }]);
+		onRolesChange([...roles, { id: crypto.randomUUID(), label: "", description: "", minCapacity: 1, maxCapacity: 5, minAge: null }]);
 	};
 
 	const requestRemoveRole = (index: number) => {
@@ -190,22 +214,44 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 				{roles.map((role, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: roles use stable IDs generated on add
 					<Card key={role.id} withBorder p="xs">
-						<Group gap="xs" align="flex-end">
-							<TextInput
+						<Stack gap="xs">
+							<Group gap="xs" align="flex-end">
+								<TextInput
+									size="xs"
+									label="Bezeichnung"
+									required
+									placeholder="z. B. Theke, Einlass, Küche"
+									value={role.label}
+									onChange={(e) => updateRole(index, { label: e.target.value })}
+									style={{ flex: 1 }}
+								/>
+								<NumberInput size="xs" label="Min" min={1} value={role.minCapacity} onChange={(val) => updateRole(index, { minCapacity: Number(val) || 1 })} w={70} />
+								<NumberInput size="xs" label="Max" min={1} value={role.maxCapacity} onChange={(val) => updateRole(index, { maxCapacity: Number(val) || 1 })} w={70} />
+								<NumberInput
+									size="xs"
+									label="Mindestalter"
+									min={0}
+									max={120}
+									value={role.minAge ?? ""}
+									onChange={(val) => updateRole(index, { minAge: val === "" ? null : Number(val) })}
+									w={100}
+									placeholder="–"
+									allowDecimal={false}
+								/>
+								<ActionIcon size="sm" color="red" variant="subtle" onClick={() => requestRemoveRole(index)} mb={2}>
+									<Trash2 size={14} />
+								</ActionIcon>
+							</Group>
+							<Textarea
 								size="xs"
-								label="Bezeichnung"
-								required
-								placeholder="z. B. Theke, Einlass, Küche"
-								value={role.label}
-								onChange={(e) => updateRole(index, { label: e.target.value })}
-								style={{ flex: 1 }}
+								label="Beschreibung (optional)"
+								placeholder="z. B. Getränke ausgeben, Kasse bedienen"
+								value={role.description}
+								onChange={(e) => updateRole(index, { description: e.target.value })}
+								autosize
+								maxRows={3}
 							/>
-							<NumberInput size="xs" label="Min" min={1} value={role.minCapacity} onChange={(val) => updateRole(index, { minCapacity: Number(val) || 1 })} w={70} />
-							<NumberInput size="xs" label="Max" min={1} value={role.maxCapacity} onChange={(val) => updateRole(index, { maxCapacity: Number(val) || 1 })} w={70} />
-							<ActionIcon size="sm" color="red" variant="subtle" onClick={() => requestRemoveRole(index)} mb={2}>
-								<Trash2 size={14} />
-							</ActionIcon>
-						</Group>
+						</Stack>
 					</Card>
 				))}
 			</Stack>
@@ -238,7 +284,7 @@ function deserializeShifts(shifts: VolunteerEvent["shifts"]): ShiftFormValue[] {
 		label: s.label,
 		startDate: new Date(s.startDate),
 		endDate: s.endDate ? new Date(s.endDate) : null,
-		roles: s.roles.map((r) => ({ ...r })),
+		roles: s.roles.map((r) => ({ ...r, description: r.description ?? "", minAge: r.minAge ?? null })),
 	}));
 }
 

@@ -9,6 +9,7 @@
  * createServerFn wrappers from volunteer.ts.
  */
 
+import dayjs from "dayjs";
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { volunteerEventSchema, volunteerSignupDataSchema, volunteerSignupSchema, volunteerTokenSchema } from "@/lib/db/schemas";
@@ -101,6 +102,15 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
 	const shift = event.shifts.find((s) => s.id === data.shiftId);
 	if (!shift) throw new Error("Shift not found");
 	if (new Date(shift.startDate) <= new Date()) throw new Error("This shift has already started");
+
+	// Validate minimum age requirements for each preferred role
+	const ageAtShift = dayjs(shift.startDate).diff(dayjs(data.dateOfBirth), "year");
+	for (const roleId of data.preferredRoleIds) {
+		const role = shift.roles.find((r) => r.id === roleId);
+		if (role?.minAge !== undefined && ageAtShift < role.minAge) {
+			throw new Error(`Du erfüllst nicht das Mindestalter für die Aufgabe: ${role.label}`);
+		}
+	}
 
 	// Create token (always)
 	const tokenId = crypto.randomUUID();
@@ -204,7 +214,10 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 				roleCountMap[s.assignedRoleId] = (roleCountMap[s.assignedRoleId] ?? 0) + 1;
 			}
 		}
-		const availableRole = signupData.preferredRoleIds.map((rid) => shift.roles.find((r) => r.id === rid)).find((role) => role !== undefined && (roleCountMap[role.id] ?? 0) < role.maxCapacity);
+		const userAgeAtShift = dayjs(shift.startDate).diff(dayjs(signupData.dateOfBirth), "year");
+		const availableRole = signupData.preferredRoleIds
+			.map((rid) => shift.roles.find((r) => r.id === rid))
+			.find((role) => role !== undefined && (roleCountMap[role.id] ?? 0) < role.maxCapacity && (role.minAge === undefined || userAgeAtShift >= role.minAge));
 		if (availableRole) {
 			await db().volunteerSignup.patch({ id: signup.id }).set({ assignedRoleId: availableRole.id, updatedAt: new Date().toISOString() }).go();
 			signup = { ...signup, assignedRoleId: availableRole.id };
