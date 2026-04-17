@@ -314,13 +314,13 @@ describe("verifyVolunteerToken", () => {
 		expect(mockSignupPatch).not.toHaveBeenCalled();
 	});
 
-	it("does NOT send a receipt email when the signup was already confirmed (idempotency)", async () => {
-		// Simulate a signup that is already confirmed — e.g. a second concurrent verification call
+	it("sends a receipt email even when the signup was already confirmed (re-signup confirmation)", async () => {
+		// User signs up again for the same shift — existing signup is already confirmed
 		mockSignupQuery.mockResolvedValue({ data: [makeSignup({ status: "confirmed" })] });
 
 		await verifyVolunteerToken({ tokenId });
 
-		expect(vi.mocked(sendVolunteerReceiptEmail)).not.toHaveBeenCalled();
+		expect(vi.mocked(sendVolunteerReceiptEmail)).toHaveBeenCalledTimes(1);
 	});
 
 	it("rejects an expired token", async () => {
