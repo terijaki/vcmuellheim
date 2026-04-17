@@ -213,6 +213,22 @@ describe("createVolunteerSignup", () => {
 		await createVolunteerSignup(singleRoleData);
 		expect(mockSignupCreate).toHaveBeenCalledTimes(1);
 	});
+
+	it("rejects signup for a minor without emergency contact", async () => {
+		const minorSignupData = { ...signupData, dateOfBirth: "2010-01-15" };
+		await expect(createVolunteerSignup(minorSignupData)).rejects.toThrow("Notfall-Kontaktnummer");
+		expect(mockSignupCreate).not.toHaveBeenCalled();
+		expect(mockTokenCreate).not.toHaveBeenCalled();
+	});
+
+	it("allows signup for a minor with emergency contact provided", async () => {
+		const minorSignupData = { ...signupData, dateOfBirth: "2010-01-15", emergencyContact: "0151 12345678" };
+		mockSignupCreate.mockResolvedValue({ data: makeSignup() });
+
+		await createVolunteerSignup(minorSignupData);
+		expect(mockSignupCreate).toHaveBeenCalledTimes(1);
+		expect(mockTokenCreate).toHaveBeenCalledTimes(1);
+	});
 });
 
 describe("verifyVolunteerToken", () => {

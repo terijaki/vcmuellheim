@@ -18,6 +18,17 @@ import { useEffect, useRef, useState } from "react";
 import { createVolunteerSignupFn, getPublicVolunteerEventFn, verifyVolunteerTokenFn } from "@webapp/server/functions/volunteer";
 import type { VolunteerEvent } from "@/lib/db/types";
 import { volunteerSignupDataSchema } from "@/lib/db/schemas";
+import { z } from "zod";
+
+// volunteerSignupDataSchema requires dateOfBirth as non-nullable string (server-side),
+// but the form initialises dateOfBirth as null until the user picks a date.
+// mobilePhone/emergencyContact are optional in the Zod schema (?:) but the form tracks them
+// as required-with-undefined to satisfy TanStack Form’s StandardSchemaV1 check.
+const volunteerFormSchema = volunteerSignupDataSchema.extend({
+	dateOfBirth: volunteerSignupDataSchema.shape.dateOfBirth.nullable(),
+	mobilePhone: z.union([z.string().trim().max(30), z.undefined()]),
+	emergencyContact: z.union([z.string().trim().max(30), z.undefined()]),
+});
 
 dayjs.locale("de");
 
@@ -297,10 +308,12 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 			dateOfBirth: null as string | null,
 			preferredRoleIds: (roles.length === 1 ? [roles[0].id] : []) as string[],
 			association: "",
+			mobilePhone: undefined as string | undefined,
+			emergencyContact: undefined as string | undefined,
 		},
 		validators: {
-			onChange: volunteerSignupDataSchema,
-			onSubmit: volunteerSignupDataSchema,
+			onChange: volunteerFormSchema,
+			onSubmit: volunteerFormSchema,
 		},
 		onSubmit: async ({ value }) => {
 			if (!value.dateOfBirth) return;
@@ -311,6 +324,8 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 				dateOfBirth: dayjs(value.dateOfBirth).format("YYYY-MM-DD"),
 				preferredRoleIds: value.preferredRoleIds,
 				association: value.association,
+				mobilePhone: value.mobilePhone || undefined,
+				emergencyContact: value.emergencyContact || undefined,
 				eventId: event.id,
 				shiftId,
 			});
@@ -343,6 +358,10 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 						{(field) => (
 							<TextInput label="E-Mail-Adresse" type="email" required withAsterisk={false} autoComplete="email" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
 						)}
+					</form.Field>
+
+					<form.Field name="mobilePhone">
+						{(field) => <TextInput label="Handynummer" type="tel" autoComplete="tel" value={field.state.value ?? ""} onChange={(e) => field.handleChange(e.target.value || undefined)} />}
 					</form.Field>
 
 					<form.Field
@@ -431,19 +450,54 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 					</form.Subscribe>
 				)}
 
+				<form.Subscribe selector={(state) => state.values.dateOfBirth}>
+					{(dateOfBirth) => {
+						const ageAtShift = dateOfBirth ? dayjs(shiftStartDate).diff(dayjs(dateOfBirth), "year") : null;
+						if (ageAtShift === null || ageAtShift >= 18) return null;
+						return (
+							<form.Field
+								name="emergencyContact"
+								validators={{
+									onChangeListenTo: ["dateOfBirth"],
+									onChange: ({ value }) => {
+										const dob = form.getFieldValue("dateOfBirth");
+										const age = dob ? dayjs(shiftStartDate).diff(dayjs(dob), "year") : null;
+										if (age !== null && age < 18 && !value) {
+											return "Bitte gib eine Notfall-Kontaktnummer an.";
+										}
+									},
+								}}
+							>
+								{(field) => (
+									<TextInput
+										label="Notfall-Kontaktnummer (Erziehungsberechtigte/r)"
+										type="tel"
+										autoComplete="tel"
+										required
+										withAsterisk={false}
+										placeholder="z. B. 0151 12345678"
+										value={field.state.value ?? ""}
+										onChange={(e) => field.handleChange(e.target.value || undefined)}
+										description="Da du unter 18 Jahre alt bist, ist eine Notfall-Kontaktnummer erforderlich."
+										error={field.state.meta.errors[0]?.toString()}
+									/>
+								)}
+							</form.Field>
+						);
+					}}
+				</form.Subscribe>
+
 				<form.Field name="association">
 					{(field) => <TextInput label="Vereinszugehörigkeit" placeholder="z. B. Mitglied, Familie, Freund/in, …" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
 				</form.Field>
 
-				{mutation.isError && <Alert color="red">{mutation.error instanceof Error ? mutation.error.message : "Ein Fehler ist aufgetreten."}</Alert>}
-
-				<form.Subscribe selector={(state) => ({ isValid: state.isValid, isDirty: state.isDirty })}>
-					{({ isValid, isDirty }) => (
+				<form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
+					{([canSubmit, isSubmitting]) => (
 						<Group justify="flex-end" gap="sm">
 							<Button variant="subtle" onClick={onCancel} disabled={mutation.isPending}>
 								Abbrechen
 							</Button>
-							<Button type="submit" loading={mutation.isPending} disabled={!isDirty || !isValid}>
+							<Button type="submit" loading={isSubmitting || mutation.isPending} disabled={!canSubmit || isSubmitting}>
 								Anmelden für {shiftLabel}
 							</Button>
 						</Group>

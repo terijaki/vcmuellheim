@@ -230,6 +230,8 @@ export const volunteerSignupDataSchema = z.object({
 	dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
 	preferredRoleIds: z.array(z.uuid()).min(1),
 	association: z.string().trim().max(500),
+	mobilePhone: z.string().trim().max(30).optional().describe("Optional mobile phone number of the volunteer"),
+	emergencyContact: z.string().trim().max(30).optional().describe("Emergency contact phone number — required for minors (under 18 at shift start)"),
 	eventId: z.uuid(),
 	shiftId: z.uuid(),
 });
@@ -246,6 +248,8 @@ export const volunteerSignupSchema = z.object({
 	dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
 	preferredRoleIds: z.array(z.uuid()).min(1),
 	association: z.string().max(500).trim(),
+	mobilePhone: z.string().trim().max(30).optional().describe("Optional mobile phone number of the volunteer"),
+	emergencyContact: z.string().trim().max(30).optional().describe("Emergency contact phone number — required for minors (under 18 at shift start)"),
 	status: z.enum(["pending", "confirmed"]),
 	assignedRoleId: z.uuid().optional().describe("Role assigned by admin, overrides helper preference"),
 });

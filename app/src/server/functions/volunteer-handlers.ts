@@ -119,6 +119,11 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
 		}
 	}
 
+	// Emergency contact is required for minors (under 18 at shift start)
+	if (ageAtShift < 18 && !data.emergencyContact) {
+		throw new Error("Für Minderjährige ist eine Notfall-Kontaktnummer erforderlich");
+	}
+
 	// Create token (always)
 	const tokenId = crypto.randomUUID();
 	const ttl = Math.floor(Date.now() / 1000) + TOKEN_TTL_SECONDS;
@@ -197,6 +202,8 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 				preferredRoleIds: signupData.preferredRoleIds,
 				association: signupData.association,
 				dateOfBirth: signupData.dateOfBirth,
+				mobilePhone: signupData.mobilePhone,
+				emergencyContact: signupData.emergencyContact,
 				status: "confirmed",
 				updatedAt: new Date().toISOString(),
 			})

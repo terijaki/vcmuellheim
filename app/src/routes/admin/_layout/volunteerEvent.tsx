@@ -665,6 +665,13 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 														<Box fz="xs" c="dimmed" mb={4}>
 															{preferredLabels || ""}
 														</Box>
+														{(signup.mobilePhone || signup.emergencyContact) && (
+															<Box fz="xs" c="dimmed" mb={4}>
+																{signup.mobilePhone && <span>Handy: {signup.mobilePhone}</span>}
+																{signup.mobilePhone && signup.emergencyContact && " · "}
+																{signup.emergencyContact && <span>Notfall: {signup.emergencyContact}</span>}
+															</Box>
+														)}
 														<Group gap="xs">
 															<Select
 																size="sm"
@@ -729,6 +736,8 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 													<Table.Th>Name</Table.Th>
 													<Table.Th>E-Mail</Table.Th>
 													<Table.Th>Alter</Table.Th>
+													<Table.Th>Handy</Table.Th>
+													<Table.Th>Notfall</Table.Th>
 													<Table.Th>Bevorzugte Aufgaben</Table.Th>
 													<Table.Th>Status</Table.Th>
 													<Table.Th>Zugewiesene Rolle</Table.Th>
@@ -762,6 +771,28 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																<Badge size="xs" variant="light" color={ageColor}>
 																	{ageAtEvent}
 																</Badge>
+															</Table.Td>
+															<Table.Td>
+																{signup.mobilePhone ? (
+																	<Text size="xs" component="a" href={`tel:${signup.mobilePhone}`}>
+																		{signup.mobilePhone}
+																	</Text>
+																) : (
+																	<Text size="xs" c="dimmed">
+																		–
+																	</Text>
+																)}
+															</Table.Td>
+															<Table.Td>
+																{signup.emergencyContact ? (
+																	<Text size="xs" component="a" href={`tel:${signup.emergencyContact}`}>
+																		{signup.emergencyContact}
+																	</Text>
+																) : (
+																	<Text size="xs" c="dimmed">
+																		–
+																	</Text>
+																)}
 															</Table.Td>
 															<Table.Td>{preferredLabels}</Table.Td>
 															<Table.Td>
