@@ -286,6 +286,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 			title: editingEvent?.title ?? "",
 			description: editingEvent?.description ?? "",
 			location: editingEvent?.location ?? "",
+			locationUrl: editingEvent?.locationUrl ?? "",
 		},
 		onSubmit: async ({ value }) => {
 			const serializedShifts = serializeShifts(shifts);
@@ -297,6 +298,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 						title: value.title,
 						description: value.description || undefined,
 						location: value.location || undefined,
+						locationUrl: value.locationUrl || undefined,
 						shifts: serializedShifts,
 					},
 				});
@@ -306,6 +308,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 					title: value.title,
 					description: value.description || undefined,
 					location: value.location || undefined,
+					locationUrl: value.locationUrl || undefined,
 					shifts: serializedShifts,
 				});
 			}
@@ -348,7 +351,9 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 						</RichTextEditor>
 					</Box>
 					<form.Field name="location">{(field) => <TextInput label="Ort (optional)" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
-
+					<form.Field name="locationUrl">
+						{(field) => <TextInput label="Link zum Ort (optional)" placeholder="https://maps.google.com/..." value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+					</form.Field>
 					<Divider label="Schichten" />
 					<ShiftsManager shifts={shifts} onShiftsChange={setShifts} />
 
@@ -755,7 +760,14 @@ function VolunteerEventAdminPage() {
 									<div>
 										<Title order={4}>{event.title}</Title>
 										{event.location && (
-											<Text size="sm" c="dimmed">
+											<Text
+												size="sm"
+												c="dimmed"
+												component={event.locationUrl ? "a" : "span"}
+												href={event.locationUrl ?? undefined}
+												target={event.locationUrl ? "_blank" : undefined}
+												rel={event.locationUrl ? "noopener noreferrer" : undefined}
+											>
 												{event.location}
 											</Text>
 										)}

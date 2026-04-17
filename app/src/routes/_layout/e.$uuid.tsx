@@ -96,9 +96,15 @@ function VolunteerEventPage() {
 							{event.location && (
 								<Group gap="xs">
 									<MapPin size={16} />
-									<Text size="sm" c="dimmed">
-										{event.location}
-									</Text>
+									{event.locationUrl ? (
+										<Text size="sm" c="dimmed" component="a" href={event.locationUrl} target="_blank" rel="noopener noreferrer">
+											{event.location}
+										</Text>
+									) : (
+										<Text size="sm" c="dimmed">
+											{event.location}
+										</Text>
+									)}
 								</Group>
 							)}
 						</Stack>

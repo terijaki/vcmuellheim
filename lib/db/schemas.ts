@@ -214,6 +214,7 @@ export const volunteerEventSchema = z.object({
 	title: z.string().min(1).max(200),
 	description: z.string().optional(),
 	location: z.string().optional(),
+	locationUrl: z.string().optional().describe("Optional URL for the location (e.g. Google Maps link)"),
 	shifts: z.array(volunteerShiftSchema),
 });
 

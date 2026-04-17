@@ -365,6 +365,7 @@ export const VolunteerEventEntity = new Entity({
 		title: { type: "string", required: true },
 		description: { type: "string" },
 		location: { type: "string" },
+		locationUrl: { type: "string" },
 		shifts: { type: "any", required: true },
 		createdAt: { type: "string", required: true },
 		updatedAt: { type: "string", required: true },
