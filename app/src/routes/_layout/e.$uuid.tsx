@@ -338,22 +338,35 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 				</Text>
 				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
 					<form.Field name="firstName">
-						{(field) => <TextInput label="Vorname" required withAsterisk={false} autoComplete="given-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+						{(field) => (
+							<TextInput label="Vorname" required withAsterisk={false} name="given-name" autoComplete="given-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+						)}
 					</form.Field>
 					<form.Field name="lastName">
-						{(field) => <TextInput label="Nachname" required withAsterisk={false} autoComplete="family-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+						{(field) => (
+							<TextInput label="Nachname" required withAsterisk={false} name="family-name" autoComplete="family-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+						)}
 					</form.Field>
 				</SimpleGrid>
 
 				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
 					<form.Field name="email">
 						{(field) => (
-							<TextInput label="E-Mail-Adresse" type="email" required withAsterisk={false} autoComplete="email" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+							<TextInput
+								label="E-Mail-Adresse"
+								type="email"
+								required
+								withAsterisk={false}
+								name="email"
+								autoComplete="email"
+								value={field.state.value}
+								onChange={(e) => field.handleChange(e.target.value)}
+							/>
 						)}
 					</form.Field>
 
 					<form.Field name="mobilePhone">
-						{(field) => <TextInput label="Handynummer" type="tel" autoComplete="tel" value={field.state.value ?? ""} onChange={(e) => field.handleChange(e.target.value || undefined)} />}
+						{(field) => <TextInput label="Handynummer" type="tel" name="tel" autoComplete="tel" value={field.state.value ?? ""} onChange={(e) => field.handleChange(e.target.value || undefined)} />}
 					</form.Field>
 
 					<form.Field
@@ -377,6 +390,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 							<DatePickerInput
 								defaultLevel="decade"
 								label="Geburtsdatum"
+								name="bday"
 								required
 								withAsterisk={false}
 								value={field.state.value}
