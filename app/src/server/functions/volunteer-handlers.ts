@@ -162,13 +162,19 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
 
 export async function verifyVolunteerToken(data: { tokenId: string }) {
 	const tokenResult = await db().volunteerToken.get({ id: data.tokenId }).go();
-	if (!tokenResult.data) throw new Error("Token not found or expired");
+	if (!tokenResult.data) {
+		console.warn("[verifyVolunteerToken] Token not found:", data.tokenId);
+		return { success: false, shiftId: null };
+	}
 
 	const token = parseServerData(volunteerTokenSchema, tokenResult.data, "Failed to parse token");
 
 	// Check TTL manually (DDB may not have removed it yet in fast tests)
 	const nowSeconds = Math.floor(Date.now() / 1000);
-	if (token.ttl < nowSeconds) throw new Error("Token has expired");
+	if (token.ttl < nowSeconds) {
+		console.warn("[verifyVolunteerToken] Token expired:", data.tokenId);
+		return { success: false, shiftId: null };
+	}
 
 	const signupData = token.signupData;
 

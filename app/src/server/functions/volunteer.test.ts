@@ -323,17 +323,22 @@ describe("verifyVolunteerToken", () => {
 		expect(vi.mocked(sendVolunteerReceiptEmail)).toHaveBeenCalledTimes(1);
 	});
 
-	it("rejects an expired token", async () => {
+	it("returns success:false for an expired token without throwing", async () => {
 		mockTokenGet.mockResolvedValue({ data: { ...mockToken, ttl: expiredTtl } });
 
-		await expect(verifyVolunteerToken({ tokenId })).rejects.toThrow("expired");
+		const result = await verifyVolunteerToken({ tokenId });
+		expect(result.success).toBe(false);
 		expect(mockSignupCreate).not.toHaveBeenCalled();
+		expect(vi.mocked(sendVolunteerReceiptEmail)).not.toHaveBeenCalled();
 	});
 
-	it("rejects a missing token", async () => {
+	it("returns success:false for a missing token without throwing", async () => {
 		mockTokenGet.mockResolvedValue({ data: null });
 
-		await expect(verifyVolunteerToken({ tokenId })).rejects.toThrow("not found");
+		const result = await verifyVolunteerToken({ tokenId });
+		expect(result.success).toBe(false);
+		expect(mockSignupCreate).not.toHaveBeenCalled();
+		expect(vi.mocked(sendVolunteerReceiptEmail)).not.toHaveBeenCalled();
 	});
 });
 

@@ -96,14 +96,14 @@ function VolunteerEventPage() {
 							Bitte warten.
 						</Alert>
 					)}
-					{verifyMutation.isSuccess && (
+					{verifyMutation.isSuccess && verifyMutation.data?.success && (
 						<Alert color="green" icon={<CheckCircle size={18} />} title="Anmeldung bestätigt!">
 							Deine Anmeldung wurde erfolgreich bestätigt. Du erhältst in Kürze eine Bestätigungsmail mit dem Termin.
 						</Alert>
 					)}
-					{verifyMutation.isError && (
-						<Alert color="red" title="Bestätigung fehlgeschlagen">
-							{verifyMutation.error instanceof Error ? verifyMutation.error.message : "Ungültiger oder abgelaufener Link."}
+					{verifyMutation.isSuccess && !verifyMutation.data?.success && (
+						<Alert color="orange" title="Link ungültig oder abgelaufen">
+							Dieser Bestätigungslink ist ungültig oder bereits abgelaufen. Bitte melde dich erneut an, um einen neuen Link zu erhalten.
 						</Alert>
 					)}
 
