@@ -44,7 +44,7 @@ export type PublicSignupSummary = {
 	/** "FirstName L." */
 	displayName: string;
 	shiftId: string;
-	/** roleId the admin assigned, or first preferred role if not yet assigned */
+	/** roleId explicitly assigned by admin; null means benched (confirmed but awaiting assignment) */
 	roleId: string | null;
 };
 
@@ -68,19 +68,19 @@ export async function getPublicVolunteerEvent(data: { id: string }): Promise<Pub
 
 	for (const signup of allSignups) {
 		if (signup.status === "confirmed") {
-			// Signup counts
-			if (!signupCounts[signup.shiftId]) signupCounts[signup.shiftId] = {};
-			const roleIds = signup.assignedRoleId ? [signup.assignedRoleId] : signup.preferredRoleIds;
-			for (const roleId of roleIds) {
-				signupCounts[signup.shiftId][roleId] = (signupCounts[signup.shiftId][roleId] ?? 0) + 1;
+			// Signup counts — only count explicitly assigned roles (no fallback to preferred)
+			// Signups without an assignedRoleId are "benched": confirmed but not yet placed.
+			if (signup.assignedRoleId) {
+				if (!signupCounts[signup.shiftId]) signupCounts[signup.shiftId] = {};
+				signupCounts[signup.shiftId][signup.assignedRoleId] = (signupCounts[signup.shiftId][signup.assignedRoleId] ?? 0) + 1;
 			}
 
-			// "Erika M." display name
+			// "Erika M." display name; roleId null = benched
 			const lastInitial = signup.lastName.charAt(0).toUpperCase();
 			confirmedHelpers.push({
 				displayName: `${signup.firstName} ${lastInitial}.`,
 				shiftId: signup.shiftId,
-				roleId: signup.assignedRoleId ?? signup.preferredRoleIds[0] ?? null,
+				roleId: signup.assignedRoleId ?? null,
 			});
 		}
 	}
@@ -191,6 +191,24 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 		});
 		await db().volunteerSignup.create(newSignup).go();
 		signup = parseServerData(volunteerSignupSchema, newSignup, "Failed to parse signup");
+	}
+
+	// Auto-assign to first preferred role with available capacity
+	const shift = event.shifts.find((s) => s.id === signupData.shiftId);
+	if (shift && shift.roles.length > 0) {
+		// Build a count of confirmed+assigned signups for this shift (excluding the one just confirmed)
+		const allShiftSignups = await getSignupsForEvent(signupData.eventId);
+		const roleCountMap: Record<string, number> = {};
+		for (const s of allShiftSignups) {
+			if (s.status === "confirmed" && s.assignedRoleId && s.shiftId === signupData.shiftId && s.id !== signup.id) {
+				roleCountMap[s.assignedRoleId] = (roleCountMap[s.assignedRoleId] ?? 0) + 1;
+			}
+		}
+		const availableRole = signupData.preferredRoleIds.map((rid) => shift.roles.find((r) => r.id === rid)).find((role) => role !== undefined && (roleCountMap[role.id] ?? 0) < role.maxCapacity);
+		if (availableRole) {
+			await db().volunteerSignup.patch({ id: signup.id }).set({ assignedRoleId: availableRole.id, updatedAt: new Date().toISOString() }).go();
+			signup = { ...signup, assignedRoleId: availableRole.id };
+		}
 	}
 
 	// Delete token

@@ -5,7 +5,7 @@
  * Handles ?token= query param for email verification.
  */
 
-import { Alert, Badge, Button, Card, Container, Divider, Group, Loader, MultiSelect, Select, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Alert, Badge, Button, Card, Container, Divider, Group, Loader, MultiSelect, Select, SimpleGrid, Stack, Text, TextInput, Title, Typography } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
@@ -87,7 +87,12 @@ function VolunteerEventPage() {
 					{/* Event meta */}
 					<Card>
 						<Stack gap="xs">
-							{event.description && <Text>{event.description}</Text>}
+							{event.description && (
+								<Typography>
+									{/* biome-ignore lint/security/noDangerouslySetInnerHtml: description is author-supplied rich text */}
+									<div dangerouslySetInnerHTML={{ __html: event.description }} />
+								</Typography>
+							)}
 							{event.location && (
 								<Group gap="xs">
 									<MapPin size={16} />

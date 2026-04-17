@@ -7,29 +7,11 @@
  *  - Signup dashboard grouped by shift (view signups, assign roles, force-confirm, move shift, delete)
  */
 
-import {
-	ActionIcon,
-	Badge,
-	Box,
-	Button,
-	Card,
-	Collapse,
-	CopyButton,
-	Divider,
-	Group,
-	Menu,
-	Modal,
-	NumberInput,
-	Select,
-	SimpleGrid,
-	Stack,
-	Table,
-	Text,
-	Textarea,
-	TextInput,
-	Title,
-	Tooltip,
-} from "@mantine/core";
+import { ActionIcon, Badge, Box, Button, Card, Collapse, CopyButton, Divider, Group, Menu, Modal, NumberInput, Select, SimpleGrid, Stack, Table, Text, TextInput, Title, Tooltip } from "@mantine/core";
+import { RichTextEditor } from "@mantine/tiptap";
+import { Link as LinkExtension } from "@tiptap/extension-link";
+import { useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 import { DateTimePicker } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useForm } from "@tanstack/react-form-start";
@@ -49,7 +31,7 @@ import {
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { ArrowLeftRight, ChevronDown, ChevronUp, ClipboardCopy, Link, Mail, Plus, SquarePen, Trash2, SquareCheckBig } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { VolunteerEvent } from "@/lib/db/types";
 
 dayjs.locale("de");
@@ -263,6 +245,15 @@ function deserializeShifts(shifts: VolunteerEvent["shifts"]): ShiftFormValue[] {
 function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: boolean; onClose: () => void; editingEvent: VolunteerEvent | null; onSaved: () => void }) {
 	const notification = useNotification();
 
+	const editor = useEditor({
+		extensions: [StarterKit, LinkExtension],
+		content: editingEvent?.description ?? "",
+		immediatelyRender: false,
+		onUpdate: ({ editor }) => {
+			form.setFieldValue("description", editor.getHTML());
+		},
+	});
+
 	const createMutation = useMutation({
 		mutationFn: (data: Parameters<typeof createVolunteerEventFn>[0]["data"]) => createVolunteerEventFn({ data }),
 		onSuccess: () => {
@@ -284,6 +275,11 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 	});
 
 	const [shifts, setShifts] = useState<ShiftFormValue[]>(() => (editingEvent ? deserializeShifts(editingEvent.shifts) : []));
+
+	// Sync editor content when editingEvent changes (e.g. when modal re-opens for a different event)
+	useEffect(() => {
+		editor?.commands.setContent(editingEvent?.description ?? "");
+	}, [editingEvent, editor]);
 
 	const form = useForm({
 		defaultValues: {
@@ -328,9 +324,29 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 			>
 				<Stack gap="md">
 					<form.Field name="title">{(field) => <TextInput label="Titel" required value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
-					<form.Field name="description">
-						{(field) => <Textarea label="Beschreibung (optional)" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} autosize minRows={2} />}
-					</form.Field>
+					<Box>
+						<Text size="sm" fw={500} mb="xs">
+							Beschreibung (optional)
+						</Text>
+						<RichTextEditor editor={editor} styles={{ content: { "& .ProseMirror": { minHeight: 100 } } }}>
+							<RichTextEditor.Toolbar sticky stickyOffset={60}>
+								<RichTextEditor.ControlsGroup>
+									<RichTextEditor.Bold />
+									<RichTextEditor.Italic />
+									<RichTextEditor.ClearFormatting />
+								</RichTextEditor.ControlsGroup>
+								<RichTextEditor.ControlsGroup>
+									<RichTextEditor.BulletList />
+									<RichTextEditor.OrderedList />
+								</RichTextEditor.ControlsGroup>
+								<RichTextEditor.ControlsGroup>
+									<RichTextEditor.Link />
+									<RichTextEditor.Unlink />
+								</RichTextEditor.ControlsGroup>
+							</RichTextEditor.Toolbar>
+							<RichTextEditor.Content />
+						</RichTextEditor>
+					</Box>
 					<form.Field name="location">{(field) => <TextInput label="Ort (optional)" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
 
 					<Divider label="Schichten" />

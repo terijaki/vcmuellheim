@@ -201,10 +201,63 @@ describe("verifyVolunteerToken", () => {
 
 		await verifyVolunteerToken({ tokenId });
 
-		expect(mockSignupPatch).toHaveBeenCalledTimes(1);
+		// At least once for the upsert; auto-assign may add another patch
+		expect(mockSignupPatch).toHaveBeenCalled();
 		expect(mockSignupCreate).not.toHaveBeenCalled();
 		expect(mockTokenDelete).toHaveBeenCalledTimes(1);
 		expect(vi.mocked(sendVolunteerReceiptEmail)).toHaveBeenCalledTimes(1);
+	});
+
+	it("auto-assigns to first preferred role with available capacity on confirmation", async () => {
+		// No existing signups → brand-new confirmed signup, no competition for roles
+		mockSignupQuery.mockResolvedValue({ data: [] });
+		const newSignup = makeSignup({ status: "confirmed" });
+		mockSignupCreate.mockResolvedValue({ data: newSignup });
+
+		const result = await verifyVolunteerToken({ tokenId });
+
+		expect(result.success).toBe(true);
+		// auto-assign patch should have been called with roleId1 (first preferred, has capacity)
+		expect(mockSignupPatch).toHaveBeenCalledTimes(1);
+	});
+
+	it("skips a full role and auto-assigns to the next available preferred role", async () => {
+		// roleId1 is already at maxCapacity (3); roleId2 still has room (maxCapacity 2)
+		const fullRoleSignups = [
+			makeSignup({ id: "ff111111-1111-4111-8111-111111111111", status: "confirmed", assignedRoleId: roleId1 }),
+			makeSignup({ id: "ff222222-2222-4222-8222-222222222222", status: "confirmed", assignedRoleId: roleId1 }),
+			makeSignup({ id: "ff333333-3333-4333-8333-333333333333", status: "confirmed", assignedRoleId: roleId1 }),
+		];
+		// First call: no existing signup for this email+shift. Subsequent call: for auto-assign count.
+		mockSignupQuery.mockResolvedValueOnce({ data: [] }).mockResolvedValue({ data: fullRoleSignups });
+		const newSignup = makeSignup({ status: "confirmed" });
+		mockSignupCreate.mockResolvedValue({ data: newSignup });
+
+		const result = await verifyVolunteerToken({ tokenId });
+
+		expect(result.success).toBe(true);
+		// auto-assign patch called once, targeting roleId2
+		expect(mockSignupPatch).toHaveBeenCalledTimes(1);
+	});
+
+	it("does not auto-assign if all preferred roles are at capacity", async () => {
+		// Both roles at max capacity
+		const fullSignups = [
+			makeSignup({ id: "ff111111-1111-4111-8111-111111111111", status: "confirmed", assignedRoleId: roleId1 }),
+			makeSignup({ id: "ff222222-2222-4222-8222-222222222222", status: "confirmed", assignedRoleId: roleId1 }),
+			makeSignup({ id: "ff333333-3333-4333-8333-333333333333", status: "confirmed", assignedRoleId: roleId1 }),
+			makeSignup({ id: "ff444444-4444-4444-8444-444444444444", status: "confirmed", assignedRoleId: roleId2 }),
+			makeSignup({ id: "ff555555-5555-4555-8555-555555555555", status: "confirmed", assignedRoleId: roleId2 }),
+		];
+		mockSignupQuery.mockResolvedValueOnce({ data: [] }).mockResolvedValue({ data: fullSignups });
+		const newSignup = makeSignup({ status: "confirmed" });
+		mockSignupCreate.mockResolvedValue({ data: newSignup });
+
+		const result = await verifyVolunteerToken({ tokenId });
+
+		expect(result.success).toBe(true);
+		// No auto-assign patch since all roles full
+		expect(mockSignupPatch).not.toHaveBeenCalled();
 	});
 
 	it("rejects an expired token", async () => {
@@ -253,6 +306,25 @@ describe("getPublicVolunteerEvent", () => {
 
 		expect(result.confirmedHelpers).toHaveLength(1);
 		expect(result.confirmedHelpers[0]?.displayName).toBe("Erika M.");
+	});
+
+	it("bench: confirmed signup without assignedRoleId is not counted in signupCounts", async () => {
+		const benchedSignup = makeSignup({ status: "confirmed" }); // no assignedRoleId
+		mockSignupQuery.mockResolvedValue({ data: [benchedSignup] });
+
+		const result = await getPublicVolunteerEvent({ id: eventId });
+
+		expect(result.signupCounts).toEqual({});
+	});
+
+	it("bench: confirmed signup without assignedRoleId appears in confirmedHelpers with roleId null", async () => {
+		const benchedSignup = makeSignup({ status: "confirmed" }); // no assignedRoleId
+		mockSignupQuery.mockResolvedValue({ data: [benchedSignup] });
+
+		const result = await getPublicVolunteerEvent({ id: eventId });
+
+		expect(result.confirmedHelpers).toHaveLength(1);
+		expect(result.confirmedHelpers[0]?.roleId).toBeNull();
 	});
 });
 
