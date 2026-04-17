@@ -16,6 +16,7 @@ import {
 	Collapse,
 	CopyButton,
 	Divider,
+	Fieldset,
 	Group,
 	Menu,
 	Modal,
@@ -212,36 +213,36 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 			</Group>
 			<Stack gap="xs">
 				{roles.map((role, index) => (
-					// biome-ignore lint/suspicious/noArrayIndexKey: roles use stable IDs generated on add
-					<Card key={role.id} withBorder p="xs">
-						<Stack gap="xs">
-							<Group gap="xs" align="flex-end">
-								<TextInput
-									size="xs"
-									label="Bezeichnung"
-									required
-									placeholder="z. B. Theke, Einlass, Küche"
-									value={role.label}
-									onChange={(e) => updateRole(index, { label: e.target.value })}
-									style={{ flex: 1 }}
-								/>
-								<NumberInput size="xs" label="Min" min={1} value={role.minCapacity} onChange={(val) => updateRole(index, { minCapacity: Number(val) || 1 })} w={70} />
-								<NumberInput size="xs" label="Max" min={1} value={role.maxCapacity} onChange={(val) => updateRole(index, { maxCapacity: Number(val) || 1 })} w={70} />
-								<NumberInput
-									size="xs"
-									label="Mindestalter"
-									min={0}
-									max={120}
-									value={role.minAge ?? ""}
-									onChange={(val) => updateRole(index, { minAge: val === "" ? null : Number(val) })}
-									w={100}
-									placeholder="–"
-									allowDecimal={false}
-								/>
-								<ActionIcon size="sm" color="red" variant="subtle" onClick={() => requestRemoveRole(index)} mb={2}>
-									<Trash2 size={14} />
-								</ActionIcon>
-							</Group>
+					<Fieldset key={role.id} legend={role.label}>
+						<Group gap="xs" align="flex-end">
+							<TextInput
+								size="xs"
+								label="Bezeichnung"
+								required
+								withAsterisk={false}
+								placeholder="z. B. Theke, Einlass, Küche"
+								value={role.label}
+								onChange={(e) => updateRole(index, { label: e.target.value })}
+								style={{ flex: 1 }}
+							/>
+							<ActionIcon size="sm" color="red" variant="subtle" onClick={() => requestRemoveRole(index)} mb={2}>
+								<Trash2 size={14} />
+							</ActionIcon>
+							<Box w={"100%"} hiddenFrom="sm" />
+							<NumberInput size="xs" label="Min" min={1} value={role.minCapacity} onChange={(val) => updateRole(index, { minCapacity: Number(val) || 1 })} w={70} />
+							<NumberInput size="xs" label="Max" min={1} value={role.maxCapacity} onChange={(val) => updateRole(index, { maxCapacity: Number(val) || 1 })} w={70} />
+							<NumberInput
+								size="xs"
+								label="Mindestalter"
+								suffix=" Jahre"
+								min={0}
+								max={90}
+								value={role.minAge ?? ""}
+								onChange={(val) => updateRole(index, { minAge: val === "" ? null : Number(val) })}
+								placeholder="–"
+								allowDecimal={false}
+							/>
+							<Box w={"100%"} />
 							<Textarea
 								size="xs"
 								label="Beschreibung (optional)"
@@ -250,9 +251,10 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 								onChange={(e) => updateRole(index, { description: e.target.value })}
 								autosize
 								maxRows={3}
+								style={{ flex: 1 }}
 							/>
-						</Stack>
-					</Card>
+						</Group>
+					</Fieldset>
 				))}
 			</Stack>
 		</Box>
@@ -269,11 +271,9 @@ function serializeShifts(shifts: ShiftFormValue[]): VolunteerEvent["shifts"] {
 		label: s.label,
 		startDate: s.startDate?.toISOString() ?? new Date().toISOString(),
 		endDate: s.endDate?.toISOString() ?? undefined,
-		roles: s.roles.map((r) => ({
-			id: r.id,
-			label: r.label,
-			minCapacity: r.minCapacity,
-			maxCapacity: r.maxCapacity,
+		roles: s.roles.map(({ minAge, ...r }) => ({
+			...r,
+			...(minAge !== null && minAge > 0 ? { minAge } : {}),
 		})),
 	}));
 }

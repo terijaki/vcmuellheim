@@ -291,16 +291,18 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 				</Text>
 				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
 					<form.Field name="firstName">
-						{(field) => <TextInput label="Vorname" required autoComplete="given-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+						{(field) => <TextInput label="Vorname" required withAsterisk={false} autoComplete="given-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
 					</form.Field>
 					<form.Field name="lastName">
-						{(field) => <TextInput label="Nachname" required autoComplete="family-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+						{(field) => <TextInput label="Nachname" required withAsterisk={false} autoComplete="family-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
 					</form.Field>
 				</SimpleGrid>
 
 				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
 					<form.Field name="email">
-						{(field) => <TextInput label="E-Mail-Adresse" type="email" required autoComplete="email" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+						{(field) => (
+							<TextInput label="E-Mail-Adresse" type="email" required withAsterisk={false} autoComplete="email" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+						)}
 					</form.Field>
 
 					<form.Field name="dateOfBirth">
@@ -309,6 +311,7 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 								defaultLevel="decade"
 								label="Geburtsdatum"
 								required
+								withAsterisk={false}
 								value={field.state.value}
 								onChange={(val) => field.handleChange(val ? new Date(val) : null)}
 								valueFormat="DD.MM.YYYY"
@@ -335,6 +338,7 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 											<Select
 												label="Bevorzugte Aufgabe"
 												required
+												withAsterisk={false}
 												data={computedRoleOptions}
 												value={field.state.value[0] ?? null}
 												onChange={(val) => field.handleChange(val ? [val] : [])}
@@ -344,6 +348,7 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 											<MultiSelect
 												label="Bevorzugte Aufgaben (mind. 2)"
 												required
+												withAsterisk={false}
 												data={computedRoleOptions}
 												value={field.state.value}
 												onChange={(val) => field.handleChange(val)}
