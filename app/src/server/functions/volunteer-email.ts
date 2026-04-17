@@ -78,18 +78,10 @@ function buildIcsAttachment(event: VolunteerEvent, shiftId: string): string {
 function buildConfirmationHtml(opts: { firstName: string; shiftLabel: string; shiftDate: string; eventTitle: string; confirmationUrl: string }): string {
 	const { firstName, shiftLabel, shiftDate, eventTitle, confirmationUrl } = opts;
 	return `<p>Hallo ${firstName},</p>
-<p>danke für deine Anmeldung als Helfer:in bei <strong>${eventTitle}</strong>!</p>
+<p>danke für deine Anmeldung zur Veranstaltung <strong>${eventTitle}</strong>!</p>
 <p>Du hast dich für den Einsatz <strong>${shiftLabel}</strong> am <strong>${shiftDate}</strong> angemeldet.</p>
-<p>Bitte bestätige deine Anmeldung innerhalb von 72 Stunden über den folgenden Link:</p>
-<p>
-  <a href="${confirmationUrl}" target="_blank" rel="noopener noreferrer"
-     style="display:inline-block;padding:12px 24px;background:#2196f3;color:white;text-decoration:none;border-radius:4px;font-weight:bold;">
-    Anmeldung bestätigen
-  </a>
-</p>
-<p>Oder kopiere diesen Link in deinen Browser:</p>
-<p>${confirmationUrl}</p>
-<p><em>Dieser Link ist 72 Stunden gültig.</em></p>
+<p>Bitte bestätige deine Anmeldung innerhalb von <em>72 Stunden</em> über den folgenden Link:</p>
+<p><a href="${confirmationUrl}" target="_blank" rel="noopener noreferrer">${confirmationUrl}</a><br></p>
 <p>Falls du diese Anfrage nicht gestellt hast, kannst du diese E-Mail ignorieren.</p>
 <p>Sportliche Grüße,<br>${Club.shortName}</p>`;
 }
@@ -107,7 +99,9 @@ function buildReceiptHtml(opts: {
 	const locationLine = eventLocation ? `<p><strong>Ort:</strong> ${eventLocation}</p>` : "";
 	const descriptionLine = eventDescription ? `<p>${eventDescription}</p>` : "";
 	return `<p>Hallo ${firstName},</p>
-<p>deine Anmeldung als Helfer:in wurde bestätigt. Vielen Dank!</p>
+<p>deine Anmeldung wurde bestätigt. Vielen Dank! 🙏</p>
+<p>Hier nochmal die Infos für dich. Im Anhang findest du den Termin als Kalender-Datei.</p>
+<hr/>
 <h2>${eventTitle}</h2>
 ${descriptionLine}
 ${locationLine}
@@ -190,7 +184,7 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 	const boundary = `vcm-boundary-${crypto.randomUUID().replace(/-/g, "")}`;
 	const from = fromEmail();
 	const to = signup.email;
-	const subject = `Anmeldebestätigung: ${event.title}`;
+	const subject = event.title;
 
 	const rawMessage = [
 		`From: ${from}`,
