@@ -21,6 +21,8 @@ import { volunteerSignupDataSchema } from "@/lib/db/schemas";
 
 dayjs.locale("de");
 
+type EventDataType = Awaited<ReturnType<typeof getPublicVolunteerEventFn>>;
+
 export const Route = createFileRoute("/_layout/e/$uuid")({
 	validateSearch: (search): { token?: string } => ({
 		token: typeof search.token === "string" ? search.token : undefined,
@@ -135,19 +137,21 @@ function VolunteerEventPage() {
 				)}
 
 				{/* Shifts */}
-				{event.shifts.map((shift) => (
-					<ShiftCard
-						key={shift.id}
-						shift={shift}
-						event={event}
-						signupCounts={event.signupCounts[shift.id] ?? {}}
-						confirmedHelpers={event.confirmedHelpers.filter((h) => h.shiftId === shift.id)}
-						onSignedUp={refetch}
-						activeShiftId={activeShiftId}
-						onFormOpen={() => setActiveShiftId(shift.id)}
-						onFormClose={() => setActiveShiftId(null)}
-					/>
-				))}
+				{event.shifts
+					.sort((a, b) => dayjs(a.startDate).diff(dayjs(b.startDate)))
+					.map((shift) => (
+						<ShiftCard
+							key={shift.id}
+							shift={shift}
+							event={event}
+							signupCounts={event.signupCounts[shift.id] ?? {}}
+							confirmedHelpers={event.confirmedHelpers.filter((h) => h.shiftId === shift.id)}
+							onSignedUp={refetch}
+							activeShiftId={activeShiftId}
+							onFormOpen={() => setActiveShiftId(shift.id)}
+							onFormClose={() => setActiveShiftId(null)}
+						/>
+					))}
 			</Stack>
 		</PageWithHeading>
 	);
@@ -155,7 +159,7 @@ function VolunteerEventPage() {
 
 type ShiftCardProps = {
 	shift: VolunteerEvent["shifts"][number];
-	event: NonNullable<ReturnType<typeof Route.useLoaderData>["event"]>;
+	event: EventDataType;
 	signupCounts: Record<string, number>;
 	confirmedHelpers: { displayName: string; roleId: string | null }[];
 	onSignedUp: () => void;
@@ -169,7 +173,13 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp, a
 	const showForm = activeShiftId === shift.id;
 	const [submitted, setSubmitted] = useState(false);
 
-	const startFormatted = dayjs(shift.startDate).format("dddd, D. MMMM YYYY [um] HH:mm [Uhr]");
+	const start = dayjs(shift.startDate);
+	const startFormatted = start.format("dddd, D. MMMM YYYY [um] HH:mm [Uhr]");
+	const dateRangeFormatted = shift.endDate
+		? start.isSame(dayjs(shift.endDate), "day")
+			? `${start.format("dddd, D. MMMM YYYY[,] HH:mm [Uhr]")} bis ${dayjs(shift.endDate).format("HH:mm [Uhr]")}`
+			: `${startFormatted} – ${dayjs(shift.endDate).format("dddd, D. MMMM [um] HH:mm [Uhr]")}`
+		: startFormatted;
 
 	return (
 		<Card withBorder>
@@ -178,7 +188,7 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp, a
 					<div>
 						<Title order={3}>{shift.label}</Title>
 						<Text size="sm" c="dimmed">
-							{startFormatted}
+							{dateRangeFormatted}
 						</Text>
 					</div>
 					{isPast && (
@@ -189,7 +199,7 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp, a
 				</Group>
 
 				{/* Role capacities */}
-				<SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="xs">
+				<SimpleGrid cols={{ base: 1, xs: 2, md: 3, lg: 4 }} spacing="xs">
 					{shift.roles.map((role) => {
 						const count = signupCounts[role.id] ?? 0;
 						const roleHelpers = confirmedHelpers.filter((h) => h.roleId === role.id);
@@ -227,6 +237,7 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp, a
 						{showForm ? (
 							<SignupForm
 								event={event}
+								shiftLabel={shift.label}
 								shiftId={shift.id}
 								roles={shift.roles}
 								onSuccess={() => {
@@ -254,14 +265,15 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp, a
 }
 
 type SignupFormProps = {
-	event: ReturnType<typeof Route.useLoaderData>["event"];
+	event: EventDataType;
+	shiftLabel: string;
 	shiftId: string;
 	roles: VolunteerEvent["shifts"][number]["roles"];
 	onSuccess: () => void;
 	onCancel: () => void;
 };
 
-function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormProps) {
+function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: SignupFormProps) {
 	const shiftStartDate = event.shifts.find((s: { id: string }) => s.id === shiftId)?.startDate ?? new Date().toISOString();
 
 	const roleOptions = roles.map((r) => ({
@@ -315,8 +327,7 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 			<Stack gap="sm">
 				<Title order={5}>Anmeldung</Title>
 				<Text c="dimmed" size="sm">
-					Vielen Dank, dass du dich für diese Veranstaltung anmelden möchtest! Damit wir die Organisation erleichtern können und im Nachgang die Kommunikation sicherstellen können, bitten wir dich
-					folgende Informationen anzugeben.
+					Vielen Dank, dass du dich anmelden möchtest! Damit wir die Organisation erleichtern und im Nachgang die Kommunikation mit dir sicherstellen können, fülle bitte folgende Informationen aus.
 				</Text>
 				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
 					<form.Field name="firstName">
@@ -382,7 +393,13 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 									name="preferredRoleIds"
 									validators={{
 										onChangeListenTo: ["dateOfBirth"],
-										onChange: ({ value }) => ((value as string[]).length < 2 ? "Bitte wähle mindestens eine Aufgabe aus." : undefined),
+										onChange: ({ value }) => {
+											const selected = value as string[];
+											if (roles.length > 2) {
+												return selected.length < 2 ? "Bitte wähle mindestens 2 Aufgaben aus." : undefined;
+											}
+											return selected.length < 1 ? "Bitte wähle eine Aufgabe aus." : undefined;
+										},
 									}}
 								>
 									{(field) => {
@@ -427,7 +444,7 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 								Abbrechen
 							</Button>
 							<Button type="submit" loading={mutation.isPending} disabled={!isDirty || !isValid}>
-								Anmelden
+								Anmelden für {shiftLabel}
 							</Button>
 						</Group>
 					)}
