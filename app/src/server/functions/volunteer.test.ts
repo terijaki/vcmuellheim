@@ -314,6 +314,15 @@ describe("verifyVolunteerToken", () => {
 		expect(mockSignupPatch).not.toHaveBeenCalled();
 	});
 
+	it("does NOT send a receipt email when the signup was already confirmed (idempotency)", async () => {
+		// Simulate a signup that is already confirmed — e.g. a second concurrent verification call
+		mockSignupQuery.mockResolvedValue({ data: [makeSignup({ status: "confirmed" })] });
+
+		await verifyVolunteerToken({ tokenId });
+
+		expect(vi.mocked(sendVolunteerReceiptEmail)).not.toHaveBeenCalled();
+	});
+
 	it("rejects an expired token", async () => {
 		mockTokenGet.mockResolvedValue({ data: { ...mockToken, ttl: expiredTtl } });
 

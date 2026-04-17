@@ -179,6 +179,7 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 
 	// Upsert signup to confirmed
 	const existing = await findExistingSignup(signupData.email, signupData.eventId, signupData.shiftId);
+	const wasAlreadyConfirmed = existing?.status === "confirmed";
 
 	let signup: VolunteerSignup;
 	if (existing) {
@@ -234,8 +235,10 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 	// Delete token
 	await db().volunteerToken.delete({ id: data.tokenId }).go();
 
-	// Send receipt email with .ics
-	await sendVolunteerReceiptEmail({ signup, event });
+	// Send receipt email only if the signup was not already confirmed before this call
+	if (!wasAlreadyConfirmed) {
+		await sendVolunteerReceiptEmail({ signup, event });
+	}
 
 	return { success: true, shiftId: signup.shiftId };
 }

@@ -14,7 +14,7 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { CheckCircle, MapPin } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createVolunteerSignupFn, getPublicVolunteerEventFn, verifyVolunteerTokenFn } from "@webapp/server/functions/volunteer";
 import type { VolunteerEvent } from "@/lib/db/types";
 import { volunteerSignupDataSchema } from "@/lib/db/schemas";
@@ -63,12 +63,14 @@ function VolunteerEventPage() {
 		},
 	});
 
-	const [verificationAttempted, setVerificationAttempted] = useState(false);
+	const verificationInitiated = useRef(false);
 
-	if (tokenParam && !verificationAttempted) {
-		setVerificationAttempted(true);
-		verifyMutation.mutate(tokenParam);
-	}
+	useEffect(() => {
+		if (tokenParam && !verificationInitiated.current) {
+			verificationInitiated.current = true;
+			verifyMutation.mutate(tokenParam);
+		}
+	}, [tokenParam, verifyMutation]);
 
 	if (!event) {
 		return (
