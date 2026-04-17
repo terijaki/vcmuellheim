@@ -5,7 +5,7 @@
  * Handles ?token= query param for email verification.
  */
 
-import { Alert, Badge, Button, Card, Container, Divider, Group, MultiSelect, Select, SimpleGrid, Stack, Text, TextInput, Title, Typography } from "@mantine/core";
+import { Alert, Badge, Button, Card, Container, Divider, Group, Modal, MultiSelect, Select, SimpleGrid, Stack, Text, TextInput, Title, Typography } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
@@ -14,8 +14,10 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { CheckCircle, MapPin } from "lucide-react";
+import { useMediaQuery } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import { createVolunteerSignupFn, getPublicVolunteerEventFn, verifyVolunteerTokenFn } from "@webapp/server/functions/volunteer";
+import { formatShiftDateRange } from "@webapp/utils/volunteer";
 import type { VolunteerEvent } from "@/lib/db/types";
 import { volunteerSignupDataSchema } from "@/lib/db/schemas";
 import { z } from "zod";
@@ -97,8 +99,6 @@ function VolunteerEventPage() {
 		);
 	}
 
-	const [activeShiftId, setActiveShiftId] = useState<string | null>(null);
-
 	return (
 		<PageWithHeading title={event.title}>
 			<Stack gap="xl" pb="xl">
@@ -158,9 +158,6 @@ function VolunteerEventPage() {
 							signupCounts={event.signupCounts[shift.id] ?? {}}
 							confirmedHelpers={event.confirmedHelpers.filter((h) => h.shiftId === shift.id)}
 							onSignedUp={refetch}
-							activeShiftId={activeShiftId}
-							onFormOpen={() => setActiveShiftId(shift.id)}
-							onFormClose={() => setActiveShiftId(null)}
 						/>
 					))}
 			</Stack>
@@ -174,23 +171,15 @@ type ShiftCardProps = {
 	signupCounts: Record<string, number>;
 	confirmedHelpers: { displayName: string; roleId: string | null }[];
 	onSignedUp: () => void;
-	activeShiftId: string | null;
-	onFormOpen: () => void;
-	onFormClose: () => void;
 };
 
-function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp, activeShiftId, onFormOpen, onFormClose }: ShiftCardProps) {
+function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }: ShiftCardProps) {
 	const isPast = new Date(shift.startDate) <= new Date();
-	const showForm = activeShiftId === shift.id;
+	const [modalOpen, setModalOpen] = useState(false);
 	const [submitted, setSubmitted] = useState(false);
+	const isMobile = useMediaQuery("(max-width: 48em)");
 
-	const start = dayjs(shift.startDate);
-	const startFormatted = start.format("dddd, D. MMMM YYYY [um] HH:mm [Uhr]");
-	const dateRangeFormatted = shift.endDate
-		? start.isSame(dayjs(shift.endDate), "day")
-			? `${start.format("dddd, D. MMMM YYYY[,] HH:mm [Uhr]")} bis ${dayjs(shift.endDate).format("HH:mm [Uhr]")}`
-			: `${startFormatted} – ${dayjs(shift.endDate).format("dddd, D. MMMM [um] HH:mm [Uhr]")}`
-		: startFormatted;
+	const dateRangeFormatted = formatShiftDateRange(shift.startDate, shift.endDate);
 
 	return (
 		<Card withBorder>
@@ -245,24 +234,23 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp, a
 				{!isPast && !submitted && (
 					<>
 						<Divider />
-						{showForm ? (
+						<Button onClick={() => setModalOpen(true)} ms="auto">
+							Anmelden für {shift.label}
+						</Button>
+						<Modal opened={modalOpen} onClose={() => setModalOpen(false)} title={shift.label} size="lg" centered fullScreen={isMobile}>
 							<SignupForm
 								event={event}
 								shiftLabel={shift.label}
 								shiftId={shift.id}
 								roles={shift.roles}
 								onSuccess={() => {
+									setModalOpen(false);
 									setSubmitted(true);
-									onFormClose();
 									onSignedUp();
 								}}
-								onCancel={onFormClose}
+								onCancel={() => setModalOpen(false)}
 							/>
-						) : (
-							<Button onClick={onFormOpen} disabled={activeShiftId !== null} ms="auto">
-								Anmelden für {shift.label}
-							</Button>
-						)}
+						</Modal>
 					</>
 				)}
 				{submitted && (
@@ -285,7 +273,9 @@ type SignupFormProps = {
 };
 
 function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: SignupFormProps) {
-	const shiftStartDate = event.shifts.find((s: { id: string }) => s.id === shiftId)?.startDate ?? new Date().toISOString();
+	const shift = event.shifts.find((s: { id: string }) => s.id === shiftId);
+	const shiftStartDate = shift?.startDate ?? new Date().toISOString();
+	const dateRangeFormatted = formatShiftDateRange(shiftStartDate, shift?.endDate);
 
 	const roleOptions = roles.map((r) => ({
 		value: r.id,
@@ -340,7 +330,9 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 			}}
 		>
 			<Stack gap="sm">
-				<Title order={5}>Anmeldung</Title>
+				<Text size="sm" fw="bold">
+					{dateRangeFormatted}
+				</Text>
 				<Text c="dimmed" size="sm">
 					Vielen Dank, dass du dich anmelden möchtest! Damit wir die Organisation erleichtern und im Nachgang die Kommunikation mit dir sicherstellen können, fülle bitte folgende Informationen aus.
 				</Text>

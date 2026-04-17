@@ -86,24 +86,14 @@ function buildConfirmationHtml(opts: { firstName: string; shiftLabel: string; sh
 <p>Sportliche Grüße,<br>${Club.shortName}</p>`;
 }
 
-function buildReceiptHtml(opts: {
-	firstName: string;
-	eventTitle: string;
-	eventDescription: string | undefined;
-	eventLocation: string | undefined;
-	shiftLabel: string;
-	shiftDate: string;
-	eventUrl: string;
-}): string {
-	const { firstName, eventTitle, eventDescription, eventLocation, shiftLabel, shiftDate, eventUrl } = opts;
+function buildReceiptHtml(opts: { firstName: string; eventTitle: string; eventLocation: string | undefined; shiftLabel: string; shiftDate: string; eventUrl: string }): string {
+	const { firstName, eventTitle, eventLocation, shiftLabel, shiftDate, eventUrl } = opts;
 	const locationLine = eventLocation ? `<p><strong>Ort:</strong> ${eventLocation}</p>` : "";
-	const descriptionLine = eventDescription ? `<p>${eventDescription}</p>` : "";
 	return `<p>Hallo ${firstName},</p>
 <p>deine Anmeldung wurde bestätigt. Vielen Dank! 🙏</p>
-<p>Hier nochmal die Infos für dich. Im Anhang findest du den Termin als Kalender-Datei.</p>
+<p>Hier nochmal die Infos für dich. Im Anhang findest du den Termin <em>als Kalender-Datei</em>.</p>
 <hr/>
 <h2>${eventTitle}</h2>
-${descriptionLine}
 ${locationLine}
 <p><strong>Einsatz:</strong> ${shiftLabel}</p>
 <p><strong>Datum / Uhrzeit:</strong> ${shiftDate}</p>
@@ -173,7 +163,6 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 	const html = buildReceiptHtml({
 		firstName: signup.firstName,
 		eventTitle: event.title,
-		eventDescription: event.description,
 		eventLocation: event.location,
 		shiftLabel: shift.label,
 		shiftDate,
