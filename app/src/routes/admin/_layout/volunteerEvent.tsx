@@ -683,7 +683,7 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																style={{ flex: 1 }}
 																clearSectionMode="rightSection"
 															/>
-															{shiftOptions.length > 0 && (
+															{signup.status !== "pending" && shiftOptions.length > 0 && (
 																<Menu>
 																	<Tooltip label="Schicht ändern">
 																		<Menu.Target>
@@ -735,13 +735,12 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 												<Table.Tr>
 													<Table.Th>Name</Table.Th>
 													<Table.Th>E-Mail</Table.Th>
-													<Table.Th>Alter</Table.Th>
 													<Table.Th>Handy</Table.Th>
+													<Table.Th>Alter</Table.Th>
 													<Table.Th>Notfall</Table.Th>
 													<Table.Th>Bevorzugte Aufgaben</Table.Th>
 													<Table.Th>Status</Table.Th>
 													<Table.Th>Zugewiesene Rolle</Table.Th>
-													{hasMultipleShifts && <Table.Th>Schicht ändern</Table.Th>}
 													<Table.Th>Aktionen</Table.Th>
 												</Table.Tr>
 											</Table.Thead>
@@ -768,11 +767,6 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																</Tooltip>
 															</Table.Td>
 															<Table.Td>
-																<Badge size="xs" variant="light" color={ageColor}>
-																	{ageAtEvent}
-																</Badge>
-															</Table.Td>
-															<Table.Td>
 																{signup.mobilePhone ? (
 																	<Text size="xs" component="a" href={`tel:${signup.mobilePhone}`}>
 																		{signup.mobilePhone}
@@ -782,6 +776,11 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																		–
 																	</Text>
 																)}
+															</Table.Td>
+															<Table.Td>
+																<Badge size="xs" variant="light" color={ageColor}>
+																	{ageAtEvent}
+																</Badge>
 															</Table.Td>
 															<Table.Td>
 																{signup.emergencyContact ? (
@@ -812,9 +811,9 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																	clearSectionMode="rightSection"
 																/>
 															</Table.Td>
-															{hasMultipleShifts && (
-																<Table.Td>
-																	{shiftOptions.length > 0 && (
+															<Table.Td>
+																<Group gap="xs" wrap="nowrap">
+																	{signup.status !== "pending" && hasMultipleShifts && shiftOptions.length > 0 && (
 																		<Menu>
 																			<Tooltip label="Schicht ändern">
 																				<Menu.Target>
@@ -832,10 +831,6 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																			</Menu.Dropdown>
 																		</Menu>
 																	)}
-																</Table.Td>
-															)}
-															<Table.Td>
-																<Group gap="xs" wrap="nowrap">
 																	{signup.status === "pending" && (
 																		<Tooltip label="Manuell bestätigen">
 																			<ActionIcon size="sm" color="green" variant="subtle" onClick={() => confirmMutation.mutate(signup.id)} loading={confirmMutation.isPending}>
