@@ -388,7 +388,7 @@ function SignupForm({ event, shiftId, roles, onSuccess, onCancel }: SignupFormPr
 									}}
 								>
 									{(field) => {
-										return roles.length <= 3 ? (
+										return roles.length <= 2 ? (
 											<Select
 												label="Bevorzugte Aufgabe"
 												required
