@@ -1,24 +1,13 @@
-import { ActionIcon, Badge, Box, Button, Card, Collapse, Group, Menu, Select, Stack, Table, Text, Tooltip } from "@mantine/core";
+import { Accordion, ActionIcon, Badge, Box, Card, Group, Menu, Select, Stack, Table, Text, Tooltip } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNotification } from "@webapp/hooks/useNotification";
 import { confirmVolunteerSignupFn, deleteVolunteerSignupFn, listVolunteerSignupsFn, updateVolunteerSignupFn } from "@webapp/server/functions/volunteer";
 import dayjs from "dayjs";
-import { ArrowLeftRight, ChevronDown, ChevronUp, Mail, SquareCheckBig, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeftRight, Mail, SquareCheckBig, Trash2 } from "lucide-react";
 import type { VolunteerEvent } from "@/lib/db/types";
 
 export function SignupDashboard({ event }: { event: VolunteerEvent }) {
-	const [expandedShifts, setExpandedShifts] = useState<Set<string>>(new Set());
-
-	const toggleShift = (id: string) => {
-		setExpandedShifts((prev) => {
-			const next = new Set(prev);
-			if (next.has(id)) next.delete(id);
-			else next.add(id);
-			return next;
-		});
-	};
 	const notification = useNotification();
 
 	const { data: signupsData, refetch } = useQuery({
@@ -65,15 +54,15 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
 	const hasMultipleShifts = event.shifts.length > 1;
 
 	return (
-		<Stack gap="md" mt="sm">
+		<Accordion multiple variant="contained" mt="sm">
 			{event.shifts
 				.sort((a, b) => dayjs(a.startDate).diff(dayjs(b.startDate)))
 				.map((shift) => {
-					const shiftExpanded = expandedShifts.has(shift.id);
 					const shiftSignups = signups.filter((s) => s.shiftId === shift.id);
+					const unassignedCount = shift.roles.length > 0 ? shiftSignups.filter((s) => !s.assignedRoleId).length : 0;
 					return (
-						<Card key={shift.id} withBorder p="sm">
-							<Group justify="space-between" mb={shiftExpanded ? "sm" : 0} wrap="nowrap" align="flex-start">
+						<Accordion.Item key={shift.id} value={shift.id}>
+							<Accordion.Control>
 								<Box>
 									<Text fw={500}>
 										{shift.label} —{" "}
@@ -99,19 +88,15 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
 												{shiftSignups.length} Anmeldung{shiftSignups.length !== 1 ? "en" : ""}
 											</Badge>
 										)}
+										{unassignedCount > 0 && (
+											<Badge size="sm" variant="filled" color="onyx">
+												{unassignedCount} Keine Zuweisung
+											</Badge>
+										)}
 									</Group>
 								</Box>
-								{isMobile ? (
-									<ActionIcon variant="subtle" size="md" onClick={() => toggleShift(shift.id)}>
-										{shiftExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-									</ActionIcon>
-								) : (
-									<Button variant="subtle" size="xs" leftSection={shiftExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />} onClick={() => toggleShift(shift.id)}>
-										{shiftExpanded ? "Ausblenden" : "Anmeldungen"}
-									</Button>
-								)}
-							</Group>
-							<Collapse expanded={shiftExpanded}>
+							</Accordion.Control>
+							<Accordion.Panel>
 								{shiftSignups.length === 0 ? (
 									<Text size="sm" c="dimmed">
 										Noch keine Anmeldungen.
@@ -364,10 +349,10 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
 										</Table.Tbody>
 									</Table>
 								)}
-							</Collapse>
-						</Card>
+							</Accordion.Panel>
+						</Accordion.Item>
 					);
 				})}
-		</Stack>
+		</Accordion>
 	);
 }
