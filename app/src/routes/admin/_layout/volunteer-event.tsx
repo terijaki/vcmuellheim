@@ -6,8 +6,6 @@
  *  - Create / edit form with dynamic shifts and roles (TrainingScheduleManager-style)
  *  - Signup dashboard grouped by shift (view signups, assign roles, force-confirm, move shift, delete)
  */
-import { ActionIconLink } from "@webapp/components/CustomLink";
-
 import {
 	Accordion,
 	ActionIcon,
@@ -16,7 +14,6 @@ import {
 	Button,
 	Card,
 	Collapse,
-	CopyButton,
 	Divider,
 	Fieldset,
 	Group,
@@ -42,7 +39,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { DateTimePicker } from "@mantine/dates";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useForm } from "@tanstack/react-form-start";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNotification } from "@webapp/hooks/useNotification";
 import {
@@ -60,7 +57,7 @@ import {
 import { getAppBaseUrlFn } from "@webapp/server/functions/app-base-url";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
-import { Archive, ArrowLeftRight, ChevronDown, ExternalLink, ChevronUp, ClipboardCopy, Link, Mail, Plus, SquarePen, Trash2, SquareCheckBig } from "lucide-react";
+import { Archive, ArrowLeftRight, ChevronDown, ExternalLink, ChevronUp, Copy, EllipsisVertical, Link, Mail, Plus, SquarePen, Trash2, SquareCheckBig } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import type { VolunteerEvent } from "@/lib/db/types";
 
@@ -94,6 +91,17 @@ type ShiftFormValue = {
 	endDate: Date | null;
 	archivedAt?: string;
 	roles: RoleFormValue[];
+};
+
+type EventFormInitialData = {
+	_sourceId: string;
+	title: string;
+	description: string;
+	location: string;
+	locationUrl: string;
+	organizerName: string;
+	organizerEmail: string;
+	shifts: ShiftFormValue[];
 };
 
 // ---------------------------------------------------------------------------
@@ -399,13 +407,25 @@ function deserializeShifts(shifts: VolunteerEvent["shifts"]): ShiftFormValue[] {
 	}));
 }
 
-function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: boolean; onClose: () => void; editingEvent: VolunteerEvent | null; onSaved: () => void }) {
+function EventFormModal({
+	opened,
+	onClose,
+	editingEvent,
+	onSaved,
+	initialData,
+}: {
+	opened: boolean;
+	onClose: () => void;
+	editingEvent: VolunteerEvent | null;
+	onSaved: () => void;
+	initialData?: EventFormInitialData;
+}) {
 	const notification = useNotification();
 	const isMobile = useMediaQuery("(max-width: 48em)");
 
 	const editor = useEditor({
 		extensions: [StarterKit, LinkExtension],
-		content: editingEvent?.description ?? "",
+		content: editingEvent?.description ?? initialData?.description ?? "",
 		immediatelyRender: false,
 		onUpdate: ({ editor }) => {
 			form.setFieldValue("description", editor.getHTML());
@@ -432,7 +452,11 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 		onError: () => notification.error({ message: "Helfereinsatz konnte nicht aktualisiert werden" }),
 	});
 
-	const [shifts, setShifts] = useState<ShiftFormValue[]>(() => (editingEvent ? deserializeShifts(editingEvent.shifts) : []));
+	const [shifts, setShifts] = useState<ShiftFormValue[]>(() => {
+		if (editingEvent) return deserializeShifts(editingEvent.shifts);
+		if (initialData) return initialData.shifts;
+		return [];
+	});
 
 	// Query signups to determine per-shift whether deletion or archiving is required
 	const { data: signupsForForm } = useQuery({
@@ -456,12 +480,12 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 
 	const form = useForm({
 		defaultValues: {
-			title: editingEvent?.title ?? "",
-			description: editingEvent?.description ?? "",
-			location: editingEvent?.location ?? "",
-			locationUrl: editingEvent?.locationUrl ?? "",
-			organizerName: editingEvent?.organizerName ?? "",
-			organizerEmail: editingEvent?.organizerEmail ?? "",
+			title: editingEvent?.title ?? initialData?.title ?? "",
+			description: editingEvent?.description ?? initialData?.description ?? "",
+			location: editingEvent?.location ?? initialData?.location ?? "",
+			locationUrl: editingEvent?.locationUrl ?? initialData?.locationUrl ?? "",
+			organizerName: editingEvent?.organizerName ?? initialData?.organizerName ?? "",
+			organizerEmail: editingEvent?.organizerEmail ?? initialData?.organizerEmail ?? "",
 		},
 		onSubmit: async ({ value }) => {
 			const serializedShifts = serializeShifts(shifts);
@@ -1001,12 +1025,44 @@ function EventDeleteArchiveModal({ opened, onClose, event, onDone }: { opened: b
 }
 
 // ---------------------------------------------------------------------------
+// Template helper
+// ---------------------------------------------------------------------------
+
+function buildTemplateData(source: VolunteerEvent): EventFormInitialData {
+	return {
+		_sourceId: source.id,
+		title: source.title,
+		description: source.description ?? "",
+		location: source.location ?? "",
+		locationUrl: source.locationUrl ?? "",
+		organizerName: source.organizerName,
+		organizerEmail: source.organizerEmail,
+		shifts: source.shifts.map((s) => ({
+			id: crypto.randomUUID(),
+			label: s.label,
+			startDate: null,
+			endDate: null,
+			roles: s.roles.map((r) => ({
+				id: crypto.randomUUID(),
+				label: r.label,
+				description: r.description ?? "",
+				minCapacity: r.minCapacity,
+				maxCapacity: r.maxCapacity,
+				minAge: r.minAge ?? null,
+			})),
+		})),
+	};
+}
+
+// ---------------------------------------------------------------------------
 // Main page
 // ---------------------------------------------------------------------------
 
 function VolunteerEventAdminPage() {
 	const { events: initialEvents, appBaseUrl } = Route.useLoaderData();
 	const notification = useNotification();
+
+	const navigate = useNavigate();
 
 	const { data: eventsData, refetch } = useQuery({
 		queryKey: ["volunteerEvents", "admin"],
@@ -1016,6 +1072,7 @@ function VolunteerEventAdminPage() {
 
 	const [formOpened, { open: openForm, close: closeForm }] = useDisclosure(false);
 	const [editingEvent, setEditingEvent] = useState<VolunteerEvent | null>(null);
+	const [templateData, setTemplateData] = useState<EventFormInitialData | null>(null);
 	const [deleteModalOpened, { open: openDeleteModal, close: closeDeleteModal }] = useDisclosure(false);
 	const [pendingDeleteEvent, setPendingDeleteEvent] = useState<VolunteerEvent | null>(null);
 	const [archivedVisible, { toggle: toggleArchived }] = useDisclosure(false);
@@ -1035,17 +1092,37 @@ function VolunteerEventAdminPage() {
 
 	function openCreate() {
 		setEditingEvent(null);
+		setTemplateData(null);
 		openForm();
 	}
 
 	function openEdit(event: VolunteerEvent) {
 		setEditingEvent(event);
+		setTemplateData(null);
 		openForm();
+	}
+
+	function openFromTemplate(event: VolunteerEvent) {
+		setEditingEvent(null);
+		setTemplateData(buildTemplateData(event));
+		openForm();
+	}
+
+	function handleFormClose() {
+		closeForm();
+		setTemplateData(null);
 	}
 
 	return (
 		<>
-			<EventFormModal key={editingEvent?.id ?? "new"} opened={formOpened} onClose={closeForm} editingEvent={editingEvent} onSaved={refetch} />
+			<EventFormModal
+				key={editingEvent?.id ?? (templateData ? `template-${templateData._sourceId}` : "new")}
+				opened={formOpened}
+				onClose={handleFormClose}
+				editingEvent={editingEvent}
+				initialData={templateData ?? undefined}
+				onSaved={refetch}
+			/>
 			<EventDeleteArchiveModal
 				opened={deleteModalOpened}
 				onClose={closeDeleteModal}
@@ -1094,44 +1171,42 @@ function VolunteerEventAdminPage() {
 											{event.shifts.length} Schicht{event.shifts.length !== 1 ? "en" : ""}
 										</Text>
 									</div>
-									<Group gap="xs">
-										<Tooltip label="Teilnehmer per E-Mail kontaktieren">
-											<ActionIconLink to="/admin/volunteer-event/$eventId/message" params={{ eventId: event.id }} variant="subtle">
-												<Mail size={16} />
-											</ActionIconLink>
-										</Tooltip>
-										<Tooltip label="Veranstaltungsseite anzeigen">
-											<ActionIcon variant="subtle" component="a" href={deeplink} target="_blank" rel="noopener noreferrer">
-												<ExternalLink size={16} />
+									<Menu shadow="md" position="bottom-end">
+										<Menu.Target>
+											<ActionIcon variant="subtle" aria-label="Aktionen">
+												<EllipsisVertical size={16} />
 											</ActionIcon>
-										</Tooltip>
-										<CopyButton value={deeplink}>
-											{({ copied, copy }) => (
-												<Tooltip label={copied ? "Kopiert!" : "Deeplink kopieren"}>
-													<ActionIcon variant="subtle" onClick={copy} color={copied ? "green" : undefined}>
-														{copied ? <ClipboardCopy size={16} /> : <Link size={16} />}
-													</ActionIcon>
-												</Tooltip>
-											)}
-										</CopyButton>
-										<Tooltip label="Veranstaltung bearbeiten">
-											<ActionIcon variant="subtle" onClick={() => openEdit(event as VolunteerEvent)}>
-												<SquarePen size={16} />
-											</ActionIcon>
-										</Tooltip>
-										<Tooltip label="Veranstaltung löschen oder archivieren">
-											<ActionIcon
+										</Menu.Target>
+										<Menu.Dropdown>
+											<Menu.Item leftSection={<SquarePen size={14} />} onClick={() => openEdit(event as VolunteerEvent)}>
+												Bearbeiten
+											</Menu.Item>
+											<Menu.Item leftSection={<Link size={14} />} onClick={() => navigator.clipboard.writeText(deeplink)}>
+												Link kopieren
+											</Menu.Item>
+											<Menu.Item leftSection={<ExternalLink size={14} />} component="a" href={deeplink} target="_blank" rel="noopener noreferrer">
+												Öffentliche Seite öffnen
+											</Menu.Item>
+											<Menu.Item leftSection={<Mail size={14} />} onClick={() => navigate({ to: "/admin/volunteer-event/$eventId/message", params: { eventId: event.id } })}>
+												E-Mail senden
+											</Menu.Item>
+											<Menu.Divider />
+											<Menu.Item leftSection={<Copy size={14} />} onClick={() => openFromTemplate(event as VolunteerEvent)}>
+												Als Vorlage verwenden
+											</Menu.Item>
+											<Menu.Divider />
+											<Menu.Item
 												color="red"
-												variant="subtle"
+												leftSection={<Trash2 size={14} />}
 												onClick={() => {
 													setPendingDeleteEvent(event as VolunteerEvent);
 													openDeleteModal();
 												}}
 											>
-												<Trash2 size={16} />
-											</ActionIcon>
-										</Tooltip>
-									</Group>
+												Archivieren / Löschen
+											</Menu.Item>
+										</Menu.Dropdown>
+									</Menu>
 								</Group>
 
 								<Divider />
@@ -1172,9 +1247,31 @@ function VolunteerEventAdminPage() {
 													{event.shifts.length} Schicht{event.shifts.length !== 1 ? "en" : ""}
 												</Text>
 											</div>
-											<Button size="xs" variant="subtle" color="blue" loading={restoreEventMutation.isPending} onClick={() => restoreEventMutation.mutate(event.id)}>
-												Wiederherstellen
-											</Button>
+											<Menu shadow="md" position="bottom-end">
+												<Menu.Target>
+													<ActionIcon variant="subtle" aria-label="Aktionen">
+														<EllipsisVertical size={16} />
+													</ActionIcon>
+												</Menu.Target>
+												<Menu.Dropdown>
+													<Menu.Item leftSection={<SquarePen size={14} />} onClick={() => openEdit(event as VolunteerEvent)}>
+														Bearbeiten
+													</Menu.Item>
+													<Menu.Item leftSection={<Copy size={14} />} onClick={() => openFromTemplate(event as VolunteerEvent)}>
+														Als Vorlage verwenden
+													</Menu.Item>
+													<Menu.Item leftSection={<Link size={14} />} onClick={() => navigator.clipboard.writeText(`${appBaseUrl}/e/${event.id}`)}>
+														Link kopieren
+													</Menu.Item>
+													<Menu.Item leftSection={<Mail size={14} />} onClick={() => navigate({ to: "/admin/volunteer-event/$eventId/message", params: { eventId: event.id } })}>
+														E-Mail senden
+													</Menu.Item>
+													<Menu.Divider />
+													<Menu.Item leftSection={<Archive size={14} />} disabled={restoreEventMutation.isPending} onClick={() => restoreEventMutation.mutate(event.id)}>
+														Wiederherstellen
+													</Menu.Item>
+												</Menu.Dropdown>
+											</Menu>
 										</Group>
 									</Card>
 								))}
