@@ -98,15 +98,13 @@ function VolunteerMessagePage() {
 			subject: `${event.title} - Neue Nachricht`,
 			shiftIds: [] as string[],
 			roleIds: [] as string[],
+			minDateOfBirth: null as string | null,
+			maxDateOfBirth: null as string | null,
 		},
 		onSubmit: () => {
 			openConfirm();
 		},
 	});
-
-	// Date filters kept as separate state — DatePickerInput uses string | null
-	const [minDateOfBirth, setMinDateOfBirth] = useState<string | null>(null);
-	const [maxDateOfBirth, setMaxDateOfBirth] = useState<string | null>(null);
 
 	const [editorHasContent, setEditorHasContent] = useState(false);
 	const editor = useEditor({
@@ -116,9 +114,6 @@ function VolunteerMessagePage() {
 		onUpdate: ({ editor: e }) => setEditorHasContent(e.getText().trim().length > 0),
 	});
 
-	// ---------------------------------------------------------------------------
-	// Send mutation
-	// ---------------------------------------------------------------------------
 	const [confirmOpened, { open: openConfirm, close: closeConfirm }] = useDisclosure(false);
 	const [sendResult, setSendResult] = useState<{
 		sent: number;
@@ -127,7 +122,7 @@ function VolunteerMessagePage() {
 
 	const sendMutation = useMutation({
 		mutationFn: () => {
-			const { subject, shiftIds, roleIds } = form.state.values;
+			const { subject, shiftIds, roleIds, minDateOfBirth, maxDateOfBirth } = form.state.values;
 			const relevantShifts = shiftIds.length > 0 ? event.shifts.filter((s) => shiftIds.includes(s.id)) : event.shifts;
 			const allRoleIds = new Set(relevantShifts.flatMap((s) => s.roles.map((r) => r.id)));
 			const filteredRoleIds = roleIds.filter((id) => allRoleIds.has(id));
@@ -164,7 +159,7 @@ function VolunteerMessagePage() {
 
 	return (
 		<form.Subscribe selector={(state) => state.values}>
-			{({ shiftIds, roleIds, subject }) => {
+			{({ shiftIds, roleIds, subject, minDateOfBirth, maxDateOfBirth }) => {
 				const relevantShifts = shiftIds.length > 0 ? event.shifts.filter((s) => shiftIds.includes(s.id)) : event.shifts;
 				const availableRoles = relevantShifts.flatMap((s) => s.roles.map((r) => ({ value: r.id, label: `${r.label} (${s.label})` })));
 				const validRoleIds = new Set(availableRoles.map((r) => r.value));
@@ -178,9 +173,7 @@ function VolunteerMessagePage() {
 					<>
 						{/* Confirm modal */}
 						<Modal opened={confirmOpened} onClose={closeConfirm} title="E-Mails senden?" size="sm">
-							<Text size="sm">
-								{recipients.length} E-Mail{recipients.length !== 1 ? "s" : ""} senden?
-							</Text>
+							<Text size="sm">Bist du bereit die E-Mail zu versenden? Sie wird an {recipients.length === 1 ? "nur einen Empfänger" : `${recipients.length} Empfänger`} gesendet.</Text>
 							<Group justify="flex-end" mt="md">
 								<Button variant="subtle" onClick={closeConfirm} disabled={sendMutation.isPending}>
 									Abbrechen
@@ -264,30 +257,38 @@ function VolunteerMessagePage() {
 													)}
 												</form.Field>
 												<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
-													<DatePickerInput
-														label="Geboren vor"
-														defaultLevel="decade"
-														placeholder="z.B. min 18 Jahre"
-														value={maxDateOfBirth as DateValue}
-														onChange={(val) => setMaxDateOfBirth(val as string | null)}
-														locale="de"
-														valueFormat="DD.MM.YYYY"
-														clearable
-														minDate={dayjs().subtract(90, "year").toDate()}
-														maxDate={dayjs().subtract(9, "year").toDate()}
-													/>
-													<DatePickerInput
-														label="Geboren nach"
-														defaultLevel="decade"
-														placeholder="z.B. nur U16"
-														value={minDateOfBirth as DateValue}
-														onChange={(val) => setMinDateOfBirth(val as string | null)}
-														locale="de"
-														valueFormat="DD.MM.YYYY"
-														clearable
-														minDate={dayjs().subtract(18, "year").toDate()}
-														maxDate={dayjs().subtract(9, "year").toDate()}
-													/>
+													<form.Field name="maxDateOfBirth">
+														{(field) => (
+															<DatePickerInput
+																label="Geboren vor"
+																defaultLevel="decade"
+																placeholder="z.B. min 18 Jahre"
+																value={field.state.value}
+																onChange={(val) => field.handleChange(val ? dayjs(val).format("YYYY-MM-DD") : null)}
+																locale="de"
+																valueFormat="DD.MM.YYYY"
+																clearable
+																minDate={dayjs().subtract(90, "year").toDate()}
+																maxDate={dayjs().subtract(9, "year").toDate()}
+															/>
+														)}
+													</form.Field>
+													<form.Field name="minDateOfBirth">
+														{(field) => (
+															<DatePickerInput
+																label="Geboren nach"
+																defaultLevel="decade"
+																placeholder="z.B. nur U16"
+																value={field.state.value as DateValue}
+																onChange={(val) => field.handleChange(val ? dayjs(val).format("YYYY-MM-DD") : null)}
+																locale="de"
+																valueFormat="DD.MM.YYYY"
+																clearable
+																minDate={dayjs().subtract(18, "year").toDate()}
+																maxDate={dayjs().subtract(9, "year").toDate()}
+															/>
+														)}
+													</form.Field>
 												</SimpleGrid>
 											</Stack>
 										</Accordion.Panel>
@@ -334,7 +335,7 @@ function VolunteerMessagePage() {
 											<Text size="sm" fw={500} mb="xs">
 												Inhalt
 											</Text>
-											<RichTextEditor editor={editor} styles={{ content: { "& .ProseMirror": { minHeight: 180 } } }}>
+											<RichTextEditor editor={editor} variant="subtle">
 												<RichTextEditor.Toolbar sticky stickyOffset={60}>
 													<RichTextEditor.ControlsGroup>
 														<RichTextEditor.Bold />
@@ -366,7 +367,7 @@ function VolunteerMessagePage() {
 												Abbrechen
 											</ButtonLink>
 											<Button type="submit" leftSection={<Send size={16} />} disabled={subject.trim().length === 0 || !editorHasContent || recipients.length === 0}>
-												Senden ({recipients.length})
+												Senden
 											</Button>
 										</Group>
 									</Stack>
