@@ -45,6 +45,7 @@ import { Route as LayoutTermineIdRouteImport } from './routes/_layout/termine.$i
 import { Route as LayoutTeamsSlugRouteImport } from './routes/_layout/teams.$slug'
 import { Route as LayoutNewsIdRouteImport } from './routes/_layout/news.$id'
 import { Route as LayoutEUuidRouteImport } from './routes/_layout/e.$uuid'
+import { Route as AdminLayoutVolunteerEventEventIdMessageRouteImport } from './routes/admin/_layout/volunteer-event_.$eventId.message'
 
 const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
@@ -226,6 +227,12 @@ const LayoutEUuidRoute = LayoutEUuidRouteImport.update({
   path: '/e/$uuid',
   getParentRoute: () => LayoutRoute,
 } as any)
+const AdminLayoutVolunteerEventEventIdMessageRoute =
+  AdminLayoutVolunteerEventEventIdMessageRouteImport.update({
+    id: '/volunteer-event_/$eventId/message',
+    path: '/volunteer-event/$eventId/message',
+    getParentRoute: () => AdminLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRoute
@@ -263,6 +270,7 @@ export interface FileRoutesByFullPath {
   '/teams/': typeof LayoutTeamsIndexRoute
   '/termine/': typeof LayoutTermineIndexRoute
   '/admin/': typeof AdminLayoutIndexRoute
+  '/admin/volunteer-event/$eventId/message': typeof AdminLayoutVolunteerEventEventIdMessageRoute
 }
 export interface FileRoutesByTo {
   '/beitragsordnung': typeof LayoutBeitragsordnungRoute
@@ -296,6 +304,7 @@ export interface FileRoutesByTo {
   '/teams': typeof LayoutTeamsIndexRoute
   '/termine': typeof LayoutTermineIndexRoute
   '/admin': typeof AdminLayoutIndexRoute
+  '/admin/volunteer-event/$eventId/message': typeof AdminLayoutVolunteerEventEventIdMessageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -335,6 +344,7 @@ export interface FileRoutesById {
   '/_layout/teams/': typeof LayoutTeamsIndexRoute
   '/_layout/termine/': typeof LayoutTermineIndexRoute
   '/admin/_layout/': typeof AdminLayoutIndexRoute
+  '/admin/_layout/volunteer-event_/$eventId/message': typeof AdminLayoutVolunteerEventEventIdMessageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -374,6 +384,7 @@ export interface FileRouteTypes {
     | '/teams/'
     | '/termine/'
     | '/admin/'
+    | '/admin/volunteer-event/$eventId/message'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/beitragsordnung'
@@ -407,6 +418,7 @@ export interface FileRouteTypes {
     | '/teams'
     | '/termine'
     | '/admin'
+    | '/admin/volunteer-event/$eventId/message'
   id:
     | '__root__'
     | '/_layout'
@@ -445,6 +457,7 @@ export interface FileRouteTypes {
     | '/_layout/teams/'
     | '/_layout/termine/'
     | '/admin/_layout/'
+    | '/admin/_layout/volunteer-event_/$eventId/message'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -710,6 +723,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutEUuidRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/admin/_layout/volunteer-event_/$eventId/message': {
+      id: '/admin/_layout/volunteer-event_/$eventId/message'
+      path: '/volunteer-event/$eventId/message'
+      fullPath: '/admin/volunteer-event/$eventId/message'
+      preLoaderRoute: typeof AdminLayoutVolunteerEventEventIdMessageRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
   }
 }
 
@@ -803,6 +823,7 @@ interface AdminLayoutRouteChildren {
   AdminLayoutTeamsRoute: typeof AdminLayoutTeamsRoute
   AdminLayoutVolunteerEventRoute: typeof AdminLayoutVolunteerEventRoute
   AdminLayoutIndexRoute: typeof AdminLayoutIndexRoute
+  AdminLayoutVolunteerEventEventIdMessageRoute: typeof AdminLayoutVolunteerEventEventIdMessageRoute
 }
 
 const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
@@ -816,6 +837,8 @@ const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
   AdminLayoutTeamsRoute: AdminLayoutTeamsRoute,
   AdminLayoutVolunteerEventRoute: AdminLayoutVolunteerEventRoute,
   AdminLayoutIndexRoute: AdminLayoutIndexRoute,
+  AdminLayoutVolunteerEventEventIdMessageRoute:
+    AdminLayoutVolunteerEventEventIdMessageRoute,
 }
 
 const AdminLayoutRouteWithChildren = AdminLayoutRoute._addFileChildren(

@@ -15,7 +15,7 @@ import { db } from "@/lib/db/electrodb-client";
 import { volunteerEventSchema, volunteerSignupDataSchema, volunteerSignupSchema, volunteerTokenSchema } from "@/lib/db/schemas";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
-import { sendVolunteerConfirmationEmail, sendVolunteerReceiptEmail } from "./volunteer-email";
+import { sendBulkVolunteerEmail, sendVolunteerConfirmationEmail, sendVolunteerReceiptEmail } from "./volunteer-email";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
 
 // 72 hours in seconds
@@ -269,4 +269,83 @@ export async function confirmVolunteerSignup(data: { id: string }) {
 	const refreshed = await db().volunteerSignup.get({ id: data.id }).go();
 	if (!refreshed.data) throw new Error("Signup not found");
 	return parseServerData(volunteerSignupSchema, refreshed.data, "Failed to parse signup");
+}
+
+// ---------------------------------------------------------------------------
+// Admin — Bulk email
+// ---------------------------------------------------------------------------
+
+export type BulkEmailFilters = {
+	shiftIds?: string[];
+	roleIds?: string[];
+	minDateOfBirth?: string;
+	maxDateOfBirth?: string;
+};
+
+export type BulkEmailResult = {
+	sent: number;
+	failed: { email: string; error: string }[];
+};
+
+/** Send a bulk email to confirmed signups of an event, with optional filters and deduplication. */
+export async function sendBulkVolunteerEventEmail(data: { eventId: string; subject: string; htmlBody: string; filters?: BulkEmailFilters }): Promise<BulkEmailResult> {
+	const { eventId, subject, htmlBody, filters } = data;
+
+	const eventResult = await db().volunteerEvent.get({ id: eventId }).go();
+	if (!eventResult.data) throw new Error("Event not found");
+	const event = parseServerData(volunteerEventSchema, eventResult.data, "Failed to parse event");
+
+	const signupsResult = await db().volunteerSignup.query.byEvent({ eventId }).go({ pages: "all" });
+	const allSignups = parseServerArray(volunteerSignupSchema, signupsResult.data, "Failed to parse signups");
+
+	// Only confirmed signups
+	let filtered = allSignups.filter((s) => s.status === "confirmed");
+
+	// Filter by shiftIds
+	if (filters?.shiftIds && filters.shiftIds.length > 0) {
+		filtered = filtered.filter((s) => filters.shiftIds!.includes(s.shiftId));
+	}
+
+	// Filter by assignedRoleIds
+	if (filters?.roleIds && filters.roleIds.length > 0) {
+		filtered = filtered.filter((s) => s.assignedRoleId && filters.roleIds!.includes(s.assignedRoleId));
+	}
+
+	// Filter by date of birth range (minDateOfBirth = oldest allowed DOB, i.e. born on or after)
+	if (filters?.minDateOfBirth) {
+		filtered = filtered.filter((s) => s.dateOfBirth >= filters.minDateOfBirth!);
+	}
+	if (filters?.maxDateOfBirth) {
+		filtered = filtered.filter((s) => s.dateOfBirth <= filters.maxDateOfBirth!);
+	}
+
+	// Deduplicate by email (case-insensitive, keep first)
+	const seen = new Set<string>();
+	const recipients: (typeof filtered)[number][] = [];
+	for (const signup of filtered) {
+		const normalizedEmail = signup.email.toLowerCase();
+		if (!seen.has(normalizedEmail)) {
+			seen.add(normalizedEmail);
+			recipients.push(signup);
+		}
+	}
+
+	let sent = 0;
+	const failed: { email: string; error: string }[] = [];
+
+	for (const recipient of recipients) {
+		try {
+			await sendBulkVolunteerEmail({
+				toEmail: recipient.email,
+				subject,
+				htmlBody,
+				organizerEmail: event.organizerEmail,
+			});
+			sent++;
+		} catch (err) {
+			failed.push({ email: recipient.email, error: err instanceof Error ? err.message : String(err) });
+		}
+	}
+
+	return { sent, failed };
 }

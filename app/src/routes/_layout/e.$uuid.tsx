@@ -578,13 +578,13 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 					)}
 				</form.Field>
 
-				<form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
-					{([canSubmit, isSubmitting]) => (
+				<form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting, state.isDirty]}>
+					{([canSubmit, isSubmitting, isDirty]) => (
 						<Group justify="flex-end" gap="sm" my="lg">
 							<Button variant="subtle" onClick={onCancel} disabled={mutation.isPending}>
 								Abbrechen
 							</Button>
-							<Button type="submit" loading={isSubmitting || mutation.isPending} disabled={!canSubmit || isSubmitting}>
+							<Button type="submit" loading={isSubmitting || mutation.isPending} disabled={!canSubmit || isSubmitting || !isDirty}>
 								Anmelden für {shiftLabel}
 							</Button>
 						</Group>

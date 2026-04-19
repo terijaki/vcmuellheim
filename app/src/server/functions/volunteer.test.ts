@@ -1,8 +1,8 @@
 import { SESClient } from "@aws-sdk/client-ses";
 import { mockClient } from "aws-sdk-client-mock";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { sendVolunteerConfirmationEmail, sendVolunteerReceiptEmail } from "./volunteer-email";
-import { confirmVolunteerSignup, createVolunteerSignup, getPublicVolunteerEvent, verifyVolunteerToken } from "./volunteer-handlers";
+import { sendBulkVolunteerEmail, sendVolunteerConfirmationEmail, sendVolunteerReceiptEmail } from "./volunteer-email";
+import { confirmVolunteerSignup, createVolunteerSignup, getPublicVolunteerEvent, sendBulkVolunteerEventEmail, verifyVolunteerToken } from "./volunteer-handlers";
 
 // ── Environment setup ────────────────────────────────────────────────────────
 process.env.CONTENT_TABLE_NAME = "test-content-table";
@@ -62,6 +62,7 @@ vi.mock("@/lib/db/electrodb-client", () => ({
 vi.mock("./volunteer-email", () => ({
 	sendVolunteerConfirmationEmail: vi.fn().mockResolvedValue(undefined),
 	sendVolunteerReceiptEmail: vi.fn().mockResolvedValue(undefined),
+	sendBulkVolunteerEmail: vi.fn().mockResolvedValue(undefined),
 }));
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -73,10 +74,14 @@ const roleId2 = "22222222-2222-4222-8222-222222222222";
 const shiftId = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
 const eventId = "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb";
 
+const organizerEmail = "veranstalter@example.com";
+
 const mockEvent = {
 	id: eventId,
 	type: "volunteerEvent" as const,
 	title: "Stadtfest 2025",
+	organizerName: "Max Muster",
+	organizerEmail,
 	shifts: [
 		{
 			id: shiftId,
@@ -430,5 +435,134 @@ describe("confirmVolunteerSignup (admin force-confirm)", () => {
 	it("throws when signup not found", async () => {
 		mockSignupGet.mockResolvedValue({ data: null });
 		await expect(confirmVolunteerSignup({ id: signupId })).rejects.toThrow("not found");
+	});
+});
+
+// ── Bulk email tests ────────────────────────────────────────────────────────
+
+describe("sendBulkVolunteerEventEmail", () => {
+	const shift2Id = "aaaaaaaa-bbbb-4bbb-8bbb-bbbbbbbbbbbb";
+	const roleId3 = "33333333-3333-4333-8333-333333333333";
+
+	const mockEventWithTwoShifts = {
+		...mockEvent,
+		shifts: [
+			...mockEvent.shifts,
+			{
+				id: shift2Id,
+				label: "Abbau",
+				startDate: futureDate,
+				roles: [{ id: roleId3, label: "Aufräumen", minCapacity: 1, maxCapacity: 5 }],
+			},
+		],
+	};
+
+	function makeConfirmedSignup(overrides: Partial<ReturnType<typeof makeSignup>> = {}) {
+		return makeSignup({ status: "confirmed", assignedRoleId: roleId1, ...overrides });
+	}
+
+	beforeEach(() => {
+		vi.clearAllMocks();
+		mockEventGet.mockResolvedValue({ data: mockEvent });
+	});
+
+	it("sends one email per unique confirmed signup email address", async () => {
+		const confirmed1 = makeConfirmedSignup({ id: "cc111111-1111-4111-8111-111111111111", email: "a@example.com" });
+		const confirmed2 = makeConfirmedSignup({ id: "cc222222-2222-4222-8222-222222222222", email: "b@example.com" });
+		mockSignupQuery.mockResolvedValue({ data: [confirmed1, confirmed2] });
+
+		const result = await sendBulkVolunteerEventEmail({ eventId, subject: "Test", htmlBody: "<p>Hallo</p>" });
+
+		expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(2);
+		expect(result.sent).toBe(2);
+		expect(result.failed).toHaveLength(0);
+	});
+
+	it("excludes pending signups", async () => {
+		const confirmed = makeConfirmedSignup({ id: "cc111111-1111-4111-8111-111111111111", email: "a@example.com" });
+		const pending = makeSignup({ id: "cc222222-2222-4222-8222-222222222222", email: "b@example.com", status: "pending" });
+		mockSignupQuery.mockResolvedValue({ data: [confirmed, pending] });
+
+		const result = await sendBulkVolunteerEventEmail({ eventId, subject: "Test", htmlBody: "<p>Hallo</p>" });
+
+		expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
+		expect(result.sent).toBe(1);
+	});
+
+	it("deduplicates recipients by email case-insensitively", async () => {
+		const s1 = makeConfirmedSignup({ id: "cc111111-1111-4111-8111-111111111111", email: "Erika@example.com" });
+		const s2 = makeConfirmedSignup({ id: "cc222222-2222-4222-8222-222222222222", email: "erika@example.com" });
+		mockSignupQuery.mockResolvedValue({ data: [s1, s2] });
+
+		const result = await sendBulkVolunteerEventEmail({ eventId, subject: "Test", htmlBody: "<p>Hallo</p>" });
+
+		expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
+		expect(result.sent).toBe(1);
+	});
+
+	it("filters by shiftIds", async () => {
+		mockEventGet.mockResolvedValue({ data: mockEventWithTwoShifts });
+		const inShift1 = makeConfirmedSignup({ id: "cc111111-1111-4111-8111-111111111111", email: "a@example.com", shiftId });
+		const inShift2 = makeConfirmedSignup({ id: "cc222222-2222-4222-8222-222222222222", email: "b@example.com", shiftId: shift2Id, assignedRoleId: roleId3 });
+		mockSignupQuery.mockResolvedValue({ data: [inShift1, inShift2] });
+
+		const result = await sendBulkVolunteerEventEmail({ eventId, subject: "Test", htmlBody: "<p>Hallo</p>", filters: { shiftIds: [shiftId] } });
+
+		expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
+		expect(result.sent).toBe(1);
+	});
+
+	it("filters by roleIds (assigned role)", async () => {
+		const withRole1 = makeConfirmedSignup({ id: "cc111111-1111-4111-8111-111111111111", email: "a@example.com", assignedRoleId: roleId1 });
+		const withRole2 = makeConfirmedSignup({ id: "cc222222-2222-4222-8222-222222222222", email: "b@example.com", assignedRoleId: roleId2 });
+		mockSignupQuery.mockResolvedValue({ data: [withRole1, withRole2] });
+
+		const result = await sendBulkVolunteerEventEmail({ eventId, subject: "Test", htmlBody: "<p>Hallo</p>", filters: { roleIds: [roleId1] } });
+
+		expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
+		expect(result.sent).toBe(1);
+	});
+
+	it("filters by date of birth range", async () => {
+		// signupData uses dateOfBirth "1990-01-15"
+		const inRange = makeConfirmedSignup({ id: "cc111111-1111-4111-8111-111111111111", email: "a@example.com", dateOfBirth: "1995-06-01" });
+		const outOfRange = makeConfirmedSignup({ id: "cc222222-2222-4222-8222-222222222222", email: "b@example.com", dateOfBirth: "1980-01-01" });
+		mockSignupQuery.mockResolvedValue({ data: [inRange, outOfRange] });
+
+		const result = await sendBulkVolunteerEventEmail({ eventId, subject: "Test", htmlBody: "<p>Hallo</p>", filters: { minDateOfBirth: "1990-01-01", maxDateOfBirth: "2000-12-31" } });
+
+		expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
+		expect(result.sent).toBe(1);
+	});
+
+	it("passes organizer email as Reply-To to sendBulkVolunteerEmail", async () => {
+		const confirmed = makeConfirmedSignup({ id: "cc111111-1111-4111-8111-111111111111", email: "a@example.com" });
+		mockSignupQuery.mockResolvedValue({ data: [confirmed] });
+
+		await sendBulkVolunteerEventEmail({ eventId, subject: "Test Betreff", htmlBody: "<p>Hallo</p>" });
+
+		expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledWith(
+			expect.objectContaining({
+				toEmail: "a@example.com",
+				subject: "Test Betreff",
+				organizerEmail,
+			}),
+		);
+	});
+
+	it("reports partial failures without throwing", async () => {
+		const s1 = makeConfirmedSignup({ id: "cc111111-1111-4111-8111-111111111111", email: "a@example.com" });
+		const s2 = makeConfirmedSignup({ id: "cc222222-2222-4222-8222-222222222222", email: "b@example.com" });
+		mockSignupQuery.mockResolvedValue({ data: [s1, s2] });
+
+		vi.mocked(sendBulkVolunteerEmail)
+			.mockResolvedValueOnce(undefined) // first succeeds
+			.mockRejectedValueOnce(new Error("SES throttle")); // second fails
+
+		const result = await sendBulkVolunteerEventEmail({ eventId, subject: "Test", htmlBody: "<p>Hallo</p>" });
+
+		expect(result.sent).toBe(1);
+		expect(result.failed).toHaveLength(1);
+		expect(result.failed[0]?.error).toBe("SES throttle");
 	});
 });

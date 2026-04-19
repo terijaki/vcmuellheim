@@ -24,7 +24,7 @@ import { volunteerEventSchema, volunteerSignupDataSchema, volunteerSignupSchema 
 import { requireAdminMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
-import { confirmVolunteerSignup, createVolunteerSignup, getPublicVolunteerEvent, verifyVolunteerToken } from "./volunteer-handlers";
+import { confirmVolunteerSignup, createVolunteerSignup, getPublicVolunteerEvent, sendBulkVolunteerEventEmail, verifyVolunteerToken } from "./volunteer-handlers";
 
 // ---------------------------------------------------------------------------
 // Admin — Events CRUD
@@ -182,6 +182,31 @@ export const confirmVolunteerSignupFn = createServerFn()
 	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => confirmVolunteerSignup(data));
+
+export const sendVolunteerBulkEmailFn = createServerFn()
+	.middleware([requireAdminMiddleware])
+	.inputValidator(
+		z.object({
+			eventId: z.uuid(),
+			subject: z.string().min(1).max(500),
+			htmlBody: z.string().min(1),
+			filters: z
+				.object({
+					shiftIds: z.array(z.uuid()).optional(),
+					roleIds: z.array(z.uuid()).optional(),
+					minDateOfBirth: z
+						.string()
+						.regex(/^\d{4}-\d{2}-\d{2}$/)
+						.optional(),
+					maxDateOfBirth: z
+						.string()
+						.regex(/^\d{4}-\d{2}-\d{2}$/)
+						.optional(),
+				})
+				.optional(),
+		}),
+	)
+	.handler(async ({ data }) => sendBulkVolunteerEventEmail(data));
 
 // ---------------------------------------------------------------------------
 // Public
