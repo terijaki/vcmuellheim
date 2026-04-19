@@ -172,7 +172,7 @@ function VolunteerEventAdminPage() {
 											<Menu.Item leftSection={<SquarePen size={14} />} onClick={() => openEdit(event)}>
 												Bearbeiten
 											</Menu.Item>
-											<Menu.Item leftSection={<Link size={14} />} onClick={() => navigator.clipboard.writeText(deeplink)}>
+											<Menu.Item leftSection={<Link size={14} />} onClick={() => navigator.clipboard.writeText(deeplink).catch(() => notification.error({ message: "Link konnte nicht kopiert werden" }))}>
 												Link kopieren
 											</Menu.Item>
 											<Menu.Item leftSection={<ExternalLink size={14} />} component="a" href={deeplink} target="_blank" rel="noopener noreferrer">
@@ -250,7 +250,7 @@ function VolunteerEventAdminPage() {
 													<Menu.Item leftSection={<Copy size={14} />} onClick={() => openFromTemplate(event)}>
 														Als Vorlage verwenden
 													</Menu.Item>
-													<Menu.Item leftSection={<Link size={14} />} onClick={() => navigator.clipboard.writeText(`${appBaseUrl}/e/${event.id}`)}>
+													<Menu.Item leftSection={<Link size={14} />} onClick={() => navigator.clipboard.writeText(`${appBaseUrl}/e/${event.id}`).catch(() => notification.error({ message: "Link konnte nicht kopiert werden" }))}>
 														Link kopieren
 													</Menu.Item>
 													<Menu.Item leftSection={<Mail size={14} />} onClick={() => navigate({ to: "/admin/volunteer-event/$eventId/message", params: { eventId: event.id } })}>

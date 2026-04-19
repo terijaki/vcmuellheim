@@ -163,21 +163,21 @@ function VolunteerEventPage() {
 						const shiftDates = new Set<DateStringValue>();
 						for (const shift of event.shifts) {
 							let cursor = dayjs(shift.startDate);
-							const end = dayjs(shift.endDate);
+							const end = dayjs(shift.endDate ?? shift.startDate);
 							while (!cursor.isAfter(end, "day")) {
 								shiftDates.add(cursor.format("YYYY-MM-DD") as DateStringValue);
 								cursor = cursor.add(1, "day");
 							}
 						}
 						const earliestShift = event.shifts.reduce((a, b) => (dayjs(a.startDate).isBefore(dayjs(b.startDate)) ? a : b));
-						const latestShift = event.shifts.reduce((a, b) => (dayjs(a.endDate).isAfter(dayjs(b.endDate)) ? a : b));
+						const latestShift = event.shifts.reduce((a, b) => (dayjs(a.endDate ?? a.startDate).isAfter(dayjs(b.endDate ?? b.startDate)) ? a : b));
 						const calendarConfig: CalendarProps = {
 							static: true,
 							highlightToday: true,
 							hideOutsideDates: true,
 							maxLevel: "month",
 							minDate: dayjs(earliestShift.startDate).startOf("month").toDate(),
-							maxDate: dayjs(latestShift.endDate).endOf("month").toDate(),
+							maxDate: dayjs(latestShift.endDate ?? latestShift.startDate).endOf("month").toDate(),
 							defaultDate: dayjs(earliestShift.startDate).toDate(),
 							getDayProps: (date: DateStringValue) => {
 								const isShiftDay = shiftDates.has(date);

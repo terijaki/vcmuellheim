@@ -111,8 +111,8 @@ export function EventFormModal({
 	}, [signupsForForm]);
 
 	useEffect(() => {
-		editor?.commands.setContent(editingEvent?.description ?? "");
-	}, [editingEvent, editor]);
+		editor?.commands.setContent(editingEvent?.description ?? initialData?.description ?? "");
+	}, [editingEvent, initialData, editor]);
 
 	const form = useForm({
 		defaultValues: {
