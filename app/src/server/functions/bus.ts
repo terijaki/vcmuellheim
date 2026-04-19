@@ -25,7 +25,7 @@ export const listBusFn = createServerFn().handler(async () => {
 
 // ── Protected ────────────────────────────────────────────────────────────────
 
-export const createBusFn = createServerFn()
+export const createBusFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(busSchema.omit({ id: true, createdAt: true, updatedAt: true, ttl: true }))
 	.handler(async ({ data }) => {
@@ -40,7 +40,7 @@ export const createBusFn = createServerFn()
 		return booking;
 	});
 
-export const updateBusFn = createServerFn()
+export const updateBusFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(
 		z.object({
@@ -68,7 +68,7 @@ export const updateBusFn = createServerFn()
 		return booking;
 	});
 
-export const deleteBusFn = createServerFn()
+export const deleteBusFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {

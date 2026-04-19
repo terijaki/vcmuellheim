@@ -24,7 +24,7 @@ export const listLocationsFn = createServerFn().handler(async () => {
 
 // ── Protected ────────────────────────────────────────────────────────────────
 
-export const createLocationFn = createServerFn()
+export const createLocationFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(locationSchema.omit({ id: true, createdAt: true, updatedAt: true }))
 	.handler(async ({ data }) => {
@@ -38,7 +38,7 @@ export const createLocationFn = createServerFn()
 		return location;
 	});
 
-export const updateLocationFn = createServerFn()
+export const updateLocationFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(
 		z.object({
@@ -61,7 +61,7 @@ export const updateLocationFn = createServerFn()
 		return location;
 	});
 
-export const deleteLocationFn = createServerFn()
+export const deleteLocationFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
