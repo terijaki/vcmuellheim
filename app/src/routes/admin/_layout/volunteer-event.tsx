@@ -55,7 +55,7 @@ import {
 	updateVolunteerEventFn,
 	updateVolunteerSignupFn,
 } from "@webapp/server/functions/volunteer";
-import { getAppBaseUrl } from "@webapp/server/functions/app-base-url";
+import { getAppBaseUrlFn } from "@webapp/server/functions/app-base-url";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { Archive, ArrowLeftRight, ChevronDown, ExternalLink, ChevronUp, ClipboardCopy, Link, Mail, Plus, SquarePen, Trash2, SquareCheckBig } from "lucide-react";
@@ -66,8 +66,8 @@ dayjs.locale("de");
 
 export const Route = createFileRoute("/admin/_layout/volunteer-event")({
 	loader: async () => {
-		const data = await listVolunteerEventsFn();
-		return { events: data.items, appBaseUrl: getAppBaseUrl() };
+		const [data, appBaseUrl] = await Promise.all([listVolunteerEventsFn(), getAppBaseUrlFn()]);
+		return { events: data.items, appBaseUrl };
 	},
 	component: VolunteerEventAdminPage,
 });
