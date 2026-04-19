@@ -191,14 +191,16 @@ export type SamsTeamInput = z.infer<typeof samsTeamSchema>;
 // ---------------------------------------------------------------------------
 
 /** Job role within a volunteer shift */
-export const volunteerRoleSchema = z.object({
-	id: z.uuid(),
-	label: z.string().min(1).max(100),
-	description: z.string().max(500).optional(),
-	minCapacity: z.number().int().min(0),
-	maxCapacity: z.number().int().min(1),
-	minAge: z.number().int().min(0).max(120).optional(),
-});
+export const volunteerRoleSchema = z
+	.object({
+		id: z.uuid(),
+		label: z.string().min(1).max(100),
+		description: z.string().max(500).optional(),
+		minCapacity: z.number().int().min(0),
+		maxCapacity: z.number().int().min(1),
+		minAge: z.number().int().min(0).max(120).optional(),
+	})
+	.refine((r) => r.maxCapacity >= r.minCapacity, { message: "maxCapacity muss größer oder gleich minCapacity sein" });
 
 /** Shift within a volunteer event */
 export const volunteerShiftSchema = z.object({
@@ -226,7 +228,7 @@ export const volunteerEventSchema = z.object({
 export const volunteerSignupDataSchema = z.object({
 	firstName: z.string().trim().min(1).max(100),
 	lastName: z.string().trim().min(1).max(100),
-	email: z.email(),
+	email: z.email().trim(),
 	dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
 	preferredRoleIds: z.array(z.uuid()).min(1),
 	association: z.string().trim().max(500),

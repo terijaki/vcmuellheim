@@ -55,6 +55,7 @@ import {
 	updateVolunteerEventFn,
 	updateVolunteerSignupFn,
 } from "@webapp/server/functions/volunteer";
+import { getAppBaseUrl } from "@webapp/server/functions/app-base-url";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { Archive, ArrowLeftRight, ChevronDown, ExternalLink, ChevronUp, ClipboardCopy, Link, Mail, Plus, SquarePen, Trash2, SquareCheckBig } from "lucide-react";
@@ -66,7 +67,7 @@ dayjs.locale("de");
 export const Route = createFileRoute("/admin/_layout/volunteer-event")({
 	loader: async () => {
 		const data = await listVolunteerEventsFn();
-		return { events: data.items };
+		return { events: data.items, appBaseUrl: getAppBaseUrl() };
 	},
 	component: VolunteerEventAdminPage,
 });
@@ -348,17 +349,23 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 // ---------------------------------------------------------------------------
 
 function serializeShifts(shifts: ShiftFormValue[]): VolunteerEvent["shifts"] {
-	return shifts.map((s) => ({
-		id: s.id,
-		label: s.label,
-		startDate: s.startDate?.toISOString() ?? new Date().toISOString(),
-		endDate: s.endDate?.toISOString() ?? undefined,
-		...(s.archivedAt ? { archivedAt: s.archivedAt } : {}),
-		roles: s.roles.map(({ minAge, ...r }) => ({
-			...r,
-			...(minAge !== null && minAge > 0 ? { minAge } : {}),
-		})),
-	}));
+	return shifts.map((s, index) => {
+		if (!s.startDate) {
+			throw new Error(`Shift ${index + 1}${s.label ? ` (${s.label})` : ""} is missing a start date.`);
+		}
+
+		return {
+			id: s.id,
+			label: s.label,
+			startDate: s.startDate.toISOString(),
+			endDate: s.endDate?.toISOString() ?? undefined,
+			...(s.archivedAt ? { archivedAt: s.archivedAt } : {}),
+			roles: s.roles.map(({ minAge, ...r }) => ({
+				...r,
+				...(minAge !== null && minAge > 0 ? { minAge } : {}),
+			})),
+		};
+	});
 }
 
 function deserializeShifts(shifts: VolunteerEvent["shifts"]): ShiftFormValue[] {
@@ -964,7 +971,7 @@ function EventDeleteArchiveModal({ opened, onClose, event, onDone }: { opened: b
 // ---------------------------------------------------------------------------
 
 function VolunteerEventAdminPage() {
-	const { events: initialEvents } = Route.useLoaderData();
+	const { events: initialEvents, appBaseUrl } = Route.useLoaderData();
 	const notification = useNotification();
 
 	const { data: eventsData, refetch } = useQuery({
@@ -1030,7 +1037,7 @@ function VolunteerEventAdminPage() {
 				)}
 
 				{activeEvents.map((event) => {
-					const deeplink = `${typeof window !== "undefined" ? window.location.origin : ""}/e/${event.id}`;
+					const deeplink = `${appBaseUrl}/e/${event.id}`;
 					return (
 						<Card key={event.id} withBorder>
 							<Stack gap="sm">

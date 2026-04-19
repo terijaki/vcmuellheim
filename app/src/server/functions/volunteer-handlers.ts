@@ -110,11 +110,14 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
 	if (shift.archivedAt) throw new Error("Diese Schicht ist nicht mehr verfügbar");
 	if (new Date(shift.startDate) <= new Date()) throw new Error("This shift has already started");
 
-	// Validate minimum age requirements for each preferred role
+	// Validate preferred roles belong to the shift and enforce minimum age requirements
 	const ageAtShift = dayjs(shift.startDate).diff(dayjs(data.dateOfBirth), "year");
 	for (const roleId of data.preferredRoleIds) {
 		const role = shift.roles.find((r) => r.id === roleId);
-		if (role?.minAge !== undefined && ageAtShift < role.minAge) {
+		if (!role) {
+			throw new Error("Ungültige bevorzugte Aufgabe für diese Schicht");
+		}
+		if (role.minAge !== undefined && ageAtShift < role.minAge) {
 			throw new Error(`Du erfüllst nicht das Mindestalter für die Aufgabe: ${role.label}`);
 		}
 	}
@@ -204,6 +207,7 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 				dateOfBirth: signupData.dateOfBirth,
 				mobilePhone: signupData.mobilePhone,
 				emergencyContact: signupData.emergencyContact,
+				note: signupData.note,
 				status: "confirmed",
 				updatedAt: new Date().toISOString(),
 			})

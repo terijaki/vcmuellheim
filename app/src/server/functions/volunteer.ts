@@ -160,7 +160,9 @@ export const updateVolunteerSignupFn = createServerFn()
 							.volunteerSignup.patch({ id })
 							.set({ ...setFields, assignedRoleId: updates.assignedRoleId })
 							.go()
-					: await patchOp.go();
+					: updates.shiftId !== undefined
+						? await patchOp.remove(["assignedRoleId"]).go()
+						: await patchOp.go();
 
 		if (!result.data) throw new Error("Signup not found");
 		const refreshed = await db().volunteerSignup.get({ id }).go();
