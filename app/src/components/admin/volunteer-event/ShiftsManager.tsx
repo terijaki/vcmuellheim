@@ -2,7 +2,7 @@ import { Accordion, ActionIcon, Badge, Box, Button, Fieldset, Group, Modal, Numb
 import { DateTimePicker } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
 import dayjs from "dayjs";
-import { Archive, Plus, Trash2 } from "lucide-react";
+import { Archive, Copy, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import type { RoleFormValue, ShiftFormValue } from "./types";
 
@@ -151,6 +151,22 @@ export function ShiftsManager({
 		onShiftsChange(updated);
 	};
 
+	const copyShift = (index: number) => {
+		const source = shifts[index];
+		const newId = crypto.randomUUID();
+		const copy: ShiftFormValue = {
+			...source,
+			id: newId,
+			label: `Kopie von ${source.label}`,
+			archivedAt: undefined,
+			roles: source.roles.map((r) => ({ ...r, id: crypto.randomUUID() })),
+		};
+		const updated = [...shifts];
+		updated.splice(index + 1, 0, copy);
+		onShiftsChange(updated);
+		setExpandedShifts((prev) => [...prev, newId]);
+	};
+
 	const updateShift = (index: number, updates: Partial<ShiftFormValue>) => {
 		const updated = [...shifts];
 		updated[index] = { ...updated[index], ...updates };
@@ -230,6 +246,11 @@ export function ShiftsManager({
 											onChange={(e) => updateShift(index, { label: e.target.value })}
 											style={{ flex: 1 }}
 										/>
+										<Tooltip label="Schicht kopieren">
+											<ActionIcon color="blue" variant="subtle" onClick={() => copyShift(index)} mb={8}>
+												<Copy size={16} />
+											</ActionIcon>
+										</Tooltip>
 										{signupCount > 0 ? (
 											<Tooltip label={`${signupCount} Anmeldung${signupCount !== 1 ? "en" : ""} – nur Archivieren möglich`}>
 												<ActionIcon color="orange" variant="subtle" onClick={() => setShiftActionModal({ index, action: "archive" })} mb={8}>
