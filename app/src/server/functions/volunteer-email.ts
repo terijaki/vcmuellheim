@@ -103,7 +103,7 @@ function buildReceiptHtml(opts: { firstName: string; eventLocation: string | und
 
 	return `<p>Hallo ${firstName},</p>
 <p>deine Anmeldung wurde bestätigt. Vielen Dank! 🙏</p>
-<p>Hier nochmal die Infos für dich. Im Anhang findest du den Termin <em>als Kalender-Datei</em>.</p>
+<p>Hier nochmal die Infos für dich. Im Anhang findest du den Termin als <em>Kalender-Datei</em>.</p>
 <hr/>
 <p><strong>Datum / Uhrzeit:</strong> ${shiftDate}</p>
 ${locationLine}

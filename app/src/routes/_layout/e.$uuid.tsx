@@ -125,11 +125,11 @@ function VolunteerEventPage() {
 					<Card>
 						<Stack gap="md">
 							{event.description && (
-								<Spoiler maxHeight={240} showLabel={"Ganze Beschreibung anzeigen"} hideLabel={undefined}>
-									<Typography>
+								<Typography>
+									<Spoiler mb="xl" maxHeight={260} showLabel={"Ganze Beschreibung anzeigen"} hideLabel={undefined}>
 										<div dangerouslySetInnerHTML={{ __html: event.description }} />
-									</Typography>
-								</Spoiler>
+									</Spoiler>
+								</Typography>
 							)}
 							{event.location && (
 								<Group gap="xs" justify="flex-end">
