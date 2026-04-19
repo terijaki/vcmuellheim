@@ -9,6 +9,7 @@
 import { ActionIconLink } from "@webapp/components/CustomLink";
 
 import {
+	Accordion,
 	ActionIcon,
 	Badge,
 	Box,
@@ -23,6 +24,7 @@ import {
 	Menu,
 	Modal,
 	NumberInput,
+	Paper,
 	Select,
 	SimpleGrid,
 	Stack,
@@ -108,9 +110,12 @@ function ShiftsManager({
 	signupCountsByShiftId: Record<string, number>;
 }) {
 	const [shiftActionModal, setShiftActionModal] = useState<{ index: number; action: "delete" | "archive" } | null>(null);
+	const [expandedShifts, setExpandedShifts] = useState<string[]>([]);
 
 	const addShift = () => {
-		onShiftsChange([...shifts, { id: crypto.randomUUID(), label: "", startDate: null, endDate: null, roles: [] }]);
+		const newId = crypto.randomUUID();
+		onShiftsChange([...shifts, { id: newId, label: "", startDate: null, endDate: null, roles: [] }]);
+		setExpandedShifts((prev) => [...prev, newId]);
 	};
 
 	const confirmShiftAction = () => {
@@ -162,15 +167,15 @@ function ShiftsManager({
 				Schichten
 			</Text>
 
-			<Stack gap="md">
+			<Accordion multiple variant="separated" value={expandedShifts} onChange={setExpandedShifts} chevronPosition="left">
 				{shifts.map((shift, index) => {
 					if (shift.archivedAt) {
 						return (
-							<Fieldset key={shift.id} p="md" legend={shift.label || "Archivierte Schicht"} style={{ opacity: 0.65 }}>
-								<Group justify="space-between" align="center">
+							<Paper key={shift.id} withBorder p={0} style={{ opacity: 0.65 }}>
+								<Group px="md" py="sm" justify="space-between" align="center">
 									<Group gap="xs">
 										<Text size="sm" c="dimmed">
-											{shift.label}
+											{shift.label || "Archivierte Schicht"}
 										</Text>
 										<Badge size="sm" variant="outline" color="gray">
 											Archiviert
@@ -180,62 +185,77 @@ function ShiftsManager({
 										Wiederherstellen
 									</Button>
 								</Group>
-							</Fieldset>
+							</Paper>
 						);
 					}
 
 					const signupCount = signupCountsByShiftId[shift.id] ?? 0;
 					return (
-						<Fieldset key={shift.id} p="md" legend={shift.label || "Neue Schicht"}>
-							<Stack gap="sm">
-								<Group justify="space-between" align="flex-end" mb="md">
-									<TextInput
-										label="Bezeichnung"
-										required
-										placeholder="z. B. Aufbau, Mittagsschicht, Abbau"
-										value={shift.label}
-										onChange={(e) => updateShift(index, { label: e.target.value })}
-										style={{ flex: 1 }}
-									/>
-									{signupCount > 0 ? (
-										<Tooltip label={`${signupCount} Anmeldung${signupCount !== 1 ? "en" : ""} – nur Archivieren möglich`}>
-											<ActionIcon size="sm" color="orange" variant="subtle" onClick={() => setShiftActionModal({ index, action: "archive" })} mb="xs">
-												<Archive size={16} />
-											</ActionIcon>
-										</Tooltip>
-									) : (
-										<ActionIcon size="sm" color="red" variant="subtle" onClick={() => setShiftActionModal({ index, action: "delete" })} mb="xs">
-											<Trash2 size={16} />
-										</ActionIcon>
+						<Accordion.Item key={shift.id} value={shift.id}>
+							<Accordion.Control>
+								<Box>
+									<Text size="sm" fw={500} truncate>
+										{shift.label || "Neue Schicht"}
+									</Text>
+									{shift.startDate && (
+										<Text size="xs" c="dimmed">
+											{dayjs(shift.startDate).format("DD.MM.YYYY HH:mm")}
+											{shift.endDate && ` – ${dayjs(shift.endDate).format("HH:mm")}`}
+										</Text>
 									)}
-								</Group>
-								<SimpleGrid cols={{ base: 1, sm: 2 }}>
-									<DateTimePicker
-										label="Beginn"
-										required
-										value={shift.startDate}
-										onChange={(val) => updateShift(index, { startDate: val ? new Date(val) : null })}
-										locale="de"
-										valueFormat="DD.MM.YYYY HH:mm"
-									/>
-									<DateTimePicker
-										label="Ende (optional)"
-										value={shift.endDate}
-										onChange={(val) => updateShift(index, { endDate: val ? new Date(val) : null })}
-										locale="de"
-										minDate={shift.startDate || undefined}
-										valueFormat="DD.MM.YYYY HH:mm"
-										clearable
-									/>
-								</SimpleGrid>
+								</Box>
+							</Accordion.Control>
+							<Accordion.Panel>
+								<Stack gap="sm">
+									<Group align="flex-end" gap="xs">
+										<TextInput
+											label="Bezeichnung"
+											required
+											placeholder="z. B. Aufbau, Mittagsschicht, Abbau"
+											value={shift.label}
+											onChange={(e) => updateShift(index, { label: e.target.value })}
+											style={{ flex: 1 }}
+										/>
+										{signupCount > 0 ? (
+											<Tooltip label={`${signupCount} Anmeldung${signupCount !== 1 ? "en" : ""} – nur Archivieren möglich`}>
+												<ActionIcon size="sm" color="orange" variant="subtle" onClick={() => setShiftActionModal({ index, action: "archive" })} mb={4}>
+													<Archive size={16} />
+												</ActionIcon>
+											</Tooltip>
+										) : (
+											<ActionIcon size="sm" color="red" variant="subtle" onClick={() => setShiftActionModal({ index, action: "delete" })} mb={8}>
+												<Trash2 size={16} />
+											</ActionIcon>
+										)}
+									</Group>
+									<SimpleGrid cols={{ base: 1, sm: 2 }}>
+										<DateTimePicker
+											label="Beginn"
+											required
+											value={shift.startDate}
+											onChange={(val) => updateShift(index, { startDate: val ? new Date(val) : null })}
+											locale="de"
+											valueFormat="DD.MM.YYYY HH:mm"
+										/>
+										<DateTimePicker
+											label="Ende (optional)"
+											value={shift.endDate}
+											onChange={(val) => updateShift(index, { endDate: val ? new Date(val) : null })}
+											locale="de"
+											minDate={shift.startDate || undefined}
+											valueFormat="DD.MM.YYYY HH:mm"
+											clearable
+										/>
+									</SimpleGrid>
 
-								{/* Roles within shift */}
-								<RolesManager roles={shift.roles} onRolesChange={(roles) => updateShift(index, { roles })} />
-							</Stack>
-						</Fieldset>
+									{/* Roles within shift */}
+									<RolesManager roles={shift.roles} onRolesChange={(roles) => updateShift(index, { roles })} />
+								</Stack>
+							</Accordion.Panel>
+						</Accordion.Item>
 					);
 				})}
-			</Stack>
+			</Accordion>
 			<Group justify="center">
 				<Button size="xs" variant="light" leftSection={<Plus size={16} />} onClick={addShift} mt="xs">
 					Schicht hinzufügen
@@ -291,7 +311,7 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 			</Text>
 			<Stack gap="xs">
 				{roles.map((role, index) => (
-					<Fieldset key={role.id} legend={role.label}>
+					<Fieldset key={role.id} legend={role.label} bg="gray.0">
 						<Group gap="xs" align="flex-end">
 							<TextInput
 								size="xs"
