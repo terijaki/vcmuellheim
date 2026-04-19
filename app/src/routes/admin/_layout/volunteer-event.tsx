@@ -158,14 +158,9 @@ function ShiftsManager({
 				</Group>
 			</Modal>
 
-			<Group justify="space-between" mb="xs">
-				<Text size="sm" fw={500}>
-					Schichten
-				</Text>
-				<Button size="xs" variant="subtle" leftSection={<Plus size={16} />} onClick={addShift}>
-					Schicht hinzufügen
-				</Button>
-			</Group>
+			<Text size="sm" fw={500} mb="xs">
+				Schichten
+			</Text>
 
 			<Stack gap="md">
 				{shifts.map((shift, index) => {
@@ -241,6 +236,11 @@ function ShiftsManager({
 					);
 				})}
 			</Stack>
+			<Group justify="center">
+				<Button size="xs" variant="light" leftSection={<Plus size={16} />} onClick={addShift} mt="xs">
+					Schicht hinzufügen
+				</Button>
+			</Group>
 		</Box>
 	);
 }
@@ -286,14 +286,9 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 				</Group>
 			</Modal>
 
-			<Group justify="space-between" mb="xs">
-				<Text size="xs" c="dimmed" fw={500}>
-					Aufgaben / Rollen
-				</Text>
-				<Button size="xs" variant="subtle" leftSection={<Plus size={14} />} onClick={addRole}>
-					Rolle hinzufügen
-				</Button>
-			</Group>
+			<Text size="xs" c="dimmed" fw={500} mb="xs">
+				Aufgaben / Rollen
+			</Text>
 			<Stack gap="xs">
 				{roles.map((role, index) => (
 					<Fieldset key={role.id} legend={role.label}>
@@ -340,6 +335,11 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 					</Fieldset>
 				))}
 			</Stack>
+			<Group justify="center">
+				<Button size="xs" variant="light" leftSection={<Plus size={14} />} onClick={addRole} mt="xs">
+					Rolle hinzufügen
+				</Button>
+			</Group>
 		</Box>
 	);
 }
@@ -490,7 +490,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 						<Text size="sm" fw={500} mb="xs">
 							Beschreibung (optional)
 						</Text>
-						<RichTextEditor editor={editor} styles={{ content: { "& .ProseMirror": { minHeight: 100 } } }}>
+						<RichTextEditor editor={editor} variant="subtle" styles={{ content: { "& .ProseMirror": { minHeight: 100 } } }}>
 							<RichTextEditor.Toolbar sticky stickyOffset={60}>
 								<RichTextEditor.ControlsGroup>
 									<RichTextEditor.Bold />
