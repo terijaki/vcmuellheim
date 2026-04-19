@@ -185,6 +185,13 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
 	const [modalOpen, setModalOpen] = useState(false);
 	const [submitted, setSubmitted] = useState(false);
 	const isMobile = useMediaQuery("(max-width: 48em)");
+	const alertRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		if (submitted) {
+			alertRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+		}
+	}, [submitted]);
 
 	const dateRangeFormatted = formatShiftDateRange(shift.startDate, shift.endDate);
 
@@ -259,7 +266,7 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
 					</>
 				)}
 				{submitted && (
-					<Alert color="green" title="Anmeldung eingegangen!">
+					<Alert ref={alertRef} color="green" title="Anmeldung eingegangen!">
 						Bitte überprüfe dein E-Mail-Postfach und bestätige deine Anmeldung innerhalb von 72 Stunden.
 					</Alert>
 				)}

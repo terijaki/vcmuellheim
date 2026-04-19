@@ -238,20 +238,9 @@ export const volunteerSignupDataSchema = z.object({
 });
 
 /** Volunteer signup record */
-export const volunteerSignupSchema = z.object({
+export const volunteerSignupSchema = volunteerSignupDataSchema.extend({
 	...baseEntityFields,
 	type: z.literal("volunteerSignup").default("volunteerSignup").describe("Entity type discriminator"),
-	eventId: z.uuid(),
-	shiftId: z.uuid(),
-	firstName: z.string().trim().min(1).max(100),
-	lastName: z.string().trim().min(1).max(100),
-	email: z.email(),
-	dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
-	preferredRoleIds: z.array(z.uuid()).min(1),
-	association: z.string().max(500).trim(),
-	mobilePhone: z.string().trim().max(30).optional().describe("Optional mobile phone number of the volunteer"),
-	emergencyContact: z.string().trim().max(30).optional().describe("Emergency contact phone number — required for minors (under 18 at shift start)"),
-	note: z.string().trim().max(1000).optional().describe("Optional free-text note from the volunteer"),
 	status: z.enum(["pending", "confirmed"]),
 	assignedRoleId: z.uuid().optional().describe("Role assigned by admin, overrides helper preference"),
 });
