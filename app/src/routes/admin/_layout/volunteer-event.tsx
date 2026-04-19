@@ -63,7 +63,7 @@ import type { VolunteerEvent } from "@/lib/db/types";
 
 dayjs.locale("de");
 
-export const Route = createFileRoute("/admin/_layout/volunteerEvent")({
+export const Route = createFileRoute("/admin/_layout/volunteer-event")({
 	loader: async () => {
 		const data = await listVolunteerEventsFn();
 		return { events: data.items };
@@ -110,7 +110,7 @@ function ShiftsManager({
 
 	const addShift = () => {
 		onShiftsChange([...shifts, { id: crypto.randomUUID(), label: "", startDate: null, endDate: null, roles: [] }]);
-	};
+	}
 
 	const confirmShiftAction = () => {
 		if (!shiftActionModal) return;
@@ -123,19 +123,19 @@ function ShiftsManager({
 			onShiftsChange(updated);
 		}
 		setShiftActionModal(null);
-	};
+	}
 
 	const restoreShift = (index: number) => {
 		const updated = [...shifts];
 		updated[index] = { ...updated[index], archivedAt: undefined };
 		onShiftsChange(updated);
-	};
+	}
 
 	const updateShift = (index: number, updates: Partial<ShiftFormValue>) => {
 		const updated = [...shifts];
 		updated[index] = { ...updated[index], ...updates };
 		onShiftsChange(updated);
-	};
+	}
 
 	const pendingShift = shiftActionModal ? shifts[shiftActionModal.index] : null;
 
@@ -185,7 +185,7 @@ function ShiftsManager({
 									</Button>
 								</Group>
 							</Fieldset>
-						);
+						)
 					}
 
 					const signupCount = signupCountsByShiftId[shift.id] ?? 0;
@@ -237,11 +237,11 @@ function ShiftsManager({
 								<RolesManager roles={shift.roles} onRolesChange={(roles) => updateShift(index, { roles })} />
 							</Stack>
 						</Fieldset>
-					);
+					)
 				})}
 			</Stack>
 		</Box>
-	);
+	)
 }
 
 function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRolesChange: (roles: RoleFormValue[]) => void }) {
@@ -250,12 +250,12 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 
 	const addRole = () => {
 		onRolesChange([...roles, { id: crypto.randomUUID(), label: "", description: "", minCapacity: 1, maxCapacity: 5, minAge: null }]);
-	};
+	}
 
 	const requestRemoveRole = (index: number) => {
 		setPendingDeleteIndex(index);
 		openDeleteModal();
-	};
+	}
 
 	const confirmRemoveRole = () => {
 		if (pendingDeleteIndex !== null) {
@@ -263,13 +263,13 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 		}
 		closeDeleteModal();
 		setPendingDeleteIndex(null);
-	};
+	}
 
 	const updateRole = (index: number, updates: Partial<RoleFormValue>) => {
 		const updated = [...roles];
 		updated[index] = { ...updated[index], ...updates };
 		onRolesChange(updated);
-	};
+	}
 
 	return (
 		<Box pl="md" style={{ borderLeft: "2px solid var(--mantine-color-gray-3)" }}>
@@ -340,7 +340,7 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 				))}
 			</Stack>
 		</Box>
-	);
+	)
 }
 
 // ---------------------------------------------------------------------------
@@ -383,7 +383,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 		onUpdate: ({ editor }) => {
 			form.setFieldValue("description", editor.getHTML());
 		},
-	});
+	})
 
 	const createMutation = useMutation({
 		mutationFn: (data: Parameters<typeof createVolunteerEventFn>[0]["data"]) => createVolunteerEventFn({ data }),
@@ -393,7 +393,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 			notification.success("Helfereinsatz wurde erstellt");
 		},
 		onError: () => notification.error({ message: "Helfereinsatz konnte nicht erstellt werden" }),
-	});
+	})
 
 	const updateMutation = useMutation({
 		mutationFn: (args: { id: string; data: Parameters<typeof updateVolunteerEventFn>[0]["data"]["data"] }) => updateVolunteerEventFn({ data: args }),
@@ -403,7 +403,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 			notification.success("Helfereinsatz wurde aktualisiert");
 		},
 		onError: () => notification.error({ message: "Helfereinsatz konnte nicht aktualisiert werden" }),
-	});
+	})
 
 	const [shifts, setShifts] = useState<ShiftFormValue[]>(() => (editingEvent ? deserializeShifts(editingEvent.shifts) : []));
 
@@ -412,7 +412,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 		queryKey: ["volunteerSignups", editingEvent?.id, "forShiftManager"],
 		queryFn: () => listVolunteerSignupsFn({ data: { eventId: editingEvent!.id } }),
 		enabled: !!editingEvent,
-	});
+	})
 
 	const signupCountsByShiftId = useMemo(() => {
 		const counts: Record<string, number> = {};
@@ -447,7 +447,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 						locationUrl: value.locationUrl || undefined,
 						shifts: serializedShifts,
 					},
-				});
+				})
 			} else {
 				createMutation.mutate({
 					type: "volunteerEvent",
@@ -456,10 +456,10 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 					location: value.location || undefined,
 					locationUrl: value.locationUrl || undefined,
 					shifts: serializedShifts,
-				});
+				})
 			}
 		},
-	});
+	})
 
 	const isPending = createMutation.isPending || updateMutation.isPending;
 
@@ -513,7 +513,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 				</Stack>
 			</form>
 		</Modal>
-	);
+	)
 }
 
 // ---------------------------------------------------------------------------
@@ -529,14 +529,14 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 			if (next.has(id)) next.delete(id);
 			else next.add(id);
 			return next;
-		});
-	};
+		})
+	}
 	const notification = useNotification();
 
 	const { data: signupsData, refetch } = useQuery({
 		queryKey: ["volunteerSignups", event.id],
 		queryFn: () => listVolunteerSignupsFn({ data: { eventId: event.id } }),
-	});
+	})
 
 	const deleteMutation = useMutation({
 		mutationFn: (id: string) => deleteVolunteerSignupFn({ data: { id } }),
@@ -545,7 +545,7 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 			notification.success("Anmeldung gelöscht");
 		},
 		onError: () => notification.error({ message: "Anmeldung konnte nicht gelöscht werden" }),
-	});
+	})
 
 	const confirmMutation = useMutation({
 		mutationFn: (id: string) => confirmVolunteerSignupFn({ data: { id } }),
@@ -554,13 +554,13 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 			notification.success("Anmeldung bestätigt");
 		},
 		onError: () => notification.error({ message: "Anmeldung konnte nicht bestätigt werden" }),
-	});
+	})
 
 	const assignRoleMutation = useMutation({
 		mutationFn: ({ id, assignedRoleId }: { id: string; assignedRoleId: string | null }) => updateVolunteerSignupFn({ data: { id, data: { assignedRoleId } } }),
 		onSuccess: () => refetch(),
 		onError: () => notification.error({ message: "Rolle konnte nicht zugewiesen werden" }),
-	});
+	})
 
 	const moveShiftMutation = useMutation({
 		mutationFn: ({ id, shiftId }: { id: string; shiftId: string }) => updateVolunteerSignupFn({ data: { id, data: { shiftId } } }),
@@ -569,7 +569,7 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 			notification.success("Schicht geändert");
 		},
 		onError: () => notification.error({ message: "Schicht konnte nicht geändert werden" }),
-	});
+	})
 
 	const signups = signupsData?.items ?? [];
 	const allRoles = event.shifts.flatMap((s) => s.roles.map((r) => ({ ...r, shiftId: s.id, shiftLabel: s.label })));
@@ -605,7 +605,7 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 													<Badge key={role.id} size="sm" variant="light" color={color}>
 														{role.label}: {count}/{role.maxCapacity}
 													</Badge>
-												);
+												)
 											})}
 											{shift.roles.length === 0 && (
 												<Badge size="sm" variant="outline">
@@ -716,7 +716,7 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																		variant="subtle"
 																		onClick={() => {
 																			if (window.confirm("Anmeldung wirklich löschen?")) {
-																				deleteMutation.mutate(signup.id);
+																				deleteMutation.mutate(signup.id)
 																			}
 																		}}
 																	>
@@ -726,7 +726,7 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 															</Group>
 														</Group>
 													</Card>
-												);
+												)
 											})}
 										</Stack>
 									) : (
@@ -845,7 +845,7 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																			variant="subtle"
 																			onClick={() => {
 																				if (window.confirm("Anmeldung wirklich löschen?")) {
-																					deleteMutation.mutate(signup.id);
+																					deleteMutation.mutate(signup.id)
 																				}
 																			}}
 																		>
@@ -855,18 +855,18 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																</Group>
 															</Table.Td>
 														</Table.Tr>
-													);
+													)
 												})}
 											</Table.Tbody>
 										</Table>
 									)}
 								</Collapse>
 							</Card>
-						);
+						)
 					})}
 			</Stack>
 		</Box>
-	);
+	)
 }
 
 // ---------------------------------------------------------------------------
@@ -880,27 +880,27 @@ function EventDeleteArchiveModal({ opened, onClose, event, onDone }: { opened: b
 		queryKey: ["volunteerSignups", event?.id, "deleteCheck"],
 		queryFn: () => listVolunteerSignupsFn({ data: { eventId: event!.id } }),
 		enabled: !!event && opened,
-	});
+	})
 
 	const hasSignups = (signupsData?.items.length ?? 0) > 0;
 
 	const deleteMutation = useMutation({
 		mutationFn: () => deleteVolunteerEventFn({ data: { id: event!.id } }),
 		onSuccess: () => {
-			onDone();
+			onDone()
 			notification.success("Veranstaltung wurde gelöscht");
 		},
 		onError: () => notification.error({ message: "Veranstaltung konnte nicht gelöscht werden" }),
-	});
+	})
 
 	const archiveMutation = useMutation({
 		mutationFn: () => archiveVolunteerEventFn({ data: { id: event!.id } }),
 		onSuccess: () => {
-			onDone();
+			onDone()
 			notification.success("Veranstaltung wurde archiviert");
 		},
 		onError: () => notification.error({ message: "Veranstaltung konnte nicht archiviert werden" }),
-	});
+	})
 
 	const isPending = deleteMutation.isPending || archiveMutation.isPending;
 
@@ -939,7 +939,7 @@ function EventDeleteArchiveModal({ opened, onClose, event, onDone }: { opened: b
 				</Stack>
 			)}
 		</Modal>
-	);
+	)
 }
 
 // ---------------------------------------------------------------------------
@@ -954,7 +954,7 @@ function VolunteerEventAdminPage() {
 		queryKey: ["volunteerEvents", "admin"],
 		queryFn: () => listVolunteerEventsFn(),
 		initialData: { items: initialEvents },
-	});
+	})
 
 	const [formOpened, { open: openForm, close: closeForm }] = useDisclosure(false);
 	const [editingEvent, setEditingEvent] = useState<VolunteerEvent | null>(null);
@@ -969,7 +969,7 @@ function VolunteerEventAdminPage() {
 			notification.success("Veranstaltung wurde wiederhergestellt");
 		},
 		onError: () => notification.error({ message: "Veranstaltung konnte nicht wiederhergestellt werden" }),
-	});
+	})
 
 	const events = eventsData.items;
 	const activeEvents = events.filter((e) => !e.archivedAt).sort((a, b) => dayjs(a.shifts[0]?.startDate).diff(dayjs(b.shifts[0]?.startDate)));
@@ -993,7 +993,7 @@ function VolunteerEventAdminPage() {
 				onClose={closeDeleteModal}
 				event={pendingDeleteEvent}
 				onDone={() => {
-					refetch();
+					refetch()
 					closeDeleteModal();
 				}}
 			/>
@@ -1058,7 +1058,7 @@ function VolunteerEventAdminPage() {
 											variant="subtle"
 											onClick={() => {
 												setPendingDeleteEvent(event as VolunteerEvent);
-												openDeleteModal();
+												openDeleteModal()
 											}}
 										>
 											<Trash2 size={16} />
@@ -1070,7 +1070,7 @@ function VolunteerEventAdminPage() {
 								<SignupDashboard event={event as VolunteerEvent} />
 							</Stack>
 						</Card>
-					);
+					)
 				})}
 
 				{archivedEvents.length > 0 && (
@@ -1116,5 +1116,5 @@ function VolunteerEventAdminPage() {
 				)}
 			</Stack>
 		</>
-	);
+	)
 }
