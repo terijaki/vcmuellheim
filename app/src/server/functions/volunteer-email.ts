@@ -87,16 +87,8 @@ function buildConfirmationHtml(opts: { firstName: string; shiftLabel: string; sh
 <p>Sportliche Grüße,<br>${Club.shortName}</p>`;
 }
 
-function buildReceiptHtml(opts: {
-	firstName: string;
-	eventTitle: string;
-	eventLocation: string | undefined;
-	eventLocationUrl: string | undefined;
-	shiftLabel: string;
-	shiftDate: string;
-	eventUrl: string;
-}): string {
-	const { firstName, eventTitle, eventLocation, eventLocationUrl, shiftLabel, shiftDate, eventUrl } = opts;
+function buildReceiptHtml(opts: { firstName: string; eventLocation: string | undefined; eventLocationUrl: string | undefined; shiftLabel: string; shiftDate: string; eventUrl: string }): string {
+	const { firstName, eventLocation, eventLocationUrl, shiftLabel, shiftDate, eventUrl } = opts;
 
 	let locationLine = "";
 	if (eventLocation && !eventLocationUrl) {
@@ -113,10 +105,9 @@ function buildReceiptHtml(opts: {
 <p>deine Anmeldung wurde bestätigt. Vielen Dank! 🙏</p>
 <p>Hier nochmal die Infos für dich. Im Anhang findest du den Termin <em>als Kalender-Datei</em>.</p>
 <hr/>
-<h2>${eventTitle}</h2>
+<p><strong>Datum / Uhrzeit:</strong> ${shiftDate}</p>
 ${locationLine}
 <p><strong>Einsatz:</strong> ${shiftLabel}</p>
-<p><strong>Datum / Uhrzeit:</strong> ${shiftDate}</p>
 <p><a href="${eventUrl}" target="_blank" rel="noopener noreferrer">Zur Veranstaltungsseite</a></p>
 <p>Sportliche Grüße,<br>${Club.shortName}</p>`;
 }
@@ -181,7 +172,6 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 
 	const html = buildReceiptHtml({
 		firstName: signup.firstName,
-		eventTitle: event.title,
 		eventLocation: event.location,
 		eventLocationUrl: event.locationUrl,
 		shiftLabel: shift.label,
@@ -211,7 +201,7 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 		`--${boundary}`,
 		'Content-Type: text/calendar; charset="UTF-8"; method=REQUEST',
 		"Content-Transfer-Encoding: base64",
-		`Content-Disposition: attachment; filename="${slugify(event.title, true)}.ics"`,
+		`Content-Disposition: attachment; filename="${slugify(`${event.title} ${shift.label}`, true)}.ics"`,
 		"",
 		Buffer.from(icsContent).toString("base64"),
 		"",

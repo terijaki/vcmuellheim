@@ -477,9 +477,6 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 										onChangeListenTo: ["dateOfBirth"],
 										onChange: ({ value }) => {
 											const selected = value as string[];
-											if (roles.length > 2) {
-												return selected.length < 2 ? "Bitte wähle mindestens 2 Aufgaben aus." : undefined;
-											}
 											return selected.length < 1 ? "Bitte wähle eine Aufgabe aus." : undefined;
 										},
 									}}
@@ -498,13 +495,13 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 											/>
 										) : (
 											<MultiSelect
-												label="Bevorzugte Aufgaben (mind. 2)"
+												label="Bevorzugte Aufgaben"
 												required
 												withAsterisk={false}
 												data={computedRoleOptions}
 												value={field.state.value}
 												onChange={(val) => field.handleChange(val)}
-												description="Wähle mindestens 2 Aufgaben aus, in denen du helfen kannst."
+												description="Wähle die Aufgaben aus, in denen du helfen kannst."
 												hidePickedOptions
 												renderOption={makeRenderRoleOption(ageAtShift)}
 											/>
@@ -561,7 +558,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 					{(field) => (
 						<Textarea
 							label="Anmerkungen"
-							placeholder="z. B. Ich schaffe es erst auf 15 Uhr."
+							placeholder="z. B. Ich schaffe es erst auf 15 Uhr"
 							autosize
 							minRows={2}
 							maxRows={6}
