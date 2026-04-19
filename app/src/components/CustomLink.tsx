@@ -1,4 +1,4 @@
-import { Button, type ButtonProps, Card, type CardProps } from "@mantine/core";
+import { ActionIcon, type ActionIconProps, Button, type ButtonProps, Card, type CardProps } from "@mantine/core";
 import { createLink, type LinkComponent } from "@tanstack/react-router";
 import type { AnchorHTMLAttributes } from "react";
 import * as React from "react";
@@ -22,6 +22,18 @@ const CreatedButtonLinkComponent = createLink(MantineButtonLinkComponent);
  */
 export const ButtonLink: LinkComponent<typeof MantineButtonLinkComponent> = (props) => {
 	return <CreatedButtonLinkComponent preload="intent" {...props} />;
+};
+
+// Mantine ActionIcon + TanStack Router Link
+
+const MantineActionIconLinkComponent = React.forwardRef<HTMLAnchorElement, ActionIconProps>((props, ref) => {
+	return <ActionIcon component="a" ref={ref} {...props} />;
+});
+
+const CreatedActionIconLinkComponent = createLink(MantineActionIconLinkComponent);
+
+export const ActionIconLink: LinkComponent<typeof MantineActionIconLinkComponent> = (props) => {
+	return <CreatedActionIconLinkComponent preload="intent" {...props} />;
 };
 
 // Mantine Card + TanStack Router Link with enhanced typing for anchor events
