@@ -5,9 +5,9 @@
  * Handles ?token= query param for email verification.
  */
 
-import { Alert, Anchor, Badge, Box, Button, Card, Container, Divider, Group, Modal, MultiSelect, Select, SimpleGrid, Stack, Text, Textarea, TextInput, Title, Typography } from "@mantine/core";
+import { Alert, Anchor, Badge, Box, Button, Card, Center, Container, Divider, Group, Modal, MultiSelect, Select, SimpleGrid, Stack, Text, Textarea, TextInput, Title, Typography } from "@mantine/core";
 import { LineSpoiler } from "@webapp/components/LineSpoiler";
-import { DatePickerInput } from "@mantine/dates";
+import { Calendar, type CalendarProps, type DateStringValue, DatePickerInput } from "@mantine/dates";
 import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -156,6 +156,44 @@ function VolunteerEventPage() {
 						</Stack>
 					</Card>
 				)}
+
+				{/* Shift calendar */}
+				{event.shifts.length > 0 &&
+					(() => {
+						const shiftDates = new Set<DateStringValue>();
+						for (const shift of event.shifts) {
+							let cursor = dayjs(shift.startDate);
+							const end = dayjs(shift.endDate);
+							while (!cursor.isAfter(end, "day")) {
+								shiftDates.add(cursor.format("YYYY-MM-DD") as DateStringValue);
+								cursor = cursor.add(1, "day");
+							}
+						}
+						const earliestShift = event.shifts.reduce((a, b) => (dayjs(a.startDate).isBefore(dayjs(b.startDate)) ? a : b));
+						const latestShift = event.shifts.reduce((a, b) => (dayjs(a.endDate).isAfter(dayjs(b.endDate)) ? a : b));
+						const calendarConfig: CalendarProps = {
+							static: true,
+							highlightToday: true,
+							hideOutsideDates: true,
+							maxLevel: "month",
+							minDate: dayjs(earliestShift.startDate).startOf("month").toDate(),
+							maxDate: dayjs(latestShift.endDate).endOf("month").toDate(),
+							defaultDate: dayjs(earliestShift.startDate).toDate(),
+							getDayProps: (date: DateStringValue) => {
+								const isShiftDay = shiftDates.has(date);
+								return isShiftDay ? { selected: true, bg: "onyx", c: "white" } : {};
+							},
+						};
+						return (
+							<Card>
+								<Center>
+									<Calendar {...calendarConfig} numberOfColumns={1} hiddenFrom="sm" />
+									<Calendar {...calendarConfig} numberOfColumns={2} visibleFrom="sm" hiddenFrom="md" />
+									<Calendar {...calendarConfig} numberOfColumns={3} visibleFrom="md" />
+								</Center>
+							</Card>
+						);
+					})()}
 
 				{/* Shifts */}
 				{event.shifts
