@@ -5,7 +5,7 @@
  * Handles ?token= query param for email verification.
  */
 
-import { Alert, Badge, Button, Card, Container, Divider, Group, Modal, MultiSelect, Select, SimpleGrid, Stack, Text, TextInput, Title, Typography } from "@mantine/core";
+import { Alert, Anchor, Badge, Button, Card, Container, Divider, Group, Modal, MultiSelect, Select, SimpleGrid, Spoiler, Stack, Text, TextInput, Title, Typography } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
@@ -122,24 +122,30 @@ function VolunteerEventPage() {
 				{/* Event meta */}
 				{(event.description || event.location) && (
 					<Card>
-						<Stack gap="xs">
+						<Stack gap="md">
 							{event.description && (
-								<Typography>
-									{/* biome-ignore lint/security/noDangerouslySetInnerHtml: description is author-supplied rich text */}
-									<div dangerouslySetInnerHTML={{ __html: event.description }} />
-								</Typography>
+								<Spoiler maxHeight={240} showLabel={"Ganze Beschreibung anzeigen"} hideLabel={undefined}>
+									<Typography>
+										<div dangerouslySetInnerHTML={{ __html: event.description }} />
+									</Typography>
+								</Spoiler>
 							)}
 							{event.location && (
-								<Group gap="xs">
-									<MapPin size={16} />
+								<Group gap="xs" justify="flex-end">
 									{event.locationUrl ? (
-										<Text size="sm" c="dimmed" component="a" href={event.locationUrl} target="_blank" rel="noopener noreferrer">
-											{event.location}
-										</Text>
+										<Anchor size="sm" href={event.locationUrl} target="_blank" rel="noopener noreferrer">
+											<Group gap={4}>
+												<MapPin size={16} />
+												{event.location}
+											</Group>
+										</Anchor>
 									) : (
-										<Text size="sm" c="dimmed">
-											{event.location}
-										</Text>
+										<>
+											<MapPin size={16} />
+											<Text size="sm" c="dimmed">
+												{event.location}
+											</Text>
+										</>
 									)}
 								</Group>
 							)}
@@ -187,9 +193,7 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
 				<Group justify="space-between" align="flex-start">
 					<div>
 						<Title order={3}>{shift.label}</Title>
-						<Text size="sm" c="dimmed">
-							{dateRangeFormatted}
-						</Text>
+						<Text size="md">{dateRangeFormatted}</Text>
 					</div>
 					{isPast && (
 						<Badge color="gray" variant="light">
@@ -206,15 +210,15 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
 						return (
 							<Card key={role.id} withBorder p="xs" bg="gray.0">
 								<Group justify="space-between">
-									<Text size="sm" fw={500}>
+									<Text size="md" fw={500}>
 										{role.label}
 									</Text>
-									<Badge size="xs" color={count === 0 ? "red" : role.minCapacity > count ? "orange" : "green"} variant="light">
+									<Badge size="md" color={count === 0 ? "red" : role.minCapacity > count ? "yellow" : "green"} variant="light">
 										{count} / {role.maxCapacity}
 									</Badge>
 								</Group>{" "}
 								{role.description && (
-									<Text size="xs" c="dimmed" mt={4}>
+									<Text size="sm" c="dimmed" mt={4}>
 										{role.description}
 									</Text>
 								)}{" "}
@@ -277,11 +281,31 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 	const shiftStartDate = shift?.startDate ?? new Date().toISOString();
 	const dateRangeFormatted = formatShiftDateRange(shiftStartDate, shift?.endDate);
 
-	const roleOptions = roles.map((r) => ({
+	type RoleOption = { value: string; label: string; minAge: number | undefined; disabled: boolean };
+
+	const roleOptions: RoleOption[] = roles.map((r) => ({
 		value: r.id,
-		label: r.minAge ? `${r.label} (ab ${r.minAge} J.)` : r.label,
+		label: r.label,
+		minAge: r.minAge,
 		disabled: false as boolean,
 	}));
+
+	const makeRenderRoleOption =
+		(ageAtShift: number | null) =>
+		({ option }: { option: { value: string; label: string } }) => {
+			const role = roles.find((r) => r.id === option.value);
+			const isIneligible = ageAtShift !== null && role?.minAge !== undefined && ageAtShift < role.minAge;
+			return (
+				<Group justify="space-between" w="100%" wrap="nowrap">
+					<Text size="md">{option.label}</Text>
+					{isIneligible && role?.minAge !== undefined && (
+						<Text size="sm" style={{ whiteSpace: "nowrap" }}>
+							ab {role.minAge} Jahre
+						</Text>
+					)}
+				</Group>
+			);
+		};
 
 	const mutation = useMutation({
 		mutationFn: (formData: Parameters<typeof createVolunteerSignupFn>[0]["data"]) => createVolunteerSignupFn({ data: formData }),
@@ -339,12 +363,30 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
 					<form.Field name="firstName">
 						{(field) => (
-							<TextInput label="Vorname" required withAsterisk={false} name="given-name" autoComplete="given-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+							<TextInput
+								label="Vorname"
+								placeholder="z.B. Erika"
+								required
+								withAsterisk={false}
+								name="given-name"
+								autoComplete="given-name"
+								value={field.state.value}
+								onChange={(e) => field.handleChange(e.target.value)}
+							/>
 						)}
 					</form.Field>
 					<form.Field name="lastName">
 						{(field) => (
-							<TextInput label="Nachname" required withAsterisk={false} name="family-name" autoComplete="family-name" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+							<TextInput
+								label="Nachname"
+								placeholder="z.B. Mustermann"
+								required
+								withAsterisk={false}
+								name="family-name"
+								autoComplete="family-name"
+								value={field.state.value}
+								onChange={(e) => field.handleChange(e.target.value)}
+							/>
 						)}
 					</form.Field>
 				</SimpleGrid>
@@ -354,6 +396,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 						{(field) => (
 							<TextInput
 								label="E-Mail-Adresse"
+								placeholder="z. B. erika@example.com"
 								type="email"
 								required
 								withAsterisk={false}
@@ -366,7 +409,17 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 					</form.Field>
 
 					<form.Field name="mobilePhone">
-						{(field) => <TextInput label="Handynummer" type="tel" name="tel" autoComplete="tel" value={field.state.value ?? ""} onChange={(e) => field.handleChange(e.target.value || undefined)} />}
+						{(field) => (
+							<TextInput
+								label="Handynummer"
+								placeholder="z.B. 01792345678"
+								type="tel"
+								name="tel"
+								autoComplete="tel"
+								value={field.state.value ?? ""}
+								onChange={(e) => field.handleChange(e.target.value || undefined)}
+							/>
+						)}
 					</form.Field>
 
 					<form.Field
@@ -390,6 +443,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 							<DatePickerInput
 								defaultLevel="decade"
 								label="Geburtsdatum"
+								placeholder="TT.MM.JJJJ"
 								name="bday"
 								required
 								withAsterisk={false}
@@ -437,6 +491,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 												value={field.state.value[0] ?? null}
 												onChange={(val) => field.handleChange(val ? [val] : [])}
 												description="Wähle die Aufgabe aus, in der du helfen kannst."
+												renderOption={makeRenderRoleOption(ageAtShift)}
 											/>
 										) : (
 											<MultiSelect
@@ -447,6 +502,8 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 												value={field.state.value}
 												onChange={(val) => field.handleChange(val)}
 												description="Wähle mindestens 2 Aufgaben aus, in denen du helfen kannst."
+												hidePickedOptions
+												renderOption={makeRenderRoleOption(ageAtShift)}
 											/>
 										);
 									}}
@@ -469,14 +526,14 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 										const dob = form.getFieldValue("dateOfBirth");
 										const age = dob ? dayjs(shiftStartDate).diff(dayjs(dob), "year") : null;
 										if (age !== null && age < 18 && !value) {
-											return "Bitte gib eine Notfall-Kontaktnummer an.";
+											return "Bitte gib einen Notfallkontakt an.";
 										}
 									},
 								}}
 							>
 								{(field) => (
 									<TextInput
-										label="Notfall-Kontaktnummer (Erziehungsberechtigte/r)"
+										label="Notfallkontakt"
 										type="tel"
 										autoComplete="tel"
 										required
@@ -484,7 +541,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 										placeholder="z. B. 0151 12345678"
 										value={field.state.value ?? ""}
 										onChange={(e) => field.handleChange(e.target.value || undefined)}
-										description="Da du unter 18 Jahre alt bist, ist eine Notfall-Kontaktnummer erforderlich."
+										description="Telefonnummer eines Elternteils oder Erziehungsberechtigten"
 										error={field.state.meta.errors[0]?.toString()}
 									/>
 								)}
