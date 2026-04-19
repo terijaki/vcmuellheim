@@ -49,7 +49,7 @@ export const getVolunteerEventFn = createServerFn()
 
 const volunteerEventInputSchema = volunteerEventSchema.omit({ id: true, createdAt: true, updatedAt: true });
 
-export const createVolunteerEventFn = createServerFn()
+export const createVolunteerEventFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(volunteerEventInputSchema)
 	.handler(async ({ data }) => {
@@ -58,7 +58,7 @@ export const createVolunteerEventFn = createServerFn()
 		return event;
 	});
 
-export const updateVolunteerEventFn = createServerFn()
+export const updateVolunteerEventFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(
 		z.object({
@@ -94,7 +94,7 @@ export const updateVolunteerEventFn = createServerFn()
 		return parseServerData(volunteerEventSchema, refreshed.data, "Failed to parse volunteer event");
 	});
 
-export const deleteVolunteerEventFn = createServerFn()
+export const deleteVolunteerEventFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
@@ -107,7 +107,7 @@ export const deleteVolunteerEventFn = createServerFn()
 		return { success: true };
 	});
 
-export const archiveVolunteerEventFn = createServerFn()
+export const archiveVolunteerEventFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
@@ -115,7 +115,7 @@ export const archiveVolunteerEventFn = createServerFn()
 		return { success: true };
 	});
 
-export const restoreVolunteerEventFn = createServerFn()
+export const restoreVolunteerEventFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
@@ -136,7 +136,7 @@ export const listVolunteerSignupsFn = createServerFn()
 		return { items };
 	});
 
-export const updateVolunteerSignupFn = createServerFn()
+export const updateVolunteerSignupFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(
 		z.object({
@@ -170,7 +170,7 @@ export const updateVolunteerSignupFn = createServerFn()
 		return parseServerData(volunteerSignupSchema, refreshed.data, "Failed to parse signup");
 	});
 
-export const deleteVolunteerSignupFn = createServerFn()
+export const deleteVolunteerSignupFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
@@ -178,12 +178,12 @@ export const deleteVolunteerSignupFn = createServerFn()
 		return { success: true };
 	});
 
-export const confirmVolunteerSignupFn = createServerFn()
+export const confirmVolunteerSignupFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => confirmVolunteerSignup(data));
 
-export const sendVolunteerBulkEmailFn = createServerFn()
+export const sendVolunteerBulkEmailFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(
 		z.object({
@@ -216,7 +216,7 @@ export const getPublicVolunteerEventFn = createServerFn()
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => getPublicVolunteerEvent(data));
 
-export const createVolunteerSignupFn = createServerFn()
+export const createVolunteerSignupFn = createServerFn({ method: "POST" })
 	.inputValidator(volunteerSignupDataSchema)
 	.handler(async ({ data }) => createVolunteerSignup(data));
 

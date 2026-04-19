@@ -43,7 +43,7 @@ export const getTrainersFn = createServerFn().handler(async () => {
 
 // ── Protected ────────────────────────────────────────────────────────────────
 
-export const createMemberFn = createServerFn()
+export const createMemberFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(memberSchema.omit({ id: true, createdAt: true, updatedAt: true }))
 	.handler(async ({ data }) => {
@@ -59,7 +59,7 @@ export const createMemberFn = createServerFn()
 		return member;
 	});
 
-export const updateMemberFn = createServerFn()
+export const updateMemberFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(
 		z.object({
@@ -111,7 +111,7 @@ export const updateMemberFn = createServerFn()
 		return member;
 	});
 
-export const deleteMemberFn = createServerFn()
+export const deleteMemberFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {

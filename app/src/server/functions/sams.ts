@@ -403,7 +403,7 @@ export async function invokeSamsLambdaAsync(functionName: string, label: string)
 	}
 }
 
-export const triggerSamsClubsSyncFn = createServerFn()
+export const triggerSamsClubsSyncFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.handler(async () => {
 		const functionName = process.env.SAMS_CLUBS_SYNC_FUNCTION_NAME;
@@ -411,7 +411,7 @@ export const triggerSamsClubsSyncFn = createServerFn()
 		await invokeSamsLambdaAsync(functionName, "SAMS clubs sync");
 	});
 
-export const triggerSamsTeamsSyncFn = createServerFn()
+export const triggerSamsTeamsSyncFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.handler(async () => {
 		const functionName = process.env.SAMS_TEAMS_SYNC_FUNCTION_NAME;

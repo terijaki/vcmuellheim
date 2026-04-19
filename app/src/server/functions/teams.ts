@@ -34,7 +34,7 @@ export const getTeamBySlugFn = createServerFn()
 
 // ── Protected ────────────────────────────────────────────────────────────────
 
-export const createTeamFn = createServerFn()
+export const createTeamFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(teamSchema.omit({ id: true, createdAt: true, updatedAt: true, slug: true }))
 	.handler(async ({ data }) => {
@@ -51,7 +51,7 @@ export const createTeamFn = createServerFn()
 		return team;
 	});
 
-export const updateTeamFn = createServerFn()
+export const updateTeamFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(
 		z.object({
@@ -92,7 +92,7 @@ export const updateTeamFn = createServerFn()
 		return team;
 	});
 
-export const deleteTeamFn = createServerFn()
+export const deleteTeamFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {
