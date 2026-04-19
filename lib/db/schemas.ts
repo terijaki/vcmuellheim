@@ -232,6 +232,7 @@ export const volunteerSignupDataSchema = z.object({
 	association: z.string().trim().max(500),
 	mobilePhone: z.string().trim().max(30).optional().describe("Optional mobile phone number of the volunteer"),
 	emergencyContact: z.string().trim().max(30).optional().describe("Emergency contact phone number — required for minors (under 18 at shift start)"),
+	note: z.string().trim().max(1000).optional().describe("Optional free-text note from the volunteer"),
 	eventId: z.uuid(),
 	shiftId: z.uuid(),
 });
@@ -250,6 +251,7 @@ export const volunteerSignupSchema = z.object({
 	association: z.string().max(500).trim(),
 	mobilePhone: z.string().trim().max(30).optional().describe("Optional mobile phone number of the volunteer"),
 	emergencyContact: z.string().trim().max(30).optional().describe("Emergency contact phone number — required for minors (under 18 at shift start)"),
+	note: z.string().trim().max(1000).optional().describe("Optional free-text note from the volunteer"),
 	status: z.enum(["pending", "confirmed"]),
 	assignedRoleId: z.uuid().optional().describe("Role assigned by admin, overrides helper preference"),
 });

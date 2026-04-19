@@ -672,6 +672,11 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																{signup.emergencyContact && <span>Notfall: {signup.emergencyContact}</span>}
 															</Box>
 														)}
+														{signup.note && (
+															<Box fz="xs" c="dimmed" mb={4}>
+																„{signup.note}"
+															</Box>
+														)}
 														<Group gap="xs">
 															<Select
 																size="sm"
@@ -739,6 +744,7 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 													<Table.Th>Alter</Table.Th>
 													<Table.Th>Notfall</Table.Th>
 													<Table.Th>Bevorzugte Aufgaben</Table.Th>
+													<Table.Th>Anmerkung</Table.Th>
 													<Table.Th>Status</Table.Th>
 													<Table.Th>Zugewiesene Rolle</Table.Th>
 													<Table.Th>Aktionen</Table.Th>
@@ -793,7 +799,18 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 																	</Text>
 																)}
 															</Table.Td>
-															<Table.Td>{preferredLabels}</Table.Td>
+															<Table.Td>
+																<Text size="xs">{preferredLabels}</Text>
+															</Table.Td>
+															<Table.Td>
+																{signup.note ? (
+																	<Text size="xs">„{signup.note}"</Text>
+																) : (
+																	<Text size="xs" c="dimmed">
+																		–
+																	</Text>
+																)}
+															</Table.Td>
 															<Table.Td>
 																<Badge color={signup.status === "confirmed" ? "green" : "yellow"} variant="light">
 																	{signup.status === "confirmed" ? "Bestätigt" : "Ausstehend"}

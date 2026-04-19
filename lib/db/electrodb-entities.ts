@@ -407,6 +407,7 @@ export const VolunteerSignupEntity = new Entity({
 		association: { type: "string", required: true },
 		mobilePhone: { type: "string" },
 		emergencyContact: { type: "string" },
+		note: { type: "string" },
 		status: { type: ["pending", "confirmed"] as const, required: true },
 		assignedRoleId: { type: "string" },
 		createdAt: { type: "string", required: true },

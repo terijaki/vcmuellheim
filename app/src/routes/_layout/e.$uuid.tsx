@@ -5,7 +5,7 @@
  * Handles ?token= query param for email verification.
  */
 
-import { Alert, Anchor, Badge, Button, Card, Container, Divider, Group, Modal, MultiSelect, Select, SimpleGrid, Spoiler, Stack, Text, TextInput, Title, Typography } from "@mantine/core";
+import { Alert, Anchor, Badge, Button, Card, Container, Divider, Group, Modal, MultiSelect, Select, SimpleGrid, Spoiler, Stack, Text, Textarea, TextInput, Title, Typography } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
@@ -30,6 +30,7 @@ const volunteerFormSchema = volunteerSignupDataSchema.extend({
 	dateOfBirth: volunteerSignupDataSchema.shape.dateOfBirth.nullable(),
 	mobilePhone: z.union([z.string().trim().max(30), z.undefined()]),
 	emergencyContact: z.union([z.string().trim().max(30), z.undefined()]),
+	note: z.union([z.string().trim().max(1000), z.undefined()]),
 });
 
 dayjs.locale("de");
@@ -324,6 +325,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 			association: "",
 			mobilePhone: undefined as string | undefined,
 			emergencyContact: undefined as string | undefined,
+			note: undefined as string | undefined,
 		},
 		validators: {
 			onChange: volunteerFormSchema,
@@ -340,6 +342,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 				association: value.association,
 				mobilePhone: value.mobilePhone || undefined,
 				emergencyContact: value.emergencyContact || undefined,
+				note: value.note || undefined,
 				eventId: event.id,
 				shiftId,
 			});
@@ -357,7 +360,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 				<Text size="sm" fw="bold">
 					{dateRangeFormatted}
 				</Text>
-				<Text c="dimmed" size="sm">
+				<Text size="sm">
 					Vielen Dank, dass du dich anmelden möchtest! Damit wir die Organisation erleichtern und im Nachgang die Kommunikation mit dir sicherstellen können, fülle bitte folgende Informationen aus.
 				</Text>
 				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
@@ -552,6 +555,20 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 
 				<form.Field name="association">
 					{(field) => <TextInput label="Vereinszugehörigkeit" placeholder="z. B. Mitglied, Familie, Freund/in, …" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+				</form.Field>
+
+				<form.Field name="note">
+					{(field) => (
+						<Textarea
+							label="Anmerkungen"
+							placeholder="z. B. Ich schaffe es erst auf 15 Uhr."
+							autosize
+							minRows={2}
+							maxRows={6}
+							value={field.state.value ?? ""}
+							onChange={(e) => field.handleChange(e.target.value || undefined)}
+						/>
+					)}
 				</form.Field>
 
 				<form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
