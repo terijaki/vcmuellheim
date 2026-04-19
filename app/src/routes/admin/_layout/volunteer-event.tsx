@@ -1,4 +1,4 @@
-import { ActionIcon, Badge, Button, Card, Collapse, Divider, Group, Menu, Stack, Text, Title } from "@mantine/core";
+import { ActionIcon, Badge, Button, Card, Collapse, Group, Menu, Stack, Text, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -16,6 +16,31 @@ import { useState } from "react";
 import type { VolunteerEvent } from "@/lib/db/types";
 
 dayjs.locale("de");
+
+function getEventShiftDateRange(event: VolunteerEvent): string {
+	const firstShift = event.shifts[0];
+	if (!firstShift) {
+		return "Kein Schichtdatum";
+	}
+
+	const eventStart = event.shifts.reduce((earliestStart, shift) => {
+		return dayjs(shift.startDate).isBefore(dayjs(earliestStart)) ? shift.startDate : earliestStart;
+	}, firstShift.startDate);
+
+	const eventEnd = event.shifts.reduce((latestEnd, shift) => {
+		const shiftEnd = shift.endDate ?? shift.startDate;
+		return dayjs(shiftEnd).isAfter(dayjs(latestEnd)) ? shiftEnd : latestEnd;
+	}, firstShift.endDate ?? firstShift.startDate);
+
+	const start = dayjs(eventStart);
+	const end = dayjs(eventEnd);
+
+	if (start.isSame(end, "day")) {
+		return `${start.format("D. MMMM YYYY HH:mm")} - ${end.format("HH:mm")}`;
+	}
+
+	return `${start.format("D. MMMM YYYY")} - ${end.format("D. MMMM YYYY")}`;
+}
 
 export const Route = createFileRoute("/admin/_layout/volunteer-event")({
 	loader: async () => {
@@ -118,8 +143,8 @@ function VolunteerEventAdminPage() {
 					return (
 						<Card key={event.id} withBorder>
 							<Stack gap="sm">
-								<Group justify="space-between" align="flex-start">
-									<div>
+								<Group justify="space-between" align="flex-start" wrap="nowrap">
+									<Stack gap="xs">
 										<Title order={4}>{event.title}</Title>
 										{event.location && (
 											<Text
@@ -134,9 +159,9 @@ function VolunteerEventAdminPage() {
 											</Text>
 										)}
 										<Text size="xs" c="dimmed">
-											{event.shifts.length} Schicht{event.shifts.length !== 1 ? "en" : ""}
+											{getEventShiftDateRange(event)}
 										</Text>
-									</div>
+									</Stack>
 									<Menu shadow="md" position="bottom-end">
 										<Menu.Target>
 											<ActionIcon variant="subtle" aria-label="Aktionen">
@@ -175,7 +200,6 @@ function VolunteerEventAdminPage() {
 									</Menu>
 								</Group>
 
-								<Divider />
 								<SignupDashboard event={event} />
 							</Stack>
 						</Card>
@@ -210,7 +234,7 @@ function VolunteerEventAdminPage() {
 													</Text>
 												)}
 												<Text size="xs" c="dimmed">
-													{event.shifts.length} Schicht{event.shifts.length !== 1 ? "en" : ""}
+													{getEventShiftDateRange(event)}
 												</Text>
 											</div>
 											<Menu shadow="md" position="bottom-end">
