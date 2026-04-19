@@ -11,7 +11,7 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 	const [pendingDeleteIndex, setPendingDeleteIndex] = useState<number | null>(null);
 
 	const addRole = () => {
-		onRolesChange([...roles, { id: crypto.randomUUID(), label: "", description: "", minCapacity: 1, maxCapacity: 5, minAge: null }]);
+		onRolesChange([...roles, { id: crypto.randomUUID(), label: "", description: "", minCapacity: 1, maxCapacity: null, minAge: null }]);
 	};
 
 	const requestRemoveRole = (index: number) => {
@@ -34,7 +34,7 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 	};
 
 	return (
-		<Box pl="md" style={{ borderLeft: "2px solid var(--mantine-color-gray-3)" }}>
+		<>
 			<Modal opened={deleteModalOpened} onClose={closeDeleteModal} title="Rolle löschen?" size="sm">
 				<Text size="sm">Soll diese Rolle wirklich gelöscht werden? Bestehende Anmeldungen verlieren ihre Rollenzuweisung, bleiben aber erhalten und können neu zugewiesen werden.</Text>
 				<Group justify="flex-end" mt="md">
@@ -46,62 +46,71 @@ function RolesManager({ roles, onRolesChange }: { roles: RoleFormValue[]; onRole
 					</Button>
 				</Group>
 			</Modal>
-
-			<Text size="xs" c="dimmed" fw={500} mb="xs">
-				Aufgaben / Rollen
-			</Text>
-			<Stack gap="xs">
-				{roles.map((role, index) => (
-					<Fieldset key={role.id} legend={role.label} bg="gray.0">
-						<Group gap="xs" align="flex-end">
-							<TextInput
-								size="xs"
-								label="Bezeichnung"
-								required
-								withAsterisk={false}
-								placeholder="z. B. Theke, Einlass, Küche"
-								value={role.label}
-								onChange={(e) => updateRole(index, { label: e.target.value })}
-								style={{ flex: 1 }}
-							/>
-							<ActionIcon size="sm" color="red" variant="subtle" onClick={() => requestRemoveRole(index)} mb={2}>
-								<Trash2 size={14} />
-							</ActionIcon>
-							<Box w={"100%"} hiddenFrom="sm" />
-							<NumberInput size="xs" label="Min" min={1} value={role.minCapacity} onChange={(val) => updateRole(index, { minCapacity: Number(val) || 1 })} w={70} />
-							<NumberInput size="xs" label="Max" min={1} value={role.maxCapacity} onChange={(val) => updateRole(index, { maxCapacity: Number(val) || 1 })} w={70} />
-							<NumberInput
-								size="xs"
-								label="Mindestalter"
-								suffix=" Jahre"
-								min={0}
-								max={90}
-								value={role.minAge ?? ""}
-								onChange={(val) => updateRole(index, { minAge: val === "" ? null : Number(val) })}
-								placeholder="–"
-								allowDecimal={false}
-							/>
-							<Box w={"100%"} />
-							<Textarea
-								size="xs"
-								label="Beschreibung (optional)"
-								placeholder="z. B. Getränke ausgeben, Kasse bedienen"
-								value={role.description}
-								onChange={(e) => updateRole(index, { description: e.target.value })}
-								autosize
-								maxRows={3}
-								style={{ flex: 1 }}
-							/>
-						</Group>
-					</Fieldset>
-				))}
-			</Stack>
-			<Group justify="center">
-				<Button size="xs" variant="light" leftSection={<Plus size={14} />} onClick={addRole} mt="xs">
-					Rolle hinzufügen
-				</Button>
-			</Group>
-		</Box>
+			<Box>
+				<Text size="xs" c="dimmed" fw={500} mb="xs">
+					Aufgaben / Rollen
+				</Text>
+				<Stack gap="xs">
+					{roles.map((role, index) => (
+						<Fieldset key={role.id} legend={role.label} bg="gray.0">
+							<Group gap="xs" align="flex-end">
+								<TextInput
+									size="xs"
+									label="Bezeichnung"
+									required
+									withAsterisk={false}
+									placeholder="z. B. Theke, Einlass, Küche"
+									value={role.label}
+									onChange={(e) => updateRole(index, { label: e.target.value })}
+									style={{ flex: 1 }}
+								/>
+								<ActionIcon size="sm" color="red" variant="subtle" onClick={() => requestRemoveRole(index)} mb={2}>
+									<Trash2 size={14} />
+								</ActionIcon>
+								<Box w={"100%"} hiddenFrom="sm" />
+								<NumberInput size="xs" label="Ziel" min={1} value={role.minCapacity} onChange={(val) => updateRole(index, { minCapacity: Number(val) || 1 })} w={70} />
+								<NumberInput
+									size="xs"
+									label="Max"
+									min={1}
+									placeholder="–"
+									value={role.maxCapacity ?? ""}
+									onChange={(val) => updateRole(index, { maxCapacity: val === "" || val === 0 ? null : Number(val) || 1 })}
+									w={70}
+								/>
+								<NumberInput
+									size="xs"
+									label="Mindestalter"
+									suffix=" Jahre"
+									min={0}
+									max={90}
+									value={role.minAge ?? ""}
+									onChange={(val) => updateRole(index, { minAge: val === "" ? null : Number(val) })}
+									placeholder="–"
+									allowDecimal={false}
+								/>
+								<Box w={"100%"} />
+								<Textarea
+									size="xs"
+									label="Beschreibung (optional)"
+									placeholder="z. B. Getränke ausgeben, Kasse bedienen"
+									value={role.description}
+									onChange={(e) => updateRole(index, { description: e.target.value })}
+									autosize
+									maxRows={3}
+									style={{ flex: 1 }}
+								/>
+							</Group>
+						</Fieldset>
+					))}
+				</Stack>
+				<Group justify="center">
+					<Button size="xs" variant="light" leftSection={<Plus size={14} />} onClick={addRole} mt="xs">
+						Rolle hinzufügen
+					</Button>
+				</Group>
+			</Box>
+		</>
 	);
 }
 
@@ -223,17 +232,17 @@ export function ShiftsManager({
 										/>
 										{signupCount > 0 ? (
 											<Tooltip label={`${signupCount} Anmeldung${signupCount !== 1 ? "en" : ""} – nur Archivieren möglich`}>
-												<ActionIcon size="sm" color="orange" variant="subtle" onClick={() => setShiftActionModal({ index, action: "archive" })} mb={4}>
+												<ActionIcon color="orange" variant="subtle" onClick={() => setShiftActionModal({ index, action: "archive" })} mb={8}>
 													<Archive size={16} />
 												</ActionIcon>
 											</Tooltip>
 										) : (
-											<ActionIcon size="sm" color="red" variant="subtle" onClick={() => setShiftActionModal({ index, action: "delete" })} mb={8}>
+											<ActionIcon color="red" variant="subtle" onClick={() => setShiftActionModal({ index, action: "delete" })} mb={8}>
 												<Trash2 size={16} />
 											</ActionIcon>
 										)}
 									</Group>
-									<SimpleGrid cols={{ base: 1, sm: 2 }}>
+									<SimpleGrid cols={{ base: 1, xs: 2 }}>
 										<DateTimePicker
 											label="Beginn"
 											required

@@ -241,7 +241,7 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 		const userAgeAtShift = dayjs(shift.startDate).diff(dayjs(signupData.dateOfBirth), "year");
 		const availableRole = signupData.preferredRoleIds
 			.map((rid) => shift.roles.find((r) => r.id === rid))
-			.find((role) => role !== undefined && (roleCountMap[role.id] ?? 0) < role.maxCapacity && (role.minAge === undefined || userAgeAtShift >= role.minAge));
+			.find((role) => role !== undefined && (role.maxCapacity === undefined || (roleCountMap[role.id] ?? 0) < role.maxCapacity) && (role.minAge === undefined || userAgeAtShift >= role.minAge));
 		if (availableRole) {
 			await db().volunteerSignup.patch({ id: signup.id }).set({ assignedRoleId: availableRole.id, updatedAt: new Date().toISOString() }).go();
 			signup = { ...signup, assignedRoleId: availableRole.id };

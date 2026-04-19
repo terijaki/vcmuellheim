@@ -79,7 +79,7 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
 											const color = count === 0 ? "red" : count >= role.minCapacity ? "green" : "blue";
 											return (
 												<Badge key={role.id} size="sm" variant="light" color={color}>
-													{role.label}: {count}/{role.maxCapacity}
+													{role.label}: {role.maxCapacity !== undefined ? `${count}/${role.maxCapacity}` : count}
 												</Badge>
 											);
 										})}

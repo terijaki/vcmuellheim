@@ -225,7 +225,7 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
 										{role.label}
 									</Text>
 									<Badge size="md" color={count === 0 ? "red" : role.minCapacity > count ? "yellow" : "green"} variant="light">
-										{count} / {role.maxCapacity}
+										{role.maxCapacity !== undefined ? `${count} / ${role.maxCapacity}` : count}
 									</Badge>
 								</Group>{" "}
 								{role.description && (

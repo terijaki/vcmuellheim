@@ -5,7 +5,7 @@ export type RoleFormValue = {
 	label: string;
 	description: string;
 	minCapacity: number;
-	maxCapacity: number;
+	maxCapacity: number | null;
 	minAge: number | null;
 };
 
@@ -48,7 +48,7 @@ export function buildTemplateData(source: VolunteerEvent): EventFormInitialData 
 				label: r.label,
 				description: r.description ?? "",
 				minCapacity: r.minCapacity,
-				maxCapacity: r.maxCapacity,
+				maxCapacity: r.maxCapacity ?? null,
 				minAge: r.minAge ?? null,
 			})),
 		})),

@@ -25,8 +25,9 @@ function serializeShifts(shifts: ShiftFormValue[]): VolunteerEvent["shifts"] {
 			startDate: s.startDate.toISOString(),
 			endDate: s.endDate?.toISOString() ?? undefined,
 			...(s.archivedAt ? { archivedAt: s.archivedAt } : {}),
-			roles: s.roles.map(({ minAge, ...r }) => ({
+			roles: s.roles.map(({ minAge, maxCapacity, ...r }) => ({
 				...r,
+				...(maxCapacity !== null ? { maxCapacity } : {}),
 				...(minAge !== null && minAge > 0 ? { minAge } : {}),
 			})),
 		};
@@ -40,7 +41,7 @@ function deserializeShifts(shifts: VolunteerEvent["shifts"]): ShiftFormValue[] {
 		startDate: new Date(s.startDate),
 		endDate: s.endDate ? new Date(s.endDate) : null,
 		archivedAt: s.archivedAt,
-		roles: s.roles.map((r) => ({ ...r, description: r.description ?? "", minAge: r.minAge ?? null })),
+		roles: s.roles.map((r) => ({ ...r, description: r.description ?? "", maxCapacity: r.maxCapacity ?? null, minAge: r.minAge ?? null })),
 	}));
 }
 

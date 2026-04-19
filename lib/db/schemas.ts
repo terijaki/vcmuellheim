@@ -197,10 +197,10 @@ export const volunteerRoleSchema = z
 		label: z.string().min(1).max(100),
 		description: z.string().max(500).optional(),
 		minCapacity: z.number().int().min(0),
-		maxCapacity: z.number().int().min(1),
+		maxCapacity: z.number().int().min(1).optional(),
 		minAge: z.number().int().min(0).max(120).optional(),
 	})
-	.refine((r) => r.maxCapacity >= r.minCapacity, { message: "maxCapacity muss größer oder gleich minCapacity sein" });
+	.refine((r) => r.maxCapacity === undefined || r.maxCapacity >= r.minCapacity, { message: "maxCapacity muss größer oder gleich minCapacity sein" });
 
 /** Shift within a volunteer event */
 export const volunteerShiftSchema = z.object({
