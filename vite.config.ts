@@ -62,9 +62,17 @@ export default defineConfig({
 	},
 	test: {
 		root: ".",
-		setupFiles: ["./utils/test-setup.ts"],
 		silent: true,
 		reporters: process.env.GITHUB_ACTIONS === "true" ? ["agent", "github-actions"] : ["agent"],
+		env: {
+			// Suppress Powertools structured log output during tests
+			POWERTOOLS_LOG_LEVEL: "SILENT",
+			// Suppress jsii deprecation warnings from aws-cdk-lib
+			JSII_DEPRECATED: "quiet",
+			CONTENT_TABLE_NAME: "test-content-table",
+			SAMS_TABLE_NAME: "test-sams-table",
+			APP_BASE_URL: "https://test.vcmuellheim.de",
+		},
 	},
 	run: {
 		tasks: {

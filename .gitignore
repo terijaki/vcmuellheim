@@ -14,6 +14,9 @@ temp/
 # local env files
 .env*.local
 
+# include varlock
+!.env.schema
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
