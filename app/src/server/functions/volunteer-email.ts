@@ -76,19 +76,27 @@ function buildIcsAttachment(event: VolunteerEvent, shiftId: string): string {
 // HTML templates
 // ---------------------------------------------------------------------------
 
-function buildConfirmationHtml(opts: { firstName: string; shiftLabel: string; shiftDate: string; eventTitle: string; confirmationUrl: string }): string {
-	const { firstName, shiftLabel, shiftDate, eventTitle, confirmationUrl } = opts;
+function buildConfirmationHtml(opts: { firstName: string; shiftLabel: string; shiftDate: string; eventTitle: string; confirmationUrl: string; organizerEmail: string }): string {
+	const { firstName, shiftLabel, shiftDate, eventTitle, confirmationUrl, organizerEmail } = opts;
 	return `<p>Hallo ${firstName},</p>
 <p>danke für deine Anmeldung zur Veranstaltung <strong>${eventTitle}</strong>!</p>
 <p>Du hast dich für den Einsatz <strong>${shiftLabel}</strong> am <strong>${shiftDate}</strong> angemeldet.</p>
 <p>Bitte bestätige deine Anmeldung innerhalb von <em>72 Stunden</em> über den folgenden Link:</p>
 <p><a href="${confirmationUrl}" target="_blank" rel="noopener noreferrer">${confirmationUrl}</a><br></p>
 <p>Falls du diese Anfrage nicht gestellt hast, kannst du diese E-Mail ignorieren.</p>
-<p>Sportliche Grüße,<br>${Club.shortName}</p>`;
+<p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerEmail}</a></p>`;
 }
 
-function buildReceiptHtml(opts: { firstName: string; eventLocation: string | undefined; eventLocationUrl: string | undefined; shiftLabel: string; shiftDate: string; eventUrl: string }): string {
-	const { firstName, eventLocation, eventLocationUrl, shiftLabel, shiftDate, eventUrl } = opts;
+function buildReceiptHtml(opts: {
+	firstName: string;
+	eventLocation: string | undefined;
+	eventLocationUrl: string | undefined;
+	shiftLabel: string;
+	shiftDate: string;
+	eventUrl: string;
+	organizerEmail: string;
+}): string {
+	const { firstName, eventLocation, eventLocationUrl, shiftLabel, shiftDate, eventUrl, organizerEmail } = opts;
 
 	let locationLine = "";
 	if (eventLocation && !eventLocationUrl) {
@@ -109,7 +117,15 @@ function buildReceiptHtml(opts: { firstName: string; eventLocation: string | und
 ${locationLine}
 <p><strong>Einsatz:</strong> ${shiftLabel}</p>
 <p><a href="${eventUrl}" target="_blank" rel="noopener noreferrer">Zur Veranstaltungsseite</a></p>
-<p>Sportliche Grüße,<br>${Club.shortName}</p>`;
+<p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerEmail}</a></p>`;
+}
+
+/** Wrap admin-composed rich-text HTML in a consistent email layout for bulk sends. */
+export function buildBulkEmailHtml(opts: { bodyHtml: string; organizerEmail: string }): string {
+	const { bodyHtml, organizerEmail } = opts;
+	return `${bodyHtml}
+<hr/>
+<p style="font-size:0.85em;color:#666;">Diese Nachricht wurde von <a href="mailto:${organizerEmail}">${organizerEmail}</a> über das System des ${Club.shortName} gesendet. Du kannst direkt auf diese E-Mail antworten.</p>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -131,6 +147,7 @@ export async function sendVolunteerConfirmationEmail(opts: { toEmail: string; fi
 
 	const confirmationUrl = `${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}?token=${encodeURIComponent(tokenId)}`;
 	const shiftDate = formatShiftDate(shift);
+	const organizerEmail = event.organizerEmail;
 
 	const html = buildConfirmationHtml({
 		firstName,
@@ -138,19 +155,21 @@ export async function sendVolunteerConfirmationEmail(opts: { toEmail: string; fi
 		shiftDate,
 		eventTitle: event.title,
 		confirmationUrl,
+		organizerEmail,
 	});
 
 	const ses = getSesClient();
 	await ses.send(
 		new SendEmailCommand({
 			Source: fromEmail(),
+			ReplyToAddresses: [organizerEmail],
 			Destination: { ToAddresses: [toEmail] },
 			Message: {
 				Subject: { Data: `Anmeldung bestätigen: ${event.title}`, Charset: "UTF-8" },
 				Body: {
 					Html: { Data: html, Charset: "UTF-8" },
 					Text: {
-						Data: `Hallo ${firstName},\n\nBitte bestätige deine Anmeldung: ${confirmationUrl}\n\nDieser Link ist 72 Stunden gültig.\n\n${Club.shortName}`,
+						Data: `Hallo ${firstName},\n\nBitte bestätige deine Anmeldung: ${confirmationUrl}\n\nDieser Link ist 72 Stunden gültig.\n\nBei Fragen wende dich an: ${organizerEmail}\n\n${Club.shortName}`,
 						Charset: "UTF-8",
 					},
 				},
@@ -177,6 +196,7 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 		shiftLabel: shift.label,
 		shiftDate,
 		eventUrl,
+		organizerEmail: event.organizerEmail,
 	});
 
 	// Build a MIME multipart/mixed email manually so we can attach the .ics file.
@@ -188,6 +208,7 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 	const rawMessage = [
 		`From: ${from}`,
 		`To: ${to}`,
+		`Reply-To: ${event.organizerEmail}`,
 		`Subject: ${subject}`,
 		"MIME-Version: 1.0",
 		`Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -212,6 +233,26 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 	await ses.send(
 		new SendRawEmailCommand({
 			RawMessage: { Data: Buffer.from(rawMessage) },
+		}),
+	);
+}
+
+/** Send a single bulk email from organizer to one recipient. */
+export async function sendBulkVolunteerEmail(opts: { toEmail: string; subject: string; htmlBody: string; organizerEmail: string }): Promise<void> {
+	const { toEmail, subject, htmlBody, organizerEmail } = opts;
+	const html = buildBulkEmailHtml({ bodyHtml: htmlBody, organizerEmail });
+	const ses = getSesClient();
+	await ses.send(
+		new SendEmailCommand({
+			Source: fromEmail(),
+			ReplyToAddresses: [organizerEmail],
+			Destination: { ToAddresses: [toEmail] },
+			Message: {
+				Subject: { Data: subject, Charset: "UTF-8" },
+				Body: {
+					Html: { Data: html, Charset: "UTF-8" },
+				},
+			},
 		}),
 	);
 }

@@ -6,7 +6,7 @@
  *  - Create / edit form with dynamic shifts and roles (TrainingScheduleManager-style)
  *  - Signup dashboard grouped by shift (view signups, assign roles, force-confirm, move shift, delete)
  */
-import { Link as RouterLink } from "@tanstack/react-router";
+import { ButtonLink } from "@webapp/components/CustomLink";
 
 import {
 	ActionIcon,
@@ -440,6 +440,8 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 			description: editingEvent?.description ?? "",
 			location: editingEvent?.location ?? "",
 			locationUrl: editingEvent?.locationUrl ?? "",
+			organizerName: editingEvent?.organizerName ?? "",
+			organizerEmail: editingEvent?.organizerEmail ?? "",
 		},
 		onSubmit: async ({ value }) => {
 			const serializedShifts = serializeShifts(shifts);
@@ -452,6 +454,8 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 						description: value.description || undefined,
 						location: value.location || undefined,
 						locationUrl: value.locationUrl || undefined,
+						organizerName: value.organizerName,
+						organizerEmail: value.organizerEmail,
 						shifts: serializedShifts,
 					},
 				});
@@ -462,6 +466,8 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 					description: value.description || undefined,
 					location: value.location || undefined,
 					locationUrl: value.locationUrl || undefined,
+					organizerName: value.organizerName,
+					organizerEmail: value.organizerEmail,
 					shifts: serializedShifts,
 				});
 			}
@@ -471,7 +477,7 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 	const isPending = createMutation.isPending || updateMutation.isPending;
 
 	return (
-		<Modal opened={opened} onClose={onClose} title={editingEvent ? "Helfereinsatz bearbeiten" : "Neuer Helfereinsatz"} size={isMobile ? "100%" : "xl"} fullScreen={isMobile}>
+		<Modal opened={opened} onClose={onClose} title={editingEvent ? "Helfereinsatz bearbeiten" : "Neuer Helfereinsatz"} size="xl" fullScreen={isMobile}>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
@@ -503,10 +509,20 @@ function EventFormModal({ opened, onClose, editingEvent, onSaved }: { opened: bo
 							<RichTextEditor.Content />
 						</RichTextEditor>
 					</Box>
-					<form.Field name="location">{(field) => <TextInput label="Ort (optional)" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
-					<form.Field name="locationUrl">
-						{(field) => <TextInput label="Link zum Ort (optional)" placeholder="https://maps.google.com/..." value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
-					</form.Field>
+
+					<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+						<form.Field name="location">{(field) => <TextInput label="Ort (optional)" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
+						<form.Field name="locationUrl">
+							{(field) => <TextInput label="Link zum Ort (optional)" placeholder="https://maps.google.com/..." value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+						</form.Field>
+					</SimpleGrid>
+
+					<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+						<form.Field name="organizerName">{(field) => <TextInput label="Veranstalter Name" required value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
+						<form.Field name="organizerEmail">
+							{(field) => <TextInput label="Veranstalter E-Mail" required type="email" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+						</form.Field>
+					</SimpleGrid>
 					<Divider label="Schichten" />
 					<ShiftsManager shifts={shifts} onShiftsChange={setShifts} signupCountsByShiftId={signupCountsByShiftId} />
 					<Group justify="flex-end">
@@ -585,6 +601,11 @@ function SignupDashboard({ event }: { event: VolunteerEvent }) {
 
 	return (
 		<Box>
+			<Group justify="flex-end" mb="sm">
+				<ButtonLink to="/admin/volunteer-event/$eventId/message" params={{ eventId: event.id }} size="xs" variant="light" leftSection={<Mail size={14} />}>
+					Nachricht senden
+				</ButtonLink>
+			</Group>
 			<Stack gap="md" mt="sm">
 				{event.shifts
 					.sort((a, b) => dayjs(a.startDate).diff(dayjs(b.startDate)))
@@ -1061,7 +1082,7 @@ function VolunteerEventAdminPage() {
 										</Text>
 									</div>
 									<Group gap="xs">
-										<Button size="xs" variant="light" leftSection={<ExternalLink size={14} />} component={RouterLink} to={`/e/${event.id}`} target="_blank">
+										<Button size="xs" variant="light" leftSection={<ExternalLink size={14} />} component="a" href={deeplink} target="_blank" rel="noopener noreferrer">
 											Öffnen
 										</Button>
 										<CopyButton value={deeplink}>

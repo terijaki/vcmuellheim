@@ -220,6 +220,8 @@ export const volunteerEventSchema = z.object({
 	description: z.string().optional(),
 	location: z.string().optional(),
 	locationUrl: z.string().optional().describe("Optional URL for the location (e.g. Google Maps link)"),
+	organizerName: z.string().min(1).max(200).describe("Name of the event organizer — shown in email contact line"),
+	organizerEmail: z.email().trim().max(200).describe("Email of the event organizer — set as Reply-To on all volunteer emails"),
 	shifts: z.array(volunteerShiftSchema),
 	archivedAt: z.iso.datetime().optional().describe("Set when the event is archived; hides it from public view"),
 });
