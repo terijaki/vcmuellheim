@@ -26,8 +26,12 @@ function RouteComponent() {
 
 	const dates = new Map<DateStringValue, string>();
 	for (const booking of bookings) {
-		dates.set(dayjs(booking.from).format("YYYY-MM-DD"), booking.id);
-		dates.set(dayjs(booking.to).format("YYYY-MM-DD"), booking.id);
+		let cursor = dayjs(booking.from);
+		const end = dayjs(booking.to);
+		while (!cursor.isAfter(end, "day")) {
+			dates.set(cursor.format("YYYY-MM-DD"), booking.id);
+			cursor = cursor.add(1, "day");
+		}
 	}
 
 	const CalendarConfig: CalendarProps = {
@@ -96,7 +100,8 @@ function RouteComponent() {
 											const start = dayjs(booking.from);
 											const end = dayjs(booking.to);
 											const isSelected = selectedDates.some((d) => {
-												return start.isSame(dayjs(d), "date") || end.isSame(dayjs(d), "date");
+												const selected = dayjs(d);
+												return (selected.isSame(start, "date") || selected.isAfter(start, "date")) && (selected.isSame(end, "date") || selected.isBefore(end, "date"));
 											});
 											return (
 												<Table.Tr key={booking.id} bg={isSelected ? "turquoise" : undefined} c={isSelected ? "white" : undefined}>
