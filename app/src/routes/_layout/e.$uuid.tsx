@@ -5,7 +5,8 @@
  * Handles ?token= query param for email verification.
  */
 
-import { Alert, Anchor, Badge, Button, Card, Container, Divider, Group, Modal, MultiSelect, Select, SimpleGrid, Spoiler, Stack, Text, Textarea, TextInput, Title, Typography } from "@mantine/core";
+import { Alert, Anchor, Badge, Box, Button, Card, Container, Divider, Group, Modal, MultiSelect, Select, SimpleGrid, Stack, Text, Textarea, TextInput, Title, Typography } from "@mantine/core";
+import { LineSpoiler } from "@webapp/components/LineSpoiler";
 import { DatePickerInput } from "@mantine/dates";
 import { useForm } from "@tanstack/react-form-start";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
@@ -126,9 +127,11 @@ function VolunteerEventPage() {
 						<Stack gap="md">
 							{event.description && (
 								<Typography>
-									<Spoiler mb="xl" maxHeight={260} showLabel={"Ganze Beschreibung anzeigen"} hideLabel={undefined}>
-										<div dangerouslySetInnerHTML={{ __html: event.description }} />
-									</Spoiler>
+									<Box mb="xl">
+										<LineSpoiler lines={8} showLabel="Ganze Beschreibung anzeigen">
+											<div dangerouslySetInnerHTML={{ __html: event.description }} />
+										</LineSpoiler>
+									</Box>
 								</Typography>
 							)}
 							{event.location && (
