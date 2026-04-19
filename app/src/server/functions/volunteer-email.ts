@@ -120,14 +120,6 @@ ${locationLine}
 <p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerEmail}</a></p>`;
 }
 
-/** Wrap admin-composed rich-text HTML in a consistent email layout for bulk sends. */
-export function buildBulkEmailHtml(opts: { bodyHtml: string; organizerEmail: string }): string {
-	const { bodyHtml, organizerEmail } = opts;
-	return `${bodyHtml}
-<hr/>
-<p style="font-size:0.85em;color:#666;">Diese Nachricht wurde von <a href="mailto:${organizerEmail}">${organizerEmail}</a> über das System des ${Club.shortName} gesendet. Du kannst direkt auf diese E-Mail antworten.</p>`;
-}
-
 // ---------------------------------------------------------------------------
 // Public helpers
 // ---------------------------------------------------------------------------
@@ -240,7 +232,6 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 /** Send a single bulk email from organizer to one recipient. */
 export async function sendBulkVolunteerEmail(opts: { toEmail: string; subject: string; htmlBody: string; organizerEmail: string }): Promise<void> {
 	const { toEmail, subject, htmlBody, organizerEmail } = opts;
-	const html = buildBulkEmailHtml({ bodyHtml: htmlBody, organizerEmail });
 	const ses = getSesClient();
 	await ses.send(
 		new SendEmailCommand({
@@ -250,7 +241,7 @@ export async function sendBulkVolunteerEmail(opts: { toEmail: string; subject: s
 			Message: {
 				Subject: { Data: subject, Charset: "UTF-8" },
 				Body: {
-					Html: { Data: html, Charset: "UTF-8" },
+					Html: { Data: htmlBody, Charset: "UTF-8" },
 				},
 			},
 		}),

@@ -63,7 +63,6 @@ vi.mock("./volunteer-email", () => ({
 	sendVolunteerConfirmationEmail: vi.fn().mockResolvedValue(undefined),
 	sendVolunteerReceiptEmail: vi.fn().mockResolvedValue(undefined),
 	sendBulkVolunteerEmail: vi.fn().mockResolvedValue(undefined),
-	buildBulkEmailHtml: vi.fn((opts: { bodyHtml: string }) => opts.bodyHtml),
 }));
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

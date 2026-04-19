@@ -8,20 +8,22 @@
  * Deduplication by email (client-side preview + server-side send).
  */
 import { createFileRoute } from "@tanstack/react-router";
-import { Alert, Badge, Box, Button, Card, Group, Loader, Modal, MultiSelect, ScrollArea, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Accordion, Alert, Badge, Box, Button, Card, Group, Loader, Modal, MultiSelect, ScrollArea, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { RichTextEditor } from "@mantine/tiptap";
 import { Link as LinkExtension } from "@tiptap/extension-link";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useDisclosure } from "@mantine/hooks";
+import { useForm } from "@tanstack/react-form-start";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNotification } from "@webapp/hooks/useNotification";
 import { getVolunteerEventFn, listVolunteerSignupsFn, sendVolunteerBulkEmailFn } from "@webapp/server/functions/volunteer";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { Send } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import type { DateValue } from "@mantine/dates";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
 import { ButtonLink } from "@/app/src/components/CustomLink";
 
@@ -34,10 +36,6 @@ export const Route = createFileRoute("/admin/_layout/volunteer-event_/$eventId/m
 	},
 	component: VolunteerMessagePage,
 });
-
-// ---------------------------------------------------------------------------
-// Recipient preview helpers
-// ---------------------------------------------------------------------------
 
 function getFilteredRecipients(
 	signups: VolunteerSignup[],
@@ -76,10 +74,6 @@ function getFilteredRecipients(
 	return unique;
 }
 
-// ---------------------------------------------------------------------------
-// Page component
-// ---------------------------------------------------------------------------
-
 function VolunteerMessagePage() {
 	const { event: initialEvent, signups: initialSignups } = Route.useLoaderData();
 	const { eventId } = Route.useParams();
@@ -99,58 +93,28 @@ function VolunteerMessagePage() {
 
 	const signups = signupsData.items;
 
-	// ---------------------------------------------------------------------------
-	// Filter state
-	// ---------------------------------------------------------------------------
-	const [selectedShiftIds, setSelectedShiftIds] = useState<string[]>([]);
-	const [selectedRoleIds, setSelectedRoleIds] = useState<string[]>([]);
-	const [minDob, setMinDob] = useState<string | null>(null);
-	const [maxDob, setMaxDob] = useState<string | null>(null);
+	const form = useForm({
+		defaultValues: {
+			subject: `${event.title} - Neue Nachricht`,
+			shiftIds: [] as string[],
+			roleIds: [] as string[],
+		},
+		onSubmit: () => {
+			openConfirm();
+		},
+	});
 
-	// ---------------------------------------------------------------------------
-	// Form state
-	// ---------------------------------------------------------------------------
-	const defaultSubject = `${event.title} - Neue Nachricht`;
-	const [subject, setSubject] = useState(defaultSubject);
+	// Date filters kept as separate state — DatePickerInput uses string | null
+	const [minDateOfBirth, setMinDateOfBirth] = useState<string | null>(null);
+	const [maxDateOfBirth, setMaxDateOfBirth] = useState<string | null>(null);
 
+	const [editorHasContent, setEditorHasContent] = useState(false);
 	const editor = useEditor({
 		extensions: [StarterKit, LinkExtension],
 		content: "",
 		immediatelyRender: false,
+		onUpdate: ({ editor: e }) => setEditorHasContent(e.getText().trim().length > 0),
 	});
-
-	// ---------------------------------------------------------------------------
-	// Computed: available roles based on selected shifts
-	// ---------------------------------------------------------------------------
-	const relevantShifts = useMemo(() => (selectedShiftIds.length > 0 ? event.shifts.filter((s) => selectedShiftIds.includes(s.id)) : event.shifts), [event.shifts, selectedShiftIds]);
-
-	const availableRoles = useMemo(
-		() =>
-			relevantShifts.flatMap((s) =>
-				s.roles.map((r) => ({
-					value: r.id,
-					label: `${r.label} (${s.label})`,
-				})),
-			),
-		[relevantShifts],
-	);
-
-	// When shift filter changes, clear role filter selections no longer valid
-	const validRoleIds = useMemo(() => new Set(availableRoles.map((r) => r.value)), [availableRoles]);
-
-	// ---------------------------------------------------------------------------
-	// Computed: recipient preview
-	// ---------------------------------------------------------------------------
-	const recipients = useMemo(
-		() =>
-			getFilteredRecipients(signups, {
-				shiftIds: selectedShiftIds,
-				roleIds: selectedRoleIds.filter((id) => validRoleIds.has(id)),
-				minDateOfBirth: minDob,
-				maxDateOfBirth: maxDob,
-			}),
-		[signups, selectedShiftIds, selectedRoleIds, validRoleIds, minDob, maxDob],
-	);
 
 	// ---------------------------------------------------------------------------
 	// Send mutation
@@ -162,20 +126,25 @@ function VolunteerMessagePage() {
 	} | null>(null);
 
 	const sendMutation = useMutation({
-		mutationFn: () =>
-			sendVolunteerBulkEmailFn({
+		mutationFn: () => {
+			const { subject, shiftIds, roleIds } = form.state.values;
+			const relevantShifts = shiftIds.length > 0 ? event.shifts.filter((s) => shiftIds.includes(s.id)) : event.shifts;
+			const allRoleIds = new Set(relevantShifts.flatMap((s) => s.roles.map((r) => r.id)));
+			const filteredRoleIds = roleIds.filter((id) => allRoleIds.has(id));
+			return sendVolunteerBulkEmailFn({
 				data: {
 					eventId,
 					subject,
 					htmlBody: editor?.getHTML() ?? "",
 					filters: {
-						shiftIds: selectedShiftIds.length > 0 ? selectedShiftIds : undefined,
-						roleIds: selectedRoleIds.filter((id) => validRoleIds.has(id)).length > 0 ? selectedRoleIds.filter((id) => validRoleIds.has(id)) : undefined,
-						minDateOfBirth: minDob ?? undefined,
-						maxDateOfBirth: maxDob ?? undefined,
+						shiftIds: shiftIds.length > 0 ? shiftIds : undefined,
+						roleIds: filteredRoleIds.length > 0 ? filteredRoleIds : undefined,
+						minDateOfBirth: minDateOfBirth ?? undefined,
+						maxDateOfBirth: maxDateOfBirth ?? undefined,
 					},
 				},
-			}),
+			});
+		},
 		onSuccess: (result) => {
 			closeConfirm();
 			setSendResult(result);
@@ -193,184 +162,220 @@ function VolunteerMessagePage() {
 		},
 	});
 
-	const canSend = subject.trim().length > 0 && (editor?.getText().trim().length ?? 0) > 0 && recipients.length > 0;
-
-	// ---------------------------------------------------------------------------
-	// Render
-	// ---------------------------------------------------------------------------
 	return (
-		<>
-			{/* Confirm modal */}
-			<Modal opened={confirmOpened} onClose={closeConfirm} title="E-Mails senden?" size="sm">
-				<Text size="sm">
-					{recipients.length} E-Mail{recipients.length !== 1 ? "s" : ""} senden?
-				</Text>
-				<Group justify="flex-end" mt="md">
-					<Button variant="subtle" onClick={closeConfirm} disabled={sendMutation.isPending}>
-						Abbrechen
-					</Button>
-					<Button leftSection={<Send size={14} />} loading={sendMutation.isPending} onClick={() => sendMutation.mutate()}>
-						Senden
-					</Button>
-				</Group>
-			</Modal>
-
-			<Stack gap="lg">
-				{/* Header */}
-				<Group justify="space-between" align="flex-start">
-					<Stack gap={4}>
-						<Title order={2}>Nachricht senden</Title>
-						<Text size="sm" c="dimmed">
-							{event.title}
-						</Text>
-					</Stack>
-				</Group>
-
-				{/* Send result summary */}
-				{sendResult && sendResult.failed.length > 0 && (
-					<Alert color="red" title="Teilweise fehlgeschlagen">
-						<Stack gap="xs">
+		<form.Subscribe selector={(state) => state.values}>
+			{({ shiftIds, roleIds, subject }) => {
+				const relevantShifts = shiftIds.length > 0 ? event.shifts.filter((s) => shiftIds.includes(s.id)) : event.shifts;
+				const availableRoles = relevantShifts.flatMap((s) => s.roles.map((r) => ({ value: r.id, label: `${r.label} (${s.label})` })));
+				const validRoleIds = new Set(availableRoles.map((r) => r.value));
+				const recipients = getFilteredRecipients(signups, {
+					shiftIds,
+					roleIds: roleIds.filter((id) => validRoleIds.has(id)),
+					minDateOfBirth,
+					maxDateOfBirth,
+				});
+				return (
+					<>
+						{/* Confirm modal */}
+						<Modal opened={confirmOpened} onClose={closeConfirm} title="E-Mails senden?" size="sm">
 							<Text size="sm">
-								{sendResult.sent} gesendet, {sendResult.failed.length} fehlgeschlagen:
+								{recipients.length} E-Mail{recipients.length !== 1 ? "s" : ""} senden?
 							</Text>
-							{sendResult.failed.map(({ email, error }) => (
-								<Text key={email} size="xs" c="red">
-									{email}: {error}
-								</Text>
-							))}
-						</Stack>
-					</Alert>
-				)}
-
-				{/* Filters */}
-				<Card withBorder>
-					<Stack gap="sm">
-						<Text fw={500} size="sm">
-							Empfänger filtern
-						</Text>
-						<MultiSelect
-							label="Schichten"
-							placeholder="Alle Schichten"
-							data={event.shifts.map((s) => ({ value: s.id, label: s.label }))}
-							value={selectedShiftIds}
-							onChange={(val) => {
-								setSelectedShiftIds(val);
-								// Clear role selections not in new shift set
-								setSelectedRoleIds((prev) =>
-									prev.filter((id) =>
-										event.shifts
-											.filter((s) => val.includes(s.id))
-											.flatMap((s) => s.roles.map((r) => r.id))
-											.includes(id),
-									),
-								);
-							}}
-							clearable
-						/>
-						<MultiSelect
-							label="Aufgaben (zugewiesene Rolle)"
-							placeholder="Alle Aufgaben"
-							data={availableRoles}
-							value={selectedRoleIds.filter((id) => validRoleIds.has(id))}
-							onChange={setSelectedRoleIds}
-							clearable
-							disabled={availableRoles.length === 0}
-						/>
-						<Group grow>
-							<DatePickerInput
-								label="Geboren vor"
-								defaultLevel="decade"
-								placeholder="z.B. min 18 Jahre"
-								value={maxDob}
-								onChange={(val) => setMaxDob(val)}
-								locale="de"
-								valueFormat="DD.MM.YYYY"
-								clearable
-							/>
-							<DatePickerInput label="Geboren nach" defaultLevel="decade" placeholder="z.B. nur U16" value={minDob} onChange={(val) => setMinDob(val)} locale="de" valueFormat="DD.MM.YYYY" clearable />
-						</Group>
-					</Stack>
-				</Card>
-
-				{/* Recipient preview */}
-				<Card withBorder>
-					<Stack gap="xs">
-						<Group justify="space-between">
-							<Text fw={500} size="sm">
-								Empfänger
-							</Text>
-							<Badge variant="light" color={recipients.length > 0 ? "blue" : "gray"}>
-								{recipients.length} Empfänger
-							</Badge>
-						</Group>
-						{recipients.length === 0 ? (
-							<Text size="sm" c="dimmed">
-								Keine bestätigten Anmeldungen für diese Filter.
-							</Text>
-						) : (
-							<ScrollArea.Autosize mah={160}>
-								<Group gap="xs" wrap="wrap">
-									{recipients.map((r) => (
-										<Badge key={r.id} size="sm" variant="outline">
-											{r.firstName} {r.lastName}
-										</Badge>
-									))}
-								</Group>
-							</ScrollArea.Autosize>
-						)}
-					</Stack>
-				</Card>
-
-				{/* Compose */}
-				<Card withBorder>
-					<Stack gap="md">
-						<Text fw={500} size="sm">
-							Nachricht verfassen
-						</Text>
-						<TextInput label="Betreff" required value={subject} onChange={(e) => setSubject(e.target.value)} />
-						<Box>
-							<Text size="sm" fw={500} mb="xs">
-								Inhalt
-							</Text>
-							<RichTextEditor editor={editor} styles={{ content: { "& .ProseMirror": { minHeight: 180 } } }}>
-								<RichTextEditor.Toolbar sticky stickyOffset={60}>
-									<RichTextEditor.ControlsGroup>
-										<RichTextEditor.Bold />
-										<RichTextEditor.Italic />
-										<RichTextEditor.ClearFormatting />
-									</RichTextEditor.ControlsGroup>
-									<RichTextEditor.ControlsGroup>
-										<RichTextEditor.BulletList />
-										<RichTextEditor.OrderedList />
-									</RichTextEditor.ControlsGroup>
-									<RichTextEditor.ControlsGroup>
-										<RichTextEditor.Link />
-										<RichTextEditor.Unlink />
-									</RichTextEditor.ControlsGroup>
-								</RichTextEditor.Toolbar>
-								<RichTextEditor.Content />
-							</RichTextEditor>
-						</Box>
-						{sendMutation.isPending && (
-							<Group gap="xs">
-								<Loader size="xs" />
-								<Text size="sm" c="dimmed">
-									E-Mails werden gesendet…
-								</Text>
+							<Group justify="flex-end" mt="md">
+								<Button variant="subtle" onClick={closeConfirm} disabled={sendMutation.isPending}>
+									Abbrechen
+								</Button>
+								<Button leftSection={<Send size={14} />} loading={sendMutation.isPending} onClick={() => sendMutation.mutate()}>
+									Senden
+								</Button>
 							</Group>
-						)}
-						<Group justify="flex-end" gap="sm">
-							<ButtonLink variant="subtle" to="/admin/volunteer-event">
-								Abbrechen
-							</ButtonLink>
+						</Modal>
 
-							<Button leftSection={<Send size={16} />} disabled={!canSend} onClick={openConfirm}>
-								Senden ({recipients.length})
-							</Button>
-						</Group>
-					</Stack>
-				</Card>
-			</Stack>
-		</>
+						<form
+							onSubmit={(e) => {
+								e.preventDefault();
+								void form.handleSubmit();
+							}}
+						>
+							<Stack gap="lg">
+								{/* Header */}
+								<Group justify="space-between" align="flex-start">
+									<Stack gap={4}>
+										<Title order={2}>Nachricht senden</Title>
+										<Text size="sm" c="dimmed">
+											{event.title}
+										</Text>
+									</Stack>
+								</Group>
+
+								{/* Send result summary */}
+								{sendResult && sendResult.failed.length > 0 && (
+									<Alert color="red" title="Teilweise fehlgeschlagen">
+										<Stack gap="xs">
+											<Text size="sm">
+												{sendResult.sent} gesendet, {sendResult.failed.length} fehlgeschlagen:
+											</Text>
+											{sendResult.failed.map(({ email, error }: { email: string; error: string }) => (
+												<Text key={email} size="xs" c="red">
+													{email}: {error}
+												</Text>
+											))}
+										</Stack>
+									</Alert>
+								)}
+
+								{/* Filters */}
+
+								<Accordion variant="contained" bg="white">
+									<Accordion.Item value="filters">
+										<Accordion.Control>Empfänger filtern</Accordion.Control>
+										<Accordion.Panel>
+											<Stack gap="sm">
+												<form.Field name="shiftIds">
+													{(field) => (
+														<MultiSelect
+															label="Schichten"
+															placeholder="Alle Schichten"
+															data={event.shifts.map((s) => ({ value: s.id, label: s.label }))}
+															value={field.state.value}
+															onChange={(val) => {
+																field.handleChange(val);
+																const newValidRoleIds = new Set(event.shifts.filter((s) => val.includes(s.id)).flatMap((s) => s.roles.map((r) => r.id)));
+																form.setFieldValue(
+																	"roleIds",
+																	form.getFieldValue("roleIds").filter((id) => newValidRoleIds.has(id)),
+																);
+															}}
+															clearable
+														/>
+													)}
+												</form.Field>
+												<form.Field name="roleIds">
+													{(field) => (
+														<MultiSelect
+															label="Aufgaben"
+															placeholder="Alle Aufgaben"
+															data={availableRoles}
+															value={field.state.value.filter((id) => validRoleIds.has(id))}
+															onChange={field.handleChange}
+															clearable
+															disabled={availableRoles.length === 0}
+														/>
+													)}
+												</form.Field>
+												<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
+													<DatePickerInput
+														label="Geboren vor"
+														defaultLevel="decade"
+														placeholder="z.B. min 18 Jahre"
+														value={maxDateOfBirth as DateValue}
+														onChange={(val) => setMaxDateOfBirth(val as string | null)}
+														locale="de"
+														valueFormat="DD.MM.YYYY"
+														clearable
+														minDate={dayjs().subtract(90, "year").toDate()}
+														maxDate={dayjs().subtract(9, "year").toDate()}
+													/>
+													<DatePickerInput
+														label="Geboren nach"
+														defaultLevel="decade"
+														placeholder="z.B. nur U16"
+														value={minDateOfBirth as DateValue}
+														onChange={(val) => setMinDateOfBirth(val as string | null)}
+														locale="de"
+														valueFormat="DD.MM.YYYY"
+														clearable
+														minDate={dayjs().subtract(18, "year").toDate()}
+														maxDate={dayjs().subtract(9, "year").toDate()}
+													/>
+												</SimpleGrid>
+											</Stack>
+										</Accordion.Panel>
+									</Accordion.Item>
+								</Accordion>
+
+								{/* Recipient preview */}
+								<Card withBorder>
+									<Stack gap="xs">
+										<Group justify="space-between">
+											<Text fw={500} size="sm">
+												Empfänger
+											</Text>
+											<Badge variant="light" color={recipients.length > 0 ? "blue" : "gray"}>
+												{recipients.length} Empfänger
+											</Badge>
+										</Group>
+										{recipients.length === 0 ? (
+											<Text size="sm" c="dimmed">
+												Keine bestätigten Anmeldungen für diese Filter.
+											</Text>
+										) : (
+											<ScrollArea.Autosize mah={160}>
+												<Group gap="xs" wrap="wrap">
+													{recipients.map((r) => (
+														<Badge key={r.id} size="sm" variant="outline">
+															{r.firstName} {r.lastName}
+														</Badge>
+													))}
+												</Group>
+											</ScrollArea.Autosize>
+										)}
+									</Stack>
+								</Card>
+
+								{/* Compose */}
+								<Card withBorder>
+									<Stack gap="md">
+										<Text fw={500} size="sm">
+											Nachricht verfassen
+										</Text>
+										<form.Field name="subject">{(field) => <TextInput label="Betreff" required value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}</form.Field>
+										<Box>
+											<Text size="sm" fw={500} mb="xs">
+												Inhalt
+											</Text>
+											<RichTextEditor editor={editor} styles={{ content: { "& .ProseMirror": { minHeight: 180 } } }}>
+												<RichTextEditor.Toolbar sticky stickyOffset={60}>
+													<RichTextEditor.ControlsGroup>
+														<RichTextEditor.Bold />
+														<RichTextEditor.Italic />
+														<RichTextEditor.ClearFormatting />
+													</RichTextEditor.ControlsGroup>
+													<RichTextEditor.ControlsGroup>
+														<RichTextEditor.BulletList />
+														<RichTextEditor.OrderedList />
+													</RichTextEditor.ControlsGroup>
+													<RichTextEditor.ControlsGroup>
+														<RichTextEditor.Link />
+														<RichTextEditor.Unlink />
+													</RichTextEditor.ControlsGroup>
+												</RichTextEditor.Toolbar>
+												<RichTextEditor.Content />
+											</RichTextEditor>
+										</Box>
+										{sendMutation.isPending && (
+											<Group gap="xs">
+												<Loader size="xs" />
+												<Text size="sm" c="dimmed">
+													E-Mails werden gesendet…
+												</Text>
+											</Group>
+										)}
+										<Group justify="flex-end" gap="sm">
+											<ButtonLink variant="subtle" to="/admin/volunteer-event">
+												Abbrechen
+											</ButtonLink>
+											<Button type="submit" leftSection={<Send size={16} />} disabled={subject.trim().length === 0 || !editorHasContent || recipients.length === 0}>
+												Senden ({recipients.length})
+											</Button>
+										</Group>
+									</Stack>
+								</Card>
+							</Stack>
+						</form>
+					</>
+				);
+			}}
+		</form.Subscribe>
 	);
 }
