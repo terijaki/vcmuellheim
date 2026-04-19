@@ -17,6 +17,7 @@ import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsEvent } from "ts-ics";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
 import { getAppBaseUrl } from "./app-base-url";
+import { slugify } from "@/utils/slugify";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -86,9 +87,28 @@ function buildConfirmationHtml(opts: { firstName: string; shiftLabel: string; sh
 <p>Sportliche Grüße,<br>${Club.shortName}</p>`;
 }
 
-function buildReceiptHtml(opts: { firstName: string; eventTitle: string; eventLocation: string | undefined; shiftLabel: string; shiftDate: string; eventUrl: string }): string {
-	const { firstName, eventTitle, eventLocation, shiftLabel, shiftDate, eventUrl } = opts;
-	const locationLine = eventLocation ? `<p><strong>Ort:</strong> ${eventLocation}</p>` : "";
+function buildReceiptHtml(opts: {
+	firstName: string;
+	eventTitle: string;
+	eventLocation: string | undefined;
+	eventLocationUrl: string | undefined;
+	shiftLabel: string;
+	shiftDate: string;
+	eventUrl: string;
+}): string {
+	const { firstName, eventTitle, eventLocation, eventLocationUrl, shiftLabel, shiftDate, eventUrl } = opts;
+
+	let locationLine = "";
+	if (eventLocation && !eventLocationUrl) {
+		locationLine = `<p><strong>Ort:</strong> ${eventLocation}</p>`;
+	}
+	if (eventLocationUrl && !eventLocation) {
+		locationLine = `<p><strong>Ort:</strong> <a href="${eventLocationUrl}" target="_blank" rel="noopener noreferrer">${eventLocationUrl}</a></p>`;
+	}
+	if (eventLocation && eventLocationUrl) {
+		locationLine = `<p><strong>Ort:</strong> <a href="${eventLocationUrl}" target="_blank" rel="noopener noreferrer">${eventLocation}</a></p>`;
+	}
+
 	return `<p>Hallo ${firstName},</p>
 <p>deine Anmeldung wurde bestätigt. Vielen Dank! 🙏</p>
 <p>Hier nochmal die Infos für dich. Im Anhang findest du den Termin <em>als Kalender-Datei</em>.</p>
@@ -97,7 +117,6 @@ function buildReceiptHtml(opts: { firstName: string; eventTitle: string; eventLo
 ${locationLine}
 <p><strong>Einsatz:</strong> ${shiftLabel}</p>
 <p><strong>Datum / Uhrzeit:</strong> ${shiftDate}</p>
-<p>Den Termin findest du auch als Kalender-Anhang (.ics) in dieser E-Mail.</p>
 <p><a href="${eventUrl}" target="_blank" rel="noopener noreferrer">Zur Veranstaltungsseite</a></p>
 <p>Sportliche Grüße,<br>${Club.shortName}</p>`;
 }
@@ -164,6 +183,7 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 		firstName: signup.firstName,
 		eventTitle: event.title,
 		eventLocation: event.location,
+		eventLocationUrl: event.locationUrl,
 		shiftLabel: shift.label,
 		shiftDate,
 		eventUrl,
@@ -191,7 +211,7 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 		`--${boundary}`,
 		'Content-Type: text/calendar; charset="UTF-8"; method=REQUEST',
 		"Content-Transfer-Encoding: base64",
-		`Content-Disposition: attachment; filename="termin.ics"`,
+		`Content-Disposition: attachment; filename="${slugify(event.title, true)}.ics"`,
 		"",
 		Buffer.from(icsContent).toString("base64"),
 		"",
