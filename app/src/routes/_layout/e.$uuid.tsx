@@ -218,14 +218,14 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
 									</Badge>
 								</Group>{" "}
 								{role.description && (
-									<Text size="sm" c="dimmed" mt={4}>
+									<Text size="sm" mt={4}>
 										{role.description}
 									</Text>
 								)}{" "}
 								{roleHelpers.length > 0 && (
 									<>
 										<Divider my="xs" />
-										<Text size="xs" c="dimmed" mt={4}>
+										<Text size="sm" c="dimmed" mt={4}>
 											{roleHelpers.map((h) => h.displayName).join(", ")}
 										</Text>
 									</>
@@ -241,7 +241,7 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
 						<Button onClick={() => setModalOpen(true)} ms="auto">
 							Anmelden für {shift.label}
 						</Button>
-						<Modal opened={modalOpen} onClose={() => setModalOpen(false)} title={shift.label} size="lg" centered fullScreen={isMobile}>
+						<Modal opened={modalOpen} onClose={() => setModalOpen(false)} title={shift.label} size="xl" centered fullScreen={isMobile}>
 							<SignupForm
 								event={event}
 								shiftLabel={shift.label}
@@ -556,7 +556,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 
 				<form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
 					{([canSubmit, isSubmitting]) => (
-						<Group justify="flex-end" gap="sm">
+						<Group justify="flex-end" gap="sm" my="lg">
 							<Button variant="subtle" onClick={onCancel} disabled={mutation.isPending}>
 								Abbrechen
 							</Button>
