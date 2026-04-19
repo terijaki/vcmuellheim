@@ -1,3 +1,4 @@
+import { createServerFn } from "@tanstack/react-start";
 import { buildWebappUrl } from "@utils/webapp-url";
 
 export function buildAppBaseUrlFromEnv(env: NodeJS.ProcessEnv): string {
@@ -9,3 +10,5 @@ export function buildAppBaseUrlFromEnv(env: NodeJS.ProcessEnv): string {
 export function getAppBaseUrl(): string {
 	return buildAppBaseUrlFromEnv(process.env);
 }
+
+export const getAppBaseUrlFn = createServerFn().handler(() => getAppBaseUrl());
