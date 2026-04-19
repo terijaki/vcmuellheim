@@ -76,8 +76,8 @@ export const memberSchema = z.object({
 	...baseEntityFields,
 	type: z.literal("member").default("member").describe("Entity type, primary key for GSI queries"),
 	name: z.string().min(1).max(200),
-	privateEmail: z.email().optional().describe("Admin-only private destination email — never exposed in public responses"),
-	proxyEmail: z.email().optional().describe("Public proxy alias — used in all public mailto flows"),
+	privateEmail: z.email().trim().optional().describe("Admin-only private destination email — never exposed in public responses"),
+	proxyEmail: z.email().trim().optional().describe("Public proxy alias — used in all public mailto flows"),
 	phone: z.string().optional(),
 	isBoardMember: z.boolean().optional(),
 	isTrainer: z.boolean().optional(),
@@ -185,3 +185,81 @@ export const samsTeamSchema = z.object({
 
 export type SamsClubInput = z.infer<typeof samsClubSchema>;
 export type SamsTeamInput = z.infer<typeof samsTeamSchema>;
+
+// ---------------------------------------------------------------------------
+// Volunteer Event Planner schemas
+// ---------------------------------------------------------------------------
+
+/** Job role within a volunteer shift */
+export const volunteerRoleSchema = z
+	.object({
+		id: z.uuid(),
+		label: z.string().min(1).max(100),
+		description: z.string().max(500).optional(),
+		minCapacity: z.number().int().min(0),
+		maxCapacity: z.number().int().min(1),
+		minAge: z.number().int().min(0).max(120).optional(),
+	})
+	.refine((r) => r.maxCapacity >= r.minCapacity, { message: "maxCapacity muss größer oder gleich minCapacity sein" });
+
+/** Shift within a volunteer event */
+export const volunteerShiftSchema = z.object({
+	id: z.uuid(),
+	label: z.string().min(1).max(200),
+	startDate: z.iso.datetime(),
+	endDate: z.iso.datetime().optional(),
+	archivedAt: z.iso.datetime().optional().describe("Set when the shift is archived; hides it from public signup form"),
+	roles: z.array(volunteerRoleSchema),
+});
+
+/** Volunteer event with nested shifts and roles */
+export const volunteerEventSchema = z.object({
+	...baseEntityFields,
+	type: z.literal("volunteerEvent").default("volunteerEvent").describe("Entity type, primary key for GSI queries"),
+	title: z.string().min(1).max(200),
+	description: z.string().optional(),
+	location: z.string().optional(),
+	locationUrl: z.string().optional().describe("Optional URL for the location (e.g. Google Maps link)"),
+	shifts: z.array(volunteerShiftSchema),
+	archivedAt: z.iso.datetime().optional().describe("Set when the event is archived; hides it from public view"),
+});
+
+/** Signup payload stored inside a verification token */
+export const volunteerSignupDataSchema = z.object({
+	firstName: z.string().trim().min(1).max(100),
+	lastName: z.string().trim().min(1).max(100),
+	email: z.email().trim(),
+	dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
+	preferredRoleIds: z.array(z.uuid()).min(1),
+	association: z.string().trim().max(500),
+	mobilePhone: z.string().trim().max(30).optional().describe("Optional mobile phone number of the volunteer"),
+	emergencyContact: z.string().trim().max(30).optional().describe("Emergency contact phone number — required for minors (under 18 at shift start)"),
+	note: z.string().trim().max(1000).optional().describe("Optional free-text note from the volunteer"),
+	eventId: z.uuid(),
+	shiftId: z.uuid(),
+});
+
+/** Volunteer signup record */
+export const volunteerSignupSchema = volunteerSignupDataSchema.extend({
+	...baseEntityFields,
+	type: z.literal("volunteerSignup").default("volunteerSignup").describe("Entity type discriminator"),
+	status: z.enum(["pending", "confirmed"]),
+	assignedRoleId: z.uuid().optional().describe("Role assigned by admin, overrides helper preference"),
+});
+
+/** Short-lived verification token for confirming a volunteer signup */
+export const volunteerTokenSchema = z.object({
+	id: z.uuid(),
+	type: z.literal("volunteerToken").default("volunteerToken").describe("Entity type discriminator"),
+	eventId: z.uuid(),
+	signupData: volunteerSignupDataSchema.describe("Full signup payload carried by the token"),
+	ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (72h expiry)"),
+	createdAt: z.iso.datetime(),
+});
+
+export type VolunteerEventInput = z.infer<typeof volunteerEventSchema>;
+export type VolunteerShiftInput = z.infer<typeof volunteerShiftSchema>;
+export type VolunteerRoleInput = z.infer<typeof volunteerRoleSchema>;
+export type VolunteerSignupInput = z.infer<typeof volunteerSignupSchema>;
+export type VolunteerSignupData = z.infer<typeof volunteerSignupDataSchema>;
+export type VolunteerTokenInput = z.infer<typeof volunteerTokenSchema>;

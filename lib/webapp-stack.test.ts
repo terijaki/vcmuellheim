@@ -139,9 +139,10 @@ describe("WebAppStack", () => {
 				Variables: {
 					[CONTENT_TABLE_ENV_VAR]: Match.anyValue(),
 					[CACHE_TABLE_ENV_VAR]: Match.anyValue(),
+					APP_BASE_URL: "https://dev.new.vcmuellheim.de",
 					BETTER_AUTH_SECRET: "test-auth-secret",
 					CDK_ENVIRONMENT: "dev",
-					CLOUDFRONT_URL: "https://media.example.com",
+					MEDIA_CLOUDFRONT_URL: "https://media.example.com",
 
 					MEDIA_BUCKET_NAME: Match.anyValue(),
 					NODE_ENV: "production",
@@ -191,7 +192,7 @@ describe("WebAppStack", () => {
 			env: testEnv,
 			stackProps: {
 				environment: "dev",
-				branch: "email-proxy",
+				branch: "cool-feature",
 			},
 			...dependencies,
 		});
@@ -199,12 +200,9 @@ describe("WebAppStack", () => {
 		const template = Template.fromStack(stack);
 
 		template.hasResourceProperties("AWS::Lambda::Function", {
-			FunctionName: "vcm-webapp-dev-email-proxy",
+			FunctionName: "vcm-webapp-dev-cool-feature",
 			Environment: {
-				Variables: Match.objectLike({
-					BRANCH_NAME: "email-proxy",
-					CDK_ENVIRONMENT: "dev",
-				}),
+				Variables: Match.objectLike({ APP_BASE_URL: "https://dev-cool-feature.new.vcmuellheim.de", BRANCH_NAME: "cool-feature", CDK_ENVIRONMENT: "dev" }),
 			},
 		});
 	});

@@ -8,9 +8,35 @@
  */
 
 import { describe, it } from "vite-plus/test";
-import { BusEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
+import {
+	BusEntity,
+	EventEntity,
+	LocationEntity,
+	MediaEntity,
+	MemberEntity,
+	NewsEntity,
+	SponsorEntity,
+	TeamEntity,
+	VolunteerEventEntity,
+	VolunteerSignupEntity,
+	VolunteerTokenEntity,
+} from "./electrodb-entities";
 import { SamsClubEntity, SamsTeamEntity } from "./sams-electrodb-entities";
-import { busSchema, eventSchema, locationSchema, mediaSchema, memberSchema, newsSchema, samsClubSchema, samsTeamSchema, sponsorSchema, teamSchema } from "./schemas";
+import {
+	busSchema,
+	eventSchema,
+	locationSchema,
+	mediaSchema,
+	memberSchema,
+	newsSchema,
+	samsClubSchema,
+	samsTeamSchema,
+	sponsorSchema,
+	teamSchema,
+	volunteerEventSchema,
+	volunteerSignupSchema,
+	volunteerTokenSchema,
+} from "./schemas";
 
 /** Extract sorted top-level attribute names from an ElectroDB entity schema */
 function getEntityAttributeNames(entity: { schema: { attributes: Record<string, unknown> } }): string[] {
@@ -61,7 +87,7 @@ function assertNoSurplusAttributes(
 }
 
 /** Key fields that ElectroDB injects and are not part of the Zod schema */
-const GENERATED_KEY_FIELDS = ["pk", "sk", "gsi1pk", "gsi1sk", "gsi2pk", "gsi2sk", "gsi3pk", "gsi3sk", "gsi4pk", "gsi4sk", "gsi5pk", "gsi5sk", "__edb_e__", "__edb_v__"];
+const GENERATED_KEY_FIELDS = ["pk", "sk", "gsi1pk", "gsi1sk", "gsi2pk", "gsi2sk", "gsi3pk", "gsi3sk", "gsi4pk", "gsi4sk", "gsi5pk", "gsi5sk", "gsi6pk", "gsi6sk", "__edb_e__", "__edb_v__"];
 
 function checkDrift(entityName: string, zodSchema: Parameters<typeof getZodFieldNames>[0], entity: Parameters<typeof getEntityAttributeNames>[0]): void {
 	const zodFields = getZodFieldNames(zodSchema);
@@ -115,5 +141,19 @@ describe("SAMS ElectroDB ↔ Zod drift detection", () => {
 
 	it("SamsTeam entity attributes match samsTeamSchema", () => {
 		checkDrift("SamsTeam", samsTeamSchema, SamsTeamEntity);
+	});
+});
+
+describe("Volunteer ElectroDB ↔ Zod drift detection", () => {
+	it("VolunteerEvent entity attributes match volunteerEventSchema", () => {
+		checkDrift("VolunteerEvent", volunteerEventSchema, VolunteerEventEntity);
+	});
+
+	it("VolunteerSignup entity attributes match volunteerSignupSchema", () => {
+		checkDrift("VolunteerSignup", volunteerSignupSchema, VolunteerSignupEntity);
+	});
+
+	it("VolunteerToken entity attributes match volunteerTokenSchema", () => {
+		checkDrift("VolunteerToken", volunteerTokenSchema, VolunteerTokenEntity);
 	});
 });

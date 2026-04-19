@@ -1,4 +1,4 @@
-import { Alert, Center, Container, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Alert, Center, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import { useInViewport } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import EntityNotFound from "@webapp/components/EntityNotFound";
@@ -32,28 +32,26 @@ function RouteComponent() {
 
 	return (
 		<PageWithHeading title="News Beiträge" description="Lese die neuesten Nachrichten und Updates vom Volleyballclub Müllheim">
-			<Container size="xl">
-				<Stack>
-					<SimpleGrid cols={{ base: 1, sm: 2 }}>
-						{news.map((post, index) => (
-							<NewsCard key={post.id} {...post} ref={index <= news.length - BATCH_SIZE ? loaderRef : undefined} />
-						))}
-					</SimpleGrid>
-					{(isLoading || isFetchingNextPage) && (
-						<Stack align="center" gap="md">
-							<Loader size="xl" />
-							<Text c="dimmed">Lade News...</Text>
-						</Stack>
-					)}
-					{error && (
-						<Center py="xl">
-							<Alert variant="light" color="red" radius="md" title="Fehler beim Laden der News" icon={<ServerCrash />}>
-								{error.message}
-							</Alert>
-						</Center>
-					)}
-				</Stack>
-			</Container>
+			<Stack>
+				<SimpleGrid cols={{ base: 1, sm: 2 }}>
+					{news.map((post, index) => (
+						<NewsCard key={post.id} {...post} ref={index <= news.length - BATCH_SIZE ? loaderRef : undefined} />
+					))}
+				</SimpleGrid>
+				{(isLoading || isFetchingNextPage) && (
+					<Stack align="center" gap="md">
+						<Loader size="xl" />
+						<Text c="dimmed">Lade News...</Text>
+					</Stack>
+				)}
+				{error && (
+					<Center py="xl">
+						<Alert variant="light" color="red" radius="md" title="Fehler beim Laden der News" icon={<ServerCrash />}>
+							{error.message}
+						</Alert>
+					</Center>
+				)}
+			</Stack>
 		</PageWithHeading>
 	);
 }

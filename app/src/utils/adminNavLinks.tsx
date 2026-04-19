@@ -1,4 +1,4 @@
-import { BadgeEuro, Building2, Bus, CalendarDays, Contact, MapPinned, Newspaper, Users } from "lucide-react";
+import { BadgeEuro, Building2, Bus, CalendarDays, Contact, HandHelping, MapPinned, Newspaper, Users } from "lucide-react";
 import type { ReactElement } from "react";
 
 type AdminRoute = {
@@ -51,6 +51,12 @@ export function getAdminRoutesWithLabels(): AdminRoute[] {
 			label: "Bus Buchungen",
 			icon: <Bus />,
 			description: "Trage Buchungen für den Vereinsbus ein.",
+		},
+		{
+			to: "/admin/volunteer-event",
+			label: "Veranstaltung",
+			icon: <HandHelping />,
+			description: "Erstelle und verwalte ehrenamtliche Veranstaltungen mit Anmeldungen (z. B. Stadtfest).",
 		},
 		{
 			to: "/admin/sams",

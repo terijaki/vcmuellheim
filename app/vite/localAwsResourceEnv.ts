@@ -2,8 +2,8 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadEnv, type PluginOption } from "vite-plus";
 import { CONTENT_TABLE_ENV_VAR, computeSamsDataTableName } from "../../lib/db/env.ts";
-import { Club } from "../../project.config.ts";
 import { getSanitizedBranch } from "../../utils/git.ts";
+import { buildWebappUrl } from "../../utils/webapp-url.ts";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -40,10 +40,10 @@ function applyLocalAwsResourceEnv(environment: string) {
 	setDefaultEnv("SAMS_TABLE_NAME", computeSamsDataTableName(environment, sanitizedBranch));
 	setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
 
-	const isProd = environment === "prod";
-	const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
-	const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
-	setDefaultEnv("CLOUDFRONT_URL", `https://${envPrefix}media.${baseDomain}`);
+	const envPrefix = `${environment}${branchSuffix}-`;
+	setDefaultEnv("MEDIA_CLOUDFRONT_URL", `https://${envPrefix}media.new.vcmuellheim.de`);
+
+	setDefaultEnv("APP_BASE_URL", buildWebappUrl(environment, sanitizedBranch));
 }
 
 export function localAwsResourceEnvPlugin(): PluginOption {

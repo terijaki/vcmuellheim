@@ -1,10 +1,10 @@
-import { ActionIcon, Anchor, Box, Button, Card, Collapse, Group, Stack, Text, Title } from "@mantine/core";
+import { Accordion, Anchor, Box, Button, Card, Group, Stack, Text, Title } from "@mantine/core";
 import { Club } from "@project.config";
 import dayjs from "dayjs";
 import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Fragment, useEffect, useState } from "react";
-import { FaCalendarDays as IconCalendar, FaClock as IconClock, FaChevronUp as IconCollapse, FaEnvelope as IconMail, FaUser as IconPerson, FaUserGroup as IconPersons } from "react-icons/fa6";
+import { FaCalendarDays, FaClock, FaEnvelope, FaUser, FaUserGroup, FaChevronDown } from "react-icons/fa6";
 import type { Team } from "@/lib/db/types";
 import { useLocations, useMembers } from "../hooks/dataQueries";
 import { ButtonLink } from "./CustomLink";
@@ -42,128 +42,134 @@ export default function TeamCard(props: Team) {
 	const fullOpacity = isOpen || isMatching || isEmptyBoth;
 
 	return (
-		<Card data-team-id={id} bg="white" style={{ opacity: fullOpacity ? 1 : 0.75 }}>
-			<Group onClick={() => setIsOpen(!isOpen)} style={{ cursor: "pointer" }} wrap="nowrap" justify="space-between" align="flex-start">
-				<Title order={3} c="blumine">
-					{league ? `${name} - ${league}` : name}
-				</Title>
-				<ActionIcon variant="transparent">
-					<IconCollapse
-						style={{
-							transform: isOpen ? "rotate(-180deg)" : "rotate(0deg)",
-							transition: "transform 200ms",
-						}}
-					/>
-				</ActionIcon>
-			</Group>
+		<Card data-team-id={id} bg="white" p={0} style={{ opacity: fullOpacity ? 1 : 0.75 }}>
+			<Accordion
+				value={isOpen ? id : null}
+				onChange={(val) => setIsOpen(val === id)}
+				styles={{
+					control: { paddingInline: "var(--mantine-spacing-md)", paddingBlock: "var(--mantine-spacing-md)" },
+					label: { padding: 0 },
+					panel: { paddingInline: "var(--mantine-spacing-md)", paddingBottom: "var(--mantine-spacing-md)" },
+					content: { padding: 0 },
+					chevron: { color: "var(--mantine-color-blumine-6)" },
+				}}
+				chevron={<FaChevronDown />}
+			>
+				<Accordion.Item value={id} style={{ border: "none" }}>
+					<Accordion.Control style={{ backgroundColor: "transparent" }}>
+						<Title order={3} c="blumine">
+							{league ? `${name} - ${league}` : name}
+						</Title>
+					</Accordion.Control>
+					<Accordion.Panel>
+						<Stack>
+							{ageGroup && (
+								<Group gap="xs">
+									<Text fw="bold">Alter:</Text>
+									<Text>{ageGroup}</Text>
+								</Group>
+							)}
+							{description && (
+								<Stack gap={0}>
+									<Text fw="bold">Info:</Text>
+									<Text>{description}</Text>
+								</Stack>
+							)}
+							{trainingSchedules && trainingSchedules.length > 0 && (
+								<Stack gap={0}>
+									<Group gap="xs" fw="bold">
+										<FaClock />
+										Trainingszeiten:
+									</Group>
+									{trainingSchedules.map((schedule) => {
+										const separator = schedule.days.length > 2 ? ", " : " & ";
+										const location = locations?.items.find((loc) => loc.id === schedule.locationId);
+										const weekdayNames = schedule.days
+											.map((d) => {
+												return `${dayjs().weekday(d).format("dddd")}s`;
+											})
+											.join(separator);
+										return (
+											<Fragment key={schedule.days.join("-")}>
+												<Text>
+													{weekdayNames} {schedule.startTime} - {schedule.endTime} Uhr
+												</Text>
+												{location && <MapsLink name={location.name} street={location.street} postal={location.postal} city={location.city} />}
+											</Fragment>
+										);
+									})}
+								</Stack>
+							)}
+							{coaches && coaches.length > 0 && (
+								<Stack gap={0}>
+									<Group gap="xs" fw="bold">
+										{coaches.length === 1 ? <FaUser /> : <FaUserGroup />}
+										Trainer:
+									</Group>
+									<Box>
+										{coaches?.map((trainer, index) => {
+											if (typeof trainer !== "object") return null;
+											if (trainer.proxyEmail) emailAddresses.set(trainer.proxyEmail, trainer.proxyEmail);
+											return (
+												<Fragment key={trainer.name}>
+													{index !== 0 && " & "}
+													{trainer.proxyEmail ? (
+														<Anchor component="a" href={`mailto:${trainer.proxyEmail}`} underline="never">
+															{trainer.name}
+														</Anchor>
+													) : (
+														trainer.name
+													)}
+												</Fragment>
+											);
+										})}
+									</Box>
+								</Stack>
+							)}
+							{contactPeople && contactPeople.length > 0 && (
+								<Stack gap={0}>
+									<Group gap="xs" fw="bold">
+										{contactPeople.length === 1 ? <FaUser /> : <FaUserGroup />}
+										{contactPeople.length === 1 ? "Ansprechperson" : "Ansprechpersonen"}:
+									</Group>
+									<Box>
+										{contactPeople?.map((person, index) => {
+											if (typeof person !== "object") return null;
+											if (person.proxyEmail) emailAddresses.set(person.proxyEmail, person.proxyEmail);
+											return (
+												<Fragment key={person.name}>
+													{index !== 0 && " & "}
+													{person.proxyEmail ? (
+														<Anchor component="a" href={`mailto:${person.proxyEmail}`} underline="never">
+															{person.name}
+														</Anchor>
+													) : (
+														person.name
+													)}
+												</Fragment>
+											);
+										})}
+									</Box>
+								</Stack>
+							)}
 
-			<Collapse expanded={isOpen}>
-				<Stack>
-					{ageGroup && (
-						<Group gap="xs">
-							<Text fw="bold">Alter:</Text>
-							<Text>{ageGroup}</Text>
-						</Group>
-					)}
-					{description && (
-						<Stack gap={0}>
-							<Text fw="bold">Info:</Text>
-							<Text>{description}</Text>
-						</Stack>
-					)}
-					{trainingSchedules && trainingSchedules.length > 0 && (
-						<Stack gap={0}>
-							<Group gap="xs" fw="bold">
-								<IconClock />
-								Trainingszeiten:
-							</Group>
-							{trainingSchedules.map((schedule) => {
-								const separator = schedule.days.length > 2 ? ", " : " & ";
-								const location = locations?.items.find((loc) => loc.id === schedule.locationId);
-								const weekdayNames = schedule.days
-									.map((d) => {
-										return `${dayjs().weekday(d).format("dddd")}s`;
-									})
-									.join(separator);
-								return (
-									<Fragment key={schedule.days.join("-")}>
-										<Text>
-											{weekdayNames} {schedule.startTime} - {schedule.endTime} Uhr
-										</Text>
-										{location && <MapsLink name={location.name} street={location.street} postal={location.postal} city={location.city} />}
-									</Fragment>
-								);
-							})}
-						</Stack>
-					)}
-					{coaches && coaches.length > 0 && (
-						<Stack gap={0}>
-							<Group gap="xs" fw="bold">
-								{coaches.length === 1 ? <IconPerson /> : <IconPersons />}
-								Trainer:
-							</Group>
-							<Box>
-								{coaches?.map((trainer, index) => {
-									if (typeof trainer !== "object") return null;
-									if (trainer.proxyEmail) emailAddresses.set(trainer.proxyEmail, trainer.proxyEmail);
-									return (
-										<Fragment key={trainer.name}>
-											{index !== 0 && " & "}
-											{trainer.proxyEmail ? (
-												<Anchor component="a" href={`mailto:${trainer.proxyEmail}`} underline="never">
-													{trainer.name}
-												</Anchor>
-											) : (
-												trainer.name
-											)}
-										</Fragment>
-									);
-								})}
-							</Box>
-						</Stack>
-					)}
-					{contactPeople && contactPeople.length > 0 && (
-						<Stack gap={0}>
-							<Group gap="xs" fw="bold">
-								{contactPeople.length === 1 ? <IconPerson /> : <IconPersons />}
-								{contactPeople.length === 1 ? "Ansprechperson" : "Ansprechpersonen"}:
-							</Group>
-							<Box>
-								{contactPeople?.map((person, index) => {
-									if (typeof person !== "object") return null;
-									if (person.proxyEmail) emailAddresses.set(person.proxyEmail, person.proxyEmail);
-									return (
-										<Fragment key={person.name}>
-											{index !== 0 && " & "}
-											{person.proxyEmail ? (
-												<Anchor component="a" href={`mailto:${person.proxyEmail}`} underline="never">
-													{person.name}
-												</Anchor>
-											) : (
-												person.name
-											)}
-										</Fragment>
-									);
-								})}
-							</Box>
-						</Stack>
-					)}
+							<Stack gap="xs" mt="xs">
+								{emailAddresses.size > 0 && (
+									<Button component="a" href={`mailto:${Array.from(emailAddresses.values()).join(",")}?subject=${name} (${Club.shortName})`} color="turquoise" leftSection={<FaEnvelope />}>
+										Kontaktieren
+									</Button>
+								)}
 
-					<Stack gap="xs" mt="xs">
-						{emailAddresses.size > 0 && (
-							<Button component="a" href={`mailto:${Array.from(emailAddresses.values()).join(",")}?subject=${name} (${Club.shortName})`} color="turquoise" leftSection={<IconMail />}>
-								Kontaktieren
-							</Button>
-						)}
-
-						{sbvvTeamId && (
-							<ButtonLink to={"/teams/$slug"} params={{ slug }} leftSection={<IconCalendar />}>
-								Spielplan, Tabelle & Kader
-							</ButtonLink>
-						)}
-					</Stack>
-				</Stack>
-			</Collapse>
+								{sbvvTeamId && (
+									<ButtonLink to={"/teams/$slug"} params={{ slug }} leftSection={<FaCalendarDays />}>
+										Spielplan, Tabelle & Kader
+									</ButtonLink>
+								)}
+							</Stack>
+						</Stack>
+					</Accordion.Panel>
+				</Accordion.Item>
+			</Accordion>
 		</Card>
 	);
 }

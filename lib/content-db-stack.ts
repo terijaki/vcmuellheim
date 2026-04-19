@@ -95,5 +95,14 @@ export class ContentDbStack extends cdk.Stack {
 			sortKey: { name: "gsi5sk", type: dynamodb.AttributeType.STRING },
 			projectionType: dynamodb.ProjectionType.ALL,
 		});
+
+		// GSI6 — volunteer signup queries by eventId
+		// Used by: VolunteerSignup (all signups for an event)
+		this.contentTable.addGlobalSecondaryIndex({
+			indexName: ContentTableIndexes.gsi6,
+			partitionKey: { name: "gsi6pk", type: dynamodb.AttributeType.STRING },
+			sortKey: { name: "gsi6sk", type: dynamodb.AttributeType.STRING },
+			projectionType: dynamodb.ProjectionType.ALL,
+		});
 	}
 }

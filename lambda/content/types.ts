@@ -6,7 +6,7 @@ export const TrpcLambdaEnvironmentSchema = tableEnvironmentSchema.extend({
 	CDK_ENVIRONMENT: requiredEnvString,
 	BETTER_AUTH_SECRET: requiredEnvString,
 	MEDIA_BUCKET_NAME: requiredEnvString,
-	CLOUDFRONT_URL: optionalEnvString,
+	MEDIA_CLOUDFRONT_URL: optionalEnvString,
 	SAMS_TABLE_NAME: requiredEnvString,
 });
 

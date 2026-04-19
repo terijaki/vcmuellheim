@@ -68,8 +68,8 @@ export const updateMemberFn = createServerFn()
 				.omit({ id: true, createdAt: true, updatedAt: true })
 				.partial()
 				.extend({
-					privateEmail: z.email().nullable().optional(),
-					proxyEmail: z.email().nullable().optional(),
+					privateEmail: z.email().trim().nullable().optional(),
+					proxyEmail: z.email().trim().nullable().optional(),
 					phone: z.string().nullable().optional(),
 					roleTitle: z.string().max(100).nullable().optional(),
 					avatarS3Key: z.string().nullable().optional(),
