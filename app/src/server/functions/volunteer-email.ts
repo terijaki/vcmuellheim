@@ -60,7 +60,7 @@ function buildIcsAttachment(event: VolunteerEvent, shiftId: string): string {
 
 	const icsEvent: IcsEvent = {
 		uid: `volunteer-signup-${shiftId}@${Club.domain}`,
-		summary: `${event.title} – ${shift.label}`,
+		summary: `${shift.label} - ${event.title}`,
 		start: { date: start.toDate(), type: "DATE-TIME" },
 		duration: remainingMinutes > 0 ? { hours: durationHours, minutes: remainingMinutes } : { hours: durationHours || 6 },
 		stamp: { date: new Date(), type: "DATE-TIME" },
