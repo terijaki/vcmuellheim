@@ -160,29 +160,29 @@ function extractHeaderValue(rawMime: string, headerName: string): string {
  * Extract all To addresses from a raw MIME string.
  * Handles multiple comma-separated addresses and RFC 2822 folded headers.
  */
-function extractToAddresses(rawMime: string): string[] {
-	const toLine = extractHeaderValue(rawMime, "to");
+const EMAIL_ADDRESS_REGEX = /<([^<>]+@[^<>]+)>|([^\s,<>]+@[^\s,<>]+)/g;
 
-	if (!toLine) return [];
+function extractAddressesFromHeaderValue(headerValue: string): string[] {
 	const addresses: string[] = [];
-	const regex = /<([^<>]+@[^<>]+)>|([^\s,<>]+@[^\s,<>]+)/g;
+	const regex = new RegExp(EMAIL_ADDRESS_REGEX);
 	let match;
-	while ((match = regex.exec(toLine)) !== null) {
+	while ((match = regex.exec(headerValue)) !== null) {
 		addresses.push((match[1] || match[2]).toLowerCase().trim());
 	}
 	return addresses;
 }
 
+function extractToAddresses(rawMime: string): string[] {
+	const toLine = extractHeaderValue(rawMime, "to");
+
+	if (!toLine) return [];
+	return extractAddressesFromHeaderValue(toLine);
+}
+
 function extractRecipientAddressesFromHeader(rawMime: string, headerName: string): string[] {
 	const line = extractHeaderValue(rawMime, headerName);
 	if (!line) return [];
-	const addresses: string[] = [];
-	const regex = /<([^<>]+@[^<>]+)>|([^\s,<>]+@[^\s,<>]+)/g;
-	let match;
-	while ((match = regex.exec(line)) !== null) {
-		addresses.push((match[1] || match[2]).toLowerCase().trim());
-	}
-	return addresses;
+	return extractAddressesFromHeaderValue(line);
 }
 
 function dedupeAddresses(addresses: string[]): string[] {
