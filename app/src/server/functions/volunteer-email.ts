@@ -76,15 +76,15 @@ function buildIcsAttachment(event: VolunteerEvent, shiftId: string): string {
 // HTML templates
 // ---------------------------------------------------------------------------
 
-function buildConfirmationHtml(opts: { firstName: string; shiftLabel: string; shiftDate: string; eventTitle: string; confirmationUrl: string; organizerEmail: string }): string {
-	const { firstName, shiftLabel, shiftDate, eventTitle, confirmationUrl, organizerEmail } = opts;
+function buildConfirmationHtml(opts: { firstName: string; shiftLabel: string; shiftDate: string; eventTitle: string; confirmationUrl: string; organizerName: string; organizerEmail: string }): string {
+	const { firstName, shiftLabel, shiftDate, eventTitle, confirmationUrl, organizerName, organizerEmail } = opts;
 	return `<p>Hallo ${firstName},</p>
 <p>danke für deine Anmeldung zur Veranstaltung <strong>${eventTitle}</strong>!</p>
 <p>Du hast dich für den Einsatz <strong>${shiftLabel}</strong> am <strong>${shiftDate}</strong> angemeldet.</p>
 <p>Bitte bestätige deine Anmeldung innerhalb von <em>72 Stunden</em> über den folgenden Link:</p>
 <p><a href="${confirmationUrl}" target="_blank" rel="noopener noreferrer">${confirmationUrl}</a><br></p>
 <p>Falls du diese Anfrage nicht gestellt hast, kannst du diese E-Mail ignorieren.</p>
-<p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerEmail}</a></p>`;
+<p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerName}</a></p>`;
 }
 
 function buildReceiptHtml(opts: {
@@ -94,9 +94,10 @@ function buildReceiptHtml(opts: {
 	shiftLabel: string;
 	shiftDate: string;
 	eventUrl: string;
+	organizerName: string;
 	organizerEmail: string;
 }): string {
-	const { firstName, eventLocation, eventLocationUrl, shiftLabel, shiftDate, eventUrl, organizerEmail } = opts;
+	const { firstName, eventLocation, eventLocationUrl, shiftLabel, shiftDate, eventUrl, organizerName, organizerEmail } = opts;
 
 	let locationLine = "";
 	if (eventLocation && !eventLocationUrl) {
@@ -117,7 +118,7 @@ function buildReceiptHtml(opts: {
 ${locationLine}
 <p><strong>Einsatz:</strong> ${shiftLabel}</p>
 <p><a href="${eventUrl}" target="_blank" rel="noopener noreferrer">Zur Veranstaltungsseite</a></p>
-<p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerEmail}</a></p>`;
+<p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerName}</a></p>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -147,6 +148,7 @@ export async function sendVolunteerConfirmationEmail(opts: { toEmail: string; fi
 		shiftDate,
 		eventTitle: event.title,
 		confirmationUrl,
+		organizerName: event.organizerName,
 		organizerEmail,
 	});
 
@@ -188,6 +190,7 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 		shiftLabel: shift.label,
 		shiftDate,
 		eventUrl,
+		organizerName: event.organizerName,
 		organizerEmail: event.organizerEmail,
 	});
 
