@@ -173,6 +173,22 @@ function extractToAddresses(rawMime: string): string[] {
 	return addresses;
 }
 
+function extractRecipientAddressesFromHeader(rawMime: string, headerName: string): string[] {
+	const line = extractHeaderValue(rawMime, headerName);
+	if (!line) return [];
+	const addresses: string[] = [];
+	const regex = /<([^<>]+@[^<>]+)>|([^\s,<>]+@[^\s,<>]+)/g;
+	let match;
+	while ((match = regex.exec(line)) !== null) {
+		addresses.push((match[1] || match[2]).toLowerCase().trim());
+	}
+	return addresses;
+}
+
+function dedupeAddresses(addresses: string[]): string[] {
+	return Array.from(new Set(addresses));
+}
+
 function parseOriginalSender(originalFrom: string): ParsedOriginalSender {
 	const normalizedOriginalFrom = originalFrom.replace(/\s+/g, " ").trim();
 	const angleAddressMatch = normalizedOriginalFrom.match(/<([^<>]+@[^<>]+)>/);
@@ -334,8 +350,9 @@ const lambdaHandler = async (event: unknown) => {
 	}
 	const rawMime = await s3Response.Body.transformToString("utf-8");
 
-	const toAddresses = extractToAddresses(rawMime);
-	const matchingAddresses = toAddresses.filter((addr) => addr.split("@")[1] === RECIPIENT_DOMAIN);
+	const envelopeRecipientAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
+	const toAddresses = envelopeRecipientAddresses.length > 0 ? envelopeRecipientAddresses : extractToAddresses(rawMime);
+	const matchingAddresses = dedupeAddresses(toAddresses.filter((addr) => addr.split("@")[1] === RECIPIENT_DOMAIN));
 
 	if (matchingAddresses.length === 0) {
 		logger.warn("No matching To addresses for recipient domain — dropping", { toAddresses, s3Key });
