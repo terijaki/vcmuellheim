@@ -349,7 +349,15 @@ const lambdaHandler = async (event: unknown) => {
 	const rawMime = await s3Response.Body.transformToString("utf-8");
 
 	const envelopeRecipientAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
-	const toAddresses = envelopeRecipientAddresses.length > 0 ? envelopeRecipientAddresses : extractToAddresses(rawMime);
+	const headerToAddresses = extractToAddresses(rawMime);
+	const headerToAddressSet = new Set(headerToAddresses.map((addr) => addr.toLowerCase()));
+	const hasValidatedEnvelopeRecipient = envelopeRecipientAddresses.some((addr) =>
+		headerToAddressSet.has(addr.toLowerCase()),
+	);
+	const toAddresses =
+		envelopeRecipientAddresses.length > 0 && hasValidatedEnvelopeRecipient
+			? envelopeRecipientAddresses
+			: headerToAddresses;
 	const matchingAddresses = dedupeAddresses(toAddresses.filter((addr) => addr.split("@")[1] === RECIPIENT_DOMAIN));
 
 	if (matchingAddresses.length === 0) {
