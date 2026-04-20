@@ -290,6 +290,53 @@ describe("mail-forward Lambda", () => {
 			expect(destinations).toContain("erika@example.com");
 			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
 		});
+
+		test("deduplicates duplicate aliases from To header and forwards only once", async () => {
+			s3Mock.on(GetObjectCommand).resolves({
+				Body: {
+					transformToString: vi.fn().mockResolvedValue(makeMime("max.mustermann@vcmuellheim.de, max.mustermann@vcmuellheim.de")),
+				} as never,
+			});
+			mockByProxyEmailGo.mockResolvedValue({
+				data: [{ id: "m1", proxyEmail: "max.mustermann@vcmuellheim.de", privateEmail: "max@example.com" }],
+			});
+
+			const result = await handler(makeEvent("emails/multi-to-dedupe.eml"), mockLambdaContext as never);
+
+			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+			expect(sesCalls).toHaveLength(1);
+			expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@example.com"]);
+			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
+		});
+
+		test("prefers X-Original-To over To list to avoid duplicate forwarding", async () => {
+			s3Mock.on(GetObjectCommand).resolves({
+				Body: {
+					transformToString: vi
+						.fn()
+						.mockResolvedValue(
+							[
+								"From: sender@example.com",
+								"To: max.mustermann@vcmuellheim.de, erika.mustermann@vcmuellheim.de, john.doe@vcmuellheim.de",
+								"X-Original-To: erika.mustermann@vcmuellheim.de",
+								"Subject: Test",
+								"",
+								"Hello world",
+							].join("\n"),
+						),
+				} as never,
+			});
+			mockByProxyEmailGo.mockResolvedValueOnce({
+				data: [{ id: "m2", proxyEmail: "erika.mustermann@vcmuellheim.de", privateEmail: "erika@example.com" }],
+			});
+
+			const result = await handler(makeEvent("emails/multi-to-original-to.eml"), mockLambdaContext as never);
+
+			const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+			expect(sesCalls).toHaveLength(1);
+			expect(sesCalls[0].args[0].input.Destinations).toEqual(["erika@example.com"]);
+			expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
+		});
 	});
 
 	describe("event parsing", () => {

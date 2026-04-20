@@ -160,17 +160,31 @@ function extractHeaderValue(rawMime: string, headerName: string): string {
  * Extract all To addresses from a raw MIME string.
  * Handles multiple comma-separated addresses and RFC 2822 folded headers.
  */
+const EMAIL_ADDRESS_REGEX = /<([^<>]+@[^<>]+)>|([^\s,<>]+@[^\s,<>]+)/g;
+
+function extractAddressesFromHeaderValue(headerValue: string): string[] {
+	const addresses: string[] = [];
+	for (const match of headerValue.matchAll(EMAIL_ADDRESS_REGEX)) {
+		addresses.push((match[1] || match[2]).toLowerCase().trim());
+	}
+	return addresses;
+}
+
 function extractToAddresses(rawMime: string): string[] {
 	const toLine = extractHeaderValue(rawMime, "to");
 
 	if (!toLine) return [];
-	const addresses: string[] = [];
-	const regex = /<([^<>]+@[^<>]+)>|([^\s,<>]+@[^\s,<>]+)/g;
-	let match;
-	while ((match = regex.exec(toLine)) !== null) {
-		addresses.push((match[1] || match[2]).toLowerCase().trim());
-	}
-	return addresses;
+	return extractAddressesFromHeaderValue(toLine);
+}
+
+function extractRecipientAddressesFromHeader(rawMime: string, headerName: string): string[] {
+	const line = extractHeaderValue(rawMime, headerName);
+	if (!line) return [];
+	return extractAddressesFromHeaderValue(line);
+}
+
+function dedupeAddresses(addresses: string[]): string[] {
+	return Array.from(new Set(addresses));
 }
 
 function parseOriginalSender(originalFrom: string): ParsedOriginalSender {
@@ -334,8 +348,17 @@ const lambdaHandler = async (event: unknown) => {
 	}
 	const rawMime = await s3Response.Body.transformToString("utf-8");
 
-	const toAddresses = extractToAddresses(rawMime);
-	const matchingAddresses = toAddresses.filter((addr) => addr.split("@")[1] === RECIPIENT_DOMAIN);
+	const envelopeRecipientAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
+	const headerToAddresses = extractToAddresses(rawMime);
+	const headerToAddressSet = new Set(headerToAddresses.map((addr) => addr.toLowerCase()));
+	const hasValidatedEnvelopeRecipient = envelopeRecipientAddresses.some((addr) =>
+		headerToAddressSet.has(addr.toLowerCase()),
+	);
+	const toAddresses =
+		envelopeRecipientAddresses.length > 0 && hasValidatedEnvelopeRecipient
+			? envelopeRecipientAddresses
+			: headerToAddresses;
+	const matchingAddresses = dedupeAddresses(toAddresses.filter((addr) => addr.split("@")[1] === RECIPIENT_DOMAIN));
 
 	if (matchingAddresses.length === 0) {
 		logger.warn("No matching To addresses for recipient domain — dropping", { toAddresses, s3Key });
