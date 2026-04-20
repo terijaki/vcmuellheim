@@ -51,7 +51,7 @@ export const listAllEventsFn = createServerFn()
 		};
 	});
 
-export const createEventFn = createServerFn()
+export const createEventFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(eventSchema.omit({ id: true, createdAt: true, updatedAt: true, ttl: true }))
 	.handler(async ({ data }) => {
@@ -68,7 +68,7 @@ export const createEventFn = createServerFn()
 		return event;
 	});
 
-export const updateEventFn = createServerFn()
+export const updateEventFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(
 		z.object({
@@ -113,7 +113,7 @@ export const updateEventFn = createServerFn()
 		return event;
 	});
 
-export const deleteEventFn = createServerFn()
+export const deleteEventFn = createServerFn({ method: "POST" })
 	.middleware([requireAuthMiddleware])
 	.inputValidator(z.object({ id: z.uuid() }))
 	.handler(async ({ data }) => {

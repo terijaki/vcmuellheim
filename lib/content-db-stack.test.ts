@@ -147,7 +147,7 @@ describe("ContentDbStack", () => {
 	});
 
 	describe("GSI configuration", () => {
-		it("should create all five required GSIs", () => {
+		it("should create all six required GSIs", () => {
 			const app = createTestApp();
 			const stack = new ContentDbStack(app, "TestStack", {
 				stackProps: { environment: "dev", branch: "" },
@@ -162,6 +162,28 @@ describe("ContentDbStack", () => {
 					Match.objectLike({ IndexName: ContentTableIndexes.gsi3 }),
 					Match.objectLike({ IndexName: ContentTableIndexes.gsi4 }),
 					Match.objectLike({ IndexName: ContentTableIndexes.gsi5 }),
+					Match.objectLike({ IndexName: ContentTableIndexes.gsi6 }),
+				]),
+			});
+		});
+
+		it("should have correct key schema for GSI6 (eventId-based)", () => {
+			const app = createTestApp();
+			const stack = new ContentDbStack(app, "TestStack", {
+				stackProps: { environment: "dev", branch: "" },
+			});
+
+			const template = Template.fromStack(stack);
+
+			template.hasResourceProperties("AWS::DynamoDB::Table", {
+				GlobalSecondaryIndexes: Match.arrayWith([
+					Match.objectLike({
+						IndexName: ContentTableIndexes.gsi6,
+						KeySchema: [
+							{ AttributeName: "gsi6pk", KeyType: "HASH" },
+							{ AttributeName: "gsi6sk", KeyType: "RANGE" },
+						],
+					}),
 				]),
 			});
 		});

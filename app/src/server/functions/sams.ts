@@ -26,7 +26,7 @@ import { getAllSamsClubs, getAllSamsTeams, getSamsClubByNameSlug, getSamsClubByN
 import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
 import { parseServerData } from "../schema-parse";
 
-const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
+const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
 
 const SAMS_API_TIMEOUT_MS = 10_000;
 
@@ -242,13 +242,13 @@ export const getClubLogoUrlFn = createServerFn()
 	.inputValidator(z.union([z.object({ clubUuid: z.string().min(1), clubSlug: z.undefined().optional() }), z.object({ clubSlug: z.string().min(1), clubUuid: z.undefined().optional() })]))
 	.handler(async ({ data }) => {
 		const club = data.clubUuid ? await getSamsClubBySportsclubUuid(data.clubUuid) : data.clubSlug ? await getSamsClubByNameSlug(data.clubSlug) : null;
-		return resolveClubLogoUrl(club, CLOUDFRONT_URL());
+		return resolveClubLogoUrl(club, MEDIA_CLOUDFRONT_URL());
 	});
 
 export const getClubLogoUrlsBatchFn = createServerFn()
 	.inputValidator(z.object({ clubSlugs: z.array(z.string().min(1)) }))
 	.handler(async ({ data }) => {
-		const cfUrl = CLOUDFRONT_URL();
+		const cfUrl = MEDIA_CLOUDFRONT_URL();
 		const entries = await Promise.all(
 			data.clubSlugs.map(async (slug) => {
 				const club = (await getSamsClubByNameSlug(slug)) ?? (await getSamsClubByNameSlugPrefix(slug));
@@ -403,7 +403,7 @@ export async function invokeSamsLambdaAsync(functionName: string, label: string)
 	}
 }
 
-export const triggerSamsClubsSyncFn = createServerFn()
+export const triggerSamsClubsSyncFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.handler(async () => {
 		const functionName = process.env.SAMS_CLUBS_SYNC_FUNCTION_NAME;
@@ -411,7 +411,7 @@ export const triggerSamsClubsSyncFn = createServerFn()
 		await invokeSamsLambdaAsync(functionName, "SAMS clubs sync");
 	});
 
-export const triggerSamsTeamsSyncFn = createServerFn()
+export const triggerSamsTeamsSyncFn = createServerFn({ method: "POST" })
 	.middleware([requireAdminMiddleware])
 	.handler(async () => {
 		const functionName = process.env.SAMS_TEAMS_SYNC_FUNCTION_NAME;

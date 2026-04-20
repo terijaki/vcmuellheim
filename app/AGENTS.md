@@ -19,7 +19,7 @@ This file provides instructions specific to `app/`, which is the unified TanStac
 
 ## Frontend conventions
 
-- **UI library:** Use Mantine components and theming throughout.
+- **UI library:** Use Mantine components and theming throughout. (https://mantine.dev/llms.txt)
 - **Routing:** TanStack Router — routes are file-based and the route tree is auto-generated (`routeTree.gen.ts`). Do not edit `routeTree.gen.ts` manually.
 - **Styling:** PostCSS is configured via `postcss.config.cjs`. Global styles live in `app/src/index.css`.
 - **Auth:** Better-auth OTP flow configured in `app/src/server/auth.ts`. Admin routes require session via `beforeLoad` guards.

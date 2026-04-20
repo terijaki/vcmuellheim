@@ -14,7 +14,19 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { Service } from "electrodb";
 import { docClient } from "./client";
-import { BusEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
+import {
+	BusEntity,
+	EventEntity,
+	LocationEntity,
+	MediaEntity,
+	MemberEntity,
+	NewsEntity,
+	SponsorEntity,
+	TeamEntity,
+	VolunteerEventEntity,
+	VolunteerSignupEntity,
+	VolunteerTokenEntity,
+} from "./electrodb-entities";
 import { getContentTableName, getSamsTableName } from "./env";
 import { SamsClubEntity, SamsTeamEntity } from "./sams-electrodb-entities";
 
@@ -28,6 +40,9 @@ const entityMap = {
 	sponsor: SponsorEntity,
 	location: LocationEntity,
 	bus: BusEntity,
+	volunteerEvent: VolunteerEventEntity,
+	volunteerSignup: VolunteerSignupEntity,
+	volunteerToken: VolunteerTokenEntity,
 } as const;
 
 /**

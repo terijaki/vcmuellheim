@@ -1,0 +1,634 @@
+/**
+ * Public volunteer event page — /e/$uuid
+ *
+ * Shows event info, shifts, signup counts, confirmed helpers, and a signup form.
+ * Handles ?token= query param for email verification.
+ */
+
+import { Alert, Anchor, Badge, Box, Button, Card, Center, Container, Divider, Group, Modal, MultiSelect, Select, SimpleGrid, Stack, Text, Textarea, TextInput, Title, Typography } from "@mantine/core";
+import { LineSpoiler } from "@webapp/components/LineSpoiler";
+import { Calendar, type CalendarProps, type DateStringValue, DatePickerInput } from "@mantine/dates";
+import { useForm } from "@tanstack/react-form-start";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import PageWithHeading from "@webapp/components/layout/PageWithHeading";
+import dayjs from "dayjs";
+import "dayjs/locale/de";
+import { CheckCircle, MapPin } from "lucide-react";
+import { useMediaQuery } from "@mantine/hooks";
+import { useEffect, useRef, useState } from "react";
+import { createVolunteerSignupFn, getPublicVolunteerEventFn, verifyVolunteerTokenFn } from "@webapp/server/functions/volunteer";
+import { formatShiftDateRange } from "@webapp/utils/volunteer";
+import type { VolunteerEvent } from "@/lib/db/types";
+import { volunteerSignupDataSchema } from "@/lib/db/schemas";
+import { z } from "zod";
+
+// volunteerSignupDataSchema requires dateOfBirth as non-nullable string (server-side),
+// but the form initialises dateOfBirth as null until the user picks a date.
+// mobilePhone/emergencyContact are optional in the Zod schema (?:) but the form tracks them
+// as required-with-undefined to satisfy TanStack Form’s StandardSchemaV1 check.
+const volunteerFormSchema = volunteerSignupDataSchema.extend({
+	dateOfBirth: volunteerSignupDataSchema.shape.dateOfBirth.nullable(),
+	mobilePhone: z.union([z.string().trim().max(30), z.undefined()]),
+	emergencyContact: z.union([z.string().trim().max(30), z.undefined()]),
+	note: z.union([z.string().trim().max(1000), z.undefined()]),
+});
+
+dayjs.locale("de");
+
+type EventDataType = Awaited<ReturnType<typeof getPublicVolunteerEventFn>>;
+
+export const Route = createFileRoute("/_layout/e/$uuid")({
+	validateSearch: (search): { token?: string } => ({
+		token: typeof search.token === "string" ? search.token : undefined,
+	}),
+	loader: async ({ params }) => {
+		try {
+			const event = await getPublicVolunteerEventFn({ data: { id: params.uuid } });
+			return { event };
+		} catch {
+			return { event: null };
+		}
+	},
+	component: VolunteerEventPage,
+});
+
+function VolunteerEventPage() {
+	const { event: initialEvent } = Route.useLoaderData();
+	const { uuid } = Route.useParams();
+	const { token: tokenParam } = Route.useSearch();
+	const router = useRouter();
+
+	const { data: event, refetch } = useQuery({
+		queryKey: ["volunteerEvent", "public", uuid],
+		queryFn: async () => {
+			try {
+				return await getPublicVolunteerEventFn({ data: { id: uuid } });
+			} catch {
+				return null;
+			}
+		},
+		initialData: initialEvent,
+	});
+
+	// Token verification on mount
+	const verifyMutation = useMutation({
+		mutationFn: (tokenId: string) => verifyVolunteerTokenFn({ data: { tokenId } }),
+		onSuccess: () => {
+			refetch();
+			router.navigate({ to: "/e/$uuid", params: { uuid }, search: {} });
+		},
+	});
+
+	const verificationInitiated = useRef(false);
+
+	useEffect(() => {
+		if (tokenParam && !verificationInitiated.current) {
+			verificationInitiated.current = true;
+			verifyMutation.mutate(tokenParam);
+		}
+	}, [tokenParam, verifyMutation]);
+
+	if (!event) {
+		return (
+			<PageWithHeading title="404 Fehler">
+				<Container size="lg">
+					<Alert color="blumine" title="Veranstaltung nicht gefunden" mt="xl" variant="white">
+						Diese Veranstaltung existiert nicht oder ist nicht mehr verfügbar.
+					</Alert>
+				</Container>
+			</PageWithHeading>
+		);
+	}
+
+	return (
+		<PageWithHeading title={event.title}>
+			<Stack gap="xl" pb="xl">
+				{/* Verification feedback */}
+				{verifyMutation.isPending && (
+					<Alert color="blue" title="Anmeldung wird bestätigt…">
+						Bitte warten.
+					</Alert>
+				)}
+				{verifyMutation.isSuccess && verifyMutation.data?.success && (
+					<Alert color="green" icon={<CheckCircle size={18} />} title="Anmeldung bestätigt!">
+						Deine Anmeldung wurde erfolgreich bestätigt. Du erhältst in Kürze eine Bestätigungsmail mit dem Termin.
+					</Alert>
+				)}
+				{verifyMutation.isSuccess && !verifyMutation.data?.success && (
+					<Alert color="orange" title="Link ungültig oder abgelaufen">
+						Dieser Bestätigungslink ist ungültig oder bereits abgelaufen. Bitte melde dich erneut an, um einen neuen Link zu erhalten.
+					</Alert>
+				)}
+
+				{/* Event meta */}
+				{(event.description || event.location) && (
+					<Card>
+						<Stack gap="md">
+							{event.description && (
+								<Typography>
+									<Box mb="xl">
+										<LineSpoiler lines={8} showLabel="Ganze Beschreibung anzeigen">
+											<div dangerouslySetInnerHTML={{ __html: event.description }} />
+										</LineSpoiler>
+									</Box>
+								</Typography>
+							)}
+							{event.location && (
+								<Group gap="xs" justify="flex-end">
+									{event.locationUrl ? (
+										<Anchor size="sm" href={event.locationUrl} target="_blank" rel="noopener noreferrer">
+											<Group gap={4}>
+												<MapPin size={16} />
+												{event.location}
+											</Group>
+										</Anchor>
+									) : (
+										<>
+											<MapPin size={16} />
+											<Text size="sm" c="dimmed">
+												{event.location}
+											</Text>
+										</>
+									)}
+								</Group>
+							)}
+						</Stack>
+					</Card>
+				)}
+
+				{/* Shift calendar */}
+				{event.shifts.length > 0 &&
+					(() => {
+						const shiftDates = new Set<DateStringValue>();
+						for (const shift of event.shifts) {
+							let cursor = dayjs(shift.startDate);
+							const end = dayjs(shift.endDate ?? shift.startDate);
+							while (!cursor.isAfter(end, "day")) {
+								shiftDates.add(cursor.format("YYYY-MM-DD") as DateStringValue);
+								cursor = cursor.add(1, "day");
+							}
+						}
+						const earliestShift = event.shifts.reduce((a, b) => (dayjs(a.startDate).isBefore(dayjs(b.startDate)) ? a : b));
+						const latestShift = event.shifts.reduce((a, b) => (dayjs(a.endDate ?? a.startDate).isAfter(dayjs(b.endDate ?? b.startDate)) ? a : b));
+						const calendarConfig: CalendarProps = {
+							static: true,
+							highlightToday: true,
+							hideOutsideDates: true,
+							maxLevel: "month",
+							minDate: dayjs(earliestShift.startDate).startOf("month").toDate(),
+							maxDate: dayjs(latestShift.endDate ?? latestShift.startDate).endOf("month").toDate(),
+							defaultDate: dayjs(earliestShift.startDate).toDate(),
+							getDayProps: (date: DateStringValue) => {
+								const isShiftDay = shiftDates.has(date);
+								return isShiftDay ? { selected: true, bg: "onyx", c: "white" } : {};
+							},
+						};
+						return (
+							<Card>
+								<Center>
+									<Calendar {...calendarConfig} numberOfColumns={1} hiddenFrom="sm" />
+									<Calendar {...calendarConfig} numberOfColumns={2} visibleFrom="sm" hiddenFrom="md" />
+									<Calendar {...calendarConfig} numberOfColumns={3} visibleFrom="md" />
+								</Center>
+							</Card>
+						);
+					})()}
+
+				{/* Shifts */}
+				{event.shifts
+					.sort((a, b) => dayjs(a.startDate).diff(dayjs(b.startDate)))
+					.map((shift) => (
+						<ShiftCard
+							key={shift.id}
+							shift={shift}
+							event={event}
+							signupCounts={event.signupCounts[shift.id] ?? {}}
+							confirmedHelpers={event.confirmedHelpers.filter((h) => h.shiftId === shift.id)}
+							onSignedUp={refetch}
+						/>
+					))}
+			</Stack>
+		</PageWithHeading>
+	);
+}
+
+type ShiftCardProps = {
+	shift: VolunteerEvent["shifts"][number];
+	event: EventDataType;
+	signupCounts: Record<string, number>;
+	confirmedHelpers: { displayName: string; roleId: string | null }[];
+	onSignedUp: () => void;
+};
+
+function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }: ShiftCardProps) {
+	const isPast = new Date(shift.startDate) <= new Date();
+	const [modalOpen, setModalOpen] = useState(false);
+	const [submitted, setSubmitted] = useState(false);
+	const isMobile = useMediaQuery("(max-width: 48em)");
+	const alertRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		if (submitted) {
+			alertRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+		}
+	}, [submitted]);
+
+	const dateRangeFormatted = formatShiftDateRange(shift.startDate, shift.endDate);
+
+	return (
+		<Card withBorder>
+			<Stack gap="md">
+				<Group justify="space-between" align="flex-start">
+					<div>
+						<Title order={3}>{shift.label}</Title>
+						<Text size="md">{dateRangeFormatted}</Text>
+					</div>
+					{isPast && (
+						<Badge color="gray" variant="light">
+							Vergangen
+						</Badge>
+					)}
+				</Group>
+
+				{/* Role capacities */}
+				<SimpleGrid cols={{ base: 1, xs: 2, md: 3, lg: 4 }} spacing="xs">
+					{shift.roles.map((role) => {
+						const count = signupCounts[role.id] ?? 0;
+						const roleHelpers = confirmedHelpers.filter((h) => h.roleId === role.id);
+						return (
+							<Card key={role.id} withBorder p="xs" bg="gray.0">
+								<Group justify="space-between">
+									<Text size="md" fw={500}>
+										{role.label}
+									</Text>
+									<Badge size="md" color={count === 0 ? "red" : role.minCapacity > count ? "yellow" : "green"} variant="light">
+										{role.maxCapacity !== undefined ? `${count} / ${role.maxCapacity}` : count}
+									</Badge>
+								</Group>{" "}
+								{role.description && (
+									<Text size="sm" mt={4}>
+										{role.description}
+									</Text>
+								)}{" "}
+								{roleHelpers.length > 0 && (
+									<>
+										<Divider my="xs" />
+										<Text size="sm" c="dimmed" mt={4}>
+											{roleHelpers.map((h) => h.displayName).join(", ")}
+										</Text>
+									</>
+								)}
+							</Card>
+						);
+					})}
+				</SimpleGrid>
+
+				{!isPast && !submitted && (
+					<>
+						<Divider />
+						<Button onClick={() => setModalOpen(true)} ms="auto">
+							Anmelden für {shift.label}
+						</Button>
+						<Modal opened={modalOpen} onClose={() => setModalOpen(false)} title={shift.label} size="xl" centered fullScreen={isMobile}>
+							<SignupForm
+								event={event}
+								shiftLabel={shift.label}
+								shiftId={shift.id}
+								roles={shift.roles}
+								onSuccess={() => {
+									setModalOpen(false);
+									setSubmitted(true);
+									onSignedUp();
+								}}
+								onCancel={() => setModalOpen(false)}
+							/>
+						</Modal>
+					</>
+				)}
+				{submitted && (
+					<Alert ref={alertRef} color="green" title="Anmeldung eingegangen!">
+						Bitte überprüfe dein E-Mail-Postfach und bestätige deine Anmeldung innerhalb von 72 Stunden.
+					</Alert>
+				)}
+			</Stack>
+		</Card>
+	);
+}
+
+type SignupFormProps = {
+	event: EventDataType;
+	shiftLabel: string;
+	shiftId: string;
+	roles: VolunteerEvent["shifts"][number]["roles"];
+	onSuccess: () => void;
+	onCancel: () => void;
+};
+
+function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: SignupFormProps) {
+	const shift = event.shifts.find((s: { id: string }) => s.id === shiftId);
+	const shiftStartDate = shift?.startDate ?? new Date().toISOString();
+	const dateRangeFormatted = formatShiftDateRange(shiftStartDate, shift?.endDate);
+
+	type RoleOption = { value: string; label: string; minAge: number | undefined; disabled: boolean };
+
+	const roleOptions: RoleOption[] = roles.map((r) => ({
+		value: r.id,
+		label: r.label,
+		minAge: r.minAge,
+		disabled: false as boolean,
+	}));
+
+	const makeRenderRoleOption =
+		(ageAtShift: number | null) =>
+		({ option }: { option: { value: string; label: string } }) => {
+			const role = roles.find((r) => r.id === option.value);
+			const isIneligible = ageAtShift !== null && role?.minAge !== undefined && ageAtShift < role.minAge;
+			return (
+				<Group justify="space-between" w="100%" wrap="nowrap">
+					<Text size="md">{option.label}</Text>
+					{isIneligible && role?.minAge !== undefined && (
+						<Text size="sm" style={{ whiteSpace: "nowrap" }}>
+							ab {role.minAge} Jahre
+						</Text>
+					)}
+				</Group>
+			);
+		};
+
+	const mutation = useMutation({
+		mutationFn: (formData: Parameters<typeof createVolunteerSignupFn>[0]["data"]) => createVolunteerSignupFn({ data: formData }),
+		onSuccess,
+	});
+
+	const form = useForm({
+		defaultValues: {
+			eventId: event.id,
+			shiftId,
+			firstName: "",
+			lastName: "",
+			email: "",
+			dateOfBirth: null as string | null,
+			preferredRoleIds: (roles.length === 1 ? [roles[0].id] : []) as string[],
+			association: "",
+			mobilePhone: undefined as string | undefined,
+			emergencyContact: undefined as string | undefined,
+			note: undefined as string | undefined,
+		},
+		validators: {
+			onChange: volunteerFormSchema,
+			onSubmit: volunteerFormSchema,
+		},
+		onSubmit: async ({ value }) => {
+			if (!value.dateOfBirth) return;
+			mutation.mutate({
+				firstName: value.firstName,
+				lastName: value.lastName,
+				email: value.email,
+				dateOfBirth: dayjs(value.dateOfBirth).format("YYYY-MM-DD"),
+				preferredRoleIds: value.preferredRoleIds,
+				association: value.association,
+				mobilePhone: value.mobilePhone || undefined,
+				emergencyContact: value.emergencyContact || undefined,
+				note: value.note || undefined,
+				eventId: event.id,
+				shiftId,
+			});
+		},
+	});
+
+	return (
+		<form
+			onSubmit={(e) => {
+				e.preventDefault();
+				form.handleSubmit();
+			}}
+		>
+			<Stack gap="sm">
+				<Text size="sm" fw="bold">
+					{dateRangeFormatted}
+				</Text>
+				<Text size="sm">
+					Vielen Dank, dass du dich anmelden möchtest! Damit wir die Organisation erleichtern und im Nachgang die Kommunikation mit dir sicherstellen können, fülle bitte folgende Informationen aus.
+				</Text>
+				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
+					<form.Field name="firstName">
+						{(field) => (
+							<TextInput
+								label="Vorname"
+								placeholder="z.B. Erika"
+								required
+								withAsterisk={false}
+								name="given-name"
+								autoComplete="given-name"
+								value={field.state.value}
+								onChange={(e) => field.handleChange(e.target.value)}
+							/>
+						)}
+					</form.Field>
+					<form.Field name="lastName">
+						{(field) => (
+							<TextInput
+								label="Nachname"
+								placeholder="z.B. Mustermann"
+								required
+								withAsterisk={false}
+								name="family-name"
+								autoComplete="family-name"
+								value={field.state.value}
+								onChange={(e) => field.handleChange(e.target.value)}
+							/>
+						)}
+					</form.Field>
+				</SimpleGrid>
+
+				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
+					<form.Field name="email">
+						{(field) => (
+							<TextInput
+								label="E-Mail-Adresse"
+								placeholder="z. B. erika@example.com"
+								type="email"
+								required
+								withAsterisk={false}
+								name="email"
+								autoComplete="email"
+								value={field.state.value}
+								onChange={(e) => field.handleChange(e.target.value)}
+							/>
+						)}
+					</form.Field>
+
+					<form.Field name="mobilePhone">
+						{(field) => (
+							<TextInput
+								label="Handynummer"
+								placeholder="z.B. 01792345678"
+								type="tel"
+								name="tel"
+								autoComplete="tel"
+								value={field.state.value ?? ""}
+								onChange={(e) => field.handleChange(e.target.value || undefined)}
+							/>
+						)}
+					</form.Field>
+
+					<form.Field
+						name="dateOfBirth"
+						listeners={{
+							onChange: ({ value }) => {
+								if (!value) return;
+								const ageAtShift = dayjs(shiftStartDate).diff(dayjs(value), "year");
+								const currentIds = form.getFieldValue("preferredRoleIds") as string[];
+								const eligible = currentIds.filter((id) => {
+									const role = roles.find((r) => r.id === id);
+									return role?.minAge === undefined || ageAtShift >= role.minAge;
+								});
+								if (eligible.length !== currentIds.length) {
+									form.setFieldValue("preferredRoleIds", eligible);
+								}
+							},
+						}}
+					>
+						{(field) => (
+							<DatePickerInput
+								defaultLevel="decade"
+								label="Geburtsdatum"
+								placeholder="TT.MM.JJJJ"
+								name="bday"
+								required
+								withAsterisk={false}
+								value={field.state.value}
+								onChange={(val) => field.handleChange(val ? val : null)}
+								valueFormat="DD.MM.YYYY"
+								locale="de"
+								maxDate={dayjs().subtract(9, "year").toDate()}
+								minDate={dayjs().subtract(90, "year").toDate()}
+							/>
+						)}
+					</form.Field>
+				</SimpleGrid>
+
+				{roles.length > 1 && (
+					<form.Subscribe selector={(state) => state.values.dateOfBirth}>
+						{(dateOfBirth) => {
+							const ageAtShift = dateOfBirth ? dayjs(shiftStartDate).diff(dayjs(dateOfBirth), "year") : null;
+							const computedRoleOptions = roleOptions.map((opt) => {
+								const role = roles.find((r) => r.id === opt.value);
+								return { ...opt, disabled: ageAtShift !== null && role?.minAge !== undefined && ageAtShift < role.minAge };
+							});
+
+							return (
+								<form.Field
+									name="preferredRoleIds"
+									validators={{
+										onChangeListenTo: ["dateOfBirth"],
+										onChange: ({ value }) => {
+											const selected = value as string[];
+											return selected.length < 1 ? "Bitte wähle eine Aufgabe aus." : undefined;
+										},
+									}}
+								>
+									{(field) => {
+										return roles.length <= 2 ? (
+											<Select
+												label="Bevorzugte Aufgabe"
+												required
+												withAsterisk={false}
+												data={computedRoleOptions}
+												value={field.state.value[0] ?? null}
+												onChange={(val) => field.handleChange(val ? [val] : [])}
+												description="Wähle die Aufgabe aus, in der du helfen kannst."
+												renderOption={makeRenderRoleOption(ageAtShift)}
+											/>
+										) : (
+											<MultiSelect
+												label="Bevorzugte Aufgaben"
+												required
+												withAsterisk={false}
+												data={computedRoleOptions}
+												value={field.state.value}
+												onChange={(val) => field.handleChange(val)}
+												description="Wähle die Aufgaben aus, in denen du helfen kannst."
+												hidePickedOptions
+												renderOption={makeRenderRoleOption(ageAtShift)}
+											/>
+										);
+									}}
+								</form.Field>
+							);
+						}}
+					</form.Subscribe>
+				)}
+
+				<form.Subscribe selector={(state) => state.values.dateOfBirth}>
+					{(dateOfBirth) => {
+						const ageAtShift = dateOfBirth ? dayjs(shiftStartDate).diff(dayjs(dateOfBirth), "year") : null;
+						if (ageAtShift === null || ageAtShift >= 18) return null;
+						return (
+							<form.Field
+								name="emergencyContact"
+								validators={{
+									onChangeListenTo: ["dateOfBirth"],
+									onChange: ({ value }) => {
+										const dob = form.getFieldValue("dateOfBirth");
+										const age = dob ? dayjs(shiftStartDate).diff(dayjs(dob), "year") : null;
+										if (age !== null && age < 18 && !value) {
+											return "Bitte gib einen Notfallkontakt an.";
+										}
+									},
+								}}
+							>
+								{(field) => (
+									<TextInput
+										label="Notfallkontakt"
+										type="tel"
+										autoComplete="tel"
+										required
+										withAsterisk={false}
+										placeholder="z. B. 0151 12345678"
+										value={field.state.value ?? ""}
+										onChange={(e) => field.handleChange(e.target.value || undefined)}
+										description="Telefonnummer eines Elternteils oder Erziehungsberechtigten"
+										error={field.state.meta.errors[0]?.toString()}
+									/>
+								)}
+							</form.Field>
+						);
+					}}
+				</form.Subscribe>
+
+				<form.Field name="association">
+					{(field) => <TextInput label="Vereinszugehörigkeit" placeholder="z. B. Mitglied, Familie, Freund/in, …" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
+				</form.Field>
+
+				<form.Field name="note">
+					{(field) => (
+						<Textarea
+							label="Anmerkungen"
+							placeholder="z. B. Ich schaffe es erst auf 15 Uhr"
+							autosize
+							minRows={2}
+							maxRows={6}
+							value={field.state.value ?? ""}
+							onChange={(e) => field.handleChange(e.target.value || undefined)}
+						/>
+					)}
+				</form.Field>
+
+				<form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting, state.isDirty]}>
+					{([canSubmit, isSubmitting, isDirty]) => (
+						<Group justify="flex-end" gap="sm" my="lg">
+							<Button variant="subtle" onClick={onCancel} disabled={mutation.isPending}>
+								Abbrechen
+							</Button>
+							<Button type="submit" loading={isSubmitting || mutation.isPending} disabled={!canSubmit || isSubmitting || !isDirty}>
+								Anmelden für {shiftLabel}
+							</Button>
+						</Group>
+					)}
+				</form.Subscribe>
+			</Stack>
+		</form>
+	);
+}

@@ -29,6 +29,8 @@ export const ContentTableIndexes = {
 	gsi4: "GSI4-ByIdentifier",
 	/** Private email lookups (members by privateEmail) */
 	gsi5: "GSI5-ByPrivateEmail",
+	/** Volunteer signup queries by eventId */
+	gsi6: "GSI6-ByEventId",
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -177,8 +179,8 @@ export const MemberEntity = new Entity({
 		id: { type: "string", required: true },
 		type: { type: "string", required: true, default: () => "member" as const },
 		name: { type: "string", required: true },
-		privateEmail: { type: "string" },
-		proxyEmail: { type: "string" },
+		privateEmail: { type: "string", get: (val: string | undefined) => val?.trim() },
+		proxyEmail: { type: "string", get: (val: string | undefined) => val?.trim() },
 		phone: { type: "string" },
 		isBoardMember: { type: "boolean" },
 		isTrainer: { type: "boolean" },
@@ -347,6 +349,111 @@ export const BusEntity = new Entity({
 	},
 } as const);
 
+// ---------------------------------------------------------------------------
+// VolunteerEvent entity
+// ---------------------------------------------------------------------------
+
+export const VolunteerEventEntity = new Entity({
+	model: {
+		entity: "volunteerEvent",
+		service: "vcm",
+		version: "1",
+	},
+	attributes: {
+		id: { type: "string", required: true },
+		type: { type: "string", required: true, default: () => "volunteerEvent" as const },
+		title: { type: "string", required: true },
+		description: { type: "string" },
+		location: { type: "string" },
+		locationUrl: { type: "string" },
+		organizerName: { type: "string", required: true },
+		organizerEmail: { type: "string", required: true },
+		shifts: { type: "any", required: true },
+		archivedAt: { type: "string" },
+		createdAt: { type: "string", required: true },
+		updatedAt: { type: "string", required: true },
+	},
+	indexes: {
+		byId: {
+			pk: { field: "pk", composite: ["id"] },
+			sk: { field: "sk", composite: [] },
+		},
+		byType: {
+			index: ContentTableIndexes.gsi1,
+			pk: { field: "gsi1pk", composite: ["type"] },
+			sk: { field: "gsi1sk", composite: ["createdAt"] },
+		},
+	},
+} as const);
+
+// ---------------------------------------------------------------------------
+// VolunteerSignup entity
+// ---------------------------------------------------------------------------
+
+export const VolunteerSignupEntity = new Entity({
+	model: {
+		entity: "volunteerSignup",
+		service: "vcm",
+		version: "1",
+	},
+	attributes: {
+		id: { type: "string", required: true },
+		type: { type: "string", required: true, default: () => "volunteerSignup" as const },
+		eventId: { type: "string", required: true },
+		shiftId: { type: "string", required: true },
+		firstName: { type: "string", required: true },
+		lastName: { type: "string", required: true },
+		email: { type: "string", required: true },
+		dateOfBirth: { type: "string", required: true },
+		preferredRoleIds: { type: "list", items: { type: "string" }, required: true },
+		association: { type: "string", required: true },
+		mobilePhone: { type: "string" },
+		emergencyContact: { type: "string" },
+		note: { type: "string" },
+		status: { type: ["pending", "confirmed"] as const, required: true },
+		assignedRoleId: { type: "string" },
+		createdAt: { type: "string", required: true },
+		updatedAt: { type: "string", required: true },
+	},
+	indexes: {
+		byId: {
+			pk: { field: "pk", composite: ["id"] },
+			sk: { field: "sk", composite: [] },
+		},
+		byEvent: {
+			index: ContentTableIndexes.gsi6,
+			pk: { field: "gsi6pk", composite: ["eventId"] },
+			sk: { field: "gsi6sk", composite: ["shiftId", "id"] },
+		},
+	},
+} as const);
+
+// ---------------------------------------------------------------------------
+// VolunteerToken entity
+// ---------------------------------------------------------------------------
+
+export const VolunteerTokenEntity = new Entity({
+	model: {
+		entity: "volunteerToken",
+		service: "vcm",
+		version: "1",
+	},
+	attributes: {
+		id: { type: "string", required: true },
+		type: { type: "string", required: true, default: () => "volunteerToken" as const },
+		eventId: { type: "string", required: true },
+		signupData: { type: "any", required: true },
+		ttl: { type: "number", required: true },
+		createdAt: { type: "string", required: true },
+	},
+	indexes: {
+		byId: {
+			pk: { field: "pk", composite: ["id"] },
+			sk: { field: "sk", composite: [] },
+		},
+	},
+} as const);
+
 /** All content entities — useful for iteration (e.g. in tests) */
 export const ContentEntities = {
 	news: NewsEntity,
@@ -357,6 +464,9 @@ export const ContentEntities = {
 	sponsor: SponsorEntity,
 	location: LocationEntity,
 	bus: BusEntity,
+	volunteerEvent: VolunteerEventEntity,
+	volunteerSignup: VolunteerSignupEntity,
+	volunteerToken: VolunteerTokenEntity,
 } as const;
 
 export type ContentEntityName = keyof typeof ContentEntities;

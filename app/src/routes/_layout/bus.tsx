@@ -25,15 +25,23 @@ function RouteComponent() {
 	const [selectedDates, setSelectedDates] = useState<DateStringValue[]>([]);
 
 	const dates = new Map<DateStringValue, string>();
+	let lastDate = new Date();
 	for (const booking of bookings) {
-		dates.set(dayjs(booking.from).format("YYYY-MM-DD"), booking.id);
-		dates.set(dayjs(booking.to).format("YYYY-MM-DD"), booking.id);
+		let cursor = dayjs(booking.from);
+		const end = dayjs(booking.to);
+		while (!cursor.isAfter(end, "day")) {
+			dates.set(cursor.format("YYYY-MM-DD"), booking.id);
+			cursor = cursor.add(1, "day");
+		}
+		if (end.isAfter(lastDate)) lastDate = end.toDate();
 	}
 
 	const CalendarConfig: CalendarProps = {
 		highlightToday: true,
 		hideOutsideDates: true,
+		maxLevel: "month",
 		minDate: dayjs().startOf("day").toDate(),
+		maxDate: dayjs(lastDate).endOf("month").toDate(),
 		getDayProps: (date: DateStringValue) => {
 			// date is a DateStringValue in "YYYY-MM-DD" format
 			const hasDate = dates.has(date);
@@ -96,7 +104,8 @@ function RouteComponent() {
 											const start = dayjs(booking.from);
 											const end = dayjs(booking.to);
 											const isSelected = selectedDates.some((d) => {
-												return start.isSame(dayjs(d), "date") || end.isSame(dayjs(d), "date");
+												const selected = dayjs(d);
+												return (selected.isSame(start, "date") || selected.isAfter(start, "date")) && (selected.isSame(end, "date") || selected.isBefore(end, "date"));
 											});
 											return (
 												<Table.Tr key={booking.id} bg={isSelected ? "turquoise" : undefined} c={isSelected ? "white" : undefined}>

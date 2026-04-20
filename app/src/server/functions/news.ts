@@ -16,7 +16,7 @@ import { parseServerData } from "../schema-parse";
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = () => process.env.MEDIA_BUCKET_NAME || "";
-const CLOUDFRONT_URL = () => process.env.CLOUDFRONT_URL || "";
+const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
 const cursorSchema = z.string();
 
 // ── Public ──────────────────────────────────────────────────────────────────
@@ -64,7 +64,7 @@ export const getGalleryImagesFn = createServerFn()
 			return { images: shuffled, nextCursor: lastEvaluatedKey };
 		}
 
-		const cloudfrontUrl = CLOUDFRONT_URL();
+		const cloudfrontUrl = MEDIA_CLOUDFRONT_URL();
 		const urls = await Promise.all(
 			shuffled.map(async (key) => {
 				if (cloudfrontUrl) return `${cloudfrontUrl}/${key}`;

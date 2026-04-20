@@ -2,6 +2,7 @@ import "varlock/auto-load";
 import { ENV } from "varlock/env";
 import { getSanitizedBranch } from "@utils/git";
 import { getCdkNaming } from "@utils/cdk-naming";
+import { buildWebappUrl } from "@utils/webapp-url";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";
 import { BudgetStack } from "../lib/budget-stack";
@@ -92,7 +93,7 @@ new SocialMediaStack(app, socialMediaStackName, {
 	contentTableName: contentDbStack.contentTableName,
 	contentTableStreamArn: contentDbStack.contentTableStreamArn,
 	// Pass the webapp URL for Mastodon news-sharing links
-	websiteUrl: isProd ? `https://${DNS.prod.hostedZoneName}` : `https://${envLabel}.${DNS.dev.hostedZoneName}`,
+	websiteUrl: buildWebappUrl(environment, branch),
 	mediaBucketName: mediaStack.bucketName,
 });
 
