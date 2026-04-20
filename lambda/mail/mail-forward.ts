@@ -164,9 +164,7 @@ const EMAIL_ADDRESS_REGEX = /<([^<>]+@[^<>]+)>|([^\s,<>]+@[^\s,<>]+)/g;
 
 function extractAddressesFromHeaderValue(headerValue: string): string[] {
 	const addresses: string[] = [];
-	const regex = new RegExp(EMAIL_ADDRESS_REGEX);
-	let match;
-	while ((match = regex.exec(headerValue)) !== null) {
+	for (const match of headerValue.matchAll(EMAIL_ADDRESS_REGEX)) {
 		addresses.push((match[1] || match[2]).toLowerCase().trim());
 	}
 	return addresses;
