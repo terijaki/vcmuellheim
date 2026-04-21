@@ -177,7 +177,9 @@ function VolunteerEventPage() {
 							hideOutsideDates: true,
 							maxLevel: "month",
 							minDate: dayjs(earliestShift.startDate).startOf("month").toDate(),
-							maxDate: dayjs(latestShift.endDate ?? latestShift.startDate).endOf("month").toDate(),
+							maxDate: dayjs(latestShift.endDate ?? latestShift.startDate)
+								.endOf("month")
+								.toDate(),
 							defaultDate: dayjs(earliestShift.startDate).toDate(),
 							getDayProps: (date: DateStringValue) => {
 								const isShiftDay = shiftDates.has(date);
@@ -346,9 +348,11 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 			const isIneligible = ageAtShift !== null && role?.minAge !== undefined && ageAtShift < role.minAge;
 			return (
 				<Group justify="space-between" w="100%" wrap="nowrap">
-					<Text size="md">{option.label}</Text>
+					<Text size="md" opacity={isIneligible ? 0.5 : undefined}>
+						{option.label}
+					</Text>
 					{isIneligible && role?.minAge !== undefined && (
-						<Text size="sm" style={{ whiteSpace: "nowrap" }}>
+						<Text size="sm" fw="bold" style={{ whiteSpace: "nowrap" }}>
 							ab {role.minAge} Jahre
 						</Text>
 					)}
@@ -540,6 +544,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 												onChange={(val) => field.handleChange(val ? [val] : [])}
 												description="Wähle die Aufgabe aus, in der du helfen kannst."
 												renderOption={makeRenderRoleOption(ageAtShift)}
+												classNames={{ option: "volunteer-event-role-option" }}
 											/>
 										) : (
 											<MultiSelect
@@ -552,6 +557,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
 												description="Wähle die Aufgaben aus, in denen du helfen kannst."
 												hidePickedOptions
 												renderOption={makeRenderRoleOption(ageAtShift)}
+												classNames={{ option: "volunteer-event-role-option" }}
 											/>
 										);
 									}}
