@@ -163,8 +163,13 @@ function stripHtml(html: string): string {
 	let text = html.replace(/<\/(p|h[1-6]|div|blockquote|li)>/gi, "\n");
 	// Convert opening/self-closing line-break elements to newlines, handling attributes and all spacing variants
 	text = text.replace(/<(br|hr)\b[^>]*>/gi, "\n");
-	// Strip all remaining complete HTML tags
-	text = text.replace(/<[^>]+>/g, "");
+	// Strip all remaining complete HTML tags; repeat until stable to avoid
+	// incomplete multi-character sanitization where new matches appear after replacement
+	let previous: string;
+	do {
+		previous = text;
+		text = text.replace(/<[^>]+>/g, "");
+	} while (text !== previous);
 	// Remove any remaining angle brackets (handles unclosed tags such as `<script` without closing `>`)
 	text = text.replace(/[<>]/g, "");
 	// Decode safe HTML entities in a single pass; intentionally excludes &lt;/&gt; to avoid
