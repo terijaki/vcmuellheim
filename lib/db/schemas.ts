@@ -232,7 +232,7 @@ export const volunteerSignupDataSchema = z.object({
 	lastName: z.string().trim().min(1).max(100),
 	email: z.email().trim(),
 	dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
-	preferredRoleIds: z.array(z.uuid()).min(1),
+	preferredRoleIds: z.array(z.uuid()),
 	association: z.string().trim().max(500),
 	mobilePhone: z.string().trim().max(30).optional().describe("Optional mobile phone number of the volunteer"),
 	emergencyContact: z.string().trim().max(30).optional().describe("Emergency contact phone number — required for minors (under 18 at shift start)"),
