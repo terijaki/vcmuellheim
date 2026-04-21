@@ -219,6 +219,21 @@ describe("createVolunteerSignup", () => {
 		expect(mockSignupCreate).toHaveBeenCalledTimes(1);
 	});
 
+	it("allows signup when shift has no roles and preferredRoleIds is empty", async () => {
+		const rolelessEvent = {
+			...mockEvent,
+			shifts: [{ ...mockEvent.shifts[0], roles: [] }],
+		};
+		mockEventGet.mockResolvedValue({ data: rolelessEvent });
+
+		const rolelessSignupData = { ...signupData, preferredRoleIds: [] };
+		mockSignupCreate.mockResolvedValue({ data: makeSignup({ preferredRoleIds: [] }) });
+
+		await createVolunteerSignup(rolelessSignupData);
+		expect(mockSignupCreate).toHaveBeenCalledTimes(1);
+		expect(mockTokenCreate).toHaveBeenCalledTimes(1);
+	});
+
 	it("rejects signup for a minor without emergency contact", async () => {
 		const minorSignupData = { ...signupData, dateOfBirth: "2010-01-15" };
 		await expect(createVolunteerSignup(minorSignupData)).rejects.toThrow("Notfall-Kontaktnummer");
@@ -332,6 +347,21 @@ describe("verifyVolunteerToken", () => {
 
 		expect(result.success).toBe(true);
 		// No auto-assign patch since all roles full
+		expect(mockSignupPatch).not.toHaveBeenCalled();
+	});
+
+	it("does not auto-assign when shift has no roles", async () => {
+		const rolelessEvent = {
+			...mockEvent,
+			shifts: [{ ...mockEvent.shifts[0], roles: [] }],
+		};
+		mockEventGet.mockResolvedValue({ data: rolelessEvent });
+		mockTokenGet.mockResolvedValue({ data: { ...mockToken, signupData: { ...signupData, preferredRoleIds: [] } } });
+		mockSignupQuery.mockResolvedValue({ data: [] });
+
+		const result = await verifyVolunteerToken({ tokenId });
+
+		expect(result.success).toBe(true);
 		expect(mockSignupPatch).not.toHaveBeenCalled();
 	});
 

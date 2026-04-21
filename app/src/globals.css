@@ -14,6 +14,11 @@ body {
 	--color-gamboge: #f09e1a;
 }
 
+/* ------ Role select: keep disabled options fully visible so the minAge hint stays readable ------ */
+.volunteer-event-role-option[data-combobox-disabled] {
+	opacity: 1 !important;
+}
+
 /* ------ Selection ------ */
 ::selection {
 	color: #ffffff;
