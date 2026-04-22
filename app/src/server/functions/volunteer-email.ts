@@ -54,21 +54,18 @@ function buildIcsAttachment(event: VolunteerEvent, shiftId: string): string {
 
 	const start = dayjs(shift.startDate);
 	const end = shift.endDate ? dayjs(shift.endDate) : start.add(6, "hour");
-	const durationMinutes = end.diff(start, "minute");
-	const durationHours = Math.floor(durationMinutes / 60);
-	const remainingMinutes = durationMinutes % 60;
 
 	const icsEvent: IcsEvent = {
 		uid: `volunteer-signup-${shiftId}@${Club.domain}`,
 		summary: `${shift.label} - ${event.title}`,
 		start: { date: start.toDate(), type: "DATE-TIME" },
-		duration: remainingMinutes > 0 ? { hours: durationHours, minutes: remainingMinutes } : { hours: durationHours || 6 },
+		end: { date: end.toDate(), type: "DATE-TIME" },
 		stamp: { date: new Date(), type: "DATE-TIME" },
 		description: `${event.title}\nVeranstaltungsseite: ${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}`,
 		location: event.location ?? "",
 	};
 
-	const calendar = generateIcsCalendar({ version: "2.0", prodId: `-//${Club.name}//DE`, events: [icsEvent] });
+	const calendar = generateIcsCalendar({ version: "2.0", prodId: `-//${Club.name}//DE`, method: "PUBLISH", events: [icsEvent] });
 	return calendar;
 }
 
@@ -215,7 +212,7 @@ export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup;
 		Buffer.from(html).toString("base64"),
 		"",
 		`--${boundary}`,
-		'Content-Type: text/calendar; charset="UTF-8"; method=REQUEST',
+		'Content-Type: text/calendar; charset="UTF-8"; method=PUBLISH',
 		"Content-Transfer-Encoding: base64",
 		`Content-Disposition: attachment; filename="${slugify(`${event.title} ${shift.label}`, true)}.ics"`,
 		"",
