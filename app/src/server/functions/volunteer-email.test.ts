@@ -66,12 +66,24 @@ describe("sendVolunteerReceiptEmail", () => {
 		expect(calls).toHaveLength(1);
 
 		const rawMime = Buffer.from(calls[0].args[0].input.RawMessage?.Data as Uint8Array).toString("utf-8");
-		expect(rawMime).toContain('Content-Type: text/calendar; charset="UTF-8"; method=PUBLISH');
+		const boundaryMatch = rawMime.match(/Content-Type: multipart\/mixed; boundary="([^"]+)"/);
+		expect(boundaryMatch).toBeTruthy();
 
-		const base64Section = rawMime.split('Content-Type: text/calendar; charset="UTF-8"; method=PUBLISH')[1]?.split("\r\n\r\n")[1]?.split("\r\n\r\n--")[0];
+		const boundary = boundaryMatch?.[1] ?? "";
+		const mimeParts = rawMime
+			.split(`--${boundary}`)
+			.map((part) => part.trim())
+			.filter((part) => part.length > 0 && part !== "--");
+		const calendarPart = mimeParts.find((part) => part.includes("Content-Type: text/calendar;") && part.includes("method=PUBLISH"));
+		expect(calendarPart).toBeTruthy();
+		expect(calendarPart ?? "").toContain('Content-Type: text/calendar; charset="UTF-8"; method=PUBLISH');
+
+		const [calendarHeaders = "", ...calendarBodyParts] = (calendarPart ?? "").split("\r\n\r\n");
+		expect(calendarHeaders).toContain("Content-Transfer-Encoding: base64");
+		const base64Section = calendarBodyParts.join("\r\n\r\n").replaceAll("\r\n", "").trim();
 		expect(base64Section).toBeTruthy();
 
-		const ics = Buffer.from(base64Section ?? "", "base64").toString("utf-8");
+		const ics = Buffer.from(base64Section, "base64").toString("utf-8");
 		expect(ics).toContain("METHOD:PUBLISH");
 		expect(ics).toMatch(/(?:^|\r\n)DTSTART(?:;VALUE=DATE-TIME)?:20260503T080000Z(?:\r\n|$)/);
 		expect(ics).toMatch(/(?:^|\r\n)DTEND(?:;VALUE=DATE-TIME)?:20260503T103000Z(?:\r\n|$)/);
