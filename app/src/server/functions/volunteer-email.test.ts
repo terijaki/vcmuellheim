@@ -73,8 +73,8 @@ describe("sendVolunteerReceiptEmail", () => {
 
 		const ics = Buffer.from(base64Section ?? "", "base64").toString("utf-8");
 		expect(ics).toContain("METHOD:PUBLISH");
-		expect(ics).toContain("DTSTART;VALUE=DATE-TIME:20260503T080000Z");
-		expect(ics).toContain("DTEND;VALUE=DATE-TIME:20260503T103000Z");
+		expect(ics).toMatch(/(?:^|\r\n)DTSTART(?:;VALUE=DATE-TIME)?:20260503T080000Z(?:\r\n|$)/);
+		expect(ics).toMatch(/(?:^|\r\n)DTEND(?:;VALUE=DATE-TIME)?:20260503T103000Z(?:\r\n|$)/);
 		expect(ics).not.toContain("DURATION:");
 	});
 });
