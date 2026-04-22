@@ -1,12 +1,11 @@
 import { SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
 import { mockClient } from "aws-sdk-client-mock";
-import { beforeEach, describe, expect, it } from "vite-plus/test";
+import { afterEach, beforeEach, describe, expect, it } from "vite-plus/test";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
 import { sendVolunteerReceiptEmail } from "./volunteer-email";
 
 const sesMock = mockClient(SESClient);
-
-process.env.APP_BASE_URL = "https://test.vcmuellheim.de";
+let previousAppBaseUrl: string | undefined;
 
 const event: VolunteerEvent = {
 	id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
@@ -45,8 +44,18 @@ const signup: VolunteerSignup = {
 };
 
 beforeEach(() => {
+	previousAppBaseUrl = process.env.APP_BASE_URL;
+	process.env.APP_BASE_URL = "https://test.vcmuellheim.de";
 	sesMock.reset();
 	sesMock.on(SendRawEmailCommand).resolves({ MessageId: "m-1" });
+});
+
+afterEach(() => {
+	if (previousAppBaseUrl === undefined) {
+		delete process.env.APP_BASE_URL;
+		return;
+	}
+	process.env.APP_BASE_URL = previousAppBaseUrl;
 });
 
 describe("sendVolunteerReceiptEmail", () => {
