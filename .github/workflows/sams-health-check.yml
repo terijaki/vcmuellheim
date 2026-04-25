@@ -25,6 +25,8 @@ jobs:
           node-version: "25"
           cache: true
 
+      - uses: oven-sh/setup-bun@v2
+
       - name: Install dependencies
         run: vp install
 
@@ -68,6 +70,8 @@ jobs:
         with:
           node-version: "25"
           cache: true
+
+      - uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
         run: vp install
@@ -177,7 +181,7 @@ jobs:
   # ── Job 4: Open a single GitHub issue summarising anything actionable ────────
   notify:
     name: Create Issue if Actionable
-    needs: [swagger-drift, bug-check, regenerate]
+    needs: [ swagger-drift, bug-check, regenerate ]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -187,6 +191,8 @@ jobs:
         with:
           node-version: "25"
           cache: true
+
+      - uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
         run: vp install
