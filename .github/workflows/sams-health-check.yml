@@ -81,6 +81,8 @@ jobs:
       - name: Load environment variables
         uses: dmno-dev/varlock-action@v1.0.1
 
+      - uses: oven-sh/setup-bun@v2
+
       - name: Run bug checks
         run: bun scripts/check-sams-bugs.ts > bug-results.json
 
@@ -190,6 +192,8 @@ jobs:
 
       - name: Install dependencies
         run: vp install
+
+      - uses: oven-sh/setup-bun@v2
 
       - name: Create GitHub issue
         # Only fire when there is something worth a developer looking at.
