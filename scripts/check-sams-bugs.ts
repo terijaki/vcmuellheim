@@ -10,6 +10,9 @@
  * Bug reference: .agents/skills/sams-api/BUGS.md
  */
 
+import "varlock/auto-load";
+import { ENV } from "varlock/env";
+
 const BASE_URL = "https://www.volleyball-baden.de/api/v2";
 
 // Known UUIDs (season 2025/26) — see .agents/skills/sams-api/API-OVERVIEW.md
@@ -283,7 +286,7 @@ async function checkBug8(apiKey: string): Promise<BugResult> {
 }
 
 async function main(): Promise<void> {
-	const apiKey = process.env.SAMS_API_KEY;
+	const apiKey = ENV.SAMS_API_KEY;
 	if (!apiKey) {
 		console.error("Error: SAMS_API_KEY is not set.");
 		process.exit(1);
