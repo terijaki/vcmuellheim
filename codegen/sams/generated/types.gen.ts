@@ -599,8 +599,8 @@ export type CompetitionMatchDto = {
     results?: VolleyballMatchResultsDto | null;
     matchGroupUuid?: string | null;
     competitionUuid?: string | null;
-    indefinitelyRescheduled?: boolean | null;
     delayPossible?: boolean | null;
+    indefinitelyRescheduled?: boolean | null;
 };
 
 export type CompetitionMatchPage = {
@@ -738,8 +738,8 @@ export type LeagueMatchDto = {
     results?: VolleyballMatchResultsDto | null;
     matchDayUuid?: string | null;
     leagueUuid?: string | null;
-    indefinitelyRescheduled?: boolean | null;
     delayPossible?: boolean | null;
+    indefinitelyRescheduled?: boolean | null;
 };
 
 export type LeagueMatchPage = {

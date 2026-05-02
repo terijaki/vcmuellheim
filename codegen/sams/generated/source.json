@@ -5914,11 +5914,11 @@
             "type": "string",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           }
@@ -6314,11 +6314,11 @@
             "type": "string",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           }
