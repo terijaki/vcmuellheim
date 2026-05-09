@@ -38,7 +38,7 @@ export default function HomeHeimspiele() {
   const { data: eventsData } = useEvents();
   const events = eventsData?.items || [];
 
-  const { data: samsTeamsData } = useSamsTeams();
+  const { data: samsTeamsData, isPending: isSamsTeamsPending } = useSamsTeams();
   const ourTeamUuids = useMemo(
     () => getOwnedSamsTeamUuids(samsTeamsData?.teams ?? []),
     [samsTeamsData?.teams],
@@ -104,7 +104,10 @@ export default function HomeHeimspiele() {
           </Stack>
         </Container>
 
-        <NoMatchesNoEvents matchCount={homeMatchesToDisplay.length} eventCount={events.length} />
+        <NoMatchesNoEvents
+          matchCount={isSamsTeamsPending ? undefined : homeMatchesToDisplay.length}
+          eventCount={events.length}
+        />
 
         <Overlay
           backgroundOpacity={0.9}
@@ -287,6 +290,7 @@ function NoMatchesNoEvents({
   matchCount?: number;
   eventCount?: number;
 }) {
+  if (matchCount === undefined) return null;
   if (eventCount > 0) return null;
   if (matchCount > 0) return null;
 

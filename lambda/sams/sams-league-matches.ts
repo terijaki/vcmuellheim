@@ -117,9 +117,33 @@ const lambdaHandler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent
     const queryParams = event.queryStringParameters || {};
     let { league, season, sportsclub, team, limit, range } = queryParams;
 
-    const defaultSportsclubUuids = shouldResolveDefaultSamsSportsclubs({ league, sportsclub, team })
+    const shouldUseDefaultSportsclubs = shouldResolveDefaultSamsSportsclubs({
+      league,
+      sportsclub,
+      team,
+    });
+    const defaultSportsclubUuids = shouldUseDefaultSportsclubs
       ? await resolveConfiguredSamsSportsclubUuidsFromStorage()
       : [];
+    if (shouldUseDefaultSportsclubs && defaultSportsclubUuids.length === 0) {
+      logger.warn("No configured SAMS sportsclub UUIDs resolved; returning empty matches", {
+        league,
+        season,
+      });
+      return {
+        statusCode: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=300",
+        },
+        body: JSON.stringify(
+          LeagueMatchesResponseSchema.parse({
+            matches: [],
+            timestamp: new Date().toISOString(),
+          }),
+        ),
+      };
+    }
     const effectiveSportsclubUuids = sportsclub ? [sportsclub] : defaultSportsclubUuids;
 
     // Get current season if not specified

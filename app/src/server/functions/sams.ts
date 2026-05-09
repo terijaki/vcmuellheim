@@ -209,9 +209,25 @@ export const getSamsMatchesFn = createServerFn()
   .handler(async ({ data }) => {
     let { league, season, sportsclub, team } = data || {};
 
-    const defaultSportsclubUuids = shouldResolveDefaultSamsSportsclubs({ league, sportsclub, team })
+    const shouldUseDefaultSportsclubs = shouldResolveDefaultSamsSportsclubs({
+      league,
+      sportsclub,
+      team,
+    });
+    const defaultSportsclubUuids = shouldUseDefaultSportsclubs
       ? await resolveConfiguredSamsSportsclubUuidsFromStorage()
       : [];
+    if (shouldUseDefaultSportsclubs && defaultSportsclubUuids.length === 0) {
+      console.warn("No configured SAMS sportsclub UUIDs resolved; returning empty matches", {
+        league,
+        season,
+      });
+      return parseServerData(
+        LeagueMatchesResponseSchema,
+        { matches: [], timestamp: new Date().toISOString() },
+        "Failed to parse empty SAMS matches response",
+      );
+    }
     const effectiveSportsclubUuids = resolveEffectiveSamsSportsclubUuids(
       { league, sportsclub, team },
       defaultSportsclubUuids,
@@ -316,9 +332,17 @@ export const peekSamsMatchesCacheFn = createServerFn()
   .handler(async ({ data }) => {
     let { league, season, sportsclub, team } = data || {};
 
-    const defaultSportsclubUuids = shouldResolveDefaultSamsSportsclubs({ league, sportsclub, team })
+    const shouldUseDefaultSportsclubs = shouldResolveDefaultSamsSportsclubs({
+      league,
+      sportsclub,
+      team,
+    });
+    const defaultSportsclubUuids = shouldUseDefaultSportsclubs
       ? await resolveConfiguredSamsSportsclubUuidsFromStorage()
       : [];
+    if (shouldUseDefaultSportsclubs && defaultSportsclubUuids.length === 0) {
+      return null;
+    }
     const effectiveSportsclubUuids = resolveEffectiveSamsSportsclubUuids(
       { league, sportsclub, team },
       defaultSportsclubUuids,
