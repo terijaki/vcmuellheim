@@ -10,6 +10,7 @@ import middy from "@middy/core";
 import type { APIGatewayProxyHandler } from "aws-lambda";
 import { createSamsDb } from "@/lib/db/electrodb-client";
 import { slugify } from "../../utils/slugify";
+import { resolveConfiguredSamsSportsclubUuids, SAMS_TARGET_CLUB_SLUGS } from "../../utils/sams";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
@@ -22,33 +23,69 @@ const env = parseLambdaEnv(SamsTeamsSyncLambdaEnvironmentSchema);
 const TABLE_NAME = env.SAMS_TABLE_NAME;
 const samsEntities = createSamsDb(docClient, TABLE_NAME);
 
+type SyncedTeamItem = {
+  uuid: string;
+  type: "team";
+  name: string;
+  nameSlug: string;
+  sportsclubUuid: string;
+  associationUuid: string;
+  leagueUuid: string;
+  leagueName: string;
+  leagueHierarchyLevel?: number;
+  seasonUuid: string;
+  seasonName: string;
+  updatedAt: string;
+  ttl: number;
+};
+
+async function resolveConfiguredSamsClubsFromStorage() {
+  const clubResponse = await samsEntities.club.query.byType({ type: "club" }).go({ pages: "all" });
+  const missingClubSlugs = SAMS_TARGET_CLUB_SLUGS.filter(
+    (clubSlug) =>
+      !clubResponse.data.some((club) => club.nameSlug === clubSlug && !!club.sportsclubUuid),
+  );
+
+  if (missingClubSlugs.length > 0) {
+    logger.warn("Failed to resolve configured SAMS clubs", { missingClubSlugs });
+  }
+
+  const sportsclubUuids = new Set(resolveConfiguredSamsSportsclubUuids(clubResponse.data));
+  return clubResponse.data.filter(
+    (club) => club.sportsclubUuid && sportsclubUuids.has(club.sportsclubUuid),
+  );
+}
+
 const lambdaHandler: APIGatewayProxyHandler = async () => {
   logger.info("Starting SAMS teams sync...");
   Sentry.addBreadcrumb({ category: "sync", message: "Starting SAMS teams sync", level: "info" });
   try {
-    // Step 1: Get VC Müllheim club from DynamoDB
-    console.log("Fetching VC Müllheim club data...");
-    const clubSlug = slugify("VC Müllheim");
-    const clubResponse = await samsEntities.club.query
-      .byType({ type: "club" })
-      .begins({ nameSlug: clubSlug })
-      .go({ limit: 1 });
-    const club = clubResponse.data[0];
-    if (!club) {
-      throw new Error("VC Müllheim club not found in DynamoDB");
+    // Step 1: Get configured SAMS clubs from DynamoDB
+    console.log("Fetching configured SAMS club data...");
+    const clubs = await resolveConfiguredSamsClubsFromStorage();
+    if (clubs.length === 0) {
+      throw new Error("No configured SAMS clubs found in DynamoDB");
     }
 
-    const { sportsclubUuid, associationUuid } = club;
-    if (!associationUuid) {
-      throw new Error(
-        `Club ${club.name} (${sportsclubUuid}) has no associationUuid — cannot fetch leagues`,
-      );
+    const sportsclubUuids = new Set(clubs.map((club) => club.sportsclubUuid));
+    const associationUuids = [
+      ...new Set(clubs.flatMap((club) => (club.associationUuid ? [club.associationUuid] : []))),
+    ];
+
+    if (associationUuids.length === 0) {
+      throw new Error("Configured SAMS clubs have no associationUuid — cannot fetch leagues");
     }
-    console.log(`Found club: ${club.name} (${sportsclubUuid})`);
+
+    console.log(
+      `Found configured clubs: ${clubs.map((club) => `${club.name} (${club.sportsclubUuid})`).join(", ")}`,
+    );
     Sentry.addBreadcrumb({
       category: "sync",
-      message: `Found club: ${club.name} (${sportsclubUuid})`,
+      message: "Found configured SAMS clubs",
       level: "info",
+      data: {
+        clubs: clubs.map((club) => ({ name: club.name, sportsclubUuid: club.sportsclubUuid })),
+      },
     });
 
     // Step 2: Get current season
@@ -66,54 +103,59 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 
     // Step 3: Get all leagues for the association filtered by current season.
     // build a hierarchy level map so we can store the level on each team.
-    console.log(`Fetching leagues for association ${associationUuid}...`);
+    console.log(`Fetching leagues for associations ${associationUuids.join(", ")}...`);
     const allLeagues = [];
     let leaguePage = 0;
     let hasMoreLeagues = true;
 
     // Build hierarchy level map: hierarchyUuid → level number
     const hierarchyLevelByUuid = new Map<string, number>();
-    let hierarchyPage = 0;
-    let hasMoreHierarchies = true;
-    while (hasMoreHierarchies) {
-      const { data: hierarchyData } = await getAllLeagueHierarchies({
-        query: {
-          association: associationUuid,
-          "for-season": currentSeason.uuid,
-          page: hierarchyPage,
-          size: 100,
-        },
-      });
-      for (const h of hierarchyData?.content ?? []) {
-        if (h.uuid && h.level !== undefined) hierarchyLevelByUuid.set(h.uuid, h.level);
-      }
-      hasMoreHierarchies = hierarchyData?.last !== true;
-      hierarchyPage++;
-    }
-
-    while (hasMoreLeagues) {
-      const { data: leagueData } = await getAllLeagues({
-        query: {
-          association: associationUuid,
-          page: leaguePage,
-          size: 100,
-        },
-      });
-
-      if (leagueData?.content) {
-        // Filter by current season
-        const currentSeasonLeagues = leagueData.content.filter(
-          (l) => l.seasonUuid === currentSeason.uuid,
-        );
-        allLeagues.push(...currentSeasonLeagues);
-        leaguePage++;
+    for (const associationUuid of associationUuids) {
+      let hierarchyPage = 0;
+      let hasMoreHierarchies = true;
+      while (hasMoreHierarchies) {
+        const { data: hierarchyData } = await getAllLeagueHierarchies({
+          query: {
+            association: associationUuid,
+            "for-season": currentSeason.uuid,
+            page: hierarchyPage,
+            size: 100,
+          },
+        });
+        for (const hierarchy of hierarchyData?.content ?? []) {
+          if (hierarchy.uuid && hierarchy.level !== undefined) {
+            hierarchyLevelByUuid.set(hierarchy.uuid, hierarchy.level);
+          }
+        }
+        hasMoreHierarchies = hierarchyData?.last !== true;
+        hierarchyPage++;
       }
 
-      if (leagueData?.last === true) {
-        hasMoreLeagues = false;
-      }
+      leaguePage = 0;
+      hasMoreLeagues = true;
+      while (hasMoreLeagues) {
+        const { data: leagueData } = await getAllLeagues({
+          query: {
+            association: associationUuid,
+            page: leaguePage,
+            size: 100,
+          },
+        });
 
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Rate limiting
+        if (leagueData?.content) {
+          const currentSeasonLeagues = leagueData.content.filter(
+            (league) => league.seasonUuid === currentSeason.uuid,
+          );
+          allLeagues.push(...currentSeasonLeagues);
+          leaguePage++;
+        }
+
+        if (leagueData?.last === true) {
+          hasMoreLeagues = false;
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
     }
 
     console.log(`Found ${allLeagues.length} leagues for current season`);
@@ -126,7 +168,7 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
     Sentry.setMeasurement("sams_teams_sync.leagues_found", allLeagues.length, "none");
 
     // Step 4: Get teams from each league
-    const allTeams = [];
+    const allTeams: SyncedTeamItem[] = [];
     for (const league of allLeagues) {
       if (!league.uuid || !league.name) continue;
 
@@ -142,27 +184,31 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
 
         if (teamData?.content) {
           // Filter: only our club's teams, no sub-teams (masterTeamUuid)
-          const ourTeams = teamData.content
+          const ourTeams: SyncedTeamItem[] = teamData.content
             .filter((t) => !t.masterTeamUuid)
-            .filter((t) => t.sportsclubUuid === sportsclubUuid)
+            .filter((t) => !!t.sportsclubUuid && sportsclubUuids.has(t.sportsclubUuid))
             .filter((t) => !!t.uuid && !!t.name && !!t.sportsclubUuid && !!t.associationUuid)
-            .map((t) => ({
-              uuid: t.uuid as string,
-              type: "team" as const,
-              name: t.name as string,
-              nameSlug: slugify(t.name || ""),
-              sportsclubUuid: t.sportsclubUuid as string,
-              associationUuid: t.associationUuid as string,
-              leagueUuid: league.uuid as string,
-              leagueName: league.name as string,
-              leagueHierarchyLevel: league.leagueHierarchyUuid
+            .map((t) => {
+              const leagueHierarchyLevel = league.leagueHierarchyUuid
                 ? hierarchyLevelByUuid.get(league.leagueHierarchyUuid)
-                : undefined,
-              seasonUuid: currentSeason.uuid as string,
-              seasonName: currentSeason.name as string,
-              updatedAt: new Date().toISOString(),
-              ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365,
-            }));
+                : undefined;
+
+              return {
+                uuid: t.uuid as string,
+                type: "team" as const,
+                name: t.name as string,
+                nameSlug: slugify(t.name || ""),
+                sportsclubUuid: t.sportsclubUuid as string,
+                associationUuid: t.associationUuid as string,
+                leagueUuid: league.uuid as string,
+                leagueName: league.name as string,
+                ...(leagueHierarchyLevel !== undefined ? { leagueHierarchyLevel } : {}),
+                seasonUuid: currentSeason.uuid as string,
+                seasonName: currentSeason.name as string,
+                updatedAt: new Date().toISOString(),
+                ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365,
+              };
+            });
 
           allTeams.push(...ourTeams);
           teamPage++;
@@ -175,12 +221,19 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
       }
     }
 
-    console.log(`Found ${allTeams.length} teams for VC Müllheim`);
+    const teamsBySportsclubUuid = Object.fromEntries(
+      [...sportsclubUuids].map((sportsclubUuid) => [
+        sportsclubUuid,
+        allTeams.filter((team) => team.sportsclubUuid === sportsclubUuid).length,
+      ]),
+    );
+
+    console.log(`Found ${allTeams.length} teams for configured SAMS clubs`);
     Sentry.addBreadcrumb({
       category: "sync",
-      message: `Found ${allTeams.length} teams for VC Müllheim`,
+      message: `Found ${allTeams.length} teams for configured SAMS clubs`,
       level: "info",
-      data: { teamsFound: allTeams.length },
+      data: { teamsFound: allTeams.length, teamsBySportsclubUuid },
     });
     Sentry.setMeasurement("sams_teams_sync.teams_found", allTeams.length, "none");
 

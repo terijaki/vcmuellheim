@@ -11,11 +11,9 @@ import {
   getSeasonByUuid,
   type LeagueMatchDto,
 } from "@codegen/sams/generated";
-import { Club } from "@project.config";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { createServerFn } from "@tanstack/react-start";
 import { createCacheKey, createExpiringCache, getOrSetExpiringCacheValue } from "@utils/cache";
-import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import { z } from "zod";
 import { requireAdminMiddleware } from "../../middleware";
@@ -37,10 +35,113 @@ import {
 } from "../queries";
 import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
 import { parseServerData } from "../schema-parse";
+import {
+  dedupeSamsMatchesByUuid,
+  SAMS_TARGET_CLUB_SLUGS,
+  shouldResolveDefaultSamsSportsclubs,
+} from "@/utils/sams";
 
 const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
 
 const SAMS_API_TIMEOUT_MS = 10_000;
+
+type SamsMatchesInput = {
+  league?: string;
+  season?: string;
+  sportsclub?: string;
+  team?: string;
+  limit?: number;
+  range?: "past" | "future";
+};
+
+async function resolveConfiguredSamsSportsclubUuidsFromStorage(): Promise<string[]> {
+  const configuredClubs = await Promise.all(
+    SAMS_TARGET_CLUB_SLUGS.map(async (clubSlug) => ({
+      clubSlug,
+      club: await getSamsClubByNameSlug(clubSlug),
+    })),
+  );
+
+  const missingClubSlugs = configuredClubs
+    .filter(({ club }) => !club?.sportsclubUuid)
+    .map(({ clubSlug }) => clubSlug);
+
+  if (missingClubSlugs.length > 0) {
+    console.warn("Failed to resolve configured SAMS clubs", { missingClubSlugs });
+  }
+
+  return configuredClubs.flatMap(({ club }) => (club?.sportsclubUuid ? [club.sportsclubUuid] : []));
+}
+
+export function resolveEffectiveSamsSportsclubUuids(
+  input: Pick<SamsMatchesInput, "league" | "sportsclub" | "team">,
+  defaultSportsclubUuids: readonly string[],
+): string[] {
+  if (input.sportsclub) return [input.sportsclub];
+  if (!shouldResolveDefaultSamsSportsclubs(input)) return [];
+  return [...defaultSportsclubUuids];
+}
+
+export function createSamsMatchesCacheKey(
+  input: SamsMatchesInput,
+  sportsclubUuids: readonly string[],
+): string {
+  return createCacheKey({
+    type: "sams_matches",
+    league: input.league,
+    season: input.season,
+    sportsclubUuids,
+    team: input.team,
+    limit: input.limit,
+    range: input.range,
+  });
+}
+
+async function fetchAllSamsLeagueMatches({
+  league,
+  season,
+  team,
+  sportsclubUuids,
+}: Pick<SamsMatchesInput, "league" | "season" | "team"> & {
+  sportsclubUuids: readonly string[];
+}): Promise<Omit<LeagueMatchDto, "_links">[]> {
+  const sportsclubFilters = sportsclubUuids.length > 0 ? sportsclubUuids : [undefined];
+  const allMatches: Omit<LeagueMatchDto, "_links">[] = [];
+
+  for (const sportsclubUuid of sportsclubFilters) {
+    const defaultQueryParams: Record<string, string> = {};
+    if (league) defaultQueryParams["for-league"] = league;
+    if (season) defaultQueryParams["for-season"] = season;
+    if (sportsclubUuid) defaultQueryParams["for-sportsclub"] = sportsclubUuid;
+    if (team) defaultQueryParams["for-team"] = team;
+
+    let currentPage = 0;
+    let hasMorePages = true;
+
+    while (hasMorePages) {
+      const { data: pageData } = await getAllLeagueMatches({
+        query: { ...defaultQueryParams, page: currentPage, size: 100 },
+        signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
+      });
+
+      if (!pageData) {
+        if (currentPage === 0) {
+          throw new Error(`SAMS API returned no data on page ${currentPage}`);
+        }
+        break;
+      }
+
+      if (pageData.content) {
+        allMatches.push(...pageData.content.map(({ _links: _, ...match }) => match));
+        currentPage++;
+      }
+
+      if (pageData.last === true) hasMorePages = false;
+    }
+  }
+
+  return dedupeSamsMatchesByUuid(allMatches);
+}
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
   const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
@@ -108,56 +209,36 @@ export const getSamsMatchesFn = createServerFn()
   .handler(async ({ data }) => {
     let { league, season, sportsclub, team } = data || {};
 
-    // Default to own club if no filter provided
-    if (!sportsclub && !team && !league) {
-      try {
-        const clubSlug = slugify(Club.shortName);
-        const club = await getSamsClubByNameSlug(clubSlug);
-        if (club?.sportsclubUuid) sportsclub = club.sportsclubUuid as string;
-      } catch {
-        // proceed without filter
-      }
-    }
+    const defaultSportsclubUuids = shouldResolveDefaultSamsSportsclubs({ league, sportsclub, team })
+      ? await resolveConfiguredSamsSportsclubUuidsFromStorage()
+      : [];
+    const effectiveSportsclubUuids = resolveEffectiveSamsSportsclubUuids(
+      { league, sportsclub, team },
+      defaultSportsclubUuids,
+    );
 
     // Build cache key from the resolved (effective) params so callers that rely on
     // the default sportsclub filter get the same cache entry as explicit callers.
-    const cacheKey = createCacheKey({
-      type: "sams_matches",
-      league,
-      season,
-      sportsclub,
-      team,
-      limit: data?.limit,
-      range: data?.range,
-    });
+    const cacheKey = createSamsMatchesCacheKey(
+      {
+        league,
+        season,
+        sportsclub,
+        team,
+        limit: data?.limit,
+        range: data?.range,
+      },
+      effectiveSportsclubUuids,
+    );
     const cachedMatches = await readCacheEntry<LeagueMatchesResponse>(cacheKey, 5 * 60 * 1000);
     if (cachedMatches) return cachedMatches;
 
-    const defaultQueryParams: Record<string, string> = {};
-    if (league) defaultQueryParams["for-league"] = league;
-    if (season) defaultQueryParams["for-season"] = season;
-    if (sportsclub) defaultQueryParams["for-sportsclub"] = sportsclub;
-    if (team) defaultQueryParams["for-team"] = team;
-
-    const allMatches: Omit<LeagueMatchDto, "_links">[] = [];
-    let currentPage = 0;
-    let hasMorePages = true;
-    while (hasMorePages) {
-      const { data: pageData } = await getAllLeagueMatches({
-        query: { ...defaultQueryParams, page: currentPage, size: 100 },
-        signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
-      });
-      if (!pageData) {
-        if (currentPage === 0) throw new Error(`SAMS API returned no data on page ${currentPage}`);
-        // Subsequent page returned nothing — return what we have so far
-        break;
-      }
-      if (pageData.content) {
-        allMatches.push(...pageData.content.map(({ _links: _, ...m }) => m));
-        currentPage++;
-      }
-      if (pageData.last === true) hasMorePages = false;
-    }
+    const allMatches = await fetchAllSamsLeagueMatches({
+      league,
+      season,
+      team,
+      sportsclubUuids: effectiveSportsclubUuids,
+    });
 
     let filteredMatches = allMatches;
     if (data?.range === "future") {
@@ -235,26 +316,25 @@ export const peekSamsMatchesCacheFn = createServerFn()
   .handler(async ({ data }) => {
     let { league, season, sportsclub, team } = data || {};
 
-    // Mirror the default sportsclub resolution from getSamsMatchesFn so the cache key matches.
-    if (!sportsclub && !team && !league) {
-      try {
-        const clubSlug = slugify(Club.shortName);
-        const club = await getSamsClubByNameSlug(clubSlug);
-        if (club?.sportsclubUuid) sportsclub = club.sportsclubUuid as string;
-      } catch {
-        // proceed without filter
-      }
-    }
+    const defaultSportsclubUuids = shouldResolveDefaultSamsSportsclubs({ league, sportsclub, team })
+      ? await resolveConfiguredSamsSportsclubUuidsFromStorage()
+      : [];
+    const effectiveSportsclubUuids = resolveEffectiveSamsSportsclubUuids(
+      { league, sportsclub, team },
+      defaultSportsclubUuids,
+    );
 
-    const cacheKey = createCacheKey({
-      type: "sams_matches",
-      league,
-      season,
-      sportsclub,
-      team,
-      limit: data?.limit,
-      range: data?.range,
-    });
+    const cacheKey = createSamsMatchesCacheKey(
+      {
+        league,
+        season,
+        sportsclub,
+        team,
+        limit: data?.limit,
+        range: data?.range,
+      },
+      effectiveSportsclubUuids,
+    );
     return readCacheEntry<LeagueMatchesResponse>(cacheKey, Infinity);
   });
 

@@ -21,6 +21,7 @@ import "dayjs/locale/de";
 import { useMemo } from "react";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 import type { Event } from "@/lib/db/types";
+import { getOwnedSamsTeamUuids } from "@/utils/sams";
 import { useEvents, useLiveTicker, useSamsMatches, useSamsTeams } from "../../hooks/dataQueries";
 import EventCard from "../EventCard";
 import MapsLink from "../MapsLink";
@@ -38,12 +39,12 @@ export default function HomeHeimspiele() {
   const events = eventsData?.items || [];
 
   const { data: samsTeamsData } = useSamsTeams();
-  const ourClubUuid = samsTeamsData?.teams?.find((t) =>
-    t.name.includes("Müllheim"),
-  )?.sportsclubUuid;
+  const ourTeamUuids = useMemo(
+    () => getOwnedSamsTeamUuids(samsTeamsData?.teams ?? []),
+    [samsTeamsData?.teams],
+  );
 
   const { data: matchesData } = useSamsMatches({
-    sportsclub: ourClubUuid,
     range: "future",
     limit: 50,
   });
@@ -57,8 +58,7 @@ export default function HomeHeimspiele() {
     // Filter to only matches we are hosting
     const matchesHomeGames = matchesAll.filter((match) => {
       const hostUuid = match.host;
-      const teams = [match._embedded?.team1, match._embedded?.team2];
-      return teams.some((t) => t?.uuid === hostUuid && t?.name.includes("Müllheim"));
+      return !!hostUuid && ourTeamUuids.has(hostUuid);
     });
 
     // Sort by date
@@ -83,7 +83,7 @@ export default function HomeHeimspiele() {
     }
 
     return result;
-  }, [matchesData]);
+  }, [matchesData, ourTeamUuids]);
 
   return (
     <Box bg="blumine">

@@ -1,9 +1,9 @@
 import { Box, Flex, Grid, GridCol, Group, Stack, Text } from "@mantine/core";
-import { SAMS } from "@project.config";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { FaSquarePollVertical as IconResult } from "react-icons/fa6";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";
+import { getOwnedSamsTeamUuids } from "@/utils/sams";
 import { useSamsTeams } from "../hooks/dataQueries";
 import MapsLink from "./MapsLink";
 
@@ -36,6 +36,7 @@ export default function Matches({
 
   // league data so that we can get the league name from the league id
   const ourTeams = samsTeams?.teams;
+  const ourTeamUuids = getOwnedSamsTeamUuids(ourTeams || []);
   const leagues = new Map<string, string>();
   for (const team of ourTeams || []) {
     if (team.leagueUuid && team.leagueName) leagues.set(team.leagueUuid, team.leagueName);
@@ -52,10 +53,10 @@ export default function Matches({
         <Stack gap={0}>
           {matches.map((match, index) => {
             const winnerId = match.results?.winner;
-            const winnerName = match.results?.winnerName;
             // determine if this is a win for the club/team
             let winForClubOrTeam = Boolean(winnerId && winnerId === highlightTeamUuid);
-            if (!highlightTeamUuid) winForClubOrTeam = Boolean(winnerName?.includes(SAMS.name));
+            if (!highlightTeamUuid)
+              winForClubOrTeam = Boolean(winnerId && ourTeamUuids.has(winnerId));
             // determine if the index is odd or even for alternating background colors
             const oddIndex = Boolean((isOddMatches ? index : index + 1) % 2 === 0);
             const team1 = match._embedded?.team1;
@@ -100,7 +101,7 @@ export default function Matches({
                     <Text lineClamp={2}>
                       <Text
                         span
-                        fw={!team1?.name.includes(SAMS.name) ? undefined : undefined}
+                        fw={team1?.uuid && ourTeamUuids.has(team1.uuid) ? "bold" : undefined}
                         data-team1-uuid={team1?.uuid}
                         data-team1-name={team1?.name}
                       >
@@ -109,7 +110,7 @@ export default function Matches({
                       {team1 && team2 && " : "}
                       <Text
                         span
-                        fw={!team2?.name.includes(SAMS.name) ? undefined : undefined}
+                        fw={team2?.uuid && ourTeamUuids.has(team2.uuid) ? "bold" : undefined}
                         data-team2-uuid={team2?.uuid}
                         data-team2-name={team2?.name}
                       >
@@ -210,7 +211,7 @@ export default function Matches({
                   <Text lineClamp={2}>
                     <Text
                       span
-                      fw={team1?.name.includes(SAMS.name) ? undefined : undefined}
+                      fw={team1?.uuid && ourTeamUuids.has(team1.uuid) ? "bold" : undefined}
                       data-team1-uuid={team1?.uuid}
                       data-team1-name={team1?.name}
                     >
@@ -219,7 +220,7 @@ export default function Matches({
                     {team1 && team2 && " : "}
                     <Text
                       span
-                      fw={team2?.name.includes(SAMS.name) ? undefined : undefined}
+                      fw={team2?.uuid && ourTeamUuids.has(team2.uuid) ? "bold" : undefined}
                       data-team2-uuid={team2?.uuid}
                       data-team2-name={team2?.name}
                     >

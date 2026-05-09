@@ -15,6 +15,11 @@ export const Club = {
 /** The clubs details on the SAMS platform. */
 export const SAMS = {
   name: "VC Müllheim" as const,
+  targetClubs: [
+    { name: "VC Müllheim" },
+    { name: "Markgräfler Volleys" },
+    // { name: "TV Staufen" },
+  ] as const,
   server: "https://www.volleyball-baden.de" as const,
   association: { name: "Südbadischer Volleyball-Verband" as const, shortName: "SBVV" as const },
 };

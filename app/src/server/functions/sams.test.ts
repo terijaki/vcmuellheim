@@ -3,7 +3,9 @@ import { mockClient } from "aws-sdk-client-mock";
 import { beforeEach, describe, expect, it } from "vite-plus/test";
 import {
   buildLiveMatchesFromRaw,
+  createSamsMatchesCacheKey,
   invokeSamsLambdaAsync,
+  resolveEffectiveSamsSportsclubUuids,
   resolveClubLogoUrl,
   triggerSamsClubsSyncFn,
   triggerSamsTeamsSyncFn,
@@ -38,6 +40,52 @@ describe("resolveClubLogoUrl", () => {
   it("returns null when club is null", () => {
     const result = resolveClubLogoUrl(null, CF);
     expect(result).toBeNull();
+  });
+});
+
+describe("resolveEffectiveSamsSportsclubUuids", () => {
+  it("uses configured defaults when no explicit filter is present", () => {
+    expect(resolveEffectiveSamsSportsclubUuids({}, ["club-a", "club-b"])).toEqual([
+      "club-a",
+      "club-b",
+    ]);
+  });
+
+  it("keeps explicit sportsclub filters authoritative", () => {
+    expect(
+      resolveEffectiveSamsSportsclubUuids(
+        { sportsclub: "club-explicit", team: "team-a", league: "league-a" },
+        ["club-a", "club-b"],
+      ),
+    ).toEqual(["club-explicit"]);
+  });
+
+  it("does not apply defaults when team or league filters are present", () => {
+    expect(resolveEffectiveSamsSportsclubUuids({ team: "team-a" }, ["club-a", "club-b"])).toEqual(
+      [],
+    );
+    expect(
+      resolveEffectiveSamsSportsclubUuids({ league: "league-a" }, ["club-a", "club-b"]),
+    ).toEqual([]);
+  });
+});
+
+describe("createSamsMatchesCacheKey", () => {
+  it("matches the cache key for default and explicit single-club filters", () => {
+    const defaultKey = createSamsMatchesCacheKey({ range: "future", limit: 10 }, ["club-a"]);
+    const explicitKey = createSamsMatchesCacheKey(
+      { sportsclub: "club-a", range: "future", limit: 10 },
+      ["club-a"],
+    );
+
+    expect(defaultKey).toBe(explicitKey);
+  });
+
+  it("normalizes multi-club cache key order", () => {
+    const left = createSamsMatchesCacheKey({ range: "future" }, ["club-b", "club-a"]);
+    const right = createSamsMatchesCacheKey({ range: "future" }, ["club-a", "club-b"]);
+
+    expect(left).toBe(right);
   });
 });
 
