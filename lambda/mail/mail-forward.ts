@@ -351,13 +351,8 @@ const lambdaHandler = async (event: unknown) => {
 	const envelopeRecipientAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
 	const headerToAddresses = extractToAddresses(rawMime);
 	const headerToAddressSet = new Set(headerToAddresses.map((addr) => addr.toLowerCase()));
-	const hasValidatedEnvelopeRecipient = envelopeRecipientAddresses.some((addr) =>
-		headerToAddressSet.has(addr.toLowerCase()),
-	);
-	const toAddresses =
-		envelopeRecipientAddresses.length > 0 && hasValidatedEnvelopeRecipient
-			? envelopeRecipientAddresses
-			: headerToAddresses;
+	const hasValidatedEnvelopeRecipient = envelopeRecipientAddresses.some((addr) => headerToAddressSet.has(addr.toLowerCase()));
+	const toAddresses = envelopeRecipientAddresses.length > 0 && hasValidatedEnvelopeRecipient ? envelopeRecipientAddresses : headerToAddresses;
 	const matchingAddresses = dedupeAddresses(toAddresses.filter((addr) => addr.split("@")[1] === RECIPIENT_DOMAIN));
 
 	if (matchingAddresses.length === 0) {

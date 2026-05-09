@@ -509,8 +509,7 @@ describe("Mastodon Share Lambda", () => {
 			type: "article",
 			title: "HTML Test",
 			slug: "html-test",
-			content:
-				"<p>Schöner Tag &amp; Sonnenschein</p><p>Zweiter <strong>Absatz</strong>.</p>",
+			content: "<p>Schöner Tag &amp; Sonnenschein</p><p>Zweiter <strong>Absatz</strong>.</p>",
 			status: "published",
 			createdAt: "2024-01-01T00:00:00.000Z",
 			updatedAt: "2024-01-01T00:00:00.000Z",
@@ -538,8 +537,7 @@ describe("Mastodon Share Lambda", () => {
 			type: "article",
 			title: "Entity Test",
 			slug: "entity-test",
-			content:
-				"<p>Normal text &lt;b&gt;bold&lt;/b&gt; and &lt;script&gt;alert(1)&lt;/script&gt; end.</p>",
+			content: "<p>Normal text &lt;b&gt;bold&lt;/b&gt; and &lt;script&gt;alert(1)&lt;/script&gt; end.</p>",
 			status: "published",
 			createdAt: "2024-01-01T00:00:00.000Z",
 			updatedAt: "2024-01-01T00:00:00.000Z",
