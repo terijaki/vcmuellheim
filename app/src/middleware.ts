@@ -22,9 +22,9 @@ import { getAuth } from "./auth/auth-server-config";
 export type UserRole = "Admin" | "Moderator";
 
 export interface SessionContext {
-	userId: string;
-	userEmail: string;
-	userRole: UserRole;
+  userId: string;
+  userEmail: string;
+  userRole: UserRole;
 }
 
 /**
@@ -32,13 +32,13 @@ export interface SessionContext {
  * Use this in public server functions that optionally need user info.
  */
 export const sessionMiddleware = createMiddleware().server(async ({ next }) => {
-	const request = getRequest();
-	const session = await tryGetSession(request);
-	return next({
-		context: {
-			session: session ?? null,
-		},
-	});
+  const request = getRequest();
+  const session = await tryGetSession(request);
+  return next({
+    context: {
+      session: session ?? null,
+    },
+  });
 });
 
 /**
@@ -46,14 +46,14 @@ export const sessionMiddleware = createMiddleware().server(async ({ next }) => {
  * Throws a 401 error if no valid session is present.
  */
 export const requireAuthMiddleware = createMiddleware().server(async ({ next }) => {
-	const request = getRequest();
-	const session = await tryGetSession(request);
-	if (!session) {
-		throw new Error("Unauthorized: valid session required");
-	}
-	return next({
-		context: session,
-	});
+  const request = getRequest();
+  const session = await tryGetSession(request);
+  if (!session) {
+    throw new Error("Unauthorized: valid session required");
+  }
+  return next({
+    context: session,
+  });
 });
 
 /**
@@ -61,34 +61,34 @@ export const requireAuthMiddleware = createMiddleware().server(async ({ next }) 
  * Throws a 401/403 error if not authenticated or not an Admin.
  */
 export const requireAdminMiddleware = createMiddleware().server(async ({ next }) => {
-	const request = getRequest();
-	const session = await tryGetSession(request);
-	if (!session) {
-		throw new Error("Unauthorized: valid session required");
-	}
-	if (session.userRole !== "Admin") {
-		throw new Error("Forbidden: Admin role required");
-	}
-	return next({
-		context: session,
-	});
+  const request = getRequest();
+  const session = await tryGetSession(request);
+  if (!session) {
+    throw new Error("Unauthorized: valid session required");
+  }
+  if (session.userRole !== "Admin") {
+    throw new Error("Forbidden: Admin role required");
+  }
+  return next({
+    context: session,
+  });
 });
 
 async function tryGetSession(request: Request): Promise<SessionContext | null> {
-	try {
-		const auth = getAuth();
-		const result = await auth.api.getSession({ headers: request.headers });
-		if (!result?.user) return null;
+  try {
+    const auth = getAuth();
+    const result = await auth.api.getSession({ headers: request.headers });
+    if (!result?.user) return null;
 
-		const userRole = (result.user as { authRole?: string }).authRole as UserRole | undefined;
-		if (!userRole || (userRole !== "Admin" && userRole !== "Moderator")) return null;
+    const userRole = (result.user as { authRole?: string }).authRole as UserRole | undefined;
+    if (!userRole || (userRole !== "Admin" && userRole !== "Moderator")) return null;
 
-		return {
-			userId: result.user.id,
-			userEmail: result.user.email,
-			userRole,
-		};
-	} catch {
-		return null;
-	}
+    return {
+      userId: result.user.id,
+      userEmail: result.user.email,
+      userRole,
+    };
+  } catch {
+    return null;
+  }
 }

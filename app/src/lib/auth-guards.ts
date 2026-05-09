@@ -6,15 +6,18 @@ import type { AdminSessionUser } from "../server/functions/session-utils";
  * Redirects unauthenticated visitors to /admin/login, preserving the
  * intended destination in the `redirect` search parameter.
  */
-export function adminLayoutGuard(session: AdminSessionUser | null, href: string): { user: AdminSessionUser } {
-	if (!session) {
-		throw redirect({
-			to: "/admin/login",
-			search: { redirect: href },
-			replace: true,
-		});
-	}
-	return { user: session };
+export function adminLayoutGuard(
+  session: AdminSessionUser | null,
+  href: string,
+): { user: AdminSessionUser } {
+  if (!session) {
+    throw redirect({
+      to: "/admin/login",
+      search: { redirect: href },
+      replace: true,
+    });
+  }
+  return { user: session };
 }
 
 /**
@@ -22,7 +25,7 @@ export function adminLayoutGuard(session: AdminSessionUser | null, href: string)
  * Redirects already-authenticated users to /admin.
  */
 export function loginPageGuard(session: AdminSessionUser | null): void {
-	if (session) {
-		throw redirect({ to: "/admin", replace: true });
-	}
+  if (session) {
+    throw redirect({ to: "/admin", replace: true });
+  }
 }

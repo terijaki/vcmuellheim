@@ -13,7 +13,14 @@ import { listMembersFn } from "../server/functions/members";
 
 // Server functions
 import { getGalleryImagesFn, getNewsByIdFn, getPublishedNewsFn } from "../server/functions/news";
-import { getClubLogoUrlFn, getClubLogoUrlsBatchFn, getSamsMatchesFn, getSamsRankingByLeagueUuidFn, getSamsTickerFn, listSamsTeamsFn } from "../server/functions/sams";
+import {
+  getClubLogoUrlFn,
+  getClubLogoUrlsBatchFn,
+  getSamsMatchesFn,
+  getSamsRankingByLeagueUuidFn,
+  getSamsTickerFn,
+  listSamsTeamsFn,
+} from "../server/functions/sams";
 import { listSponsorsFn } from "../server/functions/sponsors";
 import { getTeamBySlugFn, listTeamsFn } from "../server/functions/teams";
 import { getFileUrlFn, getFileUrlsFn } from "../server/functions/upload";
@@ -23,29 +30,34 @@ import { getFileUrlFn, getFileUrlsFn } from "../server/functions/upload";
 // ============================================================================
 
 export const useNews = ({ limit = 50 }: { limit?: number } = {}) => {
-	return useInfiniteQuery({
-		queryKey: ["news", limit],
-		queryFn: ({ pageParam }) => getPublishedNewsFn({ data: { limit, cursor: pageParam } }),
-		getNextPageParam: (lastPage) => lastPage.lastEvaluatedKey,
-		initialPageParam: undefined as PaginationCursor | undefined,
-	});
+  return useInfiniteQuery({
+    queryKey: ["news", limit],
+    queryFn: ({ pageParam }) => getPublishedNewsFn({ data: { limit, cursor: pageParam } }),
+    getNextPageParam: (lastPage) => lastPage.lastEvaluatedKey,
+    initialPageParam: undefined as PaginationCursor | undefined,
+  });
 };
 
 export const useNewsById = (id: string) => {
-	return useQuery({
-		queryKey: ["news", "id", id],
-		queryFn: () => getNewsByIdFn({ data: { id } }),
-		enabled: !!id && z.uuid().safeParse(id).success,
-	});
+  return useQuery({
+    queryKey: ["news", "id", id],
+    queryFn: () => getNewsByIdFn({ data: { id } }),
+    enabled: !!id && z.uuid().safeParse(id).success,
+  });
 };
 
-export const useGalleryImages = ({ limit = 20, format = "urls", shuffle }: { limit?: number; format?: "urls" | "keys"; shuffle?: boolean } = {}) => {
-	return useInfiniteQuery({
-		queryKey: ["galleryImages", limit, format, shuffle],
-		queryFn: ({ pageParam }) => getGalleryImagesFn({ data: { limit, format, shuffle, cursor: pageParam } }),
-		getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
-		initialPageParam: undefined as PaginationCursor | undefined,
-	});
+export const useGalleryImages = ({
+  limit = 20,
+  format = "urls",
+  shuffle,
+}: { limit?: number; format?: "urls" | "keys"; shuffle?: boolean } = {}) => {
+  return useInfiniteQuery({
+    queryKey: ["galleryImages", limit, format, shuffle],
+    queryFn: ({ pageParam }) =>
+      getGalleryImagesFn({ data: { limit, format, shuffle, cursor: pageParam } }),
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+    initialPageParam: undefined as PaginationCursor | undefined,
+  });
 };
 
 // ============================================================================
@@ -53,18 +65,18 @@ export const useGalleryImages = ({ limit = 20, format = "urls", shuffle }: { lim
 // ============================================================================
 
 export const useEvents = () => {
-	return useQuery({
-		queryKey: ["events"],
-		queryFn: () => getUpcomingEventsFn(),
-	});
+  return useQuery({
+    queryKey: ["events"],
+    queryFn: () => getUpcomingEventsFn(),
+  });
 };
 
 export const useEventById = (id: string) => {
-	return useQuery({
-		queryKey: ["events", "id", id],
-		queryFn: () => getEventByIdFn({ data: { id } }),
-		enabled: !!id && z.uuid().safeParse(id).success,
-	});
+  return useQuery({
+    queryKey: ["events", "id", id],
+    queryFn: () => getEventByIdFn({ data: { id } }),
+    enabled: !!id && z.uuid().safeParse(id).success,
+  });
 };
 
 // ============================================================================
@@ -72,18 +84,18 @@ export const useEventById = (id: string) => {
 // ============================================================================
 
 export const useTeams = () => {
-	return useQuery({
-		queryKey: ["teams"],
-		queryFn: () => listTeamsFn(),
-	});
+  return useQuery({
+    queryKey: ["teams"],
+    queryFn: () => listTeamsFn(),
+  });
 };
 
 export const useTeamBySlug = (slug: string) => {
-	return useQuery({
-		queryKey: ["teams", "slug", slug],
-		queryFn: () => getTeamBySlugFn({ data: { slug } }),
-		enabled: !!slug,
-	});
+  return useQuery({
+    queryKey: ["teams", "slug", slug],
+    queryFn: () => getTeamBySlugFn({ data: { slug } }),
+    enabled: !!slug,
+  });
 };
 
 // ============================================================================
@@ -91,10 +103,10 @@ export const useTeamBySlug = (slug: string) => {
 // ============================================================================
 
 export const useMembers = () => {
-	return useQuery({
-		queryKey: ["members"],
-		queryFn: () => listMembersFn(),
-	});
+  return useQuery({
+    queryKey: ["members"],
+    queryFn: () => listMembersFn(),
+  });
 };
 
 // ============================================================================
@@ -102,10 +114,10 @@ export const useMembers = () => {
 // ============================================================================
 
 export const useSponsors = () => {
-	return useQuery({
-		queryKey: ["sponsors"],
-		queryFn: () => listSponsorsFn(),
-	});
+  return useQuery({
+    queryKey: ["sponsors"],
+    queryFn: () => listSponsorsFn(),
+  });
 };
 
 // ============================================================================
@@ -113,10 +125,10 @@ export const useSponsors = () => {
 // ============================================================================
 
 export const useLocations = () => {
-	return useQuery({
-		queryKey: ["locations"],
-		queryFn: () => listLocationsFn(),
-	});
+  return useQuery({
+    queryKey: ["locations"],
+    queryFn: () => listLocationsFn(),
+  });
 };
 
 // ============================================================================
@@ -124,31 +136,31 @@ export const useLocations = () => {
 // ============================================================================
 
 export const useFileUrl = (s3Key?: string) => {
-	return useQuery({
-		queryKey: ["fileUrl", s3Key],
-		queryFn: () => {
-			if (!s3Key) {
-				throw new Error("s3Key is required");
-			}
+  return useQuery({
+    queryKey: ["fileUrl", s3Key],
+    queryFn: () => {
+      if (!s3Key) {
+        throw new Error("s3Key is required");
+      }
 
-			return getFileUrlFn({ data: { s3Key } });
-		},
-		enabled: !!s3Key,
-	});
+      return getFileUrlFn({ data: { s3Key } });
+    },
+    enabled: !!s3Key,
+  });
 };
 
 export const useFileUrls = (s3Keys?: string[]) => {
-	return useQuery({
-		queryKey: ["fileUrls", s3Keys],
-		queryFn: () => {
-			if (!s3Keys || s3Keys.length === 0) {
-				throw new Error("s3Keys are required");
-			}
+  return useQuery({
+    queryKey: ["fileUrls", s3Keys],
+    queryFn: () => {
+      if (!s3Keys || s3Keys.length === 0) {
+        throw new Error("s3Keys are required");
+      }
 
-			return getFileUrlsFn({ data: { s3Keys } });
-		},
-		enabled: !!s3Keys && s3Keys.length > 0,
-	});
+      return getFileUrlsFn({ data: { s3Keys } });
+    },
+    enabled: !!s3Keys && s3Keys.length > 0,
+  });
 };
 
 // ============================================================================
@@ -156,81 +168,90 @@ export const useFileUrls = (s3Keys?: string[]) => {
 // ============================================================================
 
 export const useSamsTeams = () => {
-	return useQuery({
-		queryKey: ["samsTeams"],
-		queryFn: () => listSamsTeamsFn(),
-	});
+  return useQuery({
+    queryKey: ["samsTeams"],
+    queryFn: () => listSamsTeamsFn(),
+  });
 };
 
-export const useClubLogoUrl = ({ clubUuid, clubSlug }: { clubUuid?: string; clubSlug?: string }) => {
-	const identifier = clubUuid || clubSlug;
-	return useQuery({
-		queryKey: ["clubLogoUrl", clubUuid ?? clubSlug],
-		queryFn: () => {
-			if (clubUuid) return getClubLogoUrlFn({ data: { clubUuid } });
-			if (clubSlug) return getClubLogoUrlFn({ data: { clubSlug } });
-			throw new Error("Either clubUuid or clubSlug is required");
-		},
-		enabled: !!identifier,
-	});
+export const useClubLogoUrl = ({
+  clubUuid,
+  clubSlug,
+}: {
+  clubUuid?: string;
+  clubSlug?: string;
+}) => {
+  const identifier = clubUuid || clubSlug;
+  return useQuery({
+    queryKey: ["clubLogoUrl", clubUuid ?? clubSlug],
+    queryFn: () => {
+      if (clubUuid) return getClubLogoUrlFn({ data: { clubUuid } });
+      if (clubSlug) return getClubLogoUrlFn({ data: { clubSlug } });
+      throw new Error("Either clubUuid or clubSlug is required");
+    },
+    enabled: !!identifier,
+  });
 };
 
 export const useClubLogoUrlsBatch = (clubSlugs: string[]) => {
-	return useQuery({
-		queryKey: ["clubLogoUrls", clubSlugs],
-		queryFn: () => getClubLogoUrlsBatchFn({ data: { clubSlugs } }),
-		enabled: clubSlugs.length > 0,
-	});
+  return useQuery({
+    queryKey: ["clubLogoUrls", clubSlugs],
+    queryFn: () => getClubLogoUrlsBatchFn({ data: { clubSlugs } }),
+    enabled: clubSlugs.length > 0,
+  });
 };
 
-export const samsRankingQuery = (leagueUuid: string, options?: { initialData?: RankingResponse; initialDataUpdatedAt?: number }) => ({
-	queryKey: ["samsRanking", leagueUuid] as const,
-	queryFn: () => getSamsRankingByLeagueUuidFn({ data: leagueUuid }),
-	enabled: !!leagueUuid,
-	staleTime: 1000 * 60 * 10,
-	retry: 1 as const,
-	placeholderData: (previousData: RankingResponse | undefined) => previousData,
-	refetchOnWindowFocus: false as const,
-	initialData: options?.initialData,
-	initialDataUpdatedAt: options?.initialDataUpdatedAt,
+export const samsRankingQuery = (
+  leagueUuid: string,
+  options?: { initialData?: RankingResponse; initialDataUpdatedAt?: number },
+) => ({
+  queryKey: ["samsRanking", leagueUuid] as const,
+  queryFn: () => getSamsRankingByLeagueUuidFn({ data: leagueUuid }),
+  enabled: !!leagueUuid,
+  staleTime: 1000 * 60 * 10,
+  retry: 1 as const,
+  placeholderData: (previousData: RankingResponse | undefined) => previousData,
+  refetchOnWindowFocus: false as const,
+  initialData: options?.initialData,
+  initialDataUpdatedAt: options?.initialDataUpdatedAt,
 });
 
 export const useSamsMatches = ({
-	league,
-	season,
-	sportsclub,
-	team,
-	limit,
-	range,
-	initialData,
-	initialDataUpdatedAt,
+  league,
+  season,
+  sportsclub,
+  team,
+  limit,
+  range,
+  initialData,
+  initialDataUpdatedAt,
 }: {
-	league?: string;
-	season?: string;
-	sportsclub?: string;
-	team?: string;
-	limit?: number;
-	range?: "past" | "future";
-	initialData?: LeagueMatchesResponse;
-	initialDataUpdatedAt?: number;
+  league?: string;
+  season?: string;
+  sportsclub?: string;
+  team?: string;
+  limit?: number;
+  range?: "past" | "future";
+  initialData?: LeagueMatchesResponse;
+  initialDataUpdatedAt?: number;
 } = {}) => {
-	return useQuery({
-		queryKey: ["samsMatches", league, season, sportsclub, team, limit, range],
-		queryFn: () => getSamsMatchesFn({ data: { league, season, sportsclub, team, limit, range } }),
-		retry: 1,
-		staleTime: 1000 * 60 * 2,
-		placeholderData: (previousData) => previousData,
-		refetchOnWindowFocus: false,
-		initialData,
-		initialDataUpdatedAt,
-	});
+  return useQuery({
+    queryKey: ["samsMatches", league, season, sportsclub, team, limit, range],
+    queryFn: () => getSamsMatchesFn({ data: { league, season, sportsclub, team, limit, range } }),
+    retry: 1,
+    staleTime: 1000 * 60 * 2,
+    placeholderData: (previousData) => previousData,
+    refetchOnWindowFocus: false,
+    initialData,
+    initialDataUpdatedAt,
+  });
 };
 
 export const useLiveTicker = () => {
-	return useQuery({
-		queryKey: ["samsLiveTicker"],
-		queryFn: () => getSamsTickerFn(),
-		refetchInterval: 10_000,
-		staleTime: 9_000,
-	});
+  return useQuery({
+    queryKey: ["samsLiveTicker"],
+    queryFn: () => getSamsTickerFn(),
+    refetchInterval: 10_000,
+    staleTime: 9_000,
+  });
 };

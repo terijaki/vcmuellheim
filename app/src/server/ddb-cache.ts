@@ -23,16 +23,16 @@ const CACHE_SK = "cache";
 const DDB_TTL_SECONDS = 90 * 24 * 60 * 60;
 
 function buildPk(cacheKey: string): string {
-	return `cache#${cacheKey}`;
+  return `cache#${cacheKey}`;
 }
 
 type CacheEntry = {
-	pk: string;
-	sk: string;
-	data: string;
-	cachedAt: string;
-	/** Unix epoch seconds — used by DynamoDB TTL to eventually delete the item */
-	ttl: number;
+  pk: string;
+  sk: string;
+  data: string;
+  cachedAt: string;
+  /** Unix epoch seconds — used by DynamoDB TTL to eventually delete the item */
+  ttl: number;
 };
 
 /**
@@ -40,26 +40,30 @@ type CacheEntry = {
  *
  * Returns the deserialized value if a fresh entry exists (within TTL), otherwise `null`.
  */
-export async function readCacheEntry<T>(cacheKey: string, ttlMs: number, now: () => number = Date.now): Promise<T | null> {
-	const result = await docClient.send(
-		new GetCommand({
-			TableName: getCacheTableName(),
-			Key: { pk: buildPk(cacheKey), sk: CACHE_SK },
-		}),
-	);
+export async function readCacheEntry<T>(
+  cacheKey: string,
+  ttlMs: number,
+  now: () => number = Date.now,
+): Promise<T | null> {
+  const result = await docClient.send(
+    new GetCommand({
+      TableName: getCacheTableName(),
+      Key: { pk: buildPk(cacheKey), sk: CACHE_SK },
+    }),
+  );
 
-	if (!result.Item) return null;
+  if (!result.Item) return null;
 
-	const entry = result.Item as CacheEntry;
-	const cachedAtMs = new Date(entry.cachedAt).getTime();
+  const entry = result.Item as CacheEntry;
+  const cachedAtMs = new Date(entry.cachedAt).getTime();
 
-	if (Number.isNaN(cachedAtMs) || now() - cachedAtMs > ttlMs) return null;
+  if (Number.isNaN(cachedAtMs) || now() - cachedAtMs > ttlMs) return null;
 
-	try {
-		return JSON.parse(entry.data) as T;
-	} catch {
-		return null;
-	}
+  try {
+    return JSON.parse(entry.data) as T;
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -67,20 +71,24 @@ export async function readCacheEntry<T>(cacheKey: string, ttlMs: number, now: ()
  *
  * Serializes the value to JSON and records the current time as `cachedAt`.
  */
-export async function writeCacheEntry<T>(cacheKey: string, value: T, now: () => number = Date.now): Promise<void> {
-	const nowMs = now();
-	const entry: CacheEntry = {
-		pk: buildPk(cacheKey),
-		sk: CACHE_SK,
-		data: JSON.stringify(value),
-		cachedAt: new Date(nowMs).toISOString(),
-		ttl: Math.floor(nowMs / 1000) + DDB_TTL_SECONDS,
-	};
+export async function writeCacheEntry<T>(
+  cacheKey: string,
+  value: T,
+  now: () => number = Date.now,
+): Promise<void> {
+  const nowMs = now();
+  const entry: CacheEntry = {
+    pk: buildPk(cacheKey),
+    sk: CACHE_SK,
+    data: JSON.stringify(value),
+    cachedAt: new Date(nowMs).toISOString(),
+    ttl: Math.floor(nowMs / 1000) + DDB_TTL_SECONDS,
+  };
 
-	await docClient.send(
-		new PutCommand({
-			TableName: getCacheTableName(),
-			Item: entry,
-		}),
-	);
+  await docClient.send(
+    new PutCommand({
+      TableName: getCacheTableName(),
+      Item: entry,
+    }),
+  );
 }

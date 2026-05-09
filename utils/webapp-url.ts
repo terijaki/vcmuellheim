@@ -13,11 +13,11 @@ import { Club } from "../project.config.ts";
  * @param branch      - Sanitized branch name (empty string for main branch)
  */
 export function buildWebappDomain(environment: string, branch: string): string {
-	if (environment === "prod") return Club.domain;
-	const branchSuffix = branch ? `-${branch}` : "";
-	return `${environment}${branchSuffix}.new.${Club.domain}`;
+  if (environment === "prod") return Club.domain;
+  const branchSuffix = branch ? `-${branch}` : "";
+  return `${environment}${branchSuffix}.new.${Club.domain}`;
 }
 
 export function buildWebappUrl(environment: string, branch: string): string {
-	return `https://${buildWebappDomain(environment, branch)}`;
+  return `https://${buildWebappDomain(environment, branch)}`;
 }

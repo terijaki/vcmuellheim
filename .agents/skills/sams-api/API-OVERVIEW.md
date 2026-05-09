@@ -88,10 +88,10 @@ A Team object has:
 
 ```json
 {
-	"uuid": "...",
-	"name": "VC Müllheim 1",
-	"sportsclubUuid": "9c8b0252-c19b-4e83-a564-202e90d75c01",
-	"masterTeamUuid": null // null = primary team; non-null = sub-team
+  "uuid": "...",
+  "name": "VC Müllheim 1",
+  "sportsclubUuid": "9c8b0252-c19b-4e83-a564-202e90d75c01",
+  "masterTeamUuid": null // null = primary team; non-null = sub-team
 }
 ```
 
@@ -109,17 +109,17 @@ Returns a ranked list of teams in the league. Useful fields:
 
 ```json
 {
-	"uuid": "c2ddea7c-b7ec-4172-aa85-4d9c47aba362",
-	"rank": 5,
-	"teamName": "VC Müllheim 1",
-	"points": 21,
-	"wins": 6,
-	"losses": 9,
-	"setWins": 27,
-	"setLosses": 31,
-	"matchesPlayed": 15,
-	"ballWins": 100,
-	"ballLosses": 92
+  "uuid": "c2ddea7c-b7ec-4172-aa85-4d9c47aba362",
+  "rank": 5,
+  "teamName": "VC Müllheim 1",
+  "points": 21,
+  "wins": 6,
+  "losses": 9,
+  "setWins": 27,
+  "setLosses": 31,
+  "matchesPlayed": 15,
+  "ballWins": 100,
+  "ballLosses": 92
 }
 ```
 
@@ -138,15 +138,15 @@ GET /match-days/{uuid}/league-matches
 
 ```json
 {
-	"date": "2026-03-07",
-	"time": "14:00",
-	"team1Description": "TV Merdingen 2",
-	"team2Description": "VC Müllheim 1",
-	"results": null,
-	"_embedded": {
-		"team1": { "uuid": "..." },
-		"team2": { "uuid": "f41dd752-07b0-42e8-afe2-4662a81eadf9" }
-	}
+  "date": "2026-03-07",
+  "time": "14:00",
+  "team1Description": "TV Merdingen 2",
+  "team2Description": "VC Müllheim 1",
+  "results": null,
+  "_embedded": {
+    "team1": { "uuid": "..." },
+    "team2": { "uuid": "f41dd752-07b0-42e8-afe2-4662a81eadf9" }
+  }
 }
 ```
 

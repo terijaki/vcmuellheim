@@ -4,21 +4,23 @@
  */
 
 export interface AdminSessionUser {
-	id: string;
-	email: string;
-	name?: string;
-	authRole?: string;
+  id: string;
+  email: string;
+  name?: string;
+  authRole?: string;
 }
 
 /**
  * Maps a raw better-auth user object to AdminSessionUser.
  * Exported for unit testing.
  */
-export function mapSessionUser(user: { id: string; email: string; name?: string | null } & Record<string, unknown>): AdminSessionUser {
-	return {
-		id: user.id,
-		email: user.email,
-		name: user.name ?? undefined,
-		authRole: typeof user.authRole === "string" ? user.authRole : undefined,
-	};
+export function mapSessionUser(
+  user: { id: string; email: string; name?: string | null } & Record<string, unknown>,
+): AdminSessionUser {
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.name ?? undefined,
+    authRole: typeof user.authRole === "string" ? user.authRole : undefined,
+  };
 }

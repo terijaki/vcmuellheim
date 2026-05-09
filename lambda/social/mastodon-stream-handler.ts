@@ -24,109 +24,109 @@ const WEBSITE_URL = env.WEBSITE_URL;
 const CONTENT_TABLE_NAME = env.CONTENT_TABLE_NAME;
 
 interface MastodonShareRequest {
-	newsArticle: News;
-	websiteUrl: string;
+  newsArticle: News;
+  websiteUrl: string;
 }
 
 /**
  * Process DynamoDB stream records and trigger Mastodon sharing for newly published articles
  */
 async function lambdaHandler(event: DynamoDBStreamEvent): Promise<void> {
-	logger.info("Processing DynamoDB stream event", { recordCount: event.Records.length });
+  logger.info("Processing DynamoDB stream event", { recordCount: event.Records.length });
 
-	// Only process in production
-	if (ENVIRONMENT !== "prod") {
-		logger.info("Skipping Mastodon sharing - not in production environment");
-		return;
-	}
+  // Only process in production
+  if (ENVIRONMENT !== "prod") {
+    logger.info("Skipping Mastodon sharing - not in production environment");
+    return;
+  }
 
-	for (const record of event.Records) {
-		try {
-			const newImage = record.dynamodb?.NewImage;
+  for (const record of event.Records) {
+    try {
+      const newImage = record.dynamodb?.NewImage;
 
-			if (!newImage) {
-				logger.info("Skipping record - missing new image");
-				continue;
-			}
+      if (!newImage) {
+        logger.info("Skipping record - missing new image");
+        continue;
+      }
 
-			// Unmarshall new DynamoDB record
-			const newItem = unmarshall(newImage as Record<string, AttributeValue>);
+      // Unmarshall new DynamoDB record
+      const newItem = unmarshall(newImage as Record<string, AttributeValue>);
 
-			// In the single content table, stream events cover all entity types.
-			// Only process news articles (type === "article").
-			if (newItem.type !== "article") {
-				continue;
-			}
+      // In the single content table, stream events cover all entity types.
+      // Only process news articles (type === "article").
+      if (newItem.type !== "article") {
+        continue;
+      }
 
-			// Now we know this is a news article
-			const newNews = newItem as News;
-			const notYetShared = !newNews.sharedToMastodon;
+      // Now we know this is a news article
+      const newNews = newItem as News;
+      const notYetShared = !newNews.sharedToMastodon;
 
-			// Check if this is a news article being published
-			let isBeingPublished = false;
+      // Check if this is a news article being published
+      let isBeingPublished = false;
 
-			if (record.eventName === "MODIFY") {
-				// Status transition to published (e.g., draft → published, archived → published)
-				const oldImage = record.dynamodb?.OldImage;
-				if (oldImage) {
-					const oldNews = unmarshall(oldImage as Record<string, AttributeValue>) as News;
-					isBeingPublished = oldNews.status !== "published" && newNews.status === "published";
-				}
-			} else if (record.eventName === "INSERT") {
-				// New article created directly with published status
-				isBeingPublished = newNews.status === "published";
-			}
+      if (record.eventName === "MODIFY") {
+        // Status transition to published (e.g., draft → published, archived → published)
+        const oldImage = record.dynamodb?.OldImage;
+        if (oldImage) {
+          const oldNews = unmarshall(oldImage as Record<string, AttributeValue>) as News;
+          isBeingPublished = oldNews.status !== "published" && newNews.status === "published";
+        }
+      } else if (record.eventName === "INSERT") {
+        // New article created directly with published status
+        isBeingPublished = newNews.status === "published";
+      }
 
-			if (isBeingPublished && notYetShared) {
-				logger.info("News article being published - triggering Mastodon share", {
-					id: newNews.id,
-					title: newNews.title,
-					slug: newNews.slug,
-				});
+      if (isBeingPublished && notYetShared) {
+        logger.info("News article being published - triggering Mastodon share", {
+          id: newNews.id,
+          title: newNews.title,
+          slug: newNews.slug,
+        });
 
-				// Prepare payload for Mastodon Lambda
-				const payload: MastodonShareRequest = {
-					newsArticle: newNews,
-					websiteUrl: WEBSITE_URL,
-				};
+        // Prepare payload for Mastodon Lambda
+        const payload: MastodonShareRequest = {
+          newsArticle: newNews,
+          websiteUrl: WEBSITE_URL,
+        };
 
-				// Invoke Mastodon Lambda asynchronously
-				await lambdaClient.send(
-					new InvokeCommand({
-						FunctionName: MASTODON_LAMBDA_NAME,
-						InvocationType: "Event", // Async invocation
-						Payload: JSON.stringify(payload),
-					}),
-				);
+        // Invoke Mastodon Lambda asynchronously
+        await lambdaClient.send(
+          new InvokeCommand({
+            FunctionName: MASTODON_LAMBDA_NAME,
+            InvocationType: "Event", // Async invocation
+            Payload: JSON.stringify(payload),
+          }),
+        );
 
-				logger.info("Mastodon share triggered successfully");
+        logger.info("Mastodon share triggered successfully");
 
-				// Update the news article to mark it as shared
-				await docClient.send(
-					new UpdateCommand({
-						TableName: CONTENT_TABLE_NAME,
-						Key: { id: newNews.id },
-						UpdateExpression: "SET #sharedToMastodon = :true, #updatedAt = :updatedAt",
-						ExpressionAttributeNames: {
-							"#sharedToMastodon": "sharedToMastodon",
-							"#updatedAt": "updatedAt",
-						},
-						ExpressionAttributeValues: {
-							":true": true,
-							":updatedAt": new Date().toISOString(),
-						},
-					}),
-				);
+        // Update the news article to mark it as shared
+        await docClient.send(
+          new UpdateCommand({
+            TableName: CONTENT_TABLE_NAME,
+            Key: { id: newNews.id },
+            UpdateExpression: "SET #sharedToMastodon = :true, #updatedAt = :updatedAt",
+            ExpressionAttributeNames: {
+              "#sharedToMastodon": "sharedToMastodon",
+              "#updatedAt": "updatedAt",
+            },
+            ExpressionAttributeValues: {
+              ":true": true,
+              ":updatedAt": new Date().toISOString(),
+            },
+          }),
+        );
 
-				logger.info("News article marked as shared to Mastodon");
-			}
-		} catch (error) {
-			logger.error("Error processing stream record", { error });
-			// Don't throw - we want to continue processing other records
-		}
-	}
+        logger.info("News article marked as shared to Mastodon");
+      }
+    } catch (error) {
+      logger.error("Error processing stream record", { error });
+      // Don't throw - we want to continue processing other records
+    }
+  }
 
-	logger.info("Finished processing DynamoDB stream event");
+  logger.info("Finished processing DynamoDB stream event");
 }
 
 export const handler = Sentry.wrapHandler(lambdaHandler);

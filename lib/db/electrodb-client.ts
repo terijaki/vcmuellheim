@@ -15,34 +15,34 @@ import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { Service } from "electrodb";
 import { docClient } from "./client";
 import {
-	BusEntity,
-	EventEntity,
-	LocationEntity,
-	MediaEntity,
-	MemberEntity,
-	NewsEntity,
-	SponsorEntity,
-	TeamEntity,
-	VolunteerEventEntity,
-	VolunteerSignupEntity,
-	VolunteerTokenEntity,
+  BusEntity,
+  EventEntity,
+  LocationEntity,
+  MediaEntity,
+  MemberEntity,
+  NewsEntity,
+  SponsorEntity,
+  TeamEntity,
+  VolunteerEventEntity,
+  VolunteerSignupEntity,
+  VolunteerTokenEntity,
 } from "./electrodb-entities";
 import { getContentTableName, getSamsTableName } from "./env";
 import { SamsClubEntity, SamsTeamEntity } from "./sams-electrodb-entities";
 
 /** All entities registered in the service */
 const entityMap = {
-	news: NewsEntity,
-	event: EventEntity,
-	team: TeamEntity,
-	member: MemberEntity,
-	media: MediaEntity,
-	sponsor: SponsorEntity,
-	location: LocationEntity,
-	bus: BusEntity,
-	volunteerEvent: VolunteerEventEntity,
-	volunteerSignup: VolunteerSignupEntity,
-	volunteerToken: VolunteerTokenEntity,
+  news: NewsEntity,
+  event: EventEntity,
+  team: TeamEntity,
+  member: MemberEntity,
+  media: MediaEntity,
+  sponsor: SponsorEntity,
+  location: LocationEntity,
+  bus: BusEntity,
+  volunteerEvent: VolunteerEventEntity,
+  volunteerSignup: VolunteerSignupEntity,
+  volunteerToken: VolunteerTokenEntity,
 } as const;
 
 /**
@@ -50,7 +50,7 @@ const entityMap = {
  * Returns the `entities` object so individual entities can be used directly.
  */
 export function createDb(client: DynamoDBDocumentClient, tableName: string) {
-	return new Service(entityMap, { client, table: tableName }).entities;
+  return new Service(entityMap, { client, table: tableName }).entities;
 }
 
 // Singleton for webapp (uses the shared docClient and CONTENT_TABLE_NAME env var)
@@ -62,10 +62,10 @@ let _db: ReturnType<typeof createDb> | null = null;
  * can be set by tests before the module is first evaluated.
  */
 export function db(): ReturnType<typeof createDb> {
-	if (!_db) {
-		_db = createDb(docClient, getContentTableName());
-	}
-	return _db;
+  if (!_db) {
+    _db = createDb(docClient, getContentTableName());
+  }
+  return _db;
 }
 
 // ---------------------------------------------------------------------------
@@ -73,8 +73,8 @@ export function db(): ReturnType<typeof createDb> {
 // ---------------------------------------------------------------------------
 
 const samsEntityMap = {
-	club: SamsClubEntity,
-	team: SamsTeamEntity,
+  club: SamsClubEntity,
+  team: SamsTeamEntity,
 } as const;
 
 /**
@@ -82,7 +82,7 @@ const samsEntityMap = {
  * Returns the `entities` object so individual entities can be used directly.
  */
 export function createSamsDb(client: DynamoDBDocumentClient, tableName: string) {
-	return new Service(samsEntityMap, { client, table: tableName }).entities;
+  return new Service(samsEntityMap, { client, table: tableName }).entities;
 }
 
 // Singleton for webapp
@@ -94,8 +94,8 @@ let _samsDb: ReturnType<typeof createSamsDb> | null = null;
  * can be set by tests before the module is first evaluated.
  */
 export function samsDb(): ReturnType<typeof createSamsDb> {
-	if (!_samsDb) {
-		_samsDb = createSamsDb(docClient, getSamsTableName());
-	}
-	return _samsDb;
+  if (!_samsDb) {
+    _samsDb = createSamsDb(docClient, getSamsTableName());
+  }
+  return _samsDb;
 }

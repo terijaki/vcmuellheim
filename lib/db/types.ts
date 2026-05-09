@@ -7,17 +7,17 @@
 
 import type { z } from "zod";
 import type {
-	busSchema,
-	eventSchema,
-	locationSchema,
-	mediaSchema,
-	memberSchema,
-	newsSchema,
-	sponsorSchema,
-	teamSchema,
-	volunteerEventSchema,
-	volunteerSignupSchema,
-	volunteerTokenSchema,
+  busSchema,
+  eventSchema,
+  locationSchema,
+  mediaSchema,
+  memberSchema,
+  newsSchema,
+  sponsorSchema,
+  teamSchema,
+  volunteerEventSchema,
+  volunteerSignupSchema,
+  volunteerTokenSchema,
 } from "./schemas";
 
 /** Inferred types from Zod schemas */
@@ -34,9 +34,9 @@ export type VolunteerSignup = z.infer<typeof volunteerSignupSchema>;
 export type VolunteerToken = z.infer<typeof volunteerTokenSchema>;
 /** Base entity type (all entities extend this) */
 export type BaseEntity = {
-	id: string;
-	createdAt: string;
-	updatedAt: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 /** Pagination cursor — ElectroDB base64-encoded last-evaluated-key string */

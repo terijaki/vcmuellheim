@@ -9,21 +9,21 @@
  */
 
 export interface OtpEmailOptions {
-	otp: string;
-	otpLoginLink: string;
-	clubShortName: string;
-	domain: string;
-	expirationMinutes: number;
+  otp: string;
+  otpLoginLink: string;
+  clubShortName: string;
+  domain: string;
+  expirationMinutes: number;
 }
 
 export function buildOtpEmailSubject(clubShortName: string): string {
-	return `Dein Anmeldecode für das ${clubShortName} CMS`;
+  return `Dein Anmeldecode für das ${clubShortName} CMS`;
 }
 
 export function buildOtpEmailHtml(options: OtpEmailOptions): string {
-	const { otp, otpLoginLink, clubShortName, domain, expirationMinutes } = options;
+  const { otp, otpLoginLink, clubShortName, domain, expirationMinutes } = options;
 
-	return `<p>Hallo,</p>
+  return `<p>Hallo,</p>
 <p>dein Anmeldecode für das ${clubShortName} CMS lautet:</p>
 <h2 style="letter-spacing: 4px; font-size: 32px;">${otp}</h2>
 <p>Du kannst dich entweder:</p>
@@ -40,9 +40,9 @@ export function buildOtpEmailHtml(options: OtpEmailOptions): string {
 }
 
 export function buildOtpEmailText(options: OtpEmailOptions): string {
-	const { otp, otpLoginLink, clubShortName, domain, expirationMinutes } = options;
+  const { otp, otpLoginLink, clubShortName, domain, expirationMinutes } = options;
 
-	return `Dein Anmeldecode für das ${clubShortName} CMS: ${otp}
+  return `Dein Anmeldecode für das ${clubShortName} CMS: ${otp}
 
 Per Link im CMS anmelden: ${otpLoginLink}
 

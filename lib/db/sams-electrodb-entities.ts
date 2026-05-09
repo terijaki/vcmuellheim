@@ -13,10 +13,10 @@ import { Entity } from "electrodb";
 
 /** Shared GSI names used across SAMS entities in the single SAMS data table */
 export const SamsTableIndexes = {
-	/** Main table index */
-	table: "table",
-	/** Type + nameSlug sorted queries (club list, team list by slug) */
-	gsi1: "GSI1-BySamsType",
+  /** Main table index */
+  table: "table",
+  /** Type + nameSlug sorted queries (club list, team list by slug) */
+  gsi1: "GSI1-BySamsType",
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -24,34 +24,34 @@ export const SamsTableIndexes = {
 // ---------------------------------------------------------------------------
 
 export const SamsClubEntity = new Entity({
-	model: {
-		entity: "samsclub",
-		service: "vcm",
-		version: "1",
-	},
-	attributes: {
-		sportsclubUuid: { type: "string", required: true },
-		type: { type: "string", required: true, default: () => "club" as const },
-		name: { type: "string", required: true },
-		nameSlug: { type: "string", required: true },
-		associationUuid: { type: "string" },
-		associationName: { type: "string" },
-		logoImageLink: { type: "string" },
-		logoS3Key: { type: "string" },
-		updatedAt: { type: "string", required: true },
-		ttl: { type: "number", required: true },
-	},
-	indexes: {
-		bySportsclubUuid: {
-			pk: { field: "pk", composite: ["sportsclubUuid"] },
-			sk: { field: "sk", composite: [] },
-		},
-		byType: {
-			index: SamsTableIndexes.gsi1,
-			pk: { field: "gsi1pk", composite: ["type"] },
-			sk: { field: "gsi1sk", composite: ["nameSlug"] },
-		},
-	},
+  model: {
+    entity: "samsclub",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    sportsclubUuid: { type: "string", required: true },
+    type: { type: "string", required: true, default: () => "club" as const },
+    name: { type: "string", required: true },
+    nameSlug: { type: "string", required: true },
+    associationUuid: { type: "string" },
+    associationName: { type: "string" },
+    logoImageLink: { type: "string" },
+    logoS3Key: { type: "string" },
+    updatedAt: { type: "string", required: true },
+    ttl: { type: "number", required: true },
+  },
+  indexes: {
+    bySportsclubUuid: {
+      pk: { field: "pk", composite: ["sportsclubUuid"] },
+      sk: { field: "sk", composite: [] },
+    },
+    byType: {
+      index: SamsTableIndexes.gsi1,
+      pk: { field: "gsi1pk", composite: ["type"] },
+      sk: { field: "gsi1sk", composite: ["nameSlug"] },
+    },
+  },
 } as const);
 
 // ---------------------------------------------------------------------------
@@ -59,43 +59,43 @@ export const SamsClubEntity = new Entity({
 // ---------------------------------------------------------------------------
 
 export const SamsTeamEntity = new Entity({
-	model: {
-		entity: "samsteam",
-		service: "vcm",
-		version: "1",
-	},
-	attributes: {
-		uuid: { type: "string", required: true },
-		type: { type: "string", required: true, default: () => "team" as const },
-		name: { type: "string", required: true },
-		nameSlug: { type: "string", required: true },
-		sportsclubUuid: { type: "string", required: true },
-		associationUuid: { type: "string", required: true },
-		leagueUuid: { type: "string", required: true },
-		leagueName: { type: "string", required: true },
-		leagueHierarchyLevel: { type: "number" },
-		seasonUuid: { type: "string", required: true },
-		seasonName: { type: "string", required: true },
-		updatedAt: { type: "string", required: true },
-		ttl: { type: "number", required: true },
-	},
-	indexes: {
-		byUuid: {
-			pk: { field: "pk", composite: ["uuid"] },
-			sk: { field: "sk", composite: [] },
-		},
-		byType: {
-			index: SamsTableIndexes.gsi1,
-			pk: { field: "gsi1pk", composite: ["type"] },
-			sk: { field: "gsi1sk", composite: ["nameSlug"] },
-		},
-	},
+  model: {
+    entity: "samsteam",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    uuid: { type: "string", required: true },
+    type: { type: "string", required: true, default: () => "team" as const },
+    name: { type: "string", required: true },
+    nameSlug: { type: "string", required: true },
+    sportsclubUuid: { type: "string", required: true },
+    associationUuid: { type: "string", required: true },
+    leagueUuid: { type: "string", required: true },
+    leagueName: { type: "string", required: true },
+    leagueHierarchyLevel: { type: "number" },
+    seasonUuid: { type: "string", required: true },
+    seasonName: { type: "string", required: true },
+    updatedAt: { type: "string", required: true },
+    ttl: { type: "number", required: true },
+  },
+  indexes: {
+    byUuid: {
+      pk: { field: "pk", composite: ["uuid"] },
+      sk: { field: "sk", composite: [] },
+    },
+    byType: {
+      index: SamsTableIndexes.gsi1,
+      pk: { field: "gsi1pk", composite: ["type"] },
+      sk: { field: "gsi1sk", composite: ["nameSlug"] },
+    },
+  },
 } as const);
 
 /** All SAMS entities — useful for building a service */
 export const SamsEntities = {
-	club: SamsClubEntity,
-	team: SamsTeamEntity,
+  club: SamsClubEntity,
+  team: SamsTeamEntity,
 } as const;
 
 export type SamsEntityName = keyof typeof SamsEntities;

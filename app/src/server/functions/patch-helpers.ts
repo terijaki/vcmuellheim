@@ -11,21 +11,21 @@
  *   removeKeys — array to pass to `.remove(removeKeys)`
  */
 export function resolveNullableUpdates<K extends string>(
-	fields: Record<K, string | number | boolean | null | undefined>,
+  fields: Record<K, string | number | boolean | null | undefined>,
 ): {
-	setFields: Record<string, string | number | boolean>;
-	removeKeys: K[];
+  setFields: Record<string, string | number | boolean>;
+  removeKeys: K[];
 } {
-	const setFields: Record<string, string | number | boolean> = {};
-	const removeKeys: K[] = [];
+  const setFields: Record<string, string | number | boolean> = {};
+  const removeKeys: K[] = [];
 
-	for (const [key, value] of Object.entries<string | number | boolean | null | undefined>(fields)) {
-		if (value === null) {
-			removeKeys.push(key as K);
-		} else if (value !== undefined) {
-			setFields[key] = value;
-		}
-	}
+  for (const [key, value] of Object.entries<string | number | boolean | null | undefined>(fields)) {
+    if (value === null) {
+      removeKeys.push(key as K);
+    } else if (value !== undefined) {
+      setFields[key] = value;
+    }
+  }
 
-	return { setFields, removeKeys };
+  return { setFields, removeKeys };
 }

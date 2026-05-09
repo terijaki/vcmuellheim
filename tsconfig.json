@@ -1,41 +1,41 @@
 {
-	"compilerOptions": {
-		"target": "ES2022",
-		"lib": ["ES2022", "DOM", "DOM.Iterable"],
-		"module": "ESNext",
-		"strict": true,
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"resolveJsonModule": true,
-		"forceConsistentCasingInFileNames": true,
-		"jsx": "react-jsx",
-		/* Bundler mode */
-		"moduleResolution": "bundler",
-		"allowImportingTsExtensions": true,
-		"isolatedModules": true,
-		"noEmit": true,
-		/* Path aliases */
-		"paths": {
-			"@/*": ["./*"],
-			"@lib/*": ["./lib/*"],
-			"@lambda/*": ["./lambda/*"],
-			"@utils/*": ["./utils/*"],
-			"@data/*": ["./data/*"],
-			"@codegen/*": ["./codegen/*"],
-			"@webapp/*": ["./app/src/*"],
-			"@project.config": ["./project.config.ts"]
-		},
-		/* Linting */
-		"noFallthroughCasesInSwitch": true,
-		/* Types */
-		"types": ["node"]
-	},
-	"include": ["**/*.ts", "**/*.tsx"],
-	"exclude": [
-		"node_modules",
-		"codegen/sams/generated/**",
-		"data/migrations",
-		"apps/*/src/**", // required to avoid TS errors between different app tsconfigs
-		"app/src/**" // required to avoid TS errors between different app tsconfigs
-	]
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    /* Path aliases */
+    "paths": {
+      "@/*": ["./*"],
+      "@lib/*": ["./lib/*"],
+      "@lambda/*": ["./lambda/*"],
+      "@utils/*": ["./utils/*"],
+      "@data/*": ["./data/*"],
+      "@codegen/*": ["./codegen/*"],
+      "@webapp/*": ["./app/src/*"],
+      "@project.config": ["./project.config.ts"]
+    },
+    /* Linting */
+    "noFallthroughCasesInSwitch": true,
+    /* Types */
+    "types": ["node"]
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "codegen/sams/generated/**",
+    "data/migrations",
+    "apps/*/src/**", // required to avoid TS errors between different app tsconfigs
+    "app/src/**" // required to avoid TS errors between different app tsconfigs
+  ]
 }

@@ -16,61 +16,67 @@ const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
 // ── Public ──────────────────────────────────────────────────────────────────
 
 export const getFileUrlFn = createServerFn()
-	.inputValidator(z.object({ s3Key: z.string() }))
-	.handler(async ({ data }): Promise<string | null> => {
-		if (!data.s3Key) return null;
-		const cfUrl = MEDIA_CLOUDFRONT_URL();
-		if (cfUrl) return `${cfUrl}/${data.s3Key}`;
-		const command = new GetObjectCommand({ Bucket: BUCKET_NAME(), Key: data.s3Key });
-		return getSignedUrl(s3Client, command, { expiresIn: 3600 });
-	});
+  .inputValidator(z.object({ s3Key: z.string() }))
+  .handler(async ({ data }): Promise<string | null> => {
+    if (!data.s3Key) return null;
+    const cfUrl = MEDIA_CLOUDFRONT_URL();
+    if (cfUrl) return `${cfUrl}/${data.s3Key}`;
+    const command = new GetObjectCommand({ Bucket: BUCKET_NAME(), Key: data.s3Key });
+    return getSignedUrl(s3Client, command, { expiresIn: 3600 });
+  });
 
 export const getFileUrlsFn = createServerFn()
-	.inputValidator(z.object({ s3Keys: z.array(z.string()).optional().default([]) }))
-	.handler(async ({ data }): Promise<string[]> => {
-		const result: string[] = [];
-		const cfUrl = MEDIA_CLOUDFRONT_URL();
-		for (const s3Key of data.s3Keys) {
-			if (cfUrl) {
-				result.push(`${cfUrl}/${s3Key}`);
-			} else {
-				const command = new GetObjectCommand({ Bucket: BUCKET_NAME(), Key: s3Key });
-				result.push(await getSignedUrl(s3Client, command, { expiresIn: 3600 }));
-			}
-		}
-		return result;
-	});
+  .inputValidator(z.object({ s3Keys: z.array(z.string()).optional().default([]) }))
+  .handler(async ({ data }): Promise<string[]> => {
+    const result: string[] = [];
+    const cfUrl = MEDIA_CLOUDFRONT_URL();
+    for (const s3Key of data.s3Keys) {
+      if (cfUrl) {
+        result.push(`${cfUrl}/${s3Key}`);
+      } else {
+        const command = new GetObjectCommand({ Bucket: BUCKET_NAME(), Key: s3Key });
+        result.push(await getSignedUrl(s3Client, command, { expiresIn: 3600 }));
+      }
+    }
+    return result;
+  });
 
 // ── Protected ────────────────────────────────────────────────────────────────
 
 export const getPresignedUrlFn = createServerFn()
-	.middleware([requireAuthMiddleware])
-	.inputValidator(
-		z.object({
-			filename: z.string(),
-			contentType: z.string(),
-			folder: z.enum(["sponsors", "teams", "members", "news", "media"]).default("media"),
-		}),
-	)
-	.handler(async ({ data }) => {
-		const fileExtension = data.filename.split(".").pop() || "";
-		const sanitizedExtension = fileExtension.toLowerCase().replace(/[^a-z0-9]/g, "");
-		const uuid = randomUUID();
-		const finalKey = sanitizedExtension ? `${data.folder}/${uuid}.${sanitizedExtension}` : `${data.folder}/${uuid}`;
-		const isSvg = sanitizedExtension === "svg";
-		const uploadKey = isSvg ? finalKey : sanitizedExtension ? `uploads/${data.folder}/${uuid}.${sanitizedExtension}` : `uploads/${data.folder}/${uuid}`;
+  .middleware([requireAuthMiddleware])
+  .inputValidator(
+    z.object({
+      filename: z.string(),
+      contentType: z.string(),
+      folder: z.enum(["sponsors", "teams", "members", "news", "media"]).default("media"),
+    }),
+  )
+  .handler(async ({ data }) => {
+    const fileExtension = data.filename.split(".").pop() || "";
+    const sanitizedExtension = fileExtension.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const uuid = randomUUID();
+    const finalKey = sanitizedExtension
+      ? `${data.folder}/${uuid}.${sanitizedExtension}`
+      : `${data.folder}/${uuid}`;
+    const isSvg = sanitizedExtension === "svg";
+    const uploadKey = isSvg
+      ? finalKey
+      : sanitizedExtension
+        ? `uploads/${data.folder}/${uuid}.${sanitizedExtension}`
+        : `uploads/${data.folder}/${uuid}`;
 
-		const command = new PutObjectCommand({
-			Bucket: BUCKET_NAME(),
-			Key: uploadKey,
-			ContentType: data.contentType,
-		});
+    const command = new PutObjectCommand({
+      Bucket: BUCKET_NAME(),
+      Key: uploadKey,
+      ContentType: data.contentType,
+    });
 
-		const presignedUrl = await getSignedUrl(s3Client, command, { expiresIn: 300 });
+    const presignedUrl = await getSignedUrl(s3Client, command, { expiresIn: 300 });
 
-		return {
-			uploadUrl: presignedUrl,
-			key: finalKey,
-			bucket: BUCKET_NAME(),
-		};
-	});
+    return {
+      uploadUrl: presignedUrl,
+      key: finalKey,
+      bucket: BUCKET_NAME(),
+    };
+  });

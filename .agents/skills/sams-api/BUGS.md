@@ -41,8 +41,8 @@ All issues are upstream API defects, unless noted otherwise.
 
 ```json
 {
-	"logoImageLink": "https://dvv.sams-server.de/uploads/…/USV-pink.png",
-	"logoImageForScreenOutputLink": null
+  "logoImageLink": "https://dvv.sams-server.de/uploads/…/USV-pink.png",
+  "logoImageForScreenOutputLink": null
 }
 ```
 
@@ -103,8 +103,8 @@ Note that the `time` is a separate string field (`HH:mm`), confirming the intent
 
 ```json
 {
-	"referees": { "$ref": "#/components/schemas/RefereeTeamDto", "nullable": true },
-	"results": { "$ref": "#/components/schemas/VolleyballMatchResultsDto", "nullable": true }
+  "referees": { "$ref": "#/components/schemas/RefereeTeamDto", "nullable": true },
+  "results": { "$ref": "#/components/schemas/VolleyballMatchResultsDto", "nullable": true }
 }
 ```
 
@@ -129,9 +129,9 @@ Note that the `time` is a separate string field (`HH:mm`), confirming the intent
 
 ```json
 {
-	"uuid": "...",
-	"name": "Verbandsliga",
-	"parentLeagueHierarchyUuid": null
+  "uuid": "...",
+  "name": "Verbandsliga",
+  "parentLeagueHierarchyUuid": null
 }
 ```
 

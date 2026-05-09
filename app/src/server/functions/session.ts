@@ -6,12 +6,12 @@ export type { AdminSessionUser } from "./session-utils";
 export { mapSessionUser } from "./session-utils";
 
 export const getSessionFn = createServerFn()
-	.middleware([sessionMiddleware])
-	.handler(async ({ context }): Promise<AdminSessionUser | null> => {
-		if (!context.session) return null;
-		return {
-			id: context.session.userId,
-			email: context.session.userEmail,
-			authRole: context.session.userRole,
-		};
-	});
+  .middleware([sessionMiddleware])
+  .handler(async ({ context }): Promise<AdminSessionUser | null> => {
+    if (!context.session) return null;
+    return {
+      id: context.session.userId,
+      email: context.session.userEmail,
+      authRole: context.session.userRole,
+    };
+  });
