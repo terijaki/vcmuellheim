@@ -1,7 +1,12 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadEnv, type PluginOption } from "vite-plus";
-import { CONTENT_TABLE_ENV_VAR, computeSamsDataTableName } from "../../lib/db/env.ts";
+import {
+  CACHE_TABLE_ENV_VAR,
+  CONTENT_TABLE_ENV_VAR,
+  computeCacheTableName,
+  computeSamsDataTableName,
+} from "../../lib/db/env.ts";
 import { getSanitizedBranch } from "../../utils/git.ts";
 import { buildWebappUrl } from "../../utils/webapp-url.ts";
 
@@ -38,6 +43,7 @@ function applyLocalAwsResourceEnv(environment: string) {
 
   // Single content table for all entities
   setDefaultEnv(CONTENT_TABLE_ENV_VAR, `vcm-content-${environment}${branchSuffix}`);
+  setDefaultEnv(CACHE_TABLE_ENV_VAR, computeCacheTableName(environment, sanitizedBranch));
 
   setDefaultEnv("SAMS_TABLE_NAME", computeSamsDataTableName(environment, sanitizedBranch));
   setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
