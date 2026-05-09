@@ -1,4 +1,10 @@
-import { zLeagueMatchDto, zLeagueRankingsEntryDto, zLocation, zSeasonDto, zVolleyballMatchResultsDto } from "@codegen/sams/generated/zod.gen";
+import {
+  zLeagueMatchDto,
+  zLeagueRankingsEntryDto,
+  zLocation,
+  zSeasonDto,
+  zVolleyballMatchResultsDto,
+} from "@codegen/sams/generated/zod.gen";
 import { z } from "zod";
 import { optionalEnvString, requiredEnvString } from "../utils/env";
 
@@ -7,8 +13,8 @@ import { optionalEnvString, requiredEnvString } from "../utils/env";
 // ============================================================================
 
 export const SamsCommonLambdaEnvironmentSchema = z.object({
-	SAMS_API_KEY: requiredEnvString,
-	CDK_ENVIRONMENT: optionalEnvString,
+  SAMS_API_KEY: requiredEnvString,
+  CDK_ENVIRONMENT: optionalEnvString,
 });
 
 export type SamsCommonLambdaEnvironment = z.infer<typeof SamsCommonLambdaEnvironmentSchema>;
@@ -17,44 +23,48 @@ export const SamsAssociationsLambdaEnvironmentSchema = SamsCommonLambdaEnvironme
 export const SamsSeasonsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema;
 export const SamsRankingsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema;
 
-export type SamsAssociationsLambdaEnvironment = z.infer<typeof SamsAssociationsLambdaEnvironmentSchema>;
+export type SamsAssociationsLambdaEnvironment = z.infer<
+  typeof SamsAssociationsLambdaEnvironmentSchema
+>;
 export type SamsSeasonsLambdaEnvironment = z.infer<typeof SamsSeasonsLambdaEnvironmentSchema>;
 export type SamsRankingsLambdaEnvironment = z.infer<typeof SamsRankingsLambdaEnvironmentSchema>;
 
 export const SamsLeagueMatchesLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
-	SAMS_TABLE_NAME: requiredEnvString,
+  SAMS_TABLE_NAME: requiredEnvString,
 });
 
-export type SamsLeagueMatchesLambdaEnvironment = z.infer<typeof SamsLeagueMatchesLambdaEnvironmentSchema>;
+export type SamsLeagueMatchesLambdaEnvironment = z.infer<
+  typeof SamsLeagueMatchesLambdaEnvironmentSchema
+>;
 
 export const SamsClubsSyncLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
-	SAMS_TABLE_NAME: requiredEnvString,
-	MEDIA_BUCKET_NAME: requiredEnvString,
-	MEDIA_CLOUDFRONT_URL: requiredEnvString,
+  SAMS_TABLE_NAME: requiredEnvString,
+  MEDIA_BUCKET_NAME: requiredEnvString,
+  MEDIA_CLOUDFRONT_URL: requiredEnvString,
 });
 
 export type SamsClubsSyncLambdaEnvironment = z.infer<typeof SamsClubsSyncLambdaEnvironmentSchema>;
 
 export const SamsTeamsSyncLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
-	SAMS_TABLE_NAME: requiredEnvString,
+  SAMS_TABLE_NAME: requiredEnvString,
 });
 
 export type SamsTeamsSyncLambdaEnvironment = z.infer<typeof SamsTeamsSyncLambdaEnvironmentSchema>;
 
 export const SamsClubsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
-	SAMS_TABLE_NAME: requiredEnvString,
+  SAMS_TABLE_NAME: requiredEnvString,
 });
 
 export type SamsClubsLambdaEnvironment = z.infer<typeof SamsClubsLambdaEnvironmentSchema>;
 
 export const SamsTeamsLambdaEnvironmentSchema = SamsCommonLambdaEnvironmentSchema.extend({
-	SAMS_TABLE_NAME: requiredEnvString,
+  SAMS_TABLE_NAME: requiredEnvString,
 });
 
 export type SamsTeamsLambdaEnvironment = z.infer<typeof SamsTeamsLambdaEnvironmentSchema>;
 
 export const SamsLogoProxyLambdaEnvironmentSchema = z.object({
-	SAMS_TABLE_NAME: requiredEnvString,
+  SAMS_TABLE_NAME: requiredEnvString,
 });
 
 export type SamsLogoProxyLambdaEnvironment = z.infer<typeof SamsLogoProxyLambdaEnvironmentSchema>;
@@ -67,16 +77,16 @@ export type SamsLogoProxyLambdaEnvironment = z.infer<typeof SamsLogoProxyLambdaE
  * Base club schema for DynamoDB
  */
 const BaseClubItemSchema = z.object({
-	type: z.literal("club").default("club").describe("GSI partition key type"),
-	sportsclubUuid: z.string(),
-	name: z.string(),
-	nameSlug: z.string(), // Used for case-insensitive queries
-	associationUuid: z.string().nullish(),
-	associationName: z.string().nullish(),
-	logoImageLink: z.string().nullish(),
-	logoS3Key: z.string().nullish(),
-	updatedAt: z.string(),
-	ttl: z.number(), // DynamoDB TTL field
+  type: z.literal("club").default("club").describe("GSI partition key type"),
+  sportsclubUuid: z.string(),
+  name: z.string(),
+  nameSlug: z.string(), // Used for case-insensitive queries
+  associationUuid: z.string().nullish(),
+  associationName: z.string().nullish(),
+  logoImageLink: z.string().nullish(),
+  logoS3Key: z.string().nullish(),
+  updatedAt: z.string(),
+  ttl: z.number(), // DynamoDB TTL field
 });
 
 /**
@@ -84,8 +94,8 @@ const BaseClubItemSchema = z.object({
  * Automatically strips undefined values to save storage
  */
 export const ClubItemSchema = BaseClubItemSchema.transform((data) => {
-	// Remove undefined values to save DynamoDB storage
-	return Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined));
+  // Remove undefined values to save DynamoDB storage
+  return Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined));
 });
 
 export type ClubItem = z.infer<typeof ClubItemSchema>;
@@ -95,8 +105,8 @@ export type ClubItem = z.infer<typeof ClubItemSchema>;
  * Excludes internal fields (nameSlug, ttl)
  */
 export const ClubResponseSchema = BaseClubItemSchema.omit({
-	nameSlug: true,
-	ttl: true,
+  nameSlug: true,
+  ttl: true,
 });
 
 export type ClubResponse = z.infer<typeof ClubResponseSchema>;
@@ -105,8 +115,8 @@ export type ClubResponse = z.infer<typeof ClubResponseSchema>;
  * Response for multiple clubs
  */
 export const ClubsResponseSchema = z.object({
-	clubs: z.array(ClubResponseSchema),
-	count: z.number(),
+  clubs: z.array(ClubResponseSchema),
+  count: z.number(),
 });
 
 export type ClubsResponse = z.infer<typeof ClubsResponseSchema>;
@@ -114,7 +124,10 @@ export type ClubsResponse = z.infer<typeof ClubsResponseSchema>;
 /**
  * Query options for getting a club's logo
  */
-export const ClubLogoQueryParamsSchema = z.union([z.object({ clubUuid: z.uuid(), clubSlug: z.undefined() }).strict(), z.object({ clubSlug: z.string().min(3), clubUuid: z.undefined() }).strict()]);
+export const ClubLogoQueryParamsSchema = z.union([
+  z.object({ clubUuid: z.uuid(), clubSlug: z.undefined() }).strict(),
+  z.object({ clubSlug: z.string().min(3), clubUuid: z.undefined() }).strict(),
+]);
 
 export type ClubLogoQueryParams = z.infer<typeof ClubLogoQueryParamsSchema>;
 
@@ -126,19 +139,23 @@ export type ClubLogoQueryParams = z.infer<typeof ClubLogoQueryParamsSchema>;
  * Base team schema for DynamoDB
  */
 const BaseTeamItemSchema = z.object({
-	type: z.literal("team").default("team").describe("GSI partition key type"),
-	uuid: z.string(),
-	name: z.string(),
-	nameSlug: z.string(), // Used for case-insensitive queries
-	sportsclubUuid: z.string(),
-	associationUuid: z.string(),
-	leagueUuid: z.string(),
-	leagueName: z.string(),
-	leagueHierarchyLevel: z.number().nonnegative().optional().describe("Optional league hierarchy level for sorting; lower means higher league"),
-	seasonUuid: z.string(),
-	seasonName: z.string(),
-	updatedAt: z.string(),
-	ttl: z.number(), // DynamoDB TTL field
+  type: z.literal("team").default("team").describe("GSI partition key type"),
+  uuid: z.string(),
+  name: z.string(),
+  nameSlug: z.string(), // Used for case-insensitive queries
+  sportsclubUuid: z.string(),
+  associationUuid: z.string(),
+  leagueUuid: z.string(),
+  leagueName: z.string(),
+  leagueHierarchyLevel: z
+    .number()
+    .nonnegative()
+    .optional()
+    .describe("Optional league hierarchy level for sorting; lower means higher league"),
+  seasonUuid: z.string(),
+  seasonName: z.string(),
+  updatedAt: z.string(),
+  ttl: z.number(), // DynamoDB TTL field
 });
 
 /**
@@ -146,8 +163,8 @@ const BaseTeamItemSchema = z.object({
  * Automatically strips undefined values to save storage
  */
 export const TeamItemSchema = BaseTeamItemSchema.transform((data) => {
-	// Remove undefined values to save DynamoDB storage
-	return Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined));
+  // Remove undefined values to save DynamoDB storage
+  return Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined));
 });
 
 export type TeamItem = z.infer<typeof TeamItemSchema>;
@@ -157,8 +174,8 @@ export type TeamItem = z.infer<typeof TeamItemSchema>;
  * Excludes internal fields (nameSlug, ttl)
  */
 export const TeamResponseSchema = BaseTeamItemSchema.omit({
-	nameSlug: true,
-	ttl: true,
+  nameSlug: true,
+  ttl: true,
 });
 
 export type TeamResponse = z.infer<typeof TeamResponseSchema>;
@@ -167,7 +184,7 @@ export type TeamResponse = z.infer<typeof TeamResponseSchema>;
  * Response for multiple teams
  */
 export const TeamsResponseSchema = z.object({
-	teams: z.array(TeamResponseSchema),
+  teams: z.array(TeamResponseSchema),
 });
 
 export type TeamsResponse = z.infer<typeof TeamsResponseSchema>;
@@ -180,9 +197,9 @@ export type TeamsResponse = z.infer<typeof TeamsResponseSchema>;
  * Response containing current, next, and previous seasons
  */
 export const SeasonsResponseSchema = z.object({
-	current: zSeasonDto,
-	next: zSeasonDto.nullish(),
-	previous: zSeasonDto.nullish(),
+  current: zSeasonDto,
+  next: zSeasonDto.nullish(),
+  previous: zSeasonDto.nullish(),
 });
 
 export type SeasonsResponse = z.infer<typeof SeasonsResponseSchema>;
@@ -195,22 +212,22 @@ export type SeasonsResponse = z.infer<typeof SeasonsResponseSchema>;
  * League rankings response
  */
 const RankingEntryResponseSchema = zLeagueRankingsEntryDto.pick({
-	uuid: true,
-	teamName: true,
-	rank: true,
-	matchesPlayed: true,
-	points: true,
-	wins: true,
-	setWins: true,
-	setLosses: true,
+  uuid: true,
+  teamName: true,
+  rank: true,
+  matchesPlayed: true,
+  points: true,
+  wins: true,
+  setWins: true,
+  setLosses: true,
 });
 
 export const RankingResponseSchema = z.object({
-	teams: z.optional(z.array(RankingEntryResponseSchema)),
-	timestamp: z.iso.datetime(),
-	leagueUuid: z.string(),
-	leagueName: z.string().nullish(),
-	seasonName: z.string().nullish(),
+  teams: z.optional(z.array(RankingEntryResponseSchema)),
+  timestamp: z.iso.datetime(),
+  leagueUuid: z.string(),
+  leagueName: z.string().nullish(),
+  seasonName: z.string().nullish(),
 });
 
 export type RankingResponse = z.infer<typeof RankingResponseSchema>;
@@ -224,49 +241,49 @@ export type RankingResponse = z.infer<typeof RankingResponseSchema>;
  * Using generated schema - results field is properly typed as nullable
  */
 const LeagueMatchTeamSchema = z.object({
-	uuid: z.string(),
-	name: z.string(),
-	sportsclubUuid: z.string(),
+  uuid: z.string(),
+  name: z.string(),
+  sportsclubUuid: z.string(),
 });
 
 const LeagueMatchEmbeddedSchema = z
-	.object({
-		team1: LeagueMatchTeamSchema.optional(),
-		team2: LeagueMatchTeamSchema.optional(),
-	})
-	.nullish();
+  .object({
+    team1: LeagueMatchTeamSchema.optional(),
+    team2: LeagueMatchTeamSchema.optional(),
+  })
+  .nullish();
 
 const LeagueMatchLocationSchema = zLocation
-	.pick({
-		uuid: true,
-		name: true,
-		longitude: true,
-		latitude: true,
-		address: true,
-	})
-	.nullish();
+  .pick({
+    uuid: true,
+    name: true,
+    longitude: true,
+    latitude: true,
+    address: true,
+  })
+  .nullish();
 
 const LeagueMatchResponseItemSchema = zLeagueMatchDto
-	.pick({
-		uuid: true,
-		date: true,
-		time: true,
-		matchNumber: true,
-		host: true,
-		leagueUuid: true,
-		results: true,
-		location: true,
-		_embedded: true,
-	})
-	.extend({
-		results: zVolleyballMatchResultsDto.nullish(),
-		location: LeagueMatchLocationSchema,
-		_embedded: LeagueMatchEmbeddedSchema,
-	});
+  .pick({
+    uuid: true,
+    date: true,
+    time: true,
+    matchNumber: true,
+    host: true,
+    leagueUuid: true,
+    results: true,
+    location: true,
+    _embedded: true,
+  })
+  .extend({
+    results: zVolleyballMatchResultsDto.nullish(),
+    location: LeagueMatchLocationSchema,
+    _embedded: LeagueMatchEmbeddedSchema,
+  });
 
 export const LeagueMatchesResponseSchema = z.object({
-	matches: z.array(LeagueMatchResponseItemSchema),
-	timestamp: z.iso.datetime(),
+  matches: z.array(LeagueMatchResponseItemSchema),
+  timestamp: z.iso.datetime(),
 });
 
 export type LeagueMatchesResponse = z.infer<typeof LeagueMatchesResponseSchema>;
@@ -276,37 +293,37 @@ export type LeagueMatchesResponse = z.infer<typeof LeagueMatchesResponseSchema>;
 // ============================================================================
 
 const TickerSetSchema = z.object({
-	setNumber: z.number(),
-	setScore: z.object({
-		team1: z.number(),
-		team2: z.number(),
-	}),
+  setNumber: z.number(),
+  setScore: z.object({
+    team1: z.number(),
+    team2: z.number(),
+  }),
 });
 
 const TickerMatchStateSchema = z.object({
-	started: z.boolean(),
-	finished: z.boolean(),
-	setPoints: z.object({
-		team1: z.number(),
-		team2: z.number(),
-	}),
-	matchSets: z.array(TickerSetSchema),
+  started: z.boolean(),
+  finished: z.boolean(),
+  setPoints: z.object({
+    team1: z.number(),
+    team2: z.number(),
+  }),
+  matchSets: z.array(TickerSetSchema),
 });
 
 export const LiveMatchSchema = z.object({
-	matchUuid: z.string(),
-	team1Uuid: z.string(),
-	team2Uuid: z.string(),
-	team1Name: z.string(),
-	team2Name: z.string(),
-	state: TickerMatchStateSchema,
+  matchUuid: z.string(),
+  team1Uuid: z.string(),
+  team2Uuid: z.string(),
+  team1Name: z.string(),
+  team2Name: z.string(),
+  state: TickerMatchStateSchema,
 });
 
 export type LiveMatch = z.infer<typeof LiveMatchSchema>;
 
 export const LiveTickerResponseSchema = z.object({
-	liveMatches: z.array(LiveMatchSchema),
-	timestamp: z.iso.datetime(),
+  liveMatches: z.array(LiveMatchSchema),
+  timestamp: z.iso.datetime(),
 });
 
 export type LiveTickerResponse = z.infer<typeof LiveTickerResponseSchema>;

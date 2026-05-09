@@ -10,7 +10,16 @@
  */
 
 import type { EntityItem } from "electrodb";
-import type { BusEntity, EventEntity, LocationEntity, MediaEntity, MemberEntity, NewsEntity, SponsorEntity, TeamEntity } from "./electrodb-entities";
+import type {
+  BusEntity,
+  EventEntity,
+  LocationEntity,
+  MediaEntity,
+  MemberEntity,
+  NewsEntity,
+  SponsorEntity,
+  TeamEntity,
+} from "./electrodb-entities";
 import type { Bus, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
 
 // ---------------------------------------------------------------------------
@@ -35,31 +44,68 @@ import type { Bus, Event, Location, Media, Member, News, Sponsor, Team } from ".
 type AssertAssignable<TZod, TElectro extends TZod> = TElectro;
 
 // News
-export type _NewsCheck = AssertAssignable<Required<Pick<News, "id" | "title" | "slug" | "content" | "createdAt" | "updatedAt">>, EntityItem<typeof NewsEntity>>;
+export type _NewsCheck = AssertAssignable<
+  Required<Pick<News, "id" | "title" | "slug" | "content" | "createdAt" | "updatedAt">>,
+  EntityItem<typeof NewsEntity>
+>;
 
 // Event
-export type _EventCheck = AssertAssignable<Required<Pick<Event, "id" | "title" | "startDate" | "createdAt" | "updatedAt">>, EntityItem<typeof EventEntity>>;
+export type _EventCheck = AssertAssignable<
+  Required<Pick<Event, "id" | "title" | "startDate" | "createdAt" | "updatedAt">>,
+  EntityItem<typeof EventEntity>
+>;
 
 // Team
-export type _TeamCheck = AssertAssignable<Required<Pick<Team, "id" | "name" | "slug" | "gender" | "createdAt" | "updatedAt">>, EntityItem<typeof TeamEntity>>;
+export type _TeamCheck = AssertAssignable<
+  Required<Pick<Team, "id" | "name" | "slug" | "gender" | "createdAt" | "updatedAt">>,
+  EntityItem<typeof TeamEntity>
+>;
 
 // Member
-export type _MemberCheck = AssertAssignable<Required<Pick<Member, "id" | "name" | "createdAt" | "updatedAt">>, EntityItem<typeof MemberEntity>>;
+export type _MemberCheck = AssertAssignable<
+  Required<Pick<Member, "id" | "name" | "createdAt" | "updatedAt">>,
+  EntityItem<typeof MemberEntity>
+>;
 
 // Media
 export type _MediaCheck = AssertAssignable<
-	Required<Pick<Media, "id" | "filename" | "mimeType" | "url" | "s3Key" | "s3Bucket" | "fileSize" | "uploadedBy" | "createdAt" | "updatedAt">>,
-	EntityItem<typeof MediaEntity>
+  Required<
+    Pick<
+      Media,
+      | "id"
+      | "filename"
+      | "mimeType"
+      | "url"
+      | "s3Key"
+      | "s3Bucket"
+      | "fileSize"
+      | "uploadedBy"
+      | "createdAt"
+      | "updatedAt"
+    >
+  >,
+  EntityItem<typeof MediaEntity>
 >;
 
 // Sponsor
-export type _SponsorCheck = AssertAssignable<Required<Pick<Sponsor, "id" | "name" | "createdAt" | "updatedAt">>, EntityItem<typeof SponsorEntity>>;
+export type _SponsorCheck = AssertAssignable<
+  Required<Pick<Sponsor, "id" | "name" | "createdAt" | "updatedAt">>,
+  EntityItem<typeof SponsorEntity>
+>;
 
 // Location
-export type _LocationCheck = AssertAssignable<Required<Pick<Location, "id" | "name" | "street" | "postal" | "city" | "createdAt" | "updatedAt">>, EntityItem<typeof LocationEntity>>;
+export type _LocationCheck = AssertAssignable<
+  Required<
+    Pick<Location, "id" | "name" | "street" | "postal" | "city" | "createdAt" | "updatedAt">
+  >,
+  EntityItem<typeof LocationEntity>
+>;
 
 // Bus
-export type _BusCheck = AssertAssignable<Required<Pick<Bus, "id" | "driver" | "from" | "to" | "ttl" | "createdAt" | "updatedAt">>, EntityItem<typeof BusEntity>>;
+export type _BusCheck = AssertAssignable<
+  Required<Pick<Bus, "id" | "driver" | "from" | "to" | "ttl" | "createdAt" | "updatedAt">>,
+  EntityItem<typeof BusEntity>
+>;
 
 // ---------------------------------------------------------------------------
 // Runtime type guards — use these to safely narrow unknown DynamoDB items
@@ -67,102 +113,117 @@ export type _BusCheck = AssertAssignable<Required<Pick<Bus, "id" | "driver" | "f
 
 /** Type guard: checks that `item` has the minimum shape of a News article */
 export function isNews(item: unknown): item is News {
-	if (!item || typeof item !== "object") return false;
-	const obj = item as Record<string, unknown>;
-	return (
-		typeof obj.id === "string" &&
-		obj.type === "article" &&
-		typeof obj.title === "string" &&
-		typeof obj.slug === "string" &&
-		typeof obj.content === "string" &&
-		(obj.status === "draft" || obj.status === "published" || obj.status === "archived") &&
-		typeof obj.createdAt === "string" &&
-		typeof obj.updatedAt === "string"
-	);
+  if (!item || typeof item !== "object") return false;
+  const obj = item as Record<string, unknown>;
+  return (
+    typeof obj.id === "string" &&
+    obj.type === "article" &&
+    typeof obj.title === "string" &&
+    typeof obj.slug === "string" &&
+    typeof obj.content === "string" &&
+    (obj.status === "draft" || obj.status === "published" || obj.status === "archived") &&
+    typeof obj.createdAt === "string" &&
+    typeof obj.updatedAt === "string"
+  );
 }
 
 /** Type guard: checks that `item` has the minimum shape of an Event */
 export function isEvent(item: unknown): item is Event {
-	if (!item || typeof item !== "object") return false;
-	const obj = item as Record<string, unknown>;
-	return (
-		typeof obj.id === "string" && obj.type === "event" && typeof obj.title === "string" && typeof obj.startDate === "string" && typeof obj.createdAt === "string" && typeof obj.updatedAt === "string"
-	);
+  if (!item || typeof item !== "object") return false;
+  const obj = item as Record<string, unknown>;
+  return (
+    typeof obj.id === "string" &&
+    obj.type === "event" &&
+    typeof obj.title === "string" &&
+    typeof obj.startDate === "string" &&
+    typeof obj.createdAt === "string" &&
+    typeof obj.updatedAt === "string"
+  );
 }
 
 /** Type guard: checks that `item` has the minimum shape of a Team */
 export function isTeam(item: unknown): item is Team {
-	if (!item || typeof item !== "object") return false;
-	const obj = item as Record<string, unknown>;
-	return (
-		typeof obj.id === "string" &&
-		obj.type === "team" &&
-		typeof obj.name === "string" &&
-		typeof obj.slug === "string" &&
-		(obj.gender === "male" || obj.gender === "female" || obj.gender === "mixed") &&
-		typeof obj.createdAt === "string" &&
-		typeof obj.updatedAt === "string"
-	);
+  if (!item || typeof item !== "object") return false;
+  const obj = item as Record<string, unknown>;
+  return (
+    typeof obj.id === "string" &&
+    obj.type === "team" &&
+    typeof obj.name === "string" &&
+    typeof obj.slug === "string" &&
+    (obj.gender === "male" || obj.gender === "female" || obj.gender === "mixed") &&
+    typeof obj.createdAt === "string" &&
+    typeof obj.updatedAt === "string"
+  );
 }
 
 /** Type guard: checks that `item` has the minimum shape of a Member */
 export function isMember(item: unknown): item is Member {
-	if (!item || typeof item !== "object") return false;
-	const obj = item as Record<string, unknown>;
-	return typeof obj.id === "string" && typeof obj.name === "string" && typeof obj.createdAt === "string" && typeof obj.updatedAt === "string";
+  if (!item || typeof item !== "object") return false;
+  const obj = item as Record<string, unknown>;
+  return (
+    typeof obj.id === "string" &&
+    typeof obj.name === "string" &&
+    typeof obj.createdAt === "string" &&
+    typeof obj.updatedAt === "string"
+  );
 }
 
 /** Type guard: checks that `item` has the minimum shape of a Media record */
 export function isMedia(item: unknown): item is Media {
-	if (!item || typeof item !== "object") return false;
-	const obj = item as Record<string, unknown>;
-	return (
-		typeof obj.id === "string" &&
-		typeof obj.filename === "string" &&
-		typeof obj.mimeType === "string" &&
-		typeof obj.url === "string" &&
-		typeof obj.s3Key === "string" &&
-		typeof obj.s3Bucket === "string" &&
-		typeof obj.fileSize === "number" &&
-		typeof obj.uploadedBy === "string" &&
-		typeof obj.createdAt === "string" &&
-		typeof obj.updatedAt === "string"
-	);
+  if (!item || typeof item !== "object") return false;
+  const obj = item as Record<string, unknown>;
+  return (
+    typeof obj.id === "string" &&
+    typeof obj.filename === "string" &&
+    typeof obj.mimeType === "string" &&
+    typeof obj.url === "string" &&
+    typeof obj.s3Key === "string" &&
+    typeof obj.s3Bucket === "string" &&
+    typeof obj.fileSize === "number" &&
+    typeof obj.uploadedBy === "string" &&
+    typeof obj.createdAt === "string" &&
+    typeof obj.updatedAt === "string"
+  );
 }
 
 /** Type guard: checks that `item` has the minimum shape of a Sponsor */
 export function isSponsor(item: unknown): item is Sponsor {
-	if (!item || typeof item !== "object") return false;
-	const obj = item as Record<string, unknown>;
-	return typeof obj.id === "string" && typeof obj.name === "string" && typeof obj.createdAt === "string" && typeof obj.updatedAt === "string";
+  if (!item || typeof item !== "object") return false;
+  const obj = item as Record<string, unknown>;
+  return (
+    typeof obj.id === "string" &&
+    typeof obj.name === "string" &&
+    typeof obj.createdAt === "string" &&
+    typeof obj.updatedAt === "string"
+  );
 }
 
 /** Type guard: checks that `item` has the minimum shape of a Location */
 export function isLocation(item: unknown): item is Location {
-	if (!item || typeof item !== "object") return false;
-	const obj = item as Record<string, unknown>;
-	return (
-		typeof obj.id === "string" &&
-		typeof obj.name === "string" &&
-		typeof obj.street === "string" &&
-		typeof obj.postal === "string" &&
-		typeof obj.city === "string" &&
-		typeof obj.createdAt === "string" &&
-		typeof obj.updatedAt === "string"
-	);
+  if (!item || typeof item !== "object") return false;
+  const obj = item as Record<string, unknown>;
+  return (
+    typeof obj.id === "string" &&
+    typeof obj.name === "string" &&
+    typeof obj.street === "string" &&
+    typeof obj.postal === "string" &&
+    typeof obj.city === "string" &&
+    typeof obj.createdAt === "string" &&
+    typeof obj.updatedAt === "string"
+  );
 }
 
 /** Type guard: checks that `item` has the minimum shape of a Bus booking */
 export function isBus(item: unknown): item is Bus {
-	if (!item || typeof item !== "object") return false;
-	const obj = item as Record<string, unknown>;
-	return (
-		typeof obj.id === "string" &&
-		typeof obj.driver === "string" &&
-		typeof obj.from === "string" &&
-		typeof obj.to === "string" &&
-		typeof obj.ttl === "number" &&
-		typeof obj.createdAt === "string" &&
-		typeof obj.updatedAt === "string"
-	);
+  if (!item || typeof item !== "object") return false;
+  const obj = item as Record<string, unknown>;
+  return (
+    typeof obj.id === "string" &&
+    typeof obj.driver === "string" &&
+    typeof obj.from === "string" &&
+    typeof obj.to === "string" &&
+    typeof obj.ttl === "number" &&
+    typeof obj.createdAt === "string" &&
+    typeof obj.updatedAt === "string"
+  );
 }

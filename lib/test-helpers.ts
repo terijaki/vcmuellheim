@@ -6,5 +6,5 @@ import { App } from "aws-cdk-lib";
  * during stack synthesis, which significantly speeds up CDK stack tests.
  */
 export function createTestApp() {
-	return new App({ context: { "aws:cdk:bundling-stacks": [] } });
+  return new App({ context: { "aws:cdk:bundling-stacks": [] } });
 }

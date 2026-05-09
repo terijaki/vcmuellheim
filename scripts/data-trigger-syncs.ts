@@ -7,12 +7,14 @@ import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 
 // Check for active AWS session
 function checkAwsSession() {
-	try {
-		execSync("aws sts get-caller-identity", { stdio: "ignore" });
-	} catch {
-		console.error("❌ No active AWS session found. Please authenticate via AWS SSO before running this script. See docs/SETUP.md for setup instructions.");
-		process.exit(1);
-	}
+  try {
+    execSync("aws sts get-caller-identity", { stdio: "ignore" });
+  } catch {
+    console.error(
+      "❌ No active AWS session found. Please authenticate via AWS SSO before running this script. See docs/SETUP.md for setup instructions.",
+    );
+    process.exit(1);
+  }
 }
 checkAwsSession();
 
@@ -24,45 +26,47 @@ const BRANCH = ENVIRONMENT === "prod" ? "" : getSanitizedBranch();
 const REGION = process.env.CDK_REGION || "eu-central-1";
 
 /** List of SAMS sync Lambda functions to invoke */
-const lambdaNames = [`vcm-sams-clubs-sync`, `vcm-sams-teams-sync`].map((name) => (BRANCH ? `${name}-${ENVIRONMENT}-${BRANCH}` : `${name}-${ENVIRONMENT}`));
+const lambdaNames = [`vcm-sams-clubs-sync`, `vcm-sams-teams-sync`].map((name) =>
+  BRANCH ? `${name}-${ENVIRONMENT}-${BRANCH}` : `${name}-${ENVIRONMENT}`,
+);
 
 const client = new LambdaClient({ region: REGION });
 
 async function invokeSync(name: string) {
-	try {
-		const cmd = new InvokeCommand({
-			FunctionName: name,
-			InvocationType: "RequestResponse",
-			Payload: Buffer.from("{}"),
-		});
-		const result = await client.send(cmd);
-		const payload = result.Payload ? Buffer.from(result.Payload).toString() : "";
-		console.log(`✅ Invoked ${name}`);
-		if (payload) {
-			console.log(payload);
-		}
-		return true;
-	} catch (err) {
-		console.error(`❌ Failed to invoke ${name}`);
-		console.error(err);
-		return false;
-	}
+  try {
+    const cmd = new InvokeCommand({
+      FunctionName: name,
+      InvocationType: "RequestResponse",
+      Payload: Buffer.from("{}"),
+    });
+    const result = await client.send(cmd);
+    const payload = result.Payload ? Buffer.from(result.Payload).toString() : "";
+    console.log(`✅ Invoked ${name}`);
+    if (payload) {
+      console.log(payload);
+    }
+    return true;
+  } catch (err) {
+    console.error(`❌ Failed to invoke ${name}`);
+    console.error(err);
+    return false;
+  }
 }
 
 function sleep(ms: number) {
-	return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function main() {
-	console.log("=== Triggering SAMS sync Lambdas ===\n");
-	for (const [i, name] of lambdaNames.entries()) {
-		await invokeSync(name);
-		if (i < lambdaNames.length - 1) {
-			console.log("Waiting 5 seconds before next sync...");
-			await sleep(5000);
-		}
-	}
-	console.log("\n=== All syncs triggered ===");
+  console.log("=== Triggering SAMS sync Lambdas ===\n");
+  for (const [i, name] of lambdaNames.entries()) {
+    await invokeSync(name);
+    if (i < lambdaNames.length - 1) {
+      console.log("Waiting 5 seconds before next sync...");
+      await sleep(5000);
+    }
+  }
+  console.log("\n=== All syncs triggered ===");
 }
 
 main();

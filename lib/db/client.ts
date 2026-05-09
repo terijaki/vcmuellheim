@@ -15,13 +15,13 @@ const tracedDynamoDBClient = tracer.captureAWSv3Client(dynamoDBClient);
 
 /** Document client for easier data marshalling with tracing enabled */
 export const docClient = DynamoDBDocumentClient.from(tracedDynamoDBClient, {
-	marshallOptions: {
-		removeUndefinedValues: true, // Remove undefined fields
-		convertClassInstanceToMap: true,
-	},
-	unmarshallOptions: {
-		wrapNumbers: false, // Return numbers as native JavaScript numbers
-	},
+  marshallOptions: {
+    removeUndefinedValues: true, // Remove undefined fields
+    convertClassInstanceToMap: true,
+  },
+  unmarshallOptions: {
+    wrapNumbers: false, // Return numbers as native JavaScript numbers
+  },
 });
 
 /** Export raw client for advanced use cases */

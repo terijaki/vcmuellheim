@@ -1,4 +1,15 @@
-import { Anchor, Avatar, Button, Card, CardSection, Center, Flex, Group, Stack, Text } from "@mantine/core";
+import {
+  Anchor,
+  Avatar,
+  Button,
+  Card,
+  CardSection,
+  Center,
+  Flex,
+  Group,
+  Stack,
+  Text,
+} from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
 import CenteredLoader from "@webapp/components/CenteredLoader";
@@ -14,8 +25,18 @@ import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import { useFileUrls, useLocations, useMembers, useSamsMatches, useTeamBySlug } from "@/app/src/hooks/dataQueries";
-import { listSamsTeamsFn, peekSamsMatchesCacheFn, peekSamsRankingsCacheFn } from "@/app/src/server/functions/sams";
+import {
+  useFileUrls,
+  useLocations,
+  useMembers,
+  useSamsMatches,
+  useTeamBySlug,
+} from "@/app/src/hooks/dataQueries";
+import {
+  listSamsTeamsFn,
+  peekSamsMatchesCacheFn,
+  peekSamsRankingsCacheFn,
+} from "@/app/src/server/functions/sams";
 import { getTeamBySlugFn } from "@/app/src/server/functions/teams";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 
@@ -23,262 +44,337 @@ dayjs.locale(de);
 dayjs.extend(weekday);
 
 export const Route = createFileRoute("/_layout/teams/$slug")({
-	loader: async ({ params }) => {
-		const { slug } = params;
-		const [team, samsTeamsResult] = await Promise.all([getTeamBySlugFn({ data: { slug } }), listSamsTeamsFn()]);
+  loader: async ({ params }) => {
+    const { slug } = params;
+    const [team, samsTeamsResult] = await Promise.all([
+      getTeamBySlugFn({ data: { slug } }),
+      listSamsTeamsFn(),
+    ]);
 
-		if (!team) {
-			return { team: null, rankings: undefined, matches: undefined };
-		}
+    if (!team) {
+      return { team: null, rankings: undefined, matches: undefined };
+    }
 
-		const samsTeam = samsTeamsResult.teams.find((t) => t.uuid === team.sbvvTeamId);
+    const samsTeam = samsTeamsResult.teams.find((t) => t.uuid === team.sbvvTeamId);
 
-		if (!samsTeam) {
-			return { team, samsTeam: undefined, rankings: undefined, matches: undefined };
-		}
+    if (!samsTeam) {
+      return { team, samsTeam: undefined, rankings: undefined, matches: undefined };
+    }
 
-		const [rankings, matches] = await Promise.all([
-			samsTeam.leagueUuid ? peekSamsRankingsCacheFn({ data: { leagueUuids: [samsTeam.leagueUuid] } }) : Promise.resolve(undefined),
-			peekSamsMatchesCacheFn({ data: { team: samsTeam.uuid } }).then((m) => m ?? undefined),
-		]);
+    const [rankings, matches] = await Promise.all([
+      samsTeam.leagueUuid
+        ? peekSamsRankingsCacheFn({ data: { leagueUuids: [samsTeam.leagueUuid] } })
+        : Promise.resolve(undefined),
+      peekSamsMatchesCacheFn({ data: { team: samsTeam.uuid } }).then((m) => m ?? undefined),
+    ]);
 
-		return { team, samsTeam, rankings, matches };
-	},
-	component: RouteComponent,
+    return { team, samsTeam, rankings, matches };
+  },
+  component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { slug } = Route.useParams();
-	const loaderData = Route.useLoaderData();
-	const { data: team, isLoading, error } = useTeamBySlug(slug);
+  const { slug } = Route.useParams();
+  const loaderData = Route.useLoaderData();
+  const { data: team, isLoading, error } = useTeamBySlug(slug);
 
-	if (isLoading) {
-		return (
-			<PageWithHeading title="Mannschaft">
-				<CenteredLoader text="Lade Mannschaftsdaten..." />
-			</PageWithHeading>
-		);
-	}
+  if (isLoading) {
+    return (
+      <PageWithHeading title="Mannschaft">
+        <CenteredLoader text="Lade Mannschaftsdaten..." />
+      </PageWithHeading>
+    );
+  }
 
-	if (error || !team) {
-		return <EntityNotFound entityName="Mannschaft" title="Mannschaft nicht gefunden" description="Diese Mannschaft existiert nicht oder wurde entfernt." />;
-	}
+  if (error || !team) {
+    return (
+      <EntityNotFound
+        entityName="Mannschaft"
+        title="Mannschaft nicht gefunden"
+        description="Diese Mannschaft existiert nicht oder wurde entfernt."
+      />
+    );
+  }
 
-	return (
-		<PageWithHeading title={team.name} subtitle={team.league || undefined}>
-			<Stack>
-				<Suspense fallback={<CenteredLoader text="Lade Trainingszeiten..." />}>
-					<TeamSchedule team={team} />
-				</Suspense>
-				<Suspense fallback={<CenteredLoader text="Lade Trainer..." />}>
-					<TeamTrainers team={team} />
-				</Suspense>
-				<Suspense fallback={<CenteredLoader text="Lade Fotos..." />}>
-					<TeamPictures team={team} />
-				</Suspense>
-				<Suspense fallback={<CenteredLoader text="Lade Tabelle..." />}>
-					{loaderData.samsTeam?.leagueUuid && <RankingTable leagueUuid={loaderData.samsTeam.leagueUuid} initialData={loaderData.rankings?.[0]} currentTeamId={loaderData.samsTeam.uuid} />}
-				</Suspense>
-				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
-					<TeamCalendar slug={slug} loaderSamsTeam={loaderData.samsTeam} />
-				</Suspense>
-				<Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
-					<TeamMatches loaderSamsTeam={loaderData.samsTeam} loaderMatches={loaderData.matches} />
-				</Suspense>
-				<Center>
-					<Button component={Link} to="/#mannschaften">
-						zu den anderen Mannschaften
-					</Button>
-				</Center>
-			</Stack>
-		</PageWithHeading>
-	);
+  return (
+    <PageWithHeading title={team.name} subtitle={team.league || undefined}>
+      <Stack>
+        <Suspense fallback={<CenteredLoader text="Lade Trainingszeiten..." />}>
+          <TeamSchedule team={team} />
+        </Suspense>
+        <Suspense fallback={<CenteredLoader text="Lade Trainer..." />}>
+          <TeamTrainers team={team} />
+        </Suspense>
+        <Suspense fallback={<CenteredLoader text="Lade Fotos..." />}>
+          <TeamPictures team={team} />
+        </Suspense>
+        <Suspense fallback={<CenteredLoader text="Lade Tabelle..." />}>
+          {loaderData.samsTeam?.leagueUuid && (
+            <RankingTable
+              leagueUuid={loaderData.samsTeam.leagueUuid}
+              initialData={loaderData.rankings?.[0]}
+              currentTeamId={loaderData.samsTeam.uuid}
+            />
+          )}
+        </Suspense>
+        <Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
+          <TeamCalendar slug={slug} loaderSamsTeam={loaderData.samsTeam} />
+        </Suspense>
+        <Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
+          <TeamMatches loaderSamsTeam={loaderData.samsTeam} loaderMatches={loaderData.matches} />
+        </Suspense>
+        <Center>
+          <Button component={Link} to="/#mannschaften">
+            zu den anderen Mannschaften
+          </Button>
+        </Center>
+      </Stack>
+    </PageWithHeading>
+  );
 }
 
-function TeamCalendar({ slug, loaderSamsTeam }: { slug: string; loaderSamsTeam: ReturnType<typeof Route.useLoaderData>["samsTeam"] }) {
-	if (!loaderSamsTeam) return null;
+function TeamCalendar({
+  slug,
+  loaderSamsTeam,
+}: {
+  slug: string;
+  loaderSamsTeam: ReturnType<typeof Route.useLoaderData>["samsTeam"];
+}) {
+  if (!loaderSamsTeam) return null;
 
-	const webcalLink = createWebcalLink(`/ics/${slug}.ics`);
+  const webcalLink = createWebcalLink(`/ics/${slug}.ics`);
 
-	return (
-		<Card>
-			<CardTitle>Mannschaftskalender</CardTitle>
-			<Text>
-				<Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4, alignItems: "baseline" }}>
-					<IconSubscribe /> Abboniere unseren Kalender
-				</Anchor>
-				, um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
-			</Text>
-		</Card>
-	);
+  return (
+    <Card>
+      <CardTitle>Mannschaftskalender</CardTitle>
+      <Text>
+        <Anchor
+          href={webcalLink}
+          style={{ display: "inline-flex", gap: 4, alignItems: "baseline" }}
+        >
+          <IconSubscribe /> Abboniere unseren Kalender
+        </Anchor>
+        , um neue Termine saisonübergreifend automatisch in deiner Kalender-App zu empfangen.
+      </Text>
+    </Card>
+  );
 }
 
-function TeamMatches({ loaderSamsTeam, loaderMatches }: { loaderSamsTeam: ReturnType<typeof Route.useLoaderData>["samsTeam"]; loaderMatches?: LeagueMatchesResponse }) {
-	const matchesInitialDataUpdatedAt = loaderMatches?.timestamp ? new Date(loaderMatches.timestamp).getTime() : undefined;
+function TeamMatches({
+  loaderSamsTeam,
+  loaderMatches,
+}: {
+  loaderSamsTeam: ReturnType<typeof Route.useLoaderData>["samsTeam"];
+  loaderMatches?: LeagueMatchesResponse;
+}) {
+  const matchesInitialDataUpdatedAt = loaderMatches?.timestamp
+    ? new Date(loaderMatches.timestamp).getTime()
+    : undefined;
 
-	const { data: matches, isLoading: isLoadingMatches } = useSamsMatches({
-		team: loaderSamsTeam?.uuid,
-		initialData: loaderMatches,
-		initialDataUpdatedAt: matchesInitialDataUpdatedAt,
-	});
+  const { data: matches, isLoading: isLoadingMatches } = useSamsMatches({
+    team: loaderSamsTeam?.uuid,
+    initialData: loaderMatches,
+    initialDataUpdatedAt: matchesInitialDataUpdatedAt,
+  });
 
-	const currentMonth = dayjs().month() + 1;
-	const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
+  const currentMonth = dayjs().month() + 1;
+  const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
 
-	if (isLoadingMatches) {
-		return <CenteredLoader text="Lade Spieltermine..." />;
-	}
+  if (isLoadingMatches) {
+    return <CenteredLoader text="Lade Spieltermine..." />;
+  }
 
-	if (!isLoadingMatches && (!loaderSamsTeam || !matches)) {
-		return (
-			<Card>
-				<CardTitle>Keine Spieltermine gefunden</CardTitle>
-				{isOffSeason && <Text>Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</Text>}
-			</Card>
-		);
-	}
+  if (!isLoadingMatches && (!loaderSamsTeam || !matches)) {
+    return (
+      <Card>
+        <CardTitle>Keine Spieltermine gefunden</CardTitle>
+        {isOffSeason && (
+          <Text>
+            Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis
+            April statt.
+          </Text>
+        )}
+      </Card>
+    );
+  }
 
-	const futureMatches = matches?.matches.filter((m) => !m.results?.winner);
-	const pastMatches = matches?.matches.filter((m) => !!m.results?.winner);
+  const futureMatches = matches?.matches.filter((m) => !m.results?.winner);
+  const pastMatches = matches?.matches.filter((m) => !!m.results?.winner);
 
-	futureMatches?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date)));
-	pastMatches?.sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
+  futureMatches?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date)));
+  pastMatches?.sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
 
-	return (
-		<>
-			{pastMatches && pastMatches.length > 0 && (
-				<Card>
-					<CardTitle>Ergebnisse</CardTitle>
-					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches type="past" matches={pastMatches} timestamp={matches?.timestamp ? new Date(matches.timestamp) : undefined} highlightTeamUuid={loaderSamsTeam?.uuid} uniqueLeague />
-					</CardSection>
-				</Card>
-			)}
-			{futureMatches && futureMatches.length > 0 ? (
-				<Card>
-					<CardTitle>Spielplan</CardTitle>
-					<CardSection p={{ base: undefined, sm: "sm" }}>
-						<Matches type="future" matches={futureMatches} timestamp={matches?.timestamp ? new Date(matches.timestamp) : undefined} highlightTeamUuid={loaderSamsTeam?.uuid} />
-					</CardSection>
-				</Card>
-			) : (
-				<Card>
-					<CardTitle>Spielplan</CardTitle>
-					<Text>Aktuell stehen keine weiteren Spieltermine für diese Saison an.</Text>
-					{isOffSeason && <Text>Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis April statt.</Text>}
-				</Card>
-			)}
-		</>
-	);
+  return (
+    <>
+      {pastMatches && pastMatches.length > 0 && (
+        <Card>
+          <CardTitle>Ergebnisse</CardTitle>
+          <CardSection p={{ base: undefined, sm: "sm" }}>
+            <Matches
+              type="past"
+              matches={pastMatches}
+              timestamp={matches?.timestamp ? new Date(matches.timestamp) : undefined}
+              highlightTeamUuid={loaderSamsTeam?.uuid}
+              uniqueLeague
+            />
+          </CardSection>
+        </Card>
+      )}
+      {futureMatches && futureMatches.length > 0 ? (
+        <Card>
+          <CardTitle>Spielplan</CardTitle>
+          <CardSection p={{ base: undefined, sm: "sm" }}>
+            <Matches
+              type="future"
+              matches={futureMatches}
+              timestamp={matches?.timestamp ? new Date(matches.timestamp) : undefined}
+              highlightTeamUuid={loaderSamsTeam?.uuid}
+            />
+          </CardSection>
+        </Card>
+      ) : (
+        <Card>
+          <CardTitle>Spielplan</CardTitle>
+          <Text>Aktuell stehen keine weiteren Spieltermine für diese Saison an.</Text>
+          {isOffSeason && (
+            <Text>
+              Die Saison im Hallenvolleyball findet in der Regel in den Monaten von September bis
+              April statt.
+            </Text>
+          )}
+        </Card>
+      )}
+    </>
+  );
 }
 
 function TeamSchedule({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
-	const { data: locations } = useLocations();
+  const { data: locations } = useLocations();
 
-	if (!team.trainingSchedules || team.trainingSchedules.length === 0) return null;
+  if (!team.trainingSchedules || team.trainingSchedules.length === 0) return null;
 
-	return (
-		<Card>
-			<Stack>
-				<CardTitle>Trainingszeiten</CardTitle>
-				<Flex columnGap="xl" rowGap="md" wrap="wrap">
-					{team.trainingSchedules.map((schedule) => {
-						const location = locations?.items.find((loc) => loc.id === schedule.locationId);
-						const dayNames = schedule.days.map((d) => `${dayjs().weekday(d).format("dddd")}s`);
-						const separator = dayNames.length > 2 ? ", " : " & ";
-						const scheduleKey = `${schedule.days.join("-")}-${schedule.startTime}-${schedule.endTime}`;
+  return (
+    <Card>
+      <Stack>
+        <CardTitle>Trainingszeiten</CardTitle>
+        <Flex columnGap="xl" rowGap="md" wrap="wrap">
+          {team.trainingSchedules.map((schedule) => {
+            const location = locations?.items.find((loc) => loc.id === schedule.locationId);
+            const dayNames = schedule.days.map((d) => `${dayjs().weekday(d).format("dddd")}s`);
+            const separator = dayNames.length > 2 ? ", " : " & ";
+            const scheduleKey = `${schedule.days.join("-")}-${schedule.startTime}-${schedule.endTime}`;
 
-						return (
-							<Stack key={scheduleKey} gap={0}>
-								<Text>
-									{dayNames.join(separator)} {schedule.startTime} - {schedule.endTime} Uhr
-								</Text>
-								{location && <MapsLink name={location.name} street={location.street} postal={location.postal} city={location.city} />}
-							</Stack>
-						);
-					})}
-				</Flex>
-			</Stack>
-		</Card>
-	);
+            return (
+              <Stack key={scheduleKey} gap={0}>
+                <Text>
+                  {dayNames.join(separator)} {schedule.startTime} - {schedule.endTime} Uhr
+                </Text>
+                {location && (
+                  <MapsLink
+                    name={location.name}
+                    street={location.street}
+                    postal={location.postal}
+                    city={location.city}
+                  />
+                )}
+              </Stack>
+            );
+          })}
+        </Flex>
+      </Stack>
+    </Card>
+  );
 }
 
 function TeamTrainers({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
-	const { data: members } = useMembers();
+  const { data: members } = useMembers();
 
-	const trainers = team.trainerIds?.map((id) => members?.items.find((m) => m.id === id)).filter((x): x is NonNullable<typeof x> => x != null);
-	const contacts = team.pointOfContactIds?.map((id) => members?.items.find((m) => m.id === id)).filter((x): x is NonNullable<typeof x> => x != null);
+  const trainers = team.trainerIds
+    ?.map((id) => members?.items.find((m) => m.id === id))
+    .filter((x): x is NonNullable<typeof x> => x != null);
+  const contacts = team.pointOfContactIds
+    ?.map((id) => members?.items.find((m) => m.id === id))
+    .filter((x): x is NonNullable<typeof x> => x != null);
 
-	const { data: avatarUrls } = useFileUrls([...(trainers?.map((t) => t.avatarS3Key).filter(Boolean) || []), ...(contacts?.map((c) => c.avatarS3Key).filter(Boolean) || [])] as string[]);
+  const { data: avatarUrls } = useFileUrls([
+    ...(trainers?.map((t) => t.avatarS3Key).filter(Boolean) || []),
+    ...(contacts?.map((c) => c.avatarS3Key).filter(Boolean) || []),
+  ] as string[]);
 
-	if (!trainers?.length && !contacts?.length) {
-		return (
-			<Card>
-				<Text>
-					Bei Fragen und Interesse zu dieser Mannschaft, wende dich bitte an <Anchor href="mailto:info@vcmuellheim.de">info@vcmuellheim.de</Anchor>
-				</Text>
-			</Card>
-		);
-	}
+  if (!trainers?.length && !contacts?.length) {
+    return (
+      <Card>
+        <Text>
+          Bei Fragen und Interesse zu dieser Mannschaft, wende dich bitte an{" "}
+          <Anchor href="mailto:info@vcmuellheim.de">info@vcmuellheim.de</Anchor>
+        </Text>
+      </Card>
+    );
+  }
 
-	function MemberList({ title, memberList }: { title: string; memberList: typeof trainers }) {
-		if (!memberList || memberList.length === 0) return null;
+  function MemberList({ title, memberList }: { title: string; memberList: typeof trainers }) {
+    if (!memberList || memberList.length === 0) return null;
 
-		return (
-			<Stack>
-				<CardTitle>{title}</CardTitle>
-				<Flex wrap="wrap" gap="xl">
-					{memberList.map((member) => {
-						const avatarUrl = member.avatarS3Key ? avatarUrls?.[memberList.indexOf(member)] : undefined;
-						const Person = () => (
-							<Group key={member.id} align="center">
-								<Avatar src={avatarUrl} name={member.name} />
-								<Stack gap={0}>
-									<Text fw="bold" c="turquoise">
-										{member.name}
-									</Text>
-									{member.proxyEmail && (
-										<Text c="dimmed" size="xs">
-											{member.proxyEmail}
-										</Text>
-									)}
-								</Stack>
-							</Group>
-						);
+    return (
+      <Stack>
+        <CardTitle>{title}</CardTitle>
+        <Flex wrap="wrap" gap="xl">
+          {memberList.map((member) => {
+            const avatarUrl = member.avatarS3Key
+              ? avatarUrls?.[memberList.indexOf(member)]
+              : undefined;
+            const Person = () => (
+              <Group key={member.id} align="center">
+                <Avatar src={avatarUrl} name={member.name} />
+                <Stack gap={0}>
+                  <Text fw="bold" c="turquoise">
+                    {member.name}
+                  </Text>
+                  {member.proxyEmail && (
+                    <Text c="dimmed" size="xs">
+                      {member.proxyEmail}
+                    </Text>
+                  )}
+                </Stack>
+              </Group>
+            );
 
-						if (member.proxyEmail) {
-							return (
-								<Anchor key={member.id} href={`mailto:${member.proxyEmail}`} underline="never">
-									<Person />
-								</Anchor>
-							);
-						}
-						return <Person key={member.id} />;
-					})}
-				</Flex>
-			</Stack>
-		);
-	}
+            if (member.proxyEmail) {
+              return (
+                <Anchor key={member.id} href={`mailto:${member.proxyEmail}`} underline="never">
+                  <Person />
+                </Anchor>
+              );
+            }
+            return <Person key={member.id} />;
+          })}
+        </Flex>
+      </Stack>
+    );
+  }
 
-	return (
-		<Card>
-			<Flex wrap="wrap" columnGap="xl" rowGap="md">
-				<MemberList title="Trainer" memberList={trainers} />
-				<MemberList title={contacts && contacts.length > 1 ? "Ansprechpersonen" : "Ansprechperson"} memberList={contacts} />
-			</Flex>
-		</Card>
-	);
+  return (
+    <Card>
+      <Flex wrap="wrap" columnGap="xl" rowGap="md">
+        <MemberList title="Trainer" memberList={trainers} />
+        <MemberList
+          title={contacts && contacts.length > 1 ? "Ansprechpersonen" : "Ansprechperson"}
+          memberList={contacts}
+        />
+      </Flex>
+    </Card>
+  );
 }
 
 function TeamPictures({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
-	const { data: imageUrls } = useFileUrls(team.pictureS3Keys || []);
+  const { data: imageUrls } = useFileUrls(team.pictureS3Keys || []);
 
-	if (!team.pictureS3Keys || team.pictureS3Keys.length === 0) return null;
+  if (!team.pictureS3Keys || team.pictureS3Keys.length === 0) return null;
 
-	return (
-		<Card>
-			<CardTitle>Team Fotos</CardTitle>
-			<ImageGallery images={imageUrls || []} />
-		</Card>
-	);
+  return (
+    <Card>
+      <CardTitle>Team Fotos</CardTitle>
+      <ImageGallery images={imageUrls || []} />
+    </Card>
+  );
 }

@@ -20,9 +20,9 @@ export const IMAGE_QUALITY = 85;
 
 /** Image variant names (t-shirt sizes) for breakpoints */
 export const IMAGE_VARIANTS = {
-	sm: 480, // Small (480px)
-	md: 800, // Medium (800px)
-	lg: 1200, // Large (1200px)
+  sm: 480, // Small (480px)
+  md: 800, // Medium (800px)
+  lg: 1200, // Large (1200px)
 } as const;
 
 /** Type for image variant keys */
@@ -33,7 +33,7 @@ export const getImageSizes = (): readonly ImageSize[] => IMAGE_SIZES;
 
 /** Build srcSet string from base URL and variant URLs. Example: "`url-480w.jpg 480w, url-800w.jpg 800w, url-1200w.jpg 1200w`" */
 export const buildSrcSet = (variants: Record<ImageVariantKey, string>): string => {
-	return `
+  return `
 		${variants.sm} 480w,
         ${variants.md} 800w,
 		${variants.lg} 1200w
@@ -42,13 +42,13 @@ export const buildSrcSet = (variants: Record<ImageVariantKey, string>): string =
 
 /** Build sizes attribute for responsive images. Example: "`(max-width: 480px) 100vw, (max-width: 800px) 100vw, 1200px`" */
 export const buildSizesAttribute = (mobileView: "full" | "half" | "quarter" = "full"): string => {
-	const baseSize = {
-		full: "100vw",
-		half: "50vw",
-		quarter: "25vw",
-	}[mobileView];
+  const baseSize = {
+    full: "100vw",
+    half: "50vw",
+    quarter: "25vw",
+  }[mobileView];
 
-	return `(max-width: 480px) ${baseSize}, (max-width: 800px) ${baseSize}, 1200px`;
+  return `(max-width: 480px) ${baseSize}, (max-width: 800px) ${baseSize}, 1200px`;
 };
 
 /**
@@ -58,5 +58,5 @@ export const getImageSizesArray = (): number[] => [...IMAGE_SIZES];
 
 /** Convert bytes to MB with 1 decimal place */
 export const bytesToMB = (bytes: number, decimals: number = 1): string => {
-	return (bytes / 1024 / 1024).toFixed(decimals);
+  return (bytes / 1024 / 1024).toFixed(decimals);
 };

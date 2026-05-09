@@ -25,15 +25,15 @@ dayjs.extend(timezone);
 const isProd = process.env.CDK_ENVIRONMENT === "prod";
 
 function getSesClient(): SESClient {
-	return new SESClient({ region: process.env.AWS_REGION ?? "eu-central-1" });
+  return new SESClient({ region: process.env.AWS_REGION ?? "eu-central-1" });
 }
 
 function fromEmail(): string {
-	return isProd ? Mail.prod.systemFromEmail : Mail.dev.systemFromEmail;
+  return isProd ? Mail.prod.systemFromEmail : Mail.dev.systemFromEmail;
 }
 
 function appBaseUrl(): string {
-	return getAppBaseUrl();
+  return getAppBaseUrl();
 }
 
 /** Union of every route's real URL path (without layout-group prefixes). */
@@ -41,7 +41,7 @@ type RoutePaths = FileRoutesByPath[keyof FileRoutesByPath]["fullPath"];
 
 /** Build a type-safe route path — TypeScript errors if the path is invalid. */
 function routePath(path: RoutePaths, params: Record<string, string>): string {
-	return interpolatePath({ path, params }).interpolatedPath;
+  return interpolatePath({ path, params }).interpolatedPath;
 }
 
 // ---------------------------------------------------------------------------
@@ -49,33 +49,54 @@ function routePath(path: RoutePaths, params: Record<string, string>): string {
 // ---------------------------------------------------------------------------
 
 function buildIcsAttachment(event: VolunteerEvent, shiftId: string): string {
-	const shift = event.shifts.find((s) => s.id === shiftId);
-	if (!shift) return "";
+  const shift = event.shifts.find((s) => s.id === shiftId);
+  if (!shift) return "";
 
-	const start = dayjs(shift.startDate);
-	const end = shift.endDate ? dayjs(shift.endDate) : start.add(6, "hour");
+  const start = dayjs(shift.startDate);
+  const end = shift.endDate ? dayjs(shift.endDate) : start.add(6, "hour");
 
-	const icsEvent: IcsEvent = {
-		uid: `volunteer-signup-${shiftId}@${Club.domain}`,
-		summary: `${shift.label} - ${event.title}`,
-		start: { date: start.toDate(), type: "DATE-TIME" },
-		end: { date: end.toDate(), type: "DATE-TIME" },
-		stamp: { date: new Date(), type: "DATE-TIME" },
-		description: `${event.title}\nVeranstaltungsseite: ${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}`,
-		location: event.location ?? "",
-	};
+  const icsEvent: IcsEvent = {
+    uid: `volunteer-signup-${shiftId}@${Club.domain}`,
+    summary: `${shift.label} - ${event.title}`,
+    start: { date: start.toDate(), type: "DATE-TIME" },
+    end: { date: end.toDate(), type: "DATE-TIME" },
+    stamp: { date: new Date(), type: "DATE-TIME" },
+    description: `${event.title}\nVeranstaltungsseite: ${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}`,
+    location: event.location ?? "",
+  };
 
-	const calendar = generateIcsCalendar({ version: "2.0", prodId: `-//${Club.name}//DE`, method: "PUBLISH", events: [icsEvent] });
-	return calendar;
+  const calendar = generateIcsCalendar({
+    version: "2.0",
+    prodId: `-//${Club.name}//DE`,
+    method: "PUBLISH",
+    events: [icsEvent],
+  });
+  return calendar;
 }
 
 // ---------------------------------------------------------------------------
 // HTML templates
 // ---------------------------------------------------------------------------
 
-function buildConfirmationHtml(opts: { firstName: string; shiftLabel: string; shiftDate: string; eventTitle: string; confirmationUrl: string; organizerName: string; organizerEmail: string }): string {
-	const { firstName, shiftLabel, shiftDate, eventTitle, confirmationUrl, organizerName, organizerEmail } = opts;
-	return `<p>Hallo ${firstName},</p>
+function buildConfirmationHtml(opts: {
+  firstName: string;
+  shiftLabel: string;
+  shiftDate: string;
+  eventTitle: string;
+  confirmationUrl: string;
+  organizerName: string;
+  organizerEmail: string;
+}): string {
+  const {
+    firstName,
+    shiftLabel,
+    shiftDate,
+    eventTitle,
+    confirmationUrl,
+    organizerName,
+    organizerEmail,
+  } = opts;
+  return `<p>Hallo ${firstName},</p>
 <p>danke für deine Anmeldung zur Veranstaltung <strong>${eventTitle}</strong>!</p>
 <p>Du hast dich für den Einsatz <strong>${shiftLabel}</strong> am <strong>${shiftDate}</strong> angemeldet.</p>
 <p>Bitte bestätige deine Anmeldung innerhalb von <em>72 Stunden</em> über den folgenden Link:</p>
@@ -85,29 +106,38 @@ function buildConfirmationHtml(opts: { firstName: string; shiftLabel: string; sh
 }
 
 function buildReceiptHtml(opts: {
-	firstName: string;
-	eventLocation: string | undefined;
-	eventLocationUrl: string | undefined;
-	shiftLabel: string;
-	shiftDate: string;
-	eventUrl: string;
-	organizerName: string;
-	organizerEmail: string;
+  firstName: string;
+  eventLocation: string | undefined;
+  eventLocationUrl: string | undefined;
+  shiftLabel: string;
+  shiftDate: string;
+  eventUrl: string;
+  organizerName: string;
+  organizerEmail: string;
 }): string {
-	const { firstName, eventLocation, eventLocationUrl, shiftLabel, shiftDate, eventUrl, organizerName, organizerEmail } = opts;
+  const {
+    firstName,
+    eventLocation,
+    eventLocationUrl,
+    shiftLabel,
+    shiftDate,
+    eventUrl,
+    organizerName,
+    organizerEmail,
+  } = opts;
 
-	let locationLine = "";
-	if (eventLocation && !eventLocationUrl) {
-		locationLine = `<p><strong>Ort:</strong> ${eventLocation}</p>`;
-	}
-	if (eventLocationUrl && !eventLocation) {
-		locationLine = `<p><strong>Ort:</strong> <a href="${eventLocationUrl}" target="_blank" rel="noopener noreferrer">${eventLocationUrl}</a></p>`;
-	}
-	if (eventLocation && eventLocationUrl) {
-		locationLine = `<p><strong>Ort:</strong> <a href="${eventLocationUrl}" target="_blank" rel="noopener noreferrer">${eventLocation}</a></p>`;
-	}
+  let locationLine = "";
+  if (eventLocation && !eventLocationUrl) {
+    locationLine = `<p><strong>Ort:</strong> ${eventLocation}</p>`;
+  }
+  if (eventLocationUrl && !eventLocation) {
+    locationLine = `<p><strong>Ort:</strong> <a href="${eventLocationUrl}" target="_blank" rel="noopener noreferrer">${eventLocationUrl}</a></p>`;
+  }
+  if (eventLocation && eventLocationUrl) {
+    locationLine = `<p><strong>Ort:</strong> <a href="${eventLocationUrl}" target="_blank" rel="noopener noreferrer">${eventLocation}</a></p>`;
+  }
 
-	return `<p>Hallo ${firstName},</p>
+  return `<p>Hallo ${firstName},</p>
 <p>deine Anmeldung wurde bestätigt. Vielen Dank! 🙏</p>
 <p>Hier nochmal die Infos für dich. Im Anhang findest du den Termin als <em>Kalender-Datei</em>.</p>
 <hr/>
@@ -123,127 +153,141 @@ ${locationLine}
 // ---------------------------------------------------------------------------
 
 function formatShiftDate(shift: VolunteerEvent["shifts"][number]): string {
-	const start = dayjs(shift.startDate).tz("Europe/Berlin");
-	const formatted = start.format("dddd, D. MMMM YYYY [um] HH:mm [Uhr]");
-	return formatted;
+  const start = dayjs(shift.startDate).tz("Europe/Berlin");
+  const formatted = start.format("dddd, D. MMMM YYYY [um] HH:mm [Uhr]");
+  return formatted;
 }
 
 /** Send the confirmation email (no attachment). */
-export async function sendVolunteerConfirmationEmail(opts: { toEmail: string; firstName: string; event: VolunteerEvent; shiftId: string; tokenId: string }): Promise<void> {
-	const { toEmail, firstName, event, shiftId, tokenId } = opts;
+export async function sendVolunteerConfirmationEmail(opts: {
+  toEmail: string;
+  firstName: string;
+  event: VolunteerEvent;
+  shiftId: string;
+  tokenId: string;
+}): Promise<void> {
+  const { toEmail, firstName, event, shiftId, tokenId } = opts;
 
-	const shift = event.shifts.find((s) => s.id === shiftId);
-	if (!shift) throw new Error(`Shift ${shiftId} not found on event ${event.id}`);
+  const shift = event.shifts.find((s) => s.id === shiftId);
+  if (!shift) throw new Error(`Shift ${shiftId} not found on event ${event.id}`);
 
-	const confirmationUrl = `${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}?token=${encodeURIComponent(tokenId)}`;
-	const shiftDate = formatShiftDate(shift);
-	const organizerEmail = event.organizerEmail;
+  const confirmationUrl = `${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}?token=${encodeURIComponent(tokenId)}`;
+  const shiftDate = formatShiftDate(shift);
+  const organizerEmail = event.organizerEmail;
 
-	const html = buildConfirmationHtml({
-		firstName,
-		shiftLabel: shift.label,
-		shiftDate,
-		eventTitle: event.title,
-		confirmationUrl,
-		organizerName: event.organizerName,
-		organizerEmail,
-	});
+  const html = buildConfirmationHtml({
+    firstName,
+    shiftLabel: shift.label,
+    shiftDate,
+    eventTitle: event.title,
+    confirmationUrl,
+    organizerName: event.organizerName,
+    organizerEmail,
+  });
 
-	const ses = getSesClient();
-	await ses.send(
-		new SendEmailCommand({
-			Source: fromEmail(),
-			ReplyToAddresses: [organizerEmail],
-			Destination: { ToAddresses: [toEmail] },
-			Message: {
-				Subject: { Data: `Anmeldung bestätigen: ${event.title}`, Charset: "UTF-8" },
-				Body: {
-					Html: { Data: html, Charset: "UTF-8" },
-					Text: {
-						Data: `Hallo ${firstName},\n\nBitte bestätige deine Anmeldung: ${confirmationUrl}\n\nDieser Link ist 72 Stunden gültig.\n\nBei Fragen wende dich an: ${organizerEmail}\n\n${Club.shortName}`,
-						Charset: "UTF-8",
-					},
-				},
-			},
-		}),
-	);
+  const ses = getSesClient();
+  await ses.send(
+    new SendEmailCommand({
+      Source: fromEmail(),
+      ReplyToAddresses: [organizerEmail],
+      Destination: { ToAddresses: [toEmail] },
+      Message: {
+        Subject: { Data: `Anmeldung bestätigen: ${event.title}`, Charset: "UTF-8" },
+        Body: {
+          Html: { Data: html, Charset: "UTF-8" },
+          Text: {
+            Data: `Hallo ${firstName},\n\nBitte bestätige deine Anmeldung: ${confirmationUrl}\n\nDieser Link ist 72 Stunden gültig.\n\nBei Fragen wende dich an: ${organizerEmail}\n\n${Club.shortName}`,
+            Charset: "UTF-8",
+          },
+        },
+      },
+    }),
+  );
 }
 
 /** Send the receipt email with a .ics calendar attachment. */
-export async function sendVolunteerReceiptEmail(opts: { signup: VolunteerSignup; event: VolunteerEvent }): Promise<void> {
-	const { signup, event } = opts;
+export async function sendVolunteerReceiptEmail(opts: {
+  signup: VolunteerSignup;
+  event: VolunteerEvent;
+}): Promise<void> {
+  const { signup, event } = opts;
 
-	const shift = event.shifts.find((s) => s.id === signup.shiftId);
-	if (!shift) throw new Error(`Shift ${signup.shiftId} not found on event ${event.id}`);
+  const shift = event.shifts.find((s) => s.id === signup.shiftId);
+  if (!shift) throw new Error(`Shift ${signup.shiftId} not found on event ${event.id}`);
 
-	const icsContent = buildIcsAttachment(event, signup.shiftId);
-	const eventUrl = `${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}`;
-	const shiftDate = formatShiftDate(shift);
+  const icsContent = buildIcsAttachment(event, signup.shiftId);
+  const eventUrl = `${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}`;
+  const shiftDate = formatShiftDate(shift);
 
-	const html = buildReceiptHtml({
-		firstName: signup.firstName,
-		eventLocation: event.location,
-		eventLocationUrl: event.locationUrl,
-		shiftLabel: shift.label,
-		shiftDate,
-		eventUrl,
-		organizerName: event.organizerName,
-		organizerEmail: event.organizerEmail,
-	});
+  const html = buildReceiptHtml({
+    firstName: signup.firstName,
+    eventLocation: event.location,
+    eventLocationUrl: event.locationUrl,
+    shiftLabel: shift.label,
+    shiftDate,
+    eventUrl,
+    organizerName: event.organizerName,
+    organizerEmail: event.organizerEmail,
+  });
 
-	// Build a MIME multipart/mixed email manually so we can attach the .ics file.
-	const boundary = `vcm-boundary-${crypto.randomUUID().replace(/-/g, "")}`;
-	const from = fromEmail();
-	const to = signup.email;
-	const subject = event.title;
+  // Build a MIME multipart/mixed email manually so we can attach the .ics file.
+  const boundary = `vcm-boundary-${crypto.randomUUID().replace(/-/g, "")}`;
+  const from = fromEmail();
+  const to = signup.email;
+  const subject = event.title;
 
-	const rawMessage = [
-		`From: ${from}`,
-		`To: ${to}`,
-		`Reply-To: ${event.organizerEmail}`,
-		`Subject: ${subject}`,
-		"MIME-Version: 1.0",
-		`Content-Type: multipart/mixed; boundary="${boundary}"`,
-		"",
-		`--${boundary}`,
-		'Content-Type: text/html; charset="UTF-8"',
-		"Content-Transfer-Encoding: base64",
-		"",
-		Buffer.from(html).toString("base64"),
-		"",
-		`--${boundary}`,
-		'Content-Type: text/calendar; charset="UTF-8"; method=PUBLISH',
-		"Content-Transfer-Encoding: base64",
-		`Content-Disposition: attachment; filename="${slugify(`${event.title} ${shift.label}`, true)}.ics"`,
-		"",
-		Buffer.from(icsContent).toString("base64"),
-		"",
-		`--${boundary}--`,
-	].join("\r\n");
+  const rawMessage = [
+    `From: ${from}`,
+    `To: ${to}`,
+    `Reply-To: ${event.organizerEmail}`,
+    `Subject: ${subject}`,
+    "MIME-Version: 1.0",
+    `Content-Type: multipart/mixed; boundary="${boundary}"`,
+    "",
+    `--${boundary}`,
+    'Content-Type: text/html; charset="UTF-8"',
+    "Content-Transfer-Encoding: base64",
+    "",
+    Buffer.from(html).toString("base64"),
+    "",
+    `--${boundary}`,
+    'Content-Type: text/calendar; charset="UTF-8"; method=PUBLISH',
+    "Content-Transfer-Encoding: base64",
+    `Content-Disposition: attachment; filename="${slugify(`${event.title} ${shift.label}`, true)}.ics"`,
+    "",
+    Buffer.from(icsContent).toString("base64"),
+    "",
+    `--${boundary}--`,
+  ].join("\r\n");
 
-	const ses = getSesClient();
-	await ses.send(
-		new SendRawEmailCommand({
-			RawMessage: { Data: Buffer.from(rawMessage) },
-		}),
-	);
+  const ses = getSesClient();
+  await ses.send(
+    new SendRawEmailCommand({
+      RawMessage: { Data: Buffer.from(rawMessage) },
+    }),
+  );
 }
 
 /** Send a single bulk email from organizer to one recipient. */
-export async function sendBulkVolunteerEmail(opts: { toEmail: string; subject: string; htmlBody: string; organizerEmail: string }): Promise<void> {
-	const { toEmail, subject, htmlBody, organizerEmail } = opts;
-	const ses = getSesClient();
-	await ses.send(
-		new SendEmailCommand({
-			Source: fromEmail(),
-			ReplyToAddresses: [organizerEmail],
-			Destination: { ToAddresses: [toEmail] },
-			Message: {
-				Subject: { Data: subject, Charset: "UTF-8" },
-				Body: {
-					Html: { Data: htmlBody, Charset: "UTF-8" },
-				},
-			},
-		}),
-	);
+export async function sendBulkVolunteerEmail(opts: {
+  toEmail: string;
+  subject: string;
+  htmlBody: string;
+  organizerEmail: string;
+}): Promise<void> {
+  const { toEmail, subject, htmlBody, organizerEmail } = opts;
+  const ses = getSesClient();
+  await ses.send(
+    new SendEmailCommand({
+      Source: fromEmail(),
+      ReplyToAddresses: [organizerEmail],
+      Destination: { ToAddresses: [toEmail] },
+      Message: {
+        Subject: { Data: subject, Charset: "UTF-8" },
+        Body: {
+          Html: { Data: htmlBody, Charset: "UTF-8" },
+        },
+      },
+    }),
+  );
 }

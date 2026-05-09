@@ -6,43 +6,43 @@ import { routeTree } from "./routeTree.gen";
 import type { AdminSessionUser } from "./server/functions/session-utils";
 
 export interface RouterContext {
-	queryClient: QueryClient;
-	/** Session resolved by the root beforeLoad; null when unauthenticated. */
-	session: AdminSessionUser | null;
+  queryClient: QueryClient;
+  /** Session resolved by the root beforeLoad; null when unauthenticated. */
+  session: AdminSessionUser | null;
 }
 
 export function getRouter() {
-	const queryClient = new QueryClient({
-		defaultOptions: {
-			queries: {
-				staleTime: 1000 * 60 * 5,
-				gcTime: 1000 * 60 * 10,
-				retry: 2,
-			},
-		},
-	});
-	const router = createTanStackRouter({
-		routeTree,
-		context: { queryClient, session: null },
-		defaultPreload: "intent",
-		scrollRestoration: true,
-	});
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60 * 5,
+        gcTime: 1000 * 60 * 10,
+        retry: 2,
+      },
+    },
+  });
+  const router = createTanStackRouter({
+    routeTree,
+    context: { queryClient, session: null },
+    defaultPreload: "intent",
+    scrollRestoration: true,
+  });
 
-	if (!router.isServer && !Sentry.getClient()) {
-		Sentry.init({
-			dsn: SentryConfig.dsn,
-			enabled: Boolean(SentryConfig.dsn) && import.meta.env.PROD,
-			environment: import.meta.env.CDK_ENVIRONMENT ?? "dev",
-		});
-	}
+  if (!router.isServer && !Sentry.getClient()) {
+    Sentry.init({
+      dsn: SentryConfig.dsn,
+      enabled: Boolean(SentryConfig.dsn) && import.meta.env.PROD,
+      environment: import.meta.env.CDK_ENVIRONMENT ?? "dev",
+    });
+  }
 
-	return router;
+  return router;
 }
 
 export const createRouter = getRouter;
 
 declare module "@tanstack/react-router" {
-	interface Register {
-		router: ReturnType<typeof getRouter>;
-	}
+  interface Register {
+    router: ReturnType<typeof getRouter>;
+  }
 }

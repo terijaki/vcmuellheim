@@ -1,28 +1,28 @@
 import type { TeamInput, TrainingScheduleInput } from "@lib/db/schemas";
 import {
-	ActionIcon,
-	Avatar,
-	Badge,
-	Box,
-	Button,
-	Card,
-	Center,
-	Divider,
-	Flex,
-	Group,
-	Image,
-	Modal,
-	MultiSelect,
-	SegmentedControl,
-	Select,
-	SimpleGrid,
-	Stack,
-	Table,
-	Text,
-	Textarea,
-	TextInput,
-	Title,
-	Tooltip,
+  ActionIcon,
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  Card,
+  Center,
+  Divider,
+  Flex,
+  Group,
+  Image,
+  Modal,
+  MultiSelect,
+  SegmentedControl,
+  Select,
+  SimpleGrid,
+  Stack,
+  Table,
+  Text,
+  Textarea,
+  TextInput,
+  Title,
+  Tooltip,
 } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
@@ -35,7 +35,12 @@ import { useNotification } from "@webapp/hooks/useNotification";
 import { listLocationsFn } from "@webapp/server/functions/locations";
 import { getTrainersFn, listMembersFn } from "@webapp/server/functions/members";
 import { listSamsTeamsFn } from "@webapp/server/functions/sams";
-import { createTeamFn, deleteTeamFn, listTeamsFn, updateTeamFn } from "@webapp/server/functions/teams";
+import {
+  createTeamFn,
+  deleteTeamFn,
+  listTeamsFn,
+  updateTeamFn,
+} from "@webapp/server/functions/teams";
 import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
 import dayjs from "dayjs";
 import de from "dayjs/locale/de";
@@ -50,807 +55,1039 @@ dayjs.locale(de);
 dayjs.extend(weekday);
 
 const defaultFormValues = {
-	id: undefined as string | undefined,
-	type: "team" as const,
-	name: "",
-	description: "",
-	sbvvTeamId: "",
-	ageGroup: "",
-	gender: undefined as TeamInput["gender"] | undefined,
-	league: "",
-	trainerIds: [] as string[],
-	pointOfContactIds: [] as string[],
-	pictureS3Keys: [] as string[],
-	trainingSchedules: [] as TrainingScheduleInput[],
+  id: undefined as string | undefined,
+  type: "team" as const,
+  name: "",
+  description: "",
+  sbvvTeamId: "",
+  ageGroup: "",
+  gender: undefined as TeamInput["gender"] | undefined,
+  league: "",
+  trainerIds: [] as string[],
+  pointOfContactIds: [] as string[],
+  pictureS3Keys: [] as string[],
+  trainingSchedules: [] as TrainingScheduleInput[],
 };
 
 function PersonAvatar({ avatarS3Key, name }: { avatarS3Key?: string; name: string }) {
-	const { data: avatarUrl } = useQuery({ queryKey: ["upload", "fileUrl", avatarS3Key], queryFn: () => getFileUrlFn({ data: { s3Key: avatarS3Key || "" } }), enabled: !!avatarS3Key });
+  const { data: avatarUrl } = useQuery({
+    queryKey: ["upload", "fileUrl", avatarS3Key],
+    queryFn: () => getFileUrlFn({ data: { s3Key: avatarS3Key || "" } }),
+    enabled: !!avatarS3Key,
+  });
 
-	return (
-		<Tooltip label={name} withArrow>
-			<Avatar src={avatarUrl || null} alt={name} radius="xl" />
-		</Tooltip>
-	);
+  return (
+    <Tooltip label={name} withArrow>
+      <Avatar src={avatarUrl || null} alt={name} radius="xl" />
+    </Tooltip>
+  );
 }
 
 function TeamPicturesManager({
-	pictureS3Keys,
-	pictureFiles,
-	deletePictureKeys,
-	onFilesAdd,
-	onFileRemove,
-	onDeleteToggle,
-	onFileSizeError,
+  pictureS3Keys,
+  pictureFiles,
+  deletePictureKeys,
+  onFilesAdd,
+  onFileRemove,
+  onDeleteToggle,
+  onFileSizeError,
 }: {
-	pictureS3Keys: string[];
-	pictureFiles: File[];
-	deletePictureKeys: string[];
-	onFilesAdd: (files: File[]) => void;
-	onFileRemove: (index: number) => void;
-	onDeleteToggle: (key: string) => void;
-	onFileSizeError: (message: string) => void;
+  pictureS3Keys: string[];
+  pictureFiles: File[];
+  deletePictureKeys: string[];
+  onFilesAdd: (files: File[]) => void;
+  onFileRemove: (index: number) => void;
+  onDeleteToggle: (key: string) => void;
+  onFileSizeError: (message: string) => void;
 }) {
-	return (
-		<Box>
-			<Text size="sm" fw={500} mb="xs">
-				Mannschaftsbilder
-			</Text>
+  return (
+    <Box>
+      <Text size="sm" fw={500} mb="xs">
+        Mannschaftsbilder
+      </Text>
 
-			{/* Existing pictures */}
-			{pictureS3Keys.length > 0 && (
-				<Group gap="sm" mb="md">
-					{pictureS3Keys.map((s3Key) => (
-						<TeamPictureCard key={s3Key} s3Key={s3Key} isDeleted={deletePictureKeys.includes(s3Key)} onDeleteToggle={() => onDeleteToggle(s3Key)} />
-					))}
-				</Group>
-			)}
+      {/* Existing pictures */}
+      {pictureS3Keys.length > 0 && (
+        <Group gap="sm" mb="md">
+          {pictureS3Keys.map((s3Key) => (
+            <TeamPictureCard
+              key={s3Key}
+              s3Key={s3Key}
+              isDeleted={deletePictureKeys.includes(s3Key)}
+              onDeleteToggle={() => onDeleteToggle(s3Key)}
+            />
+          ))}
+        </Group>
+      )}
 
-			{/* New picture files */}
-			{pictureFiles.length > 0 && (
-				<SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="sm" mb="md">
-					{pictureFiles.map((file, index) => {
-						const previewUrl = URL.createObjectURL(file);
-						return (
-							<Card key={`${file.name}-${index}`} withBorder p="xs" pos="relative">
-								<ActionIcon pos="absolute" top={4} right={4} size="sm" variant="filled" color="red" onClick={() => onFileRemove(index)} style={{ zIndex: 1 }}>
-									<X size={14} />
-								</ActionIcon>
-								<Image src={previewUrl} height={100} fit="cover" alt={file.name} radius="sm" />
-								<Text size="xs" c="dimmed" mt="xs" lineClamp={1} ta="center">
-									{file.name}
-								</Text>
-							</Card>
-						);
-					})}
-				</SimpleGrid>
-			)}
+      {/* New picture files */}
+      {pictureFiles.length > 0 && (
+        <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="sm" mb="md">
+          {pictureFiles.map((file, index) => {
+            const previewUrl = URL.createObjectURL(file);
+            return (
+              <Card key={`${file.name}-${index}`} withBorder p="xs" pos="relative">
+                <ActionIcon
+                  pos="absolute"
+                  top={4}
+                  right={4}
+                  size="sm"
+                  variant="filled"
+                  color="red"
+                  onClick={() => onFileRemove(index)}
+                  style={{ zIndex: 1 }}
+                >
+                  <X size={14} />
+                </ActionIcon>
+                <Image src={previewUrl} height={100} fit="cover" alt={file.name} radius="sm" />
+                <Text size="xs" c="dimmed" mt="xs" lineClamp={1} ta="center">
+                  {file.name}
+                </Text>
+              </Card>
+            );
+          })}
+        </SimpleGrid>
+      )}
 
-			{/* Dropzone for adding pictures */}
-			<Dropzone
-				onDrop={(files) => {
-					const validFiles = files.filter((file) => {
-						if (file.size > MAX_UPLOAD_SIZE) {
-							onFileSizeError(`${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`);
-							return false;
-						}
-						return true;
-					});
-					onFilesAdd(validFiles);
-				}}
-				accept={IMAGE_MIME_TYPE}
-				maxSize={MAX_UPLOAD_SIZE}
-				bd="1px dashed var(--mantine-color-dimmed)"
-				p="xs"
-			>
-				<Flex direction={{ base: "row", md: "column" }} justify="center" align="center" rowGap="md" columnGap="md" mih={{ base: 80, md: 120 }} style={{ pointerEvents: "none" }}>
-					<Dropzone.Accept>
-						<Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
-					</Dropzone.Accept>
-					<Dropzone.Reject>
-						<X size={50} style={{ color: "var(--mantine-color-red-6)" }} />
-					</Dropzone.Reject>
-					<Dropzone.Idle>
-						<Upload size={50} style={{ color: "var(--mantine-color-dimmed)" }} />
-					</Dropzone.Idle>
+      {/* Dropzone for adding pictures */}
+      <Dropzone
+        onDrop={(files) => {
+          const validFiles = files.filter((file) => {
+            if (file.size > MAX_UPLOAD_SIZE) {
+              onFileSizeError(
+                `${file.name} ist zu groß (${bytesToMB(file.size)}MB). Maximum ${bytesToMB(MAX_UPLOAD_SIZE, 0)}MB.`,
+              );
+              return false;
+            }
+            return true;
+          });
+          onFilesAdd(validFiles);
+        }}
+        accept={IMAGE_MIME_TYPE}
+        maxSize={MAX_UPLOAD_SIZE}
+        bd="1px dashed var(--mantine-color-dimmed)"
+        p="xs"
+      >
+        <Flex
+          direction={{ base: "row", md: "column" }}
+          justify="center"
+          align="center"
+          rowGap="md"
+          columnGap="md"
+          mih={{ base: 80, md: 120 }}
+          style={{ pointerEvents: "none" }}
+        >
+          <Dropzone.Accept>
+            <Upload size={50} style={{ color: "var(--mantine-color-blue-6)" }} />
+          </Dropzone.Accept>
+          <Dropzone.Reject>
+            <X size={50} style={{ color: "var(--mantine-color-red-6)" }} />
+          </Dropzone.Reject>
+          <Dropzone.Idle>
+            <Upload size={50} style={{ color: "var(--mantine-color-dimmed)" }} />
+          </Dropzone.Idle>
 
-					<Stack gap="xs" align="center">
-						<Text size="lg" inline>
-							Bilder hierher ziehen oder klicken zum Auswählen
-						</Text>
-						<Text size="sm" c="dimmed" inline mt={7}>
-							Mehrere Bilder möglich, max. {bytesToMB(MAX_UPLOAD_SIZE, 0)}MB pro Bild
-						</Text>
-					</Stack>
-				</Flex>
-			</Dropzone>
-		</Box>
-	);
+          <Stack gap="xs" align="center">
+            <Text size="lg" inline>
+              Bilder hierher ziehen oder klicken zum Auswählen
+            </Text>
+            <Text size="sm" c="dimmed" inline mt={7}>
+              Mehrere Bilder möglich, max. {bytesToMB(MAX_UPLOAD_SIZE, 0)}MB pro Bild
+            </Text>
+          </Stack>
+        </Flex>
+      </Dropzone>
+    </Box>
+  );
 }
 
-function TeamPictureCard({ s3Key, isDeleted, onDeleteToggle }: { s3Key: string; isDeleted: boolean; onDeleteToggle: () => void }) {
-	const { data: pictureUrl } = useQuery({ queryKey: ["upload", "fileUrl", s3Key], queryFn: () => getFileUrlFn({ data: { s3Key } }), enabled: !!s3Key && !isDeleted });
+function TeamPictureCard({
+  s3Key,
+  isDeleted,
+  onDeleteToggle,
+}: {
+  s3Key: string;
+  isDeleted: boolean;
+  onDeleteToggle: () => void;
+}) {
+  const { data: pictureUrl } = useQuery({
+    queryKey: ["upload", "fileUrl", s3Key],
+    queryFn: () => getFileUrlFn({ data: { s3Key } }),
+    enabled: !!s3Key && !isDeleted,
+  });
 
-	if (isDeleted) {
-		return (
-			<Card withBorder p="xs" bg="red.0" pos="relative">
-				<Box h={100} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-					<Stack gap="xs" align="center">
-						<Trash2 size={24} style={{ color: "var(--mantine-color-red-6)" }} />
-						<Text size="xs" c="red" fw={500}>
-							Wird gelöscht
-						</Text>
-					</Stack>
-				</Box>
-				<Button size="xs" variant="subtle" fullWidth mt="xs" onClick={onDeleteToggle}>
-					Rückgängig
-				</Button>
-			</Card>
-		);
-	}
+  if (isDeleted) {
+    return (
+      <Card withBorder p="xs" bg="red.0" pos="relative">
+        <Box h={100} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Stack gap="xs" align="center">
+            <Trash2 size={24} style={{ color: "var(--mantine-color-red-6)" }} />
+            <Text size="xs" c="red" fw={500}>
+              Wird gelöscht
+            </Text>
+          </Stack>
+        </Box>
+        <Button size="xs" variant="subtle" fullWidth mt="xs" onClick={onDeleteToggle}>
+          Rückgängig
+        </Button>
+      </Card>
+    );
+  }
 
-	return (
-		<Card withBorder p="xs" pos="relative">
-			<ActionIcon pos="absolute" top={4} right={4} size="sm" variant="filled" color="red" onClick={onDeleteToggle} style={{ zIndex: 1 }}>
-				<Trash2 size={14} />
-			</ActionIcon>
-			{pictureUrl ? (
-				<Image src={pictureUrl} height={100} fit="cover" alt="Team Bild" radius="sm" />
-			) : (
-				<Box h={100} bg="gray.1" style={{ display: "flex", alignItems: "center", justifyContent: "center" }} />
-			)}
-		</Card>
-	);
+  return (
+    <Card withBorder p="xs" pos="relative">
+      <ActionIcon
+        pos="absolute"
+        top={4}
+        right={4}
+        size="sm"
+        variant="filled"
+        color="red"
+        onClick={onDeleteToggle}
+        style={{ zIndex: 1 }}
+      >
+        <Trash2 size={14} />
+      </ActionIcon>
+      {pictureUrl ? (
+        <Image src={pictureUrl} height={100} fit="cover" alt="Team Bild" radius="sm" />
+      ) : (
+        <Box
+          h={100}
+          bg="gray.1"
+          style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+        />
+      )}
+    </Card>
+  );
 }
 
 const weekdays = Array.from({ length: 7 }, (_, i) => ({
-	value: String(i),
-	label: dayjs().weekday(i).format("dddd"),
+  value: String(i),
+  label: dayjs().weekday(i).format("dddd"),
 }));
 
 function TrainingScheduleManager({
-	schedules,
-	onSchedulesChange,
-	locations,
+  schedules,
+  onSchedulesChange,
+  locations,
 }: {
-	schedules: TrainingScheduleInput[];
-	onSchedulesChange: (schedules: TrainingScheduleInput[]) => void;
-	locations: Array<{ id: string; name: string }>;
+  schedules: TrainingScheduleInput[];
+  onSchedulesChange: (schedules: TrainingScheduleInput[]) => void;
+  locations: Array<{ id: string; name: string }>;
 }) {
-	const addSchedule = () => {
-		onSchedulesChange([
-			...schedules,
-			{
-				days: [],
-				startTime: "18:00",
-				endTime: "20:00",
-				locationId: "",
-			},
-		]);
-	};
+  const addSchedule = () => {
+    onSchedulesChange([
+      ...schedules,
+      {
+        days: [],
+        startTime: "18:00",
+        endTime: "20:00",
+        locationId: "",
+      },
+    ]);
+  };
 
-	const removeSchedule = (index: number) => {
-		onSchedulesChange(schedules.filter((_, i) => i !== index));
-	};
+  const removeSchedule = (index: number) => {
+    onSchedulesChange(schedules.filter((_, i) => i !== index));
+  };
 
-	const updateSchedule = (index: number, updates: Partial<TrainingScheduleInput>) => {
-		const updated = [...schedules];
-		updated[index] = { ...updated[index], ...updates };
-		onSchedulesChange(updated);
-	};
+  const updateSchedule = (index: number, updates: Partial<TrainingScheduleInput>) => {
+    const updated = [...schedules];
+    updated[index] = { ...updated[index], ...updates };
+    onSchedulesChange(updated);
+  };
 
-	return (
-		<Box>
-			<Group justify="space-between" mb="xs">
-				<Text size="sm" fw={500}>
-					Trainingszeiten
-				</Text>
-				<Button size="xs" variant="subtle" leftSection={<Plus size={16} />} onClick={addSchedule}>
-					Training hinzufügen
-				</Button>
-			</Group>
+  return (
+    <Box>
+      <Group justify="space-between" mb="xs">
+        <Text size="sm" fw={500}>
+          Trainingszeiten
+        </Text>
+        <Button size="xs" variant="subtle" leftSection={<Plus size={16} />} onClick={addSchedule}>
+          Training hinzufügen
+        </Button>
+      </Group>
 
-			<Stack gap="md">
-				{schedules.map((schedule, index) => (
-					// biome-ignore lint/suspicious/noArrayIndexKey: schedules have no stable ID and cannot be reordered; content-based keys caused Safari crashes on TimeInput remount
-					<Card key={index} withBorder p="md">
-						<Group justify="space-between" mb="md">
-							<Text size="sm" fw={500}>
-								Training {index + 1}
-							</Text>
-							<ActionIcon size="sm" color="red" variant="subtle" onClick={() => removeSchedule(index)}>
-								<Trash2 size={16} />
-							</ActionIcon>
-						</Group>
+      <Stack gap="md">
+        {schedules.map((schedule, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: schedules have no stable ID and cannot be reordered; content-based keys caused Safari crashes on TimeInput remount
+          <Card key={index} withBorder p="md">
+            <Group justify="space-between" mb="md">
+              <Text size="sm" fw={500}>
+                Training {index + 1}
+              </Text>
+              <ActionIcon
+                size="sm"
+                color="red"
+                variant="subtle"
+                onClick={() => removeSchedule(index)}
+              >
+                <Trash2 size={16} />
+              </ActionIcon>
+            </Group>
 
-						<Stack gap="md">
-							<MultiSelect
-								label="Wochentage"
-								placeholder="Tage auswählen..."
-								value={schedule.days.map(String)}
-								onChange={(value) => updateSchedule(index, { days: value.map(Number) })}
-								data={weekdays}
-								required
-							/>{" "}
-							<Group grow>
-								<TimeInput label="Startzeit" value={schedule.startTime} onChange={(e) => updateSchedule(index, { startTime: e.target.value })} required />
-								<TimeInput label="Endzeit" value={schedule.endTime} onChange={(e) => updateSchedule(index, { endTime: e.target.value })} required />
-							</Group>
-							<Select
-								label="Ort"
-								placeholder="Ort auswählen..."
-								value={schedule.locationId}
-								onChange={(value) => updateSchedule(index, { locationId: value || "" })}
-								data={locations.map((loc) => ({ value: loc.id, label: loc.name }))}
-								required
-								searchable
-							/>
-						</Stack>
-					</Card>
-				))}
-			</Stack>
-		</Box>
-	);
+            <Stack gap="md">
+              <MultiSelect
+                label="Wochentage"
+                placeholder="Tage auswählen..."
+                value={schedule.days.map(String)}
+                onChange={(value) => updateSchedule(index, { days: value.map(Number) })}
+                data={weekdays}
+                required
+              />{" "}
+              <Group grow>
+                <TimeInput
+                  label="Startzeit"
+                  value={schedule.startTime}
+                  onChange={(e) => updateSchedule(index, { startTime: e.target.value })}
+                  required
+                />
+                <TimeInput
+                  label="Endzeit"
+                  value={schedule.endTime}
+                  onChange={(e) => updateSchedule(index, { endTime: e.target.value })}
+                  required
+                />
+              </Group>
+              <Select
+                label="Ort"
+                placeholder="Ort auswählen..."
+                value={schedule.locationId}
+                onChange={(value) => updateSchedule(index, { locationId: value || "" })}
+                data={locations.map((loc) => ({ value: loc.id, label: loc.name }))}
+                required
+                searchable
+              />
+            </Stack>
+          </Card>
+        ))}
+      </Stack>
+    </Box>
+  );
 }
 
 function TeamsPage() {
-	const isMobile = useMediaQuery("(max-width: 48em)");
-	const [opened, { open, close }] = useDisclosure(false);
-	const [pictureFiles, setPictureFiles] = useState<File[]>([]);
-	const [deletePictureKeys, setDeletePictureKeys] = useState<string[]>([]);
-	const [uploading, setUploading] = useState(false);
-	const form = useForm({
-		defaultValues: defaultFormValues,
-	});
-	const editingId = form.getFieldValue("id");
+  const isMobile = useMediaQuery("(max-width: 48em)");
+  const [opened, { open, close }] = useDisclosure(false);
+  const [pictureFiles, setPictureFiles] = useState<File[]>([]);
+  const [deletePictureKeys, setDeletePictureKeys] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const form = useForm({
+    defaultValues: defaultFormValues,
+  });
+  const editingId = form.getFieldValue("id");
 
-	const notification = useNotification();
-	const { data: teams, isLoading, refetch } = useQuery({ queryKey: ["teams", "list"], queryFn: () => listTeamsFn() });
-	const { data: samsTeams } = useQuery({ queryKey: ["sams", "teams"], queryFn: () => listSamsTeamsFn() });
-	const { data: trainers } = useQuery({ queryKey: ["members", "trainers"], queryFn: () => getTrainersFn() });
-	const { data: members } = useQuery({ queryKey: ["members", "list"], queryFn: () => listMembersFn() });
-	const { data: locations } = useQuery({ queryKey: ["locations", "list"], queryFn: () => listLocationsFn() });
-	const uploadMutation = useMutation({
-		mutationFn: (data: Parameters<typeof getPresignedUrlFn>[0]["data"]) => getPresignedUrlFn({ data }),
-		onSuccess: () => setUploading(false),
-		onError: (error: unknown) => {
-			notification.error({ message: error instanceof Error ? error.message : "Upload des Fotos fehlgeschlagen" });
-			setUploading(false);
-		},
-	});
+  const notification = useNotification();
+  const {
+    data: teams,
+    isLoading,
+    refetch,
+  } = useQuery({ queryKey: ["teams", "list"], queryFn: () => listTeamsFn() });
+  const { data: samsTeams } = useQuery({
+    queryKey: ["sams", "teams"],
+    queryFn: () => listSamsTeamsFn(),
+  });
+  const { data: trainers } = useQuery({
+    queryKey: ["members", "trainers"],
+    queryFn: () => getTrainersFn(),
+  });
+  const { data: members } = useQuery({
+    queryKey: ["members", "list"],
+    queryFn: () => listMembersFn(),
+  });
+  const { data: locations } = useQuery({
+    queryKey: ["locations", "list"],
+    queryFn: () => listLocationsFn(),
+  });
+  const uploadMutation = useMutation({
+    mutationFn: (data: Parameters<typeof getPresignedUrlFn>[0]["data"]) =>
+      getPresignedUrlFn({ data }),
+    onSuccess: () => setUploading(false),
+    onError: (error: unknown) => {
+      notification.error({
+        message: error instanceof Error ? error.message : "Upload des Fotos fehlgeschlagen",
+      });
+      setUploading(false);
+    },
+  });
 
-	const createMutation = useMutation({
-		mutationFn: (data: Parameters<typeof createTeamFn>[0]["data"]) => createTeamFn({ data }),
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notification.success("Mannschaft wurde erfolgreich erstellt");
-		},
-		onError: (error: unknown) => {
-			notification.error({ message: error instanceof Error ? error.message : "Mannschaft konnte nicht erstellt werden" });
-		},
-	});
+  const createMutation = useMutation({
+    mutationFn: (data: Parameters<typeof createTeamFn>[0]["data"]) => createTeamFn({ data }),
+    onSuccess: () => {
+      refetch();
+      close();
+      resetForm();
+      setUploading(false);
+      notification.success("Mannschaft wurde erfolgreich erstellt");
+    },
+    onError: (error: unknown) => {
+      notification.error({
+        message: error instanceof Error ? error.message : "Mannschaft konnte nicht erstellt werden",
+      });
+    },
+  });
 
-	const updateMutation = useMutation({
-		mutationFn: (data: Parameters<typeof updateTeamFn>[0]["data"]) => updateTeamFn({ data }),
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			setUploading(false);
-			notification.success("Mannschaftsänderung wurde gespeichert");
-		},
-		onError: (error: unknown) => {
-			notification.error({ message: error instanceof Error ? error.message : "Mannschaft konnte nicht aktualisiert werden" });
-		},
-	});
+  const updateMutation = useMutation({
+    mutationFn: (data: Parameters<typeof updateTeamFn>[0]["data"]) => updateTeamFn({ data }),
+    onSuccess: () => {
+      refetch();
+      close();
+      resetForm();
+      setUploading(false);
+      notification.success("Mannschaftsänderung wurde gespeichert");
+    },
+    onError: (error: unknown) => {
+      notification.error({
+        message:
+          error instanceof Error ? error.message : "Mannschaft konnte nicht aktualisiert werden",
+      });
+    },
+  });
 
-	const deleteMutation = useMutation({
-		mutationFn: (data: Parameters<typeof deleteTeamFn>[0]["data"]) => deleteTeamFn({ data }),
-		onSuccess: () => {
-			refetch();
-			close();
-			resetForm();
-			notification.success("Mannschaft wurde erfolgreich gelöscht");
-		},
-		onError: (error: unknown) => {
-			notification.error({ message: error instanceof Error ? error.message : "Mannschaft konnte nicht gelöscht werden" });
-		},
-	});
-	const resetForm = () => {
-		form.reset();
-		setPictureFiles([]);
-		setDeletePictureKeys([]);
-	};
+  const deleteMutation = useMutation({
+    mutationFn: (data: Parameters<typeof deleteTeamFn>[0]["data"]) => deleteTeamFn({ data }),
+    onSuccess: () => {
+      refetch();
+      close();
+      resetForm();
+      notification.success("Mannschaft wurde erfolgreich gelöscht");
+    },
+    onError: (error: unknown) => {
+      notification.error({
+        message: error instanceof Error ? error.message : "Mannschaft konnte nicht gelöscht werden",
+      });
+    },
+  });
+  const resetForm = () => {
+    form.reset();
+    setPictureFiles([]);
+    setDeletePictureKeys([]);
+  };
 
-	const handleSubmit = async (formData: typeof defaultFormValues) => {
-		if (!formData.name || !formData.gender) return;
-		const currentEditingId = formData.id;
-		const { id: _id, ...formFields } = formData;
+  const handleSubmit = async (formData: typeof defaultFormValues) => {
+    if (!formData.name || !formData.gender) return;
+    const currentEditingId = formData.id;
+    const { id: _id, ...formFields } = formData;
 
-		setUploading(true);
-		try {
-			let pictureS3Keys = formData.pictureS3Keys || [];
+    setUploading(true);
+    try {
+      let pictureS3Keys = formData.pictureS3Keys || [];
 
-			// Remove deleted pictures
-			pictureS3Keys = pictureS3Keys.filter((key) => !deletePictureKeys.includes(key));
+      // Remove deleted pictures
+      pictureS3Keys = pictureS3Keys.filter((key) => !deletePictureKeys.includes(key));
 
-			// Upload new pictures
-			for (const file of pictureFiles) {
-				const { uploadUrl, key } = await uploadMutation.mutateAsync({
-					filename: file.name,
-					contentType: file.type,
-					folder: "teams",
-				});
-				const uploadResponse = await fetch(uploadUrl, {
-					method: "PUT",
-					body: file,
-					headers: {
-						"Content-Type": file.type,
-					},
-				});
+      // Upload new pictures
+      for (const file of pictureFiles) {
+        const { uploadUrl, key } = await uploadMutation.mutateAsync({
+          filename: file.name,
+          contentType: file.type,
+          folder: "teams",
+        });
+        const uploadResponse = await fetch(uploadUrl, {
+          method: "PUT",
+          body: file,
+          headers: {
+            "Content-Type": file.type,
+          },
+        });
 
-				if (!uploadResponse.ok) {
-					throw new Error(`Upload fehlgeschlagen: ${file.name}`);
-				}
+        if (!uploadResponse.ok) {
+          throw new Error(`Upload fehlgeschlagen: ${file.name}`);
+        }
 
-				pictureS3Keys.push(key);
-			}
+        pictureS3Keys.push(key);
+      }
 
-			const clearableOptionalFields = new Set(["league", "description", "sbvvTeamId", "ageGroup"]);
-			const cleanedData: Record<string, unknown> = {};
-			for (const [key, value] of Object.entries({
-				...formFields,
-				pictureS3Keys: currentEditingId ? pictureS3Keys : pictureS3Keys.length > 0 ? pictureS3Keys : undefined,
-			})) {
-				if (currentEditingId && clearableOptionalFields.has(key) && value === "") {
-					cleanedData[key] = null; // null signals the server to remove this attribute
-				} else if (value !== "" && value !== undefined) {
-					cleanedData[key] = value;
-				}
-			}
+      const clearableOptionalFields = new Set(["league", "description", "sbvvTeamId", "ageGroup"]);
+      const cleanedData: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries({
+        ...formFields,
+        pictureS3Keys: currentEditingId
+          ? pictureS3Keys
+          : pictureS3Keys.length > 0
+            ? pictureS3Keys
+            : undefined,
+      })) {
+        if (currentEditingId && clearableOptionalFields.has(key) && value === "") {
+          cleanedData[key] = null; // null signals the server to remove this attribute
+        } else if (value !== "" && value !== undefined) {
+          cleanedData[key] = value;
+        }
+      }
 
-			if (currentEditingId) {
-				updateMutation.mutate({
-					id: currentEditingId,
-					data: cleanedData,
-				});
-			} else {
-				createMutation.mutate(cleanedData as TeamInput);
-			}
-		} catch (error) {
-			notification.error({ message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten" });
-			setUploading(false);
-		}
-	};
+      if (currentEditingId) {
+        updateMutation.mutate({
+          id: currentEditingId,
+          data: cleanedData,
+        });
+      } else {
+        createMutation.mutate(cleanedData as TeamInput);
+      }
+    } catch (error) {
+      notification.error({
+        message: error instanceof Error ? error.message : "Ein Fehler ist aufgetreten",
+      });
+      setUploading(false);
+    }
+  };
 
-	const handleEdit = (team: TeamInput & { id: string }) => {
-		form.setFieldValue("id", team.id);
-		form.setFieldValue("type", "team");
-		form.setFieldValue("name", team.name);
-		form.setFieldValue("description", team.description || "");
-		form.setFieldValue("sbvvTeamId", team.sbvvTeamId || "");
-		form.setFieldValue("ageGroup", team.ageGroup || "");
-		form.setFieldValue("gender", team.gender);
-		form.setFieldValue("league", team.league || "");
-		form.setFieldValue("trainerIds", team.trainerIds || []);
-		form.setFieldValue("pointOfContactIds", team.pointOfContactIds || []);
-		form.setFieldValue("pictureS3Keys", team.pictureS3Keys || []);
-		form.setFieldValue("trainingSchedules", team.trainingSchedules || []);
-		setPictureFiles([]);
-		setDeletePictureKeys([]);
-		open();
-	};
-	const handleDelete = (id: string) => {
-		if (window.confirm("Möchten Sie diese Mannschaft wirklich löschen?")) {
-			deleteMutation.mutate({ id });
-		}
-	};
+  const handleEdit = (team: TeamInput & { id: string }) => {
+    form.setFieldValue("id", team.id);
+    form.setFieldValue("type", "team");
+    form.setFieldValue("name", team.name);
+    form.setFieldValue("description", team.description || "");
+    form.setFieldValue("sbvvTeamId", team.sbvvTeamId || "");
+    form.setFieldValue("ageGroup", team.ageGroup || "");
+    form.setFieldValue("gender", team.gender);
+    form.setFieldValue("league", team.league || "");
+    form.setFieldValue("trainerIds", team.trainerIds || []);
+    form.setFieldValue("pointOfContactIds", team.pointOfContactIds || []);
+    form.setFieldValue("pictureS3Keys", team.pictureS3Keys || []);
+    form.setFieldValue("trainingSchedules", team.trainingSchedules || []);
+    setPictureFiles([]);
+    setDeletePictureKeys([]);
+    open();
+  };
+  const handleDelete = (id: string) => {
+    if (window.confirm("Möchten Sie diese Mannschaft wirklich löschen?")) {
+      deleteMutation.mutate({ id });
+    }
+  };
 
-	const handleOpenNew = () => {
-		resetForm();
-		open();
-	};
+  const handleOpenNew = () => {
+    resetForm();
+    open();
+  };
 
-	teams?.items.sort((a, b) => a.name.localeCompare(b.name));
+  teams?.items.sort((a, b) => a.name.localeCompare(b.name));
 
-	return (
-		<Stack gap="md">
-			<Group justify="space-between">
-				<Title order={2}>Mannschaften</Title>
-				<Button onClick={handleOpenNew} leftSection={<Plus />} visibleFrom="sm">
-					Neue Mannschaft
-				</Button>
-				<ActionIcon onClick={handleOpenNew} hiddenFrom="sm" variant="filled" radius="xl">
-					<Plus size={20} />
-				</ActionIcon>
-			</Group>{" "}
-			<Modal opened={opened} onClose={close} title={editingId ? "Mannschaft bearbeiten" : "Neue Mannschaft"} size={isMobile ? "100%" : "xl"} fullScreen={isMobile}>
-				<form.Subscribe selector={(state) => state.values}>
-					{(formData) => (
-						<Stack gap="md" p={{ base: "md", sm: "sm" }}>
-							<Group align="top" grow>
-								<Stack>
-									<form.Field name="name">
-										{(field) => <TextInput label="Name" placeholder="z.B. 1. Herren" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} required />}
-									</form.Field>
-									<SegmentedControl
-										fullWidth
-										color={formData.gender === "male" ? "blue" : formData.gender === "female" ? "pink" : "onyx"}
-										data={[
-											{
-												value: "male",
-												label: (
-													<Center style={{ gap: 10 }}>
-														<Mars size={16} />
-														<Text size="sm" visibleFrom="md">
-															Männlich
-														</Text>
-													</Center>
-												),
-											},
-											{
-												value: "female",
-												label: (
-													<Center style={{ gap: 10 }}>
-														<Venus size={16} />
-														<Text size="sm" visibleFrom="md">
-															Weiblich
-														</Text>
-													</Center>
-												),
-											},
-											{
-												value: "mixed",
-												label: (
-													<Center style={{ gap: 10 }}>
-														<VenusAndMars size={16} />
-														<Text size="sm" visibleFrom="md">
-															Gemischt
-														</Text>
-													</Center>
-												),
-											},
-										]}
-										value={formData.gender || ""}
-										onChange={(value: string) => form.setFieldValue("gender", value as "male" | "female" | "mixed")}
-										aria-label="Geschlecht"
-									/>
-									<form.Field name="ageGroup">
-										{(field) => <TextInput label="Alter" placeholder="z.B. U16, ab 18 Jahren" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
-									</form.Field>
-								</Stack>
-								<Stack>
-									<form.Field name="league">
-										{(field) => <TextInput label="Liga" placeholder="z.B. Landesliga" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />}
-									</form.Field>
-									<Select
-										label="SBVV Team"
-										placeholder="Wählen..."
-										value={formData.sbvvTeamId}
-										onChange={(value) => form.setFieldValue("sbvvTeamId", value || "")}
-										data={
-											samsTeams?.items.map((team) => ({
-												value: team.uuid,
-												label: `${team.name} (${team.leagueName || "Keine Liga"})`,
-											})) || []
-										}
-										description="für Spielpläne, Ergebnisse und Tabelle"
-										searchable
-										clearable
-									/>
-								</Stack>
-							</Group>
-							<form.Field name="description">
-								{(field) => <Textarea label="Beschreibung" placeholder="Optionale Beschreibung..." value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} minRows={3} />}
-							</form.Field>
-							<MultiSelect
-								label="Trainer"
-								placeholder="Trainer auswählen..."
-								value={formData.trainerIds || []}
-								onChange={(value) => form.setFieldValue("trainerIds", value)}
-								data={
-									trainers?.items.map((trainer) => ({
-										value: trainer.id,
-										label: trainer.name,
-									})) || []
-								}
-								description="Mehrere Trainer können ausgewählt werden"
-								searchable
-								clearable
-							/>
-							<MultiSelect
-								label="Ansprechpersonen"
-								placeholder="Personen auswählen..."
-								value={formData.pointOfContactIds || []}
-								onChange={(value) => form.setFieldValue("pointOfContactIds", value)}
-								data={
-									members?.items.map((member) => ({
-										value: member.id,
-										label: member.name,
-									})) || []
-								}
-								description="Mehrere Personen können ausgewählt werden"
-								searchable
-								clearable
-							/>
-							<TrainingScheduleManager
-								schedules={formData.trainingSchedules || []}
-								onSchedulesChange={(schedules) => form.setFieldValue("trainingSchedules", schedules)}
-								locations={locations?.items || []}
-							/>
-							<Divider />
-							<TeamPicturesManager
-								pictureS3Keys={formData.pictureS3Keys || []}
-								pictureFiles={pictureFiles}
-								deletePictureKeys={deletePictureKeys}
-								onFilesAdd={(files) => setPictureFiles([...pictureFiles, ...files])}
-								onFileRemove={(index) => setPictureFiles(pictureFiles.filter((_, i) => i !== index))}
-								onDeleteToggle={(key) => {
-									if (deletePictureKeys.includes(key)) {
-										setDeletePictureKeys(deletePictureKeys.filter((k) => k !== key));
-									} else {
-										setDeletePictureKeys([...deletePictureKeys, key]);
-									}
-								}}
-								onFileSizeError={(message) => {
-									notification.error({ message });
-								}}
-							/>{" "}
-							<Group justify="space-between" mt="md">
-								{editingId && (
-									<>
-										<ActionIcon hiddenFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending} size="lg">
-											<Trash2 />
-										</ActionIcon>
-										<Button visibleFrom="sm" color="red" variant="light" onClick={() => handleDelete(editingId)} loading={deleteMutation.isPending}>
-											Löschen
-										</Button>
-									</>
-								)}
-								<Group gap="xs" ms="auto">
-									<Button variant="light" type="button" onClick={close}>
-										Abbrechen
-									</Button>
-									<Button
-										variant="filled"
-										type="button"
-										onClick={() => void handleSubmit(formData)}
-										loading={uploading || createMutation.isPending || updateMutation.isPending}
-										disabled={!formData.name || !formData.gender}
-									>
-										{editingId ? "Aktualisieren" : "Erstellen"}
-									</Button>
-								</Group>
-							</Group>
-						</Stack>
-					)}
-				</form.Subscribe>
-			</Modal>
-			{isLoading ? (
-				<Text>Laden...</Text>
-			) : teams && teams.items.length > 0 ? (
-				<>
-					<Card withBorder bg="white" p={0} radius="md" visibleFrom="sm">
-						<Table striped highlightOnHover horizontalSpacing="md">
-							<Table.Thead>
-								<Table.Tr>
-									<Table.Th>Name</Table.Th>
-									<Table.Th visibleFrom="lg">Liga</Table.Th>
-									<Table.Th visibleFrom="lg">Mindestalter</Table.Th>
-									<Table.Th hiddenFrom="lg">Alter</Table.Th>
-									<Table.Th visibleFrom="lg">Geschlecht</Table.Th>
-									<Table.Th hiddenFrom="lg">Geschl.</Table.Th>
-									<Table.Th>Trainer</Table.Th>
-									<Table.Th visibleFrom="xl">Trainingszeiten</Table.Th>
-									<Table.Th hiddenFrom="xl">Zeiten</Table.Th>
-									<Table.Th visibleFrom="lg">Bilder</Table.Th>
-									<Table.Th visibleFrom="lg">SAMS Team</Table.Th>
-									<Table.Th hiddenFrom="lg">SAMS</Table.Th>
-									<Table.Th>Aktionen</Table.Th>
-								</Table.Tr>
-							</Table.Thead>
-							<Table.Tbody>
-								{teams.items.map((team) => {
-									const samsTeam = samsTeams?.items.find((st) => st.uuid === team.sbvvTeamId);
-									const pictureCount = team.pictureS3Keys?.length || 0;
-									const teamPeople = new Set<Member>();
-									members?.items.forEach((member) => {
-										if (team.trainerIds?.includes(member.id) || team.pointOfContactIds?.includes(member.id)) {
-											teamPeople.add(member);
-										}
-									});
-									const trainingCount = team.trainingSchedules?.length || 0;
-									return (
-										<Table.Tr key={team.id}>
-											<Table.Td>
-												{team.name}
-												{team.league && (
-													<Text hiddenFrom="lg" size="xs">
-														{team.league}
-													</Text>
-												)}
-											</Table.Td>
-											<Table.Td visibleFrom="lg">{team.league || ""}</Table.Td>
-											<Table.Td>{team.ageGroup || ""}</Table.Td>
-											<Table.Td c={team.gender === "male" ? "blue" : team.gender === "female" ? "pink" : "onyx"}>
-												{team.gender === "male" ? <Mars size={16} /> : team.gender === "female" ? <Venus size={16} /> : <VenusAndMars size={16} />}
-											</Table.Td>
-											<Table.Td>
-												{teamPeople.size > 0 && (
-													<Avatar.Group>
-														{Array.from(teamPeople).map((person) => (
-															<PersonAvatar key={person.id} avatarS3Key={person.avatarS3Key} name={person.name} />
-														))}
-													</Avatar.Group>
-												)}
-											</Table.Td>
-											<Table.Td>
-												{trainingCount > 0 && (
-													<Tooltip
-														label={
-															<Stack gap={4}>
-																{team.trainingSchedules?.map((schedule, idx) => {
-																	const location = locations?.items.find((loc) => loc.id === schedule.locationId);
-																	const dayLabels = schedule.days.map((d) => weekdays[d]?.label).join(", ");
-																	return (
-																		<Text key={`${schedule.locationId}-${schedule.startTime}-${idx}`} size="xs">
-																			{dayLabels}: {schedule.startTime}-{schedule.endTime} ({location?.name || "Unbekannt"})
-																		</Text>
-																	);
-																})}
-															</Stack>
-														}
-														withArrow
-													>
-														<Badge size="sm" variant="light">
-															{trainingCount}
-														</Badge>
-													</Tooltip>
-												)}
-											</Table.Td>
-											<Table.Td visibleFrom="lg">
-												{pictureCount > 0 && (
-													<Badge size="sm" variant="light">
-														{pictureCount}
-													</Badge>
-												)}
-											</Table.Td>
-											<Table.Td>
-												{samsTeam && (
-													<>
-														<Stack visibleFrom="lg" gap={0}>
-															<Text size="sm">{samsTeam.name}</Text>
-															<Text size="xs">{samsTeam.leagueName}</Text>
-														</Stack>
-														<Stack hiddenFrom="lg">
-															<Tooltip label={`${samsTeam.name} (${samsTeam.leagueName})`} withArrow hiddenFrom="lg">
-																<Check size={16} />
-															</Tooltip>
-														</Stack>
-													</>
-												)}
-											</Table.Td>
+  return (
+    <Stack gap="md">
+      <Group justify="space-between">
+        <Title order={2}>Mannschaften</Title>
+        <Button onClick={handleOpenNew} leftSection={<Plus />} visibleFrom="sm">
+          Neue Mannschaft
+        </Button>
+        <ActionIcon onClick={handleOpenNew} hiddenFrom="sm" variant="filled" radius="xl">
+          <Plus size={20} />
+        </ActionIcon>
+      </Group>{" "}
+      <Modal
+        opened={opened}
+        onClose={close}
+        title={editingId ? "Mannschaft bearbeiten" : "Neue Mannschaft"}
+        size={isMobile ? "100%" : "xl"}
+        fullScreen={isMobile}
+      >
+        <form.Subscribe selector={(state) => state.values}>
+          {(formData) => (
+            <Stack gap="md" p={{ base: "md", sm: "sm" }}>
+              <Group align="top" grow>
+                <Stack>
+                  <form.Field name="name">
+                    {(field) => (
+                      <TextInput
+                        label="Name"
+                        placeholder="z.B. 1. Herren"
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        required
+                      />
+                    )}
+                  </form.Field>
+                  <SegmentedControl
+                    fullWidth
+                    color={
+                      formData.gender === "male"
+                        ? "blue"
+                        : formData.gender === "female"
+                          ? "pink"
+                          : "onyx"
+                    }
+                    data={[
+                      {
+                        value: "male",
+                        label: (
+                          <Center style={{ gap: 10 }}>
+                            <Mars size={16} />
+                            <Text size="sm" visibleFrom="md">
+                              Männlich
+                            </Text>
+                          </Center>
+                        ),
+                      },
+                      {
+                        value: "female",
+                        label: (
+                          <Center style={{ gap: 10 }}>
+                            <Venus size={16} />
+                            <Text size="sm" visibleFrom="md">
+                              Weiblich
+                            </Text>
+                          </Center>
+                        ),
+                      },
+                      {
+                        value: "mixed",
+                        label: (
+                          <Center style={{ gap: 10 }}>
+                            <VenusAndMars size={16} />
+                            <Text size="sm" visibleFrom="md">
+                              Gemischt
+                            </Text>
+                          </Center>
+                        ),
+                      },
+                    ]}
+                    value={formData.gender || ""}
+                    onChange={(value: string) =>
+                      form.setFieldValue("gender", value as "male" | "female" | "mixed")
+                    }
+                    aria-label="Geschlecht"
+                  />
+                  <form.Field name="ageGroup">
+                    {(field) => (
+                      <TextInput
+                        label="Alter"
+                        placeholder="z.B. U16, ab 18 Jahren"
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                    )}
+                  </form.Field>
+                </Stack>
+                <Stack>
+                  <form.Field name="league">
+                    {(field) => (
+                      <TextInput
+                        label="Liga"
+                        placeholder="z.B. Landesliga"
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                    )}
+                  </form.Field>
+                  <Select
+                    label="SBVV Team"
+                    placeholder="Wählen..."
+                    value={formData.sbvvTeamId}
+                    onChange={(value) => form.setFieldValue("sbvvTeamId", value || "")}
+                    data={
+                      samsTeams?.items.map((team) => ({
+                        value: team.uuid,
+                        label: `${team.name} (${team.leagueName || "Keine Liga"})`,
+                      })) || []
+                    }
+                    description="für Spielpläne, Ergebnisse und Tabelle"
+                    searchable
+                    clearable
+                  />
+                </Stack>
+              </Group>
+              <form.Field name="description">
+                {(field) => (
+                  <Textarea
+                    label="Beschreibung"
+                    placeholder="Optionale Beschreibung..."
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    minRows={3}
+                  />
+                )}
+              </form.Field>
+              <MultiSelect
+                label="Trainer"
+                placeholder="Trainer auswählen..."
+                value={formData.trainerIds || []}
+                onChange={(value) => form.setFieldValue("trainerIds", value)}
+                data={
+                  trainers?.items.map((trainer) => ({
+                    value: trainer.id,
+                    label: trainer.name,
+                  })) || []
+                }
+                description="Mehrere Trainer können ausgewählt werden"
+                searchable
+                clearable
+              />
+              <MultiSelect
+                label="Ansprechpersonen"
+                placeholder="Personen auswählen..."
+                value={formData.pointOfContactIds || []}
+                onChange={(value) => form.setFieldValue("pointOfContactIds", value)}
+                data={
+                  members?.items.map((member) => ({
+                    value: member.id,
+                    label: member.name,
+                  })) || []
+                }
+                description="Mehrere Personen können ausgewählt werden"
+                searchable
+                clearable
+              />
+              <TrainingScheduleManager
+                schedules={formData.trainingSchedules || []}
+                onSchedulesChange={(schedules) =>
+                  form.setFieldValue("trainingSchedules", schedules)
+                }
+                locations={locations?.items || []}
+              />
+              <Divider />
+              <TeamPicturesManager
+                pictureS3Keys={formData.pictureS3Keys || []}
+                pictureFiles={pictureFiles}
+                deletePictureKeys={deletePictureKeys}
+                onFilesAdd={(files) => setPictureFiles([...pictureFiles, ...files])}
+                onFileRemove={(index) =>
+                  setPictureFiles(pictureFiles.filter((_, i) => i !== index))
+                }
+                onDeleteToggle={(key) => {
+                  if (deletePictureKeys.includes(key)) {
+                    setDeletePictureKeys(deletePictureKeys.filter((k) => k !== key));
+                  } else {
+                    setDeletePictureKeys([...deletePictureKeys, key]);
+                  }
+                }}
+                onFileSizeError={(message) => {
+                  notification.error({ message });
+                }}
+              />{" "}
+              <Group justify="space-between" mt="md">
+                {editingId && (
+                  <>
+                    <ActionIcon
+                      hiddenFrom="sm"
+                      color="red"
+                      variant="light"
+                      onClick={() => handleDelete(editingId)}
+                      loading={deleteMutation.isPending}
+                      size="lg"
+                    >
+                      <Trash2 />
+                    </ActionIcon>
+                    <Button
+                      visibleFrom="sm"
+                      color="red"
+                      variant="light"
+                      onClick={() => handleDelete(editingId)}
+                      loading={deleteMutation.isPending}
+                    >
+                      Löschen
+                    </Button>
+                  </>
+                )}
+                <Group gap="xs" ms="auto">
+                  <Button variant="light" type="button" onClick={close}>
+                    Abbrechen
+                  </Button>
+                  <Button
+                    variant="filled"
+                    type="button"
+                    onClick={() => void handleSubmit(formData)}
+                    loading={uploading || createMutation.isPending || updateMutation.isPending}
+                    disabled={!formData.name || !formData.gender}
+                  >
+                    {editingId ? "Aktualisieren" : "Erstellen"}
+                  </Button>
+                </Group>
+              </Group>
+            </Stack>
+          )}
+        </form.Subscribe>
+      </Modal>
+      {isLoading ? (
+        <Text>Laden...</Text>
+      ) : teams && teams.items.length > 0 ? (
+        <>
+          <Card withBorder bg="white" p={0} radius="md" visibleFrom="sm">
+            <Table striped highlightOnHover horizontalSpacing="md">
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Name</Table.Th>
+                  <Table.Th visibleFrom="lg">Liga</Table.Th>
+                  <Table.Th visibleFrom="lg">Mindestalter</Table.Th>
+                  <Table.Th hiddenFrom="lg">Alter</Table.Th>
+                  <Table.Th visibleFrom="lg">Geschlecht</Table.Th>
+                  <Table.Th hiddenFrom="lg">Geschl.</Table.Th>
+                  <Table.Th>Trainer</Table.Th>
+                  <Table.Th visibleFrom="xl">Trainingszeiten</Table.Th>
+                  <Table.Th hiddenFrom="xl">Zeiten</Table.Th>
+                  <Table.Th visibleFrom="lg">Bilder</Table.Th>
+                  <Table.Th visibleFrom="lg">SAMS Team</Table.Th>
+                  <Table.Th hiddenFrom="lg">SAMS</Table.Th>
+                  <Table.Th>Aktionen</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
+                {teams.items.map((team) => {
+                  const samsTeam = samsTeams?.items.find((st) => st.uuid === team.sbvvTeamId);
+                  const pictureCount = team.pictureS3Keys?.length || 0;
+                  const teamPeople = new Set<Member>();
+                  members?.items.forEach((member) => {
+                    if (
+                      team.trainerIds?.includes(member.id) ||
+                      team.pointOfContactIds?.includes(member.id)
+                    ) {
+                      teamPeople.add(member);
+                    }
+                  });
+                  const trainingCount = team.trainingSchedules?.length || 0;
+                  return (
+                    <Table.Tr key={team.id}>
+                      <Table.Td>
+                        {team.name}
+                        {team.league && (
+                          <Text hiddenFrom="lg" size="xs">
+                            {team.league}
+                          </Text>
+                        )}
+                      </Table.Td>
+                      <Table.Td visibleFrom="lg">{team.league || ""}</Table.Td>
+                      <Table.Td>{team.ageGroup || ""}</Table.Td>
+                      <Table.Td
+                        c={
+                          team.gender === "male"
+                            ? "blue"
+                            : team.gender === "female"
+                              ? "pink"
+                              : "onyx"
+                        }
+                      >
+                        {team.gender === "male" ? (
+                          <Mars size={16} />
+                        ) : team.gender === "female" ? (
+                          <Venus size={16} />
+                        ) : (
+                          <VenusAndMars size={16} />
+                        )}
+                      </Table.Td>
+                      <Table.Td>
+                        {teamPeople.size > 0 && (
+                          <Avatar.Group>
+                            {Array.from(teamPeople).map((person) => (
+                              <PersonAvatar
+                                key={person.id}
+                                avatarS3Key={person.avatarS3Key}
+                                name={person.name}
+                              />
+                            ))}
+                          </Avatar.Group>
+                        )}
+                      </Table.Td>
+                      <Table.Td>
+                        {trainingCount > 0 && (
+                          <Tooltip
+                            label={
+                              <Stack gap={4}>
+                                {team.trainingSchedules?.map((schedule, idx) => {
+                                  const location = locations?.items.find(
+                                    (loc) => loc.id === schedule.locationId,
+                                  );
+                                  const dayLabels = schedule.days
+                                    .map((d) => weekdays[d]?.label)
+                                    .join(", ");
+                                  return (
+                                    <Text
+                                      key={`${schedule.locationId}-${schedule.startTime}-${idx}`}
+                                      size="xs"
+                                    >
+                                      {dayLabels}: {schedule.startTime}-{schedule.endTime} (
+                                      {location?.name || "Unbekannt"})
+                                    </Text>
+                                  );
+                                })}
+                              </Stack>
+                            }
+                            withArrow
+                          >
+                            <Badge size="sm" variant="light">
+                              {trainingCount}
+                            </Badge>
+                          </Tooltip>
+                        )}
+                      </Table.Td>
+                      <Table.Td visibleFrom="lg">
+                        {pictureCount > 0 && (
+                          <Badge size="sm" variant="light">
+                            {pictureCount}
+                          </Badge>
+                        )}
+                      </Table.Td>
+                      <Table.Td>
+                        {samsTeam && (
+                          <>
+                            <Stack visibleFrom="lg" gap={0}>
+                              <Text size="sm">{samsTeam.name}</Text>
+                              <Text size="xs">{samsTeam.leagueName}</Text>
+                            </Stack>
+                            <Stack hiddenFrom="lg">
+                              <Tooltip
+                                label={`${samsTeam.name} (${samsTeam.leagueName})`}
+                                withArrow
+                                hiddenFrom="lg"
+                              >
+                                <Check size={16} />
+                              </Tooltip>
+                            </Stack>
+                          </>
+                        )}
+                      </Table.Td>
 
-											<Table.Td>
-												<Button visibleFrom="sm" size="xs" onClick={() => handleEdit(team)}>
-													Bearbeiten
-												</Button>
-												<ActionIcon hiddenFrom="sm" variant="filled" radius="xl" onClick={() => handleEdit(team)}>
-													<SquarePen size={16} />
-												</ActionIcon>
-											</Table.Td>
-										</Table.Tr>
-									);
-								})}
-							</Table.Tbody>
-						</Table>
-					</Card>
+                      <Table.Td>
+                        <Button visibleFrom="sm" size="xs" onClick={() => handleEdit(team)}>
+                          Bearbeiten
+                        </Button>
+                        <ActionIcon
+                          hiddenFrom="sm"
+                          variant="filled"
+                          radius="xl"
+                          onClick={() => handleEdit(team)}
+                        >
+                          <SquarePen size={16} />
+                        </ActionIcon>
+                      </Table.Td>
+                    </Table.Tr>
+                  );
+                })}
+              </Table.Tbody>
+            </Table>
+          </Card>
 
-					<SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
-						{teams.items.map((team) => {
-							const samsTeam = samsTeams?.items.find((st) => st.uuid === team.sbvvTeamId);
-							const teamPeople = new Set<Member>();
-							members?.items.forEach((member) => {
-								if (team.trainerIds?.includes(member.id) || team.pointOfContactIds?.includes(member.id)) {
-									teamPeople.add(member);
-								}
-							});
-							const trainingCount = team.trainingSchedules?.length || 0;
+          <SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" hiddenFrom="sm">
+            {teams.items.map((team) => {
+              const samsTeam = samsTeams?.items.find((st) => st.uuid === team.sbvvTeamId);
+              const teamPeople = new Set<Member>();
+              members?.items.forEach((member) => {
+                if (
+                  team.trainerIds?.includes(member.id) ||
+                  team.pointOfContactIds?.includes(member.id)
+                ) {
+                  teamPeople.add(member);
+                }
+              });
+              const trainingCount = team.trainingSchedules?.length || 0;
 
-							return (
-								<Card key={team.id} shadow="sm" p="md" radius="md" withBorder>
-									<Stack gap="xs">
-										<Group justify="space-between" align="flex-start">
-											<Stack gap={4} flex={1}>
-												<Title order={4}>{team.name}</Title>
-												{team.league && (
-													<Text size="sm" c="dimmed">
-														Liga: {team.league}
-													</Text>
-												)}
-											</Stack>
-											<ActionIcon color="blumine" variant="filled" onClick={() => handleEdit(team)} radius="xl">
-												<SquarePen size={16} />
-											</ActionIcon>
-										</Group>
+              return (
+                <Card key={team.id} shadow="sm" p="md" radius="md" withBorder>
+                  <Stack gap="xs">
+                    <Group justify="space-between" align="flex-start">
+                      <Stack gap={4} flex={1}>
+                        <Title order={4}>{team.name}</Title>
+                        {team.league && (
+                          <Text size="sm" c="dimmed">
+                            Liga: {team.league}
+                          </Text>
+                        )}
+                      </Stack>
+                      <ActionIcon
+                        color="blumine"
+                        variant="filled"
+                        onClick={() => handleEdit(team)}
+                        radius="xl"
+                      >
+                        <SquarePen size={16} />
+                      </ActionIcon>
+                    </Group>
 
-										<Divider />
+                    <Divider />
 
-										<Group justify="space-between">
-											<Stack gap={0}>
-												<Text size="xs" fw={500} c="dimmed">
-													Altersgruppe
-												</Text>
-												<Text size="sm">{team.ageGroup || "-"}</Text>
-											</Stack>
+                    <Group justify="space-between">
+                      <Stack gap={0}>
+                        <Text size="xs" fw={500} c="dimmed">
+                          Altersgruppe
+                        </Text>
+                        <Text size="sm">{team.ageGroup || "-"}</Text>
+                      </Stack>
 
-											<Box c={team.gender === "male" ? "blue" : team.gender === "female" ? "pink" : "onyx"}>
-												{team.gender === "male" ? <Mars size={20} /> : team.gender === "female" ? <Venus size={20} /> : <VenusAndMars size={20} />}
-											</Box>
-										</Group>
+                      <Box
+                        c={
+                          team.gender === "male"
+                            ? "blue"
+                            : team.gender === "female"
+                              ? "pink"
+                              : "onyx"
+                        }
+                      >
+                        {team.gender === "male" ? (
+                          <Mars size={20} />
+                        ) : team.gender === "female" ? (
+                          <Venus size={20} />
+                        ) : (
+                          <VenusAndMars size={20} />
+                        )}
+                      </Box>
+                    </Group>
 
-										{teamPeople.size > 0 && (
-											<Stack gap={0}>
-												<Text size="xs" fw={500} c="dimmed">
-													Trainer & Ansprechpartner
-												</Text>
-												<Avatar.Group>
-													{Array.from(teamPeople).map((person) => (
-														<PersonAvatar key={person.id} avatarS3Key={person.avatarS3Key} name={person.name} />
-													))}
-												</Avatar.Group>
-											</Stack>
-										)}
+                    {teamPeople.size > 0 && (
+                      <Stack gap={0}>
+                        <Text size="xs" fw={500} c="dimmed">
+                          Trainer & Ansprechpartner
+                        </Text>
+                        <Avatar.Group>
+                          {Array.from(teamPeople).map((person) => (
+                            <PersonAvatar
+                              key={person.id}
+                              avatarS3Key={person.avatarS3Key}
+                              name={person.name}
+                            />
+                          ))}
+                        </Avatar.Group>
+                      </Stack>
+                    )}
 
-										{trainingCount > 0 && (
-											<Stack gap="xs">
-												<Text size="xs" fw={500} c="dimmed">
-													Trainingszeiten ({trainingCount}):
-												</Text>
-												<Stack gap={0}>
-													{team.trainingSchedules?.map((schedule, idx) => {
-														const location = locations?.items.find((loc) => loc.id === schedule.locationId);
-														const dayLabels = schedule.days.map((d) => weekdays[d]?.label).join(", ");
-														return (
-															<Text key={`${schedule.locationId}-${schedule.startTime}-${idx}`} size="xs">
-																{dayLabels}: {schedule.startTime}-{schedule.endTime}
-																<br />
-																<Text component="span" size="xs" c="dimmed">
-																	{location?.name || "Unbekannt"}
-																</Text>
-															</Text>
-														);
-													})}
-												</Stack>
-											</Stack>
-										)}
+                    {trainingCount > 0 && (
+                      <Stack gap="xs">
+                        <Text size="xs" fw={500} c="dimmed">
+                          Trainingszeiten ({trainingCount}):
+                        </Text>
+                        <Stack gap={0}>
+                          {team.trainingSchedules?.map((schedule, idx) => {
+                            const location = locations?.items.find(
+                              (loc) => loc.id === schedule.locationId,
+                            );
+                            const dayLabels = schedule.days
+                              .map((d) => weekdays[d]?.label)
+                              .join(", ");
+                            return (
+                              <Text
+                                key={`${schedule.locationId}-${schedule.startTime}-${idx}`}
+                                size="xs"
+                              >
+                                {dayLabels}: {schedule.startTime}-{schedule.endTime}
+                                <br />
+                                <Text component="span" size="xs" c="dimmed">
+                                  {location?.name || "Unbekannt"}
+                                </Text>
+                              </Text>
+                            );
+                          })}
+                        </Stack>
+                      </Stack>
+                    )}
 
-										{samsTeam && (
-											<Group gap="xs">
-												<Text size="xs" fw={500} c="dimmed">
-													SAMS:
-												</Text>
-												<Text size="xs">
-													{samsTeam.name}, {samsTeam.leagueName}
-												</Text>
-											</Group>
-										)}
-									</Stack>
-								</Card>
-							);
-						})}
-					</SimpleGrid>
-				</>
-			) : (
-				<Text>Keine Mannschaften vorhanden</Text>
-			)}
-		</Stack>
-	);
+                    {samsTeam && (
+                      <Group gap="xs">
+                        <Text size="xs" fw={500} c="dimmed">
+                          SAMS:
+                        </Text>
+                        <Text size="xs">
+                          {samsTeam.name}, {samsTeam.leagueName}
+                        </Text>
+                      </Group>
+                    )}
+                  </Stack>
+                </Card>
+              );
+            })}
+          </SimpleGrid>
+        </>
+      ) : (
+        <Text>Keine Mannschaften vorhanden</Text>
+      )}
+    </Stack>
+  );
 }
 
 export const Route = createFileRoute("/admin/_layout/teams")({
-	component: TeamsPage,
+  component: TeamsPage,
 });

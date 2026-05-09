@@ -17,12 +17,12 @@ import type { MailForwardLambdaEnvironment } from "@/lambda/mail/types";
 import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
 interface MailStackProps extends cdk.StackProps {
-	stackProps?: {
-		environment: string;
-		branch: string;
-	};
-	contentTableName: string;
-	alertEmail?: string;
+  stackProps?: {
+    environment: string;
+    branch: string;
+  };
+  contentTableName: string;
+  alertEmail?: string;
 }
 
 /**
@@ -38,111 +38,121 @@ interface MailStackProps extends cdk.StackProps {
  *   - CloudWatch alarm on DLQ depth
  */
 export class MailStack extends cdk.Stack {
-	public readonly mailForwardLambda: lambda.IFunction;
+  public readonly mailForwardLambda: lambda.IFunction;
 
-	constructor(scope: Construct, id: string, props: MailStackProps) {
-		super(scope, id, props);
+  constructor(scope: Construct, id: string, props: MailStackProps) {
+    super(scope, id, props);
 
-		const environment = props.stackProps?.environment || "dev";
-		const branch = props.stackProps?.branch || "";
-		const branchSuffix = branch ? `-${branch}` : "";
-		const isProd = environment === "prod";
+    const environment = props.stackProps?.environment || "dev";
+    const branch = props.stackProps?.branch || "";
+    const branchSuffix = branch ? `-${branch}` : "";
+    const isProd = environment === "prod";
 
-		const mailConfig = isProd ? Mail.prod : Mail.dev;
+    const mailConfig = isProd ? Mail.prod : Mail.dev;
 
-		// Dead-letter queue — catches emails that could not be forwarded
-		const dlq = new sqs.Queue(this, "MailForwardDlq", {
-			queueName: `mail-forward-dlq-${environment}${branchSuffix}`,
-			retentionPeriod: cdk.Duration.days(14),
-			enforceSSL: true,
-		});
+    // Dead-letter queue — catches emails that could not be forwarded
+    const dlq = new sqs.Queue(this, "MailForwardDlq", {
+      queueName: `mail-forward-dlq-${environment}${branchSuffix}`,
+      retentionPeriod: cdk.Duration.days(14),
+      enforceSSL: true,
+    });
 
-		// Reference the manually provisioned inbound S3 bucket (shared, not branch-scoped)
-		const inboundBucket = s3.Bucket.fromBucketName(this, "InboundBucket", mailConfig.inboundBucketName);
+    // Reference the manually provisioned inbound S3 bucket (shared, not branch-scoped)
+    const inboundBucket = s3.Bucket.fromBucketName(
+      this,
+      "InboundBucket",
+      mailConfig.inboundBucketName,
+    );
 
-		// Lambda for mail forwarding
-		const mailForward = new VcmNodejsFunction(this, "MailForward", {
-			namespace: "mail",
-			name: "mail-forward",
-			entry: path.join(__dirname, "../lambda/mail/mail-forward.ts"),
-			memorySize: 128,
-			deadLetterQueue: dlq,
-			retryAttempts: 2,
-			environment: {
-				CDK_ENVIRONMENT: environment,
-				BRANCH_NAME: isProd ? "" : branch,
-				CONTENT_TABLE_NAME: props.contentTableName,
-				FORWARD_FROM_EMAIL: mailConfig.systemFromEmail,
-				RECIPIENT_DOMAIN: mailConfig.recipientDomain,
-			} satisfies MailForwardLambdaEnvironment,
-		}).lambdaFunction;
+    // Lambda for mail forwarding
+    const mailForward = new VcmNodejsFunction(this, "MailForward", {
+      namespace: "mail",
+      name: "mail-forward",
+      entry: path.join(__dirname, "../lambda/mail/mail-forward.ts"),
+      memorySize: 128,
+      deadLetterQueue: dlq,
+      retryAttempts: 2,
+      environment: {
+        CDK_ENVIRONMENT: environment,
+        BRANCH_NAME: isProd ? "" : branch,
+        CONTENT_TABLE_NAME: props.contentTableName,
+        FORWARD_FROM_EMAIL: mailConfig.systemFromEmail,
+        RECIPIENT_DOMAIN: mailConfig.recipientDomain,
+      } satisfies MailForwardLambdaEnvironment,
+    }).lambdaFunction;
 
-		// Grant S3 read access for retrieving raw MIME email objects
-		inboundBucket.grantRead(mailForward);
+    // Grant S3 read access for retrieving raw MIME email objects
+    inboundBucket.grantRead(mailForward);
 
-		// Grant DynamoDB read access for proxy email → privateEmail lookups
-		const contentTableArn = cdk.Stack.of(this).formatArn({ service: "dynamodb", resource: "table", resourceName: props.contentTableName });
-		dynamodb.Table.fromTableArn(this, "ContentTableRef", contentTableArn).grantReadData(mailForward);
-		mailForward.addToRolePolicy(
-			new iam.PolicyStatement({
-				actions: ["dynamodb:Query"],
-				resources: [`${contentTableArn}/index/*`],
-			}),
-		);
+    // Grant DynamoDB read access for proxy email → privateEmail lookups
+    const contentTableArn = cdk.Stack.of(this).formatArn({
+      service: "dynamodb",
+      resource: "table",
+      resourceName: props.contentTableName,
+    });
+    dynamodb.Table.fromTableArn(this, "ContentTableRef", contentTableArn).grantReadData(
+      mailForward,
+    );
+    mailForward.addToRolePolicy(
+      new iam.PolicyStatement({
+        actions: ["dynamodb:Query"],
+        resources: [`${contentTableArn}/index/*`],
+      }),
+    );
 
-		// Grant SES send-email permission for forwarding
-		mailForward.addToRolePolicy(
-			new iam.PolicyStatement({
-				actions: ["ses:SendRawEmail"],
-				resources: ["*"],
-			}),
-		);
+    // Grant SES send-email permission for forwarding
+    mailForward.addToRolePolicy(
+      new iam.PolicyStatement({
+        actions: ["ses:SendRawEmail"],
+        resources: ["*"],
+      }),
+    );
 
-		// EventBridge rule: S3 Object Created in inbound bucket → Lambda
-		// Uses the source S3 bucket ARN to filter only inbound emails.
-		// Branch-scoped rule name ensures concurrent branches don't share the rule.
-		const rule = new events.Rule(this, "InboundMailRule", {
-			ruleName: `mail-inbound-${environment}${branchSuffix}`,
-			description: `Route inbound SES emails from S3 to mail-forward Lambda (${environment}${branchSuffix})`,
-			eventPattern: {
-				source: ["aws.s3"],
-				detailType: ["Object Created"],
-				detail: {
-					bucket: {
-						name: [mailConfig.inboundBucketName],
-					},
-				},
-			},
-		});
+    // EventBridge rule: S3 Object Created in inbound bucket → Lambda
+    // Uses the source S3 bucket ARN to filter only inbound emails.
+    // Branch-scoped rule name ensures concurrent branches don't share the rule.
+    const rule = new events.Rule(this, "InboundMailRule", {
+      ruleName: `mail-inbound-${environment}${branchSuffix}`,
+      description: `Route inbound SES emails from S3 to mail-forward Lambda (${environment}${branchSuffix})`,
+      eventPattern: {
+        source: ["aws.s3"],
+        detailType: ["Object Created"],
+        detail: {
+          bucket: {
+            name: [mailConfig.inboundBucketName],
+          },
+        },
+      },
+    });
 
-		rule.addTarget(
-			new targets.LambdaFunction(mailForward, {
-				deadLetterQueue: dlq,
-				retryAttempts: 2,
-			}),
-		);
+    rule.addTarget(
+      new targets.LambdaFunction(mailForward, {
+        deadLetterQueue: dlq,
+        retryAttempts: 2,
+      }),
+    );
 
-		// CloudWatch alarm: DLQ message count > 0 → alert
-		const dlqAlarm = new cloudwatch.Alarm(this, "MailForwardDlqAlarm", {
-			alarmName: `mail-forward-dlq-${environment}${branchSuffix}`,
-			alarmDescription: "Mail forwarding Lambda has failed processing — check DLQ",
-			metric: dlq.metricApproximateNumberOfMessagesVisible({
-				period: cdk.Duration.minutes(5),
-			}),
-			threshold: 1,
-			evaluationPeriods: 1,
-			comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-			treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
-		});
+    // CloudWatch alarm: DLQ message count > 0 → alert
+    const dlqAlarm = new cloudwatch.Alarm(this, "MailForwardDlqAlarm", {
+      alarmName: `mail-forward-dlq-${environment}${branchSuffix}`,
+      alarmDescription: "Mail forwarding Lambda has failed processing — check DLQ",
+      metric: dlq.metricApproximateNumberOfMessagesVisible({
+        period: cdk.Duration.minutes(5),
+      }),
+      threshold: 1,
+      evaluationPeriods: 1,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
+    });
 
-		if (props.alertEmail) {
-			const alarmTopic = new sns.Topic(this, "MailForwardAlarmTopic", {
-				topicName: `mail-forward-alarm-${environment}${branchSuffix}`,
-			});
-			alarmTopic.addSubscription(new snsSubscriptions.EmailSubscription(props.alertEmail));
-			dlqAlarm.addAlarmAction(new actions.SnsAction(alarmTopic));
-		}
+    if (props.alertEmail) {
+      const alarmTopic = new sns.Topic(this, "MailForwardAlarmTopic", {
+        topicName: `mail-forward-alarm-${environment}${branchSuffix}`,
+      });
+      alarmTopic.addSubscription(new snsSubscriptions.EmailSubscription(props.alertEmail));
+      dlqAlarm.addAlarmAction(new actions.SnsAction(alarmTopic));
+    }
 
-		this.mailForwardLambda = mailForward;
-	}
+    this.mailForwardLambda = mailForward;
+  }
 }

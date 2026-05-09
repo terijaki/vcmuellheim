@@ -4,11 +4,11 @@ import * as route53 from "aws-cdk-lib/aws-route53";
 import type { Construct } from "constructs";
 
 export interface DnsStackProps extends cdk.StackProps {
-	// Manually created resources in AWS Console
-	hostedZoneId: string;
-	hostedZoneName: string;
-	regionalCertificateArn: string; // Certificate in eu-central-1 for API Gateway
-	cloudFrontCertificateArn?: string; // Certificate in us-east-1 for CloudFront
+  // Manually created resources in AWS Console
+  hostedZoneId: string;
+  hostedZoneName: string;
+  regionalCertificateArn: string; // Certificate in eu-central-1 for API Gateway
+  cloudFrontCertificateArn?: string; // Certificate in us-east-1 for CloudFront
 }
 
 /**
@@ -23,23 +23,33 @@ export interface DnsStackProps extends cdk.StackProps {
  * This prevents accidental deletion and ensures stable nameservers.
  */
 export class DnsStack extends cdk.Stack {
-	public readonly hostedZone: route53.IHostedZone;
-	public readonly regionalCertificate: acm.ICertificate;
-	public readonly cloudFrontCertificate: acm.ICertificate | undefined;
+  public readonly hostedZone: route53.IHostedZone;
+  public readonly regionalCertificate: acm.ICertificate;
+  public readonly cloudFrontCertificate: acm.ICertificate | undefined;
 
-	constructor(scope: Construct, id: string, props: DnsStackProps) {
-		super(scope, id, props);
+  constructor(scope: Construct, id: string, props: DnsStackProps) {
+    super(scope, id, props);
 
-		// Import existing hosted zone created manually
-		this.hostedZone = route53.HostedZone.fromHostedZoneAttributes(this, "HostedZone", {
-			hostedZoneId: props.hostedZoneId,
-			zoneName: props.hostedZoneName,
-		});
+    // Import existing hosted zone created manually
+    this.hostedZone = route53.HostedZone.fromHostedZoneAttributes(this, "HostedZone", {
+      hostedZoneId: props.hostedZoneId,
+      zoneName: props.hostedZoneName,
+    });
 
-		// Import existing ACM certificate for API Gateway (eu-central-1)
-		this.regionalCertificate = acm.Certificate.fromCertificateArn(this, "RegionalCertificate", props.regionalCertificateArn);
+    // Import existing ACM certificate for API Gateway (eu-central-1)
+    this.regionalCertificate = acm.Certificate.fromCertificateArn(
+      this,
+      "RegionalCertificate",
+      props.regionalCertificateArn,
+    );
 
-		// Import CloudFront certificate if provided (must be in us-east-1)
-		this.cloudFrontCertificate = props.cloudFrontCertificateArn ? acm.Certificate.fromCertificateArn(this, "CloudFrontCertificate", props.cloudFrontCertificateArn) : undefined;
-	}
+    // Import CloudFront certificate if provided (must be in us-east-1)
+    this.cloudFrontCertificate = props.cloudFrontCertificateArn
+      ? acm.Certificate.fromCertificateArn(
+          this,
+          "CloudFrontCertificate",
+          props.cloudFrontCertificateArn,
+        )
+      : undefined;
+  }
 }

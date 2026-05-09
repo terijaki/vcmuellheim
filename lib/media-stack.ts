@@ -21,131 +21,140 @@ import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
  * bucket name as a plain string (no CloudFormation cross-stack reference).
  */
 export function computeMediaBucketName(environment: string, branch: string): string {
-	const branchSuffix = branch ? `-${branch}` : "";
-	return `${Club.slug}-media-${environment}${branchSuffix}`;
+  const branchSuffix = branch ? `-${branch}` : "";
+  return `${Club.slug}-media-${environment}${branchSuffix}`;
 }
 
 export interface MediaStackProps extends cdk.StackProps {
-	stackProps?: {
-		environment?: string;
-		branch?: string;
-	};
-	hostedZone?: route53.IHostedZone;
-	cloudFrontCertificate?: acm.ICertificate; // Must be from us-east-1
+  stackProps?: {
+    environment?: string;
+    branch?: string;
+  };
+  hostedZone?: route53.IHostedZone;
+  cloudFrontCertificate?: acm.ICertificate; // Must be from us-east-1
 }
 
 export class MediaStack extends cdk.Stack {
-	public readonly bucket: s3.Bucket;
-	public readonly distribution: cloudfront.Distribution;
-	public readonly cloudFrontUrl: string;
-	/** Stable plain-string bucket name — safe to pass cross-stack without creating CloudFormation exports. */
-	public readonly bucketName: string;
+  public readonly bucket: s3.Bucket;
+  public readonly distribution: cloudfront.Distribution;
+  public readonly cloudFrontUrl: string;
+  /** Stable plain-string bucket name — safe to pass cross-stack without creating CloudFormation exports. */
+  public readonly bucketName: string;
 
-	constructor(scope: Construct, id: string, props?: MediaStackProps) {
-		super(scope, id, props);
+  constructor(scope: Construct, id: string, props?: MediaStackProps) {
+    super(scope, id, props);
 
-		const environment = props?.stackProps?.environment || "dev";
-		const branch = props?.stackProps?.branch || "";
-		const branchSuffix = branch ? `-${branch}` : "";
-		const isProd = environment === "prod";
-		const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
-		const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
-		const mediaDomain = `${envPrefix}media.${baseDomain}`;
+    const environment = props?.stackProps?.environment || "dev";
+    const branch = props?.stackProps?.branch || "";
+    const branchSuffix = branch ? `-${branch}` : "";
+    const isProd = environment === "prod";
+    const envPrefix = isProd ? "" : `${environment}${branchSuffix}-`;
+    const baseDomain = isProd ? Club.domain : `new.${Club.domain}`;
+    const mediaDomain = `${envPrefix}media.${baseDomain}`;
 
-		// S3 Bucket for media storage
-		this.bucketName = computeMediaBucketName(environment, branch);
-		this.bucket = new s3.Bucket(this, "MediaBucket", {
-			bucketName: this.bucketName,
-			encryption: s3.BucketEncryption.S3_MANAGED,
-			cors: [
-				{
-					allowedMethods: [s3.HttpMethods.GET, s3.HttpMethods.PUT, s3.HttpMethods.POST],
-					allowedOrigins: ["*"], // For presigned upload URLs
-					allowedHeaders: ["*"],
-					maxAge: 3000,
-				},
-			],
-			lifecycleRules: [
-				{
-					abortIncompleteMultipartUploadAfter: cdk.Duration.days(7),
-				},
-			],
-			blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-			removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
-			autoDeleteObjects: !isProd, // Auto-delete objects on stack deletion in dev
-		});
+    // S3 Bucket for media storage
+    this.bucketName = computeMediaBucketName(environment, branch);
+    this.bucket = new s3.Bucket(this, "MediaBucket", {
+      bucketName: this.bucketName,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      cors: [
+        {
+          allowedMethods: [s3.HttpMethods.GET, s3.HttpMethods.PUT, s3.HttpMethods.POST],
+          allowedOrigins: ["*"], // For presigned upload URLs
+          allowedHeaders: ["*"],
+          maxAge: 3000,
+        },
+      ],
+      lifecycleRules: [
+        {
+          abortIncompleteMultipartUploadAfter: cdk.Duration.days(7),
+        },
+      ],
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
+      autoDeleteObjects: !isProd, // Auto-delete objects on stack deletion in dev
+    });
 
-		// CloudFront Distribution with OAC for public read access
-		// Dev environment uses shorter cache TTL for faster iteration
-		const cachePolicy = isProd
-			? cloudfront.CachePolicy.CACHING_OPTIMIZED
-			: new cloudfront.CachePolicy(this, "DevCachePolicy", {
-					defaultTtl: cdk.Duration.minutes(5),
-					minTtl: cdk.Duration.seconds(0),
-					maxTtl: cdk.Duration.minutes(10),
-					comment: "Dev cache policy with short TTL",
-				});
+    // CloudFront Distribution with OAC for public read access
+    // Dev environment uses shorter cache TTL for faster iteration
+    const cachePolicy = isProd
+      ? cloudfront.CachePolicy.CACHING_OPTIMIZED
+      : new cloudfront.CachePolicy(this, "DevCachePolicy", {
+          defaultTtl: cdk.Duration.minutes(5),
+          minTtl: cdk.Duration.seconds(0),
+          maxTtl: cdk.Duration.minutes(10),
+          comment: "Dev cache policy with short TTL",
+        });
 
-		this.distribution = new cloudfront.Distribution(this, "MediaDistribution", {
-			defaultBehavior: {
-				origin: origins.S3BucketOrigin.withOriginAccessControl(this.bucket),
-				viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-				allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
-				cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
-				cachePolicy,
-				compress: true,
-			},
-			priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Use only North America and Europe
-			comment: isProd ? "VCM Media Distribution (Prod)" : "VCM Media Distribution (Dev)",
-			...(props?.cloudFrontCertificate && props?.hostedZone
-				? {
-						domainNames: [mediaDomain],
-						certificate: props.cloudFrontCertificate,
-					}
-				: {}),
-		});
+    this.distribution = new cloudfront.Distribution(this, "MediaDistribution", {
+      defaultBehavior: {
+        origin: origins.S3BucketOrigin.withOriginAccessControl(this.bucket),
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+        cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+        cachePolicy,
+        compress: true,
+      },
+      priceClass: cloudfront.PriceClass.PRICE_CLASS_100, // Use only North America and Europe
+      comment: isProd ? "VCM Media Distribution (Prod)" : "VCM Media Distribution (Dev)",
+      ...(props?.cloudFrontCertificate && props?.hostedZone
+        ? {
+            domainNames: [mediaDomain],
+            certificate: props.cloudFrontCertificate,
+          }
+        : {}),
+    });
 
-		// Create A record for media subdomain if hosted zone provided
-		if (props?.hostedZone && props?.cloudFrontCertificate) {
-			new route53.ARecord(this, "MediaARecord", {
-				zone: props.hostedZone,
-				recordName: mediaDomain,
-				target: route53.RecordTarget.fromAlias(new route53Targets.CloudFrontTarget(this.distribution)),
-			});
+    // Create A record for media subdomain if hosted zone provided
+    if (props?.hostedZone && props?.cloudFrontCertificate) {
+      new route53.ARecord(this, "MediaARecord", {
+        zone: props.hostedZone,
+        recordName: mediaDomain,
+        target: route53.RecordTarget.fromAlias(
+          new route53Targets.CloudFrontTarget(this.distribution),
+        ),
+      });
 
-			this.cloudFrontUrl = `https://${mediaDomain}`;
-		} else {
-			this.cloudFrontUrl = `https://${this.distribution.distributionDomainName}`;
-		}
+      this.cloudFrontUrl = `https://${mediaDomain}`;
+    } else {
+      this.cloudFrontUrl = `https://${this.distribution.distributionDomainName}`;
+    }
 
-		// === Image Processing Lambda ===
-		// Add ImageMagick Lambda layer for image processing
-		const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(this, "ImageMagickLayer", isProd ? LambdaLayers.prod.imageMagick : LambdaLayers.dev.imageMagick); // TODO investigate if we can avoid the layer and bundle resources instead
+    // === Image Processing Lambda ===
+    // Add ImageMagick Lambda layer for image processing
+    const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(
+      this,
+      "ImageMagickLayer",
+      isProd ? LambdaLayers.prod.imageMagick : LambdaLayers.dev.imageMagick,
+    ); // TODO investigate if we can avoid the layer and bundle resources instead
 
-		// Create image processor Lambda function
-		const imageProcessorFunction = new VcmNodejsFunction(this, "ImageProcessor", {
-			namespace: "media",
-			name: "image-processor",
-			entry: "lambda/content/image-processor.ts",
-			timeout: cdk.Duration.minutes(5),
-			layers: [imageMagickLayer],
-			environment: {
-				CDK_ENVIRONMENT: environment,
-			},
-		}).lambdaFunction;
+    // Create image processor Lambda function
+    const imageProcessorFunction = new VcmNodejsFunction(this, "ImageProcessor", {
+      namespace: "media",
+      name: "image-processor",
+      entry: "lambda/content/image-processor.ts",
+      timeout: cdk.Duration.minutes(5),
+      layers: [imageMagickLayer],
+      environment: {
+        CDK_ENVIRONMENT: environment,
+      },
+    }).lambdaFunction;
 
-		// Grant Lambda permission to read/write to S3 bucket
-		this.bucket.grantRead(imageProcessorFunction);
-		this.bucket.grantWrite(imageProcessorFunction);
+    // Grant Lambda permission to read/write to S3 bucket
+    this.bucket.grantRead(imageProcessorFunction);
+    this.bucket.grantWrite(imageProcessorFunction);
 
-		// Trigger Lambda on S3 object creation for image files in uploads/ prefix only
-		// This prevents recursion when Lambda writes processed images back to the bucket
-		const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
-		imageExtensions.forEach((ext) => {
-			this.bucket.addObjectCreatedNotification(new s3Notifications.LambdaDestination(imageProcessorFunction), {
-				prefix: "uploads/",
-				suffix: ext,
-			});
-		});
-	}
+    // Trigger Lambda on S3 object creation for image files in uploads/ prefix only
+    // This prevents recursion when Lambda writes processed images back to the bucket
+    const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
+    imageExtensions.forEach((ext) => {
+      this.bucket.addObjectCreatedNotification(
+        new s3Notifications.LambdaDestination(imageProcessorFunction),
+        {
+          prefix: "uploads/",
+          suffix: ext,
+        },
+      );
+    });
+  }
 }
