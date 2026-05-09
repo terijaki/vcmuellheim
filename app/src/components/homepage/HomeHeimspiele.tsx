@@ -21,6 +21,7 @@ import "dayjs/locale/de";
 import { useMemo } from "react";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 import type { Event } from "@/lib/db/types";
+import { getOwnedSamsTeamUuids } from "@/utils/sams";
 import { useEvents, useLiveTicker, useSamsMatches, useSamsTeams } from "../../hooks/dataQueries";
 import EventCard from "../EventCard";
 import MapsLink from "../MapsLink";
@@ -37,13 +38,13 @@ export default function HomeHeimspiele() {
   const { data: eventsData } = useEvents();
   const events = eventsData?.items || [];
 
-  const { data: samsTeamsData } = useSamsTeams();
-  const ourClubUuid = samsTeamsData?.teams?.find((t) =>
-    t.name.includes("Müllheim"),
-  )?.sportsclubUuid;
+  const { data: samsTeamsData, isPending: isSamsTeamsPending } = useSamsTeams();
+  const ourTeamUuids = useMemo(
+    () => getOwnedSamsTeamUuids(samsTeamsData?.teams ?? []),
+    [samsTeamsData?.teams],
+  );
 
   const { data: matchesData } = useSamsMatches({
-    sportsclub: ourClubUuid,
     range: "future",
     limit: 50,
   });
@@ -57,8 +58,7 @@ export default function HomeHeimspiele() {
     // Filter to only matches we are hosting
     const matchesHomeGames = matchesAll.filter((match) => {
       const hostUuid = match.host;
-      const teams = [match._embedded?.team1, match._embedded?.team2];
-      return teams.some((t) => t?.uuid === hostUuid && t?.name.includes("Müllheim"));
+      return !!hostUuid && ourTeamUuids.has(hostUuid);
     });
 
     // Sort by date
@@ -83,7 +83,7 @@ export default function HomeHeimspiele() {
     }
 
     return result;
-  }, [matchesData]);
+  }, [matchesData, ourTeamUuids]);
 
   return (
     <Box bg="blumine">
@@ -104,7 +104,10 @@ export default function HomeHeimspiele() {
           </Stack>
         </Container>
 
-        <NoMatchesNoEvents matchCount={homeMatchesToDisplay.length} eventCount={events.length} />
+        <NoMatchesNoEvents
+          matchCount={isSamsTeamsPending ? undefined : homeMatchesToDisplay.length}
+          eventCount={events.length}
+        />
 
         <Overlay
           backgroundOpacity={0.9}
@@ -287,6 +290,7 @@ function NoMatchesNoEvents({
   matchCount?: number;
   eventCount?: number;
 }) {
+  if (matchCount === undefined) return null;
   if (eventCount > 0) return null;
   if (matchCount > 0) return null;
 
