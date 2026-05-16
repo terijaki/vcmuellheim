@@ -148,6 +148,26 @@ ${locationLine}
 <p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerName}</a></p>`;
 }
 
+function buildOrganizerNotificationHtml(opts: {
+  volunteerName: string;
+  volunteerEmail: string;
+  eventTitle: string;
+  shiftLabel: string;
+  shiftDate: string;
+  roleLabel: string;
+}): string {
+  const { volunteerName, volunteerEmail, eventTitle, shiftLabel, shiftDate, roleLabel } = opts;
+  return `<p>Hallo,</p>
+<p>eine Helfer-Anmeldung wurde erfolgreich bestätigt.</p>
+<hr/>
+<p><strong>Person:</strong> ${volunteerName}</p>
+<p><strong>E-Mail:</strong> ${volunteerEmail}</p>
+<p><strong>Veranstaltung:</strong> ${eventTitle}</p>
+<p><strong>Schicht:</strong> ${shiftLabel}</p>
+<p><strong>Datum / Uhrzeit:</strong> ${shiftDate}</p>
+<p><strong>Aufgabe:</strong> ${roleLabel}</p>`;
+}
+
 // ---------------------------------------------------------------------------
 // Public helpers
 // ---------------------------------------------------------------------------
@@ -264,6 +284,53 @@ export async function sendVolunteerReceiptEmail(opts: {
   await ses.send(
     new SendRawEmailCommand({
       RawMessage: { Data: Buffer.from(rawMessage) },
+    }),
+  );
+}
+
+/** Send organizer notification after a volunteer signup was confirmed via token verification. */
+export async function sendVolunteerOrganizerNotificationEmail(opts: {
+  signup: VolunteerSignup;
+  event: VolunteerEvent;
+}): Promise<void> {
+  const { signup, event } = opts;
+
+  const shift = event.shifts.find((s) => s.id === signup.shiftId);
+  if (!shift) throw new Error(`Shift ${signup.shiftId} not found on event ${event.id}`);
+
+  const assignedRoleLabel = shift.roles.find((role) => role.id === signup.assignedRoleId)?.label;
+  const roleLabel = assignedRoleLabel ?? "Noch nicht zugewiesen";
+  const volunteerName = `${signup.firstName} ${signup.lastName}`;
+  const shiftDate = formatShiftDate(shift);
+
+  const html = buildOrganizerNotificationHtml({
+    volunteerName,
+    volunteerEmail: signup.email,
+    eventTitle: event.title,
+    shiftLabel: shift.label,
+    shiftDate,
+    roleLabel,
+  });
+
+  const ses = getSesClient();
+  await ses.send(
+    new SendEmailCommand({
+      Source: fromEmail(),
+      ReplyToAddresses: [signup.email],
+      Destination: { ToAddresses: [event.organizerEmail] },
+      Message: {
+        Subject: {
+          Data: `${event.title} - Neue Anmeldung von ${volunteerName}`,
+          Charset: "UTF-8",
+        },
+        Body: {
+          Html: { Data: html, Charset: "UTF-8" },
+          Text: {
+            Data: `${volunteerName} hat die Anmeldung für ${event.title} bestätigt.\n\nE-Mail: ${signup.email}\nVeranstaltung: ${event.title}\nSchicht: ${shift.label}\nDatum / Uhrzeit: ${shiftDate}\nAufgabe: ${roleLabel}`,
+            Charset: "UTF-8",
+          },
+        },
+      },
     }),
   );
 }

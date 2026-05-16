@@ -1,9 +1,11 @@
 import { SESClient } from "@aws-sdk/client-ses";
 import { mockClient } from "aws-sdk-client-mock";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
+import * as Sentry from "@sentry/tanstackstart-react";
 import {
   sendBulkVolunteerEmail,
   sendVolunteerConfirmationEmail,
+  sendVolunteerOrganizerNotificationEmail,
   sendVolunteerReceiptEmail,
 } from "./volunteer-email";
 import {
@@ -83,7 +85,12 @@ vi.mock("@/lib/db/electrodb-client", () => ({
 vi.mock("./volunteer-email", () => ({
   sendVolunteerConfirmationEmail: vi.fn().mockResolvedValue(undefined),
   sendVolunteerReceiptEmail: vi.fn().mockResolvedValue(undefined),
+  sendVolunteerOrganizerNotificationEmail: vi.fn().mockResolvedValue(undefined),
   sendBulkVolunteerEmail: vi.fn().mockResolvedValue(undefined),
+}));
+
+vi.mock("@sentry/tanstackstart-react", () => ({
+  captureException: vi.fn(),
 }));
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -338,6 +345,15 @@ describe("verifyVolunteerToken", () => {
     expect(result.success).toBe(true);
     // auto-assign patch should have been called with roleId1 (first preferred, has capacity)
     expect(mockSignupPatch).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(sendVolunteerOrganizerNotificationEmail)).toHaveBeenCalledWith(
+      expect.objectContaining({
+        event: mockEvent,
+        signup: expect.objectContaining({
+          email: signupData.email,
+          assignedRoleId: roleId1,
+        }),
+      }),
+    );
   });
 
   it("skips a full role and auto-assigns to the next available preferred role", async () => {
@@ -411,6 +427,50 @@ describe("verifyVolunteerToken", () => {
     expect(result.success).toBe(true);
     // No auto-assign patch since all roles full
     expect(mockSignupPatch).not.toHaveBeenCalled();
+    const organizerNotifyCall = vi.mocked(sendVolunteerOrganizerNotificationEmail).mock
+      .calls[0]?.[0];
+    expect(organizerNotifyCall).toMatchObject({
+      event: mockEvent,
+      signup: {
+        email: signupData.email,
+      },
+    });
+    expect(organizerNotifyCall?.signup.assignedRoleId).toBeUndefined();
+  });
+
+  it("does not fail confirmation when organizer notification send fails", async () => {
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const testError = new Error("SES organizer notify failed");
+    vi.mocked(sendVolunteerOrganizerNotificationEmail).mockRejectedValueOnce(testError);
+
+    const result = await verifyVolunteerToken({ tokenId });
+
+    expect(result.success).toBe(true);
+    expect(mockTokenDelete).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(sendVolunteerReceiptEmail)).toHaveBeenCalledTimes(1);
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "[verifyVolunteerToken] Failed to send organizer notification",
+      expect.objectContaining({
+        tokenId,
+        eventId,
+        volunteerEmail: signupData.email,
+      }),
+    );
+    expect(vi.mocked(Sentry.captureException)).toHaveBeenCalledWith(
+      testError,
+      expect.objectContaining({
+        contexts: expect.objectContaining({
+          organizer_notification: expect.objectContaining({
+            tokenId,
+            eventId,
+            signupId: expect.any(String),
+            volunteerEmail: signupData.email,
+          }),
+        }),
+      }),
+    );
+
+    consoleSpy.mockRestore();
   });
 
   it("does not auto-assign when shift has no roles", async () => {

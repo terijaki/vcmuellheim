@@ -1,8 +1,11 @@
-import { SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import { SendEmailCommand, SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
 import { mockClient } from "aws-sdk-client-mock";
 import { afterEach, beforeEach, describe, expect, it } from "vite-plus/test";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
-import { sendVolunteerReceiptEmail } from "./volunteer-email";
+import {
+  sendVolunteerOrganizerNotificationEmail,
+  sendVolunteerReceiptEmail,
+} from "./volunteer-email";
 
 const sesMock = mockClient(SESClient);
 let previousAppBaseUrl: string | undefined;
@@ -94,5 +97,59 @@ describe("sendVolunteerReceiptEmail", () => {
     expect(ics).toMatch(/(?:^|\r\n)DTSTART(?:;VALUE=DATE-TIME)?:20260503T080000Z(?:\r\n|$)/);
     expect(ics).toMatch(/(?:^|\r\n)DTEND(?:;VALUE=DATE-TIME)?:20260503T103000Z(?:\r\n|$)/);
     expect(ics).not.toContain("DURATION:");
+  });
+});
+
+describe("sendVolunteerOrganizerNotificationEmail", () => {
+  it("sends organizer notification with assigned role details", async () => {
+    const assignedSignup: VolunteerSignup = {
+      ...signup,
+      assignedRoleId: "role-theke",
+    };
+    const assignedEvent: VolunteerEvent = {
+      ...event,
+      shifts: [
+        {
+          ...event.shifts[0],
+          roles: [
+            {
+              id: "role-theke",
+              label: "Theke",
+              minCapacity: 1,
+            },
+          ],
+        },
+      ],
+    };
+
+    await sendVolunteerOrganizerNotificationEmail({ signup: assignedSignup, event: assignedEvent });
+
+    const calls = sesMock.commandCalls(SendEmailCommand);
+    expect(calls).toHaveLength(1);
+
+    const input = calls[0].args[0].input;
+    expect(input.Destination?.ToAddresses).toEqual([event.organizerEmail]);
+    expect(input.ReplyToAddresses).toEqual([signup.email]);
+    expect(input.Message?.Subject?.Data).toContain("Neue Anmeldung von");
+    const html = input.Message?.Body?.Html?.Data ?? "";
+    expect(html).toContain("Erika Musterfrau");
+    expect(html).toContain("Theke");
+    expect(html).toContain("erika@example.com");
+  });
+
+  it("uses fallback wording when no assigned role exists", async () => {
+    const signupWithoutAssignment: VolunteerSignup = {
+      ...signup,
+      assignedRoleId: undefined,
+    };
+
+    await sendVolunteerOrganizerNotificationEmail({ signup: signupWithoutAssignment, event });
+
+    const calls = sesMock.commandCalls(SendEmailCommand);
+    expect(calls).toHaveLength(1);
+
+    const input = calls[0].args[0].input;
+    const html = input.Message?.Body?.Html?.Data ?? "";
+    expect(html).toContain("Noch nicht zugewiesen");
   });
 });
