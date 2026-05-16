@@ -87,7 +87,9 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
       });
 
       if (error) {
-        throw new Error(`Error ${response.status} fetching associations page ${currentPage}`);
+        throw new Error(
+          `Error ${response?.status ?? "unknown"} fetching associations page ${currentPage}`,
+        );
       }
 
       if (data.content) {
@@ -113,7 +115,9 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
         path: { uuid: "2b7571b5-f985-c552-ea1c-f819ed3811c1" },
       });
       if (error) {
-        throw new Error(`Error ${response.status} fetching association by UUID workaround`);
+        throw new Error(
+          `Error ${response?.status ?? "unknown"} fetching association by UUID workaround`,
+        );
       }
       console.log(`ℹ️ Workaround: Fetched association by known UUID: ${JSON.stringify(data)}`);
       if (data && data.name === ASSOCIATION_NAME) {
@@ -160,7 +164,9 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
       });
 
       if (error) {
-        throw new Error(`Error ${response.status} fetching clubs page ${currentPage}`);
+        throw new Error(
+          `Error ${response?.status ?? "unknown"} fetching clubs page ${currentPage}`,
+        );
       }
 
       if (data.content) {

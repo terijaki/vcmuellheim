@@ -49,7 +49,7 @@ const lambdaHandler: APIGatewayProxyHandler = async (
       });
       if (error) {
         return {
-          statusCode: response.status,
+          statusCode: response?.status ?? 500,
           headers: {
             "Content-Type": "application/json",
           },
@@ -96,7 +96,7 @@ const lambdaHandler: APIGatewayProxyHandler = async (
 
       if (error) {
         return {
-          statusCode: response.status,
+          statusCode: response?.status ?? 500,
           headers: {
             "Content-Type": "application/json",
           },
