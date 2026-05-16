@@ -497,6 +497,7 @@ describe("verifyVolunteerToken", () => {
     await verifyVolunteerToken({ tokenId });
 
     expect(vi.mocked(sendVolunteerReceiptEmail)).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(sendVolunteerOrganizerNotificationEmail)).not.toHaveBeenCalled();
   });
 
   it("returns success:false for an expired token without throwing", async () => {

@@ -235,6 +235,7 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
     signupData.eventId,
     signupData.shiftId,
   );
+  const shouldSendOrganizerNotification = !existing || existing.status !== "confirmed";
 
   let signup: VolunteerSignup;
   if (existing) {
@@ -306,26 +307,28 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
   // Delete token before sending email — a second concurrent call will fail at token lookup
   await db().volunteerToken.delete({ id: data.tokenId }).go();
 
-  try {
-    await sendVolunteerOrganizerNotificationEmail({ signup, event });
-  } catch (error) {
-    const errorContext = {
-      tokenId: data.tokenId,
-      eventId: event.id,
-      signupId: signup.id,
-      volunteerEmail: signup.email,
-      shiftId: signup.shiftId,
-      assignedRoleId: signup.assignedRoleId ?? null,
-    };
-    Sentry.captureException(error, {
-      contexts: {
-        organizer_notification: errorContext,
-      },
-    });
-    console.error("[verifyVolunteerToken] Failed to send organizer notification", {
-      ...errorContext,
-      error: error instanceof Error ? error.message : String(error),
-    });
+  if (shouldSendOrganizerNotification) {
+    try {
+      await sendVolunteerOrganizerNotificationEmail({ signup, event });
+    } catch (error) {
+      const errorContext = {
+        tokenId: data.tokenId,
+        eventId: event.id,
+        signupId: signup.id,
+        volunteerEmail: signup.email,
+        shiftId: signup.shiftId,
+        assignedRoleId: signup.assignedRoleId ?? null,
+      };
+      Sentry.captureException(error, {
+        contexts: {
+          organizer_notification: errorContext,
+        },
+      });
+      console.error("[verifyVolunteerToken] Failed to send organizer notification", {
+        ...errorContext,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
   }
 
   // Send receipt email with .ics

@@ -16,6 +16,7 @@ import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsEvent } from "ts-ics";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
+import { escapeHtml } from "@/utils/html";
 import { getAppBaseUrl } from "./app-base-url";
 import { slugify } from "@/utils/slugify";
 
@@ -157,15 +158,22 @@ function buildOrganizerNotificationHtml(opts: {
   roleLabel: string;
 }): string {
   const { volunteerName, volunteerEmail, eventTitle, shiftLabel, shiftDate, roleLabel } = opts;
+  const safeVolunteerName = escapeHtml(volunteerName);
+  const safeVolunteerEmail = escapeHtml(volunteerEmail);
+  const safeEventTitle = escapeHtml(eventTitle);
+  const safeShiftLabel = escapeHtml(shiftLabel);
+  const safeShiftDate = escapeHtml(shiftDate);
+  const safeRoleLabel = escapeHtml(roleLabel);
+
   return `<p>Hallo,</p>
 <p>eine Helfer-Anmeldung wurde erfolgreich bestätigt.</p>
 <hr/>
-<p><strong>Person:</strong> ${volunteerName}</p>
-<p><strong>E-Mail:</strong> ${volunteerEmail}</p>
-<p><strong>Veranstaltung:</strong> ${eventTitle}</p>
-<p><strong>Schicht:</strong> ${shiftLabel}</p>
-<p><strong>Datum / Uhrzeit:</strong> ${shiftDate}</p>
-<p><strong>Aufgabe:</strong> ${roleLabel}</p>`;
+<p><strong>Person:</strong> ${safeVolunteerName}</p>
+<p><strong>E-Mail:</strong> ${safeVolunteerEmail}</p>
+<p><strong>Veranstaltung:</strong> ${safeEventTitle}</p>
+<p><strong>Schicht:</strong> ${safeShiftLabel}</p>
+<p><strong>Datum / Uhrzeit:</strong> ${safeShiftDate}</p>
+<p><strong>Aufgabe:</strong> ${safeRoleLabel}</p>`;
 }
 
 // ---------------------------------------------------------------------------

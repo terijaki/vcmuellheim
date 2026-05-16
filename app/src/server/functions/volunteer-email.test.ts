@@ -152,4 +152,45 @@ describe("sendVolunteerOrganizerNotificationEmail", () => {
     const html = input.Message?.Body?.Html?.Data ?? "";
     expect(html).toContain("Noch nicht zugewiesen");
   });
+
+  it("escapes interpolated values in organizer notification HTML", async () => {
+    const unsafeSignup: VolunteerSignup = {
+      ...signup,
+      firstName: "<img src=x onerror=alert(1)>",
+      lastName: "O'Connor & <script>alert(1)</script>",
+      email: 'xss+"test"@example.com',
+      assignedRoleId: "role-unsafe",
+    };
+    const unsafeEvent: VolunteerEvent = {
+      ...event,
+      title: "Fest <b>2026</b> & Co",
+      shifts: [
+        {
+          ...event.shifts[0],
+          label: "Aufbau <i>fruh</i>",
+          roles: [
+            {
+              id: "role-unsafe",
+              label: "Theke <script>",
+              minCapacity: 1,
+            },
+          ],
+        },
+      ],
+    };
+
+    await sendVolunteerOrganizerNotificationEmail({ signup: unsafeSignup, event: unsafeEvent });
+
+    const calls = sesMock.commandCalls(SendEmailCommand);
+    expect(calls).toHaveLength(1);
+    const html = calls[0].args[0].input.Message?.Body?.Html?.Data ?? "";
+
+    expect(html).toContain("&lt;img src=x onerror=alert(1)&gt;");
+    expect(html).toContain("O&#39;Connor &amp; &lt;script&gt;alert(1)&lt;/script&gt;");
+    expect(html).toContain("xss+&quot;test&quot;@example.com");
+    expect(html).toContain("Fest &lt;b&gt;2026&lt;/b&gt; &amp; Co");
+    expect(html).toContain("Aufbau &lt;i&gt;fruh&lt;/i&gt;");
+    expect(html).toContain("Theke &lt;script&gt;");
+    expect(html).not.toContain("<script>");
+  });
 });
