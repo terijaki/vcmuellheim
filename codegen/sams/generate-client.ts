@@ -23,7 +23,6 @@ createClient({
     },
     {
       name: "@hey-api/client-fetch",
-      runtimeConfigPath: "../hey-api",
     },
     {
       name: "@hey-api/sdk",
