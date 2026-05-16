@@ -130,8 +130,10 @@ describe("sendVolunteerOrganizerNotificationEmail", () => {
     const input = calls[0].args[0].input;
     expect(input.Destination?.ToAddresses).toEqual([event.organizerEmail]);
     expect(input.ReplyToAddresses).toEqual([signup.email]);
-    expect(input.Message?.Subject?.Data).toContain("Neue Anmeldung von");
+    expect(input.Message?.Subject?.Data).toContain("Stadtfest 2026");
+    expect(input.Message?.Subject?.Data).toContain("Erika Musterfrau");
     const html = input.Message?.Body?.Html?.Data ?? "";
+    expect(html).toContain(event.organizerName);
     expect(html).toContain("Erika Musterfrau");
     expect(html).toContain("Theke");
     expect(html).toContain("erika@example.com");

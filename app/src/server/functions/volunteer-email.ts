@@ -156,6 +156,7 @@ function buildOrganizerNotificationHtml(opts: {
   shiftLabel: string;
   shiftDate: string;
   roleLabel: string;
+  organizerName: string;
 }): string {
   const { volunteerName, volunteerEmail, eventTitle, shiftLabel, shiftDate, roleLabel } = opts;
   const safeVolunteerName = escapeHtml(volunteerName);
@@ -164,16 +165,17 @@ function buildOrganizerNotificationHtml(opts: {
   const safeShiftLabel = escapeHtml(shiftLabel);
   const safeShiftDate = escapeHtml(shiftDate);
   const safeRoleLabel = escapeHtml(roleLabel);
+  const safeOrganizerName = escapeHtml(opts.organizerName);
 
-  return `<p>Hallo,</p>
-<p>eine Helfer-Anmeldung wurde erfolgreich bestätigt.</p>
+  return `<p>Hallo ${safeOrganizerName},</p>
+<p>es gab eine neue Anmeldung für die Veranstaltung <strong>${safeEventTitle}</strong>.</p>
 <hr/>
 <p><strong>Person:</strong> ${safeVolunteerName}</p>
 <p><strong>E-Mail:</strong> ${safeVolunteerEmail}</p>
-<p><strong>Veranstaltung:</strong> ${safeEventTitle}</p>
+<p><strong>Aufgabe:</strong> ${safeRoleLabel}</p>
 <p><strong>Schicht:</strong> ${safeShiftLabel}</p>
 <p><strong>Datum / Uhrzeit:</strong> ${safeShiftDate}</p>
-<p><strong>Aufgabe:</strong> ${safeRoleLabel}</p>`;
+`;
 }
 
 // ---------------------------------------------------------------------------
@@ -318,6 +320,7 @@ export async function sendVolunteerOrganizerNotificationEmail(opts: {
     shiftLabel: shift.label,
     shiftDate,
     roleLabel,
+    organizerName: event.organizerName,
   });
 
   const ses = getSesClient();
@@ -328,7 +331,7 @@ export async function sendVolunteerOrganizerNotificationEmail(opts: {
       Destination: { ToAddresses: [event.organizerEmail] },
       Message: {
         Subject: {
-          Data: `${event.title} - Neue Anmeldung von ${volunteerName}`,
+          Data: `${event.title} & ${volunteerName}`,
           Charset: "UTF-8",
         },
         Body: {

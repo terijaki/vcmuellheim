@@ -64,7 +64,7 @@
       "allowedModels": ["copilot/auto"]
     }
   },
-    "chat.hookFilesLocations": {
+  "chat.hookFilesLocations": {
     ".agents/hooks": true
   }
 }
