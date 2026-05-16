@@ -107,7 +107,7 @@
     "vitest": "npm:@voidzero-dev/vite-plus-test@0.1.21"
   },
   "overrides": {
-    "@aws-sdk/lib-dynamodb": "^3.1019.0"
+    "@aws-sdk/lib-dynamodb": "3.1045.0"
   },
   "engines": {
     "node": ">=25"

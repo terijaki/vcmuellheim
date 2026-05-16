@@ -30,7 +30,7 @@
     /* Types */
     "types": ["node"]
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", ".agents/**/*.ts"],
   "exclude": [
     "node_modules",
     "codegen/sams/generated/**",
