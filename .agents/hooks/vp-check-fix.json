@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "vp check --fix",
+        "timeout": 1800
+      }
+    ]
+  }
+}

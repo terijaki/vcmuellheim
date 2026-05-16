@@ -63,5 +63,8 @@
     "vcmuellheim/.vscode/mcp.json: Sentry.io": {
       "allowedModels": ["copilot/auto"]
     }
+  },
+    "chat.hookFilesLocations": {
+    ".agents/hooks": true
   }
 }
