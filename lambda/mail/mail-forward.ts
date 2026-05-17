@@ -22,7 +22,7 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import { SendEmailCommand, SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
 import middy from "@middy/core";
 import { createDb } from "@/lib/db/electrodb-client";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
@@ -39,6 +39,7 @@ const CONTENT_TABLE_NAME = env.CONTENT_TABLE_NAME;
 const FORWARD_FROM_EMAIL = env.FORWARD_FROM_EMAIL;
 const RECIPIENT_DOMAIN = env.RECIPIENT_DOMAIN;
 const BRANCH_NAME = env.BRANCH_NAME || "";
+const SES_RAW_EMAIL_MAX_SIZE_BYTES = 10 * 1024 * 1024;
 
 const dynamoBaseClient = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(dynamoBaseClient);
@@ -214,6 +215,55 @@ function parseOriginalSender(originalFrom: string): ParsedOriginalSender {
   };
 }
 
+async function notifySenderAboutOversizedEmail(params: {
+  senderEmail: string;
+  originalSubject: string;
+  s3Key: string;
+  messageSizeBytes: number;
+}): Promise<void> {
+  const { senderEmail, originalSubject, s3Key, messageSizeBytes } = params;
+
+  if (!senderEmail || senderEmail.toLowerCase() === FORWARD_FROM_EMAIL.toLowerCase()) {
+    return;
+  }
+
+  const sizeInMb = (messageSizeBytes / (1024 * 1024)).toFixed(2);
+  const message = [
+    "Hallo,",
+    "",
+    "deine E-Mail an vcmuellheim.de konnte nicht weitergeleitet werden,",
+    "weil sie die maximal erlaubte Nachrichtengröße von 10 MB überschreitet.",
+    "",
+    `Erkannte Nachrichtengröße: ${sizeInMb} MB`,
+    `Nachrichtenreferenz: ${s3Key}`,
+    "",
+    "Bitte reduziere die Größe der Anhänge und sende die E-Mail erneut.",
+    "",
+    "Dies ist eine automatische Benachrichtigung.",
+  ].join("\n");
+
+  await ses.send(
+    new SendEmailCommand({
+      Source: FORWARD_FROM_EMAIL,
+      Destination: {
+        ToAddresses: [senderEmail],
+      },
+      Message: {
+        Subject: {
+          Data: `E-Mail nicht weitergeleitet (zu groß): ${originalSubject || "(ohne Betreff)"}`,
+          Charset: "UTF-8",
+        },
+        Body: {
+          Text: {
+            Data: message,
+            Charset: "UTF-8",
+          },
+        },
+      },
+    }),
+  );
+}
+
 function splitMimeIntoHeadersAndBody(rawMime: string): { headers: string; body: string } | null {
   const hasCrlfSeparator = rawMime.includes("\r\n\r\n");
   const separator = hasCrlfSeparator ? "\r\n\r\n" : "\n\n";
@@ -371,6 +421,51 @@ const lambdaHandler = async (event: unknown) => {
     throw new Error(`S3 object body empty: ${s3Key}`);
   }
   const rawMime = await s3Response.Body.transformToString("utf-8");
+  const rawMimeSizeBytes = Buffer.byteLength(rawMime, "utf-8");
+
+  if (rawMimeSizeBytes > SES_RAW_EMAIL_MAX_SIZE_BYTES) {
+    const originalFrom = extractFromAddress(rawMime);
+    const originalSubject = extractHeaderValue(rawMime, "subject");
+    const sender = parseOriginalSender(originalFrom);
+
+    logger.warn("Inbound mail exceeds SES raw size limit", {
+      s3Key,
+      messageSizeBytes: rawMimeSizeBytes,
+      senderEmail: sender.email,
+    });
+
+    try {
+      await notifySenderAboutOversizedEmail({
+        senderEmail: sender.email,
+        originalSubject,
+        s3Key,
+        messageSizeBytes: rawMimeSizeBytes,
+      });
+      logger.info("Sent oversized-mail notification to sender", {
+        s3Key,
+        senderEmail: sender.email,
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      logger.error("Failed to notify sender about oversized mail", {
+        s3Key,
+        senderEmail: sender.email,
+        error: message,
+      });
+      Sentry.captureException(error, {
+        extra: {
+          s3Key,
+          senderEmail: sender.email,
+          messageSizeBytes: rawMimeSizeBytes,
+        },
+      });
+    }
+
+    return {
+      statusCode: 200,
+      body: "dropped: message too large",
+    };
+  }
 
   const envelopeRecipientAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
   const headerToAddresses = extractToAddresses(rawMime);

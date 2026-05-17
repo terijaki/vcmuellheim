@@ -11,7 +11,7 @@
 
 import { beforeEach, describe, expect, test, vi } from "vite-plus/test";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import { SendEmailCommand, SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
 
@@ -487,6 +487,34 @@ describe("mail-forward Lambda", () => {
 
       expect(s3Mock.commandCalls(GetObjectCommand)).toHaveLength(0);
       expect(result).toMatchObject({ statusCode: 200, body: expect.stringContaining("skipped") });
+    });
+  });
+
+  describe("oversized message handling", () => {
+    test("notifies sender and drops when raw MIME exceeds SES 10 MB limit", async () => {
+      const oversizedMime = [
+        "From: sender@example.com",
+        "To: max.mustermann@vcmuellheim.de",
+        "Subject: Huge attachment",
+        "",
+        "A".repeat(10 * 1024 * 1024 + 1024),
+      ].join("\n");
+
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi.fn().mockResolvedValue(oversizedMime),
+        } as never,
+      });
+      sesMock.on(SendEmailCommand).resolves({ MessageId: "notify-message-id" });
+
+      const result = await handler(makeEvent("emails/oversized.eml"), mockLambdaContext as never);
+
+      const notifyCalls = sesMock.commandCalls(SendEmailCommand);
+      expect(notifyCalls).toHaveLength(1);
+      expect(notifyCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["sender@example.com"]);
+
+      expect(sesMock.commandCalls(SendRawEmailCommand)).toHaveLength(0);
+      expect(result).toMatchObject({ statusCode: 200, body: "dropped: message too large" });
     });
   });
 
