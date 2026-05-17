@@ -14,6 +14,26 @@ export type CoercedEnvSchema = {
   VARLOCK_ENV: string;
   
   /**
+   * **VARLOCK_BRANCH** 🔐 _sensitive_  
+   * Current git branch name. In CI, sourced from platform environment variables. Locally (non-CI), auto-detected via `git branch --show-current`.  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  VARLOCK_BRANCH: string;
+  
+  /**
+   * **BRANCH_NAME**  
+   * -- Branch configuration (raw branch name, sanitized in plugin for resource names) --  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  BRANCH_NAME: string;
+  
+  /**
+   * **VITE_BRANCH_NAME**  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  VITE_BRANCH_NAME: string;
+  
+  /**
    * **CDK_ENVIRONMENT**  
    * -- AWS CDK configuration --  
    * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M7.885%2010.23L12%203.463l4.116%206.769zm9.606%2011q-1.558%200-2.64-1.081t-1.082-2.64t1.082-2.649t2.64-1.09t2.649%201.09t1.09%202.649t-1.09%202.64t-2.649%201.082m-13.722-.5v-6.462h6.462v6.462z%22%2F%3E%3C%2Fsvg%3E)   
@@ -88,11 +108,11 @@ export type CoercedEnvSchema = {
   
 };
 
-type _CoercedEnvSchema_6b3bb114 = CoercedEnvSchema;
+type _CoercedEnvSchema_6f743812 = CoercedEnvSchema;
 
 declare module 'varlock/env' {
-  export interface TypedEnvSchema extends Readonly<_CoercedEnvSchema_6b3bb114> {}
-  export interface PublicTypedEnvSchema extends Readonly<Pick<_CoercedEnvSchema_6b3bb114, 'CDK_ENVIRONMENT' | 'SENTRY_ENVIRONMENT'>> {}
+  export interface TypedEnvSchema extends Readonly<_CoercedEnvSchema_6f743812> {}
+  export interface PublicTypedEnvSchema extends Readonly<Pick<_CoercedEnvSchema_6f743812, 'BRANCH_NAME' | 'VITE_BRANCH_NAME' | 'CDK_ENVIRONMENT' | 'SENTRY_ENVIRONMENT'>> {}
 }
 
 
@@ -102,17 +122,17 @@ export type EnvSchemaAsStrings = {
       : (CoercedEnvSchema[Property] extends boolean ? ('true' | 'false') : string)
 };
 
-type _EnvSchemaAsStrings_6b3bb114 = EnvSchemaAsStrings;
+type _EnvSchemaAsStrings_6f743812 = EnvSchemaAsStrings;
 declare global {
 
   // add types for global import.meta.env
-  interface ImportMetaEnv extends _EnvSchemaAsStrings_6b3bb114 {}
+  interface ImportMetaEnv extends _EnvSchemaAsStrings_6f743812 {}
   interface ImportMeta {
     readonly env: ImportMetaEnv;
   }
 
   // add types for global process.env
   namespace NodeJS {
-    interface ProcessEnv extends _EnvSchemaAsStrings_6b3bb114 {}
+    interface ProcessEnv extends _EnvSchemaAsStrings_6f743812 {}
   }
 }

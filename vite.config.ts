@@ -5,9 +5,9 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite-plus";
-import { getAppEnvironment, localAwsResourceEnvPlugin } from "./app/vite/localAwsResourceEnv.ts";
+import { localAwsResourceEnvPlugin } from "./app/vite/localAwsResourceEnv.ts";
 
-const isProd = getAppEnvironment() === "prod";
+const isProd = process.env.CDK_ENVIRONMENT === "prod";
 
 export default defineConfig({
   staged: {
