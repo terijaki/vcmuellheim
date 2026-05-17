@@ -52,6 +52,7 @@ function applyLocalAwsResourceEnv(environment: string) {
   setDefaultEnv("MEDIA_CLOUDFRONT_URL", `https://${envPrefix}media.new.vcmuellheim.de`);
 
   setDefaultEnv("APP_BASE_URL", buildWebappUrl(environment, sanitizedBranch));
+  setDefaultEnv("BETTER_AUTH_SECRET", "vcm-local-dev-better-auth-secret");
 }
 
 export function localAwsResourceEnvPlugin(): PluginOption {
