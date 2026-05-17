@@ -21,6 +21,8 @@ jobs:
   deploy:
     name: Deploy CDK Stack
     runs-on: ubuntu-latest
+    outputs:
+      webapp_url: ${{ steps.resolve-webapp-url.outputs.webapp_url }}
     env:
       CDK_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
       SENTRY_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
@@ -59,6 +61,23 @@ jobs:
         run: |
           vp exec cdk deploy --require-approval never --all --outputs-file cdk-outputs.json
 
+      - name: Resolve deployed web app URL
+        id: resolve-webapp-url
+        env:
+          CDK_BRANCH_OVERWRITE: ${{ github.ref_name }}
+        run: |
+          WEBAPP_URL=$(vp exec tsx -e '
+            import { getSanitizedBranch } from "./utils/git.ts";
+            import { buildWebappUrl } from "./utils/webapp-url.ts";
+
+            const environment = process.env.CDK_ENVIRONMENT || "dev";
+            const branch = getSanitizedBranch();
+            process.stdout.write(buildWebappUrl(environment, branch));
+          ')
+
+          echo "webapp_url=$WEBAPP_URL" >> "$GITHUB_OUTPUT"
+          echo "Using computed URL: $WEBAPP_URL"
+
       - name: Add deployment summary
         run: |
           echo "## ${{ github.ref == 'refs/heads/main' && '🚀' || '🔧' }} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
@@ -95,9 +114,54 @@ jobs:
             echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           fi
 
-  comment-on-deployment:
-    if: failure()
+  e2e-tests:
+    name: E2E Tests
     needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - uses: voidzero-dev/setup-vp@v1
+        with:
+          node-version: "25"
+          cache: true
+
+      - name: Install dependencies
+        run: vp install
+
+      - name: Install Playwright browser
+        run: vp exec playwright install --with-deps chromium
+
+      - name: Run Playwright smoke tests
+        id: playwright
+        env:
+          WEBAPP_URL: ${{ needs.deploy.outputs.webapp_url }}
+        run: vp run test:e2e
+
+      - name: Add E2E summary
+        if: always()
+        run: |
+          ICON="✅"
+          RESULT="Passed"
+          if [ "${{ steps.playwright.outcome }}" != "success" ]; then
+            ICON="❌"
+            RESULT="Failed"
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## ${ICON} Playwright E2E Smoke" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Base URL** | \`${{ needs.deploy.outputs.webapp_url }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Browser** | Desktop Chrome |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Result** | ${RESULT} |" >> $GITHUB_STEP_SUMMARY
+
+  comment-on-deployment:
+    if: always() && (needs.deploy.result == 'failure' || needs.e2e-tests.result == 'failure')
+    needs: [deploy, e2e-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -133,5 +197,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               commit_sha: context.sha,
-              body: `🚨 **CDK Deployment Failed**\n\n[View workflow run](${workflowUrl})${errorSection}`
+              body: `🚨 **CDK Deploy Pipeline Failed (including post-deploy E2E)**\n\n[View workflow run](${workflowUrl})${errorSection}`
             });

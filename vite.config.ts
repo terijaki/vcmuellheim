@@ -60,6 +60,7 @@ export default defineConfig({
   test: {
     root: ".",
     silent: true,
+    include: ["**/*.test.ts", "**/*.test.tsx"],
     reporters: process.env.GITHUB_ACTIONS === "true" ? ["agent", "github-actions"] : ["agent"],
     env: {
       // Suppress Powertools structured log output during tests
