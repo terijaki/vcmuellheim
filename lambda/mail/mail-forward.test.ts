@@ -537,7 +537,7 @@ describe("mail-forward Lambda", () => {
       byteLengthSpy.mockRestore();
     });
 
-    test("notifies sender and drops when raw MIME exceeds SES v2 forwarding limit", async () => {
+    test("notifies sender and drops when S3 metadata already exceeds SES v2 forwarding limit", async () => {
       const oversizedMime = [
         "From: sender@example.com",
         "To: max.mustermann@vcmuellheim.de",
@@ -546,12 +546,22 @@ describe("mail-forward Lambda", () => {
         "A",
       ].join("\n");
 
-      s3Mock.on(GetObjectCommand).resolves({
-        Body: {
-          transformToString: vi.fn().mockResolvedValue(oversizedMime),
-        } as never,
-      });
-      const byteLengthSpy = vi.spyOn(Buffer, "byteLength").mockReturnValue(41 * 1024 * 1024);
+      s3Mock.reset();
+      s3Mock
+        .on(GetObjectCommand)
+        .resolvesOnce({
+          Body: {
+            transformToString: vi
+              .fn()
+              .mockRejectedValue(new Error("raw body should not be loaded")),
+          } as never,
+          ContentLength: 41 * 1024 * 1024,
+        })
+        .resolves({
+          Body: {
+            transformToString: vi.fn().mockResolvedValue(oversizedMime),
+          } as never,
+        });
 
       const result = await handler(makeEvent("emails/oversized.eml"), mockLambdaContext as never);
 
@@ -561,7 +571,41 @@ describe("mail-forward Lambda", () => {
 
       expect(getForwardCalls()).toHaveLength(0);
       expect(result).toMatchObject({ statusCode: 200, body: "dropped: message too large" });
-      byteLengthSpy.mockRestore();
+    });
+
+    test("does not notify when sender cannot be parsed reliably", async () => {
+      const oversizedMimeWithoutFrom = [
+        "To: max.mustermann@vcmuellheim.de",
+        "Subject: Huge attachment",
+        "",
+        "A",
+      ].join("\n");
+
+      s3Mock.reset();
+      s3Mock
+        .on(GetObjectCommand)
+        .resolvesOnce({
+          Body: {
+            transformToString: vi
+              .fn()
+              .mockRejectedValue(new Error("raw body should not be loaded")),
+          } as never,
+          ContentLength: 41 * 1024 * 1024,
+        })
+        .resolves({
+          Body: {
+            transformToString: vi.fn().mockResolvedValue(oversizedMimeWithoutFrom),
+          } as never,
+        });
+
+      const result = await handler(
+        makeEvent("emails/oversized-missing-sender.eml"),
+        mockLambdaContext as never,
+      );
+
+      expect(getNotificationCalls()).toHaveLength(0);
+      expect(getForwardCalls()).toHaveLength(0);
+      expect(result).toMatchObject({ statusCode: 200, body: "dropped: message too large" });
     });
   });
 

@@ -4,7 +4,7 @@ This document records the manual AWS setup for the email proxy feature.
 
 ## Overview
 
-The email proxy uses SES receipt rules to route inbound member alias emails to S3, where a Lambda processor (deployed via CDK in later phases) forwards them to member private inboxes.
+The email proxy uses SES receipt rules to route inbound member alias emails to S3, where a Lambda processor forwards them to member private inboxes.
 
 ## Production Environment (vcmuellheim.de)
 
