@@ -22,7 +22,7 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { SendEmailCommand, SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import middy from "@middy/core";
 import { createDb } from "@/lib/db/electrodb-client";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
@@ -39,14 +39,17 @@ const CONTENT_TABLE_NAME = env.CONTENT_TABLE_NAME;
 const FORWARD_FROM_EMAIL = env.FORWARD_FROM_EMAIL;
 const RECIPIENT_DOMAIN = env.RECIPIENT_DOMAIN;
 const BRANCH_NAME = env.BRANCH_NAME || "";
-const SES_RAW_EMAIL_MAX_SIZE_BYTES = 10 * 1024 * 1024;
+const SESV2_MAX_MESSAGE_SIZE_BYTES = 40 * 1024 * 1024;
+const SESV2_SIZE_SAFETY_MARGIN_BYTES = 512 * 1024;
+const SESV2_FORWARD_SIZE_LIMIT_BYTES =
+  SESV2_MAX_MESSAGE_SIZE_BYTES - SESV2_SIZE_SAFETY_MARGIN_BYTES;
 
 const dynamoBaseClient = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(dynamoBaseClient);
 const db = createDb(docClient, CONTENT_TABLE_NAME);
 
 const s3 = tracer.captureAWSv3Client(new S3Client({}));
-const ses = tracer.captureAWSv3Client(new SESClient({}));
+const ses = tracer.captureAWSv3Client(new SESv2Client({}));
 
 type ParsedOriginalSender = {
   name: string;
@@ -232,7 +235,7 @@ async function notifySenderAboutOversizedEmail(params: {
     "Hallo,",
     "",
     "deine E-Mail an vcmuellheim.de konnte nicht weitergeleitet werden,",
-    "weil sie die maximal erlaubte Nachrichtengröße von 10 MB überschreitet.",
+    `weil sie die maximal erlaubte Nachrichtengröße von ${(SESV2_FORWARD_SIZE_LIMIT_BYTES / (1024 * 1024)).toFixed(2)} MB überschreitet.`,
     "",
     `Erkannte Nachrichtengröße: ${sizeInMb} MB`,
     `Nachrichtenreferenz: ${s3Key}`,
@@ -244,19 +247,21 @@ async function notifySenderAboutOversizedEmail(params: {
 
   await ses.send(
     new SendEmailCommand({
-      Source: FORWARD_FROM_EMAIL,
+      FromEmailAddress: FORWARD_FROM_EMAIL,
       Destination: {
         ToAddresses: [senderEmail],
       },
-      Message: {
-        Subject: {
-          Data: `E-Mail nicht weitergeleitet (zu groß): ${originalSubject || "(ohne Betreff)"}`,
-          Charset: "UTF-8",
-        },
-        Body: {
-          Text: {
-            Data: message,
+      Content: {
+        Simple: {
+          Subject: {
+            Data: `E-Mail nicht weitergeleitet (zu groß): ${originalSubject || "(ohne Betreff)"}`,
             Charset: "UTF-8",
+          },
+          Body: {
+            Text: {
+              Data: message,
+              Charset: "UTF-8",
+            },
           },
         },
       },
@@ -367,10 +372,16 @@ async function sendForwardedEmail(input: SendForwardedEmailInput): Promise<Forwa
   try {
     const rewritten = rewriteMimeHeaders(rawMime, originalFrom, newFrom, target);
     await ses.send(
-      new SendRawEmailCommand({
-        Source: newFrom,
-        Destinations: [target],
-        RawMessage: { Data: Buffer.from(rewritten) },
+      new SendEmailCommand({
+        FromEmailAddress: newFrom,
+        Destination: {
+          ToAddresses: [target],
+        },
+        Content: {
+          Raw: {
+            Data: Buffer.from(rewritten),
+          },
+        },
       }),
     );
 
@@ -423,15 +434,17 @@ const lambdaHandler = async (event: unknown) => {
   const rawMime = await s3Response.Body.transformToString("utf-8");
   const rawMimeSizeBytes = Buffer.byteLength(rawMime, "utf-8");
 
-  if (rawMimeSizeBytes > SES_RAW_EMAIL_MAX_SIZE_BYTES) {
+  if (rawMimeSizeBytes > SESV2_FORWARD_SIZE_LIMIT_BYTES) {
     const originalFrom = extractFromAddress(rawMime);
     const originalSubject = extractHeaderValue(rawMime, "subject");
     const sender = parseOriginalSender(originalFrom);
 
-    logger.warn("Inbound mail exceeds SES raw size limit", {
+    logger.warn("Inbound mail exceeds SES v2 forwarding size limit", {
       s3Key,
       messageSizeBytes: rawMimeSizeBytes,
       senderEmail: sender.email,
+      maxForwardSizeBytes: SESV2_FORWARD_SIZE_LIMIT_BYTES,
+      metricMarker: "MailForwardOversizeDrop",
     });
 
     try {
@@ -444,6 +457,7 @@ const lambdaHandler = async (event: unknown) => {
       logger.info("Sent oversized-mail notification to sender", {
         s3Key,
         senderEmail: sender.email,
+        metricMarker: "MailForwardOversizeDropNotified",
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);

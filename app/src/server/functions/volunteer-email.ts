@@ -4,10 +4,10 @@
  * - Confirmation email: sent on signup, contains a verification link (72 h TTL).
  * - Receipt email: sent after token verification, includes a .ics calendar attachment.
  *
- * Both emails are written in German and use AWS SES via the @aws-sdk/client-ses package.
+ * Both emails are written in German and use AWS SES v2.
  */
 
-import { SendEmailCommand, SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { interpolatePath } from "@tanstack/react-router";
 import type { FileRoutesByPath } from "@tanstack/react-router";
 import { Club, Mail } from "@project.config";
@@ -25,8 +25,8 @@ dayjs.extend(timezone);
 
 const isProd = process.env.CDK_ENVIRONMENT === "prod";
 
-function getSesClient(): SESClient {
-  return new SESClient({ region: process.env.AWS_REGION ?? "eu-central-1" });
+function getSesClient(): SESv2Client {
+  return new SESv2Client({ region: process.env.AWS_REGION ?? "eu-central-1" });
 }
 
 function fromEmail(): string {
@@ -218,16 +218,18 @@ export async function sendVolunteerConfirmationEmail(opts: {
   const ses = getSesClient();
   await ses.send(
     new SendEmailCommand({
-      Source: fromEmail(),
+      FromEmailAddress: fromEmail(),
       ReplyToAddresses: [organizerEmail],
       Destination: { ToAddresses: [toEmail] },
-      Message: {
-        Subject: { Data: `Anmeldung bestätigen: ${event.title}`, Charset: "UTF-8" },
-        Body: {
-          Html: { Data: html, Charset: "UTF-8" },
-          Text: {
-            Data: `Hallo ${firstName},\n\nBitte bestätige deine Anmeldung: ${confirmationUrl}\n\nDieser Link ist 72 Stunden gültig.\n\nBei Fragen wende dich an: ${organizerEmail}\n\n${Club.shortName}`,
-            Charset: "UTF-8",
+      Content: {
+        Simple: {
+          Subject: { Data: `Anmeldung bestätigen: ${event.title}`, Charset: "UTF-8" },
+          Body: {
+            Html: { Data: html, Charset: "UTF-8" },
+            Text: {
+              Data: `Hallo ${firstName},\n\nBitte bestätige deine Anmeldung: ${confirmationUrl}\n\nDieser Link ist 72 Stunden gültig.\n\nBei Fragen wende dich an: ${organizerEmail}\n\n${Club.shortName}`,
+              Charset: "UTF-8",
+            },
           },
         },
       },
@@ -292,8 +294,16 @@ export async function sendVolunteerReceiptEmail(opts: {
 
   const ses = getSesClient();
   await ses.send(
-    new SendRawEmailCommand({
-      RawMessage: { Data: Buffer.from(rawMessage) },
+    new SendEmailCommand({
+      FromEmailAddress: from,
+      Destination: {
+        ToAddresses: [to],
+      },
+      Content: {
+        Raw: {
+          Data: Buffer.from(rawMessage),
+        },
+      },
     }),
   );
 }
@@ -326,19 +336,21 @@ export async function sendVolunteerOrganizerNotificationEmail(opts: {
   const ses = getSesClient();
   await ses.send(
     new SendEmailCommand({
-      Source: fromEmail(),
+      FromEmailAddress: fromEmail(),
       ReplyToAddresses: [signup.email],
       Destination: { ToAddresses: [event.organizerEmail] },
-      Message: {
-        Subject: {
-          Data: `${event.title} & ${volunteerName}`,
-          Charset: "UTF-8",
-        },
-        Body: {
-          Html: { Data: html, Charset: "UTF-8" },
-          Text: {
-            Data: `${volunteerName} hat die Anmeldung für ${event.title} bestätigt.\n\nE-Mail: ${signup.email}\nVeranstaltung: ${event.title}\nSchicht: ${shift.label}\nDatum / Uhrzeit: ${shiftDate}\nAufgabe: ${roleLabel}`,
+      Content: {
+        Simple: {
+          Subject: {
+            Data: `${event.title} & ${volunteerName}`,
             Charset: "UTF-8",
+          },
+          Body: {
+            Html: { Data: html, Charset: "UTF-8" },
+            Text: {
+              Data: `${volunteerName} hat die Anmeldung für ${event.title} bestätigt.\n\nE-Mail: ${signup.email}\nVeranstaltung: ${event.title}\nSchicht: ${shift.label}\nDatum / Uhrzeit: ${shiftDate}\nAufgabe: ${roleLabel}`,
+              Charset: "UTF-8",
+            },
           },
         },
       },
@@ -357,13 +369,15 @@ export async function sendBulkVolunteerEmail(opts: {
   const ses = getSesClient();
   await ses.send(
     new SendEmailCommand({
-      Source: fromEmail(),
+      FromEmailAddress: fromEmail(),
       ReplyToAddresses: [organizerEmail],
       Destination: { ToAddresses: [toEmail] },
-      Message: {
-        Subject: { Data: subject, Charset: "UTF-8" },
-        Body: {
-          Html: { Data: htmlBody, Charset: "UTF-8" },
+      Content: {
+        Simple: {
+          Subject: { Data: subject, Charset: "UTF-8" },
+          Body: {
+            Html: { Data: htmlBody, Charset: "UTF-8" },
+          },
         },
       },
     }),

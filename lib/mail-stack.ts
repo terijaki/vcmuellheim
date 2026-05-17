@@ -103,7 +103,7 @@ export class MailStack extends cdk.Stack {
     // Grant SES send-email permission for forwarding
     mailForward.addToRolePolicy(
       new iam.PolicyStatement({
-        actions: ["ses:SendRawEmail"],
+        actions: ["ses:SendEmail"],
         resources: ["*"],
       }),
     );

@@ -1,4 +1,4 @@
-import { SendEmailCommand, SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { mockClient } from "aws-sdk-client-mock";
 import { afterEach, beforeEach, describe, expect, it } from "vite-plus/test";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
@@ -7,7 +7,7 @@ import {
   sendVolunteerReceiptEmail,
 } from "./volunteer-email";
 
-const sesMock = mockClient(SESClient);
+const sesMock = mockClient(SESv2Client);
 let previousAppBaseUrl: string | undefined;
 
 const event: VolunteerEvent = {
@@ -50,7 +50,7 @@ beforeEach(() => {
   previousAppBaseUrl = process.env.APP_BASE_URL;
   process.env.APP_BASE_URL = "https://test.vcmuellheim.de";
   sesMock.reset();
-  sesMock.on(SendRawEmailCommand).resolves({ MessageId: "m-1" });
+  sesMock.on(SendEmailCommand).resolves({});
 });
 
 afterEach(() => {
@@ -65,10 +65,12 @@ describe("sendVolunteerReceiptEmail", () => {
   it("sends ICS attachment as PUBLISH with explicit DTEND", async () => {
     await sendVolunteerReceiptEmail({ signup, event });
 
-    const calls = sesMock.commandCalls(SendRawEmailCommand);
+    const calls = sesMock
+      .commandCalls(SendEmailCommand)
+      .filter((call) => Boolean(call.args[0].input.Content?.Raw));
     expect(calls).toHaveLength(1);
 
-    const rawMime = Buffer.from(calls[0].args[0].input.RawMessage?.Data as Uint8Array).toString(
+    const rawMime = Buffer.from(calls[0].args[0].input.Content?.Raw?.Data as Uint8Array).toString(
       "utf-8",
     );
     const boundaryMatch = rawMime.match(/Content-Type: multipart\/mixed; boundary="([^"]+)"/);
@@ -130,9 +132,9 @@ describe("sendVolunteerOrganizerNotificationEmail", () => {
     const input = calls[0].args[0].input;
     expect(input.Destination?.ToAddresses).toEqual([event.organizerEmail]);
     expect(input.ReplyToAddresses).toEqual([signup.email]);
-    expect(input.Message?.Subject?.Data).toContain("Stadtfest 2026");
-    expect(input.Message?.Subject?.Data).toContain("Erika Musterfrau");
-    const html = input.Message?.Body?.Html?.Data ?? "";
+    expect(input.Content?.Simple?.Subject?.Data).toContain("Stadtfest 2026");
+    expect(input.Content?.Simple?.Subject?.Data).toContain("Erika Musterfrau");
+    const html = input.Content?.Simple?.Body?.Html?.Data ?? "";
     expect(html).toContain(event.organizerName);
     expect(html).toContain("Erika Musterfrau");
     expect(html).toContain("Theke");
@@ -151,7 +153,7 @@ describe("sendVolunteerOrganizerNotificationEmail", () => {
     expect(calls).toHaveLength(1);
 
     const input = calls[0].args[0].input;
-    const html = input.Message?.Body?.Html?.Data ?? "";
+    const html = input.Content?.Simple?.Body?.Html?.Data ?? "";
     expect(html).toContain("Noch nicht zugewiesen");
   });
 
@@ -185,7 +187,7 @@ describe("sendVolunteerOrganizerNotificationEmail", () => {
 
     const calls = sesMock.commandCalls(SendEmailCommand);
     expect(calls).toHaveLength(1);
-    const html = calls[0].args[0].input.Message?.Body?.Html?.Data ?? "";
+    const html = calls[0].args[0].input.Content?.Simple?.Body?.Html?.Data ?? "";
 
     expect(html).toContain("&lt;img src=x onerror=alert(1)&gt;");
     expect(html).toContain("O&#39;Connor &amp; &lt;script&gt;alert(1)&lt;/script&gt;");

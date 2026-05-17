@@ -37,7 +37,7 @@
     "@aws-lambda-powertools/tracer": "^2.33.0",
     "@aws-sdk/client-dynamodb": "^3.1045.0",
     "@aws-sdk/client-s3": "^3.1045.0",
-    "@aws-sdk/client-ses": "^3.1045.0",
+    "@aws-sdk/client-sesv2": "^3.1047.0",
     "@aws-sdk/lib-dynamodb": "^3.1045.0",
     "@aws-sdk/s3-request-presigner": "^3.1045.0",
     "@aws-sdk/util-dynamodb": "^3.996.2",
