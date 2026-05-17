@@ -6,7 +6,7 @@
  * - OTP login link points to /admin
  */
 
-import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { Club, Mail } from "@project.config";
 import { betterAuth } from "better-auth";
 import { emailOTP } from "better-auth/plugins";
@@ -20,7 +20,7 @@ const OTP_EXPIRATION_MINUTES = 10;
 const isProd = process.env.CDK_ENVIRONMENT === "prod";
 
 function getSesClient() {
-  return new SESClient({
+  return new SESv2Client({
     region: process.env.AWS_REGION || "eu-central-1",
   });
 }
@@ -158,21 +158,23 @@ function createAuth() {
 
           await sesClient.send(
             new SendEmailCommand({
-              Source: isProd ? Mail.prod.systemFromEmail : Mail.dev.systemFromEmail,
+              FromEmailAddress: isProd ? Mail.prod.systemFromEmail : Mail.dev.systemFromEmail,
               Destination: { ToAddresses: [targetEmail] },
-              Message: {
-                Subject: {
-                  Data: buildOtpEmailSubject(Club.shortName),
-                  Charset: "UTF-8",
-                },
-                Body: {
-                  Html: {
-                    Data: buildOtpEmailHtml(emailOpts),
+              Content: {
+                Simple: {
+                  Subject: {
+                    Data: buildOtpEmailSubject(Club.shortName),
                     Charset: "UTF-8",
                   },
-                  Text: {
-                    Data: buildOtpEmailText(emailOpts),
-                    Charset: "UTF-8",
+                  Body: {
+                    Html: {
+                      Data: buildOtpEmailHtml(emailOpts),
+                      Charset: "UTF-8",
+                    },
+                    Text: {
+                      Data: buildOtpEmailText(emailOpts),
+                      Charset: "UTF-8",
+                    },
                   },
                 },
               },

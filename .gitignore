@@ -35,3 +35,7 @@ openapi-ts-error-*.log
 
 # vite
 apps/**/dist
+
+# playwright
+playwright-report/
+test-results/

@@ -13,9 +13,7 @@
   "paths": {
     "/": {
       "get": {
-        "tags": [
-          "SAMS REST API v2"
-        ],
+        "tags": ["SAMS REST API v2"],
         "summary": "Links to the API's resources",
         "operationId": "getApiBaseLinks",
         "parameters": [
@@ -74,9 +72,7 @@
     },
     "/associations/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS associations API"
-        ],
+        "tags": ["SAMS associations API"],
         "summary": "Returns an association identified by the given UUID",
         "operationId": "getAssociationByUuid",
         "parameters": [
@@ -154,9 +150,7 @@
     },
     "/associations": {
       "get": {
-        "tags": [
-          "SAMS associations API"
-        ],
+        "tags": ["SAMS associations API"],
         "summary": "Returns all available associations.",
         "description": "Returns all available association as a paged list. The default page size is 20. The page size must not be greater than 100",
         "operationId": "getAssociations",
@@ -252,9 +246,7 @@
     },
     "/associations/{uuid}/committees": {
       "get": {
-        "tags": [
-          "SAMS associations API"
-        ],
+        "tags": ["SAMS associations API"],
         "summary": "Returns the list of committees.",
         "description": "Returns the list of committees for an association as a paged list. The default page size is The returned committees list their respective members including the members' publicly available contact information.20. The page size must not be greater than 100",
         "operationId": "getCommitteesForAssociation",
@@ -351,9 +343,7 @@
     },
     "/associations/{uuid}/sportsclubs": {
       "get": {
-        "tags": [
-          "SAMS associations API"
-        ],
+        "tags": ["SAMS associations API"],
         "description": "Returns the list of sportsclubs belonging to the association identified by the specified UUID as a paged list. The default page size is 20. The page size must not be greater than 100",
         "operationId": "getSportsclubsForAssociation",
         "parameters": [
@@ -449,9 +439,7 @@
     },
     "/committees": {
       "get": {
-        "tags": [
-          "SAMS committees API"
-        ],
+        "tags": ["SAMS committees API"],
         "summary": "Returns the list of available committees as a paged list.",
         "description": "Returns all committees belonging to the association which can be accessed with the used API key. The returned committees list their respective members including the members' publicly available contact information. The default page size is 20. The page size must not be greater than 100",
         "operationId": "getAllCommittees",
@@ -539,9 +527,7 @@
     },
     "/committees/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS committees API"
-        ],
+        "tags": ["SAMS committees API"],
         "summary": "Returns a committee identified by the given UUID",
         "description": "Returns the requested committee if it belongs to the association which can be accessed with the used API key. The returned committee lists its respective members including the members' publicly available contact information.",
         "operationId": "getCommittee",
@@ -619,9 +605,7 @@
     },
     "/league-hierarchies": {
       "get": {
-        "tags": [
-          "SAMS league hierarchies API"
-        ],
+        "tags": ["SAMS league hierarchies API"],
         "summary": "Returns all available league hierarchy elements as a paged list.",
         "description": "The default page size is 20. The page size must not be greater than 100. The result list can be filtered for a particular season.",
         "operationId": "getAllLeagueHierarchies",
@@ -725,9 +709,7 @@
     },
     "/league-hierarchies/{uuid}/competitions": {
       "get": {
-        "tags": [
-          "SAMS league hierarchies API"
-        ],
+        "tags": ["SAMS league hierarchies API"],
         "summary": "Returns all competitions corresponding to the league hierarchy identified by the given UUID",
         "operationId": "getCompetitionsByLeagueHierarchy",
         "parameters": [
@@ -822,9 +804,7 @@
     },
     "/league-hierarchies/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS league hierarchies API"
-        ],
+        "tags": ["SAMS league hierarchies API"],
         "summary": "Returns a league hierarchy element identified by the given UUID",
         "operationId": "getLeagueHierarchyByUuid",
         "parameters": [
@@ -901,9 +881,7 @@
     },
     "/league-hierarchies/{uuid}/leagues": {
       "get": {
-        "tags": [
-          "SAMS league hierarchies API"
-        ],
+        "tags": ["SAMS league hierarchies API"],
         "summary": "Returns all leagues corresponding to the league hierarchy identified by the given UUID",
         "operationId": "getLeaguesByLeagueHierarchy",
         "parameters": [
@@ -998,9 +976,7 @@
     },
     "/league-hierarchies/{uuid}/super-competitions": {
       "get": {
-        "tags": [
-          "SAMS league hierarchies API"
-        ],
+        "tags": ["SAMS league hierarchies API"],
         "summary": "Returns all super competitions corresponding to the league hierarchy identified by the given UUID",
         "operationId": "getSuperCompetitionsByLeagueHierarchy",
         "parameters": [
@@ -1095,9 +1071,7 @@
     },
     "/locations": {
       "get": {
-        "tags": [
-          "SAMS locations API"
-        ],
+        "tags": ["SAMS locations API"],
         "summary": "Returns all available locations as a paged list.",
         "description": "The default page size is 20. The page size must not be greater than 100",
         "operationId": "getAllLocations",
@@ -1185,9 +1159,7 @@
     },
     "/locations/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS locations API"
-        ],
+        "tags": ["SAMS locations API"],
         "summary": "Returns a location element identified by the given UUID",
         "description": "Returns a location element identified by the given UUID",
         "operationId": "getLocationByUuid",
@@ -1265,9 +1237,7 @@
     },
     "/competitions": {
       "get": {
-        "tags": [
-          "SAMS competitions API"
-        ],
+        "tags": ["SAMS competitions API"],
         "summary": "Returns all available competitions as a paged list.",
         "description": "The default page size is 20. The page size must not be greater than 100",
         "operationId": "getAllCompetitions",
@@ -1371,9 +1341,7 @@
     },
     "/competitions/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS competitions API"
-        ],
+        "tags": ["SAMS competitions API"],
         "summary": "Returns a competition identified by the given UUID",
         "operationId": "getCompetitionByUuid",
         "parameters": [
@@ -1450,9 +1418,7 @@
     },
     "/competitions/{uuid}/match-groups": {
       "get": {
-        "tags": [
-          "SAMS competitions API"
-        ],
+        "tags": ["SAMS competitions API"],
         "summary": "Returns all match groups corresponding to the competition identified by the given UUID",
         "operationId": "getMatchGroupsForCompetition",
         "parameters": [
@@ -1547,9 +1513,7 @@
     },
     "/competitions/{uuid}/rankings": {
       "get": {
-        "tags": [
-          "SAMS competitions API"
-        ],
+        "tags": ["SAMS competitions API"],
         "summary": "Returns the rankings of a competition identified by the given UUID.",
         "operationId": "getRankingsForCompetition",
         "parameters": [
@@ -1644,9 +1608,7 @@
     },
     "/competitions/{uuid}/teams": {
       "get": {
-        "tags": [
-          "SAMS competitions API"
-        ],
+        "tags": ["SAMS competitions API"],
         "summary": "Returns all teams of a competition identified by the given UUID as a paged list. ",
         "description": "The default page size is 20. The page size must not be greater than 100",
         "operationId": "getTeamsForCompetition",
@@ -1742,9 +1704,7 @@
     },
     "/competition-matches": {
       "get": {
-        "tags": [
-          "SAMS competition matches API"
-        ],
+        "tags": ["SAMS competition matches API"],
         "summary": "Returns all available competition matches as a paged list.",
         "description": "The default page size is 20. The page size must not be greater than 100. The result list can be filtered for a particular season, competition, sports club, or team by passing the UUID of the entity for which to filter as a filter query parameter. The filters will be combined with AND semantics.",
         "operationId": "getAllCompetitionMatchesWithFilter",
@@ -1872,9 +1832,7 @@
     },
     "/competition-matches/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS competition matches API"
-        ],
+        "tags": ["SAMS competition matches API"],
         "summary": "Returns a competition match identified by the given UUID",
         "operationId": "getCompetitionMatchByUuid",
         "parameters": [
@@ -1951,9 +1909,7 @@
     },
     "/match-groups": {
       "get": {
-        "tags": [
-          "SAMS match groups API"
-        ],
+        "tags": ["SAMS match groups API"],
         "summary": "Returns all available match groups as a paged list. The default page size is 20. The page size must not be greater than 100",
         "operationId": "getAllMatchGroups",
         "parameters": [
@@ -2048,9 +2004,7 @@
     },
     "/match-groups/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS match groups API"
-        ],
+        "tags": ["SAMS match groups API"],
         "summary": "Returns a match group identified by the given UUID",
         "operationId": "getMatchGroupByUuid",
         "parameters": [
@@ -2127,9 +2081,7 @@
     },
     "/match-groups/{uuid}/competition-matches": {
       "get": {
-        "tags": [
-          "SAMS match groups API"
-        ],
+        "tags": ["SAMS match groups API"],
         "summary": "Returns all matches corresponding to the match group identified by the given UUID",
         "operationId": "getMatchesByMatchGroup",
         "parameters": [
@@ -2224,9 +2176,7 @@
     },
     "/leagues": {
       "get": {
-        "tags": [
-          "SAMS leagues API"
-        ],
+        "tags": ["SAMS leagues API"],
         "summary": "Returns all available leagues as a paged list. The default page size is 20. The page size must not be greater than 100",
         "operationId": "getAllLeagues",
         "parameters": [
@@ -2329,9 +2279,7 @@
     },
     "/leagues/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS leagues API"
-        ],
+        "tags": ["SAMS leagues API"],
         "summary": "Returns a league identified by the given UUID",
         "operationId": "getLeagueByUuid",
         "parameters": [
@@ -2408,9 +2356,7 @@
     },
     "/leagues/{uuid}/match-days": {
       "get": {
-        "tags": [
-          "SAMS leagues API"
-        ],
+        "tags": ["SAMS leagues API"],
         "summary": "Returns all match days corresponding to the league identified by the given UUID",
         "operationId": "getMatchDaysForLeague",
         "parameters": [
@@ -2505,9 +2451,7 @@
     },
     "/leagues/{uuid}/rankings": {
       "get": {
-        "tags": [
-          "SAMS leagues API"
-        ],
+        "tags": ["SAMS leagues API"],
         "summary": "Returns the rankings of a league identified by the given UUID.",
         "operationId": "getRankingsForLeague",
         "parameters": [
@@ -2602,9 +2546,7 @@
     },
     "/leagues/{uuid}/teams": {
       "get": {
-        "tags": [
-          "SAMS leagues API"
-        ],
+        "tags": ["SAMS leagues API"],
         "summary": "Returns all teams of a league identified by the given UUID as a paged list. The default page size is 20. The page size must not be greater than 100",
         "operationId": "getTeamsForLeague",
         "parameters": [
@@ -2699,9 +2641,7 @@
     },
     "/league-matches": {
       "get": {
-        "tags": [
-          "SAMS league matches API"
-        ],
+        "tags": ["SAMS league matches API"],
         "summary": "Returns all available league matches as a paged list.",
         "description": "The default page size is 20. The page size must not be greater than 100. The result list can be filtered for a particular season, league, sports club, or team by passing the UUID of the entity for which to filter as a filter query parameter. The filters will be combined with AND semantics.",
         "operationId": "getAllLeagueMatches",
@@ -2829,9 +2769,7 @@
     },
     "/league-matches/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS league matches API"
-        ],
+        "tags": ["SAMS league matches API"],
         "summary": "Returns a league match identified by the given UUID",
         "operationId": "getLeagueMatchByUuid",
         "parameters": [
@@ -2908,9 +2846,7 @@
     },
     "/match-days": {
       "get": {
-        "tags": [
-          "SAMS match days API"
-        ],
+        "tags": ["SAMS match days API"],
         "summary": "Returns all available match days as a paged list.",
         "description": "The default page size is 20. The page size must not be greater than 100",
         "operationId": "getAllMatchDays",
@@ -3006,9 +2942,7 @@
     },
     "/match-days/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS match days API"
-        ],
+        "tags": ["SAMS match days API"],
         "summary": "Returns a match day identified by the given UUID",
         "operationId": "getMatchDayByUuid",
         "parameters": [
@@ -3085,9 +3019,7 @@
     },
     "/match-days/{uuid}/league-matches": {
       "get": {
-        "tags": [
-          "SAMS match days API"
-        ],
+        "tags": ["SAMS match days API"],
         "summary": "Returns all matches of a match day based on the given UUID. The default page size is 20. The page size must not be greater than 100",
         "operationId": "getMatchesByMatchDay",
         "parameters": [
@@ -3182,9 +3114,7 @@
     },
     "/super-competitions": {
       "get": {
-        "tags": [
-          "SAMS super competitions API"
-        ],
+        "tags": ["SAMS super competitions API"],
         "summary": "Returns all available super competitions as a paged list.",
         "description": "The default page size is 20. The page size must not be greater than 100. The sub-competitions belonging to each super competition are added as an _embedded entity list.",
         "operationId": "getAllSuperCompetitions",
@@ -3288,9 +3218,7 @@
     },
     "/super-competitions/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS super competitions API"
-        ],
+        "tags": ["SAMS super competitions API"],
         "summary": "Returns a super competition identified by the given UUID",
         "operationId": "getSuperCompetitionByUuid",
         "parameters": [
@@ -3367,9 +3295,7 @@
     },
     "/events": {
       "get": {
-        "tags": [
-          "SAMS events API"
-        ],
+        "tags": ["SAMS events API"],
         "summary": "Returns all available events as a paged list. The default page size is 20. The page size must not be greater than 100",
         "operationId": "getAllEvents",
         "parameters": [
@@ -3464,9 +3390,7 @@
     },
     "/events/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS events API"
-        ],
+        "tags": ["SAMS events API"],
         "summary": "Returns an event identified by the given UUID",
         "operationId": "getEventByUuid",
         "parameters": [
@@ -3544,9 +3468,7 @@
     },
     "/event-types/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS event types API"
-        ],
+        "tags": ["SAMS event types API"],
         "summary": "Returns an event type identified by the given UUID",
         "operationId": "getEventTypeByUuid",
         "parameters": [
@@ -3624,9 +3546,7 @@
     },
     "/event-types": {
       "get": {
-        "tags": [
-          "SAMS event types API"
-        ],
+        "tags": ["SAMS event types API"],
         "summary": "Returns all available event types.",
         "operationId": "getEventTypes",
         "parameters": [
@@ -3703,9 +3623,7 @@
     },
     "/seasons": {
       "get": {
-        "tags": [
-          "SAMS seasons API"
-        ],
+        "tags": ["SAMS seasons API"],
         "summary": "Returns all available seasons",
         "operationId": "getAllSeasons",
         "parameters": [
@@ -3777,9 +3695,7 @@
     },
     "/seasons/{uuid}/league-hierarchies": {
       "get": {
-        "tags": [
-          "SAMS seasons API"
-        ],
+        "tags": ["SAMS seasons API"],
         "summary": "Returns all league hierarchies corresponding to the season identified by the given UUID",
         "operationId": "getLeagueHierarchiesForSeason",
         "parameters": [
@@ -3874,9 +3790,7 @@
     },
     "/seasons/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS seasons API"
-        ],
+        "tags": ["SAMS seasons API"],
         "summary": "Returns a season identified by the given UUID",
         "operationId": "getSeasonByUuid",
         "parameters": [
@@ -3953,9 +3867,7 @@
     },
     "/sportsclubs": {
       "get": {
-        "tags": [
-          "SAMS sports clubs API"
-        ],
+        "tags": ["SAMS sports clubs API"],
         "summary": "Returns all available sports clubs.",
         "description": "The default page size is 20. The page size must not be greater than 100",
         "operationId": "getAllSportsclubs",
@@ -4051,9 +3963,7 @@
     },
     "/sportsclubs/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS sports clubs API"
-        ],
+        "tags": ["SAMS sports clubs API"],
         "summary": "Returns a sports club identified by the given UUID.",
         "operationId": "getSportsclub",
         "parameters": [
@@ -4130,9 +4040,7 @@
     },
     "/teams": {
       "get": {
-        "tags": [
-          "SAMS teams API"
-        ],
+        "tags": ["SAMS teams API"],
         "summary": "Returns all available teams as a paged list.",
         "description": "The default page size is 20. The page size must not be greater than 100",
         "operationId": "getAllTeams",
@@ -4228,9 +4136,7 @@
     },
     "/teams/{uuid}": {
       "get": {
-        "tags": [
-          "SAMS teams API"
-        ],
+        "tags": ["SAMS teams API"],
         "summary": "Returns a team identified by the given UUID",
         "operationId": "getTeamByUuid",
         "parameters": [
@@ -4307,9 +4213,7 @@
     },
     "/user-details/current": {
       "get": {
-        "tags": [
-          "SAMS user API"
-        ],
+        "tags": ["SAMS user API"],
         "summary": "Retrieves the user data for the current user identified by the mandatory JSON web token authorization header",
         "operationId": "getCurrentUser",
         "parameters": [
@@ -4378,9 +4282,7 @@
     },
     "/user-details": {
       "get": {
-        "tags": [
-          "SAMS user API"
-        ],
+        "tags": ["SAMS user API"],
         "summary": "Provides links to sub resources",
         "operationId": "userDetailsRootLinks",
         "parameters": [
@@ -4541,10 +4443,7 @@
             "nullable": true
           }
         },
-        "required": [
-          "uuid",
-          "name"
-        ]
+        "required": ["uuid", "name"]
       },
       "Embedded": {
         "type": "object",
@@ -4844,10 +4743,7 @@
             "nullable": true
           }
         },
-        "required": [
-          "uuid",
-          "name"
-        ]
+        "required": ["uuid", "name"]
       },
       "SportsclubPage": {
         "type": "object",
@@ -5006,11 +4902,7 @@
           },
           "gender": {
             "type": "string",
-            "enum": [
-              "MALE",
-              "FEMALE",
-              "MIXED"
-            ]
+            "enum": ["MALE", "FEMALE", "MIXED"]
           },
           "leagueHierarchyUuid": {
             "type": "string"
@@ -5109,11 +5001,7 @@
           },
           "gender": {
             "type": "string",
-            "enum": [
-              "MALE",
-              "FEMALE",
-              "MIXED"
-            ]
+            "enum": ["MALE", "FEMALE", "MIXED"]
           },
           "leagueHierarchyUuid": {
             "type": "string"
@@ -5208,11 +5096,7 @@
           },
           "gender": {
             "type": "string",
-            "enum": [
-              "MALE",
-              "FEMALE",
-              "MIXED"
-            ]
+            "enum": ["MALE", "FEMALE", "MIXED"]
           },
           "leagueHierarchyUuid": {
             "type": "string"
@@ -5798,11 +5682,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "uuid",
-                  "name",
-                  "sportsclubUuid"
-                ]
+                "required": ["uuid", "name", "sportsclubUuid"]
               },
               "team2": {
                 "type": "object",
@@ -5817,11 +5697,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "uuid",
-                  "name",
-                  "sportsclubUuid"
-                ]
+                "required": ["uuid", "name", "sportsclubUuid"]
               }
             },
             "nullable": true
@@ -5914,18 +5790,16 @@
             "type": "string",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           }
         },
-        "required": [
-          "uuid"
-        ]
+        "required": ["uuid"]
       },
       "CompetitionMatchPage": {
         "type": "object",
@@ -6198,11 +6072,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "uuid",
-                  "name",
-                  "sportsclubUuid"
-                ]
+                "required": ["uuid", "name", "sportsclubUuid"]
               },
               "team2": {
                 "type": "object",
@@ -6217,11 +6087,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "uuid",
-                  "name",
-                  "sportsclubUuid"
-                ]
+                "required": ["uuid", "name", "sportsclubUuid"]
               }
             },
             "nullable": true
@@ -6314,18 +6180,16 @@
             "type": "string",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           }
         },
-        "required": [
-          "uuid"
-        ]
+        "required": ["uuid"]
       },
       "LeagueMatchPage": {
         "type": "object",
@@ -6595,12 +6459,7 @@
           },
           "gender": {
             "type": "string",
-            "enum": [
-              "UNDEFINED",
-              "MALE",
-              "FEMALE",
-              "DIVERS"
-            ]
+            "enum": ["UNDEFINED", "MALE", "FEMALE", "DIVERS"]
           },
           "emailAddress": {
             "type": "string"

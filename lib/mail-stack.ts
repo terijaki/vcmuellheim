@@ -12,7 +12,7 @@ import * as sns from "aws-cdk-lib/aws-sns";
 import * as snsSubscriptions from "aws-cdk-lib/aws-sns-subscriptions";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 import type { Construct } from "constructs";
-import { Mail } from "@/project.config";
+import { Club, Mail } from "@/project.config";
 import type { MailForwardLambdaEnvironment } from "@/lambda/mail/types";
 import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
@@ -103,8 +103,10 @@ export class MailStack extends cdk.Stack {
     // Grant SES send-email permission for forwarding
     mailForward.addToRolePolicy(
       new iam.PolicyStatement({
-        actions: ["ses:SendRawEmail"],
-        resources: ["*"],
+        actions: ["ses:SendEmail", "ses:SendRawEmail"],
+        resources: [
+          `arn:aws:ses:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:identity/${isProd ? Club.domain : `new.${Club.domain}`}`,
+        ],
       }),
     );
 

@@ -11,7 +11,7 @@
 
 import { beforeEach, describe, expect, test, vi } from "vite-plus/test";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
 
@@ -23,8 +23,18 @@ process.env.BRANCH_NAME = "";
 
 // ── AWS SDK mocks ────────────────────────────────────────────────────────────
 const s3Mock = mockClient(S3Client);
-const sesMock = mockClient(SESClient);
+const sesMock = mockClient(SESv2Client);
 const ddbMock = mockClient(DynamoDBDocumentClient);
+
+function getForwardCalls() {
+  return sesMock.commandCalls(SendEmailCommand).filter((call) => call.args[0].input.Content?.Raw);
+}
+
+function getNotificationCalls() {
+  return sesMock
+    .commandCalls(SendEmailCommand)
+    .filter((call) => call.args[0].input.Content?.Simple);
+}
 
 // ── ElectroDB mock via vi.hoisted + vi.mock ──────────────────────────────────
 // createDb is called at module-level in mail-forward.ts; must be intercepted
@@ -114,7 +124,7 @@ describe("mail-forward Lambda", () => {
     });
 
     // Default: SES send succeeds
-    sesMock.on(SendRawEmailCommand).resolves({ MessageId: "test-message-id" });
+    sesMock.on(SendEmailCommand).resolves({ MessageId: "test-message-id" });
 
     // Default: individual alias lookup returns nothing (unknown alias)
     mockByProxyEmailGo.mockResolvedValue({ data: [] });
@@ -133,7 +143,7 @@ describe("mail-forward Lambda", () => {
         mockLambdaContext as never,
       );
 
-      expect(sesMock.commandCalls(SendRawEmailCommand)).toHaveLength(0);
+      expect(getForwardCalls()).toHaveLength(0);
       expect(result).toMatchObject({ statusCode: 200, body: expect.stringContaining("dropped") });
     });
 
@@ -147,7 +157,7 @@ describe("mail-forward Lambda", () => {
         mockLambdaContext as never,
       );
 
-      expect(sesMock.commandCalls(SendRawEmailCommand)).toHaveLength(0);
+      expect(getForwardCalls()).toHaveLength(0);
       expect(result).toMatchObject({ statusCode: 200, body: expect.stringContaining("dropped") });
     });
   });
@@ -166,10 +176,10 @@ describe("mail-forward Lambda", () => {
 
       const result = await handler(makeEvent("emails/test-match.eml"), mockLambdaContext as never);
 
-      const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+      const sesCalls = getForwardCalls();
       expect(sesCalls).toHaveLength(1);
-      expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@example.com"]);
-      expect(sesCalls[0].args[0].input.Source).toBe("postmaster@vcmuellheim.de");
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["max@example.com"]);
+      expect(sesCalls[0].args[0].input.FromEmailAddress).toBe("postmaster@vcmuellheim.de");
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
 
@@ -187,7 +197,7 @@ describe("mail-forward Lambda", () => {
       await handler(makeEvent("emails/rewrite-test.eml"), mockLambdaContext as never);
 
       const rawMime = Buffer.from(
-        sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!,
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
       ).toString();
       expect(rawMime).toMatch(
         /^From: "sender \(sender@example\.com\)" <postmaster@vcmuellheim\.de>$/im,
@@ -224,7 +234,7 @@ describe("mail-forward Lambda", () => {
       await handler(makeEvent("emails/return-path-test.eml"), mockLambdaContext as never);
 
       const rawMime = Buffer.from(
-        sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!,
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
       ).toString();
       expect(rawMime).not.toMatch(/^Return-Path:/im);
       expect(rawMime).toMatch(
@@ -259,9 +269,9 @@ describe("mail-forward Lambda", () => {
         mockLambdaContext as never,
       );
 
-      const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+      const sesCalls = getForwardCalls();
       expect(sesCalls).toHaveLength(1);
-      expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@example.com"]);
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["max@example.com"]);
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
 
@@ -280,7 +290,7 @@ describe("mail-forward Lambda", () => {
             .mockResolvedValue(makeMime("max.mustermann+feat-x@new.vcmuellheim.de")),
         } as never,
       });
-      sesMock.on(SendRawEmailCommand).resolves({ MessageId: "test-message-id" });
+      sesMock.on(SendEmailCommand).resolves({ MessageId: "test-message-id" });
       mockByProxyEmailGo.mockResolvedValue({
         data: [
           {
@@ -297,10 +307,10 @@ describe("mail-forward Lambda", () => {
         mockLambdaContext as never,
       );
 
-      const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+      const sesCalls = getForwardCalls();
       expect(sesCalls).toHaveLength(1);
-      expect(sesCalls[0].args[0].input.Source).toBe("postmaster@new.vcmuellheim.de");
-      expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@example.com"]);
+      expect(sesCalls[0].args[0].input.FromEmailAddress).toBe("postmaster@new.vcmuellheim.de");
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["max@example.com"]);
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
 
@@ -327,7 +337,7 @@ describe("mail-forward Lambda", () => {
       await handler(makeEvent("emails/reply-to-test.eml"), mockLambdaContext as never);
 
       const rawMime = Buffer.from(
-        sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!,
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
       ).toString();
       expect(rawMime).toMatch(
         /^From: "original\.sender \(original\.sender@example\.com\)" <postmaster@vcmuellheim\.de>$/im,
@@ -361,7 +371,7 @@ describe("mail-forward Lambda", () => {
       await handler(makeEvent("emails/from-display-test.eml"), mockLambdaContext as never);
 
       const rawMime = Buffer.from(
-        sesMock.commandCalls(SendRawEmailCommand)[0].args[0].input.RawMessage!.Data!,
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
       ).toString();
       expect(rawMime).toMatch(
         /^From: "Max Mustermann \(max\.mustermann@example\.com\)" <postmaster@vcmuellheim\.de>$/im,
@@ -400,9 +410,9 @@ describe("mail-forward Lambda", () => {
 
       const result = await handler(makeEvent("emails/multi-to.eml"), mockLambdaContext as never);
 
-      const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+      const sesCalls = getForwardCalls();
       expect(sesCalls).toHaveLength(2);
-      const destinations = sesCalls.map((c) => c.args[0].input.Destinations![0]);
+      const destinations = sesCalls.map((c) => c.args[0].input.Destination!.ToAddresses![0]);
       expect(destinations).toContain("max@example.com");
       expect(destinations).toContain("erika@example.com");
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
@@ -433,9 +443,9 @@ describe("mail-forward Lambda", () => {
         mockLambdaContext as never,
       );
 
-      const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+      const sesCalls = getForwardCalls();
       expect(sesCalls).toHaveLength(1);
-      expect(sesCalls[0].args[0].input.Destinations).toEqual(["max@example.com"]);
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["max@example.com"]);
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
 
@@ -471,9 +481,9 @@ describe("mail-forward Lambda", () => {
         mockLambdaContext as never,
       );
 
-      const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+      const sesCalls = getForwardCalls();
       expect(sesCalls).toHaveLength(1);
-      expect(sesCalls[0].args[0].input.Destinations).toEqual(["erika@example.com"]);
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["erika@example.com"]);
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
   });
@@ -487,6 +497,115 @@ describe("mail-forward Lambda", () => {
 
       expect(s3Mock.commandCalls(GetObjectCommand)).toHaveLength(0);
       expect(result).toMatchObject({ statusCode: 200, body: expect.stringContaining("skipped") });
+    });
+  });
+
+  describe("oversized message handling", () => {
+    test("allows forwarding of messages above the old SES v1 10 MB limit", async () => {
+      const largerThanV1LimitMime = [
+        "From: sender@example.com",
+        "To: max.mustermann@vcmuellheim.de",
+        "Subject: Large attachment",
+        "",
+        "A",
+      ].join("\n");
+
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi.fn().mockResolvedValue(largerThanV1LimitMime),
+        } as never,
+      });
+      const byteLengthSpy = vi.spyOn(Buffer, "byteLength").mockReturnValue(11 * 1024 * 1024);
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+
+      const result = await handler(
+        makeEvent("emails/larger-than-v1-limit.eml"),
+        mockLambdaContext as never,
+      );
+
+      expect(getNotificationCalls()).toHaveLength(0);
+      expect(getForwardCalls()).toHaveLength(1);
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
+      byteLengthSpy.mockRestore();
+    });
+
+    test("notifies sender and drops when S3 metadata already exceeds SES v2 forwarding limit", async () => {
+      const oversizedMime = [
+        "From: sender@example.com",
+        "To: max.mustermann@vcmuellheim.de",
+        "Subject: Huge attachment",
+        "",
+        "A",
+      ].join("\n");
+
+      s3Mock.reset();
+      s3Mock
+        .on(GetObjectCommand)
+        .resolvesOnce({
+          Body: {
+            transformToString: vi
+              .fn()
+              .mockRejectedValue(new Error("raw body should not be loaded")),
+          } as never,
+          ContentLength: 41 * 1024 * 1024,
+        })
+        .resolves({
+          Body: {
+            transformToString: vi.fn().mockResolvedValue(oversizedMime),
+          } as never,
+        });
+
+      const result = await handler(makeEvent("emails/oversized.eml"), mockLambdaContext as never);
+
+      const notifyCalls = getNotificationCalls();
+      expect(notifyCalls).toHaveLength(1);
+      expect(notifyCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["sender@example.com"]);
+
+      expect(getForwardCalls()).toHaveLength(0);
+      expect(result).toMatchObject({ statusCode: 200, body: "dropped: message too large" });
+    });
+
+    test("does not notify when sender cannot be parsed reliably", async () => {
+      const oversizedMimeWithoutFrom = [
+        "To: max.mustermann@vcmuellheim.de",
+        "Subject: Huge attachment",
+        "",
+        "A",
+      ].join("\n");
+
+      s3Mock.reset();
+      s3Mock
+        .on(GetObjectCommand)
+        .resolvesOnce({
+          Body: {
+            transformToString: vi
+              .fn()
+              .mockRejectedValue(new Error("raw body should not be loaded")),
+          } as never,
+          ContentLength: 41 * 1024 * 1024,
+        })
+        .resolves({
+          Body: {
+            transformToString: vi.fn().mockResolvedValue(oversizedMimeWithoutFrom),
+          } as never,
+        });
+
+      const result = await handler(
+        makeEvent("emails/oversized-missing-sender.eml"),
+        mockLambdaContext as never,
+      );
+
+      expect(getNotificationCalls()).toHaveLength(0);
+      expect(getForwardCalls()).toHaveLength(0);
+      expect(result).toMatchObject({ statusCode: 200, body: "dropped: message too large" });
     });
   });
 
@@ -507,7 +626,7 @@ describe("mail-forward Lambda", () => {
         mockLambdaContext as never,
       );
 
-      expect(sesMock.commandCalls(SendRawEmailCommand)).toHaveLength(0);
+      expect(getForwardCalls()).toHaveLength(0);
       expect(result).toMatchObject({ statusCode: 200, body: expect.stringContaining("dropped") });
     });
 
@@ -534,9 +653,9 @@ describe("mail-forward Lambda", () => {
         mockLambdaContext as never,
       );
 
-      const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+      const sesCalls = getForwardCalls();
       expect(sesCalls).toHaveLength(2);
-      const destinations = sesCalls.map((c) => c.args[0].input.Destinations![0]);
+      const destinations = sesCalls.map((c) => c.args[0].input.Destination!.ToAddresses![0]);
       expect(destinations).toContain("trainer1@example.com");
       expect(destinations).toContain("trainer2@example.com");
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
@@ -562,9 +681,9 @@ describe("mail-forward Lambda", () => {
 
       const result = await handler(makeEvent("emails/info-group.eml"), mockLambdaContext as never);
 
-      const sesCalls = sesMock.commandCalls(SendRawEmailCommand);
+      const sesCalls = getForwardCalls();
       expect(sesCalls).toHaveLength(2);
-      const destinations = sesCalls.map((c) => c.args[0].input.Destinations![0]);
+      const destinations = sesCalls.map((c) => c.args[0].input.Destination!.ToAddresses![0]);
       expect(destinations).toContain("trainer@example.com");
       expect(destinations).toContain("board@example.com");
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });

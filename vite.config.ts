@@ -1,12 +1,8 @@
-import babel from "@rolldown/plugin-babel";
-import { sentryTanstackStart } from "@sentry/tanstackstart-react/vite";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import react, { reactCompilerPreset } from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
-import { defineConfig } from "vite-plus";
-import { getAppEnvironment, localAwsResourceEnvPlugin } from "./app/vite/localAwsResourceEnv.ts";
+import { defineConfig, lazyPlugins } from "vite-plus";
+import { localAwsResourceEnvPlugin } from "./app/vite/localAwsResourceEnv.ts";
 
-const isProd = getAppEnvironment() === "prod";
+const isProd = process.env.CDK_ENVIRONMENT === "prod";
+const isTest = process.env.VITEST === "true";
 
 export default defineConfig({
   staged: {
@@ -23,26 +19,44 @@ export default defineConfig({
       typeCheck: true,
     },
   },
-  plugins: [
-    localAwsResourceEnvPlugin(),
-    nitro({
-      preset: "aws-lambda",
-      output: {
-        publicDir: "app/.output/public",
-        serverDir: "app/.output/server",
-      },
-      publicAssets: [{ dir: "app/public", maxAge: 0 }],
-    }),
-    tanstackStart({ srcDirectory: "app/src" }),
-    react(),
-    babel({ presets: [reactCompilerPreset()] }),
-    sentryTanstackStart({
-      org: "volleyballclub-mullheim-ev",
-      project: "volleyball-webapp",
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-      silent: !isProd,
-    }),
-  ],
+  plugins: lazyPlugins(async () => {
+    const [{ tanstackStart }, reactModule] = await Promise.all([
+      import("@tanstack/react-start/plugin/vite"),
+      import("@vitejs/plugin-react"),
+    ]);
+    const react = reactModule.default;
+
+    if (isTest) {
+      return [localAwsResourceEnvPlugin(), tanstackStart({ srcDirectory: "app/src" }), react()];
+    }
+
+    const [{ nitro }, babelModule, { sentryTanstackStart }] = await Promise.all([
+      import("nitro/vite"),
+      import("@rolldown/plugin-babel"),
+      import("@sentry/tanstackstart-react/vite"),
+    ]);
+
+    return [
+      localAwsResourceEnvPlugin(),
+      nitro({
+        preset: "aws-lambda",
+        output: {
+          publicDir: "app/.output/public",
+          serverDir: "app/.output/server",
+        },
+        publicAssets: [{ dir: "app/public", maxAge: 0 }],
+      }),
+      tanstackStart({ srcDirectory: "app/src" }),
+      react(),
+      babelModule.default({ presets: [reactModule.reactCompilerPreset()] }),
+      sentryTanstackStart({
+        org: "volleyballclub-mullheim-ev",
+        project: "volleyball-webapp",
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+        silent: !isProd,
+      }),
+    ];
+  }),
   build: {
     sourcemap: true,
   },
@@ -60,6 +74,7 @@ export default defineConfig({
   test: {
     root: ".",
     silent: true,
+    include: ["**/*.test.ts", "**/*.test.tsx"],
     reporters: process.env.GITHUB_ACTIONS === "true" ? ["agent", "github-actions"] : ["agent"],
     env: {
       // Suppress Powertools structured log output during tests

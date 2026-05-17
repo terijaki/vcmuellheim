@@ -1,4 +1,4 @@
-import { SESClient } from "@aws-sdk/client-ses";
+import { SESv2Client } from "@aws-sdk/client-sesv2";
 import { mockClient } from "aws-sdk-client-mock";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import * as Sentry from "@sentry/tanstackstart-react";
@@ -21,7 +21,7 @@ process.env.CONTENT_TABLE_NAME = "test-content-table";
 process.env.APP_BASE_URL = "https://test.vcmuellheim.de";
 
 // ── AWS SDK mocks ────────────────────────────────────────────────────────────
-const sesMock = mockClient(SESClient);
+const sesMock = mockClient(SESv2Client);
 
 // ── ElectroDB mock via vi.hoisted + vi.mock ──────────────────────────────────
 const {
@@ -91,6 +91,9 @@ vi.mock("./volunteer-email", () => ({
 
 vi.mock("@sentry/tanstackstart-react", () => ({
   captureException: vi.fn(),
+  wrapMiddlewaresWithSentry: (middlewares: Record<string, unknown>) => Object.values(middlewares),
+  sentryGlobalRequestMiddleware: { options: {} },
+  sentryGlobalFunctionMiddleware: { options: {} },
 }));
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

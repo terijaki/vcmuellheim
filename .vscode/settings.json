@@ -55,6 +55,10 @@
     "/^aws cloudformation (describe-stack-events) .*$/": {
       "approve": true,
       "matchCommandLine": true
+    },
+    "/^vpr sams:codegen$/": {
+      "approve": true,
+      "matchCommandLine": true
     }
   },
   "github-actions.workflows.pinned.workflows": [".github/workflows/cdk-deploy.yml"],
@@ -63,5 +67,8 @@
     "vcmuellheim/.vscode/mcp.json: Sentry.io": {
       "allowedModels": ["copilot/auto"]
     }
+  },
+  "chat.hookFilesLocations": {
+    ".agents/hooks": true
   }
 }

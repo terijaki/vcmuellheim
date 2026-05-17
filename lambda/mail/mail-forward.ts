@@ -22,7 +22,7 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import middy from "@middy/core";
 import { createDb } from "@/lib/db/electrodb-client";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
@@ -39,13 +39,20 @@ const CONTENT_TABLE_NAME = env.CONTENT_TABLE_NAME;
 const FORWARD_FROM_EMAIL = env.FORWARD_FROM_EMAIL;
 const RECIPIENT_DOMAIN = env.RECIPIENT_DOMAIN;
 const BRANCH_NAME = env.BRANCH_NAME || "";
+const SESV2_MAX_MESSAGE_SIZE_BYTES = 40 * 1024 * 1024;
+const SESV2_SIZE_SAFETY_MARGIN_BYTES = 512 * 1024;
+const SESV2_FORWARD_SIZE_LIMIT_BYTES =
+  SESV2_MAX_MESSAGE_SIZE_BYTES - SESV2_SIZE_SAFETY_MARGIN_BYTES;
+const OVERSIZE_HEADER_FETCH_RANGE_BYTES = 16 * 1024;
+const UNKNOWN_SENDER_PLACEHOLDER_EMAIL = "unknown@example.com";
+const BASIC_EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const dynamoBaseClient = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(dynamoBaseClient);
 const db = createDb(docClient, CONTENT_TABLE_NAME);
 
 const s3 = tracer.captureAWSv3Client(new S3Client({}));
-const ses = tracer.captureAWSv3Client(new SESClient({}));
+const ses = tracer.captureAWSv3Client(new SESv2Client({}));
 
 type ParsedOriginalSender = {
   name: string;
@@ -196,7 +203,7 @@ function parseOriginalSender(originalFrom: string): ParsedOriginalSender {
   const originalEmail = (
     angleAddressMatch?.[1] ||
     bareAddressMatch?.[2] ||
-    "unknown@example.com"
+    UNKNOWN_SENDER_PLACEHOLDER_EMAIL
   ).trim();
 
   let originalName = "";
@@ -212,6 +219,88 @@ function parseOriginalSender(originalFrom: string): ParsedOriginalSender {
     name: originalName,
     email: originalEmail,
   };
+}
+
+function canNotifySender(senderEmail: string): boolean {
+  const normalizedSenderEmail = senderEmail.trim().toLowerCase();
+  return (
+    normalizedSenderEmail.length > 0 &&
+    normalizedSenderEmail !== UNKNOWN_SENDER_PLACEHOLDER_EMAIL &&
+    normalizedSenderEmail !== FORWARD_FROM_EMAIL.toLowerCase() &&
+    BASIC_EMAIL_REGEX.test(normalizedSenderEmail)
+  );
+}
+
+async function readMimeHeaderPrefix(params: {
+  bucketName: string;
+  s3Key: string;
+}): Promise<string> {
+  const { bucketName, s3Key } = params;
+
+  const headerRangeResponse = await s3.send(
+    new GetObjectCommand({
+      Bucket: bucketName,
+      Key: s3Key,
+      Range: `bytes=0-${OVERSIZE_HEADER_FETCH_RANGE_BYTES - 1}`,
+    }),
+  );
+
+  if (!headerRangeResponse.Body) {
+    return "";
+  }
+
+  return headerRangeResponse.Body.transformToString("utf-8");
+}
+
+async function notifySenderAboutOversizedEmail(params: {
+  senderEmail: string;
+  originalSubject: string;
+  s3Key: string;
+  messageSizeBytes: number;
+}): Promise<void> {
+  const { senderEmail, originalSubject, s3Key, messageSizeBytes } = params;
+
+  if (!canNotifySender(senderEmail)) {
+    return;
+  }
+
+  const sizeInMb = (messageSizeBytes / (1024 * 1024)).toFixed(2);
+  const message = [
+    "Hallo,",
+    "",
+    "deine E-Mail an vcmuellheim.de konnte nicht weitergeleitet werden,",
+    `weil sie die maximal erlaubte Nachrichtengröße von ${(SESV2_FORWARD_SIZE_LIMIT_BYTES / (1024 * 1024)).toFixed(2)} MB überschreitet.`,
+    "",
+    `Erkannte Nachrichtengröße: ${sizeInMb} MB`,
+    `Nachrichtenreferenz: ${s3Key}`,
+    "",
+    "Bitte reduziere die Größe der Anhänge und sende die E-Mail erneut.",
+    "",
+    "Dies ist eine automatische Benachrichtigung.",
+  ].join("\n");
+
+  await ses.send(
+    new SendEmailCommand({
+      FromEmailAddress: FORWARD_FROM_EMAIL,
+      Destination: {
+        ToAddresses: [senderEmail],
+      },
+      Content: {
+        Simple: {
+          Subject: {
+            Data: `E-Mail nicht weitergeleitet (zu groß): ${originalSubject || "(ohne Betreff)"}`,
+            Charset: "UTF-8",
+          },
+          Body: {
+            Text: {
+              Data: message,
+              Charset: "UTF-8",
+            },
+          },
+        },
+      },
+    }),
+  );
 }
 
 function splitMimeIntoHeadersAndBody(rawMime: string): { headers: string; body: string } | null {
@@ -317,10 +406,16 @@ async function sendForwardedEmail(input: SendForwardedEmailInput): Promise<Forwa
   try {
     const rewritten = rewriteMimeHeaders(rawMime, originalFrom, newFrom, target);
     await ses.send(
-      new SendRawEmailCommand({
-        Source: newFrom,
-        Destinations: [target],
-        RawMessage: { Data: Buffer.from(rewritten) },
+      new SendEmailCommand({
+        FromEmailAddress: newFrom,
+        Destination: {
+          ToAddresses: [target],
+        },
+        Content: {
+          Raw: {
+            Data: Buffer.from(rewritten),
+          },
+        },
       }),
     );
 
@@ -362,15 +457,117 @@ const lambdaHandler = async (event: unknown) => {
 
   const { bucket, object } = parsed.data.detail;
   const s3Key = decodeURIComponent(object.key);
+  const bucketName = bucket.name;
 
-  logger.info("Processing inbound email", { bucket: bucket.name, key: s3Key });
+  logger.info("Processing inbound email", { bucket: bucketName, key: s3Key });
   Sentry.addBreadcrumb({ category: "mail", message: "Processing inbound email", data: { s3Key } });
 
-  const s3Response = await s3.send(new GetObjectCommand({ Bucket: bucket.name, Key: s3Key }));
+  const s3Response = await s3.send(new GetObjectCommand({ Bucket: bucketName, Key: s3Key }));
   if (!s3Response.Body) {
     throw new Error(`S3 object body empty: ${s3Key}`);
   }
+
+  const rawMimeContentLength = s3Response.ContentLength;
+  if (
+    typeof rawMimeContentLength === "number" &&
+    rawMimeContentLength > SESV2_FORWARD_SIZE_LIMIT_BYTES
+  ) {
+    const headerPrefix = await readMimeHeaderPrefix({ bucketName, s3Key });
+    const originalFrom = extractFromAddress(headerPrefix);
+    const originalSubject = extractHeaderValue(headerPrefix, "subject");
+    const sender = parseOriginalSender(originalFrom);
+
+    logger.warn("Inbound mail exceeds SES v2 forwarding size limit (S3 metadata)", {
+      s3Key,
+      messageSizeBytes: rawMimeContentLength,
+      senderEmail: sender.email,
+      maxForwardSizeBytes: SESV2_FORWARD_SIZE_LIMIT_BYTES,
+      metricMarker: "MailForwardOversizeDrop",
+    });
+
+    try {
+      await notifySenderAboutOversizedEmail({
+        senderEmail: sender.email,
+        originalSubject,
+        s3Key,
+        messageSizeBytes: rawMimeContentLength,
+      });
+      logger.info("Sent oversized-mail notification to sender", {
+        s3Key,
+        senderEmail: sender.email,
+        metricMarker: "MailForwardOversizeDropNotified",
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      logger.error("Failed to notify sender about oversized mail", {
+        s3Key,
+        senderEmail: sender.email,
+        error: message,
+      });
+      Sentry.captureException(error, {
+        extra: {
+          s3Key,
+          senderEmail: sender.email,
+          messageSizeBytes: rawMimeContentLength,
+        },
+      });
+    }
+
+    return {
+      statusCode: 200,
+      body: "dropped: message too large",
+    };
+  }
+
   const rawMime = await s3Response.Body.transformToString("utf-8");
+  const rawMimeSizeBytes = Buffer.byteLength(rawMime, "utf-8");
+
+  if (rawMimeSizeBytes > SESV2_FORWARD_SIZE_LIMIT_BYTES) {
+    const originalFrom = extractFromAddress(rawMime);
+    const originalSubject = extractHeaderValue(rawMime, "subject");
+    const sender = parseOriginalSender(originalFrom);
+
+    logger.warn("Inbound mail exceeds SES v2 forwarding size limit", {
+      s3Key,
+      messageSizeBytes: rawMimeSizeBytes,
+      senderEmail: sender.email,
+      maxForwardSizeBytes: SESV2_FORWARD_SIZE_LIMIT_BYTES,
+      metricMarker: "MailForwardOversizeDrop",
+    });
+
+    try {
+      await notifySenderAboutOversizedEmail({
+        senderEmail: sender.email,
+        originalSubject,
+        s3Key,
+        messageSizeBytes: rawMimeSizeBytes,
+      });
+      logger.info("Sent oversized-mail notification to sender", {
+        s3Key,
+        senderEmail: sender.email,
+        metricMarker: "MailForwardOversizeDropNotified",
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      logger.error("Failed to notify sender about oversized mail", {
+        s3Key,
+        senderEmail: sender.email,
+        error: message,
+      });
+      Sentry.captureException(error, {
+        extra: {
+          s3Key,
+          senderEmail: sender.email,
+          messageSizeBytes: rawMimeSizeBytes,
+        },
+      });
+    }
+
+    return {
+      statusCode: 200,
+      body: "dropped: message too large",
+    };
+  }
 
   const envelopeRecipientAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
   const headerToAddresses = extractToAddresses(rawMime);

@@ -1,6 +1,4 @@
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-import { loadEnv, type PluginOption } from "vite-plus";
+import type { PluginOption } from "vite-plus";
 import {
   CACHE_TABLE_ENV_VAR,
   CONTENT_TABLE_ENV_VAR,
@@ -8,21 +6,6 @@ import {
   computeSamsDataTableName,
 } from "../../lib/db/env.ts";
 import { getSanitizedBranch } from "../../utils/git.ts";
-import { buildWebappUrl } from "../../utils/webapp-url.ts";
-
-const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-
-export function getAppEnvironment(
-  mode = process.env.NODE_ENV === "production" ? "production" : "development",
-): string {
-  const rootEnv = loadEnv(mode, repoRoot, "");
-
-  for (const [name, value] of Object.entries(rootEnv)) {
-    setDefaultEnv(name, value);
-  }
-
-  return process.env.CDK_ENVIRONMENT || "dev";
-}
 
 function setDefaultEnv(name: string, value: string) {
   if (!process.env[name]) {
@@ -30,36 +13,33 @@ function setDefaultEnv(name: string, value: string) {
   }
 }
 
-function applyLocalAwsResourceEnv(environment: string) {
-  if (environment === "prod") {
-    return;
-  }
-
-  const sanitizedBranch = getSanitizedBranch();
-  const branchSuffix = sanitizedBranch ? `-${sanitizedBranch}` : "";
-
-  setDefaultEnv("BRANCH_NAME", sanitizedBranch);
-  setDefaultEnv("VITE_BRANCH_NAME", sanitizedBranch);
-
-  // Single content table for all entities
-  setDefaultEnv(CONTENT_TABLE_ENV_VAR, `vcm-content-${environment}${branchSuffix}`);
-  setDefaultEnv(CACHE_TABLE_ENV_VAR, computeCacheTableName(environment, sanitizedBranch));
-
-  setDefaultEnv("SAMS_TABLE_NAME", computeSamsDataTableName(environment, sanitizedBranch));
-  setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
-
-  const envPrefix = `${environment}${branchSuffix}-`;
-  setDefaultEnv("MEDIA_CLOUDFRONT_URL", `https://${envPrefix}media.new.vcmuellheim.de`);
-
-  setDefaultEnv("APP_BASE_URL", buildWebappUrl(environment, sanitizedBranch));
-}
-
+/**
+ * Computes AWS resource names using the sanitized branch suffix.
+ * Varlock already loads the raw branch name via $VARLOCK_BRANCH in the schema.
+ * This plugin only handles resource naming that requires sanitization.
+ */
 export function localAwsResourceEnvPlugin(): PluginOption {
   return {
     name: "local-aws-resource-env",
     apply: "serve",
-    config(_, configEnv) {
-      applyLocalAwsResourceEnv(getAppEnvironment(configEnv.mode));
+    config() {
+      const environment = process.env.CDK_ENVIRONMENT || "dev";
+
+      // Skip resource name computation in production
+      if (environment === "prod") return;
+
+      // Compute sanitized branch for resource names (e.g., DynamoDB tables, S3 buckets)
+      const sanitizedBranch = getSanitizedBranch();
+      const branchSuffix = sanitizedBranch ? `-${sanitizedBranch}` : "";
+
+      // Set resource names that require the sanitized branch
+      setDefaultEnv(CONTENT_TABLE_ENV_VAR, `vcm-content-${environment}${branchSuffix}`);
+      setDefaultEnv(CACHE_TABLE_ENV_VAR, computeCacheTableName(environment, sanitizedBranch));
+      setDefaultEnv("SAMS_TABLE_NAME", computeSamsDataTableName(environment, sanitizedBranch));
+      setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
+
+      const envPrefix = `${environment}${branchSuffix}-`;
+      setDefaultEnv("MEDIA_CLOUDFRONT_URL", `https://${envPrefix}media.new.vcmuellheim.de`);
     },
   };
 }
