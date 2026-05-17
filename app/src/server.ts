@@ -1,6 +1,6 @@
 import "./instrument.server";
 import * as Sentry from "@sentry/tanstackstart-react";
-import handler, { createServerEntry } from "@tanstack/react-start/server-entry";
+import { createServerEntry, default as handler } from "@tanstack/react-start/server-entry";
 
 export default createServerEntry(
   Sentry.wrapFetchWithSentry({

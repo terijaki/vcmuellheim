@@ -8,7 +8,6 @@ import {
   computeSamsDataTableName,
 } from "../../lib/db/env.ts";
 import { getSanitizedBranch } from "../../utils/git.ts";
-import { buildWebappUrl } from "../../utils/webapp-url.ts";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -50,9 +49,6 @@ function applyLocalAwsResourceEnv(environment: string) {
 
   const envPrefix = `${environment}${branchSuffix}-`;
   setDefaultEnv("MEDIA_CLOUDFRONT_URL", `https://${envPrefix}media.new.vcmuellheim.de`);
-
-  setDefaultEnv("APP_BASE_URL", buildWebappUrl(environment, sanitizedBranch));
-  setDefaultEnv("BETTER_AUTH_SECRET", "vcm-local-dev-better-auth-secret");
 }
 
 export function localAwsResourceEnvPlugin(): PluginOption {

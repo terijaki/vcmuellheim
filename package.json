@@ -77,7 +77,7 @@
     "react-world-flags": "^1.6.0",
     "superjson": "^2.2.6",
     "ts-ics": "^2.4.3",
-    "varlock": "^0.7.4",
+    "varlock": "^1.2.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -92,6 +92,7 @@
     "@types/node": "^25.7.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@varlock/vite-integration": "^1.1.1",
     "@vitejs/plugin-react": "^6.0.1",
     "aws-cdk": "^2.1121.0",
     "aws-cdk-lib": "^2.254.0",
