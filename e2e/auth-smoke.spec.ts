@@ -43,6 +43,17 @@ test.describe("auth smoke", () => {
     await expect(page.getByRole("heading", { name: "VC Müllheim Anmeldung" })).toBeVisible();
   });
 
+  test("/admin/events redirects anonymous users to login and preserves destination", async ({
+    page,
+  }) => {
+    await page.goto("/admin/events", { waitUntil: "domcontentloaded" });
+
+    const finalUrl = new URL(page.url());
+    expect(finalUrl.pathname).toBe("/admin/login");
+    expect(finalUrl.searchParams.get("redirect")).toMatch(/^\/admin\/events\/?$/);
+    await expect(page.getByRole("heading", { name: "VC Müllheim Anmeldung" })).toBeVisible();
+  });
+
   test("otp login route renders error state without parameters", async ({ page }) => {
     const response = await page.goto("/admin/otp-login", { waitUntil: "domcontentloaded" });
 
