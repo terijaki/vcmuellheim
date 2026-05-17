@@ -9,6 +9,31 @@ test.describe("auth smoke", () => {
     await expect(page.getByLabel("E-Mail-Adresse")).toBeVisible();
   });
 
+  test("admin login allows requesting an OTP code", async ({ page }) => {
+    const response = await page.goto("/admin/login", { waitUntil: "domcontentloaded" });
+    const emailInput = page.getByLabel("E-Mail-Adresse");
+    const requestCodeButton = page.getByRole("button", { name: "Anmeldecode senden" });
+
+    expect(response?.ok()).toBeTruthy();
+    await expect
+      .poll(async () => {
+        await emailInput.fill("E2E-TEST@vcmuellheim.de"); // Intentionally test case insensitivity of email input
+        return requestCodeButton.isEnabled();
+      })
+      .toBe(true);
+    await requestCodeButton.click();
+
+    await expect(
+      page.getByText(
+        "Wenn die E-Mail-Adresse (e2e-test@vcmuellheim.de) registriert ist, wurde ein Anmeldecode verschickt.",
+      ),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Bitte gib den 6-stelligen Code ein, der dir zugeschickt wurde."),
+    ).toBeVisible();
+    await expect(page.getByRole("button", { name: "Anmelden" })).toBeVisible();
+  });
+
   test("/admin redirects anonymous users to login", async ({ page }) => {
     await page.goto("/admin", { waitUntil: "domcontentloaded" });
 

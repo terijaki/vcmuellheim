@@ -21,4 +21,11 @@ test.describe("public smoke", () => {
       await expect(page.getByRole("heading", { name: heading })).toBeVisible();
     });
   }
+
+  test("impressum contains organization name", async ({ page }) => {
+    const response = await page.goto("/impressum", { waitUntil: "domcontentloaded" });
+
+    expect(response?.ok()).toBeTruthy();
+    await expect(page.getByText("Volleyballclub Müllheim e.V.")).toBeVisible();
+  });
 });
