@@ -1,5 +1,4 @@
 import babel from "@rolldown/plugin-babel";
-import { varlockVitePlugin } from "@varlock/vite-integration";
 import { sentryTanstackStart } from "@sentry/tanstackstart-react/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
@@ -25,7 +24,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    varlockVitePlugin(),
     localAwsResourceEnvPlugin(),
     nitro({
       preset: "aws-lambda",
