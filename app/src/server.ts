@@ -1,4 +1,3 @@
-import "varlock/auto-load";
 import "./instrument.server";
 import * as Sentry from "@sentry/tanstackstart-react";
 import { createServerEntry, default as handler } from "@tanstack/react-start/server-entry";
