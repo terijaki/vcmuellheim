@@ -752,8 +752,8 @@ export const zCompetitionMatchDto = z.object({
   results: zVolleyballMatchResultsDto.nullish(),
   matchGroupUuid: z.string().nullish(),
   competitionUuid: z.string().nullish(),
-  indefinitelyRescheduled: z.boolean().nullish(),
   delayPossible: z.boolean().nullish(),
+  indefinitelyRescheduled: z.boolean().nullish(),
 });
 
 export const zCompetitionMatchPage = z.object({
@@ -897,8 +897,8 @@ export const zLeagueMatchDto = z.object({
   results: zVolleyballMatchResultsDto.nullish(),
   matchDayUuid: z.string().nullish(),
   leagueUuid: z.string().nullish(),
-  indefinitelyRescheduled: z.boolean().nullish(),
   delayPossible: z.boolean().nullish(),
+  indefinitelyRescheduled: z.boolean().nullish(),
 });
 
 export const zLeagueMatchPage = z.object({

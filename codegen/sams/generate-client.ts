@@ -23,6 +23,7 @@ createClient({
     },
     {
       name: "@hey-api/client-fetch",
+      runtimeConfigPath: "@codegen/sams/hey-api.ts", // Emit an alias import in generated/client.gen.ts so TS/esbuild resolve it consistently.
     },
     {
       name: "@hey-api/sdk",
