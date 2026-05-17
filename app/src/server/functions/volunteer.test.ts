@@ -91,6 +91,9 @@ vi.mock("./volunteer-email", () => ({
 
 vi.mock("@sentry/tanstackstart-react", () => ({
   captureException: vi.fn(),
+  wrapMiddlewaresWithSentry: (middlewares: Record<string, unknown>) => Object.values(middlewares),
+  sentryGlobalRequestMiddleware: { options: {} },
+  sentryGlobalFunctionMiddleware: { options: {} },
 }));
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
