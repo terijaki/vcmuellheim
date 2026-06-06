@@ -36,7 +36,6 @@ const bugCheckJobFailed = process.env.BUG_CHECK_RESULT === "failure";
 const regenJobFailed = process.env.REGENERATE_RESULT === "failure";
 
 const bugDescriptions: Record<number, string> = {
-  1: "SBVV missing from `GET /associations` paginated list",
   2: "`logoImageForScreenOutputLink` always `null` on `GET /teams/{uuid}`",
   3: "`scoreIncludingLosses` always `null` in `GET /leagues/{uuid}/rankings`",
   4: "`Accept: application/json` returns HTTP 406 instead of 200",
@@ -46,7 +45,7 @@ const bugDescriptions: Record<number, string> = {
   8: "`LeagueHierarchyDto.parentLeagueHierarchyUuid` declared non-null but API returns `null`",
 };
 
-const allBugIds = [1, 2, 3, 4, 5, 6, 7, 8];
+const allBugIds = [2, 3, 4, 5, 6, 7, 8];
 const fixedSet = new Set(fixedBugIds);
 const failedSet = new Set(checkFailedIds);
 const rows = allBugIds.map((id) => {

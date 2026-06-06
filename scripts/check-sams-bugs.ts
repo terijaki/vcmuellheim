@@ -15,8 +15,7 @@ import { ENV } from "varlock/env";
 
 const BASE_URL = "https://www.volleyball-baden.de/api/v2";
 
-// Known UUIDs (season 2025/26) — see .agents/skills/sams-api/API-OVERVIEW.md
-const SBVV_UUID = "2b7571b5-f985-c552-ea1c-f819ed3811c1";
+// Known UUIDs (season 2025/26) used for live bug checks
 const VERBANDSLIGA_HERREN_UUID = "2000b48f-eec8-4927-beb1-c4568069ebec";
 // VC Müllheim 1 (Herren) — used for team-level bug checks
 const VC_MULLHEIM_TEAM_UUID = "c2ddea7c-b7ec-4172-aa85-4d9c47aba362";
@@ -48,34 +47,6 @@ async function samsGet(
       ...overrideHeaders,
     },
   });
-}
-
-// Bug #1 — SBVV absent from GET /associations paginated list
-// The association exists at its direct UUID but never appears in the full list.
-async function checkBug1(apiKey: string): Promise<BugResult> {
-  const id = 1;
-  const summary = "SBVV missing from GET /associations paginated list";
-  try {
-    let page = 0;
-    let found = false;
-    let isLast = false;
-    while (!isLast) {
-      const res = await samsGet(`/associations?size=100&page=${page}`, apiKey);
-      if (!res.ok) {
-        return { id, summary, status: "check_failed", detail: `HTTP ${res.status}` };
-      }
-      const data = (await res.json()) as { content?: Array<{ uuid: string }>; last?: boolean };
-      if (data.content?.some((a) => a.uuid === SBVV_UUID)) {
-        found = true;
-        break;
-      }
-      isLast = data.last ?? true;
-      page++;
-    }
-    return { id, summary, status: found ? "fixed" : "still_present" };
-  } catch (e) {
-    return { id, summary, status: "check_failed", detail: String(e) };
-  }
 }
 
 // Bug #2 — logoImageForScreenOutputLink always null on GET /teams/{uuid}
@@ -377,8 +348,7 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const [bug1, bug2, bug3, bug4, bug5, bug6, bug7, bug8] = await Promise.all([
-    checkBug1(apiKey),
+  const [bug2, bug3, bug4, bug5, bug6, bug7, bug8] = await Promise.all([
     checkBug2(apiKey),
     checkBug3(apiKey),
     checkBug4(),
@@ -389,7 +359,7 @@ async function main(): Promise<void> {
   ]);
 
   const result: CheckResult = {
-    bugs: [bug1, bug2, bug3, bug4, bug5, bug6, bug7, bug8],
+    bugs: [bug2, bug3, bug4, bug5, bug6, bug7, bug8],
     checkedAt: new Date().toISOString(),
   };
 

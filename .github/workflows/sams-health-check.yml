@@ -53,7 +53,7 @@ jobs:
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
-  # ── Job 2: Verify the 5 known upstream API bugs are still present ────────────
+  # ── Job 2: Verify known upstream API bugs are still present ───────────────────
   bug-check:
     name: Check Known API Bugs
     runs-on: ubuntu-latest
