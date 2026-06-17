@@ -5,6 +5,10 @@ body {
   overscroll-behavior: none;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 :root {
   --color-blumine: #366273;
   --color-turquoise: #01a29a;
@@ -90,5 +94,16 @@ summary::marker {
   100% {
     transform: scale(0.9);
     opacity: 0.2;
+  }
+}
+
+/* Prevent iOS Safari from zooming focused form controls with <16px text.
+   .mantine-Input-input   — covers TextInput, Select, Textarea, DatePickerInput, TimeInput, etc.
+   .mantine-PillsInputField-field — the actual <input> inside MultiSelect / searchable Select */
+@supports (-webkit-touch-callout: none) {
+
+  .mantine-Input-input,
+  .mantine-PillsInputField-field {
+    font-size: 16px;
   }
 }
