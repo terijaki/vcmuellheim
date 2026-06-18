@@ -101,7 +101,6 @@ summary::marker {
    .mantine-Input-input   — covers TextInput, Select, Textarea, DatePickerInput, TimeInput, etc.
    .mantine-PillsInputField-field — the actual <input> inside MultiSelect / searchable Select */
 @supports (-webkit-touch-callout: none) {
-
   .mantine-Input-input,
   .mantine-PillsInputField-field {
     font-size: 16px;
