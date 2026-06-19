@@ -52,19 +52,69 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
   });
 
   if (!response.ok) {
+    const responseBody = await response.text();
+    const contentType = response.headers.get("content-type") ?? "unknown";
     const msg = `Behold feed returned ${response.status}`;
-    logger.warn(msg);
+    logger.warn(msg, {
+      status: response.status,
+      contentType,
+    });
+    Sentry.captureException(new Error(msg), {
+      extra: {
+        status: response.status,
+        contentType,
+        responseBody,
+      },
+    });
     Sentry.captureMessage(msg, "warning");
     return { statusCode: response.status, body: msg };
   }
 
-  const raw: unknown = await response.json();
+  const contentType = response.headers.get("content-type") ?? "unknown";
+  const responseBody = await response.text();
+  let raw: unknown;
+
+  try {
+    raw = JSON.parse(responseBody);
+  } catch (error) {
+    const msg = "Failed to parse Behold feed JSON";
+    logger.error(msg, {
+      status: response.status,
+      contentType,
+      error,
+    });
+    Sentry.captureException(error, {
+      extra: {
+        status: response.status,
+        contentType,
+        responseBody,
+      },
+    });
+    return { statusCode: 500, body: msg };
+  }
+
   const parsed = BeholdFeedSchema.safeParse(raw);
 
   if (!parsed.success) {
     const msg = "Failed to parse Behold feed response";
-    logger.error(msg, { error: parsed.error });
-    Sentry.captureException(new Error(msg), { extra: { zodError: parsed.error } });
+    const firstIssue = parsed.error.issues[0];
+
+    logger.error(msg, {
+      issueCount: parsed.error.issues.length,
+      firstIssuePath: firstIssue?.path.join("."),
+      firstIssueMessage: firstIssue?.message,
+      contentType,
+    });
+    Sentry.captureException(new Error(msg), {
+      extra: {
+        issueCount: parsed.error.issues.length,
+        firstIssuePath: firstIssue?.path.join("."),
+        firstIssueMessage: firstIssue?.message,
+        zodError: parsed.error,
+        contentType,
+        responseBody,
+      },
+    });
     return { statusCode: 500, body: msg };
   }
 
