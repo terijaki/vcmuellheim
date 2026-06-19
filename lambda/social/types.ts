@@ -39,8 +39,9 @@ export type MastodonStreamHandlerLambdaEnvironment = z.infer<
 
 const BeholdSizeSchema = z.object({
   mediaUrl: z.url(),
-  height: z.number(),
-  width: z.number(),
+  // Behold occasionally returns null dimensions for some media variants.
+  height: z.number().nullable(),
+  width: z.number().nullable(),
 });
 
 const BeholdSizesSchema = z.object({
