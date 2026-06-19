@@ -82,7 +82,7 @@
   },
   "devDependencies": {
     "@aws-sdk/client-lambda": "^3.1045.0",
-    "@behold/types": "^0.3.0",
+    "@behold/types": "0.3.3",
     "@hey-api/openapi-ts": "^0.97.1",
     "@playwright/test": "^1.60.0",
     "@sentry/vite-plugin": "^5.3.0",
