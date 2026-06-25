@@ -48,7 +48,7 @@ import {
   getPublicVolunteerEventFn,
   verifyVolunteerTokenFn,
 } from "@webapp/server/functions/volunteer";
-import { formatShiftDateRange } from "@webapp/utils/volunteer";
+import { formatShiftDateRange, sanitizeVolunteerPhoneNumber } from "@webapp/utils/volunteer";
 import type { VolunteerEvent } from "@/lib/db/types";
 import { volunteerSignupDataSchema } from "@/lib/db/schemas";
 import { z } from "zod";
@@ -452,8 +452,8 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
         dateOfBirth: dayjs(value.dateOfBirth).format("YYYY-MM-DD"),
         preferredRoleIds: value.preferredRoleIds,
         association: value.association,
-        mobilePhone: value.mobilePhone || undefined,
-        emergencyContact: value.emergencyContact || undefined,
+        mobilePhone: sanitizeVolunteerPhoneNumber(value.mobilePhone || undefined),
+        emergencyContact: sanitizeVolunteerPhoneNumber(value.emergencyContact || undefined),
         note: value.note || undefined,
         eventId: event.id,
         shiftId,
@@ -534,7 +534,9 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
                 name="tel"
                 autoComplete="tel"
                 value={field.state.value ?? ""}
-                onChange={(e) => field.handleChange(e.target.value || undefined)}
+                onChange={(e) =>
+                  field.handleChange(sanitizeVolunteerPhoneNumber(e.target.value) ?? undefined)
+                }
               />
             )}
           </form.Field>
@@ -664,7 +666,9 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
                     withAsterisk={false}
                     placeholder="z. B. 0151 12345678"
                     value={field.state.value ?? ""}
-                    onChange={(e) => field.handleChange(e.target.value || undefined)}
+                    onChange={(e) =>
+                      field.handleChange(sanitizeVolunteerPhoneNumber(e.target.value) ?? undefined)
+                    }
                     description="Telefonnummer eines Elternteils oder Erziehungsberechtigten"
                     error={field.state.meta.errors[0]?.toString()}
                   />

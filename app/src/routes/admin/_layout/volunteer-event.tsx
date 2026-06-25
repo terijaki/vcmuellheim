@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
   Title,
+  UnstyledButton,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
@@ -40,6 +41,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import type { VolunteerEvent } from "@/lib/db/types";
+import { getVolunteerEventGroup } from "@webapp/utils/volunteer";
 
 dayjs.locale("de");
 
@@ -94,6 +96,8 @@ function VolunteerEventAdminPage() {
     useDisclosure(false);
   const [pendingDeleteEvent, setPendingDeleteEvent] = useState<VolunteerEvent | null>(null);
   const [archivedVisible, { toggle: toggleArchived }] = useDisclosure(false);
+  const [pastVisible, { toggle: togglePast }] = useDisclosure(false);
+  const [collapsedEventIds, setCollapsedEventIds] = useState<Record<string, boolean>>({});
 
   const restoreEventMutation = useMutation({
     mutationFn: (id: string) => restoreVolunteerEventFn({ data: { id } }),
@@ -106,12 +110,49 @@ function VolunteerEventAdminPage() {
   });
 
   const events = eventsData.items;
-  const activeEvents = events
-    .filter((e) => !e.archivedAt)
-    .sort((a, b) => dayjs(a.shifts[0]?.startDate).diff(dayjs(b.shifts[0]?.startDate)));
-  const archivedEvents = events
-    .filter((e) => !!e.archivedAt)
-    .sort((a, b) => dayjs(b.shifts[0]?.startDate).diff(dayjs(a.shifts[0]?.startDate)));
+  const groupedEvents = events.reduce<Record<"active" | "past" | "archived", VolunteerEvent[]>>(
+    (acc, event) => {
+      const group = getVolunteerEventGroup(event);
+      acc[group].push(event);
+      return acc;
+    },
+    { active: [], past: [], archived: [] },
+  );
+
+  const pastEventIds = new Set(groupedEvents.past.map((event) => event.id));
+
+  function isEventExpanded(eventId: string): boolean {
+    const isCollapsed = collapsedEventIds[eventId];
+    if (typeof isCollapsed === "boolean") {
+      return !isCollapsed;
+    }
+
+    return !pastEventIds.has(eventId);
+  }
+
+  function toggleEventExpanded(eventId: string) {
+    setCollapsedEventIds((previousState) => {
+      const isCollapsed =
+        typeof previousState[eventId] === "boolean"
+          ? previousState[eventId]
+          : pastEventIds.has(eventId);
+
+      return {
+        ...previousState,
+        [eventId]: !isCollapsed,
+      };
+    });
+  }
+
+  const activeEvents = groupedEvents.active.sort((a, b) =>
+    dayjs(a.shifts[0]?.startDate).diff(dayjs(b.shifts[0]?.startDate)),
+  );
+  const pastEvents = groupedEvents.past.sort((a, b) =>
+    dayjs(b.shifts[0]?.startDate).diff(dayjs(a.shifts[0]?.startDate)),
+  );
+  const archivedEvents = groupedEvents.archived.sort((a, b) =>
+    dayjs(b.shifts[0]?.startDate).diff(dayjs(a.shifts[0]?.startDate)),
+  );
 
   function openCreate() {
     setEditingEvent(null);
@@ -164,7 +205,7 @@ function VolunteerEventAdminPage() {
           </Button>
         </Group>
 
-        {activeEvents.length === 0 && archivedEvents.length === 0 && (
+        {activeEvents.length === 0 && pastEvents.length === 0 && archivedEvents.length === 0 && (
           <Card>
             <Text c="dimmed">Noch keine Veranstaltungen erstellt.</Text>
           </Card>
@@ -175,194 +216,378 @@ function VolunteerEventAdminPage() {
           return (
             <Card key={event.id} withBorder>
               <Stack gap="sm">
-                <Group justify="space-between" align="flex-start" wrap="nowrap">
-                  <Stack gap="xs">
-                    <Title order={4}>{event.title}</Title>
-                    {event.location && (
-                      <Text
-                        size="sm"
-                        c="dimmed"
-                        component={event.locationUrl ? "a" : "span"}
-                        href={event.locationUrl ?? undefined}
-                        target={event.locationUrl ? "_blank" : undefined}
-                        rel={event.locationUrl ? "noopener noreferrer" : undefined}
+                <Group>
+                  <Stack gap="xs" flex={1}>
+                    <Group justify="space-between" align="flex-start" wrap="nowrap" gap="xs">
+                      <UnstyledButton
+                        component={Title}
+                        order={4}
+                        flex={1}
+                        onClick={() => toggleEventExpanded(event.id)}
                       >
-                        {event.location}
+                        {event.title}
+                      </UnstyledButton>
+                      <Group gap="xs" wrap="nowrap">
+                        <ActionIcon
+                          variant="subtle"
+                          aria-label={
+                            isEventExpanded(event.id)
+                              ? "Veranstaltung einklappen"
+                              : "Veranstaltung ausklappen"
+                          }
+                          onClick={() => toggleEventExpanded(event.id)}
+                        >
+                          {isEventExpanded(event.id) ? (
+                            <ChevronUp size={16} />
+                          ) : (
+                            <ChevronDown size={16} />
+                          )}
+                        </ActionIcon>
+                        <Menu shadow="md" position="bottom-end">
+                          <Menu.Target>
+                            <ActionIcon variant="subtle" aria-label="Aktionen">
+                              <EllipsisVertical size={16} />
+                            </ActionIcon>
+                          </Menu.Target>
+                          <Menu.Dropdown>
+                            <Menu.Item
+                              leftSection={<SquarePen size={14} />}
+                              onClick={() => openEdit(event)}
+                            >
+                              Bearbeiten
+                            </Menu.Item>
+                            <Menu.Item
+                              leftSection={<Link size={14} />}
+                              onClick={() =>
+                                navigator.clipboard.writeText(deeplink).catch(() =>
+                                  notification.error({
+                                    message: "Link konnte nicht kopiert werden",
+                                  }),
+                                )
+                              }
+                            >
+                              Link kopieren
+                            </Menu.Item>
+                            <Menu.Item
+                              leftSection={<ExternalLink size={14} />}
+                              component="a"
+                              href={deeplink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Öffentliche Seite öffnen
+                            </Menu.Item>
+                            <Menu.Item
+                              leftSection={<Mail size={14} />}
+                              onClick={() =>
+                                navigate({
+                                  to: "/admin/volunteer-event/$eventId/message",
+                                  params: { eventId: event.id },
+                                })
+                              }
+                            >
+                              E-Mail senden
+                            </Menu.Item>
+                            <Menu.Divider />
+                            <Menu.Item
+                              leftSection={<Copy size={14} />}
+                              onClick={() => openFromTemplate(event)}
+                            >
+                              Als Vorlage verwenden
+                            </Menu.Item>
+                            <Menu.Divider />
+                            <Menu.Item
+                              color="red"
+                              leftSection={<Trash2 size={14} />}
+                              onClick={() => {
+                                setPendingDeleteEvent(event);
+                                openDeleteModal();
+                              }}
+                            >
+                              Archivieren / Löschen
+                            </Menu.Item>
+                          </Menu.Dropdown>
+                        </Menu>
+                      </Group>
+                    </Group>
+                    <Group gap="xs">
+                      <Text size="xs" c="dimmed">
+                        {getEventShiftDateRange(event)}
                       </Text>
-                    )}
-                    <Text size="xs" c="dimmed">
-                      {getEventShiftDateRange(event)}
-                    </Text>
+                      {event.location && (
+                        <Text
+                          size="sm"
+                          c="dimmed"
+                          component={event.locationUrl ? "a" : "span"}
+                          href={event.locationUrl ?? undefined}
+                          target={event.locationUrl ? "_blank" : undefined}
+                          rel={event.locationUrl ? "noopener noreferrer" : undefined}
+                        >
+                          {event.location}
+                        </Text>
+                      )}
+                    </Group>
                   </Stack>
-                  <Menu shadow="md" position="bottom-end">
-                    <Menu.Target>
-                      <ActionIcon variant="subtle" aria-label="Aktionen">
-                        <EllipsisVertical size={16} />
-                      </ActionIcon>
-                    </Menu.Target>
-                    <Menu.Dropdown>
-                      <Menu.Item
-                        leftSection={<SquarePen size={14} />}
-                        onClick={() => openEdit(event)}
-                      >
-                        Bearbeiten
-                      </Menu.Item>
-                      <Menu.Item
-                        leftSection={<Link size={14} />}
-                        onClick={() =>
-                          navigator.clipboard
-                            .writeText(deeplink)
-                            .catch(() =>
-                              notification.error({ message: "Link konnte nicht kopiert werden" }),
-                            )
-                        }
-                      >
-                        Link kopieren
-                      </Menu.Item>
-                      <Menu.Item
-                        leftSection={<ExternalLink size={14} />}
-                        component="a"
-                        href={deeplink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Öffentliche Seite öffnen
-                      </Menu.Item>
-                      <Menu.Item
-                        leftSection={<Mail size={14} />}
-                        onClick={() =>
-                          navigate({
-                            to: "/admin/volunteer-event/$eventId/message",
-                            params: { eventId: event.id },
-                          })
-                        }
-                      >
-                        E-Mail senden
-                      </Menu.Item>
-                      <Menu.Divider />
-                      <Menu.Item
-                        leftSection={<Copy size={14} />}
-                        onClick={() => openFromTemplate(event)}
-                      >
-                        Als Vorlage verwenden
-                      </Menu.Item>
-                      <Menu.Divider />
-                      <Menu.Item
-                        color="red"
-                        leftSection={<Trash2 size={14} />}
-                        onClick={() => {
-                          setPendingDeleteEvent(event);
-                          openDeleteModal();
-                        }}
-                      >
-                        Archivieren / Löschen
-                      </Menu.Item>
-                    </Menu.Dropdown>
-                  </Menu>
                 </Group>
 
-                <SignupDashboard event={event} />
+                <Collapse expanded={isEventExpanded(event.id)}>
+                  <SignupDashboard event={event} />
+                </Collapse>
               </Stack>
             </Card>
           );
         })}
 
+        {pastEvents.length > 0 && (
+          <Stack gap="xs">
+            <UnstyledButton component={Group} justify="space-between" mt="md" onClick={togglePast}>
+              <Title order={4}>Vergangene Veranstaltungen</Title>
+              {pastVisible ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </UnstyledButton>
+
+            <Collapse expanded={pastVisible}>
+              <Stack gap="md">
+                {pastEvents.map((event) => {
+                  const deeplink = `${appBaseUrl}/e/${event.id}`;
+                  return (
+                    <Card key={event.id} withBorder style={{ opacity: 0.9 }}>
+                      <Stack gap="sm">
+                        <Group>
+                          <Stack gap="xs" flex={1}>
+                            <Group
+                              justify="space-between"
+                              align="flex-start"
+                              wrap="nowrap"
+                              gap="xs"
+                            >
+                              <UnstyledButton
+                                component={Group}
+                                gap="xs"
+                                flex={1}
+                                wrap="nowrap"
+                                onClick={() => toggleEventExpanded(event.id)}
+                              >
+                                <Title order={4} flex={1}>
+                                  {event.title}
+                                </Title>
+                                <Badge variant="outline" color="gray" size="sm">
+                                  Vergangen
+                                </Badge>
+                              </UnstyledButton>
+                              <Group gap="xs" wrap="nowrap">
+                                <ActionIcon
+                                  variant="subtle"
+                                  aria-label={
+                                    isEventExpanded(event.id)
+                                      ? "Veranstaltung einklappen"
+                                      : "Veranstaltung ausklappen"
+                                  }
+                                  onClick={() => toggleEventExpanded(event.id)}
+                                >
+                                  {isEventExpanded(event.id) ? (
+                                    <ChevronUp size={16} />
+                                  ) : (
+                                    <ChevronDown size={16} />
+                                  )}
+                                </ActionIcon>
+                                <Menu shadow="md" position="bottom-end">
+                                  <Menu.Target>
+                                    <ActionIcon variant="subtle" aria-label="Aktionen">
+                                      <EllipsisVertical size={16} />
+                                    </ActionIcon>
+                                  </Menu.Target>
+                                  <Menu.Dropdown>
+                                    <Menu.Item
+                                      leftSection={<SquarePen size={14} />}
+                                      onClick={() => openEdit(event)}
+                                    >
+                                      Bearbeiten
+                                    </Menu.Item>
+                                    <Menu.Item
+                                      leftSection={<Copy size={14} />}
+                                      onClick={() => openFromTemplate(event)}
+                                    >
+                                      Als Vorlage verwenden
+                                    </Menu.Item>
+                                    <Menu.Item
+                                      leftSection={<Link size={14} />}
+                                      onClick={() =>
+                                        navigator.clipboard.writeText(deeplink).catch(() =>
+                                          notification.error({
+                                            message: "Link konnte nicht kopiert werden",
+                                          }),
+                                        )
+                                      }
+                                    >
+                                      Link kopieren
+                                    </Menu.Item>
+                                    <Menu.Item
+                                      leftSection={<Mail size={14} />}
+                                      onClick={() =>
+                                        navigate({
+                                          to: "/admin/volunteer-event/$eventId/message",
+                                          params: { eventId: event.id },
+                                        })
+                                      }
+                                    >
+                                      E-Mail senden
+                                    </Menu.Item>
+                                  </Menu.Dropdown>
+                                </Menu>
+                              </Group>
+                            </Group>
+                            <Group gap="xs">
+                              <Text size="xs" c="dimmed">
+                                {getEventShiftDateRange(event)}
+                              </Text>
+                              {event.location && (
+                                <Text size="sm" c="dimmed">
+                                  {event.location}
+                                </Text>
+                              )}
+                            </Group>
+                          </Stack>
+                        </Group>
+
+                        <Collapse expanded={isEventExpanded(event.id)}>
+                          <SignupDashboard event={event} isPastEvent />
+                        </Collapse>
+                      </Stack>
+                    </Card>
+                  );
+                })}
+              </Stack>
+            </Collapse>
+          </Stack>
+        )}
+
         {archivedEvents.length > 0 && (
-          <>
-            <Group justify="space-between" mt="md">
-              <Title order={4} c="dimmed">
-                Archivierte Veranstaltungen
-              </Title>
-              <Button
-                size="xs"
-                variant="subtle"
-                rightSection={archivedVisible ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                onClick={toggleArchived}
-              >
-                {archivedVisible ? "Ausblenden" : `Anzeigen (${archivedEvents.length})`}
-              </Button>
-            </Group>
+          <Stack gap="xs">
+            <UnstyledButton
+              component={Group}
+              justify="space-between"
+              mt="md"
+              onClick={toggleArchived}
+            >
+              <Title order={4}>Archivierte Veranstaltungen</Title>
+              {archivedVisible ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </UnstyledButton>
             <Collapse expanded={archivedVisible}>
-              <Stack gap="lg">
+              <Stack gap="md">
                 {archivedEvents.map((event) => (
                   <Card key={event.id} withBorder style={{ opacity: 0.65 }}>
-                    <Group justify="space-between" align="flex-start">
-                      <div>
-                        <Group gap="xs" mb={2}>
-                          <Title order={4}>{event.title}</Title>
-                          <Badge variant="outline" color="gray" size="sm">
-                            Archiviert
-                          </Badge>
-                        </Group>
-                        {event.location && (
-                          <Text size="sm" c="dimmed">
-                            {event.location}
-                          </Text>
-                        )}
-                        <Text size="xs" c="dimmed">
-                          {getEventShiftDateRange(event)}
-                        </Text>
-                      </div>
-                      <Menu shadow="md" position="bottom-end">
-                        <Menu.Target>
-                          <ActionIcon variant="subtle" aria-label="Aktionen">
-                            <EllipsisVertical size={16} />
-                          </ActionIcon>
-                        </Menu.Target>
-                        <Menu.Dropdown>
-                          <Menu.Item
-                            leftSection={<SquarePen size={14} />}
-                            onClick={() => openEdit(event)}
-                          >
-                            Bearbeiten
-                          </Menu.Item>
-                          <Menu.Item
-                            leftSection={<Copy size={14} />}
-                            onClick={() => openFromTemplate(event)}
-                          >
-                            Als Vorlage verwenden
-                          </Menu.Item>
-                          <Menu.Item
-                            leftSection={<Link size={14} />}
-                            onClick={() =>
-                              navigator.clipboard
-                                .writeText(`${appBaseUrl}/e/${event.id}`)
-                                .catch(() =>
-                                  notification.error({
-                                    message: "Link konnte nicht kopiert werden",
-                                  }),
-                                )
-                            }
-                          >
-                            Link kopieren
-                          </Menu.Item>
-                          <Menu.Item
-                            leftSection={<Mail size={14} />}
-                            onClick={() =>
-                              navigate({
-                                to: "/admin/volunteer-event/$eventId/message",
-                                params: { eventId: event.id },
-                              })
-                            }
-                          >
-                            E-Mail senden
-                          </Menu.Item>
-                          <Menu.Divider />
-                          <Menu.Item
-                            leftSection={<Archive size={14} />}
-                            disabled={restoreEventMutation.isPending}
-                            onClick={() => restoreEventMutation.mutate(event.id)}
-                          >
-                            Wiederherstellen
-                          </Menu.Item>
-                        </Menu.Dropdown>
-                      </Menu>
-                    </Group>
+                    <Stack gap="sm">
+                      <Group>
+                        <Stack gap="xs" flex={1}>
+                          <Group justify="space-between" align="flex-start" wrap="nowrap" gap="xs">
+                            <UnstyledButton
+                              component={Group}
+                              gap="xs"
+                              flex={1}
+                              wrap="nowrap"
+                              onClick={() => toggleEventExpanded(event.id)}
+                            >
+                              <Title order={4} flex={1}>
+                                {event.title}
+                              </Title>
+                              <Badge variant="outline" color="gray" size="sm">
+                                Archiviert
+                              </Badge>
+                            </UnstyledButton>
+
+                            <Group gap="xs" wrap="nowrap">
+                              <ActionIcon
+                                variant="subtle"
+                                aria-label={
+                                  isEventExpanded(event.id)
+                                    ? "Veranstaltung einklappen"
+                                    : "Veranstaltung ausklappen"
+                                }
+                                onClick={() => toggleEventExpanded(event.id)}
+                              >
+                                {isEventExpanded(event.id) ? (
+                                  <ChevronUp size={16} />
+                                ) : (
+                                  <ChevronDown size={16} />
+                                )}
+                              </ActionIcon>
+                              <Menu shadow="md" position="bottom-end">
+                                <Menu.Target>
+                                  <ActionIcon variant="subtle" aria-label="Aktionen">
+                                    <EllipsisVertical size={16} />
+                                  </ActionIcon>
+                                </Menu.Target>
+                                <Menu.Dropdown>
+                                  <Menu.Item
+                                    leftSection={<SquarePen size={14} />}
+                                    onClick={() => openEdit(event)}
+                                  >
+                                    Bearbeiten
+                                  </Menu.Item>
+                                  <Menu.Item
+                                    leftSection={<Copy size={14} />}
+                                    onClick={() => openFromTemplate(event)}
+                                  >
+                                    Als Vorlage verwenden
+                                  </Menu.Item>
+                                  <Menu.Item
+                                    leftSection={<Link size={14} />}
+                                    onClick={() =>
+                                      navigator.clipboard
+                                        .writeText(`${appBaseUrl}/e/${event.id}`)
+                                        .catch(() =>
+                                          notification.error({
+                                            message: "Link konnte nicht kopiert werden",
+                                          }),
+                                        )
+                                    }
+                                  >
+                                    Link kopieren
+                                  </Menu.Item>
+                                  <Menu.Item
+                                    leftSection={<Mail size={14} />}
+                                    onClick={() =>
+                                      navigate({
+                                        to: "/admin/volunteer-event/$eventId/message",
+                                        params: { eventId: event.id },
+                                      })
+                                    }
+                                  >
+                                    E-Mail senden
+                                  </Menu.Item>
+                                  <Menu.Divider />
+                                  <Menu.Item
+                                    leftSection={<Archive size={14} />}
+                                    disabled={restoreEventMutation.isPending}
+                                    onClick={() => restoreEventMutation.mutate(event.id)}
+                                  >
+                                    Wiederherstellen
+                                  </Menu.Item>
+                                </Menu.Dropdown>
+                              </Menu>
+                            </Group>
+                          </Group>
+
+                          <Collapse expanded={isEventExpanded(event.id)}>
+                            <Group gap="xs">
+                              <Text size="xs" c="dimmed">
+                                {getEventShiftDateRange(event)}
+                              </Text>
+                              {event.location && (
+                                <Text size="sm" c="dimmed">
+                                  {event.location}
+                                </Text>
+                              )}
+                            </Group>
+                          </Collapse>
+                        </Stack>
+                      </Group>
+                    </Stack>
                   </Card>
                 ))}
               </Stack>
             </Collapse>
-          </>
+          </Stack>
         )}
       </Stack>
     </>
