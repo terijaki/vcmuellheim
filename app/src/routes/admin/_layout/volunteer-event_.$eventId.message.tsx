@@ -47,6 +47,10 @@ import { useState } from "react";
 import type { DateValue } from "@mantine/dates";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
 import { ButtonLink } from "@/app/src/components/CustomLink";
+import {
+  getVolunteerMessageRoleFilterOptions,
+  resolveVolunteerMessageRoleFilterValues,
+} from "@/app/src/utils/volunteer-message-filters";
 
 dayjs.locale("de");
 
@@ -152,7 +156,11 @@ function VolunteerMessagePage() {
       const relevantShifts =
         shiftIds.length > 0 ? event.shifts.filter((s) => shiftIds.includes(s.id)) : event.shifts;
       const allRoleIds = new Set(relevantShifts.flatMap((s) => s.roles.map((r) => r.id)));
-      const filteredRoleIds = roleIds.filter((id) => allRoleIds.has(id));
+      const filteredRoleIds = resolveVolunteerMessageRoleFilterValues(
+        roleIds,
+        event,
+        shiftIds,
+      ).filter((id) => allRoleIds.has(id));
       return sendVolunteerBulkEmailFn({
         data: {
           eventId,
@@ -189,26 +197,38 @@ function VolunteerMessagePage() {
   return (
     <form.Subscribe selector={(state) => state.values}>
       {({ shiftIds, roleIds, subject, minDateOfBirth, maxDateOfBirth }) => {
-        const relevantShifts =
-          shiftIds.length > 0 ? event.shifts.filter((s) => shiftIds.includes(s.id)) : event.shifts;
-        const availableRoles = relevantShifts.flatMap((s) =>
-          s.roles.map((r) => ({ value: r.id, label: `${r.label} (${s.label})` })),
+        const availableRoles = getVolunteerMessageRoleFilterOptions(event, shiftIds).map(
+          (option) => ({
+            value: option.value,
+            label: option.label,
+          }),
         );
-        const validRoleIds = new Set(availableRoles.map((r) => r.value));
+        const validRoleValues = new Set(availableRoles.map((r) => r.value));
+        const resolvedRoleIds = resolveVolunteerMessageRoleFilterValues(
+          roleIds.filter((id) => validRoleValues.has(id)),
+          event,
+          shiftIds,
+        );
         const recipients = getFilteredRecipients(signups, {
           shiftIds,
-          roleIds: roleIds.filter((id) => validRoleIds.has(id)),
+          roleIds: resolvedRoleIds,
           minDateOfBirth,
           maxDateOfBirth,
         });
         return (
           <>
             {/* Confirm modal */}
-            <Modal opened={confirmOpened} onClose={closeConfirm} title="E-Mails senden?" size="sm">
+            <Modal
+              opened={confirmOpened}
+              onClose={closeConfirm}
+              title="E-Mails senden?"
+              size="sm"
+              centered
+            >
               <Text size="sm">
-                Bist du bereit die E-Mail zu versenden? Sie wird an{" "}
-                {recipients.length === 1 ? "nur einen Empfänger" : `${recipients.length} Empfänger`}{" "}
-                gesendet.
+                {recipients.length === 1
+                  ? "Bist du bereit die E-Mail zu versenden? Sie wird an nur einen Empfänger gesendet"
+                  : `Bist du bereit die E-Mail zu versenden? Sie wird an ${recipients.length} Empfänger gesendet`}
               </Text>
               <Group justify="flex-end" mt="md">
                 <Button variant="subtle" onClick={closeConfirm} disabled={sendMutation.isPending}>
@@ -275,16 +295,16 @@ function VolunteerMessagePage() {
                               value={field.state.value}
                               onChange={(val) => {
                                 field.handleChange(val);
-                                const newValidRoleIds = new Set(
-                                  event.shifts
-                                    .filter((s) => val.includes(s.id))
-                                    .flatMap((s) => s.roles.map((r) => r.id)),
+                                const newValidRoleValues = new Set(
+                                  getVolunteerMessageRoleFilterOptions(event, val).map(
+                                    (option) => option.value,
+                                  ),
                                 );
                                 form.setFieldValue(
                                   "roleIds",
                                   form
                                     .getFieldValue("roleIds")
-                                    .filter((id) => newValidRoleIds.has(id)),
+                                    .filter((value) => newValidRoleValues.has(value)),
                                 );
                               }}
                               clearable
@@ -297,7 +317,9 @@ function VolunteerMessagePage() {
                               label="Aufgaben"
                               placeholder="Alle Aufgaben"
                               data={availableRoles}
-                              value={field.state.value.filter((id) => validRoleIds.has(id))}
+                              value={field.state.value.filter((value) =>
+                                validRoleValues.has(value),
+                              )}
                               onChange={field.handleChange}
                               clearable
                               disabled={availableRoles.length === 0}
@@ -398,6 +420,11 @@ function VolunteerMessagePage() {
                       </Text>
                       <RichTextEditor editor={editor} variant="subtle">
                         <RichTextEditor.Toolbar sticky stickyOffset={60}>
+                          <RichTextEditor.ControlsGroup>
+                            <RichTextEditor.H1 />
+                            <RichTextEditor.H2 />
+                            <RichTextEditor.H3 />
+                          </RichTextEditor.ControlsGroup>
                           <RichTextEditor.ControlsGroup>
                             <RichTextEditor.Bold />
                             <RichTextEditor.Italic />

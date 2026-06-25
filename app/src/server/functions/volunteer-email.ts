@@ -102,6 +102,7 @@ function buildConfirmationHtml(opts: {
 <p>Du hast dich für den Einsatz <strong>${shiftLabel}</strong> am <strong>${shiftDate}</strong> angemeldet.</p>
 <p>Bitte bestätige deine Anmeldung innerhalb von <em>72 Stunden</em> über den folgenden Link:</p>
 <p><a href="${confirmationUrl}" target="_blank" rel="noopener noreferrer">${confirmationUrl}</a><br></p>
+<p>Wenn du die Anmeldung für eine andere Person machen möchtest, kannst du dafür dieselbe E-Mail-Adresse mit einem <code>+</code>-Alias wiederverwenden, zum Beispiel <code>max@example.com</code> für dich selbst und <code>max+erika@example.com</code> für deine Tochter Erika.</p>
 <p>Falls du diese Anfrage nicht gestellt hast, kannst du diese E-Mail ignorieren.</p>
 <p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerName}</a></p>`;
 }
@@ -227,7 +228,7 @@ export async function sendVolunteerConfirmationEmail(opts: {
           Body: {
             Html: { Data: html, Charset: "UTF-8" },
             Text: {
-              Data: `Hallo ${firstName},\n\nBitte bestätige deine Anmeldung: ${confirmationUrl}\n\nDieser Link ist 72 Stunden gültig.\n\nBei Fragen wende dich an: ${organizerEmail}\n\n${Club.shortName}`,
+              Data: `Hallo ${firstName},\n\nBitte bestätige deine Anmeldung: ${confirmationUrl}\n\nDieser Link ist 72 Stunden gültig.\n\nWenn du die Anmeldung für eine andere Person machen möchtest, kannst du dieselbe E-Mail-Adresse mit einem + Alias wiederverwenden, zum Beispiel max@example.com für dich selbst und max+erika@example.com für deine Tochter Erika.\n\nBei Fragen wende dich an: ${organizerEmail}\n\n${Club.shortName}`,
               Charset: "UTF-8",
             },
           },

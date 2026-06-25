@@ -16,7 +16,8 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 
 - **Install deps:** `vp install` at repo root.
 - **Run webapp locally:**
-  - `vp dev` — start unified webapp dev server (includes website public routes + admin auth).
+  - `vpr dev` — start dev server with all secrets loaded from AWS SSM via varlock (requires AWS credentials, e.g. `aws sso login --profile vcm-dev`).
+  - `vp dev` — start dev server without secrets; auth endpoints will fail but other routes work.
 - **Build:** `vp build`.
 - **Lint / format / typecheck:**
   - `vp check` / `vp check --fix` (lint + format + typecheck)

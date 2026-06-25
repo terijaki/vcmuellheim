@@ -644,8 +644,28 @@ describe("sendBulkVolunteerEventEmail", () => {
       htmlBody: "<p>Hallo</p>",
     });
 
-    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(2);
-    expect(result.sent).toBe(2);
+    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(3);
+    expect(result.sent).toBe(3);
+    expect(result.failed).toHaveLength(0);
+  });
+
+  it("sends the organizer a copy even without confirmed signups", async () => {
+    mockSignupQuery.mockResolvedValue({ data: [] });
+
+    const result = await sendBulkVolunteerEventEmail({
+      eventId,
+      subject: "Test",
+      htmlBody: "<p>Hallo</p>",
+    });
+
+    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledWith(
+      expect.objectContaining({
+        toEmail: organizerEmail,
+        organizerEmail,
+      }),
+    );
+    expect(result.sent).toBe(1);
     expect(result.failed).toHaveLength(0);
   });
 
@@ -667,8 +687,8 @@ describe("sendBulkVolunteerEventEmail", () => {
       htmlBody: "<p>Hallo</p>",
     });
 
-    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
-    expect(result.sent).toBe(1);
+    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(2);
+    expect(result.sent).toBe(2);
   });
 
   it("deduplicates recipients by email case-insensitively", async () => {
@@ -688,7 +708,31 @@ describe("sendBulkVolunteerEventEmail", () => {
       htmlBody: "<p>Hallo</p>",
     });
 
+    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(2);
+    expect(result.sent).toBe(2);
+  });
+
+  it("deduplicates the organizer when they signed up themself", async () => {
+    const organizerSignup = makeConfirmedSignup({
+      id: "cc111111-1111-4111-8111-111111111111",
+      email: "Veranstalter@example.com",
+      firstName: "Max",
+      lastName: "Muster",
+    });
+    mockSignupQuery.mockResolvedValue({ data: [organizerSignup] });
+
+    const result = await sendBulkVolunteerEventEmail({
+      eventId,
+      subject: "Test",
+      htmlBody: "<p>Hallo</p>",
+    });
+
     expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledWith(
+      expect.objectContaining({
+        toEmail: organizerEmail,
+      }),
+    );
     expect(result.sent).toBe(1);
   });
 
@@ -714,8 +758,8 @@ describe("sendBulkVolunteerEventEmail", () => {
       filters: { shiftIds: [shiftId] },
     });
 
-    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
-    expect(result.sent).toBe(1);
+    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(2);
+    expect(result.sent).toBe(2);
   });
 
   it("filters by roleIds (assigned role)", async () => {
@@ -738,8 +782,8 @@ describe("sendBulkVolunteerEventEmail", () => {
       filters: { roleIds: [roleId1] },
     });
 
-    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
-    expect(result.sent).toBe(1);
+    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(2);
+    expect(result.sent).toBe(2);
   });
 
   it("filters by date of birth range", async () => {
@@ -763,8 +807,8 @@ describe("sendBulkVolunteerEventEmail", () => {
       filters: { minDateOfBirth: "1990-01-01", maxDateOfBirth: "2000-12-31" },
     });
 
-    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(1);
-    expect(result.sent).toBe(1);
+    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledTimes(2);
+    expect(result.sent).toBe(2);
   });
 
   it("passes organizer email as Reply-To to sendBulkVolunteerEmail", async () => {
@@ -780,9 +824,10 @@ describe("sendBulkVolunteerEventEmail", () => {
       htmlBody: "<p>Hallo</p>",
     });
 
-    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenCalledWith(
+    expect(vi.mocked(sendBulkVolunteerEmail)).toHaveBeenNthCalledWith(
+      1,
       expect.objectContaining({
-        toEmail: "a@example.com",
+        toEmail: organizerEmail,
         subject: "Test Betreff",
         organizerEmail,
       }),
@@ -810,7 +855,7 @@ describe("sendBulkVolunteerEventEmail", () => {
       htmlBody: "<p>Hallo</p>",
     });
 
-    expect(result.sent).toBe(1);
+    expect(result.sent).toBe(2);
     expect(result.failed).toHaveLength(1);
     expect(result.failed[0]?.error).toBe("SES throttle");
   });

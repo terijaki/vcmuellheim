@@ -5,6 +5,7 @@ import {
   Box,
   Card,
   Group,
+  Loader,
   Menu,
   Select,
   Stack,
@@ -24,14 +25,22 @@ import {
 import dayjs from "dayjs";
 import { ArrowLeftRight, Mail, SquareCheckBig, Trash2 } from "lucide-react";
 import type { VolunteerEvent } from "@/lib/db/types";
+import { getVolunteerSignupRoleLabel } from "@webapp/utils/volunteer";
 
-export function SignupDashboard({ event }: { event: VolunteerEvent }) {
+export function SignupDashboard({
+  event,
+  isPastEvent = false,
+}: {
+  event: VolunteerEvent;
+  isPastEvent?: boolean;
+}) {
   const notification = useNotification();
 
   const { data: signupsData, refetch } = useQuery({
     queryKey: ["volunteerSignups", event.id],
     queryFn: () => listVolunteerSignupsFn({ data: { eventId: event.id } }),
   });
+  const isSignupsLoading = !signupsData;
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteVolunteerSignupFn({ data: { id } }),
@@ -81,8 +90,31 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
         .sort((a, b) => dayjs(a.startDate).diff(dayjs(b.startDate)))
         .map((shift) => {
           const shiftSignups = signups.filter((s) => s.shiftId === shift.id);
+          const sortedSignups = [...shiftSignups].sort((a, b) => {
+            const roleA = a.assignedRoleId
+              ? (shift.roles.find((role) => role.id === a.assignedRoleId)?.label ?? "")
+              : "";
+            const roleB = b.assignedRoleId
+              ? (shift.roles.find((role) => role.id === b.assignedRoleId)?.label ?? "")
+              : "";
+            const preferredA = a.preferredRoleIds
+              .map((roleId) => allRoles.find((role) => role.id === roleId)?.label ?? "")
+              .filter(Boolean)
+              .join(",");
+            const preferredB = b.preferredRoleIds
+              .map((roleId) => allRoles.find((role) => role.id === roleId)?.label ?? "")
+              .filter(Boolean)
+              .join(",");
+
+            const primaryA = roleA || preferredA || "";
+            const primaryB = roleB || preferredB || "";
+            return primaryA.localeCompare(primaryB, "de", { sensitivity: "base" });
+          });
+          const visibleSignups = isPastEvent
+            ? sortedSignups.filter((signup) => signup.status !== "pending")
+            : sortedSignups;
           const unassignedCount =
-            shift.roles.length > 0 ? shiftSignups.filter((s) => !s.assignedRoleId).length : 0;
+            shift.roles.length > 0 ? visibleSignups.filter((s) => !s.assignedRoleId).length : 0;
           return (
             <Accordion.Item key={shift.id} value={shift.id}>
               <Accordion.Control>
@@ -104,19 +136,36 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
                   </Text>
                   <Group gap="xs" mt={4}>
                     {shift.roles.map((role) => {
-                      const count = shiftSignups.filter((s) => s.assignedRoleId === role.id).length;
-                      const color =
-                        count === 0 ? "red" : count >= role.minCapacity ? "green" : "blue";
+                      const count = visibleSignups.filter(
+                        (s) => s.assignedRoleId === role.id,
+                      ).length;
+                      const color = isSignupsLoading
+                        ? "gray"
+                        : count === 0
+                          ? "red"
+                          : count >= role.minCapacity
+                            ? "green"
+                            : "blue";
                       return (
-                        <Badge key={role.id} size="sm" variant="light" color={color}>
+                        <Badge
+                          key={role.id}
+                          size="sm"
+                          variant="light"
+                          color={color}
+                          rightSection={isSignupsLoading ? <Loader size="xs" /> : null}
+                        >
                           {role.label}:{" "}
-                          {role.maxCapacity !== undefined ? `${count}/${role.maxCapacity}` : count}
+                          {isSignupsLoading
+                            ? ""
+                            : role.maxCapacity !== undefined
+                              ? `${count}/${role.maxCapacity}`
+                              : count}
                         </Badge>
                       );
                     })}
                     {shift.roles.length === 0 && (
                       <Badge size="sm" variant="outline">
-                        {shiftSignups.length} Anmeldung{shiftSignups.length !== 1 ? "en" : ""}
+                        {visibleSignups.length} Anmeldung{visibleSignups.length !== 1 ? "en" : ""}
                       </Badge>
                     )}
                     {unassignedCount > 0 && (
@@ -128,16 +177,13 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
                 </Box>
               </Accordion.Control>
               <Accordion.Panel>
-                {shiftSignups.length === 0 ? (
+                {visibleSignups.length === 0 ? (
                   <Text size="sm" c="dimmed">
                     Noch keine Anmeldungen.
                   </Text>
                 ) : isMobile ? (
                   <Stack gap="sm">
-                    {shiftSignups.map((signup) => {
-                      const preferredLabels = signup.preferredRoleIds
-                        .map((rid) => allRoles.find((r) => r.id === rid)?.label ?? "(gelöscht)")
-                        .join(", ");
+                    {visibleSignups.map((signup) => {
                       const shiftOptions = event.shifts
                         .filter((s) => s.id !== signup.shiftId)
                         .map((s) => ({ value: s.id, label: s.label }));
@@ -164,7 +210,12 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
                             </Group>
                             <Group gap={4} wrap="nowrap">
                               {signup.status !== "confirmed" && (
-                                <Badge color="yellow" variant="light" size="xs">
+                                <Badge
+                                  color="yellow"
+                                  variant="light"
+                                  size="xs"
+                                  style={{ whiteSpace: "nowrap" }}
+                                >
                                   Ausstehend
                                 </Badge>
                               )}
@@ -180,9 +231,16 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
                               </Tooltip>
                             </Group>
                           </Group>
-                          <Box fz="xs" c="dimmed" mb={4}>
-                            {preferredLabels || ""}
-                          </Box>
+                          {!isPastEvent && (
+                            <Box fz="xs" c="dimmed" mb={4}>
+                              {signup.preferredRoleIds
+                                .map(
+                                  (rid) =>
+                                    allRoles.find((r) => r.id === rid)?.label ?? "(gelöscht)",
+                                )
+                                .join(", ") || ""}
+                            </Box>
+                          )}
                           {(signup.mobilePhone || signup.emergencyContact) && (
                             <Box fz="xs" c="dimmed" mb={4}>
                               {signup.mobilePhone && <span>Handy: {signup.mobilePhone}</span>}
@@ -198,44 +256,52 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
                             </Box>
                           )}
                           <Group gap="xs">
-                            <Select
-                              size="sm"
-                              placeholder="Rolle zuweisen"
-                              clearable
-                              value={signup.assignedRoleId ?? null}
-                              onChange={(val) =>
-                                assignRoleMutation.mutate({ id: signup.id, assignedRoleId: val })
-                              }
-                              data={shift.roles.map((r) => ({ value: r.id, label: r.label }))}
-                              style={{ flex: 1 }}
-                              clearSectionMode="rightSection"
-                            />
-                            {signup.status !== "pending" && shiftOptions.length > 0 && (
-                              <Menu>
-                                <Tooltip label="Schicht ändern">
-                                  <Menu.Target>
-                                    <ActionIcon size="md" variant="subtle">
-                                      <ArrowLeftRight size={14} />
-                                    </ActionIcon>
-                                  </Menu.Target>
-                                </Tooltip>
-                                <Menu.Dropdown>
-                                  {shiftOptions.map((opt) => (
-                                    <Menu.Item
-                                      key={opt.value}
-                                      onClick={() =>
-                                        moveShiftMutation.mutate({
-                                          id: signup.id,
-                                          shiftId: opt.value,
-                                        })
-                                      }
-                                    >
-                                      {opt.label}
-                                    </Menu.Item>
-                                  ))}
-                                </Menu.Dropdown>
-                              </Menu>
+                            {isPastEvent ? (
+                              <Badge size="sm" variant="light" color="teal">
+                                {getVolunteerSignupRoleLabel(signup, shift.roles)}
+                              </Badge>
+                            ) : (
+                              <Select
+                                size="sm"
+                                placeholder="Rolle zuweisen"
+                                clearable
+                                value={signup.assignedRoleId ?? null}
+                                onChange={(val) =>
+                                  assignRoleMutation.mutate({ id: signup.id, assignedRoleId: val })
+                                }
+                                data={shift.roles.map((r) => ({ value: r.id, label: r.label }))}
+                                style={{ flex: 1 }}
+                                clearSectionMode="rightSection"
+                              />
                             )}
+                            {signup.status !== "pending" &&
+                              !isPastEvent &&
+                              shiftOptions.length > 0 && (
+                                <Menu>
+                                  <Tooltip label="Schicht ändern">
+                                    <Menu.Target>
+                                      <ActionIcon size="md" variant="subtle">
+                                        <ArrowLeftRight size={14} />
+                                      </ActionIcon>
+                                    </Menu.Target>
+                                  </Tooltip>
+                                  <Menu.Dropdown>
+                                    {shiftOptions.map((opt) => (
+                                      <Menu.Item
+                                        key={opt.value}
+                                        onClick={() =>
+                                          moveShiftMutation.mutate({
+                                            id: signup.id,
+                                            shiftId: opt.value,
+                                          })
+                                        }
+                                      >
+                                        {opt.label}
+                                      </Menu.Item>
+                                    ))}
+                                  </Menu.Dropdown>
+                                </Menu>
+                              )}
                             <Group gap={4} wrap="nowrap">
                               {signup.status === "pending" && (
                                 <Tooltip label="Manuell bestätigen">
@@ -275,19 +341,19 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
                     <Table.Thead>
                       <Table.Tr>
                         <Table.Th>Name</Table.Th>
-                        <Table.Th>E-Mail</Table.Th>
+                        <Table.Th>Mail</Table.Th>
                         <Table.Th>Handy</Table.Th>
                         <Table.Th>Alter</Table.Th>
                         <Table.Th>Notfall</Table.Th>
-                        <Table.Th>Bevorzugte Aufgaben</Table.Th>
+                        {!isPastEvent && <Table.Th>Bevorzugte Aufgaben</Table.Th>}
                         <Table.Th>Anmerkung</Table.Th>
-                        <Table.Th>Status</Table.Th>
+                        {!isPastEvent && <Table.Th>Status</Table.Th>}
                         <Table.Th>Zugewiesene Rolle</Table.Th>
                         <Table.Th>Aktionen</Table.Th>
                       </Table.Tr>
                     </Table.Thead>
                     <Table.Tbody>
-                      {shiftSignups.map((signup) => {
+                      {visibleSignups.map((signup) => {
                         const preferredLabels = signup.preferredRoleIds
                           .map((rid) => allRoles.find((r) => r.id === rid)?.label ?? "(gelöscht)")
                           .join(", ");
@@ -354,9 +420,17 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
                                 </Text>
                               )}
                             </Table.Td>
-                            <Table.Td>
-                              <Text size="xs">{preferredLabels}</Text>
-                            </Table.Td>
+                            {!isPastEvent && (
+                              <Table.Td>
+                                {preferredLabels ? (
+                                  <Text size="xs">{preferredLabels}</Text>
+                                ) : (
+                                  <Text size="xs" c="dimmed">
+                                    –
+                                  </Text>
+                                )}
+                              </Table.Td>
+                            )}
                             <Table.Td>
                               {signup.note ? (
                                 <Text size="xs">„{signup.note}"</Text>
@@ -366,31 +440,44 @@ export function SignupDashboard({ event }: { event: VolunteerEvent }) {
                                 </Text>
                               )}
                             </Table.Td>
+                            {!isPastEvent && (
+                              <Table.Td>
+                                <Badge
+                                  color={signup.status === "confirmed" ? "green" : "yellow"}
+                                  variant="light"
+                                  style={{ whiteSpace: "nowrap", display: "inline-flex" }}
+                                >
+                                  {signup.status === "confirmed" ? "Bestätigt" : "Ausstehend"}
+                                </Badge>
+                              </Table.Td>
+                            )}
                             <Table.Td>
-                              <Badge
-                                color={signup.status === "confirmed" ? "green" : "yellow"}
-                                variant="light"
-                              >
-                                {signup.status === "confirmed" ? "Bestätigt" : "Ausstehend"}
-                              </Badge>
-                            </Table.Td>
-                            <Table.Td>
-                              <Select
-                                size="xs"
-                                placeholder="Keine"
-                                clearable
-                                value={signup.assignedRoleId ?? null}
-                                onChange={(val) =>
-                                  assignRoleMutation.mutate({ id: signup.id, assignedRoleId: val })
-                                }
-                                data={shift.roles.map((r) => ({ value: r.id, label: r.label }))}
-                                w={130}
-                                clearSectionMode="rightSection"
-                              />
+                              {isPastEvent ? (
+                                <Badge size="sm" variant="light" color="teal">
+                                  {getVolunteerSignupRoleLabel(signup, shift.roles)}
+                                </Badge>
+                              ) : (
+                                <Select
+                                  size="xs"
+                                  placeholder="Keine"
+                                  clearable
+                                  value={signup.assignedRoleId ?? null}
+                                  onChange={(val) =>
+                                    assignRoleMutation.mutate({
+                                      id: signup.id,
+                                      assignedRoleId: val,
+                                    })
+                                  }
+                                  data={shift.roles.map((r) => ({ value: r.id, label: r.label }))}
+                                  w={130}
+                                  clearSectionMode="rightSection"
+                                />
+                              )}
                             </Table.Td>
                             <Table.Td>
                               <Group gap="xs" wrap="nowrap">
-                                {signup.status !== "pending" &&
+                                {!isPastEvent &&
+                                  signup.status !== "pending" &&
                                   hasMultipleShifts &&
                                   shiftOptions.length > 0 && (
                                     <Menu>
