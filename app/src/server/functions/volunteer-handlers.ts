@@ -415,22 +415,29 @@ export async function sendBulkVolunteerEventEmail(data: {
 
   // Deduplicate by email (case-insensitive, keep first)
   const seen = new Set<string>();
-  const recipients: (typeof filtered)[number][] = [];
+  const recipients: string[] = [];
+
+  const normalizedOrganizerEmail = event.organizerEmail.toLowerCase();
+  if (!seen.has(normalizedOrganizerEmail)) {
+    seen.add(normalizedOrganizerEmail);
+    recipients.push(event.organizerEmail);
+  }
+
   for (const signup of filtered) {
     const normalizedEmail = signup.email.toLowerCase();
     if (!seen.has(normalizedEmail)) {
       seen.add(normalizedEmail);
-      recipients.push(signup);
+      recipients.push(signup.email);
     }
   }
 
   let sent = 0;
   const failed: { email: string; error: string }[] = [];
 
-  for (const recipient of recipients) {
+  for (const recipientEmail of recipients) {
     try {
       await sendBulkVolunteerEmail({
-        toEmail: recipient.email,
+        toEmail: recipientEmail,
         subject,
         htmlBody,
         organizerEmail: event.organizerEmail,
@@ -438,7 +445,7 @@ export async function sendBulkVolunteerEventEmail(data: {
       sent++;
     } catch (err) {
       failed.push({
-        email: recipient.email,
+        email: recipientEmail,
         error: err instanceof Error ? err.message : String(err),
       });
     }

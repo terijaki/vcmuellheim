@@ -218,11 +218,17 @@ function VolunteerMessagePage() {
         return (
           <>
             {/* Confirm modal */}
-            <Modal opened={confirmOpened} onClose={closeConfirm} title="E-Mails senden?" size="sm">
+            <Modal
+              opened={confirmOpened}
+              onClose={closeConfirm}
+              title="E-Mails senden?"
+              size="sm"
+              centered
+            >
               <Text size="sm">
-                Bist du bereit die E-Mail zu versenden? Sie wird an{" "}
-                {recipients.length === 1 ? "nur einen Empfänger" : `${recipients.length} Empfänger`}{" "}
-                gesendet.
+                {recipients.length === 1
+                  ? "Bist du bereit die E-Mail zu versenden? Sie wird an nur einen Empfänger gesendet"
+                  : `Bist du bereit die E-Mail zu versenden? Sie wird an ${recipients.length} Empfänger gesendet`}
               </Text>
               <Group justify="flex-end" mt="md">
                 <Button variant="subtle" onClick={closeConfirm} disabled={sendMutation.isPending}>
@@ -414,6 +420,11 @@ function VolunteerMessagePage() {
                       </Text>
                       <RichTextEditor editor={editor} variant="subtle">
                         <RichTextEditor.Toolbar sticky stickyOffset={60}>
+                          <RichTextEditor.ControlsGroup>
+                            <RichTextEditor.H1 />
+                            <RichTextEditor.H2 />
+                            <RichTextEditor.H3 />
+                          </RichTextEditor.ControlsGroup>
                           <RichTextEditor.ControlsGroup>
                             <RichTextEditor.Bold />
                             <RichTextEditor.Italic />
