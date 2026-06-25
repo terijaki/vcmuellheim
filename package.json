@@ -13,6 +13,7 @@
   "type": "module",
   "scripts": {
     "start": "node app/.output/server/index.mjs",
+    "dev": "varlock run -- vp dev",
     "test": "vp test",
     "test:e2e": "playwright test",
     "lint": "vp check",
