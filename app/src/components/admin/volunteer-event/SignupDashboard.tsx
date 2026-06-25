@@ -136,7 +136,9 @@ export function SignupDashboard({
                   </Text>
                   <Group gap="xs" mt={4}>
                     {shift.roles.map((role) => {
-                      const count = shiftSignups.filter((s) => s.assignedRoleId === role.id).length;
+                      const count = visibleSignups.filter(
+                        (s) => s.assignedRoleId === role.id,
+                      ).length;
                       const color = isSignupsLoading
                         ? "gray"
                         : count === 0
@@ -163,7 +165,7 @@ export function SignupDashboard({
                     })}
                     {shift.roles.length === 0 && (
                       <Badge size="sm" variant="outline">
-                        {shiftSignups.length} Anmeldung{shiftSignups.length !== 1 ? "en" : ""}
+                        {visibleSignups.length} Anmeldung{visibleSignups.length !== 1 ? "en" : ""}
                       </Badge>
                     )}
                     {unassignedCount > 0 && (

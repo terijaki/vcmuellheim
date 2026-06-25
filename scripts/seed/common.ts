@@ -187,15 +187,27 @@ export async function uploadImageToS3(
   return new Promise((resolve, reject) => {
     https
       .get(imageUrl, async (response) => {
-        if (response.statusCode === 301 || response.statusCode === 302) {
+        if (
+          response.statusCode === 301 ||
+          response.statusCode === 302 ||
+          response.statusCode === 303 ||
+          response.statusCode === 307 ||
+          response.statusCode === 308
+        ) {
           const redirectUrl = response.headers.location;
           if (redirectUrl) {
+            response.resume();
             resolve(await uploadImageToS3(ctx, redirectUrl, s3Key));
             return;
           }
+
+          response.resume();
+          reject(new Error(`HTTP ${response.statusCode}: Missing redirect location header`));
+          return;
         }
 
         if (response.statusCode && response.statusCode >= 400) {
+          response.resume();
           reject(new Error(`HTTP ${response.statusCode}: ${response.statusMessage}`));
           return;
         }

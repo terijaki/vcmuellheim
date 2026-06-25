@@ -224,13 +224,8 @@ function VolunteerEventAdminPage() {
                 <Group>
                   <Stack gap="xs" flex={1}>
                     <Group justify="space-between" align="flex-start" wrap="nowrap" gap="xs">
-                      <UnstyledButton
-                        component={Title}
-                        order={4}
-                        flex={1}
-                        onClick={() => toggleEventExpanded(event.id)}
-                      >
-                        {event.title}
+                      <UnstyledButton flex={1} onClick={() => toggleEventExpanded(event.id)}>
+                        <Title order={4}>{event.title}</Title>
                       </UnstyledButton>
                       <Group gap="xs" wrap="nowrap">
                         <ActionIcon
@@ -347,9 +342,11 @@ function VolunteerEventAdminPage() {
           <Stack gap="xs">
             {activeEvents.length > 0 && <Divider />}
 
-            <UnstyledButton component={Group} justify="space-between" mt="md" onClick={togglePast}>
-              <Title order={4}>Vergangene Veranstaltungen</Title>
-              {pastVisible ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            <UnstyledButton mt="md" flex={1} onClick={togglePast}>
+              <Group justify="space-between">
+                <Title order={4}>Vergangene Veranstaltungen</Title>
+                {pastVisible ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </Group>
             </UnstyledButton>
 
             <Collapse expanded={pastVisible}>
@@ -360,35 +357,32 @@ function VolunteerEventAdminPage() {
                     <Card key={event.id} withBorder>
                       <Stack gap="sm">
                         <Group justify="space-between" align="flex-start" wrap="nowrap" gap="xs">
-                          <UnstyledButton
-                            component={Stack}
-                            gap={0}
-                            flex={1}
-                            onClick={() => toggleEventExpanded(event.id)}
-                          >
-                            <Group gap="xs" flex={1} wrap="nowrap">
-                              <Title order={4} flex={1}>
-                                {event.title}
-                              </Title>
-                              <Badge
-                                variant="outline"
-                                color="gray"
-                                size="sm"
-                                style={{ pointerEvents: "none" }}
-                              >
-                                Vergangen
-                              </Badge>
-                            </Group>
-                            <Flex rowGap={0} columnGap="xs" direction="row" wrap="wrap">
-                              <Text size="xs" c="dimmed">
-                                {getEventShiftDateRange(event)}
-                              </Text>
-                              {event.location && (
+                          <UnstyledButton flex={1} onClick={() => toggleEventExpanded(event.id)}>
+                            <Stack gap={0}>
+                              <Group gap="xs" flex={1} wrap="nowrap">
+                                <Title order={4} flex={1}>
+                                  {event.title}
+                                </Title>
+                                <Badge
+                                  variant="outline"
+                                  color="gray"
+                                  size="sm"
+                                  style={{ pointerEvents: "none" }}
+                                >
+                                  Vergangen
+                                </Badge>
+                              </Group>
+                              <Flex rowGap={0} columnGap="xs" direction="row" wrap="wrap">
                                 <Text size="xs" c="dimmed">
-                                  {event.location}
+                                  {getEventShiftDateRange(event)}
                                 </Text>
-                              )}
-                            </Flex>
+                                {event.location && (
+                                  <Text size="xs" c="dimmed">
+                                    {event.location}
+                                  </Text>
+                                )}
+                              </Flex>
+                            </Stack>
                           </UnstyledButton>
                           <Group gap="xs" wrap="nowrap">
                             <ActionIcon
@@ -469,14 +463,11 @@ function VolunteerEventAdminPage() {
           <Stack gap="xs">
             {activeEvents.length + pastEvents.length > 0 && <Divider />}
 
-            <UnstyledButton
-              component={Group}
-              justify="space-between"
-              mt="md"
-              onClick={toggleArchived}
-            >
-              <Title order={4}>Archivierte Veranstaltungen</Title>
-              {archivedVisible ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            <UnstyledButton mt="md" flex={1} onClick={toggleArchived}>
+              <Group justify="space-between">
+                <Title order={4}>Archivierte Veranstaltungen</Title>
+                {archivedVisible ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </Group>
             </UnstyledButton>
             <Collapse expanded={archivedVisible}>
               <Stack gap="md">
@@ -486,35 +477,32 @@ function VolunteerEventAdminPage() {
                     <Card key={event.id} withBorder opacity={0.8}>
                       <Stack gap="sm">
                         <Group justify="space-between" align="flex-start" wrap="nowrap" gap="xs">
-                          <UnstyledButton
-                            component={Stack}
-                            gap={0}
-                            flex={1}
-                            onClick={() => toggleEventExpanded(event.id)}
-                          >
-                            <Group gap="xs" flex={1} wrap="nowrap">
-                              <Title order={4} flex={1}>
-                                {event.title}
-                              </Title>
-                              <Badge
-                                variant="outline"
-                                color="orange"
-                                size="sm"
-                                style={{ pointerEvents: "none" }}
-                              >
-                                Archiviert
-                              </Badge>
-                            </Group>
-                            <Flex rowGap={0} columnGap="xs" direction="row" wrap="wrap">
-                              <Text size="xs" c="dimmed">
-                                {getEventShiftDateRange(event)}
-                              </Text>
-                              {event.location && (
+                          <UnstyledButton flex={1} onClick={() => toggleEventExpanded(event.id)}>
+                            <Stack gap={0}>
+                              <Group gap="xs" flex={1} wrap="nowrap">
+                                <Title order={4} flex={1}>
+                                  {event.title}
+                                </Title>
+                                <Badge
+                                  variant="outline"
+                                  color="orange"
+                                  size="sm"
+                                  style={{ pointerEvents: "none" }}
+                                >
+                                  Archiviert
+                                </Badge>
+                              </Group>
+                              <Flex rowGap={0} columnGap="xs" direction="row" wrap="wrap">
                                 <Text size="xs" c="dimmed">
-                                  {event.location}
+                                  {getEventShiftDateRange(event)}
                                 </Text>
-                              )}
-                            </Flex>
+                                {event.location && (
+                                  <Text size="xs" c="dimmed">
+                                    {event.location}
+                                  </Text>
+                                )}
+                              </Flex>
+                            </Stack>
                           </UnstyledButton>
                           <Group gap="xs" wrap="nowrap">
                             <ActionIcon
