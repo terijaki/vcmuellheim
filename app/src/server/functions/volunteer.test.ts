@@ -4,11 +4,16 @@ import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import * as Sentry from "@sentry/tanstackstart-react";
 import {
   sendBulkVolunteerEmail,
+  sendVolunteerCancellationEmail,
   sendVolunteerConfirmationEmail,
+  sendVolunteerConfirmedDuplicateEmail,
+  sendVolunteerOrganizerCancellationNotificationEmail,
   sendVolunteerOrganizerNotificationEmail,
   sendVolunteerReceiptEmail,
 } from "./volunteer-email";
 import {
+  cancelVolunteerSignupByAdmin,
+  cancelVolunteerSignupByVolunteer,
   confirmVolunteerSignup,
   createVolunteerSignup,
   getPublicVolunteerEvent,
@@ -84,8 +89,11 @@ vi.mock("@/lib/db/electrodb-client", () => ({
 
 vi.mock("./volunteer-email", () => ({
   sendVolunteerConfirmationEmail: vi.fn().mockResolvedValue(undefined),
+  sendVolunteerConfirmedDuplicateEmail: vi.fn().mockResolvedValue(undefined),
   sendVolunteerReceiptEmail: vi.fn().mockResolvedValue(undefined),
   sendVolunteerOrganizerNotificationEmail: vi.fn().mockResolvedValue(undefined),
+  sendVolunteerCancellationEmail: vi.fn().mockResolvedValue(undefined),
+  sendVolunteerOrganizerCancellationNotificationEmail: vi.fn().mockResolvedValue(undefined),
   sendBulkVolunteerEmail: vi.fn().mockResolvedValue(undefined),
 }));
 
@@ -141,7 +149,11 @@ const signupData = {
 
 function makeSignup(
   overrides: Partial<
-    typeof signupData & { id: string; status: "pending" | "confirmed"; assignedRoleId?: string }
+    typeof signupData & {
+      id: string;
+      status: "pending" | "confirmed" | "canceled";
+      assignedRoleId?: string;
+    }
   > = {},
 ) {
   return {
@@ -175,17 +187,31 @@ describe("createVolunteerSignup", () => {
     expect(vi.mocked(sendVolunteerConfirmationEmail)).toHaveBeenCalledTimes(1);
   });
 
-  it("does NOT create a duplicate signup on re-submission (token still created)", async () => {
+  it("updates an existing pending signup on re-submission and keeps sending a token", async () => {
     // Existing signup for same email+shift
     mockSignupQuery.mockResolvedValue({ data: [makeSignup()] });
 
     await createVolunteerSignup(signupData);
 
-    // Token created, but no new signup record
+    // Token created, pending signup updated, but no new signup record
     expect(mockTokenCreate).toHaveBeenCalledTimes(1);
+    expect(mockSignupPatch).toHaveBeenCalledTimes(1);
     expect(mockSignupCreate).not.toHaveBeenCalled();
     // Confirmation email still sent
     expect(vi.mocked(sendVolunteerConfirmationEmail)).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(sendVolunteerConfirmedDuplicateEmail)).not.toHaveBeenCalled();
+  });
+
+  it("does not create token or overwrite signup for confirmed duplicates", async () => {
+    mockSignupQuery.mockResolvedValue({ data: [makeSignup({ status: "confirmed" })] });
+
+    await createVolunteerSignup(signupData);
+
+    expect(mockTokenCreate).not.toHaveBeenCalled();
+    expect(mockSignupCreate).not.toHaveBeenCalled();
+    expect(mockSignupPatch).not.toHaveBeenCalled();
+    expect(vi.mocked(sendVolunteerConfirmationEmail)).not.toHaveBeenCalled();
+    expect(vi.mocked(sendVolunteerConfirmedDuplicateEmail)).toHaveBeenCalledTimes(1);
   });
 
   it("rejects signup for a past shift", async () => {
@@ -309,18 +335,19 @@ describe("verifyVolunteerToken", () => {
     vi.clearAllMocks();
     mockTokenGet.mockResolvedValue({ data: mockToken });
     mockEventGet.mockResolvedValue({ data: mockEvent });
-    mockSignupQuery.mockResolvedValue({ data: [] }); // no existing signup
+    mockSignupQuery.mockResolvedValue({ data: [makeSignup()] }); // existing pending signup
     mockSignupCreate.mockResolvedValue({ data: makeSignup({ status: "confirmed" }) });
     mockSignupPatch.mockResolvedValue({ data: makeSignup({ status: "confirmed" }) });
     mockTokenDelete.mockResolvedValue({ data: {} });
     mockSignupGet.mockResolvedValue({ data: makeSignup({ status: "confirmed" }) });
   });
 
-  it("creates a confirmed signup when no existing record, deletes token, sends receipt", async () => {
+  it("confirms an existing pending signup, deletes token, sends receipt", async () => {
     const result = await verifyVolunteerToken({ tokenId });
 
     expect(result.success).toBe(true);
-    expect(mockSignupCreate).toHaveBeenCalledTimes(1);
+    expect(mockSignupCreate).not.toHaveBeenCalled();
+    expect(mockSignupPatch).toHaveBeenCalled();
     expect(mockTokenDelete).toHaveBeenCalledTimes(1);
     expect(vi.mocked(sendVolunteerReceiptEmail)).toHaveBeenCalledTimes(1);
   });
@@ -338,16 +365,14 @@ describe("verifyVolunteerToken", () => {
   });
 
   it("auto-assigns to first preferred role with available capacity on confirmation", async () => {
-    // No existing signups → brand-new confirmed signup, no competition for roles
-    mockSignupQuery.mockResolvedValue({ data: [] });
-    const newSignup = makeSignup({ status: "confirmed" });
-    mockSignupCreate.mockResolvedValue({ data: newSignup });
+    // Pending signup exists and gets confirmed; no competition for roles
+    mockSignupQuery.mockResolvedValue({ data: [makeSignup()] });
 
     const result = await verifyVolunteerToken({ tokenId });
 
     expect(result.success).toBe(true);
-    // auto-assign patch should have been called with roleId1 (first preferred, has capacity)
-    expect(mockSignupPatch).toHaveBeenCalledTimes(1);
+    // One patch confirms pending signup, second patch performs auto-assignment.
+    expect(mockSignupPatch).toHaveBeenCalledTimes(2);
     expect(vi.mocked(sendVolunteerOrganizerNotificationEmail)).toHaveBeenCalledWith(
       expect.objectContaining({
         event: mockEvent,
@@ -378,18 +403,16 @@ describe("verifyVolunteerToken", () => {
         assignedRoleId: roleId1,
       }),
     ];
-    // First call: no existing signup for this email+shift. Subsequent call: for auto-assign count.
+    // First call: existing pending signup. Subsequent call: for auto-assign count.
     mockSignupQuery
-      .mockResolvedValueOnce({ data: [] })
+      .mockResolvedValueOnce({ data: [makeSignup()] })
       .mockResolvedValue({ data: fullRoleSignups });
-    const newSignup = makeSignup({ status: "confirmed" });
-    mockSignupCreate.mockResolvedValue({ data: newSignup });
 
     const result = await verifyVolunteerToken({ tokenId });
 
     expect(result.success).toBe(true);
-    // auto-assign patch called once, targeting roleId2
-    expect(mockSignupPatch).toHaveBeenCalledTimes(1);
+    // One patch confirms pending signup, second patch performs auto-assignment.
+    expect(mockSignupPatch).toHaveBeenCalledTimes(2);
   });
 
   it("does not auto-assign if all preferred roles are at capacity", async () => {
@@ -421,15 +444,15 @@ describe("verifyVolunteerToken", () => {
         assignedRoleId: roleId2,
       }),
     ];
-    mockSignupQuery.mockResolvedValueOnce({ data: [] }).mockResolvedValue({ data: fullSignups });
-    const newSignup = makeSignup({ status: "confirmed" });
-    mockSignupCreate.mockResolvedValue({ data: newSignup });
+    mockSignupQuery
+      .mockResolvedValueOnce({ data: [makeSignup()] })
+      .mockResolvedValue({ data: fullSignups });
 
     const result = await verifyVolunteerToken({ tokenId });
 
     expect(result.success).toBe(true);
-    // No auto-assign patch since all roles full
-    expect(mockSignupPatch).not.toHaveBeenCalled();
+    // Only the confirmation patch should run when no role has capacity.
+    expect(mockSignupPatch).toHaveBeenCalledTimes(1);
     const organizerNotifyCall = vi.mocked(sendVolunteerOrganizerNotificationEmail).mock
       .calls[0]?.[0];
     expect(organizerNotifyCall).toMatchObject({
@@ -485,22 +508,36 @@ describe("verifyVolunteerToken", () => {
     mockTokenGet.mockResolvedValue({
       data: { ...mockToken, signupData: { ...signupData, preferredRoleIds: [] } },
     });
-    mockSignupQuery.mockResolvedValue({ data: [] });
+    mockSignupQuery.mockResolvedValue({ data: [makeSignup({ preferredRoleIds: [] })] });
 
     const result = await verifyVolunteerToken({ tokenId });
 
     expect(result.success).toBe(true);
-    expect(mockSignupPatch).not.toHaveBeenCalled();
+    // Only the confirmation patch should run when shift has no roles.
+    expect(mockSignupPatch).toHaveBeenCalledTimes(1);
   });
 
-  it("sends a receipt email even when the signup was already confirmed (re-signup confirmation)", async () => {
-    // User signs up again for the same shift — existing signup is already confirmed
+  it("treats a second valid link as idempotent success when signup is already confirmed", async () => {
+    // Existing confirmed signup for same email+shift
     mockSignupQuery.mockResolvedValue({ data: [makeSignup({ status: "confirmed" })] });
 
-    await verifyVolunteerToken({ tokenId });
+    const result = await verifyVolunteerToken({ tokenId });
 
-    expect(vi.mocked(sendVolunteerReceiptEmail)).toHaveBeenCalledTimes(1);
+    expect(result).toEqual({ success: true, shiftId });
+    expect(mockTokenDelete).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(sendVolunteerReceiptEmail)).not.toHaveBeenCalled();
     expect(vi.mocked(sendVolunteerOrganizerNotificationEmail)).not.toHaveBeenCalled();
+  });
+
+  it("does not revive canceled signups when an old token is clicked", async () => {
+    mockSignupQuery.mockResolvedValue({ data: [makeSignup({ status: "canceled" })] });
+
+    const result = await verifyVolunteerToken({ tokenId });
+
+    expect(result).toEqual({ success: false, shiftId: null });
+    expect(mockTokenDelete).toHaveBeenCalledTimes(1);
+    expect(mockSignupCreate).not.toHaveBeenCalled();
+    expect(mockSignupPatch).not.toHaveBeenCalled();
   });
 
   it("returns success:false for an expired token without throwing", async () => {
@@ -517,6 +554,18 @@ describe("verifyVolunteerToken", () => {
 
     const result = await verifyVolunteerToken({ tokenId });
     expect(result.success).toBe(false);
+    expect(mockSignupCreate).not.toHaveBeenCalled();
+    expect(vi.mocked(sendVolunteerReceiptEmail)).not.toHaveBeenCalled();
+  });
+
+  it("returns success:false when no pending signup exists for the token data", async () => {
+    mockSignupQuery.mockResolvedValue({ data: [] });
+
+    const result = await verifyVolunteerToken({ tokenId });
+
+    expect(result).toEqual({ success: false, shiftId: null });
+    expect(mockTokenDelete).toHaveBeenCalledTimes(1);
+    expect(mockSignupPatch).not.toHaveBeenCalled();
     expect(mockSignupCreate).not.toHaveBeenCalled();
     expect(vi.mocked(sendVolunteerReceiptEmail)).not.toHaveBeenCalled();
   });
@@ -596,6 +645,94 @@ describe("confirmVolunteerSignup (admin force-confirm)", () => {
   it("throws when signup not found", async () => {
     mockSignupGet.mockResolvedValue({ data: null });
     await expect(confirmVolunteerSignup({ id: signupId })).rejects.toThrow("not found");
+  });
+});
+
+describe("signup cancellation", () => {
+  const signupId = "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee";
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockEventGet.mockResolvedValue({ data: mockEvent });
+  });
+
+  it("allows volunteer cancellation for confirmed signup before shift start", async () => {
+    mockSignupGet
+      .mockResolvedValueOnce({ data: makeSignup({ id: signupId, status: "confirmed" }) })
+      .mockResolvedValue({ data: makeSignup({ id: signupId, status: "canceled" }) });
+    mockSignupPatch.mockResolvedValue({ data: {} });
+
+    const result = await cancelVolunteerSignupByVolunteer({
+      id: signupId,
+      email: signupData.email,
+    });
+
+    expect(result).toEqual({ success: true, code: "ok" });
+    expect(mockSignupPatch).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(sendVolunteerCancellationEmail)).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(sendVolunteerOrganizerCancellationNotificationEmail)).toHaveBeenCalledWith(
+      expect.objectContaining({
+        canceledBy: "volunteer",
+      }),
+    );
+  });
+
+  it("returns generic invalid result for email mismatch", async () => {
+    mockSignupGet.mockResolvedValue({ data: makeSignup({ id: signupId, status: "confirmed" }) });
+
+    const result = await cancelVolunteerSignupByVolunteer({
+      id: signupId,
+      email: "wrong@example.com",
+    });
+
+    expect(result).toEqual({ success: false, code: "invalid" });
+    expect(mockSignupPatch).not.toHaveBeenCalled();
+  });
+
+  it("returns already_canceled for repeated cancellation", async () => {
+    mockSignupGet.mockResolvedValue({ data: makeSignup({ id: signupId, status: "canceled" }) });
+
+    const result = await cancelVolunteerSignupByVolunteer({
+      id: signupId,
+      email: signupData.email,
+    });
+
+    expect(result).toEqual({ success: false, code: "already_canceled" });
+    expect(mockSignupPatch).not.toHaveBeenCalled();
+  });
+
+  it("rejects volunteer cancellation after shift start", async () => {
+    const startedEvent = {
+      ...mockEvent,
+      shifts: [{ ...mockEvent.shifts[0], startDate: pastDate }],
+    };
+    mockEventGet.mockResolvedValue({ data: startedEvent });
+    mockSignupGet.mockResolvedValue({ data: makeSignup({ id: signupId, status: "confirmed" }) });
+
+    const result = await cancelVolunteerSignupByVolunteer({
+      id: signupId,
+      email: signupData.email,
+    });
+
+    expect(result).toEqual({ success: false, code: "shift_started" });
+    expect(mockSignupPatch).not.toHaveBeenCalled();
+  });
+
+  it("allows admin cancellation for pending signups", async () => {
+    mockSignupGet
+      .mockResolvedValueOnce({ data: makeSignup({ id: signupId, status: "pending" }) })
+      .mockResolvedValue({ data: makeSignup({ id: signupId, status: "canceled" }) });
+    mockSignupPatch.mockResolvedValue({ data: {} });
+
+    const result = await cancelVolunteerSignupByAdmin({ id: signupId });
+
+    expect(result.status).toBe("canceled");
+    expect(mockSignupPatch).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(sendVolunteerOrganizerCancellationNotificationEmail)).toHaveBeenCalledWith(
+      expect.objectContaining({
+        canceledBy: "admin",
+      }),
+    );
   });
 });
 

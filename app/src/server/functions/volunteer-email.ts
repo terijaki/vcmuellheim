@@ -114,6 +114,7 @@ function buildReceiptHtml(opts: {
   shiftLabel: string;
   shiftDate: string;
   eventUrl: string;
+  cancellationUrl: string;
   organizerName: string;
   organizerEmail: string;
 }): string {
@@ -124,6 +125,7 @@ function buildReceiptHtml(opts: {
     shiftLabel,
     shiftDate,
     eventUrl,
+    cancellationUrl,
     organizerName,
     organizerEmail,
   } = opts;
@@ -147,7 +149,43 @@ function buildReceiptHtml(opts: {
 ${locationLine}
 <p><strong>Einsatz:</strong> ${shiftLabel}</p>
 <p><a href="${eventUrl}" target="_blank" rel="noopener noreferrer">Zur Veranstaltungsseite</a></p>
+<>Sollte etwas dazwischenkommen, kannst du deine Anmeldung mit diesem Link stornieren: <a href="${cancellationUrl}" target="_blank" rel="noopener noreferrer">Anmeldung stornieren</a></p>
 <p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerName}</a></p>`;
+}
+
+function buildConfirmedDuplicateHtml(opts: {
+  firstName: string;
+  eventTitle: string;
+  shiftLabel: string;
+  shiftDate: string;
+  organizerName: string;
+  organizerEmail: string;
+}): string {
+  const { firstName, eventTitle, shiftLabel, shiftDate, organizerName, organizerEmail } = opts;
+  return `<p>Hallo ${firstName},</p>
+<p>du bist bereits für <strong>${eventTitle}</strong> angemeldet:</p>
+<p><strong>${shiftLabel}</strong> am <strong>${shiftDate}</strong>.</p>
+<p>Wenn du deine Angaben ändern möchtest, storniere bitte zuerst deine bestehende Anmeldung über den Link in deiner Bestätigungsmail und melde dich anschließend neu an.</p>
+<p>Wenn du ein Kind oder eine Partnerperson anmelden möchtest, nutze bitte eine andere Email.<br>Tipp: Du kannst einen <code>+</code>-Alias verwenden, z. B. <code>max@example.com</code> und <code>max+erika@example.com</code>. Dadurch hast du die Möglichkeit, mehrere Anmeldungen mit derselben Basis-Email zu verwalten.</p>
+<p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerName}</a></p>`;
+}
+
+function buildVolunteerCancellationHtml(opts: {
+  firstName: string;
+  eventTitle: string;
+  shiftLabel: string;
+  shiftDate: string;
+  organizerName: string;
+  organizerEmail: string;
+}): string {
+  const { firstName, eventTitle, shiftLabel, shiftDate, organizerName, organizerEmail } = opts;
+  return `<p>Hallo ${firstName},</p>
+<p>deine Anmeldung wurde storniert.</p>
+<p><strong>Veranstaltung:</strong> ${eventTitle}<br>
+<strong>Einsatz:</strong> ${shiftLabel}<br>
+<strong>Datum / Uhrzeit:</strong> ${shiftDate}</p>
+<p>Bei Fragen wende dich gerne an ${organizerName} unter <a href="mailto:${organizerEmail}">${organizerEmail}</a>.</p>
+<p>Sportliche Grüße,<br>${Club.shortName}</p>`;
 }
 
 function buildOrganizerNotificationHtml(opts: {
@@ -177,6 +215,39 @@ function buildOrganizerNotificationHtml(opts: {
 <p><strong>Schicht:</strong> ${safeShiftLabel}</p>
 <p><strong>Datum / Uhrzeit:</strong> ${safeShiftDate}</p>
 `;
+}
+
+function buildOrganizerCancellationNotificationHtml(opts: {
+  volunteerName: string;
+  volunteerEmail: string;
+  eventTitle: string;
+  shiftLabel: string;
+  shiftDate: string;
+  roleLabel: string;
+  organizerName: string;
+  canceledBy: "volunteer" | "admin";
+}): string {
+  const {
+    volunteerName,
+    volunteerEmail,
+    eventTitle,
+    shiftLabel,
+    shiftDate,
+    roleLabel,
+    organizerName,
+    canceledBy,
+  } = opts;
+  const sourceLabel = canceledBy === "volunteer" ? "Selbststornierung" : "Admin-Stornierung";
+  return `<p>Hallo ${escapeHtml(organizerName)},</p>
+<p>eine Anmeldung wurde storniert.</p>
+<hr/>
+<p><strong>Veranstaltung:</strong> ${escapeHtml(eventTitle)}</p>
+<p><strong>Person:</strong> ${escapeHtml(volunteerName)}</p>
+<p><strong>E-Mail:</strong> ${escapeHtml(volunteerEmail)}</p>
+<p><strong>Aufgabe:</strong> ${escapeHtml(roleLabel)}</p>
+<p><strong>Schicht:</strong> ${escapeHtml(shiftLabel)}</p>
+<p><strong>Datum / Uhrzeit:</strong> ${escapeHtml(shiftDate)}</p>
+<p><strong>Quelle:</strong> ${escapeHtml(sourceLabel)}</p>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -250,6 +321,11 @@ export async function sendVolunteerReceiptEmail(opts: {
 
   const icsContent = buildIcsAttachment(event, signup.shiftId);
   const eventUrl = `${appBaseUrl()}${routePath("/e/$uuid", { uuid: event.id })}`;
+  const cancellationParams = new URLSearchParams({
+    cancelSignupId: signup.id,
+    cancelEmail: signup.email,
+  });
+  const cancellationUrl = `${eventUrl}?${cancellationParams.toString()}`;
   const shiftDate = formatShiftDate(shift);
 
   const html = buildReceiptHtml({
@@ -259,6 +335,7 @@ export async function sendVolunteerReceiptEmail(opts: {
     shiftLabel: shift.label,
     shiftDate,
     eventUrl,
+    cancellationUrl,
     organizerName: event.organizerName,
     organizerEmail: event.organizerEmail,
   });
@@ -352,6 +429,126 @@ export async function sendVolunteerOrganizerNotificationEmail(opts: {
               Data: `${volunteerName} hat die Anmeldung für ${event.title} bestätigt.\n\nE-Mail: ${signup.email}\nVeranstaltung: ${event.title}\nSchicht: ${shift.label}\nDatum / Uhrzeit: ${shiftDate}\nAufgabe: ${roleLabel}`,
               Charset: "UTF-8",
             },
+          },
+        },
+      },
+    }),
+  );
+}
+
+export async function sendVolunteerConfirmedDuplicateEmail(opts: {
+  toEmail: string;
+  firstName: string;
+  event: VolunteerEvent;
+  shiftId: string;
+}): Promise<void> {
+  const { toEmail, firstName, event, shiftId } = opts;
+  const shift = event.shifts.find((s) => s.id === shiftId);
+  if (!shift) throw new Error(`Shift ${shiftId} not found on event ${event.id}`);
+
+  const shiftDate = formatShiftDate(shift);
+  const organizerEmail = event.organizerEmail;
+  const html = buildConfirmedDuplicateHtml({
+    firstName,
+    eventTitle: event.title,
+    shiftLabel: shift.label,
+    shiftDate,
+    organizerName: event.organizerName,
+    organizerEmail,
+  });
+
+  const ses = getSesClient();
+  await ses.send(
+    new SendEmailCommand({
+      FromEmailAddress: fromEmail(),
+      ReplyToAddresses: [organizerEmail],
+      Destination: { ToAddresses: [toEmail] },
+      Content: {
+        Simple: {
+          Subject: { Data: `Bereits angemeldet: ${event.title}`, Charset: "UTF-8" },
+          Body: {
+            Html: { Data: html, Charset: "UTF-8" },
+          },
+        },
+      },
+    }),
+  );
+}
+
+export async function sendVolunteerCancellationEmail(opts: {
+  signup: VolunteerSignup;
+  event: VolunteerEvent;
+}): Promise<void> {
+  const { signup, event } = opts;
+  const shift = event.shifts.find((s) => s.id === signup.shiftId);
+  if (!shift) throw new Error(`Shift ${signup.shiftId} not found on event ${event.id}`);
+
+  const shiftDate = formatShiftDate(shift);
+  const html = buildVolunteerCancellationHtml({
+    firstName: signup.firstName,
+    eventTitle: event.title,
+    shiftLabel: shift.label,
+    shiftDate,
+    organizerName: event.organizerName,
+    organizerEmail: event.organizerEmail,
+  });
+
+  const ses = getSesClient();
+  await ses.send(
+    new SendEmailCommand({
+      FromEmailAddress: fromEmail(),
+      ReplyToAddresses: [event.organizerEmail],
+      Destination: { ToAddresses: [signup.email] },
+      Content: {
+        Simple: {
+          Subject: { Data: `Anmeldung storniert: ${event.title}`, Charset: "UTF-8" },
+          Body: {
+            Html: { Data: html, Charset: "UTF-8" },
+          },
+        },
+      },
+    }),
+  );
+}
+
+export async function sendVolunteerOrganizerCancellationNotificationEmail(opts: {
+  signup: VolunteerSignup;
+  event: VolunteerEvent;
+  canceledBy: "volunteer" | "admin";
+}): Promise<void> {
+  const { signup, event, canceledBy } = opts;
+  const shift = event.shifts.find((s) => s.id === signup.shiftId);
+  if (!shift) throw new Error(`Shift ${signup.shiftId} not found on event ${event.id}`);
+
+  const assignedRoleLabel = shift.roles.find((role) => role.id === signup.assignedRoleId)?.label;
+  const roleLabel = assignedRoleLabel ?? "Noch nicht zugewiesen";
+  const volunteerName = `${signup.firstName} ${signup.lastName}`;
+  const shiftDate = formatShiftDate(shift);
+  const html = buildOrganizerCancellationNotificationHtml({
+    volunteerName,
+    volunteerEmail: signup.email,
+    eventTitle: event.title,
+    shiftLabel: shift.label,
+    shiftDate,
+    roleLabel,
+    organizerName: event.organizerName,
+    canceledBy,
+  });
+
+  const ses = getSesClient();
+  await ses.send(
+    new SendEmailCommand({
+      FromEmailAddress: fromEmail(),
+      ReplyToAddresses: [signup.email],
+      Destination: { ToAddresses: [event.organizerEmail] },
+      Content: {
+        Simple: {
+          Subject: {
+            Data: `${event.title} - Anmeldung storniert: ${volunteerName}`,
+            Charset: "UTF-8",
+          },
+          Body: {
+            Html: { Data: html, Charset: "UTF-8" },
           },
         },
       },

@@ -39,6 +39,8 @@ import {
   Mail,
   Plus,
   SquarePen,
+  ToggleLeft,
+  ToggleRight,
   Trash2,
 } from "lucide-react";
 import { useState } from "react";
@@ -100,6 +102,7 @@ function VolunteerEventAdminPage() {
   const [archivedVisible, { toggle: toggleArchived }] = useDisclosure(false);
   const [pastVisible, { toggle: togglePast }] = useDisclosure(false);
   const [collapsedEventIds, setCollapsedEventIds] = useState<Record<string, boolean>>({});
+  const [showCanceledByEventId, setShowCanceledByEventId] = useState<Record<string, boolean>>({});
 
   const restoreEventMutation = useMutation({
     mutationFn: (id: string) => restoreVolunteerEventFn({ data: { id } }),
@@ -147,6 +150,17 @@ function VolunteerEventAdminPage() {
         [eventId]: !isCollapsed,
       };
     });
+  }
+
+  function isShowCanceledEnabled(eventId: string): boolean {
+    return showCanceledByEventId[eventId] ?? false;
+  }
+
+  function toggleShowCanceled(eventId: string) {
+    setShowCanceledByEventId((previousState) => ({
+      ...previousState,
+      [eventId]: !(previousState[eventId] ?? false),
+    }));
   }
 
   const activeEvents = groupedEvents.active.sort((a, b) =>
@@ -288,6 +302,20 @@ function VolunteerEventAdminPage() {
                             >
                               E-Mail senden
                             </Menu.Item>
+                            <Menu.Item
+                              leftSection={
+                                isShowCanceledEnabled(event.id) ? (
+                                  <ToggleRight size={14} />
+                                ) : (
+                                  <ToggleLeft size={14} />
+                                )
+                              }
+                              onClick={() => toggleShowCanceled(event.id)}
+                            >
+                              {isShowCanceledEnabled(event.id)
+                                ? "Stornierungen ausblenden"
+                                : "Stornierungen anzeigen"}
+                            </Menu.Item>
                             <Menu.Divider />
                             <Menu.Item
                               leftSection={<Copy size={14} />}
@@ -331,7 +359,7 @@ function VolunteerEventAdminPage() {
                 </Group>
 
                 <Collapse expanded={isEventExpanded(event.id)}>
-                  <SignupDashboard event={event} />
+                  <SignupDashboard event={event} showCanceled={isShowCanceledEnabled(event.id)} />
                 </Collapse>
               </Stack>
             </Card>
@@ -442,13 +470,31 @@ function VolunteerEventAdminPage() {
                                 >
                                   E-Mail senden
                                 </Menu.Item>
+                                <Menu.Item
+                                  leftSection={
+                                    isShowCanceledEnabled(event.id) ? (
+                                      <ToggleRight size={14} />
+                                    ) : (
+                                      <ToggleLeft size={14} />
+                                    )
+                                  }
+                                  onClick={() => toggleShowCanceled(event.id)}
+                                >
+                                  {isShowCanceledEnabled(event.id)
+                                    ? "Stornierungen ausblenden"
+                                    : "Stornierungen anzeigen"}
+                                </Menu.Item>
                               </Menu.Dropdown>
                             </Menu>
                           </Group>
                         </Group>
 
                         <Collapse expanded={isEventExpanded(event.id)}>
-                          <SignupDashboard event={event} isPastEvent />
+                          <SignupDashboard
+                            event={event}
+                            isPastEvent
+                            showCanceled={isShowCanceledEnabled(event.id)}
+                          />
                         </Collapse>
                       </Stack>
                     </Card>
@@ -562,6 +608,20 @@ function VolunteerEventAdminPage() {
                                 >
                                   E-Mail senden
                                 </Menu.Item>
+                                <Menu.Item
+                                  leftSection={
+                                    isShowCanceledEnabled(event.id) ? (
+                                      <ToggleRight size={14} />
+                                    ) : (
+                                      <ToggleLeft size={14} />
+                                    )
+                                  }
+                                  onClick={() => toggleShowCanceled(event.id)}
+                                >
+                                  {isShowCanceledEnabled(event.id)
+                                    ? "Stornierungen ausblenden"
+                                    : "Stornierungen anzeigen"}
+                                </Menu.Item>
                                 <Menu.Divider />
                                 <Menu.Item
                                   leftSection={<Archive size={14} />}
@@ -576,7 +636,11 @@ function VolunteerEventAdminPage() {
                         </Group>
 
                         <Collapse expanded={isEventExpanded(event.id)}>
-                          <SignupDashboard event={event} isPastEvent />
+                          <SignupDashboard
+                            event={event}
+                            isPastEvent
+                            showCanceled={isShowCanceledEnabled(event.id)}
+                          />
                         </Collapse>
                       </Stack>
                     </Card>

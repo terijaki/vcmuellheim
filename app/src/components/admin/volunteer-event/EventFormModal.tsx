@@ -131,6 +131,9 @@ export function EventFormModal({
   const signupCountsByShiftId = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const signup of signupsForForm?.items ?? []) {
+      if (signup.status === "canceled") {
+        continue;
+      }
       counts[signup.shiftId] = (counts[signup.shiftId] ?? 0) + 1;
     }
     return counts;

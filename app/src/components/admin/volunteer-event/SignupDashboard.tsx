@@ -17,22 +17,24 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNotification } from "@webapp/hooks/useNotification";
 import {
+  cancelVolunteerSignupFn,
   confirmVolunteerSignupFn,
-  deleteVolunteerSignupFn,
   listVolunteerSignupsFn,
   updateVolunteerSignupFn,
 } from "@webapp/server/functions/volunteer";
 import dayjs from "dayjs";
-import { ArrowLeftRight, Mail, SquareCheckBig, Trash2 } from "lucide-react";
+import { ArrowLeftRight, Ban, Mail, SquareCheckBig } from "lucide-react";
 import type { VolunteerEvent } from "@/lib/db/types";
 import { getVolunteerSignupRoleLabel } from "@webapp/utils/volunteer";
 
 export function SignupDashboard({
   event,
   isPastEvent = false,
+  showCanceled = false,
 }: {
   event: VolunteerEvent;
   isPastEvent?: boolean;
+  showCanceled?: boolean;
 }) {
   const notification = useNotification();
 
@@ -42,13 +44,13 @@ export function SignupDashboard({
   });
   const isSignupsLoading = !signupsData;
 
-  const deleteMutation = useMutation({
-    mutationFn: (id: string) => deleteVolunteerSignupFn({ data: { id } }),
+  const cancelMutation = useMutation({
+    mutationFn: (id: string) => cancelVolunteerSignupFn({ data: { id } }),
     onSuccess: () => {
       refetch();
-      notification.success("Anmeldung gelöscht");
+      notification.success("Anmeldung storniert");
     },
-    onError: () => notification.error({ message: "Anmeldung konnte nicht gelöscht werden" }),
+    onError: () => notification.error({ message: "Anmeldung konnte nicht storniert werden" }),
   });
 
   const confirmMutation = useMutation({
@@ -90,7 +92,10 @@ export function SignupDashboard({
         .sort((a, b) => dayjs(a.startDate).diff(dayjs(b.startDate)))
         .map((shift) => {
           const shiftSignups = signups.filter((s) => s.shiftId === shift.id);
+          const operationalSignups = shiftSignups.filter((s) => s.status !== "canceled");
           const sortedSignups = [...shiftSignups].sort((a, b) => {
+            if (a.status === "canceled" && b.status !== "canceled") return 1;
+            if (b.status === "canceled" && a.status !== "canceled") return -1;
             const roleA = a.assignedRoleId
               ? (shift.roles.find((role) => role.id === a.assignedRoleId)?.label ?? "")
               : "";
@@ -110,11 +115,17 @@ export function SignupDashboard({
             const primaryB = roleB || preferredB || "";
             return primaryA.localeCompare(primaryB, "de", { sensitivity: "base" });
           });
+          const visibleSignupsBase = showCanceled
+            ? sortedSignups
+            : sortedSignups.filter((signup) => signup.status !== "canceled");
           const visibleSignups = isPastEvent
-            ? sortedSignups.filter((signup) => signup.status !== "pending")
-            : sortedSignups;
+            ? visibleSignupsBase.filter((signup) => signup.status !== "pending")
+            : visibleSignupsBase;
           const unassignedCount =
-            shift.roles.length > 0 ? visibleSignups.filter((s) => !s.assignedRoleId).length : 0;
+            shift.roles.length > 0
+              ? operationalSignups.filter((s) => s.status === "confirmed" && !s.assignedRoleId)
+                  .length
+              : 0;
           return (
             <Accordion.Item key={shift.id} value={shift.id}>
               <Accordion.Control>
@@ -136,7 +147,7 @@ export function SignupDashboard({
                   </Text>
                   <Group gap="xs" mt={4}>
                     {shift.roles.map((role) => {
-                      const count = visibleSignups.filter(
+                      const count = operationalSignups.filter(
                         (s) => s.assignedRoleId === role.id,
                       ).length;
                       const color = isSignupsLoading
@@ -165,7 +176,8 @@ export function SignupDashboard({
                     })}
                     {shift.roles.length === 0 && (
                       <Badge size="sm" variant="outline">
-                        {visibleSignups.length} Anmeldung{visibleSignups.length !== 1 ? "en" : ""}
+                        {operationalSignups.length} Anmeldung
+                        {operationalSignups.length !== 1 ? "en" : ""}
                       </Badge>
                     )}
                     {unassignedCount > 0 && (
@@ -211,12 +223,12 @@ export function SignupDashboard({
                             <Group gap={4} wrap="nowrap">
                               {signup.status !== "confirmed" && (
                                 <Badge
-                                  color="yellow"
+                                  color={signup.status === "canceled" ? "gray" : "yellow"}
                                   variant="light"
                                   size="xs"
                                   style={{ whiteSpace: "nowrap" }}
                                 >
-                                  Ausstehend
+                                  {signup.status === "canceled" ? "Storniert" : "Ausstehend"}
                                 </Badge>
                               )}
                               <Tooltip label={signup.email}>
@@ -256,7 +268,7 @@ export function SignupDashboard({
                             </Box>
                           )}
                           <Group gap="xs">
-                            {isPastEvent ? (
+                            {isPastEvent || signup.status === "canceled" ? (
                               <Badge size="sm" variant="light" color="teal">
                                 {getVolunteerSignupRoleLabel(signup, shift.roles)}
                               </Badge>
@@ -267,7 +279,10 @@ export function SignupDashboard({
                                 clearable
                                 value={signup.assignedRoleId ?? null}
                                 onChange={(val) =>
-                                  assignRoleMutation.mutate({ id: signup.id, assignedRoleId: val })
+                                  assignRoleMutation.mutate({
+                                    id: signup.id,
+                                    assignedRoleId: val,
+                                  })
                                 }
                                 data={shift.roles.map((r) => ({ value: r.id, label: r.label }))}
                                 style={{ flex: 1 }}
@@ -275,6 +290,7 @@ export function SignupDashboard({
                               />
                             )}
                             {signup.status !== "pending" &&
+                              signup.status !== "canceled" &&
                               !isPastEvent &&
                               shiftOptions.length > 0 && (
                                 <Menu>
@@ -316,18 +332,22 @@ export function SignupDashboard({
                                   </ActionIcon>
                                 </Tooltip>
                               )}
-                              <Tooltip label="Löschen">
+                              <Tooltip label="Stornieren">
                                 <ActionIcon
                                   size="md"
                                   color="red"
                                   variant="subtle"
                                   onClick={() => {
-                                    if (window.confirm("Anmeldung wirklich löschen?")) {
-                                      deleteMutation.mutate(signup.id);
+                                    if (signup.status === "canceled") {
+                                      return;
+                                    }
+                                    if (window.confirm("Anmeldung wirklich stornieren?")) {
+                                      cancelMutation.mutate(signup.id);
                                     }
                                   }}
+                                  disabled={signup.status === "canceled"}
                                 >
-                                  <Trash2 size={14} />
+                                  <Ban size={14} />
                                 </ActionIcon>
                               </Tooltip>
                             </Group>
@@ -443,16 +463,26 @@ export function SignupDashboard({
                             {!isPastEvent && (
                               <Table.Td>
                                 <Badge
-                                  color={signup.status === "confirmed" ? "green" : "yellow"}
+                                  color={
+                                    signup.status === "confirmed"
+                                      ? "green"
+                                      : signup.status === "canceled"
+                                        ? "gray"
+                                        : "yellow"
+                                  }
                                   variant="light"
                                   style={{ whiteSpace: "nowrap", display: "inline-flex" }}
                                 >
-                                  {signup.status === "confirmed" ? "Bestätigt" : "Ausstehend"}
+                                  {signup.status === "confirmed"
+                                    ? "Bestätigt"
+                                    : signup.status === "canceled"
+                                      ? "Storniert"
+                                      : "Ausstehend"}
                                 </Badge>
                               </Table.Td>
                             )}
                             <Table.Td>
-                              {isPastEvent ? (
+                              {isPastEvent || signup.status === "canceled" ? (
                                 <Badge size="sm" variant="light" color="teal">
                                   {getVolunteerSignupRoleLabel(signup, shift.roles)}
                                 </Badge>
@@ -477,6 +507,7 @@ export function SignupDashboard({
                             <Table.Td>
                               <Group gap="xs" wrap="nowrap">
                                 {!isPastEvent &&
+                                  signup.status !== "canceled" &&
                                   signup.status !== "pending" &&
                                   hasMultipleShifts &&
                                   shiftOptions.length > 0 && (
@@ -518,18 +549,22 @@ export function SignupDashboard({
                                     </ActionIcon>
                                   </Tooltip>
                                 )}
-                                <Tooltip label="Löschen">
+                                <Tooltip label="Stornieren">
                                   <ActionIcon
                                     size="sm"
                                     color="red"
                                     variant="subtle"
                                     onClick={() => {
-                                      if (window.confirm("Anmeldung wirklich löschen?")) {
-                                        deleteMutation.mutate(signup.id);
+                                      if (signup.status === "canceled") {
+                                        return;
+                                      }
+                                      if (window.confirm("Anmeldung wirklich stornieren?")) {
+                                        cancelMutation.mutate(signup.id);
                                       }
                                     }}
+                                    disabled={signup.status === "canceled"}
                                   >
-                                    <Trash2 size={14} />
+                                    <Ban size={14} />
                                   </ActionIcon>
                                 </Tooltip>
                               </Group>
