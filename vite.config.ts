@@ -44,6 +44,13 @@ export default defineConfig({
           publicDir: "app/.output/public",
           serverDir: "app/.output/server",
         },
+        // Keep AWS SDK v3 packages external to avoid broken transformed chunks in Lambda runtime.
+        rollupConfig: {
+          external: [/^@aws-sdk\//],
+        },
+        rolldownConfig: {
+          external: [/^@aws-sdk\//],
+        },
         publicAssets: [{ dir: "app/public", maxAge: 0 }],
       }),
       tanstackStart({ srcDirectory: "app/src" }),
