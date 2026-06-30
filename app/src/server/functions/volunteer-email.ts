@@ -102,7 +102,6 @@ function buildConfirmationHtml(opts: {
 <p>Du hast dich für den Einsatz <strong>${shiftLabel}</strong> am <strong>${shiftDate}</strong> angemeldet.</p>
 <p>Bitte bestätige deine Anmeldung innerhalb von <em>72 Stunden</em> über den folgenden Link:</p>
 <p><a href="${confirmationUrl}" target="_blank" rel="noopener noreferrer">${confirmationUrl}</a><br></p>
-<p>Wenn du die Anmeldung für eine andere Person machen möchtest, kannst du dafür dieselbe E-Mail-Adresse mit einem <code>+</code>-Alias wiederverwenden, zum Beispiel <code>max@example.com</code> für dich selbst und <code>max+erika@example.com</code> für deine Tochter Erika.</p>
 <p>Falls du diese Anfrage nicht gestellt hast, kannst du diese E-Mail ignorieren.</p>
 <p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerName}</a></p>`;
 }
@@ -166,7 +165,7 @@ function buildConfirmedDuplicateHtml(opts: {
 <p>du bist bereits für <strong>${eventTitle}</strong> angemeldet:</p>
 <p><strong>${shiftLabel}</strong> am <strong>${shiftDate}</strong>.</p>
 <p>Wenn du deine Angaben ändern möchtest, storniere bitte zuerst deine bestehende Anmeldung über den Link in deiner Bestätigungsmail und melde dich anschließend neu an.</p>
-<p>Wenn du ein Kind oder eine Partnerperson anmelden möchtest, nutze bitte eine andere Email.<br>Tipp: Du kannst einen <code>+</code>-Alias verwenden, z. B. <code>max@example.com</code> und <code>max+erika@example.com</code>. Dadurch hast du die Möglichkeit, mehrere Anmeldungen mit derselben Basis-Email zu verwalten.</p>
+<p>Wenn du ein Kind oder eine Partnerperson anmelden möchtest, nutze bitte eine andere Email.<br>Tipp: Du kannst einen <code>+</code>-Alias verwenden, z.B. <code>max@example.com</code> und <code>max+erika@example.com</code>. Dadurch hast du die Möglichkeit, mehrere Anmeldungen mit derselben Basis-Email zu verwalten.</p>
 <p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerName}</a></p>`;
 }
 

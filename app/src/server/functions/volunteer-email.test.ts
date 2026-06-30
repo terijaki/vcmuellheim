@@ -4,7 +4,6 @@ import { afterEach, beforeEach, describe, expect, it } from "vite-plus/test";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
 import {
   sendVolunteerCancellationEmail,
-  sendVolunteerConfirmationEmail,
   sendVolunteerConfirmedDuplicateEmail,
   sendVolunteerOrganizerCancellationNotificationEmail,
   sendVolunteerOrganizerNotificationEmail,
@@ -63,28 +62,6 @@ afterEach(() => {
     return;
   }
   process.env.APP_BASE_URL = previousAppBaseUrl;
-});
-
-describe("sendVolunteerConfirmationEmail", () => {
-  it("explains how to use a + alias for another person", async () => {
-    await sendVolunteerConfirmationEmail({
-      toEmail: "max@example.com",
-      firstName: "Max",
-      event,
-      shiftId: event.shifts[0].id,
-      tokenId: "token-123",
-    });
-
-    const calls = sesMock.commandCalls(SendEmailCommand);
-    expect(calls).toHaveLength(1);
-
-    const input = calls[0].args[0].input;
-    const html = input.Content?.Simple?.Body?.Html?.Data ?? "";
-    const text = input.Content?.Simple?.Body?.Text?.Data ?? "";
-
-    expect(html).toContain("max+erika@example.com");
-    expect(text).toContain("max+erika@example.com");
-  });
 });
 
 describe("sendVolunteerReceiptEmail", () => {
