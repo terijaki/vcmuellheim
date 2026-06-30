@@ -307,7 +307,7 @@ export const volunteerSignupSchema = volunteerSignupDataSchema.extend({
     .literal("volunteerSignup")
     .default("volunteerSignup")
     .describe("Entity type discriminator"),
-  status: z.enum(["pending", "confirmed"]),
+  status: z.enum(["pending", "confirmed", "canceled"]),
   assignedRoleId: z
     .uuid()
     .optional()

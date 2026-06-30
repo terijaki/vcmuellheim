@@ -23,7 +23,10 @@ import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 import {
   sendBulkVolunteerEmail,
+  sendVolunteerCancellationEmail,
   sendVolunteerConfirmationEmail,
+  sendVolunteerConfirmedDuplicateEmail,
+  sendVolunteerOrganizerCancellationNotificationEmail,
   sendVolunteerOrganizerNotificationEmail,
   sendVolunteerReceiptEmail,
 } from "./volunteer-email";
@@ -49,9 +52,68 @@ async function findExistingSignup(
   shiftId: string,
 ): Promise<VolunteerSignup | undefined> {
   const signups = await getSignupsForEvent(eventId);
-  return signups.find(
-    (s) => s.email.toLowerCase() === email.toLowerCase() && s.shiftId === shiftId,
+  const matches = signups
+    .filter((s) => s.email.toLowerCase() === email.toLowerCase() && s.shiftId === shiftId)
+    .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+
+  return (
+    matches.find((s) => s.status === "confirmed") ?? matches.find((s) => s.status === "pending")
   );
+}
+
+function normalizeSignupPatchData(data: z.infer<typeof volunteerSignupDataSchema>) {
+  return {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    preferredRoleIds: data.preferredRoleIds,
+    association: data.association,
+    dateOfBirth: data.dateOfBirth,
+    mobilePhone: data.mobilePhone,
+    emergencyContact: data.emergencyContact,
+    note: data.note,
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+type CancellationSource = "volunteer" | "admin";
+
+async function cancelSignupAndNotify(opts: {
+  signup: VolunteerSignup;
+  event: VolunteerEvent;
+  source: CancellationSource;
+}): Promise<VolunteerSignup> {
+  const { signup, event, source } = opts;
+
+  const patchOperation = db()
+    .volunteerSignup.patch({ id: signup.id })
+    .set({ status: "canceled", updatedAt: new Date().toISOString() });
+  await patchOperation.remove(["assignedRoleId"]).go();
+
+  const refreshed = await db().volunteerSignup.get({ id: signup.id }).go();
+  if (!refreshed.data) {
+    throw new Error("Signup not found after cancellation");
+  }
+
+  const canceledSignup = parseServerData(
+    volunteerSignupSchema,
+    refreshed.data,
+    "Failed to parse canceled signup",
+  );
+  const organizerCancellationSignup = {
+    ...canceledSignup,
+    assignedRoleId: signup.assignedRoleId, // Preserve assignedRoleId for organizer notification, even though it's removed in DB
+  };
+
+  await Promise.all([
+    sendVolunteerCancellationEmail({ signup: canceledSignup, event }),
+    sendVolunteerOrganizerCancellationNotificationEmail({
+      signup: organizerCancellationSignup,
+      event,
+      canceledBy: source,
+    }),
+  ]);
+
+  return canceledSignup;
 }
 
 // ---------------------------------------------------------------------------
@@ -161,7 +223,34 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
     throw new Error("Für Minderjährige ist eine Notfall-Kontaktnummer erforderlich");
   }
 
-  // Create token (always)
+  const existing = await findExistingSignup(data.email, data.eventId, data.shiftId);
+
+  if (existing?.status === "confirmed") {
+    await sendVolunteerConfirmedDuplicateEmail({
+      toEmail: data.email,
+      firstName: data.firstName,
+      event,
+      shiftId: data.shiftId,
+    });
+    return { success: true };
+  }
+
+  if (existing?.status === "pending") {
+    const patchOperation = db()
+      .volunteerSignup.patch({ id: existing.id })
+      .set({ ...normalizeSignupPatchData(data), status: "pending" as const });
+    await patchOperation.remove(["assignedRoleId"]).go();
+  } else {
+    const signup = withTimestamps({
+      ...data,
+      id: crypto.randomUUID(),
+      type: "volunteerSignup" as const,
+      status: "pending" as const,
+    });
+    await db().volunteerSignup.create(signup).go();
+  }
+
+  // Create token for new and pending-duplicate submissions.
   const tokenId = crypto.randomUUID();
   const ttl = Math.floor(Date.now() / 1000) + TOKEN_TTL_SECONDS;
   const token = {
@@ -173,18 +262,6 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
     createdAt: new Date().toISOString(),
   };
   await db().volunteerToken.create(token).go();
-
-  // Create pending signup only if no existing record for email+shift
-  const existing = await findExistingSignup(data.email, data.eventId, data.shiftId);
-  if (!existing) {
-    const signup = withTimestamps({
-      ...data,
-      id: crypto.randomUUID(),
-      type: "volunteerSignup" as const,
-      status: "pending" as const,
-    });
-    await db().volunteerSignup.create(signup).go();
-  }
 
   // Send confirmation email
   await sendVolunteerConfirmationEmail({
@@ -229,65 +306,82 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
     "Failed to parse event",
   ) satisfies VolunteerEvent;
 
-  // Upsert signup to confirmed
-  const existing = await findExistingSignup(
-    signupData.email,
-    signupData.eventId,
-    signupData.shiftId,
-  );
-  const shouldSendOrganizerNotification = !existing || existing.status !== "confirmed";
+  const allSignupsForEvent = await getSignupsForEvent(signupData.eventId);
+  const matchingSignups = allSignupsForEvent
+    .filter(
+      (s) =>
+        s.email.toLowerCase() === signupData.email.toLowerCase() &&
+        s.shiftId === signupData.shiftId,
+    )
+    .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
 
-  let signup: VolunteerSignup;
-  if (existing) {
-    // Update existing record with new data + confirmed status
-    await db()
-      .volunteerSignup.patch({ id: existing.id })
-      .set({
-        firstName: signupData.firstName,
-        lastName: signupData.lastName,
-        preferredRoleIds: signupData.preferredRoleIds,
-        association: signupData.association,
-        dateOfBirth: signupData.dateOfBirth,
-        mobilePhone: signupData.mobilePhone,
-        emergencyContact: signupData.emergencyContact,
-        note: signupData.note,
-        status: "confirmed",
-        updatedAt: new Date().toISOString(),
-      })
-      .go();
-    const refreshed = await db().volunteerSignup.get({ id: existing.id }).go();
-    if (!refreshed.data) throw new Error("Signup not found after update");
-    signup = parseServerData(volunteerSignupSchema, refreshed.data, "Failed to parse signup");
-  } else {
-    // Create confirmed signup from token data
-    const newSignup = withTimestamps({
-      ...signupData,
-      id: crypto.randomUUID(),
-      type: "volunteerSignup" as const,
-      status: "confirmed" as const,
-    });
-    await db().volunteerSignup.create(newSignup).go();
-    signup = parseServerData(volunteerSignupSchema, newSignup, "Failed to parse signup");
+  const confirmedSignup = matchingSignups.find((s) => s.status === "confirmed");
+  if (confirmedSignup) {
+    await db().volunteerToken.delete({ id: data.tokenId }).go();
+    return { success: true, shiftId: confirmedSignup.shiftId };
   }
 
+  const pendingSignup = matchingSignups.find((s) => s.status === "pending");
+  const hasCanceledOnly = matchingSignups.length > 0 && !pendingSignup;
+  if (hasCanceledOnly) {
+    await db().volunteerToken.delete({ id: data.tokenId }).go();
+    return { success: false, shiftId: null };
+  }
+
+  if (!pendingSignup) {
+    await db().volunteerToken.delete({ id: data.tokenId }).go();
+    return { success: false, shiftId: null };
+  }
+
+  const shouldSendOrganizerNotification = true;
+  const effectiveSignupData = {
+    firstName: pendingSignup.firstName,
+    lastName: pendingSignup.lastName,
+    email: pendingSignup.email,
+    dateOfBirth: pendingSignup.dateOfBirth,
+    preferredRoleIds: pendingSignup.preferredRoleIds,
+    association: pendingSignup.association,
+    mobilePhone: pendingSignup.mobilePhone,
+    emergencyContact: pendingSignup.emergencyContact,
+    note: pendingSignup.note,
+    eventId: pendingSignup.eventId,
+    shiftId: pendingSignup.shiftId,
+  };
+
+  let signup: VolunteerSignup;
+  // Confirm existing pending record using its latest data.
+  await db()
+    .volunteerSignup.patch({ id: pendingSignup.id })
+    .set({
+      ...normalizeSignupPatchData(effectiveSignupData),
+      status: "confirmed",
+    })
+    .go();
+  const refreshed = await db().volunteerSignup.get({ id: pendingSignup.id }).go();
+  if (!refreshed.data) throw new Error("Signup not found after update");
+  signup = parseServerData(volunteerSignupSchema, refreshed.data, "Failed to parse signup");
+
   // Auto-assign to first preferred role with available capacity
-  const shift = event.shifts.find((s) => s.id === signupData.shiftId);
+  const shift = event.shifts.find((s) => s.id === effectiveSignupData.shiftId);
   if (shift && shift.roles.length > 0) {
     // Build a count of confirmed+assigned signups for this shift (excluding the one just confirmed)
-    const allShiftSignups = await getSignupsForEvent(signupData.eventId);
+    const currentSignupsForEvent = allSignupsForEvent.map((s) => (s.id === signup.id ? signup : s));
     const roleCountMap: Record<string, number> = {};
-    for (const s of allShiftSignups) {
+    for (const s of currentSignupsForEvent) {
       if (
         s.status === "confirmed" &&
         s.assignedRoleId &&
-        s.shiftId === signupData.shiftId &&
+        s.shiftId === effectiveSignupData.shiftId &&
         s.id !== signup.id
       ) {
         roleCountMap[s.assignedRoleId] = (roleCountMap[s.assignedRoleId] ?? 0) + 1;
       }
     }
-    const userAgeAtShift = dayjs(shift.startDate).diff(dayjs(signupData.dateOfBirth), "year");
-    const availableRole = signupData.preferredRoleIds
+    const userAgeAtShift = dayjs(shift.startDate).diff(
+      dayjs(effectiveSignupData.dateOfBirth),
+      "year",
+    );
+    const availableRole = effectiveSignupData.preferredRoleIds
       .map((rid) => shift.roles.find((r) => r.id === rid))
       .find(
         (role) =>
@@ -345,6 +439,14 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 export async function confirmVolunteerSignup(data: { id: string }) {
   const existing = await db().volunteerSignup.get({ id: data.id }).go();
   if (!existing.data) throw new Error("Signup not found");
+  const parsedExisting = parseServerData(
+    volunteerSignupSchema,
+    existing.data,
+    "Failed to parse signup",
+  ) satisfies VolunteerSignup;
+  if (parsedExisting.status === "canceled") {
+    throw new Error("Canceled signup cannot be confirmed");
+  }
   await db()
     .volunteerSignup.patch({ id: data.id })
     .set({ status: "confirmed", updatedAt: new Date().toISOString() })
@@ -352,6 +454,83 @@ export async function confirmVolunteerSignup(data: { id: string }) {
   const refreshed = await db().volunteerSignup.get({ id: data.id }).go();
   if (!refreshed.data) throw new Error("Signup not found");
   return parseServerData(volunteerSignupSchema, refreshed.data, "Failed to parse signup");
+}
+
+export async function cancelVolunteerSignupByAdmin(data: { id: string }) {
+  const existing = await db().volunteerSignup.get({ id: data.id }).go();
+  if (!existing.data) throw new Error("Signup not found");
+
+  const signup = parseServerData(
+    volunteerSignupSchema,
+    existing.data,
+    "Failed to parse signup",
+  ) satisfies VolunteerSignup;
+
+  if (signup.status === "canceled") {
+    return signup;
+  }
+
+  const eventResult = await db().volunteerEvent.get({ id: signup.eventId }).go();
+  if (!eventResult.data) throw new Error("Event not found");
+  const event = parseServerData(
+    volunteerEventSchema,
+    eventResult.data,
+    "Failed to parse event",
+  ) satisfies VolunteerEvent;
+
+  return cancelSignupAndNotify({ signup, event, source: "admin" });
+}
+
+export async function cancelVolunteerSignupByVolunteer(data: {
+  id: string;
+  email: string;
+}): Promise<{
+  success: boolean;
+  code: "ok" | "invalid" | "already_canceled" | "shift_started";
+}> {
+  const existing = await db().volunteerSignup.get({ id: data.id }).go();
+  if (!existing.data) {
+    return { success: false, code: "invalid" };
+  }
+
+  const signup = parseServerData(
+    volunteerSignupSchema,
+    existing.data,
+    "Failed to parse signup",
+  ) satisfies VolunteerSignup;
+
+  if (signup.email.toLowerCase() !== data.email.toLowerCase()) {
+    return { success: false, code: "invalid" };
+  }
+
+  if (signup.status === "canceled") {
+    return { success: false, code: "already_canceled" };
+  }
+
+  if (signup.status !== "confirmed") {
+    return { success: false, code: "invalid" };
+  }
+
+  const eventResult = await db().volunteerEvent.get({ id: signup.eventId }).go();
+  if (!eventResult.data) {
+    return { success: false, code: "invalid" };
+  }
+  const event = parseServerData(
+    volunteerEventSchema,
+    eventResult.data,
+    "Failed to parse event",
+  ) satisfies VolunteerEvent;
+  const shift = event.shifts.find((s) => s.id === signup.shiftId);
+  if (!shift) {
+    return { success: false, code: "invalid" };
+  }
+
+  if (new Date(shift.startDate) <= new Date()) {
+    return { success: false, code: "shift_started" };
+  }
+
+  await cancelSignupAndNotify({ signup, event, source: "volunteer" });
+  return { success: true, code: "ok" };
 }
 
 // ---------------------------------------------------------------------------

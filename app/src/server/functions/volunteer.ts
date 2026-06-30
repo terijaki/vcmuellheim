@@ -5,13 +5,14 @@
  *   listVolunteerEventsFn, getVolunteerEventFn, createVolunteerEventFn,
  *   updateVolunteerEventFn, deleteVolunteerEventFn (blocked if signups exist),
  *   archiveVolunteerEventFn, restoreVolunteerEventFn,
- *   listVolunteerSignupsFn, updateVolunteerSignupFn, deleteVolunteerSignupFn,
+ *   listVolunteerSignupsFn, updateVolunteerSignupFn, cancelVolunteerSignupFn,
  *   confirmVolunteerSignupFn (force-confirm)
  *
  * Public functions (no auth):
  *   getPublicVolunteerEventFn — event info + signup counts + confirmed helper names
  *   createVolunteerSignupFn  — creates pending signup on first submission + token + confirmation email
  *   verifyVolunteerTokenFn   — upserts signup to confirmed from token + receipt email
+ *   volunteerCancelSignupFn  — self-service cancellation (confirmed only, before shift start)
  *
  * Business logic lives in volunteer-handlers.ts so that server-only deps
  * (electrodb, SES, etc.) are never pulled into the client bundle.
@@ -29,6 +30,8 @@ import { requireAdminMiddleware } from "../../middleware";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 import {
+  cancelVolunteerSignupByAdmin,
+  cancelVolunteerSignupByVolunteer,
   confirmVolunteerSignup,
   createVolunteerSignup,
   getPublicVolunteerEvent,
@@ -199,6 +202,17 @@ export const updateVolunteerSignupFn = createServerFn({ method: "POST" })
     }),
   )
   .handler(async ({ data: { id, data: updates } }) => {
+    const existingSignupResult = await db().volunteerSignup.get({ id }).go();
+    if (!existingSignupResult.data) throw new Error("Signup not found");
+    const existingSignup = parseServerData(
+      volunteerSignupSchema,
+      existingSignupResult.data,
+      "Failed to parse signup",
+    );
+    if (existingSignup.status === "canceled") {
+      throw new Error("Canceled signups cannot be modified");
+    }
+
     const setFields: Record<string, unknown> = { updatedAt: new Date().toISOString() };
     if (updates.shiftId !== undefined) setFields.shiftId = updates.shiftId;
 
@@ -221,13 +235,10 @@ export const updateVolunteerSignupFn = createServerFn({ method: "POST" })
     return parseServerData(volunteerSignupSchema, refreshed.data, "Failed to parse signup");
   });
 
-export const deleteVolunteerSignupFn = createServerFn({ method: "POST" })
+export const cancelVolunteerSignupFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
   .inputValidator(z.object({ id: z.uuid() }))
-  .handler(async ({ data }) => {
-    await db().volunteerSignup.delete({ id: data.id }).go();
-    return { success: true };
-  });
+  .handler(async ({ data }) => cancelVolunteerSignupByAdmin(data));
 
 export const confirmVolunteerSignupFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
@@ -274,3 +285,12 @@ export const createVolunteerSignupFn = createServerFn({ method: "POST" })
 export const verifyVolunteerTokenFn = createServerFn()
   .inputValidator(z.object({ tokenId: z.uuid() }))
   .handler(async ({ data }) => verifyVolunteerToken(data));
+
+export const volunteerCancelSignupFn = createServerFn({ method: "POST" })
+  .inputValidator(
+    z.object({
+      id: z.uuid(),
+      email: z.email().trim(),
+    }),
+  )
+  .handler(async ({ data }) => cancelVolunteerSignupByVolunteer(data));

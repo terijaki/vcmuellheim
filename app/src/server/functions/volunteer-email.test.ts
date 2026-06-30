@@ -3,7 +3,9 @@ import { mockClient } from "aws-sdk-client-mock";
 import { afterEach, beforeEach, describe, expect, it } from "vite-plus/test";
 import type { VolunteerEvent, VolunteerSignup } from "@/lib/db/types";
 import {
-  sendVolunteerConfirmationEmail,
+  sendVolunteerCancellationEmail,
+  sendVolunteerConfirmedDuplicateEmail,
+  sendVolunteerOrganizerCancellationNotificationEmail,
   sendVolunteerOrganizerNotificationEmail,
   sendVolunteerReceiptEmail,
 } from "./volunteer-email";
@@ -62,28 +64,6 @@ afterEach(() => {
   process.env.APP_BASE_URL = previousAppBaseUrl;
 });
 
-describe("sendVolunteerConfirmationEmail", () => {
-  it("explains how to use a + alias for another person", async () => {
-    await sendVolunteerConfirmationEmail({
-      toEmail: "max@example.com",
-      firstName: "Max",
-      event,
-      shiftId: event.shifts[0].id,
-      tokenId: "token-123",
-    });
-
-    const calls = sesMock.commandCalls(SendEmailCommand);
-    expect(calls).toHaveLength(1);
-
-    const input = calls[0].args[0].input;
-    const html = input.Content?.Simple?.Body?.Html?.Data ?? "";
-    const text = input.Content?.Simple?.Body?.Text?.Data ?? "";
-
-    expect(html).toContain("max+erika@example.com");
-    expect(text).toContain("max+erika@example.com");
-  });
-});
-
 describe("sendVolunteerReceiptEmail", () => {
   it("sends ICS attachment as PUBLISH with explicit DTEND", async () => {
     await sendVolunteerReceiptEmail({ signup, event });
@@ -122,6 +102,80 @@ describe("sendVolunteerReceiptEmail", () => {
     expect(ics).toMatch(/(?:^|\r\n)DTSTART(?:;VALUE=DATE-TIME)?:20260503T080000Z(?:\r\n|$)/);
     expect(ics).toMatch(/(?:^|\r\n)DTEND(?:;VALUE=DATE-TIME)?:20260503T103000Z(?:\r\n|$)/);
     expect(ics).not.toContain("DURATION:");
+  });
+
+  it("includes a cancellation link with signup credentials", async () => {
+    await sendVolunteerReceiptEmail({ signup, event });
+
+    const calls = sesMock
+      .commandCalls(SendEmailCommand)
+      .filter((call) => Boolean(call.args[0].input.Content?.Raw));
+    expect(calls).toHaveLength(1);
+
+    const rawMime = Buffer.from(calls[0].args[0].input.Content?.Raw?.Data as Uint8Array).toString(
+      "utf-8",
+    );
+
+    const boundaryMatch = rawMime.match(/Content-Type: multipart\/mixed; boundary="([^"]+)"/);
+    expect(boundaryMatch).toBeTruthy();
+    const boundary = boundaryMatch?.[1] ?? "";
+    const mimeParts = rawMime
+      .split(`--${boundary}`)
+      .map((part) => part.trim())
+      .filter((part) => part.length > 0 && part !== "--");
+    const htmlPart = mimeParts.find((part) => part.includes("Content-Type: text/html;"));
+    expect(htmlPart).toBeTruthy();
+
+    const [, htmlBody = ""] = (htmlPart ?? "").split("\r\n\r\n");
+    const decodedHtml = Buffer.from(htmlBody.replaceAll("\r\n", "").trim(), "base64").toString(
+      "utf-8",
+    );
+
+    expect(decodedHtml).toContain("Anmeldung stornieren");
+    expect(decodedHtml).toContain(`cancelSignupId=${signup.id}`);
+    expect(decodedHtml).toContain(`cancelEmail=${encodeURIComponent(signup.email)}`);
+  });
+});
+
+describe("cancellation and duplicate lifecycle emails", () => {
+  it("sends explanatory email for confirmed duplicate submissions", async () => {
+    await sendVolunteerConfirmedDuplicateEmail({
+      toEmail: signup.email,
+      firstName: signup.firstName,
+      event,
+      shiftId: signup.shiftId,
+    });
+
+    const calls = sesMock.commandCalls(SendEmailCommand);
+    expect(calls).toHaveLength(1);
+    const input = calls[0].args[0].input;
+    const html = input.Content?.Simple?.Body?.Html?.Data ?? "";
+    expect(html).toContain("du bist bereits für");
+    expect(html).toContain("max+erika@example.com");
+  });
+
+  it("sends cancellation confirmation to volunteer", async () => {
+    await sendVolunteerCancellationEmail({ signup, event });
+
+    const calls = sesMock.commandCalls(SendEmailCommand);
+    expect(calls).toHaveLength(1);
+    const input = calls[0].args[0].input;
+    expect(input.Destination?.ToAddresses).toEqual([signup.email]);
+    const html = input.Content?.Simple?.Body?.Html?.Data ?? "";
+    expect(html).toContain("deine Anmeldung wurde storniert");
+  });
+
+  it("marks organizer cancellation source", async () => {
+    await sendVolunteerOrganizerCancellationNotificationEmail({
+      signup,
+      event,
+      canceledBy: "admin",
+    });
+
+    const calls = sesMock.commandCalls(SendEmailCommand);
+    expect(calls).toHaveLength(1);
+    const html = calls[0].args[0].input.Content?.Simple?.Body?.Html?.Data ?? "";
+    expect(html).toContain("Admin-Stornierung");
   });
 });
 

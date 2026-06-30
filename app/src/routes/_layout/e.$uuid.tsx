@@ -46,6 +46,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   createVolunteerSignupFn,
   getPublicVolunteerEventFn,
+  volunteerCancelSignupFn,
   verifyVolunteerTokenFn,
 } from "@webapp/server/functions/volunteer";
 import { formatShiftDateRange, sanitizeVolunteerPhoneNumber } from "@webapp/utils/volunteer";
@@ -69,8 +70,10 @@ dayjs.locale("de");
 type EventDataType = Awaited<ReturnType<typeof getPublicVolunteerEventFn>>;
 
 export const Route = createFileRoute("/_layout/e/$uuid")({
-  validateSearch: (search): { token?: string } => ({
+  validateSearch: (search): { token?: string; cancelSignupId?: string; cancelEmail?: string } => ({
     token: typeof search.token === "string" ? search.token : undefined,
+    cancelSignupId: typeof search.cancelSignupId === "string" ? search.cancelSignupId : undefined,
+    cancelEmail: typeof search.cancelEmail === "string" ? search.cancelEmail : undefined,
   }),
   loader: async ({ params }) => {
     try {
@@ -86,7 +89,7 @@ export const Route = createFileRoute("/_layout/e/$uuid")({
 function VolunteerEventPage() {
   const { event: initialEvent } = Route.useLoaderData();
   const { uuid } = Route.useParams();
-  const { token: tokenParam } = Route.useSearch();
+  const { token: tokenParam, cancelSignupId, cancelEmail } = Route.useSearch();
   const router = useRouter();
 
   const { data: event, refetch } = useQuery({
@@ -107,6 +110,15 @@ function VolunteerEventPage() {
     onSuccess: () => {
       refetch();
       router.navigate({ to: "/e/$uuid", params: { uuid }, search: {} });
+    },
+  });
+
+  const cancelMutation = useMutation({
+    mutationFn: (data: { id: string; email: string }) => volunteerCancelSignupFn({ data }),
+    onSuccess: (result) => {
+      if (result.success) {
+        refetch();
+      }
     },
   });
 
@@ -151,6 +163,55 @@ function VolunteerEventPage() {
             Dieser Bestätigungslink ist ungültig oder bereits abgelaufen. Bitte melde dich erneut
             an, um einen neuen Link zu erhalten.
           </Alert>
+        )}
+
+        {cancelSignupId && cancelEmail && (
+          <Card withBorder>
+            <Stack gap="sm">
+              <Title order={4}>Anmeldung stornieren</Title>
+              <Text size="sm" c="dimmed">
+                Deine Anmeldung wird erst storniert, wenn du die Aktion ausdrücklich bestätigst.
+              </Text>
+              {!cancelMutation.data && (
+                <Button
+                  color="red"
+                  variant="light"
+                  loading={cancelMutation.isPending}
+                  onClick={() =>
+                    cancelMutation.mutate({
+                      id: cancelSignupId,
+                      email: cancelEmail,
+                    })
+                  }
+                >
+                  Anmeldung jetzt stornieren
+                </Button>
+              )}
+              {cancelMutation.data?.success && (
+                <Alert color="green" title="Anmeldung storniert">
+                  Deine Anmeldung wurde erfolgreich storniert.
+                </Alert>
+              )}
+              {cancelMutation.data && !cancelMutation.data.success && (
+                <Alert
+                  color="orange"
+                  title={
+                    cancelMutation.data.code === "already_canceled"
+                      ? "Bereits storniert"
+                      : cancelMutation.data.code === "shift_started"
+                        ? "Stornierung nicht mehr möglich"
+                        : "Stornierung fehlgeschlagen"
+                  }
+                >
+                  {cancelMutation.data.code === "already_canceled"
+                    ? "Diese Anmeldung wurde bereits storniert."
+                    : cancelMutation.data.code === "shift_started"
+                      ? "Der Einsatz hat bereits begonnen. Bitte kontaktiere die Organisatorin oder den Organisator."
+                      : "Die Stornierung konnte nicht durchgeführt werden. Bitte prüfe den Link oder kontaktiere die Organisation."}
+                </Alert>
+              )}
+            </Stack>
+          </Card>
         )}
 
         {/* Event meta */}
