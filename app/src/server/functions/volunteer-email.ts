@@ -148,7 +148,7 @@ function buildReceiptHtml(opts: {
 ${locationLine}
 <p><strong>Einsatz:</strong> ${shiftLabel}</p>
 <p><a href="${eventUrl}" target="_blank" rel="noopener noreferrer">Zur Veranstaltungsseite</a></p>
-<>Sollte etwas dazwischenkommen, kannst du deine Anmeldung mit diesem Link stornieren: <a href="${cancellationUrl}" target="_blank" rel="noopener noreferrer">Anmeldung stornieren</a></p>
+<p>Sollte etwas dazwischenkommen, kannst du deine Anmeldung mit diesem Link stornieren: <a href="${cancellationUrl}" target="_blank" rel="noopener noreferrer">Anmeldung stornieren</a></p>
 <p>Sportliche Grüße,<br>${Club.shortName}<br><a href="mailto:${organizerEmail}">${organizerName}</a></p>`;
 }
 

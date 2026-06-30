@@ -99,11 +99,15 @@ async function cancelSignupAndNotify(opts: {
     refreshed.data,
     "Failed to parse canceled signup",
   );
+  const organizerCancellationSignup = {
+    ...canceledSignup,
+    assignedRoleId: signup.assignedRoleId, // Preserve assignedRoleId for organizer notification, even though it's removed in DB
+  };
 
   await Promise.all([
     sendVolunteerCancellationEmail({ signup: canceledSignup, event }),
     sendVolunteerOrganizerCancellationNotificationEmail({
-      signup: canceledSignup,
+      signup: organizerCancellationSignup,
       event,
       canceledBy: source,
     }),
@@ -361,9 +365,9 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
   const shift = event.shifts.find((s) => s.id === effectiveSignupData.shiftId);
   if (shift && shift.roles.length > 0) {
     // Build a count of confirmed+assigned signups for this shift (excluding the one just confirmed)
-    const allShiftSignups = await getSignupsForEvent(effectiveSignupData.eventId);
+    const currentSignupsForEvent = allSignupsForEvent.map((s) => (s.id === signup.id ? signup : s));
     const roleCountMap: Record<string, number> = {};
-    for (const s of allShiftSignups) {
+    for (const s of currentSignupsForEvent) {
       if (
         s.status === "confirmed" &&
         s.assignedRoleId &&

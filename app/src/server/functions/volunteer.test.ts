@@ -391,22 +391,24 @@ describe("verifyVolunteerToken", () => {
         id: "ff111111-1111-4111-8111-111111111111",
         status: "confirmed",
         assignedRoleId: roleId1,
+        email: "full-role-a@example.com",
       }),
       makeSignup({
         id: "ff222222-2222-4222-8222-222222222222",
         status: "confirmed",
         assignedRoleId: roleId1,
+        email: "full-role-b@example.com",
       }),
       makeSignup({
         id: "ff333333-3333-4333-8333-333333333333",
         status: "confirmed",
         assignedRoleId: roleId1,
+        email: "full-role-c@example.com",
       }),
     ];
-    // First call: existing pending signup. Subsequent call: for auto-assign count.
-    mockSignupQuery
-      .mockResolvedValueOnce({ data: [makeSignup()] })
-      .mockResolvedValue({ data: fullRoleSignups });
+    mockSignupQuery.mockResolvedValue({
+      data: [makeSignup(), ...fullRoleSignups],
+    });
 
     const result = await verifyVolunteerToken({ tokenId });
 
@@ -422,31 +424,36 @@ describe("verifyVolunteerToken", () => {
         id: "ff111111-1111-4111-8111-111111111111",
         status: "confirmed",
         assignedRoleId: roleId1,
+        email: "full-a@example.com",
       }),
       makeSignup({
         id: "ff222222-2222-4222-8222-222222222222",
         status: "confirmed",
         assignedRoleId: roleId1,
+        email: "full-b@example.com",
       }),
       makeSignup({
         id: "ff333333-3333-4333-8333-333333333333",
         status: "confirmed",
         assignedRoleId: roleId1,
+        email: "full-c@example.com",
       }),
       makeSignup({
         id: "ff444444-4444-4444-8444-444444444444",
         status: "confirmed",
         assignedRoleId: roleId2,
+        email: "full-d@example.com",
       }),
       makeSignup({
         id: "ff555555-5555-4555-8555-555555555555",
         status: "confirmed",
         assignedRoleId: roleId2,
+        email: "full-e@example.com",
       }),
     ];
-    mockSignupQuery
-      .mockResolvedValueOnce({ data: [makeSignup()] })
-      .mockResolvedValue({ data: fullSignups });
+    mockSignupQuery.mockResolvedValue({
+      data: [makeSignup(), ...fullSignups],
+    });
 
     const result = await verifyVolunteerToken({ tokenId });
 
@@ -673,6 +680,34 @@ describe("signup cancellation", () => {
     expect(vi.mocked(sendVolunteerOrganizerCancellationNotificationEmail)).toHaveBeenCalledWith(
       expect.objectContaining({
         canceledBy: "volunteer",
+      }),
+    );
+  });
+
+  it("preserves the assigned role for organizer cancellation emails", async () => {
+    const signupWithAssignedRole = makeSignup({
+      id: signupId,
+      status: "confirmed",
+      assignedRoleId: roleId1,
+    });
+    mockSignupGet.mockResolvedValueOnce({ data: signupWithAssignedRole }).mockResolvedValue({
+      data: {
+        ...signupWithAssignedRole,
+        status: "canceled",
+        assignedRoleId: undefined,
+      },
+    });
+    mockSignupPatch.mockResolvedValue({ data: {} });
+
+    await cancelVolunteerSignupByVolunteer({
+      id: signupId,
+      email: signupData.email,
+    });
+
+    expect(vi.mocked(sendVolunteerOrganizerCancellationNotificationEmail)).toHaveBeenCalledWith(
+      expect.objectContaining({
+        canceledBy: "volunteer",
+        signup: expect.objectContaining({ assignedRoleId: roleId1 }),
       }),
     );
   });
