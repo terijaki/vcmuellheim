@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 
-import type { Client, Options as Options2, TDataShape } from "./client";
+import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from "./client";
 import { client } from "./client.gen";
 import type {
   GetAllCommitteesData,
@@ -142,6 +142,9 @@ import type {
   GetTeamByUuidData,
   GetTeamByUuidErrors,
   GetTeamByUuidResponses,
+  GetTeamRosterByTeamUuidData,
+  GetTeamRosterByTeamUuidErrors,
+  GetTeamRosterByTeamUuidResponses,
   GetTeamsForCompetitionData,
   GetTeamsForCompetitionErrors,
   GetTeamsForCompetitionResponses,
@@ -299,6 +302,9 @@ import {
   zGetTeamByUuidHeaders,
   zGetTeamByUuidPath,
   zGetTeamByUuidResponse,
+  zGetTeamRosterByTeamUuidHeaders,
+  zGetTeamRosterByTeamUuidPath,
+  zGetTeamRosterByTeamUuidResponse,
   zGetTeamsForCompetitionHeaders,
   zGetTeamsForCompetitionPath,
   zGetTeamsForCompetitionQuery,
@@ -326,7 +332,7 @@ export type Options<
    * You can pass arbitrary values through the `meta` object. This can be
    * used to access values that aren't defined as part of the SDK function.
    */
-  meta?: Record<string, unknown>;
+  meta?: keyof ClientMeta extends never ? Record<string, unknown> : ClientMeta;
 };
 
 /**
@@ -334,7 +340,7 @@ export type Options<
  */
 export const getApiBaseLinks = <ThrowOnError extends boolean = false>(
   options?: Options<GetApiBaseLinksData, ThrowOnError>,
-) =>
+): RequestResult<unknown, GetApiBaseLinksErrors, ThrowOnError> =>
   (options?.client ?? client).get<unknown, GetApiBaseLinksErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -354,7 +360,7 @@ export const getApiBaseLinks = <ThrowOnError extends boolean = false>(
  */
 export const getAssociationByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetAssociationByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetAssociationByUuidResponses, GetAssociationByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetAssociationByUuidResponses,
     GetAssociationByUuidErrors,
@@ -381,7 +387,7 @@ export const getAssociationByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getAssociations = <ThrowOnError extends boolean = false>(
   options?: Options<GetAssociationsData, ThrowOnError>,
-) =>
+): RequestResult<GetAssociationsResponses, GetAssociationsErrors, ThrowOnError> =>
   (options?.client ?? client).get<GetAssociationsResponses, GetAssociationsErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -404,7 +410,11 @@ export const getAssociations = <ThrowOnError extends boolean = false>(
  */
 export const getCommitteesForAssociation = <ThrowOnError extends boolean = false>(
   options: Options<GetCommitteesForAssociationData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetCommitteesForAssociationResponses,
+  GetCommitteesForAssociationErrors,
+  ThrowOnError
+> =>
   (options.client ?? client).get<
     GetCommitteesForAssociationResponses,
     GetCommitteesForAssociationErrors,
@@ -429,7 +439,11 @@ export const getCommitteesForAssociation = <ThrowOnError extends boolean = false
  */
 export const getSportsclubsForAssociation = <ThrowOnError extends boolean = false>(
   options: Options<GetSportsclubsForAssociationData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetSportsclubsForAssociationResponses,
+  GetSportsclubsForAssociationErrors,
+  ThrowOnError
+> =>
   (options.client ?? client).get<
     GetSportsclubsForAssociationResponses,
     GetSportsclubsForAssociationErrors,
@@ -456,7 +470,7 @@ export const getSportsclubsForAssociation = <ThrowOnError extends boolean = fals
  */
 export const getAllCommittees = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllCommitteesData, ThrowOnError>,
-) =>
+): RequestResult<GetAllCommitteesResponses, GetAllCommitteesErrors, ThrowOnError> =>
   (options?.client ?? client).get<GetAllCommitteesResponses, GetAllCommitteesErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -479,7 +493,7 @@ export const getAllCommittees = <ThrowOnError extends boolean = false>(
  */
 export const getCommittee = <ThrowOnError extends boolean = false>(
   options: Options<GetCommitteeData, ThrowOnError>,
-) =>
+): RequestResult<GetCommitteeResponses, GetCommitteeErrors, ThrowOnError> =>
   (options.client ?? client).get<GetCommitteeResponses, GetCommitteeErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -502,7 +516,7 @@ export const getCommittee = <ThrowOnError extends boolean = false>(
  */
 export const getAllLeagueHierarchies = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllLeagueHierarchiesData, ThrowOnError>,
-) =>
+): RequestResult<GetAllLeagueHierarchiesResponses, GetAllLeagueHierarchiesErrors, ThrowOnError> =>
   (options?.client ?? client).get<
     GetAllLeagueHierarchiesResponses,
     GetAllLeagueHierarchiesErrors,
@@ -527,7 +541,11 @@ export const getAllLeagueHierarchies = <ThrowOnError extends boolean = false>(
  */
 export const getCompetitionsByLeagueHierarchy = <ThrowOnError extends boolean = false>(
   options: Options<GetCompetitionsByLeagueHierarchyData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetCompetitionsByLeagueHierarchyResponses,
+  GetCompetitionsByLeagueHierarchyErrors,
+  ThrowOnError
+> =>
   (options.client ?? client).get<
     GetCompetitionsByLeagueHierarchyResponses,
     GetCompetitionsByLeagueHierarchyErrors,
@@ -553,7 +571,7 @@ export const getCompetitionsByLeagueHierarchy = <ThrowOnError extends boolean = 
  */
 export const getLeagueHierarchyByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetLeagueHierarchyByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetLeagueHierarchyByUuidResponses, GetLeagueHierarchyByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetLeagueHierarchyByUuidResponses,
     GetLeagueHierarchyByUuidErrors,
@@ -578,7 +596,11 @@ export const getLeagueHierarchyByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getLeaguesByLeagueHierarchy = <ThrowOnError extends boolean = false>(
   options: Options<GetLeaguesByLeagueHierarchyData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetLeaguesByLeagueHierarchyResponses,
+  GetLeaguesByLeagueHierarchyErrors,
+  ThrowOnError
+> =>
   (options.client ?? client).get<
     GetLeaguesByLeagueHierarchyResponses,
     GetLeaguesByLeagueHierarchyErrors,
@@ -603,7 +625,11 @@ export const getLeaguesByLeagueHierarchy = <ThrowOnError extends boolean = false
  */
 export const getSuperCompetitionsByLeagueHierarchy = <ThrowOnError extends boolean = false>(
   options: Options<GetSuperCompetitionsByLeagueHierarchyData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetSuperCompetitionsByLeagueHierarchyResponses,
+  GetSuperCompetitionsByLeagueHierarchyErrors,
+  ThrowOnError
+> =>
   (options.client ?? client).get<
     GetSuperCompetitionsByLeagueHierarchyResponses,
     GetSuperCompetitionsByLeagueHierarchyErrors,
@@ -631,7 +657,7 @@ export const getSuperCompetitionsByLeagueHierarchy = <ThrowOnError extends boole
  */
 export const getAllLocations = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllLocationsData, ThrowOnError>,
-) =>
+): RequestResult<GetAllLocationsResponses, GetAllLocationsErrors, ThrowOnError> =>
   (options?.client ?? client).get<GetAllLocationsResponses, GetAllLocationsErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -654,7 +680,7 @@ export const getAllLocations = <ThrowOnError extends boolean = false>(
  */
 export const getLocationByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetLocationByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetLocationByUuidResponses, GetLocationByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<GetLocationByUuidResponses, GetLocationByUuidErrors, ThrowOnError>(
     {
       requestValidator: async (data) =>
@@ -679,7 +705,7 @@ export const getLocationByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getAllCompetitions = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllCompetitionsData, ThrowOnError>,
-) =>
+): RequestResult<GetAllCompetitionsResponses, GetAllCompetitionsErrors, ThrowOnError> =>
   (options?.client ?? client).get<
     GetAllCompetitionsResponses,
     GetAllCompetitionsErrors,
@@ -704,7 +730,7 @@ export const getAllCompetitions = <ThrowOnError extends boolean = false>(
  */
 export const getCompetitionByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetCompetitionByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetCompetitionByUuidResponses, GetCompetitionByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetCompetitionByUuidResponses,
     GetCompetitionByUuidErrors,
@@ -729,7 +755,11 @@ export const getCompetitionByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getMatchGroupsForCompetition = <ThrowOnError extends boolean = false>(
   options: Options<GetMatchGroupsForCompetitionData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetMatchGroupsForCompetitionResponses,
+  GetMatchGroupsForCompetitionErrors,
+  ThrowOnError
+> =>
   (options.client ?? client).get<
     GetMatchGroupsForCompetitionResponses,
     GetMatchGroupsForCompetitionErrors,
@@ -754,7 +784,11 @@ export const getMatchGroupsForCompetition = <ThrowOnError extends boolean = fals
  */
 export const getRankingsForCompetition = <ThrowOnError extends boolean = false>(
   options: Options<GetRankingsForCompetitionData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetRankingsForCompetitionResponses,
+  GetRankingsForCompetitionErrors,
+  ThrowOnError
+> =>
   (options.client ?? client).get<
     GetRankingsForCompetitionResponses,
     GetRankingsForCompetitionErrors,
@@ -781,7 +815,7 @@ export const getRankingsForCompetition = <ThrowOnError extends boolean = false>(
  */
 export const getTeamsForCompetition = <ThrowOnError extends boolean = false>(
   options: Options<GetTeamsForCompetitionData, ThrowOnError>,
-) =>
+): RequestResult<GetTeamsForCompetitionResponses, GetTeamsForCompetitionErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetTeamsForCompetitionResponses,
     GetTeamsForCompetitionErrors,
@@ -808,7 +842,11 @@ export const getTeamsForCompetition = <ThrowOnError extends boolean = false>(
  */
 export const getAllCompetitionMatchesWithFilter = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllCompetitionMatchesWithFilterData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetAllCompetitionMatchesWithFilterResponses,
+  GetAllCompetitionMatchesWithFilterErrors,
+  ThrowOnError
+> =>
   (options?.client ?? client).get<
     GetAllCompetitionMatchesWithFilterResponses,
     GetAllCompetitionMatchesWithFilterErrors,
@@ -834,7 +872,11 @@ export const getAllCompetitionMatchesWithFilter = <ThrowOnError extends boolean 
  */
 export const getCompetitionMatchByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetCompetitionMatchByUuidData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetCompetitionMatchByUuidResponses,
+  GetCompetitionMatchByUuidErrors,
+  ThrowOnError
+> =>
   (options.client ?? client).get<
     GetCompetitionMatchByUuidResponses,
     GetCompetitionMatchByUuidErrors,
@@ -859,7 +901,7 @@ export const getCompetitionMatchByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getAllMatchGroups = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllMatchGroupsData, ThrowOnError>,
-) =>
+): RequestResult<GetAllMatchGroupsResponses, GetAllMatchGroupsErrors, ThrowOnError> =>
   (options?.client ?? client).get<
     GetAllMatchGroupsResponses,
     GetAllMatchGroupsErrors,
@@ -884,7 +926,7 @@ export const getAllMatchGroups = <ThrowOnError extends boolean = false>(
  */
 export const getMatchGroupByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetMatchGroupByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetMatchGroupByUuidResponses, GetMatchGroupByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetMatchGroupByUuidResponses,
     GetMatchGroupByUuidErrors,
@@ -909,7 +951,7 @@ export const getMatchGroupByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getMatchesByMatchGroup = <ThrowOnError extends boolean = false>(
   options: Options<GetMatchesByMatchGroupData, ThrowOnError>,
-) =>
+): RequestResult<GetMatchesByMatchGroupResponses, GetMatchesByMatchGroupErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetMatchesByMatchGroupResponses,
     GetMatchesByMatchGroupErrors,
@@ -934,7 +976,7 @@ export const getMatchesByMatchGroup = <ThrowOnError extends boolean = false>(
  */
 export const getAllLeagues = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllLeaguesData, ThrowOnError>,
-) =>
+): RequestResult<GetAllLeaguesResponses, GetAllLeaguesErrors, ThrowOnError> =>
   (options?.client ?? client).get<GetAllLeaguesResponses, GetAllLeaguesErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -955,7 +997,7 @@ export const getAllLeagues = <ThrowOnError extends boolean = false>(
  */
 export const getLeagueByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetLeagueByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetLeagueByUuidResponses, GetLeagueByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<GetLeagueByUuidResponses, GetLeagueByUuidErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -976,7 +1018,7 @@ export const getLeagueByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getMatchDaysForLeague = <ThrowOnError extends boolean = false>(
   options: Options<GetMatchDaysForLeagueData, ThrowOnError>,
-) =>
+): RequestResult<GetMatchDaysForLeagueResponses, GetMatchDaysForLeagueErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetMatchDaysForLeagueResponses,
     GetMatchDaysForLeagueErrors,
@@ -1001,7 +1043,7 @@ export const getMatchDaysForLeague = <ThrowOnError extends boolean = false>(
  */
 export const getRankingsForLeague = <ThrowOnError extends boolean = false>(
   options: Options<GetRankingsForLeagueData, ThrowOnError>,
-) =>
+): RequestResult<GetRankingsForLeagueResponses, GetRankingsForLeagueErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetRankingsForLeagueResponses,
     GetRankingsForLeagueErrors,
@@ -1026,7 +1068,7 @@ export const getRankingsForLeague = <ThrowOnError extends boolean = false>(
  */
 export const getTeamsForLeague = <ThrowOnError extends boolean = false>(
   options: Options<GetTeamsForLeagueData, ThrowOnError>,
-) =>
+): RequestResult<GetTeamsForLeagueResponses, GetTeamsForLeagueErrors, ThrowOnError> =>
   (options.client ?? client).get<GetTeamsForLeagueResponses, GetTeamsForLeagueErrors, ThrowOnError>(
     {
       requestValidator: async (data) =>
@@ -1051,7 +1093,7 @@ export const getTeamsForLeague = <ThrowOnError extends boolean = false>(
  */
 export const getAllLeagueMatches = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllLeagueMatchesData, ThrowOnError>,
-) =>
+): RequestResult<GetAllLeagueMatchesResponses, GetAllLeagueMatchesErrors, ThrowOnError> =>
   (options?.client ?? client).get<
     GetAllLeagueMatchesResponses,
     GetAllLeagueMatchesErrors,
@@ -1076,7 +1118,7 @@ export const getAllLeagueMatches = <ThrowOnError extends boolean = false>(
  */
 export const getLeagueMatchByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetLeagueMatchByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetLeagueMatchByUuidResponses, GetLeagueMatchByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetLeagueMatchByUuidResponses,
     GetLeagueMatchByUuidErrors,
@@ -1103,7 +1145,7 @@ export const getLeagueMatchByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getAllMatchDays = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllMatchDaysData, ThrowOnError>,
-) =>
+): RequestResult<GetAllMatchDaysResponses, GetAllMatchDaysErrors, ThrowOnError> =>
   (options?.client ?? client).get<GetAllMatchDaysResponses, GetAllMatchDaysErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -1124,7 +1166,7 @@ export const getAllMatchDays = <ThrowOnError extends boolean = false>(
  */
 export const getMatchDayByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetMatchDayByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetMatchDayByUuidResponses, GetMatchDayByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<GetMatchDayByUuidResponses, GetMatchDayByUuidErrors, ThrowOnError>(
     {
       requestValidator: async (data) =>
@@ -1147,7 +1189,7 @@ export const getMatchDayByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getMatchesByMatchDay = <ThrowOnError extends boolean = false>(
   options: Options<GetMatchesByMatchDayData, ThrowOnError>,
-) =>
+): RequestResult<GetMatchesByMatchDayResponses, GetMatchesByMatchDayErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetMatchesByMatchDayResponses,
     GetMatchesByMatchDayErrors,
@@ -1174,7 +1216,7 @@ export const getMatchesByMatchDay = <ThrowOnError extends boolean = false>(
  */
 export const getAllSuperCompetitions = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllSuperCompetitionsData, ThrowOnError>,
-) =>
+): RequestResult<GetAllSuperCompetitionsResponses, GetAllSuperCompetitionsErrors, ThrowOnError> =>
   (options?.client ?? client).get<
     GetAllSuperCompetitionsResponses,
     GetAllSuperCompetitionsErrors,
@@ -1199,7 +1241,11 @@ export const getAllSuperCompetitions = <ThrowOnError extends boolean = false>(
  */
 export const getSuperCompetitionByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetSuperCompetitionByUuidData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetSuperCompetitionByUuidResponses,
+  GetSuperCompetitionByUuidErrors,
+  ThrowOnError
+> =>
   (options.client ?? client).get<
     GetSuperCompetitionByUuidResponses,
     GetSuperCompetitionByUuidErrors,
@@ -1224,7 +1270,7 @@ export const getSuperCompetitionByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getAllEvents = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllEventsData, ThrowOnError>,
-) =>
+): RequestResult<GetAllEventsResponses, GetAllEventsErrors, ThrowOnError> =>
   (options?.client ?? client).get<GetAllEventsResponses, GetAllEventsErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -1245,7 +1291,7 @@ export const getAllEvents = <ThrowOnError extends boolean = false>(
  */
 export const getEventByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetEventByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetEventByUuidResponses, GetEventByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<GetEventByUuidResponses, GetEventByUuidErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -1266,7 +1312,7 @@ export const getEventByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getEventTypeByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetEventTypeByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetEventTypeByUuidResponses, GetEventTypeByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<
     GetEventTypeByUuidResponses,
     GetEventTypeByUuidErrors,
@@ -1291,7 +1337,7 @@ export const getEventTypeByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getEventTypes = <ThrowOnError extends boolean = false>(
   options?: Options<GetEventTypesData, ThrowOnError>,
-) =>
+): RequestResult<GetEventTypesResponses, GetEventTypesErrors, ThrowOnError> =>
   (options?.client ?? client).get<GetEventTypesResponses, GetEventTypesErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -1312,7 +1358,7 @@ export const getEventTypes = <ThrowOnError extends boolean = false>(
  */
 export const getAllSeasons = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllSeasonsData, ThrowOnError>,
-) =>
+): RequestResult<GetAllSeasonsResponses, GetAllSeasonsErrors, ThrowOnError> =>
   (options?.client ?? client).get<GetAllSeasonsResponses, GetAllSeasonsErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -1333,7 +1379,11 @@ export const getAllSeasons = <ThrowOnError extends boolean = false>(
  */
 export const getLeagueHierarchiesForSeason = <ThrowOnError extends boolean = false>(
   options: Options<GetLeagueHierarchiesForSeasonData, ThrowOnError>,
-) =>
+): RequestResult<
+  GetLeagueHierarchiesForSeasonResponses,
+  GetLeagueHierarchiesForSeasonErrors,
+  ThrowOnError
+> =>
   (options.client ?? client).get<
     GetLeagueHierarchiesForSeasonResponses,
     GetLeagueHierarchiesForSeasonErrors,
@@ -1359,7 +1409,7 @@ export const getLeagueHierarchiesForSeason = <ThrowOnError extends boolean = fal
  */
 export const getSeasonByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetSeasonByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetSeasonByUuidResponses, GetSeasonByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<GetSeasonByUuidResponses, GetSeasonByUuidErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -1382,7 +1432,7 @@ export const getSeasonByUuid = <ThrowOnError extends boolean = false>(
  */
 export const getAllSportsclubs = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllSportsclubsData, ThrowOnError>,
-) =>
+): RequestResult<GetAllSportsclubsResponses, GetAllSportsclubsErrors, ThrowOnError> =>
   (options?.client ?? client).get<
     GetAllSportsclubsResponses,
     GetAllSportsclubsErrors,
@@ -1407,7 +1457,7 @@ export const getAllSportsclubs = <ThrowOnError extends boolean = false>(
  */
 export const getSportsclub = <ThrowOnError extends boolean = false>(
   options: Options<GetSportsclubData, ThrowOnError>,
-) =>
+): RequestResult<GetSportsclubResponses, GetSportsclubErrors, ThrowOnError> =>
   (options.client ?? client).get<GetSportsclubResponses, GetSportsclubErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -1430,7 +1480,7 @@ export const getSportsclub = <ThrowOnError extends boolean = false>(
  */
 export const getAllTeams = <ThrowOnError extends boolean = false>(
   options?: Options<GetAllTeamsData, ThrowOnError>,
-) =>
+): RequestResult<GetAllTeamsResponses, GetAllTeamsErrors, ThrowOnError> =>
   (options?.client ?? client).get<GetAllTeamsResponses, GetAllTeamsErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -1451,7 +1501,7 @@ export const getAllTeams = <ThrowOnError extends boolean = false>(
  */
 export const getTeamByUuid = <ThrowOnError extends boolean = false>(
   options: Options<GetTeamByUuidData, ThrowOnError>,
-) =>
+): RequestResult<GetTeamByUuidResponses, GetTeamByUuidErrors, ThrowOnError> =>
   (options.client ?? client).get<GetTeamByUuidResponses, GetTeamByUuidErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -1468,11 +1518,36 @@ export const getTeamByUuid = <ThrowOnError extends boolean = false>(
   });
 
 /**
+ * Returns all members of a team identified by the given UUID
+ */
+export const getTeamRosterByTeamUuid = <ThrowOnError extends boolean = false>(
+  options: Options<GetTeamRosterByTeamUuidData, ThrowOnError>,
+): RequestResult<GetTeamRosterByTeamUuidResponses, GetTeamRosterByTeamUuidErrors, ThrowOnError> =>
+  (options.client ?? client).get<
+    GetTeamRosterByTeamUuidResponses,
+    GetTeamRosterByTeamUuidErrors,
+    ThrowOnError
+  >({
+    requestValidator: async (data) =>
+      await z
+        .object({
+          body: z.never().optional(),
+          headers: zGetTeamRosterByTeamUuidHeaders.optional(),
+          path: zGetTeamRosterByTeamUuidPath,
+          query: z.never().optional(),
+        })
+        .parseAsync(data),
+    responseValidator: async (data) => await zGetTeamRosterByTeamUuidResponse.parseAsync(data),
+    url: "/teams/{uuid}/roster",
+    ...options,
+  });
+
+/**
  * Retrieves the user data for the current user identified by the mandatory JSON web token authorization header
  */
 export const getCurrentUser = <ThrowOnError extends boolean = false>(
   options?: Options<GetCurrentUserData, ThrowOnError>,
-) =>
+): RequestResult<GetCurrentUserResponses, GetCurrentUserErrors, ThrowOnError> =>
   (options?.client ?? client).get<GetCurrentUserResponses, GetCurrentUserErrors, ThrowOnError>({
     requestValidator: async (data) =>
       await z
@@ -1493,7 +1568,7 @@ export const getCurrentUser = <ThrowOnError extends boolean = false>(
  */
 export const userDetailsRootLinks = <ThrowOnError extends boolean = false>(
   options?: Options<UserDetailsRootLinksData, ThrowOnError>,
-) =>
+): RequestResult<UserDetailsRootLinksResponses, UserDetailsRootLinksErrors, ThrowOnError> =>
   (options?.client ?? client).get<
     UserDetailsRootLinksResponses,
     UserDetailsRootLinksErrors,

@@ -597,6 +597,8 @@ export type CompetitionMatchDto = {
   team1Description?: string | null;
   team2Description?: string | null;
   results?: VolleyballMatchResultsDto | null;
+  team1Mvp?: MostValuablePlayerDto;
+  team2Mvp?: MostValuablePlayerDto;
   matchGroupUuid?: string | null;
   competitionUuid?: string | null;
   delayPossible?: boolean | null;
@@ -619,6 +621,14 @@ export type CompetitionMatchPage = {
   totalPages?: number;
   first?: boolean;
   last?: boolean;
+};
+
+export type MostValuablePlayerDto = {
+  firstName?: string;
+  lastName?: string;
+  teamName?: string;
+  winnerMvp?: boolean;
+  position?: string;
 };
 
 export type RefereeTeamDto = {
@@ -736,6 +746,8 @@ export type LeagueMatchDto = {
   team1Description?: string | null;
   team2Description?: string | null;
   results?: VolleyballMatchResultsDto | null;
+  team1Mvp?: MostValuablePlayerDto;
+  team2Mvp?: MostValuablePlayerDto;
   matchDayUuid?: string | null;
   leagueUuid?: string | null;
   delayPossible?: boolean | null;
@@ -863,6 +875,45 @@ export type SeasonDto = {
   startDate?: string;
   endDate?: string;
   currentSeason?: boolean;
+};
+
+export type TeamOfficialDto = {
+  uuid?: string;
+  name?: string;
+  birthdate?: string;
+  nationality?: string;
+  portraitImageLink?: string;
+  role?: string;
+};
+
+export type TeamPlayerDto = {
+  uuid?: string;
+  name?: string;
+  birthdate?: string;
+  nationality?: string;
+  portraitImageLink?: string;
+  height?: number;
+  jerseyNumber?: number;
+  position?: string;
+};
+
+export type TeamRosterDto = {
+  /**
+   * Entity unique identifier
+   */
+  uuid?: string;
+  _links?: {
+    [key: string]: LinkDto;
+  };
+  _embedded?: {
+    [key: string]: {
+      [key: string]: unknown;
+    };
+  };
+  teamUuid?: string;
+  note?: string;
+  players?: Array<TeamPlayerDto>;
+  officials?: Array<TeamOfficialDto>;
 };
 
 export type UserDetailsDto = {
@@ -3383,6 +3434,57 @@ export type GetTeamByUuidResponses = {
 };
 
 export type GetTeamByUuidResponse = GetTeamByUuidResponses[keyof GetTeamByUuidResponses];
+
+export type GetTeamRosterByTeamUuidData = {
+  body?: never;
+  headers?: {
+    /**
+     * A SAMS API key with permission to access this API.
+     */
+    "X-Api-Key"?: string;
+  };
+  path: {
+    uuid: string;
+  };
+  query?: never;
+  url: "/teams/{uuid}/roster";
+};
+
+export type GetTeamRosterByTeamUuidErrors = {
+  /**
+   * POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+   */
+  400: ValidationError;
+  /**
+   * API authorization failed.
+   */
+  403: ResponseExceptionMessage;
+  /**
+   * Team not found
+   */
+  404: unknown;
+  /**
+   * The request could not be processed due to invalid request data. Check the response for more details.
+   */
+  409: ResponseExceptionMessage;
+  /**
+   * An unexpected error occurred. Please contact support and supply the response data.
+   */
+  500: ResponseException;
+};
+
+export type GetTeamRosterByTeamUuidError =
+  GetTeamRosterByTeamUuidErrors[keyof GetTeamRosterByTeamUuidErrors];
+
+export type GetTeamRosterByTeamUuidResponses = {
+  /**
+   * Successful operation
+   */
+  200: TeamRosterDto;
+};
+
+export type GetTeamRosterByTeamUuidResponse =
+  GetTeamRosterByTeamUuidResponses[keyof GetTeamRosterByTeamUuidResponses];
 
 export type GetCurrentUserData = {
   body?: never;

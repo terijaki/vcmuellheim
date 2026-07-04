@@ -4211,6 +4211,86 @@
         }
       }
     },
+    "/teams/{uuid}/roster": {
+      "get": {
+        "tags": ["SAMS teams API"],
+        "summary": "Returns all members of a team identified by the given UUID",
+        "operationId": "getTeamRosterByTeamUuid",
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "A SAMS API key with permission to access this API.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamRosterDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "API authorization failed.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Team not found"
+          },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred. Please contact support and supply the response data.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseException"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/user-details/current": {
       "get": {
         "tags": ["SAMS user API"],
@@ -5782,6 +5862,14 @@
             ],
             "nullable": true
           },
+          "team1Mvp": {
+            "$ref": "#/components/schemas/MostValuablePlayerDto",
+            "nullable": true
+          },
+          "team2Mvp": {
+            "$ref": "#/components/schemas/MostValuablePlayerDto",
+            "nullable": true
+          },
           "matchGroupUuid": {
             "type": "string",
             "nullable": true
@@ -5842,6 +5930,26 @@
           },
           "last": {
             "type": "boolean"
+          }
+        }
+      },
+      "MostValuablePlayerDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "teamName": {
+            "type": "string"
+          },
+          "winnerMvp": {
+            "type": "boolean"
+          },
+          "position": {
+            "type": "string"
           }
         }
       },
@@ -6172,6 +6280,14 @@
             ],
             "nullable": true
           },
+          "team1Mvp": {
+            "$ref": "#/components/schemas/MostValuablePlayerDto",
+            "nullable": true
+          },
+          "team2Mvp": {
+            "$ref": "#/components/schemas/MostValuablePlayerDto",
+            "nullable": true
+          },
           "matchDayUuid": {
             "type": "string",
             "nullable": true
@@ -6425,6 +6541,101 @@
           },
           "currentSeason": {
             "type": "boolean"
+          }
+        }
+      },
+      "TeamOfficialDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "birthdate": {
+            "type": "string"
+          },
+          "nationality": {
+            "type": "string"
+          },
+          "portraitImageLink": {
+            "type": "string",
+            "format": "url"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
+      "TeamPlayerDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "birthdate": {
+            "type": "string"
+          },
+          "nationality": {
+            "type": "string"
+          },
+          "portraitImageLink": {
+            "type": "string",
+            "format": "url"
+          },
+          "height": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "jerseyNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "position": {
+            "type": "string"
+          }
+        }
+      },
+      "TeamRosterDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Entity unique identifier"
+          },
+          "_links": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/LinkDto"
+            }
+          },
+          "_embedded": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "teamUuid": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TeamPlayerDto"
+            }
+          },
+          "officials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TeamOfficialDto"
+            }
           }
         }
       },

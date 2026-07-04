@@ -111,6 +111,11 @@ export default defineConfig({
         command: "bun run db:seed:sams",
         cache: false,
       },
+      "sams-api": {
+        command:
+          "AWS_PROFILE=vcm-dev vp exec varlock run -- vp exec tsx .agents/skills/sams-api/sams.ts",
+        cache: false,
+      },
       // Deploy + seed in one command for new branches
       "deploy-seeded": {
         command: "vpr seed",

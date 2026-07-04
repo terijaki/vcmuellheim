@@ -99,6 +99,14 @@ export const zMatchResultTypeCount = z.object({
     .optional(),
 });
 
+export const zMostValuablePlayerDto = z.object({
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  teamName: z.string().optional(),
+  winnerMvp: z.boolean().optional(),
+  position: z.string().optional(),
+});
+
 export const zRefereeTeamDto = z.object({
   firstReferee: z.string().nullish(),
   secondReferee: z.string().nullish(),
@@ -128,6 +136,34 @@ export const zVolleyballMatchResultsDto = z.object({
   setPoints: z.string().nullish(),
   ballPoints: z.string().nullish(),
   sets: z.array(zVolleyballMatchSetRestDto).nullish(),
+});
+
+export const zTeamOfficialDto = z.object({
+  uuid: z.string().optional(),
+  name: z.string().optional(),
+  birthdate: z.string().optional(),
+  nationality: z.string().optional(),
+  portraitImageLink: z.string().optional(),
+  role: z.string().optional(),
+});
+
+export const zTeamPlayerDto = z.object({
+  uuid: z.string().optional(),
+  name: z.string().optional(),
+  birthdate: z.string().optional(),
+  nationality: z.string().optional(),
+  portraitImageLink: z.string().optional(),
+  height: z
+    .int()
+    .min(-2147483648, { error: "Invalid value: Expected int32 to be >= -2147483648" })
+    .max(2147483647, { error: "Invalid value: Expected int32 to be <= 2147483647" })
+    .optional(),
+  jerseyNumber: z
+    .int()
+    .min(-2147483648, { error: "Invalid value: Expected int32 to be >= -2147483648" })
+    .max(2147483647, { error: "Invalid value: Expected int32 to be <= 2147483647" })
+    .optional(),
+  position: z.string().optional(),
 });
 
 export const zLinkDto = z.object({
@@ -750,6 +786,8 @@ export const zCompetitionMatchDto = z.object({
   team1Description: z.string().nullish(),
   team2Description: z.string().nullish(),
   results: zVolleyballMatchResultsDto.nullish(),
+  team1Mvp: zMostValuablePlayerDto.optional(),
+  team2Mvp: zMostValuablePlayerDto.optional(),
   matchGroupUuid: z.string().nullish(),
   competitionUuid: z.string().nullish(),
   delayPossible: z.boolean().nullish(),
@@ -895,6 +933,8 @@ export const zLeagueMatchDto = z.object({
   team1Description: z.string().nullish(),
   team2Description: z.string().nullish(),
   results: zVolleyballMatchResultsDto.nullish(),
+  team1Mvp: zMostValuablePlayerDto.optional(),
+  team2Mvp: zMostValuablePlayerDto.optional(),
   matchDayUuid: z.string().nullish(),
   leagueUuid: z.string().nullish(),
   delayPossible: z.boolean().nullish(),
@@ -1051,6 +1091,21 @@ export const zSeasonDto = z.object({
   startDate: z.string().optional(),
   endDate: z.string().optional(),
   currentSeason: z.boolean().optional(),
+});
+
+export const zTeamRosterDto = z.object({
+  uuid: z
+    .string()
+    .register(z.globalRegistry, {
+      description: "Entity unique identifier",
+    })
+    .optional(),
+  _links: z.record(z.string(), zLinkDto).optional(),
+  _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  teamUuid: z.string().optional(),
+  note: z.string().optional(),
+  players: z.array(zTeamPlayerDto).optional(),
+  officials: z.array(zTeamOfficialDto).optional(),
 });
 
 export const zUserDetailsDto = z.object({
@@ -2569,6 +2624,24 @@ export const zGetTeamByUuidPath = z.object({
  * Successful operation
  */
 export const zGetTeamByUuidResponse = zTeamDto;
+
+export const zGetTeamRosterByTeamUuidHeaders = z.object({
+  "X-Api-Key": z
+    .string()
+    .register(z.globalRegistry, {
+      description: "A SAMS API key with permission to access this API.",
+    })
+    .optional(),
+});
+
+export const zGetTeamRosterByTeamUuidPath = z.object({
+  uuid: z.string(),
+});
+
+/**
+ * Successful operation
+ */
+export const zGetTeamRosterByTeamUuidResponse = zTeamRosterDto;
 
 export const zGetCurrentUserHeaders = z.object({
   "X-Api-Key": z
