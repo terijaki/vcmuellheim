@@ -30,6 +30,7 @@ import {
   useLocations,
   useMembers,
   useSamsMatches,
+  useSamsRoster,
   useTeamBySlug,
 } from "@/app/src/hooks/dataQueries";
 import {
@@ -107,6 +108,9 @@ function RouteComponent() {
         </Suspense>
         <Suspense fallback={<CenteredLoader text="Lade Fotos..." />}>
           <TeamPictures team={team} />
+        </Suspense>
+        <Suspense fallback={null}>
+          <TeamRoster teamUuid={loaderData.samsTeam?.uuid} />
         </Suspense>
         <Suspense fallback={<CenteredLoader text="Lade Tabelle..." />}>
           {loaderData.samsTeam?.leagueUuid && (
@@ -362,6 +366,68 @@ function TeamTrainers({ team }: { team: NonNullable<ReturnType<typeof useTeamByS
           memberList={contacts}
         />
       </Flex>
+    </Card>
+  );
+}
+
+function TeamRoster({ teamUuid }: { teamUuid?: string }) {
+  const { data: roster } = useSamsRoster(teamUuid);
+
+  if (!roster || (!roster.players.length && !roster.officials.length)) return null;
+
+  const sortedPlayers = [...roster.players].sort((a, b) => {
+    if (a.jerseyNumber == null) return 1;
+    if (b.jerseyNumber == null) return -1;
+    return a.jerseyNumber - b.jerseyNumber;
+  });
+
+  return (
+    <Card>
+      <Stack>
+        <CardTitle>Kader</CardTitle>
+        {sortedPlayers.length > 0 && (
+          <Flex wrap="wrap" gap="xl">
+            {sortedPlayers.map((player) => (
+              <Group key={player.uuid ?? player.name} align="center">
+                <Avatar src={player.portraitImageLink} name={player.name} />
+                <Stack gap={0}>
+                  <Text fw="bold" c="turquoise">
+                    {player.jerseyNumber != null ? `#${player.jerseyNumber} ` : ""}
+                    {player.name}
+                  </Text>
+                  {player.position && (
+                    <Text c="dimmed" size="xs">
+                      {player.position}
+                    </Text>
+                  )}
+                </Stack>
+              </Group>
+            ))}
+          </Flex>
+        )}
+        {roster.officials.length > 0 && (
+          <>
+            <Text fw="bold">Offizielle</Text>
+            <Flex wrap="wrap" gap="xl">
+              {roster.officials.map((official) => (
+                <Group key={official.uuid ?? official.name} align="center">
+                  <Avatar name={official.name} />
+                  <Stack gap={0}>
+                    <Text fw="bold" c="turquoise">
+                      {official.name}
+                    </Text>
+                    {official.role && (
+                      <Text c="dimmed" size="xs">
+                        {official.role}
+                      </Text>
+                    )}
+                  </Stack>
+                </Group>
+              ))}
+            </Flex>
+          </>
+        )}
+      </Stack>
     </Card>
   );
 }

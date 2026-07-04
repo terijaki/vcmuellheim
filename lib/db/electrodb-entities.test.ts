@@ -21,7 +21,7 @@ import {
   VolunteerSignupEntity,
   VolunteerTokenEntity,
 } from "./electrodb-entities";
-import { SamsClubEntity, SamsTeamEntity } from "./sams-electrodb-entities";
+import { SamsClubEntity, SamsRosterEntity, SamsTeamEntity } from "./sams-electrodb-entities";
 import {
   busSchema,
   eventSchema,
@@ -30,6 +30,7 @@ import {
   memberSchema,
   newsSchema,
   samsClubSchema,
+  samsRosterSchema,
   samsTeamSchema,
   sponsorSchema,
   teamSchema,
@@ -170,6 +171,10 @@ describe("SAMS ElectroDB ↔ Zod drift detection", () => {
 
   it("SamsTeam entity attributes match samsTeamSchema", () => {
     checkDrift("SamsTeam", samsTeamSchema, SamsTeamEntity);
+  });
+
+  it("SamsRoster entity attributes match samsRosterSchema", () => {
+    checkDrift("SamsRoster", samsRosterSchema, SamsRosterEntity);
   });
 });
 

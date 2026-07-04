@@ -18,6 +18,7 @@ import {
   getClubLogoUrlsBatchFn,
   getSamsMatchesFn,
   getSamsRankingByLeagueUuidFn,
+  getSamsRosterByTeamUuidFn,
   getSamsTickerFn,
   listSamsTeamsFn,
 } from "../server/functions/sams";
@@ -171,6 +172,14 @@ export const useSamsTeams = () => {
   return useQuery({
     queryKey: ["samsTeams"],
     queryFn: () => listSamsTeamsFn(),
+  });
+};
+
+export const useSamsRoster = (teamUuid?: string) => {
+  return useQuery({
+    queryKey: ["samsRoster", teamUuid],
+    queryFn: () => getSamsRosterByTeamUuidFn({ data: teamUuid as string }),
+    enabled: !!teamUuid,
   });
 };
 

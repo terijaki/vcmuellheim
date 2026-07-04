@@ -208,6 +208,34 @@ export const samsTeamSchema = z.object({
 export type SamsClubInput = z.infer<typeof samsClubSchema>;
 export type SamsTeamInput = z.infer<typeof samsTeamSchema>;
 
+/** A player entry within a SAMS team roster */
+export const samsRosterPlayerSchema = z.object({
+  uuid: z.string().optional(),
+  name: z.string().optional(),
+  jerseyNumber: z.number().optional(),
+  position: z.string().optional(),
+  portraitImageLink: z.string().optional(),
+});
+
+/** An official/coach entry within a SAMS team roster */
+export const samsRosterOfficialSchema = z.object({
+  uuid: z.string().optional(),
+  name: z.string().optional(),
+  role: z.string().optional(),
+});
+
+/** SAMS team roster record — players + officials for the current season (synced from external SAMS API) */
+export const samsRosterSchema = z.object({
+  teamUuid: z.string().min(1),
+  type: z.literal("roster").default("roster").describe("Entity type discriminator for GSI queries"),
+  players: z.array(samsRosterPlayerSchema).default([]),
+  officials: z.array(samsRosterOfficialSchema).default([]),
+  updatedAt: z.iso.datetime(),
+  ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (1-year expiry)"),
+});
+
+export type SamsRosterInput = z.infer<typeof samsRosterSchema>;
+
 // ---------------------------------------------------------------------------
 // Volunteer Event Planner schemas
 // ---------------------------------------------------------------------------

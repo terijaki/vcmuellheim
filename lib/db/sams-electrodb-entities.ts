@@ -1,7 +1,7 @@
 /**
  * ElectroDB entity definitions for the single SAMS data table.
  *
- * Single table design: SamsClub and SamsTeam share one DynamoDB table (`SAMS_TABLE_NAME`).
+ * Single table design: SamsClub, SamsTeam, and SamsRoster share one DynamoDB table (`SAMS_TABLE_NAME`).
  *
  * Table key structure:
  *   PK  (pk)     — entity_type#uuid  (e.g. "samsclub#uuid")
@@ -92,10 +92,37 @@ export const SamsTeamEntity = new Entity({
   },
 } as const);
 
+// ---------------------------------------------------------------------------
+// SamsRoster entity
+// ---------------------------------------------------------------------------
+
+export const SamsRosterEntity = new Entity({
+  model: {
+    entity: "samsroster",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    teamUuid: { type: "string", required: true },
+    type: { type: "string", required: true, default: () => "roster" as const },
+    players: { type: "any", required: true },
+    officials: { type: "any", required: true },
+    updatedAt: { type: "string", required: true },
+    ttl: { type: "number", required: true },
+  },
+  indexes: {
+    byTeamUuid: {
+      pk: { field: "pk", composite: ["teamUuid"] },
+      sk: { field: "sk", composite: [] },
+    },
+  },
+} as const);
+
 /** All SAMS entities — useful for building a service */
 export const SamsEntities = {
   club: SamsClubEntity,
   team: SamsTeamEntity,
+  roster: SamsRosterEntity,
 } as const;
 
 export type SamsEntityName = keyof typeof SamsEntities;
