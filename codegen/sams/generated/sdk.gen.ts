@@ -142,6 +142,9 @@ import type {
   GetTeamByUuidData,
   GetTeamByUuidErrors,
   GetTeamByUuidResponses,
+  GetTeamRosterByTeamUuidData,
+  GetTeamRosterByTeamUuidErrors,
+  GetTeamRosterByTeamUuidResponses,
   GetTeamsForCompetitionData,
   GetTeamsForCompetitionErrors,
   GetTeamsForCompetitionResponses,
@@ -299,6 +302,9 @@ import {
   zGetTeamByUuidHeaders,
   zGetTeamByUuidPath,
   zGetTeamByUuidResponse,
+  zGetTeamRosterByTeamUuidHeaders,
+  zGetTeamRosterByTeamUuidPath,
+  zGetTeamRosterByTeamUuidResponse,
   zGetTeamsForCompetitionHeaders,
   zGetTeamsForCompetitionPath,
   zGetTeamsForCompetitionQuery,
@@ -1464,6 +1470,31 @@ export const getTeamByUuid = <ThrowOnError extends boolean = false>(
         .parseAsync(data),
     responseValidator: async (data) => await zGetTeamByUuidResponse.parseAsync(data),
     url: "/teams/{uuid}",
+    ...options,
+  });
+
+/**
+ * Returns all members of a team identified by the given UUID
+ */
+export const getTeamRosterByTeamUuid = <ThrowOnError extends boolean = false>(
+  options: Options<GetTeamRosterByTeamUuidData, ThrowOnError>,
+) =>
+  (options.client ?? client).get<
+    GetTeamRosterByTeamUuidResponses,
+    GetTeamRosterByTeamUuidErrors,
+    ThrowOnError
+  >({
+    requestValidator: async (data) =>
+      await z
+        .object({
+          body: z.never().optional(),
+          headers: zGetTeamRosterByTeamUuidHeaders.optional(),
+          path: zGetTeamRosterByTeamUuidPath,
+          query: z.never().optional(),
+        })
+        .parseAsync(data),
+    responseValidator: async (data) => await zGetTeamRosterByTeamUuidResponse.parseAsync(data),
+    url: "/teams/{uuid}/roster",
     ...options,
   });
 

@@ -2,22 +2,20 @@
 /**
  * SAMS REST API testing/exploration tool.
  *
- * Usage: vp exec tsx --env-file=.env.local .agents/skills/sams-api/sams.ts <resource> [uuid] [subresource] [--query key=value ...]
+ * Usage: vpr sams-api <resource> [uuid] [subresource] [--query key=value ...]
  *
- * Requires SAMS_API_KEY in .env.local.
+ * Requires SAMS_API_KEY loaded via Varlock.
  */
 
 const BASE_URL = "https://www.volleyball-baden.de/api/v2";
 
 function printHelp(): void {
   const script = "sams.ts";
-  console.log(
-    `Usage: vp exec tsx --env-file=.env.local .agents/skills/sams-api/${script} <resource> [uuid] [subresource] [--query key=value ...]\n`,
-  );
-  console.log("Requires SAMS_API_KEY in .env.local");
+  console.log(`Usage: vpr sams-api <resource> [uuid] [subresource] [--query key=value ...]\n`);
+  console.log("Requires SAMS_API_KEY loaded via Varlock (vpr)");
   console.log("Swagger: https://www.volleyball-baden.de/api/v2/swagger.json\n");
   console.log("Examples:");
-  console.log(`  ${script} seasons --query size=1              # verify API key`);
+  console.log(`  ${script} leagues --query size=1              # verify API key`);
   console.log(`  ${script} seasons                             # list all seasons`);
   console.log(`  ${script} leagues <uuid> rankings             # rankings for a league`);
   console.log(`  ${script} leagues <uuid> teams                # teams in a league`);
@@ -31,6 +29,10 @@ function parseArgs(args: string[]): { positionals: string[]; query: Record<strin
   let i = 0;
   while (i < args.length) {
     const arg = args[i];
+    if (arg === "--") {
+      i++;
+      continue;
+    }
     if (arg === "--query" && i + 1 < args.length) {
       // --query key=value
       const raw = args[i + 1];
@@ -76,7 +78,7 @@ async function main(): Promise<void> {
 
   const apiKey = process.env.SAMS_API_KEY;
   if (!apiKey) {
-    console.error("Error: SAMS_API_KEY is not set. Add it to .env.local.");
+    console.error("Error: SAMS_API_KEY is not set. Load secrets via Varlock and run with vpr.");
     process.exit(1);
   }
 
@@ -109,6 +111,12 @@ async function main(): Promise<void> {
     console.error(`✗ HTTP ${response.status} ${response.statusText}`);
     console.error(typeof parsed === "string" ? parsed : JSON.stringify(parsed, null, 2));
     process.exit(1);
+  }
+
+  if (Array.isArray(parsed) && (query.size || query.page)) {
+    console.error(
+      "Note: this endpoint returns a bare array; pagination parameters like size/page may be ignored by the API.",
+    );
   }
 
   console.log(JSON.stringify(parsed, null, 2));
