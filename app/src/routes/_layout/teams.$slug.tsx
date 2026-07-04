@@ -387,8 +387,8 @@ function TeamRoster({ teamUuid }: { teamUuid?: string }) {
         <CardTitle>Kader</CardTitle>
         {sortedPlayers.length > 0 && (
           <Flex wrap="wrap" gap="xl">
-            {sortedPlayers.map((player, index) => (
-              <Group key={player.uuid ?? `${player.name}-${index}`} align="center">
+            {sortedPlayers.map((player) => (
+              <Group key={player.uuid} align="center">
                 <Avatar src={player.portraitImageLink} name={player.name} />
                 <Stack gap={0}>
                   <Text fw="bold" c="turquoise">
@@ -409,8 +409,8 @@ function TeamRoster({ teamUuid }: { teamUuid?: string }) {
           <>
             <Text fw="bold">Offizielle</Text>
             <Flex wrap="wrap" gap="xl">
-              {roster.officials.map((official, index) => (
-                <Group key={official.uuid ?? `${official.name}-${index}`} align="center">
+              {roster.officials.map((official) => (
+                <Group key={official.uuid} align="center">
                   <Avatar name={official.name} />
                   <Stack gap={0}>
                     <Text fw="bold" c="turquoise">

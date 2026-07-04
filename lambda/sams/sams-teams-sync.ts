@@ -59,23 +59,29 @@ function mapRosterPlayers(
     portraitImageLink?: string;
   }> = [],
 ): RosterPlayer[] {
-  return players.map((p) => ({
-    uuid: p.uuid,
-    name: p.name,
-    jerseyNumber: p.jerseyNumber,
-    position: p.position,
-    portraitImageLink: p.portraitImageLink,
-  }));
+  return players
+    .filter((p): p is typeof p & { name: string } => !!p.name?.trim())
+    .map((p) => ({
+      // The SAMS API sometimes omits uuid; assign a pseudo uuid so every player has a stable identity
+      uuid: p.uuid ?? crypto.randomUUID(),
+      name: p.name,
+      jerseyNumber: p.jerseyNumber,
+      position: p.position,
+      portraitImageLink: p.portraitImageLink,
+    }));
 }
 
 function mapRosterOfficials(
   officials: Array<{ uuid?: string; name?: string; role?: string }> = [],
 ): RosterOfficial[] {
-  return officials.map((o) => ({
-    uuid: o.uuid,
-    name: o.name,
-    role: o.role,
-  }));
+  return officials
+    .filter((o): o is typeof o & { name: string } => !!o.name?.trim())
+    .map((o) => ({
+      // The SAMS API sometimes omits uuid; assign a pseudo uuid so every official has a stable identity
+      uuid: o.uuid ?? crypto.randomUUID(),
+      name: o.name,
+      role: o.role,
+    }));
 }
 
 async function resolveConfiguredSamsClubsFromStorage() {
