@@ -109,7 +109,7 @@
     "vite-plus": "0.2.2"
   },
   "overrides": {
-    "@aws-sdk/lib-dynamodb": "3.1045.0",
+    "@aws-sdk/lib-dynamodb": "3.1079.0",
     "vite": "npm:@voidzero-dev/vite-plus-core@0.2.2"
   },
   "engines": {
