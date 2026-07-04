@@ -23,7 +23,7 @@ createClient({
     },
     {
       name: "@hey-api/client-fetch",
-      runtimeConfigPath: "@codegen/sams/hey-api.ts", // Emit an alias import in generated/client.gen.ts so TS/esbuild resolve it consistently.
+      runtimeConfigPath: "../hey-api.ts", // Relative import (not the @codegen alias): rolldown fails to resolve aliased imports from within alias-resolved generated files.
     },
     {
       name: "@hey-api/sdk",
