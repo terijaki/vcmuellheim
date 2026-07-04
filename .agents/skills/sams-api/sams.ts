@@ -10,16 +10,16 @@
 const BASE_URL = "https://www.volleyball-baden.de/api/v2";
 
 function printHelp(): void {
-  const script = "sams.ts";
+  const cmd = "vpr sams-api";
   console.log(`Usage: vpr sams-api <resource> [uuid] [subresource] [--query key=value ...]\n`);
   console.log("Requires SAMS_API_KEY loaded via Varlock (vpr)");
   console.log("Swagger: https://www.volleyball-baden.de/api/v2/swagger.json\n");
   console.log("Examples:");
-  console.log(`  ${script} leagues --query size=1              # verify API key`);
-  console.log(`  ${script} seasons                             # list all seasons`);
-  console.log(`  ${script} leagues <uuid> rankings             # rankings for a league`);
-  console.log(`  ${script} leagues <uuid> teams                # teams in a league`);
-  console.log(`  ${script} league-matches --query leagueUuid=<uuid>`);
+  console.log(`  ${cmd} leagues --query size=1              # verify API key`);
+  console.log(`  ${cmd} seasons                             # list all seasons`);
+  console.log(`  ${cmd} leagues <uuid> rankings             # rankings for a league`);
+  console.log(`  ${cmd} leagues <uuid> teams                # teams in a league`);
+  console.log(`  ${cmd} league-matches --query leagueUuid=<uuid>`);
   console.log("\nRate limits: max 5 req/s (200 ms between calls); daily quota per key.");
 }
 
