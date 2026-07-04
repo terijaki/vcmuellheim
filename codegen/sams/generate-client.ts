@@ -23,7 +23,10 @@ createClient({
     },
     {
       name: "@hey-api/client-fetch",
-      runtimeConfigPath: "../hey-api.ts", // Relative import (not the @codegen alias): rolldown fails to resolve aliased imports from within alias-resolved generated files.
+      // Since @hey-api/openapi-ts 0.97, runtimeConfigPath resolves relative to the CWD (like `output.path`),
+      // not relative to the generated file. Use a CWD-relative path here (not the @codegen alias): rolldown
+      // fails to resolve aliased imports from within alias-resolved generated files.
+      runtimeConfigPath: "./codegen/sams/hey-api.ts",
     },
     {
       name: "@hey-api/sdk",
