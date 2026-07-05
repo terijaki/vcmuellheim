@@ -115,6 +115,11 @@ export const SamsRosterEntity = new Entity({
       pk: { field: "pk", composite: ["teamUuid"] },
       sk: { field: "sk", composite: [] },
     },
+    byType: {
+      index: SamsTableIndexes.gsi1,
+      pk: { field: "gsi1pk", composite: ["type"] },
+      sk: { field: "gsi1sk", composite: ["teamUuid"] },
+    },
   },
 } as const);
 
