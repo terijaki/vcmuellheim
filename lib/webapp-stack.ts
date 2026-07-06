@@ -67,8 +67,9 @@ export class WebAppStack extends cdk.Stack {
     const isCdkDestroy = process.env.CDK_DESTROY === "true";
     // prod: vcmuellheim.de  dev: dev.new.vcmuellheim.de  feature: dev-<branch>.new.vcmuellheim.de
     const webappDomain = buildWebappDomain(environment, branch);
-    const webappDomainAliases =
-      isProd && webappDomain ? [webappDomain, `www.${webappDomain}`] : [webappDomain];
+    const webappDomainAliases = isProd
+      ? [webappDomain, `www.${webappDomain}`]
+      : [webappDomain];
     const webappUrl = buildWebappUrl(environment, branch);
 
     if (!isCdkDestroy && !process.env.BETTER_AUTH_SECRET) {
