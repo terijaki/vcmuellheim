@@ -306,7 +306,7 @@ describe("WebAppStack", () => {
 
     template.hasResourceProperties("AWS::CloudFront::Distribution", {
       DistributionConfig: {
-        Aliases: ["vcmuellheim.de", "www.vcmuellheim.de"],
+        Aliases: Match.arrayWith(["vcmuellheim.de", "www.vcmuellheim.de"]),
       },
     });
 
