@@ -1,6 +1,8 @@
 import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { Match, Template } from "aws-cdk-lib/assertions";
+import * as acm from "aws-cdk-lib/aws-certificatemanager";
+import * as route53 from "aws-cdk-lib/aws-route53";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { CACHE_TABLE_ENV_VAR, CONTENT_TABLE_ENV_VAR } from "./db/env";
 import { createTestApp } from "./test-helpers";
@@ -276,5 +278,48 @@ describe("WebAppStack", () => {
     }).not.toThrow();
 
     expect(buildMock).not.toHaveBeenCalled();
+  });
+
+  it("configures apex and www aliases for prod custom domains", () => {
+    const app = createTestApp();
+    const dependencies = createDependencies();
+
+    const stack = new WebAppStack(app, "TestStack", {
+      env: testEnv,
+      stackProps: {
+        environment: "prod",
+        branch: "",
+      },
+      hostedZone: route53.HostedZone.fromHostedZoneAttributes(app, "HostedZone", {
+        hostedZoneId: "Z1111111111111",
+        zoneName: "vcmuellheim.de",
+      }),
+      cloudFrontCertificate: acm.Certificate.fromCertificateArn(
+        app,
+        "CloudFrontCertificate",
+        "arn:aws:acm:us-east-1:123456789012:certificate/test-cert",
+      ),
+      ...dependencies,
+    });
+
+    const template = Template.fromStack(stack);
+
+    template.hasResourceProperties("AWS::CloudFront::Distribution", {
+      DistributionConfig: {
+        Aliases: Match.arrayWith(["vcmuellheim.de", "www.vcmuellheim.de"]),
+      },
+    });
+
+    template.resourceCountIs("AWS::Route53::RecordSet", 2);
+
+    template.hasResourceProperties("AWS::Route53::RecordSet", {
+      Name: "vcmuellheim.de.",
+      Type: "A",
+    });
+
+    template.hasResourceProperties("AWS::Route53::RecordSet", {
+      Name: "www.vcmuellheim.de.",
+      Type: "A",
+    });
   });
 });
