@@ -67,6 +67,8 @@ export class WebAppStack extends cdk.Stack {
     const isCdkDestroy = process.env.CDK_DESTROY === "true";
     // prod: vcmuellheim.de  dev: dev.new.vcmuellheim.de  feature: dev-<branch>.new.vcmuellheim.de
     const webappDomain = buildWebappDomain(environment, branch);
+    const webappDomainAliases =
+      isProd && webappDomain ? [webappDomain, `www.${webappDomain}`] : [webappDomain];
     const webappUrl = buildWebappUrl(environment, branch);
 
     if (!isCdkDestroy && !process.env.BETTER_AUTH_SECRET) {
@@ -287,7 +289,7 @@ export class WebAppStack extends cdk.Stack {
       comment: isProd ? "VCM WebApp (Prod)" : `VCM WebApp (${environment}${branchSuffix})`,
       ...(props.cloudFrontCertificate && props.hostedZone
         ? {
-            domainNames: [webappDomain],
+            domainNames: webappDomainAliases,
             certificate: props.cloudFrontCertificate,
           }
         : {}),
@@ -315,6 +317,16 @@ export class WebAppStack extends cdk.Stack {
           new route53Targets.CloudFrontTarget(this.distribution),
         ),
       });
+
+      if (isProd) {
+        new route53.ARecord(this, "WebAppWwwARecord", {
+          zone: props.hostedZone,
+          recordName: `www.${webappDomain}`,
+          target: route53.RecordTarget.fromAlias(
+            new route53Targets.CloudFrontTarget(this.distribution),
+          ),
+        });
+      }
 
       this.webappUrl = webappUrl;
     } else {
