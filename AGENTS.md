@@ -49,3 +49,17 @@ Subfolder-level `AGENTS.md` files contain additional context for specific areas 
 - Keep edits minimal and focused: follow existing file patterns (imports, export shapes, naming).
 - Prefer small, reviewable PRs that change one area (frontend, lambda, or infra) at a time.
 - When updating infra (`lib/*.ts`), include `cdk synth` output notes and required context (e.g., environment variables, AWS profile).
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in this repository's GitHub Issues, and external pull requests are also treated as a triage request surface. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The triage workflow uses the canonical label vocabulary as-is: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This repository is configured as single-context: root `CONTEXT.md` and `docs/adr` are the domain sources. See `docs/agents/domain.md`.
