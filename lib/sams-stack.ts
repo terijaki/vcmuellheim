@@ -116,14 +116,19 @@ export class SamsStack extends cdk.Stack {
     // Grant DynamoDB permissions to teams sync Lambda
     samsDataTable.grantReadWriteData(this.samsTeamsSync);
 
+    // SAMS data is incomplete during season preparation — skip scheduled syncs in June/July.
+    // Manual syncs via admin UI invoke the Lambdas directly and are unaffected.
+    const samsSyncActiveMonths = "1,2,3,4,5,8,9,10,11,12";
+
     // Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
     const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
       ruleName: `sams-clubs-weekly-sync-${environment}${branchSuffix}`,
-      description: `Trigger SAMS clubs sync every Wednesday at 2 AM UTC (${environment}${branchSuffix})`,
+      description: `Trigger SAMS clubs sync every Wednesday at 2 AM UTC, except June/July season prep (${environment}${branchSuffix})`,
       schedule: events.Schedule.cron({
         weekDay: "WED",
         hour: "2",
         minute: "0",
+        month: samsSyncActiveMonths,
       }),
     }); // Add Lambda as target for EventBridge rule
     syncRule.addTarget(new targets.LambdaFunction(this.samsClubsSync));
@@ -131,10 +136,11 @@ export class SamsStack extends cdk.Stack {
     // Create EventBridge rule to trigger teams sync nightly at 3 AM UTC
     const teamsSyncRule = new events.Rule(this, "SamsTeamsSyncRule", {
       ruleName: `sams-teams-nightly-sync-${environment}${branchSuffix}`,
-      description: `Trigger SAMS teams sync every night at 3 AM UTC - after clubs sync (${environment}${branchSuffix})`,
+      description: `Trigger SAMS teams sync every night at 3 AM UTC, except June/July season prep (${environment}${branchSuffix})`,
       schedule: events.Schedule.cron({
         hour: "3",
         minute: "0",
+        month: samsSyncActiveMonths,
       }),
     });
 

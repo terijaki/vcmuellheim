@@ -227,13 +227,13 @@ describe("SamsStack", () => {
 
       const template = Template.fromStack(stack);
 
-      // Should have EventBridge rules for nightly syncs
+      // Should have EventBridge rules for nightly syncs (paused in June/July for season prep)
       template.hasResourceProperties("AWS::Events::Rule", {
-        ScheduleExpression: "cron(0 2 ? * WED *)", // Clubs sync: Wed 2 AM UTC
+        ScheduleExpression: "cron(0 2 ? 1,2,3,4,5,8,9,10,11,12 WED *)", // Clubs sync: Wed 2 AM UTC
       });
 
       template.hasResourceProperties("AWS::Events::Rule", {
-        ScheduleExpression: "cron(0 3 * * ? *)", // Teams sync: Daily 3 AM UTC
+        ScheduleExpression: "cron(0 3 * 1,2,3,4,5,8,9,10,11,12 ? *)", // Teams sync: Daily 3 AM UTC
       });
     });
   });
