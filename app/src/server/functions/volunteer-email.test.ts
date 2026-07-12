@@ -8,7 +8,7 @@ import {
   sendVolunteerOrganizerCancellationNotificationEmail,
   sendVolunteerOrganizerNotificationEmail,
   sendVolunteerReceiptEmail,
-} from "./volunteer-email";
+} from "./volunteer-email.server";
 
 const sesMock = mockClient(SESv2Client);
 let previousAppBaseUrl: string | undefined;

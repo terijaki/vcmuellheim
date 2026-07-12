@@ -6,38 +6,38 @@
  */
 
 import {
-    getAllLeagueMatches,
-    getLeagueByUuid,
-    getRankingsForLeague,
-    getSeasonByUuid,
-    type LeagueMatchDto,
+  getAllLeagueMatches,
+  getLeagueByUuid,
+  getRankingsForLeague,
+  getSeasonByUuid,
+  type LeagueMatchDto,
 } from "@codegen/sams/generated";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { createCacheKey, createExpiringCache, getOrSetExpiringCacheValue } from "@utils/cache";
 import dayjs from "dayjs";
 import { z } from "zod";
 import {
-    type LeagueMatchesResponse,
-    LeagueMatchesResponseSchema,
-    type LiveMatch,
-    type LiveTickerResponse,
-    LiveTickerResponseSchema,
-    type RankingResponse,
-    RankingResponseSchema,
+  type LeagueMatchesResponse,
+  LeagueMatchesResponseSchema,
+  type LiveMatch,
+  type LiveTickerResponse,
+  LiveTickerResponseSchema,
+  type RankingResponse,
+  RankingResponseSchema,
 } from "@/lambda/sams/types";
 import {
-    getAllSamsClubs,
-    getAllSamsTeams,
-    getSamsClubByNameSlug,
-    getSamsClubByNameSlugPrefix,
-    getSamsClubBySportsclubUuid,
+  getAllSamsClubs,
+  getAllSamsTeams,
+  getSamsClubByNameSlug,
+  getSamsClubByNameSlugPrefix,
+  getSamsClubBySportsclubUuid,
 } from "../queries";
 import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
 import { parseServerData } from "../schema-parse";
 import {
-    dedupeSamsMatchesByUuid,
-    SAMS_TARGET_CLUB_SLUGS,
-    shouldResolveDefaultSamsSportsclubs,
+  dedupeSamsMatchesByUuid,
+  SAMS_TARGET_CLUB_SLUGS,
+  shouldResolveDefaultSamsSportsclubs,
 } from "@/utils/sams";
 import { buildLeagueOrderingContext } from "@webapp/utils/ranking";
 

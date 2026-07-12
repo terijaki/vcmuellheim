@@ -41,23 +41,23 @@ const clubLogoInputSchema = z.union([
 ]);
 
 export const getSamsMatchesFn = createServerFn()
-  .inputValidator(samsMatchesInputSchema)
+  .validator(samsMatchesInputSchema)
   .handler(async ({ data }) => handleGetSamsMatches(data));
 
 export const getSamsRankingsByLeagueUuidsFn = createServerFn()
-  .inputValidator(z.object({ leagueUuids: z.array(z.string()) }))
+  .validator(z.object({ leagueUuids: z.array(z.string()) }))
   .handler(async ({ data }) => handleGetSamsRankingsByLeagueUuids(data.leagueUuids));
 
 export const getSamsRankingByLeagueUuidFn = createServerFn()
-  .inputValidator(z.string())
+  .validator(z.string())
   .handler(async ({ data }) => handleGetSamsRankingByLeagueUuid(data));
 
 export const peekSamsRankingsCacheFn = createServerFn()
-  .inputValidator(z.object({ leagueUuids: z.array(z.string()) }))
+  .validator(z.object({ leagueUuids: z.array(z.string()) }))
   .handler(async ({ data }) => handlePeekSamsRankingsCache(data.leagueUuids));
 
 export const peekSamsMatchesCacheFn = createServerFn()
-  .inputValidator(samsMatchesInputSchema)
+  .validator(samsMatchesInputSchema)
   .handler(async ({ data }) => handlePeekSamsMatchesCache(data));
 
 export const listSamsClubsFn = createServerFn().handler(async () => handleListSamsClubs());
@@ -65,11 +65,11 @@ export const listSamsClubsFn = createServerFn().handler(async () => handleListSa
 export const listSamsTeamsFn = createServerFn().handler(async () => handleListSamsTeams());
 
 export const getClubLogoUrlFn = createServerFn()
-  .inputValidator(clubLogoInputSchema)
+  .validator(clubLogoInputSchema)
   .handler(async ({ data }) => handleGetClubLogoUrl(data));
 
 export const getClubLogoUrlsBatchFn = createServerFn()
-  .inputValidator(z.object({ clubSlugs: z.array(z.string().min(1)) }))
+  .validator(z.object({ clubSlugs: z.array(z.string().min(1)) }))
   .handler(async ({ data }) => handleGetClubLogoUrlsBatch(data.clubSlugs));
 
 export const getSamsTickerFn = createServerFn().handler(async () => handleGetSamsTicker());

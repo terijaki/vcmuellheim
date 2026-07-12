@@ -10,7 +10,7 @@ import {
   sendVolunteerOrganizerCancellationNotificationEmail,
   sendVolunteerOrganizerNotificationEmail,
   sendVolunteerReceiptEmail,
-} from "./volunteer-email";
+} from "./volunteer-email.server";
 import {
   cancelVolunteerSignupByAdmin,
   cancelVolunteerSignupByVolunteer,
@@ -19,7 +19,7 @@ import {
   getPublicVolunteerEvent,
   sendBulkVolunteerEventEmail,
   verifyVolunteerToken,
-} from "./volunteer-handlers";
+} from "./volunteer.server";
 
 // ── Environment setup ────────────────────────────────────────────────────────
 process.env.CONTENT_TABLE_NAME = "test-content-table";
@@ -87,7 +87,7 @@ vi.mock("@/lib/db/electrodb-client", () => ({
   })),
 }));
 
-vi.mock("./volunteer-email", () => ({
+vi.mock("./volunteer-email.server", () => ({
   sendVolunteerConfirmationEmail: vi.fn().mockResolvedValue(undefined),
   sendVolunteerConfirmedDuplicateEmail: vi.fn().mockResolvedValue(undefined),
   sendVolunteerReceiptEmail: vi.fn().mockResolvedValue(undefined),
