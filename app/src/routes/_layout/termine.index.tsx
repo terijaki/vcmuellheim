@@ -80,11 +80,7 @@ function EventsContent({
   );
 }
 
-function MatchesContent({
-  loaderMatches,
-}: {
-  loaderMatches: LeagueMatchesResponse | undefined;
-}) {
+function MatchesContent({ loaderMatches }: { loaderMatches: LeagueMatchesResponse | undefined }) {
   const matchesInitialDataUpdatedAt = loaderMatches?.timestamp
     ? new Date(loaderMatches.timestamp).getTime()
     : undefined;
