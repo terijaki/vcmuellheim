@@ -2,27 +2,32 @@
  * News server functions — replaces lib/trpc/routers/news.ts
  */
 
-import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { createServerFn } from "@tanstack/react-start";
-import { slugify } from "@utils/slugify";
 import { z } from "zod";
-import { db } from "@/lib/db/electrodb-client";
 import { newsSchema } from "@/lib/db/schemas";
 import { requireAuthMiddleware } from "../../middleware";
-import { withTimestamps } from "../dynamo";
-import { getAllNews, getPublishedNews } from "../queries";
-import { parseServerData } from "../schema-parse";
+import {
+  handleCreateNews,
+  handleDeleteNews,
+  handleGetGalleryImages,
+  handleGetNewsById,
+  handleGetPublishedNews,
+  handleListAllNews,
+  handleUpdateNews,
+} from "./news.server";
 
-const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
-const BUCKET_NAME = () => process.env.MEDIA_BUCKET_NAME || "";
-const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
 const cursorSchema = z.string();
 
-// ── Public ──────────────────────────────────────────────────────────────────
+const newsInputSchema = newsSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  type: true,
+  slug: true,
+});
 
 export const getPublishedNewsFn = createServerFn()
-  .inputValidator(
+  .validator(
     z
       .object({
         limit: z.number().min(1).max(100).optional().default(10),
@@ -30,22 +35,14 @@ export const getPublishedNewsFn = createServerFn()
       })
       .optional(),
   )
-  .handler(async ({ data }) => {
-    return getPublishedNews(data?.limit, data?.cursor);
-  });
+  .handler(async ({ data }) => handleGetPublishedNews(data));
 
 export const getNewsByIdFn = createServerFn()
-  .inputValidator(z.object({ id: z.uuid() }))
-  .handler(async ({ data }) => {
-    const result = await db().news.get({ id: data.id }).go();
-    const news = result.data
-      ? parseServerData(newsSchema, result.data, "Failed to parse news article")
-      : null;
-    return news;
-  });
+  .validator(z.object({ id: z.uuid() }))
+  .handler(async ({ data }) => handleGetNewsById(data.id));
 
 export const getGalleryImagesFn = createServerFn()
-  .inputValidator(
+  .validator(
     z
       .object({
         limit: z.number().min(1).max(100).optional().default(20),
@@ -55,36 +52,11 @@ export const getGalleryImagesFn = createServerFn()
       })
       .optional(),
   )
-  .handler(async ({ data }) => {
-    const { items, lastEvaluatedKey } = await getPublishedNews(data?.limit ?? 20, data?.cursor);
-
-    const imageKeys: string[] = items
-      .flatMap((article) => article.imageS3Keys ?? [])
-      .filter(Boolean);
-
-    const shuffled = data?.shuffle ? [...imageKeys].sort(() => Math.random() - 0.5) : imageKeys;
-
-    if (data?.format === "keys") {
-      return { images: shuffled, nextCursor: lastEvaluatedKey };
-    }
-
-    const cloudfrontUrl = MEDIA_CLOUDFRONT_URL();
-    const urls = await Promise.all(
-      shuffled.map(async (key) => {
-        if (cloudfrontUrl) return `${cloudfrontUrl}/${key}`;
-        const cmd = new GetObjectCommand({ Bucket: BUCKET_NAME(), Key: key });
-        return getSignedUrl(s3Client, cmd, { expiresIn: 3600 });
-      }),
-    );
-
-    return { images: urls, nextCursor: lastEvaluatedKey };
-  });
-
-// ── Protected (auth required) ────────────────────────────────────────────────
+  .handler(async ({ data }) => handleGetGalleryImages(data));
 
 export const listAllNewsFn = createServerFn()
   .middleware([requireAuthMiddleware])
-  .inputValidator(
+  .validator(
     z
       .object({
         limit: z.number().min(1).max(100).optional().default(30),
@@ -92,60 +64,24 @@ export const listAllNewsFn = createServerFn()
       })
       .optional(),
   )
-  .handler(async ({ data }) => {
-    return getAllNews(data?.limit, data?.lastEvaluatedKey);
-  });
+  .handler(async ({ data }) => handleListAllNews(data));
 
 export const createNewsFn = createServerFn()
   .middleware([requireAuthMiddleware])
-  .inputValidator(
-    newsSchema.omit({ id: true, createdAt: true, updatedAt: true, type: true, slug: true }),
-  )
-  .handler(async ({ data }) => {
-    const id = crypto.randomUUID();
-    const slug = slugify(data.title);
-    const news = withTimestamps({ ...data, id, slug, type: "article" as const });
-
-    await db().news.create(news).go();
-
-    return news;
-  });
+  .validator(newsInputSchema)
+  .handler(async ({ data }) => handleCreateNews(data));
 
 export const updateNewsFn = createServerFn()
   .middleware([requireAuthMiddleware])
-  .inputValidator(
+  .validator(
     z.object({
       id: z.uuid(),
-      data: newsSchema
-        .omit({ id: true, createdAt: true, updatedAt: true, type: true, slug: true })
-        .partial(),
+      data: newsInputSchema.partial(),
     }),
   )
-  .handler(async ({ data: { id, data: updates } }) => {
-    const baseUpdates = {
-      ...updates,
-      type: "article" as const,
-      updatedAt: new Date().toISOString(),
-    };
-    const finalUpdates = updates.title
-      ? { ...baseUpdates, slug: slugify(updates.title) }
-      : baseUpdates;
-
-    const result = await db().news.patch({ id }).set(finalUpdates).go();
-    if (!result.data) throw new Error("News article not found");
-
-    const refreshedResult = await db().news.get({ id }).go();
-    const news = refreshedResult.data
-      ? parseServerData(newsSchema, refreshedResult.data, "Failed to parse news article")
-      : null;
-    if (!news) throw new Error("News article not found");
-    return news;
-  });
+  .handler(async ({ data: { id, data: updates } }) => handleUpdateNews(id, updates));
 
 export const deleteNewsFn = createServerFn()
   .middleware([requireAuthMiddleware])
-  .inputValidator(z.object({ id: z.uuid() }))
-  .handler(async ({ data }) => {
-    await db().news.delete({ id: data.id }).go();
-    return { success: true };
-  });
+  .validator(z.object({ id: z.uuid() }))
+  .handler(async ({ data }) => handleDeleteNews(data.id));

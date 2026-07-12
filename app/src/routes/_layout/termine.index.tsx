@@ -1,33 +1,38 @@
-import { Anchor, Card, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Card, Loader, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
 import EventCard from "@webapp/components/EventCard";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
+import { useSamsMatches } from "@webapp/hooks/dataQueries";
 import { getUpcomingEventsFn } from "@webapp/server/functions/events";
-import { getSamsMatchesFn } from "@webapp/server/functions/sams";
+import { peekSamsMatchesCacheFn } from "@webapp/server/functions/sams";
 import { createWebcalLink } from "@webapp/utils/webcal";
 import dayjs from "dayjs";
 import { Fragment } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
+import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 
 export const Route = createFileRoute("/_layout/termine/")({
   loader: async () => {
-    const [eventsResult, matchesResult] = await Promise.allSettled([
+    const [eventsResult, cachedMatchesResult] = await Promise.allSettled([
       getUpcomingEventsFn(),
-      getSamsMatchesFn({ data: { range: "future" } }),
+      peekSamsMatchesCacheFn({ data: { range: "future" } }),
     ]);
 
     const events = eventsResult.status === "fulfilled" ? eventsResult.value.items : [];
-    const matches = matchesResult.status === "fulfilled" ? matchesResult.value : null;
+    const matches =
+      cachedMatchesResult.status === "fulfilled"
+        ? (cachedMatchesResult.value ?? undefined)
+        : undefined;
 
-    return { events, matches, matchesError: matchesResult.status === "rejected" };
+    return { events, matches };
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { events, matches, matchesError } = Route.useLoaderData();
+  const { events, matches: loaderMatches } = Route.useLoaderData();
   const webcalLink = createWebcalLink("/ics/all.ics");
 
   return (
@@ -52,7 +57,7 @@ function RouteComponent() {
           </Stack>
         </Card>
         <EventsContent events={events} />
-        <MatchesContent matches={matches} error={matchesError} />
+        <MatchesContent loaderMatches={loaderMatches} />
       </Stack>
     </PageWithHeading>
   );
@@ -81,17 +86,38 @@ function EventsContent({
   );
 }
 
-function MatchesContent({
-  matches,
-  error,
-}: {
-  matches: Awaited<ReturnType<typeof getSamsMatchesFn>> | null;
-  error: boolean;
-}) {
+function MatchesContent({ loaderMatches }: { loaderMatches: LeagueMatchesResponse | undefined }) {
+  const matchesInitialDataUpdatedAt = loaderMatches?.timestamp
+    ? new Date(loaderMatches.timestamp).getTime()
+    : undefined;
+  const {
+    data: matchesData,
+    isLoading,
+    isError,
+  } = useSamsMatches({
+    range: "future",
+    initialData: loaderMatches,
+    initialDataUpdatedAt: matchesInitialDataUpdatedAt,
+  });
+
   const currentMonth = dayjs().month() + 1;
   const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
 
-  if (error) {
+  if (isLoading && !matchesData) {
+    return (
+      <Card>
+        <CardTitle>Ligaspiele</CardTitle>
+        <Stack align="center" py="md" gap="xs">
+          <Loader size="sm" />
+          <Text c="dimmed" size="sm">
+            Lade Spieltermine...
+          </Text>
+        </Stack>
+      </Card>
+    );
+  }
+
+  if (isError) {
     return (
       <Card>
         <CardTitle>Fehler beim Laden der SBVV Ligaspiele</CardTitle>
@@ -100,19 +126,18 @@ function MatchesContent({
     );
   }
 
-  if (matches?.matches && matches.matches.length > 0) {
-    const timestampDate = matches.timestamp ? new Date(matches.timestamp) : undefined;
+  if (matchesData?.matches && matchesData.matches.length > 0) {
+    const timestampDate = matchesData.timestamp ? new Date(matchesData.timestamp) : undefined;
     return (
       <Card>
         <Title order={2} c="blumine">
           Ligaspiele
         </Title>
-        <Matches matches={matches.matches} timestamp={timestampDate} type="future" />
+        <Matches matches={matchesData.matches} timestamp={timestampDate} type="future" />
       </Card>
     );
   }
 
-  // Fallback when no matches
   return (
     <Fragment>
       <Card>

@@ -1,70 +1,31 @@
 /**
  * Server functions for the Volunteer Event Planner feature.
  *
- * Admin functions (requireAdminMiddleware):
- *   listVolunteerEventsFn, getVolunteerEventFn, createVolunteerEventFn,
- *   updateVolunteerEventFn, deleteVolunteerEventFn (blocked if signups exist),
- *   archiveVolunteerEventFn, restoreVolunteerEventFn,
- *   listVolunteerSignupsFn, updateVolunteerSignupFn, cancelVolunteerSignupFn,
- *   confirmVolunteerSignupFn (force-confirm)
- *
- * Public functions (no auth):
- *   getPublicVolunteerEventFn — event info + signup counts + confirmed helper names
- *   createVolunteerSignupFn  — creates pending signup on first submission + token + confirmation email
- *   verifyVolunteerTokenFn   — upserts signup to confirmed from token + receipt email
- *   volunteerCancelSignupFn  — self-service cancellation (confirmed only, before shift start)
- *
- * Business logic lives in volunteer-handlers.ts so that server-only deps
- * (electrodb, SES, etc.) are never pulled into the client bundle.
+ * Server-only logic lives in volunteer.server.ts (import-protected).
  */
 
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { db } from "@/lib/db/electrodb-client";
-import {
-  volunteerEventSchema,
-  volunteerSignupDataSchema,
-  volunteerSignupSchema,
-} from "@/lib/db/schemas";
+import { volunteerEventSchema, volunteerSignupDataSchema } from "@/lib/db/schemas";
 import { requireAdminMiddleware } from "../../middleware";
-import { withTimestamps } from "../dynamo";
-import { parseServerArray, parseServerData } from "../schema-parse";
 import {
   cancelVolunteerSignupByAdmin,
   cancelVolunteerSignupByVolunteer,
   confirmVolunteerSignup,
   createVolunteerSignup,
   getPublicVolunteerEvent,
+  handleArchiveVolunteerEvent,
+  handleCreateVolunteerEvent,
+  handleDeleteVolunteerEvent,
+  handleGetVolunteerEvent,
+  handleListVolunteerEvents,
+  handleListVolunteerSignups,
+  handleRestoreVolunteerEvent,
+  handleUpdateVolunteerEvent,
+  handleUpdateVolunteerSignup,
   sendBulkVolunteerEventEmail,
   verifyVolunteerToken,
-} from "./volunteer-handlers";
-
-// ---------------------------------------------------------------------------
-// Admin — Events CRUD
-// ---------------------------------------------------------------------------
-
-export const listVolunteerEventsFn = createServerFn()
-  .middleware([requireAdminMiddleware])
-  .handler(async () => {
-    const result = await db()
-      .volunteerEvent.query.byType({ type: "volunteerEvent" })
-      .go({ pages: "all" });
-    const items = parseServerArray(
-      volunteerEventSchema,
-      result.data,
-      "Failed to parse volunteer event list",
-    );
-    return { items };
-  });
-
-export const getVolunteerEventFn = createServerFn()
-  .middleware([requireAdminMiddleware])
-  .inputValidator(z.object({ id: z.uuid() }))
-  .handler(async ({ data }) => {
-    const result = await db().volunteerEvent.get({ id: data.id }).go();
-    if (!result.data) throw new Error("Volunteer event not found");
-    return parseServerData(volunteerEventSchema, result.data, "Failed to parse volunteer event");
-  });
+} from "./volunteer.server";
 
 const volunteerEventInputSchema = volunteerEventSchema.omit({
   id: true,
@@ -72,127 +33,53 @@ const volunteerEventInputSchema = volunteerEventSchema.omit({
   updatedAt: true,
 });
 
+export const listVolunteerEventsFn = createServerFn()
+  .middleware([requireAdminMiddleware])
+  .handler(async () => handleListVolunteerEvents());
+
+export const getVolunteerEventFn = createServerFn()
+  .middleware([requireAdminMiddleware])
+  .validator(z.object({ id: z.uuid() }))
+  .handler(async ({ data }) => handleGetVolunteerEvent(data.id));
+
 export const createVolunteerEventFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
-  .inputValidator(volunteerEventInputSchema)
-  .handler(async ({ data }) => {
-    const event = withTimestamps({ ...data, id: crypto.randomUUID() });
-    await db().volunteerEvent.create(event).go();
-    return event;
-  });
+  .validator(volunteerEventInputSchema)
+  .handler(async ({ data }) => handleCreateVolunteerEvent(data));
 
 export const updateVolunteerEventFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
-  .inputValidator(
+  .validator(
     z.object({
       id: z.uuid(),
       data: volunteerEventInputSchema.partial(),
     }),
   )
-  .handler(async ({ data: { id, data: updates } }) => {
-    // When shifts are updated, clear assignedRoleId on any signup that
-    // referenced a role that no longer exists in the new shift structure.
-    if (updates.shifts) {
-      const current = await db().volunteerEvent.get({ id }).go();
-      if (current.data) {
-        const currentEvent = parseServerData(
-          volunteerEventSchema,
-          current.data,
-          "Failed to parse volunteer event",
-        );
-        const oldRoleIds = new Set(currentEvent.shifts.flatMap((s) => s.roles.map((r) => r.id)));
-        const newRoleIds = new Set(updates.shifts.flatMap((s) => s.roles.map((r) => r.id)));
-        const deletedRoleIds = new Set([...oldRoleIds].filter((rid) => !newRoleIds.has(rid)));
-
-        if (deletedRoleIds.size > 0) {
-          const signupsResult = await db()
-            .volunteerSignup.query.byEvent({ eventId: id })
-            .go({ pages: "all" });
-          const affectedSignups = signupsResult.data.filter(
-            (s) => s.assignedRoleId && deletedRoleIds.has(s.assignedRoleId),
-          );
-          await Promise.all(
-            affectedSignups.map((s) =>
-              db()
-                .volunteerSignup.patch({ id: s.id })
-                .set({ updatedAt: new Date().toISOString() })
-                .remove(["assignedRoleId"])
-                .go(),
-            ),
-          );
-        }
-      }
-    }
-
-    await db()
-      .volunteerEvent.patch({ id })
-      .set({ ...updates, updatedAt: new Date().toISOString() })
-      .go();
-    const refreshed = await db().volunteerEvent.get({ id }).go();
-    if (!refreshed.data) throw new Error("Volunteer event not found");
-    return parseServerData(volunteerEventSchema, refreshed.data, "Failed to parse volunteer event");
-  });
+  .handler(async ({ data: { id, data: updates } }) => handleUpdateVolunteerEvent(id, updates));
 
 export const deleteVolunteerEventFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
-  .inputValidator(z.object({ id: z.uuid() }))
-  .handler(async ({ data }) => {
-    // Block deletion if any signups exist — use archive instead
-    const signupsResult = await db()
-      .volunteerSignup.query.byEvent({ eventId: data.id })
-      .go({ pages: "all" });
-    if (signupsResult.data.length > 0) {
-      throw new Error("Cannot delete an event with existing signups. Archive it instead.");
-    }
-    await db().volunteerEvent.delete({ id: data.id }).go();
-    return { success: true };
-  });
+  .validator(z.object({ id: z.uuid() }))
+  .handler(async ({ data }) => handleDeleteVolunteerEvent(data.id));
 
 export const archiveVolunteerEventFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
-  .inputValidator(z.object({ id: z.uuid() }))
-  .handler(async ({ data }) => {
-    await db()
-      .volunteerEvent.patch({ id: data.id })
-      .set({ archivedAt: new Date().toISOString(), updatedAt: new Date().toISOString() })
-      .go();
-    return { success: true };
-  });
+  .validator(z.object({ id: z.uuid() }))
+  .handler(async ({ data }) => handleArchiveVolunteerEvent(data.id));
 
 export const restoreVolunteerEventFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
-  .inputValidator(z.object({ id: z.uuid() }))
-  .handler(async ({ data }) => {
-    await db()
-      .volunteerEvent.patch({ id: data.id })
-      .set({ updatedAt: new Date().toISOString() })
-      .remove(["archivedAt"])
-      .go();
-    return { success: true };
-  });
-
-// ---------------------------------------------------------------------------
-// Admin — Signups management
-// ---------------------------------------------------------------------------
+  .validator(z.object({ id: z.uuid() }))
+  .handler(async ({ data }) => handleRestoreVolunteerEvent(data.id));
 
 export const listVolunteerSignupsFn = createServerFn()
   .middleware([requireAdminMiddleware])
-  .inputValidator(z.object({ eventId: z.uuid() }))
-  .handler(async ({ data }) => {
-    const result = await db()
-      .volunteerSignup.query.byEvent({ eventId: data.eventId })
-      .go({ pages: "all" });
-    const items = parseServerArray(
-      volunteerSignupSchema,
-      result.data,
-      "Failed to parse signup list",
-    );
-    return { items };
-  });
+  .validator(z.object({ eventId: z.uuid() }))
+  .handler(async ({ data }) => handleListVolunteerSignups(data.eventId));
 
 export const updateVolunteerSignupFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
-  .inputValidator(
+  .validator(
     z.object({
       id: z.uuid(),
       data: z.object({
@@ -201,53 +88,21 @@ export const updateVolunteerSignupFn = createServerFn({ method: "POST" })
       }),
     }),
   )
-  .handler(async ({ data: { id, data: updates } }) => {
-    const existingSignupResult = await db().volunteerSignup.get({ id }).go();
-    if (!existingSignupResult.data) throw new Error("Signup not found");
-    const existingSignup = parseServerData(
-      volunteerSignupSchema,
-      existingSignupResult.data,
-      "Failed to parse signup",
-    );
-    if (existingSignup.status === "canceled") {
-      throw new Error("Canceled signups cannot be modified");
-    }
-
-    const setFields: Record<string, unknown> = { updatedAt: new Date().toISOString() };
-    if (updates.shiftId !== undefined) setFields.shiftId = updates.shiftId;
-
-    const patchOp = db().volunteerSignup.patch({ id }).set(setFields);
-    const result =
-      updates.assignedRoleId === null
-        ? await patchOp.remove(["assignedRoleId"]).go()
-        : updates.assignedRoleId !== undefined
-          ? await db()
-              .volunteerSignup.patch({ id })
-              .set({ ...setFields, assignedRoleId: updates.assignedRoleId })
-              .go()
-          : updates.shiftId !== undefined
-            ? await patchOp.remove(["assignedRoleId"]).go()
-            : await patchOp.go();
-
-    if (!result.data) throw new Error("Signup not found");
-    const refreshed = await db().volunteerSignup.get({ id }).go();
-    if (!refreshed.data) throw new Error("Signup not found");
-    return parseServerData(volunteerSignupSchema, refreshed.data, "Failed to parse signup");
-  });
+  .handler(async ({ data: { id, data: updates } }) => handleUpdateVolunteerSignup(id, updates));
 
 export const cancelVolunteerSignupFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
-  .inputValidator(z.object({ id: z.uuid() }))
+  .validator(z.object({ id: z.uuid() }))
   .handler(async ({ data }) => cancelVolunteerSignupByAdmin(data));
 
 export const confirmVolunteerSignupFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
-  .inputValidator(z.object({ id: z.uuid() }))
+  .validator(z.object({ id: z.uuid() }))
   .handler(async ({ data }) => confirmVolunteerSignup(data));
 
 export const sendVolunteerBulkEmailFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
-  .inputValidator(
+  .validator(
     z.object({
       eventId: z.uuid(),
       subject: z.string().min(1).max(500),
@@ -270,24 +125,20 @@ export const sendVolunteerBulkEmailFn = createServerFn({ method: "POST" })
   )
   .handler(async ({ data }) => sendBulkVolunteerEventEmail(data));
 
-// ---------------------------------------------------------------------------
-// Public
-// ---------------------------------------------------------------------------
-
 export const getPublicVolunteerEventFn = createServerFn()
-  .inputValidator(z.object({ id: z.uuid() }))
+  .validator(z.object({ id: z.uuid() }))
   .handler(async ({ data }) => getPublicVolunteerEvent(data));
 
 export const createVolunteerSignupFn = createServerFn({ method: "POST" })
-  .inputValidator(volunteerSignupDataSchema)
+  .validator(volunteerSignupDataSchema)
   .handler(async ({ data }) => createVolunteerSignup(data));
 
 export const verifyVolunteerTokenFn = createServerFn()
-  .inputValidator(z.object({ tokenId: z.uuid() }))
+  .validator(z.object({ tokenId: z.uuid() }))
   .handler(async ({ data }) => verifyVolunteerToken(data));
 
 export const volunteerCancelSignupFn = createServerFn({ method: "POST" })
-  .inputValidator(
+  .validator(
     z.object({
       id: z.uuid(),
       email: z.email().trim(),
