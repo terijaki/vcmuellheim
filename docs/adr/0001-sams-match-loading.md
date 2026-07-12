@@ -29,7 +29,7 @@ Season scoping is best-effort and deferred to the cache-miss path:
 2. On miss, read `seasonUuid` from synced teams in DynamoDB (`getAllSamsTeams()`).
 3. If found, retry cache and API calls with `for-season=<uuid>`.
 4. If season resolution fails (missing table, sync not run, dev environment), fall back
-  to **all seasons** for the configured clubs.
+   to **all seasons** for the configured clubs.
 
 We intentionally use the **synced** season from the teams sync lambda, not SAMS's live
 `currentSeason` flag. If the teams sync is stale (e.g. paused during off-season prep),
@@ -39,13 +39,11 @@ match queries may scope to the previous season until the next sync runs.
 
 SAMS API filters narrow the download; additional filtering happens in memory:
 
-
 | Parameter         | Effect                                            |
 | ----------------- | ------------------------------------------------- |
 | `range: "future"` | Keep matches without `results.winner` (unplayed)  |
 | `range: "past"`   | Keep matches with `results.winner` (completed)    |
 | `limit: N`        | Slice to N results **after** pagination completes |
-
 
 `limit` does not reduce SAMS API pagination — all pages matching the API-level filters
 are fetched first.
@@ -55,7 +53,6 @@ are fetched first.
 Route loaders must not call `getSamsMatchesFn` directly. That function may hit the SAMS
 API on cache miss and block navigation for several seconds.
 
-
 | Route                 | Loader                                             | Client refresh                                   |
 | --------------------- | -------------------------------------------------- | ------------------------------------------------ |
 | `/termine`            | `peekSamsMatchesCacheFn({ range: "future" })`      | `useSamsMatches({ range: "future" })`            |
@@ -63,12 +60,10 @@ API on cache miss and block navigation for several seconds.
 | `/teams/$slug`        | `peekSamsMatchesCacheFn({ team })`                 | `useSamsMatches({ team })`                       |
 | Homepage (Heimspiele) | none                                               | `useSamsMatches({ range: "future", limit: 50 })` |
 
-
 React Query passes cached loader data as `initialData` and refetches in the background
 when stale.
 
 ## Per-page behaviour
-
 
 | Page                  | SAMS API filters                  | Post-filter                                        |
 | --------------------- | --------------------------------- | -------------------------------------------------- |
@@ -77,27 +72,21 @@ when stale.
 | `/tabelle`            | same                              | `past`, dynamic `limit`                            |
 | Team page             | `for-team` + season (if resolved) | all matches for that team                          |
 
-
-
-
 ## Considered options
 
 - **Live** `currentSeason` **from SAMS API** — more accurate during season transitions, but
-adds an extra API call on every cache miss. Deferred; synced season is good enough when
-teams sync runs regularly.
+  adds an extra API call on every cache miss. Deferred; synced season is good enough when
+  teams sync runs regularly.
 - **SSR-blocking** `getSamsMatchesFn` **in loaders** — simpler code, but caused Lambda duration
-alarms. Rejected for public routes.
+  alarms. Rejected for public routes.
 - **Pass** `limit` **to SAMS API** — not supported; pagination always returns full result sets
-for the applied filters.
-
-
+  for the applied filters.
 
 ## Consequences
 
 - Match data may be empty early in a new season if synced teams still reference the old
-`seasonUuid` and the SAMS API has no future matches for that season.
+  `seasonUuid` and the SAMS API has no future matches for that season.
 - Cache entries are keyed by resolved params (clubs, season, team, range, limit). A
-season change after teams sync invalidates keys naturally via new `seasonUuid`.
+  season change after teams sync invalidates keys naturally via new `seasonUuid`.
 - Production alarms on average Lambda duration should drop once cache-peek loaders are
-deployed and season-scoped fetches replace full-history pagination.
-
+  deployed and season-scoped fetches replace full-history pagination.
