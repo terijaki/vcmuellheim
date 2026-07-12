@@ -15,12 +15,18 @@ import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 
 export const Route = createFileRoute("/_layout/termine/")({
   loader: async () => {
-    const [events, cachedMatches] = await Promise.all([
+    const [eventsResult, cachedMatchesResult] = await Promise.allSettled([
       getUpcomingEventsFn(),
       peekSamsMatchesCacheFn({ data: { range: "future" } }),
     ]);
 
-    return { events: events.items, matches: cachedMatches ?? undefined };
+    const events = eventsResult.status === "fulfilled" ? eventsResult.value.items : [];
+    const matches =
+      cachedMatchesResult.status === "fulfilled"
+        ? (cachedMatchesResult.value ?? undefined)
+        : undefined;
+
+    return { events, matches };
   },
   component: RouteComponent,
 });
