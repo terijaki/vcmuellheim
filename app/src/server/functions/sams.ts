@@ -5,11 +5,11 @@
  */
 
 import {
-  getAllLeagueMatches,
-  getLeagueByUuid,
-  getRankingsForLeague,
-  getSeasonByUuid,
-  type LeagueMatchDto,
+    getAllLeagueMatches,
+    getLeagueByUuid,
+    getRankingsForLeague,
+    getSeasonByUuid,
+    type LeagueMatchDto,
 } from "@codegen/sams/generated";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { createServerFn } from "@tanstack/react-start";
@@ -18,28 +18,29 @@ import dayjs from "dayjs";
 import { z } from "zod";
 import { requireAdminMiddleware } from "../../middleware";
 import {
-  type LeagueMatchesResponse,
-  LeagueMatchesResponseSchema,
-  type LiveMatch,
-  type LiveTickerResponse,
-  LiveTickerResponseSchema,
-  type RankingResponse,
-  RankingResponseSchema,
+    type LeagueMatchesResponse,
+    LeagueMatchesResponseSchema,
+    type LiveMatch,
+    type LiveTickerResponse,
+    LiveTickerResponseSchema,
+    type RankingResponse,
+    RankingResponseSchema,
 } from "@/lambda/sams/types";
 import {
-  getAllSamsClubs,
-  getAllSamsTeams,
-  getSamsClubByNameSlug,
-  getSamsClubByNameSlugPrefix,
-  getSamsClubBySportsclubUuid,
+    getAllSamsClubs,
+    getAllSamsTeams,
+    getSamsClubByNameSlug,
+    getSamsClubByNameSlugPrefix,
+    getSamsClubBySportsclubUuid,
 } from "../queries";
 import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
 import { parseServerData } from "../schema-parse";
 import {
-  dedupeSamsMatchesByUuid,
-  SAMS_TARGET_CLUB_SLUGS,
-  shouldResolveDefaultSamsSportsclubs,
+    dedupeSamsMatchesByUuid,
+    SAMS_TARGET_CLUB_SLUGS,
+    shouldResolveDefaultSamsSportsclubs,
 } from "@/utils/sams";
+import { buildLeagueOrderingContext } from "@webapp/utils/ranking";
 
 const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
 
@@ -95,6 +96,88 @@ export function createSamsMatchesCacheKey(
     limit: input.limit,
     range: input.range,
   });
+}
+
+type ResolvedSamsMatchesQuery = {
+  league?: string;
+  season?: string;
+  sportsclub?: string;
+  team?: string;
+  limit?: number;
+  range?: "past" | "future";
+  effectiveSportsclubUuids: string[];
+  cacheKey: string;
+};
+
+async function resolveSyncedSeasonUuid(): Promise<string | undefined> {
+  try {
+    const syncedTeams = await getAllSamsTeams();
+    return buildLeagueOrderingContext(syncedTeams.items).seasonUuid;
+  } catch (error) {
+    console.warn("Failed to resolve synced SAMS season UUID; continuing without season filter", {
+      error: error instanceof Error ? error.message : String(error),
+    });
+    return undefined;
+  }
+}
+
+/** Resolves effective SAMS match query params and cache key (without auto season lookup). */
+export async function resolveSamsMatchesQuery(
+  data?: SamsMatchesInput,
+): Promise<ResolvedSamsMatchesQuery | null> {
+  const { league, season, sportsclub, team } = data || {};
+
+  const shouldUseDefaultSportsclubs = shouldResolveDefaultSamsSportsclubs({
+    league,
+    sportsclub,
+    team,
+  });
+  const defaultSportsclubUuids = shouldUseDefaultSportsclubs
+    ? await resolveConfiguredSamsSportsclubUuidsFromStorage()
+    : [];
+  if (shouldUseDefaultSportsclubs && defaultSportsclubUuids.length === 0) {
+    return null;
+  }
+
+  const effectiveSportsclubUuids = resolveEffectiveSamsSportsclubUuids(
+    { league, sportsclub, team },
+    defaultSportsclubUuids,
+  );
+
+  const cacheKey = createSamsMatchesCacheKey(
+    {
+      league,
+      season,
+      sportsclub,
+      team,
+      limit: data?.limit,
+      range: data?.range,
+    },
+    effectiveSportsclubUuids,
+  );
+
+  return {
+    league,
+    season,
+    sportsclub,
+    team,
+    limit: data?.limit,
+    range: data?.range,
+    effectiveSportsclubUuids,
+    cacheKey,
+  };
+}
+
+async function resolveSeasonScopedSamsMatchesQuery(
+  data: SamsMatchesInput | undefined,
+  baseQuery: ResolvedSamsMatchesQuery,
+): Promise<ResolvedSamsMatchesQuery | null> {
+  if (baseQuery.season) return baseQuery;
+
+  const syncedSeason = await resolveSyncedSeasonUuid();
+  if (!syncedSeason) return null;
+
+  return resolveSamsMatchesQuery({ ...data, season: syncedSeason });
 }
 
 async function fetchAllSamsLeagueMatches({
@@ -207,20 +290,11 @@ export const getSamsMatchesFn = createServerFn()
       .optional(),
   )
   .handler(async ({ data }) => {
-    let { league, season, sportsclub, team } = data || {};
-
-    const shouldUseDefaultSportsclubs = shouldResolveDefaultSamsSportsclubs({
-      league,
-      sportsclub,
-      team,
-    });
-    const defaultSportsclubUuids = shouldUseDefaultSportsclubs
-      ? await resolveConfiguredSamsSportsclubUuidsFromStorage()
-      : [];
-    if (shouldUseDefaultSportsclubs && defaultSportsclubUuids.length === 0) {
+    const resolvedQuery = await resolveSamsMatchesQuery(data);
+    if (!resolvedQuery) {
       console.warn("No configured SAMS sportsclub UUIDs resolved; returning empty matches", {
-        league,
-        season,
+        league: data?.league,
+        season: data?.season,
       });
       return parseServerData(
         LeagueMatchesResponseSchema,
@@ -228,25 +302,24 @@ export const getSamsMatchesFn = createServerFn()
         "Failed to parse empty SAMS matches response",
       );
     }
-    const effectiveSportsclubUuids = resolveEffectiveSamsSportsclubUuids(
-      { league, sportsclub, team },
-      defaultSportsclubUuids,
-    );
 
-    // Build cache key from the resolved (effective) params so callers that rely on
-    // the default sportsclub filter get the same cache entry as explicit callers.
-    const cacheKey = createSamsMatchesCacheKey(
-      {
-        league,
-        season,
-        sportsclub,
-        team,
-        limit: data?.limit,
-        range: data?.range,
-      },
-      effectiveSportsclubUuids,
+    let activeQuery = resolvedQuery;
+    let cachedMatches = await readCacheEntry<LeagueMatchesResponse>(
+      activeQuery.cacheKey,
+      5 * 60 * 1000,
     );
-    const cachedMatches = await readCacheEntry<LeagueMatchesResponse>(cacheKey, 5 * 60 * 1000);
+    if (!cachedMatches) {
+      const seasonScopedQuery = await resolveSeasonScopedSamsMatchesQuery(data, resolvedQuery);
+      if (seasonScopedQuery) {
+        activeQuery = seasonScopedQuery;
+        cachedMatches = await readCacheEntry<LeagueMatchesResponse>(
+          activeQuery.cacheKey,
+          5 * 60 * 1000,
+        );
+      }
+    }
+
+    const { league, season, team, cacheKey, effectiveSportsclubUuids } = activeQuery;
     if (cachedMatches) return cachedMatches;
 
     const allMatches = await fetchAllSamsLeagueMatches({
@@ -330,36 +403,19 @@ export const peekSamsMatchesCacheFn = createServerFn()
       .optional(),
   )
   .handler(async ({ data }) => {
-    let { league, season, sportsclub, team } = data || {};
+    const resolvedQuery = await resolveSamsMatchesQuery(data);
+    if (!resolvedQuery) return null;
 
-    const shouldUseDefaultSportsclubs = shouldResolveDefaultSamsSportsclubs({
-      league,
-      sportsclub,
-      team,
-    });
-    const defaultSportsclubUuids = shouldUseDefaultSportsclubs
-      ? await resolveConfiguredSamsSportsclubUuidsFromStorage()
-      : [];
-    if (shouldUseDefaultSportsclubs && defaultSportsclubUuids.length === 0) {
-      return null;
-    }
-    const effectiveSportsclubUuids = resolveEffectiveSamsSportsclubUuids(
-      { league, sportsclub, team },
-      defaultSportsclubUuids,
+    const cachedMatches = await readCacheEntry<LeagueMatchesResponse>(
+      resolvedQuery.cacheKey,
+      Infinity,
     );
+    if (cachedMatches) return cachedMatches;
 
-    const cacheKey = createSamsMatchesCacheKey(
-      {
-        league,
-        season,
-        sportsclub,
-        team,
-        limit: data?.limit,
-        range: data?.range,
-      },
-      effectiveSportsclubUuids,
-    );
-    return readCacheEntry<LeagueMatchesResponse>(cacheKey, Infinity);
+    const seasonScopedQuery = await resolveSeasonScopedSamsMatchesQuery(data, resolvedQuery);
+    if (!seasonScopedQuery) return null;
+
+    return readCacheEntry<LeagueMatchesResponse>(seasonScopedQuery.cacheKey, Infinity);
   });
 
 export const listSamsClubsFn = createServerFn().handler(async () => {
