@@ -26,6 +26,7 @@ import { MAX_UPLOAD_SIZE } from "@utils/image-config";
 import { useNotification } from "@webapp/hooks/useNotification";
 import {
   formatProxyAlias,
+  getProxyAliasBranchName,
   getProxyAliasDomain,
   parseProxyAlias,
 } from "@webapp/server/functions/member-alias";
@@ -45,15 +46,15 @@ import z from "zod";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
 const isValidEmail = (value: string) => z.email().safeParse(value).success;
-const defaultProxyAliasDomain = getProxyAliasDomain(import.meta.env.CDK_ENVIRONMENT);
-const branchNameFromEnv = (import.meta.env as Record<string, string | undefined>).VITE_BRANCH_NAME;
+const cdkEnvironment = import.meta.env.CDK_ENVIRONMENT;
+const defaultProxyAliasDomain = getProxyAliasDomain(cdkEnvironment);
 
 const getProxyAliasInputParts = (proxyEmail?: string) => {
   if (!proxyEmail) {
     return {
       domain: defaultProxyAliasDomain,
       baseLocalPart: "",
-      branchName: branchNameFromEnv,
+      branchName: getProxyAliasBranchName(cdkEnvironment, import.meta.env.VITE_BRANCH_NAME),
     };
   }
 
@@ -62,7 +63,10 @@ const getProxyAliasInputParts = (proxyEmail?: string) => {
   return {
     domain: parsed.domain,
     baseLocalPart: parsed.baseLocalPart,
-    branchName: branchNameFromEnv || parsed.branchName,
+    branchName: getProxyAliasBranchName(
+      cdkEnvironment,
+      import.meta.env.VITE_BRANCH_NAME || parsed.branchName,
+    ),
   };
 };
 
