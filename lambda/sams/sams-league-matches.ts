@@ -78,7 +78,24 @@ async function fetchAllLeagueMatchesForSportsclubs({
       });
 
       if (!data) {
-        if (currentPage === 0) throw new Error(`SAMS API returned no data on page ${currentPage}`);
+        if (currentPage === 0) {
+          console.warn("SAMS API returned no data on first page", {
+            page: currentPage,
+            sportsclubUuid,
+            league,
+            season,
+            team,
+          });
+          Sentry.metrics.count("sams.league_matches.empty_response", 1, {
+            attributes: {
+              page: String(currentPage),
+              sportsclub_uuid: sportsclubUuid ?? "",
+              league: league ?? "",
+              season: season ?? "",
+              team: team ?? "",
+            },
+          });
+        }
         break;
       }
 

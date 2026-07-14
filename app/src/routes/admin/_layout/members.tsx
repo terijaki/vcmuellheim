@@ -46,15 +46,20 @@ import z from "zod";
 
 const bytesToMB = (bytes: number, decimals = 1) => (bytes / (1024 * 1024)).toFixed(decimals);
 const isValidEmail = (value: string) => z.email().safeParse(value).success;
+const clientHostname = typeof window !== "undefined" ? window.location.hostname : undefined;
 const cdkEnvironment = import.meta.env.CDK_ENVIRONMENT;
-const defaultProxyAliasDomain = getProxyAliasDomain(cdkEnvironment);
+const defaultProxyAliasDomain = getProxyAliasDomain(cdkEnvironment, clientHostname);
 
 const getProxyAliasInputParts = (proxyEmail?: string) => {
   if (!proxyEmail) {
     return {
       domain: defaultProxyAliasDomain,
       baseLocalPart: "",
-      branchName: getProxyAliasBranchName(cdkEnvironment, import.meta.env.VITE_BRANCH_NAME),
+      branchName: getProxyAliasBranchName(
+        cdkEnvironment,
+        import.meta.env.VITE_BRANCH_NAME,
+        defaultProxyAliasDomain,
+      ),
     };
   }
 
@@ -66,6 +71,7 @@ const getProxyAliasInputParts = (proxyEmail?: string) => {
     branchName: getProxyAliasBranchName(
       cdkEnvironment,
       import.meta.env.VITE_BRANCH_NAME || parsed.branchName,
+      parsed.domain,
     ),
   };
 };
