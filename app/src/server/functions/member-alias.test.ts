@@ -112,6 +112,12 @@ describe("proxy alias environment helpers", () => {
     expect(getProxyAliasDomain("prod", "dev.new.vcmuellheim.de")).toBe("new.vcmuellheim.de");
   });
 
+  test("keeps branch suffix on dev domain when build-time env is prod", () => {
+    expect(getProxyAliasBranchName("prod", "email-proxy", "new.vcmuellheim.de")).toBe(
+      "email-proxy",
+    );
+  });
+
   test("hides branch suffix on production recipient domains", () => {
     expect(isProdProxyAliasDomain("vcmuellheim.de")).toBe(true);
     expect(getProxyAliasBranchName("dev", "main", "vcmuellheim.de")).toBeUndefined();

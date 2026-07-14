@@ -113,11 +113,16 @@ function isDevProxyAliasHostname(hostname: string): boolean {
 }
 
 export function getProxyAliasBranchName(
-  cdkEnvironment = process.env.CDK_ENVIRONMENT,
+  cdkEnvironment?: string,
   branchName = process.env.BRANCH_NAME,
   domain?: string,
 ): string | undefined {
-  if (cdkEnvironment === "prod" || (domain && isProdProxyAliasDomain(domain))) {
+  const resolvedEnvironment = cdkEnvironment ?? process.env.CDK_ENVIRONMENT;
+  const isProdContext =
+    (domain !== undefined && isProdProxyAliasDomain(domain)) ||
+    (domain === undefined && resolvedEnvironment === "prod");
+
+  if (isProdContext) {
     return undefined;
   }
 
