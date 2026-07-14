@@ -315,6 +315,9 @@ function splitMimeIntoHeadersAndBody(rawMime: string): { headers: string; body: 
   };
 }
 
+const BLOCKED_FORWARD_HEADER_PATTERN =
+  /^(return-path|sender|dkim-signature|arc-seal|arc-message-signature|arc-authentication-results|authentication-results|received-spf):/i;
+
 function stripBlockedForwardHeaders(headers: string): string {
   const headerLines = headers.split(/\r?\n/);
   const strippedHeaders: string[] = [];
@@ -328,7 +331,7 @@ function stripBlockedForwardHeaders(headers: string): string {
       continue;
     }
 
-    skipContinuation = /^(return-path|sender):/i.test(line);
+    skipContinuation = BLOCKED_FORWARD_HEADER_PATTERN.test(line);
     if (!skipContinuation) {
       strippedHeaders.push(line);
     }
