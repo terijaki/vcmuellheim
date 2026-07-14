@@ -204,6 +204,43 @@ describe("mail-forward Lambda", () => {
       );
     });
 
+    test("removes DKIM-Signature headers before forwarding", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              [
+                "DKIM-Signature: v=1; a=rsa-sha256; d=example.com; s=selector1; h=from:to:subject; b=abc123",
+                "DKIM-Signature: v=1; a=rsa-sha256; d=gmx.net; s=selector2; h=from:to:subject; b=def456",
+                "From: sender@example.com",
+                "To: max.mustermann@vcmuellheim.de",
+                "Subject: Test",
+                "",
+                "Hello world",
+              ].join("\n"),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/dkim-test.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).not.toMatch(/^DKIM-Signature:/im);
+      expect(getForwardCalls()).toHaveLength(1);
+    });
+
     test("removes original Return-Path before forwarding", async () => {
       mockByProxyEmailGo.mockResolvedValue({
         data: [
