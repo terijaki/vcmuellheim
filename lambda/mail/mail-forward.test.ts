@@ -673,6 +673,99 @@ describe("mail-forward Lambda", () => {
       expect(rawMime).toMatch(/^Reply-To: =\?UTF-8\?Q\?M=C3=BCller\?= <mueller@gmx\.de>$/im);
     });
 
+    test("sanitizes angle address in preserved RFC 2047 Reply-To", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime(
+                "max.mustermann@vcmuellheim.de",
+                "=?UTF-8?Q?M=C3=BCller?= <mueller @gmx.de>",
+              ),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/rfc2047-reply-to-sanitize.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).toMatch(/^Reply-To: =\?UTF-8\?Q\?M=C3=BCller\?= <mueller@gmx\.de>$/im);
+    });
+
+    test("RFC 2047-encodes question marks in display names", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime("max.mustermann@vcmuellheim.de", "Müller? <sender@example.com>"),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/question-mark-reply-to.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).toMatch(/^Reply-To: =\?UTF-8\?Q\?M=C3=BCller=3F\?= <sender@example\.com>$/im);
+    });
+
+    test("splits long non-ASCII display names into multiple RFC 2047 encoded-words", async () => {
+      const longName = "Müller ".repeat(12).trim();
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime("max.mustermann@vcmuellheim.de", `${longName} <sender@example.com>`),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/long-unicode-reply-to.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      const replyToLine = rawMime.match(/^Reply-To: (.+)$/im)?.[1] ?? "";
+      const encodedWords = replyToLine.match(/=\?UTF-8\?Q\?[^?]+\?=/g) ?? [];
+      expect(encodedWords.length).toBeGreaterThan(1);
+      for (const word of encodedWords) {
+        expect(word.length).toBeLessThanOrEqual(75);
+      }
+    });
+
     test("RFC 2047-encodes non-ASCII sender names when rebuilding Reply-To", async () => {
       mockByProxyEmailGo.mockResolvedValue({
         data: [
@@ -999,6 +1092,31 @@ describe("mail-forward Lambda", () => {
       expect(destinations).toContain("trainer1@example.com");
       expect(destinations).toContain("trainer2@example.com");
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
+    });
+
+    test("deduplicates group members after email sanitization", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi.fn().mockResolvedValue(makeMime("trainer@vcmuellheim.de")),
+        } as never,
+      });
+      mockByTypeWhereGo.mockResolvedValue({
+        data: [
+          { id: "t1", isTrainer: true, privateEmail: "trainer1@example.com" },
+          { id: "t2", isTrainer: true, privateEmail: "trainer1 @example.com" },
+        ],
+      });
+
+      const result = await handler(
+        makeEvent("emails/trainer-dedupe-sanitize.eml"),
+        mockLambdaContext as never,
+      );
+
+      expect(getForwardCalls()).toHaveLength(1);
+      expect(getForwardCalls()[0].args[0].input.Destination?.ToAddresses).toEqual([
+        "trainer1@example.com",
+      ]);
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
 
     test("forwards vorstand@ to all board members with a privateEmail", async () => {

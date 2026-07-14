@@ -236,6 +236,9 @@ function parseOriginalSender(originalFrom: string): ParsedOriginalSender {
 
 const INVISIBLE_EMAIL_CHARACTERS = ["\u00a0", "\u200b", "\u200c", "\u200d", "\ufeff"] as const;
 const RFC2047_ENCODED_WORD_PATTERN = /=\?[^?]+\?[BQbq]\?[^?]*\?=/;
+const RFC2047_MAX_ENCODED_WORD_LENGTH = 75;
+const RFC2047_ENCODED_WORD_PREFIX = "=?UTF-8?Q?";
+const RFC2047_ENCODED_WORD_SUFFIX = "?=";
 
 function stripInvisibleEmailCharacters(value: string): string {
   let stripped = value;
@@ -287,15 +290,15 @@ function collectRoutableEmails(
   entries: Array<{ email: string; memberId?: string }>,
   source: string,
 ): string[] {
-  const routable: string[] = [];
+  const routable = new Set<string>();
   for (const entry of entries) {
     const sanitized = sanitizeRoutableEmail(entry.email, {
       memberId: entry.memberId,
       source,
     });
-    if (sanitized) routable.push(sanitized);
+    if (sanitized) routable.add(sanitized);
   }
-  return routable;
+  return Array.from(routable);
 }
 
 function isRfc2047EncodedWord(value: string): boolean {
@@ -311,19 +314,50 @@ function containsNonAscii(value: string): boolean {
   return false;
 }
 
+function encodeQuotedPrintableByte(byte: number): string {
+  if (byte === 32) {
+    return "_";
+  }
+  if (byte === 63) {
+    return "=3F";
+  }
+  if ((byte >= 33 && byte <= 60) || (byte >= 62 && byte <= 126)) {
+    return String.fromCharCode(byte);
+  }
+  return `=${byte.toString(16).toUpperCase().padStart(2, "0")}`;
+}
+
+function wrapRfc2047EncodedWord(quotedPrintablePayload: string): string {
+  return `${RFC2047_ENCODED_WORD_PREFIX}${quotedPrintablePayload}${RFC2047_ENCODED_WORD_SUFFIX}`;
+}
+
 function encodeRfc2047Utf8(text: string): string {
   const bytes = new TextEncoder().encode(text);
-  let quotedPrintable = "";
+  const qpSegments: string[] = [];
   for (const byte of bytes) {
-    if (byte === 32) {
-      quotedPrintable += "_";
-    } else if ((byte >= 33 && byte <= 60) || (byte >= 62 && byte <= 126)) {
-      quotedPrintable += String.fromCharCode(byte);
-    } else {
-      quotedPrintable += `=${byte.toString(16).toUpperCase().padStart(2, "0")}`;
-    }
+    qpSegments.push(encodeQuotedPrintableByte(byte));
   }
-  return `=?UTF-8?Q?${quotedPrintable}?=`;
+
+  const words: string[] = [];
+  let current = "";
+  for (const segment of qpSegments) {
+    const candidate = current + segment;
+    if (wrapRfc2047EncodedWord(candidate).length <= RFC2047_MAX_ENCODED_WORD_LENGTH) {
+      current = candidate;
+      continue;
+    }
+
+    if (current.length > 0) {
+      words.push(wrapRfc2047EncodedWord(current));
+    }
+    current = segment;
+  }
+
+  if (current.length > 0) {
+    words.push(wrapRfc2047EncodedWord(current));
+  }
+
+  return words.join(" ");
 }
 
 function formatDisplayNameForHeader(displayName: string): string {
@@ -535,9 +569,28 @@ function buildForwardFromHeaderValue(originalFrom: string, newFrom: string): str
   return formatFromHeaderValue(sender.name, newFrom, sender.email);
 }
 
+function buildPreservedReplyToHeaderValue(originalFrom: string): string {
+  const normalized = originalFrom.replace(/\s+/g, " ").trim();
+  const sender = parseOriginalSender(originalFrom);
+  const angleAddressMatch = normalized.match(/<[^<>]+@[^<>]+>/);
+
+  if (!angleAddressMatch || angleAddressMatch.index === undefined) {
+    return formatMailboxHeaderValue(sender.name, sender.email);
+  }
+
+  const displayName = normalized.slice(0, angleAddressMatch.index).trim();
+  const sanitizedEmail = sanitizeEmailAddress(sender.email);
+
+  if (!displayName) {
+    return sanitizedEmail;
+  }
+
+  return `${displayName} <${sanitizedEmail}>`;
+}
+
 function buildReplyToHeaderValue(originalFrom: string): string {
   if (shouldPreserveReplyToHeader(originalFrom)) {
-    return originalFrom.replace(/\s+/g, " ").trim();
+    return buildPreservedReplyToHeaderValue(originalFrom);
   }
 
   const sender = parseOriginalSender(originalFrom);
