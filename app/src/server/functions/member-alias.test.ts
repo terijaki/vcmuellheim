@@ -73,6 +73,12 @@ describe("suggestProxyAlias", () => {
     );
   });
 
+  test("sanitizes slashes in branch names for valid plus-address suffixes", () => {
+    expect(suggestProxyAlias("Julia Fischer", "new.vcmuellheim.de", "terijaki/f3ed6e0f")).toBe(
+      "julia.fischer+terijaki-f3ed6e0f@new.vcmuellheim.de",
+    );
+  });
+
   test("applies duplicate numbering before the branch suffix", () => {
     expect(suggestProxyAlias("Max Müller", "new.vcmuellheim.de", "email-proxy", 2)).toBe(
       "max.mueller2+email-proxy@new.vcmuellheim.de",
@@ -91,10 +97,37 @@ describe("proxy alias environment helpers", () => {
     expect(getProxyAliasBranchName("dev", "email-proxy")).toBe("email-proxy");
   });
 
-  test("infers production domain from hostname when build-time env is missing", () => {
-    expect(getProxyAliasDomain(undefined, "vcmuellheim.de")).toBe("vcmuellheim.de");
-    expect(getProxyAliasDomain(undefined, "www.vcmuellheim.de")).toBe("vcmuellheim.de");
-    expect(getProxyAliasDomain(undefined, "dev.new.vcmuellheim.de")).toBe("new.vcmuellheim.de");
+  test("infers recipient domain from hostname when build-time env is missing", () => {
+    const previousEnvironment = process.env.CDK_ENVIRONMENT;
+    delete process.env.CDK_ENVIRONMENT;
+
+    try {
+      expect(getProxyAliasDomain(undefined, "vcmuellheim.de")).toBe("vcmuellheim.de");
+      expect(getProxyAliasDomain(undefined, "www.vcmuellheim.de")).toBe("vcmuellheim.de");
+      expect(getProxyAliasDomain(undefined, "dev.new.vcmuellheim.de")).toBe("new.vcmuellheim.de");
+    } finally {
+      if (previousEnvironment === undefined) {
+        delete process.env.CDK_ENVIRONMENT;
+      } else {
+        process.env.CDK_ENVIRONMENT = previousEnvironment;
+      }
+    }
+  });
+
+  test("prefers dev hostname over build-time prod env", () => {
+    expect(getProxyAliasDomain("prod", "dev.new.vcmuellheim.de")).toBe("new.vcmuellheim.de");
+  });
+
+  test("keeps branch suffix on dev domain when build-time env is prod", () => {
+    expect(getProxyAliasBranchName("prod", "email-proxy", "new.vcmuellheim.de")).toBe(
+      "email-proxy",
+    );
+  });
+
+  test("sanitizes slashes in raw branch names for alias suffixes", () => {
+    expect(getProxyAliasBranchName("dev", "terijaki/f3ed6e0f", "new.vcmuellheim.de")).toBe(
+      "terijaki-f3ed6e0f",
+    );
   });
 
   test("hides branch suffix on production recipient domains", () => {
@@ -144,5 +177,15 @@ describe("canonicalizeProxyAlias", () => {
     expect(
       canonicalizeProxyAlias("max.mueller+email-proxy@vcmuellheim.de", "prod", "email-proxy"),
     ).toBe("max.mueller@vcmuellheim.de");
+  });
+
+  test("rewrites unsanitized branch suffix to sanitized form in dev", () => {
+    expect(
+      canonicalizeProxyAlias(
+        "julia.fischer+terijaki/f3ed6e0f@new.vcmuellheim.de",
+        "dev",
+        "terijaki/f3ed6e0f",
+      ),
+    ).toBe("julia.fischer+terijaki-f3ed6e0f@new.vcmuellheim.de");
   });
 });

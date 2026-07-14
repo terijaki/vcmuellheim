@@ -379,7 +379,129 @@ describe("mail-forward Lambda", () => {
       expect(rawMime).toMatch(
         /^From: "original\.sender \(original\.sender@example\.com\)" <postmaster@vcmuellheim\.de>$/im,
       );
-      expect(rawMime).toMatch(/Reply-To:.*original\.sender@example\.com/i);
+      expect(rawMime).toMatch(/^Reply-To: original\.sender@example\.com$/im);
+    });
+
+    test("quotes Reply-To display name when sender name contains comma", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime(
+                "max.mustermann@vcmuellheim.de",
+                "Volleyball Team, Muellheim <sender@example.com>",
+              ),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/reply-to-comma-test.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).toMatch(/^Reply-To: "Volleyball Team, Muellheim" <sender@example\.com>$/im);
+    });
+
+    test("replaces existing Reply-To header with sanitized original sender", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              [
+                "From: sender@example.com",
+                "To: max.mustermann@vcmuellheim.de",
+                "Reply-To: broken reply <broken@example.com>",
+                "Subject: Test",
+                "",
+                "Hello world",
+              ].join("\n"),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/replace-reply-to-test.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).not.toMatch(/^Reply-To: broken reply/im);
+      expect(rawMime).toMatch(/^Reply-To: sender@example\.com$/im);
+    });
+
+    test("strips Cc and Bcc headers before forwarding", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              [
+                "From: sender@example.com",
+                "To: max.mustermann@vcmuellheim.de",
+                "Cc: cc@example.com",
+                "Bcc: bcc@example.com",
+                "Subject: Test",
+                "",
+                "Hello world",
+              ].join("\n"),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/strip-cc-bcc-test.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).not.toMatch(/^Cc:/im);
+      expect(rawMime).not.toMatch(/^Bcc:/im);
+    });
+
+    test("trims whitespace from destination email address", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: " max@example.com ",
+          },
+        ],
+      });
+
+      await handler(makeEvent("emails/trim-target-test.eml"), mockLambdaContext as never);
+
+      const sesCalls = getForwardCalls();
+      expect(sesCalls).toHaveLength(1);
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["max@example.com"]);
     });
 
     test("includes original name and email in From display name", async () => {
@@ -415,6 +537,7 @@ describe("mail-forward Lambda", () => {
       );
       expect(rawMime).toMatch(/Reply-To:.*"Max Mustermann" <max\.mustermann@example\.com>/i);
     });
+
     test("forwards to all matching To addresses in a single email", async () => {
       s3Mock.on(GetObjectCommand).resolves({
         Body: {

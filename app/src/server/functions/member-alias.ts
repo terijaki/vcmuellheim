@@ -6,6 +6,7 @@
  */
 
 import { Mail } from "@/project.config";
+import { sanitizeBranchName } from "@utils/git";
 
 /** Map of German special characters to ASCII equivalents */
 const GERMAN_CHAR_MAP: Record<string, string> = {
@@ -38,7 +39,8 @@ export function normalizeAliasLocalPart(name: string): string {
 }
 
 export function formatProxyAlias(localPart: string, domain: string, branchName?: string): string {
-  const suffix = branchName ? `+${branchName}` : "";
+  const sanitizedBranchName = branchName ? sanitizeBranchName(branchName) : "";
+  const suffix = sanitizedBranchName ? `+${sanitizedBranchName}` : "";
   return `${localPart}${suffix}@${domain}`;
 }
 
@@ -87,31 +89,42 @@ export function isProdProxyAliasDomain(domain: string): boolean {
   return domain === Mail.prod.recipientDomain;
 }
 
-export function getProxyAliasDomain(
-  cdkEnvironment = process.env.CDK_ENVIRONMENT,
-  hostname?: string,
-): string {
-  if (cdkEnvironment === "prod" || isProdProxyAliasHostname(hostname)) {
+export function getProxyAliasDomain(cdkEnvironment?: string, hostname?: string): string {
+  if (hostname && isProdProxyAliasHostname(hostname)) {
+    return Mail.prod.recipientDomain;
+  }
+
+  if (hostname && isDevProxyAliasHostname(hostname)) {
+    return Mail.dev.recipientDomain;
+  }
+
+  const resolvedEnvironment = cdkEnvironment ?? process.env.CDK_ENVIRONMENT;
+  if (resolvedEnvironment === "prod") {
     return Mail.prod.recipientDomain;
   }
 
   return Mail.dev.recipientDomain;
 }
 
-function isProdProxyAliasHostname(hostname?: string): boolean {
-  if (!hostname) {
-    return false;
-  }
-
+function isProdProxyAliasHostname(hostname: string): boolean {
   return hostname === Mail.prod.recipientDomain || hostname === `www.${Mail.prod.recipientDomain}`;
 }
 
+function isDevProxyAliasHostname(hostname: string): boolean {
+  return hostname === Mail.dev.recipientDomain || hostname.endsWith(`.${Mail.dev.recipientDomain}`);
+}
+
 export function getProxyAliasBranchName(
-  cdkEnvironment = process.env.CDK_ENVIRONMENT,
+  cdkEnvironment?: string,
   branchName = process.env.BRANCH_NAME,
   domain?: string,
 ): string | undefined {
-  if (cdkEnvironment === "prod" || (domain && isProdProxyAliasDomain(domain))) {
+  const resolvedEnvironment = cdkEnvironment ?? process.env.CDK_ENVIRONMENT;
+  const isProdContext =
+    (domain !== undefined && isProdProxyAliasDomain(domain)) ||
+    (domain === undefined && resolvedEnvironment === "prod");
+
+  if (isProdContext) {
     return undefined;
   }
 
@@ -119,5 +132,10 @@ export function getProxyAliasBranchName(
     return undefined;
   }
 
-  return branchName;
+  const sanitizedBranchName = sanitizeBranchName(branchName);
+  if (!sanitizedBranchName || sanitizedBranchName === "main") {
+    return undefined;
+  }
+
+  return sanitizedBranchName;
 }

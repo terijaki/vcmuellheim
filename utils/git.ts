@@ -1,6 +1,21 @@
 import { execSync } from "node:child_process";
 
 /**
+ * Sanitize a branch name for use in AWS resource names and email plus-address suffixes.
+ * Lowercases, replaces non-alphanumeric characters with hyphens, and truncates to 20 chars.
+ */
+export function sanitizeBranchName(branch: string): string {
+  return branch
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "")
+    .substring(0, 20)
+    .replace(/-+$/, "");
+}
+
+/**
  * Get current Git branch name, sanitized for AWS resource naming.
  * Returns empty string if on main branch or if Git is unavailable.
  * Sanitization: alphanumeric and hyphens only, max 20 chars.
@@ -18,15 +33,7 @@ export function getSanitizedBranch(includeMain = false): string {
       return "";
     }
 
-    // Sanitize: alphanumeric and hyphens only, max 20 chars, no leading/trailing hyphens
-    return branch
-      .toLowerCase()
-      .replace(/[^a-z0-9-]/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/^-+/, "")
-      .replace(/-+$/, "")
-      .substring(0, 20)
-      .replace(/-+$/, ""); // Remove trailing hyphen if substring created one
+    return sanitizeBranchName(branch);
   } catch {
     return "";
   }

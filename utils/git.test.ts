@@ -1,12 +1,18 @@
 import { execSync } from "node:child_process";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { getSanitizedBranch } from "./git";
+import { getSanitizedBranch, sanitizeBranchName } from "./git";
 
 vi.mock("node:child_process", () => ({
   execSync: vi.fn(),
 }));
 
 const mockExecSync = vi.mocked(execSync);
+
+describe("sanitizeBranchName", () => {
+  it("replaces slashes with hyphens", () => {
+    expect(sanitizeBranchName("terijaki/f3ed6e0f")).toBe("terijaki-f3ed6e0f");
+  });
+});
 
 describe("getSanitizedBranch", () => {
   beforeEach(() => {

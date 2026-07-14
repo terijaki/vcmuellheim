@@ -200,16 +200,14 @@ function parseOriginalSender(originalFrom: string): ParsedOriginalSender {
   const bareAddressMatch = normalizedOriginalFrom.match(
     /(^|\s|"|'|\()([^\s<>]+@[^\s<>]+)(?=$|\s|"|'|\))/,
   );
-  const originalEmail = (
-    angleAddressMatch?.[1] ||
-    bareAddressMatch?.[2] ||
-    UNKNOWN_SENDER_PLACEHOLDER_EMAIL
-  ).trim();
+  const originalEmail = sanitizeEmailAddress(
+    (angleAddressMatch?.[1] || bareAddressMatch?.[2] || UNKNOWN_SENDER_PLACEHOLDER_EMAIL).trim(),
+  );
 
   let originalName = "";
   if (angleAddressMatch) {
     const beforeAddress = normalizedOriginalFrom.slice(0, angleAddressMatch.index).trim();
-    originalName = beforeAddress.replace(/^"|"$/g, "").trim();
+    originalName = sanitizeHeaderDisplayText(beforeAddress.replace(/^"|"$/g, "").trim());
   }
   if (!originalName) {
     originalName = originalEmail.split("@")[0] || "unknown";
@@ -219,6 +217,37 @@ function parseOriginalSender(originalFrom: string): ParsedOriginalSender {
     name: originalName,
     email: originalEmail,
   };
+}
+
+function stripControlCharacters(value: string): string {
+  let stripped = "";
+  for (const char of value) {
+    const code = char.charCodeAt(0);
+    if (code >= 0x20 && code !== 0x7f) {
+      stripped += char;
+    }
+  }
+  return stripped;
+}
+
+function sanitizeHeaderDisplayText(value: string): string {
+  return stripControlCharacters(value).trim();
+}
+
+function sanitizeEmailAddress(email: string): string {
+  return stripControlCharacters(email).trim();
+}
+
+function formatMailboxHeaderValue(name: string, email: string): string {
+  const sanitizedEmail = sanitizeEmailAddress(email);
+  const sanitizedName = sanitizeHeaderDisplayText(name);
+
+  if (!sanitizedName || sanitizedName === sanitizedEmail.split("@")[0]) {
+    return sanitizedEmail;
+  }
+
+  const escapedName = sanitizedName.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  return `"${escapedName}" <${sanitizedEmail}>`;
 }
 
 function canNotifySender(senderEmail: string): boolean {
@@ -316,7 +345,7 @@ function splitMimeIntoHeadersAndBody(rawMime: string): { headers: string; body: 
 }
 
 const BLOCKED_FORWARD_HEADER_PATTERN =
-  /^(return-path|sender|dkim-signature|arc-seal|arc-message-signature|arc-authentication-results|authentication-results|received-spf):/i;
+  /^(return-path|sender|dkim-signature|arc-seal|arc-message-signature|arc-authentication-results|authentication-results|received-spf|reply-to|cc|bcc|disposition-notification-to|return-receipt-to|x-original-to):/i;
 
 function stripBlockedForwardHeaders(headers: string): string {
   const headerLines = headers.split(/\r?\n/);
@@ -343,8 +372,15 @@ function stripBlockedForwardHeaders(headers: string): string {
 function buildForwardFromHeaderValue(originalFrom: string, newFrom: string): string {
   const sender = parseOriginalSender(originalFrom);
   const fromDisplayText = `${sender.name} (${sender.email})`;
-  const escapedFromDisplayText = fromDisplayText.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-  return `"${escapedFromDisplayText}" <${newFrom}>`;
+  const escapedFromDisplayText = sanitizeHeaderDisplayText(fromDisplayText)
+    .replace(/\\/g, "\\\\")
+    .replace(/"/g, '\\"');
+  return `"${escapedFromDisplayText}" <${sanitizeEmailAddress(newFrom)}>`;
+}
+
+function buildReplyToHeaderValue(originalFrom: string): string {
+  const sender = parseOriginalSender(originalFrom);
+  return formatMailboxHeaderValue(sender.name, sender.email);
 }
 
 function applyForwardingHeaderRewrites(
@@ -353,18 +389,16 @@ function applyForwardingHeaderRewrites(
   rewrittenFrom: string,
   newTo: string,
 ): string {
-  let rewritten = headers
+  const sanitizedTo = sanitizeEmailAddress(newTo);
+  const replyTo = buildReplyToHeaderValue(originalFrom);
+
+  const rewritten = headers
     // Replace From header
     .replace(/^from:.*$/im, `From: ${rewrittenFrom}`)
     // Replace To header
-    .replace(/^to:.*$/im, `To: ${newTo}`);
+    .replace(/^to:.*$/im, `To: ${sanitizedTo}`);
 
-  // Add Reply-To header if not already present
-  if (!/^reply-to:/im.test(rewritten)) {
-    rewritten += `\r\nReply-To: ${originalFrom}`;
-  }
-
-  return rewritten;
+  return `${rewritten}\r\nReply-To: ${replyTo}`;
 }
 
 /**
@@ -405,14 +439,15 @@ function extractFromAddress(rawMime: string): string {
 
 async function sendForwardedEmail(input: SendForwardedEmailInput): Promise<ForwardSendResult> {
   const { rawMime, originalFrom, newFrom, target, s3Key, errorContext } = input;
+  const sanitizedTarget = sanitizeEmailAddress(target);
 
   try {
-    const rewritten = rewriteMimeHeaders(rawMime, originalFrom, newFrom, target);
+    const rewritten = rewriteMimeHeaders(rawMime, originalFrom, newFrom, sanitizedTarget);
     await ses.send(
       new SendEmailCommand({
         FromEmailAddress: newFrom,
         Destination: {
-          ToAddresses: [target],
+          ToAddresses: [sanitizedTarget],
         },
         Content: {
           Raw: {
