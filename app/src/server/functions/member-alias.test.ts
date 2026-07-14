@@ -91,10 +91,25 @@ describe("proxy alias environment helpers", () => {
     expect(getProxyAliasBranchName("dev", "email-proxy")).toBe("email-proxy");
   });
 
-  test("infers production domain from hostname when build-time env is missing", () => {
-    expect(getProxyAliasDomain(undefined, "vcmuellheim.de")).toBe("vcmuellheim.de");
-    expect(getProxyAliasDomain(undefined, "www.vcmuellheim.de")).toBe("vcmuellheim.de");
-    expect(getProxyAliasDomain(undefined, "dev.new.vcmuellheim.de")).toBe("new.vcmuellheim.de");
+  test("infers recipient domain from hostname when build-time env is missing", () => {
+    const previousEnvironment = process.env.CDK_ENVIRONMENT;
+    delete process.env.CDK_ENVIRONMENT;
+
+    try {
+      expect(getProxyAliasDomain(undefined, "vcmuellheim.de")).toBe("vcmuellheim.de");
+      expect(getProxyAliasDomain(undefined, "www.vcmuellheim.de")).toBe("vcmuellheim.de");
+      expect(getProxyAliasDomain(undefined, "dev.new.vcmuellheim.de")).toBe("new.vcmuellheim.de");
+    } finally {
+      if (previousEnvironment === undefined) {
+        delete process.env.CDK_ENVIRONMENT;
+      } else {
+        process.env.CDK_ENVIRONMENT = previousEnvironment;
+      }
+    }
+  });
+
+  test("prefers dev hostname over build-time prod env", () => {
+    expect(getProxyAliasDomain("prod", "dev.new.vcmuellheim.de")).toBe("new.vcmuellheim.de");
   });
 
   test("hides branch suffix on production recipient domains", () => {
