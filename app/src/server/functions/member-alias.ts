@@ -83,17 +83,41 @@ export function suggestProxyAlias(
   return formatProxyAlias(localPartWithCounter, domain, branchName);
 }
 
-export function getProxyAliasDomain(cdkEnvironment = process.env.CDK_ENVIRONMENT): string {
-  return cdkEnvironment === "prod" ? Mail.prod.recipientDomain : Mail.dev.recipientDomain;
+export function isProdProxyAliasDomain(domain: string): boolean {
+  return domain === Mail.prod.recipientDomain;
+}
+
+export function getProxyAliasDomain(
+  cdkEnvironment = process.env.CDK_ENVIRONMENT,
+  hostname?: string,
+): string {
+  if (cdkEnvironment === "prod" || isProdProxyAliasHostname(hostname)) {
+    return Mail.prod.recipientDomain;
+  }
+
+  return Mail.dev.recipientDomain;
+}
+
+function isProdProxyAliasHostname(hostname?: string): boolean {
+  if (!hostname) {
+    return false;
+  }
+
+  return hostname === Mail.prod.recipientDomain || hostname === `www.${Mail.prod.recipientDomain}`;
 }
 
 export function getProxyAliasBranchName(
   cdkEnvironment = process.env.CDK_ENVIRONMENT,
   branchName = process.env.BRANCH_NAME,
+  domain?: string,
 ): string | undefined {
-  if (cdkEnvironment === "prod") {
+  if (cdkEnvironment === "prod" || (domain && isProdProxyAliasDomain(domain))) {
     return undefined;
   }
 
-  return branchName || undefined;
+  if (!branchName || branchName === "main") {
+    return undefined;
+  }
+
+  return branchName;
 }
