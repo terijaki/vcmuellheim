@@ -14,6 +14,7 @@ import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
+import { Sentry } from "../utils/sentry";
 
 // ── Environment setup (must happen before module import) ─────────────────────
 process.env.CONTENT_TABLE_NAME = "test-content-table";
@@ -132,6 +133,7 @@ describe("mail-forward Lambda", () => {
 
     const mod = await import("./mail-forward");
     handler = mod.handler as unknown as (event: unknown, context: unknown) => Promise<unknown>;
+    vi.mocked(Sentry.captureException).mockClear();
   });
 
   describe("unknown alias", () => {
@@ -199,9 +201,7 @@ describe("mail-forward Lambda", () => {
       const rawMime = Buffer.from(
         getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
       ).toString();
-      expect(rawMime).toMatch(
-        /^From: "sender \(sender@example\.com\)" <postmaster@vcmuellheim\.de>$/im,
-      );
+      expect(rawMime).toMatch(/^From: postmaster@vcmuellheim\.de$/im);
     });
 
     test("removes DKIM-Signature headers before forwarding", async () => {
@@ -274,9 +274,7 @@ describe("mail-forward Lambda", () => {
         getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
       ).toString();
       expect(rawMime).not.toMatch(/^Return-Path:/im);
-      expect(rawMime).toMatch(
-        /^From: "mail \(mail@example\.com\)" <postmaster@vcmuellheim\.de>$/im,
-      );
+      expect(rawMime).toMatch(/^From: postmaster@vcmuellheim\.de$/im);
     });
 
     test("in dev, looks up DDB with the full plus-address (suffix included)", async () => {
@@ -376,9 +374,7 @@ describe("mail-forward Lambda", () => {
       const rawMime = Buffer.from(
         getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
       ).toString();
-      expect(rawMime).toMatch(
-        /^From: "original\.sender \(original\.sender@example\.com\)" <postmaster@vcmuellheim\.de>$/im,
-      );
+      expect(rawMime).toMatch(/^From: postmaster@vcmuellheim\.de$/im);
       expect(rawMime).toMatch(/^Reply-To: original\.sender@example\.com$/im);
     });
 
@@ -504,7 +500,119 @@ describe("mail-forward Lambda", () => {
       expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["max@example.com"]);
     });
 
-    test("includes original name and email in From display name", async () => {
+    test("strips internal whitespace from destination email address", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max @example.com",
+          },
+        ],
+      });
+
+      await handler(makeEvent("emails/internal-whitespace-target.eml"), mockLambdaContext as never);
+
+      const sesCalls = getForwardCalls();
+      expect(sesCalls).toHaveLength(1);
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["max@example.com"]);
+    });
+
+    test("strips folded To header continuations after rewrite", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              [
+                "From: sender@example.com",
+                "To: other@example.com,",
+                " max.mustermann@vcmuellheim.de",
+                "Subject: Test",
+                "",
+                "Hello world",
+              ].join("\n"),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/folded-to-test.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).toMatch(/^To: max@example\.com$/im);
+      expect(rawMime).not.toMatch(/other@example\.com/im);
+    });
+
+    test("skips member with invalid privateEmail and forwards to valid ones", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "not-an-email",
+          },
+        ],
+      });
+
+      const result = await handler(
+        makeEvent("emails/invalid-private-email.eml"),
+        mockLambdaContext as never,
+      );
+
+      expect(getForwardCalls()).toHaveLength(0);
+      expect(result).toMatchObject({ statusCode: 200, body: expect.stringContaining("dropped") });
+    });
+
+    test("reports SES header context to Sentry on forward failure", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime("max.mustermann@vcmuellheim.de", '"Max Mustermann" <sender@example.com>'),
+            ),
+        } as never,
+      });
+      sesMock.on(SendEmailCommand).rejects(new Error("Domain contains control or whitespace"));
+
+      await expect(
+        handler(makeEvent("emails/sentry-context-test.eml"), mockLambdaContext as never),
+      ).rejects.toThrow("All forwards failed");
+
+      expect(Sentry.captureException).toHaveBeenCalledWith(
+        expect.any(Error),
+        expect.objectContaining({
+          extra: expect.objectContaining({
+            originalFrom: '"Max Mustermann" <sender@example.com>',
+            rewrittenFrom: expect.stringContaining("postmaster@vcmuellheim.de"),
+            replyTo: expect.stringContaining("sender@example.com"),
+            target: "max@example.com",
+          }),
+        }),
+      );
+    });
+
+    test("includes original sender name in From display name", async () => {
       mockByProxyEmailGo.mockResolvedValue({
         data: [
           {
@@ -532,10 +640,175 @@ describe("mail-forward Lambda", () => {
       const rawMime = Buffer.from(
         getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
       ).toString();
-      expect(rawMime).toMatch(
-        /^From: "Max Mustermann \(max\.mustermann@example\.com\)" <postmaster@vcmuellheim\.de>$/im,
-      );
-      expect(rawMime).toMatch(/Reply-To:.*"Max Mustermann" <max\.mustermann@example\.com>/i);
+      expect(rawMime).toMatch(/^From: "Max Mustermann" <postmaster@vcmuellheim\.de>$/im);
+      expect(rawMime).toMatch(/^Reply-To: "Max Mustermann" <max\.mustermann@example\.com>$/im);
+    });
+
+    test("preserves RFC 2047 encoded sender name in forwarded headers", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime("max.mustermann@vcmuellheim.de", "=?UTF-8?Q?M=C3=BCller?= <mueller@gmx.de>"),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/rfc2047-from-test.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).toMatch(/^From: =\?UTF-8\?Q\?M=C3=BCller\?= <postmaster@vcmuellheim\.de>$/im);
+      expect(rawMime).toMatch(/^Reply-To: =\?UTF-8\?Q\?M=C3=BCller\?= <mueller@gmx\.de>$/im);
+    });
+
+    test("sanitizes angle address in preserved RFC 2047 Reply-To", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime(
+                "max.mustermann@vcmuellheim.de",
+                "=?UTF-8?Q?M=C3=BCller?= <mueller @gmx.de>",
+              ),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/rfc2047-reply-to-sanitize.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).toMatch(/^Reply-To: =\?UTF-8\?Q\?M=C3=BCller\?= <mueller@gmx\.de>$/im);
+    });
+
+    test("RFC 2047-encodes question marks in display names", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime("max.mustermann@vcmuellheim.de", "Müller? <sender@example.com>"),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/question-mark-reply-to.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).toMatch(/^Reply-To: =\?UTF-8\?Q\?M=C3=BCller=3F\?= <sender@example\.com>$/im);
+    });
+
+    test("splits long non-ASCII display names into multiple RFC 2047 encoded-words", async () => {
+      const longName = "Müller ".repeat(12).trim();
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime("max.mustermann@vcmuellheim.de", `${longName} <sender@example.com>`),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/long-unicode-reply-to.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      const replyToLine = rawMime.match(/^Reply-To: (.+)$/im)?.[1] ?? "";
+      const encodedWords = replyToLine.match(/=\?UTF-8\?Q\?[^?]+\?=/g) ?? [];
+      expect(encodedWords.length).toBeGreaterThan(1);
+      for (const word of encodedWords) {
+        expect(word.length).toBeLessThanOrEqual(75);
+      }
+    });
+
+    test("RFC 2047-encodes non-ASCII sender names when rebuilding Reply-To", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime("max.mustermann@vcmuellheim.de", "Müller <mueller@gmx.de>"),
+            ),
+        } as never,
+      });
+
+      await handler(makeEvent("emails/unicode-reply-to-test.eml"), mockLambdaContext as never);
+
+      const rawMime = Buffer.from(
+        getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
+      ).toString();
+      expect(rawMime).toMatch(/^From: =\?UTF-8\?Q\?M=C3=BCller\?= <postmaster@vcmuellheim\.de>$/im);
+      expect(rawMime).toMatch(/^Reply-To: =\?UTF-8\?Q\?M=C3=BCller\?= <mueller@gmx\.de>$/im);
+    });
+
+    test("sanitizes FromEmailAddress in SES API call", async () => {
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+        ],
+      });
+
+      await handler(makeEvent("emails/from-api-sanitize-test.eml"), mockLambdaContext as never);
+
+      expect(getForwardCalls()[0].args[0].input.FromEmailAddress).toBe("postmaster@vcmuellheim.de");
     });
 
     test("forwards to all matching To addresses in a single email", async () => {
@@ -819,6 +1092,129 @@ describe("mail-forward Lambda", () => {
       expect(destinations).toContain("trainer1@example.com");
       expect(destinations).toContain("trainer2@example.com");
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
+    });
+
+    test("deduplicates group members after email sanitization", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi.fn().mockResolvedValue(makeMime("trainer@vcmuellheim.de")),
+        } as never,
+      });
+      mockByTypeWhereGo.mockResolvedValue({
+        data: [
+          { id: "t1", isTrainer: true, privateEmail: "trainer1@example.com" },
+          { id: "t2", isTrainer: true, privateEmail: "trainer1 @example.com" },
+        ],
+      });
+
+      const result = await handler(
+        makeEvent("emails/trainer-dedupe-sanitize.eml"),
+        mockLambdaContext as never,
+      );
+
+      expect(getForwardCalls()).toHaveLength(1);
+      expect(getForwardCalls()[0].args[0].input.Destination?.ToAddresses).toEqual([
+        "trainer1@example.com",
+      ]);
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
+    });
+
+    test("forwards vorstand@ to all board members with a privateEmail", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi.fn().mockResolvedValue(makeMime("vorstand@vcmuellheim.de")),
+        } as never,
+      });
+      mockByTypeWhereGo.mockResolvedValue({
+        data: [
+          { id: "b1", isBoardMember: true, privateEmail: "board1@example.com" },
+          { id: "b2", isBoardMember: true, privateEmail: "board2@example.com" },
+        ],
+      });
+
+      const result = await handler(
+        makeEvent("emails/vorstand-group.eml"),
+        mockLambdaContext as never,
+      );
+
+      const sesCalls = getForwardCalls();
+      expect(sesCalls).toHaveLength(2);
+      const destinations = sesCalls.map((c) => c.args[0].input.Destination!.ToAddresses![0]);
+      expect(destinations).toContain("board1@example.com");
+      expect(destinations).toContain("board2@example.com");
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
+    });
+
+    test("skips invalid group member emails and forwards to valid ones", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi.fn().mockResolvedValue(makeMime("trainer@vcmuellheim.de")),
+        } as never,
+      });
+      mockByTypeWhereGo.mockResolvedValue({
+        data: [
+          { id: "t1", isTrainer: true, privateEmail: "trainer1@example.com" },
+          { id: "t2", isTrainer: true, privateEmail: "not-an-email" },
+        ],
+      });
+
+      const result = await handler(
+        makeEvent("emails/trainer-invalid-member.eml"),
+        mockLambdaContext as never,
+      );
+
+      const sesCalls = getForwardCalls();
+      expect(sesCalls).toHaveLength(1);
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["trainer1@example.com"]);
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
+    });
+
+    test("returns partial success when some group forwards fail", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi.fn().mockResolvedValue(makeMime("trainer@vcmuellheim.de")),
+        } as never,
+      });
+      mockByTypeWhereGo.mockResolvedValue({
+        data: [
+          { id: "t1", isTrainer: true, privateEmail: "fail@example.com" },
+          { id: "t2", isTrainer: true, privateEmail: "ok@example.com" },
+        ],
+      });
+      sesMock
+        .on(SendEmailCommand)
+        .rejectsOnce(new Error("Domain contains control or whitespace"))
+        .resolves({ MessageId: "test-message-id" });
+
+      const result = await handler(
+        makeEvent("emails/trainer-partial-failure.eml"),
+        mockLambdaContext as never,
+      );
+
+      expect(getForwardCalls()).toHaveLength(2);
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
+      expect(Sentry.captureException).toHaveBeenCalledTimes(1);
+    });
+
+    test("throws when all group forwards fail", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi.fn().mockResolvedValue(makeMime("trainer@vcmuellheim.de")),
+        } as never,
+      });
+      mockByTypeWhereGo.mockResolvedValue({
+        data: [
+          { id: "t1", isTrainer: true, privateEmail: "fail1@example.com" },
+          { id: "t2", isTrainer: true, privateEmail: "fail2@example.com" },
+        ],
+      });
+      sesMock.on(SendEmailCommand).rejects(new Error("Domain contains control or whitespace"));
+
+      await expect(
+        handler(makeEvent("emails/trainer-all-fail.eml"), mockLambdaContext as never),
+      ).rejects.toThrow(
+        "All forwards failed: fail1@example.com: Domain contains control or whitespace",
+      );
     });
 
     test("info@ forwards to union of trainers and board members, deduplicated", async () => {
