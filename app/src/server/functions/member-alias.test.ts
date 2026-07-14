@@ -3,6 +3,7 @@ import {
   canonicalizeProxyAlias,
   getProxyAliasBranchName,
   getProxyAliasDomain,
+  isProdProxyAliasDomain,
   normalizeAliasLocalPart,
   parseProxyAlias,
   suggestProxyAlias,
@@ -88,6 +89,23 @@ describe("proxy alias environment helpers", () => {
   test("uses the development recipient domain and branch suffix outside prod", () => {
     expect(getProxyAliasDomain("dev")).toBe("new.vcmuellheim.de");
     expect(getProxyAliasBranchName("dev", "email-proxy")).toBe("email-proxy");
+  });
+
+  test("infers production domain from hostname when build-time env is missing", () => {
+    expect(getProxyAliasDomain(undefined, "vcmuellheim.de")).toBe("vcmuellheim.de");
+    expect(getProxyAliasDomain(undefined, "www.vcmuellheim.de")).toBe("vcmuellheim.de");
+    expect(getProxyAliasDomain(undefined, "dev.new.vcmuellheim.de")).toBe("new.vcmuellheim.de");
+  });
+
+  test("hides branch suffix on production recipient domains", () => {
+    expect(isProdProxyAliasDomain("vcmuellheim.de")).toBe(true);
+    expect(getProxyAliasBranchName("dev", "main", "vcmuellheim.de")).toBeUndefined();
+    expect(getProxyAliasBranchName(undefined, "main", "vcmuellheim.de")).toBeUndefined();
+  });
+
+  test("hides the main branch suffix outside prod", () => {
+    expect(getProxyAliasBranchName("dev", "main", "new.vcmuellheim.de")).toBeUndefined();
+    expect(getProxyAliasBranchName(undefined, "main", "new.vcmuellheim.de")).toBeUndefined();
   });
 });
 
