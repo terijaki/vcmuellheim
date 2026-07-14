@@ -73,6 +73,12 @@ describe("suggestProxyAlias", () => {
     );
   });
 
+  test("sanitizes slashes in branch names for valid plus-address suffixes", () => {
+    expect(suggestProxyAlias("Julia Fischer", "new.vcmuellheim.de", "terijaki/f3ed6e0f")).toBe(
+      "julia.fischer+terijaki-f3ed6e0f@new.vcmuellheim.de",
+    );
+  });
+
   test("applies duplicate numbering before the branch suffix", () => {
     expect(suggestProxyAlias("Max Müller", "new.vcmuellheim.de", "email-proxy", 2)).toBe(
       "max.mueller2+email-proxy@new.vcmuellheim.de",
@@ -115,6 +121,12 @@ describe("proxy alias environment helpers", () => {
   test("keeps branch suffix on dev domain when build-time env is prod", () => {
     expect(getProxyAliasBranchName("prod", "email-proxy", "new.vcmuellheim.de")).toBe(
       "email-proxy",
+    );
+  });
+
+  test("sanitizes slashes in raw branch names for alias suffixes", () => {
+    expect(getProxyAliasBranchName("dev", "terijaki/f3ed6e0f", "new.vcmuellheim.de")).toBe(
+      "terijaki-f3ed6e0f",
     );
   });
 
@@ -165,5 +177,15 @@ describe("canonicalizeProxyAlias", () => {
     expect(
       canonicalizeProxyAlias("max.mueller+email-proxy@vcmuellheim.de", "prod", "email-proxy"),
     ).toBe("max.mueller@vcmuellheim.de");
+  });
+
+  test("rewrites unsanitized branch suffix to sanitized form in dev", () => {
+    expect(
+      canonicalizeProxyAlias(
+        "julia.fischer+terijaki/f3ed6e0f@new.vcmuellheim.de",
+        "dev",
+        "terijaki/f3ed6e0f",
+      ),
+    ).toBe("julia.fischer+terijaki-f3ed6e0f@new.vcmuellheim.de");
   });
 });

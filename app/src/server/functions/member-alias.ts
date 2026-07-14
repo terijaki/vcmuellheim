@@ -6,6 +6,7 @@
  */
 
 import { Mail } from "@/project.config";
+import { sanitizeBranchName } from "@utils/git";
 
 /** Map of German special characters to ASCII equivalents */
 const GERMAN_CHAR_MAP: Record<string, string> = {
@@ -38,7 +39,8 @@ export function normalizeAliasLocalPart(name: string): string {
 }
 
 export function formatProxyAlias(localPart: string, domain: string, branchName?: string): string {
-  const suffix = branchName ? `+${branchName}` : "";
+  const sanitizedBranchName = branchName ? sanitizeBranchName(branchName) : "";
+  const suffix = sanitizedBranchName ? `+${sanitizedBranchName}` : "";
   return `${localPart}${suffix}@${domain}`;
 }
 
@@ -130,5 +132,10 @@ export function getProxyAliasBranchName(
     return undefined;
   }
 
-  return branchName;
+  const sanitizedBranchName = sanitizeBranchName(branchName);
+  if (!sanitizedBranchName || sanitizedBranchName === "main") {
+    return undefined;
+  }
+
+  return sanitizedBranchName;
 }
