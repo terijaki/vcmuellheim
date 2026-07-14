@@ -195,7 +195,7 @@ export type TeamsResponse = z.infer<typeof TeamsResponseSchema>;
 
 /**
  * A player entry within a synced SAMS team roster
- * uuid and name are always present: sams-teams-sync.ts assigns a pseudo uuid when the
+ * uuid and name are always present: sams-teams-sync.ts derives a deterministic pseudo uuid when the
  * external API omits one, and filters out players without a name.
  */
 const RosterPlayerSchema = z.object({
@@ -210,7 +210,7 @@ export type RosterPlayer = z.infer<typeof RosterPlayerSchema>;
 
 /**
  * An official/coach entry within a synced SAMS team roster
- * uuid and name are always present: sams-teams-sync.ts assigns a pseudo uuid when the
+ * uuid and name are always present: sams-teams-sync.ts derives a deterministic pseudo uuid when the
  * external API omits one, and filters out officials without a name.
  */
 const RosterOfficialSchema = z.object({

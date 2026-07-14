@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import {
@@ -50,7 +51,18 @@ type SyncedRosterItem = {
   ttl: number;
 };
 
+function pseudoRosterUuid(
+  teamUuid: string,
+  kind: "player" | "official",
+  ...parts: (string | number | undefined)[]
+): string {
+  const input = [teamUuid, kind, ...parts.map((part) => String(part ?? ""))].join("|");
+  const hex = createHash("sha256").update(input).digest("hex").slice(0, 32);
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
+}
+
 function mapRosterPlayers(
+  teamUuid: string,
   players: Array<{
     uuid?: string;
     name?: string;
@@ -62,8 +74,8 @@ function mapRosterPlayers(
   return players
     .filter((p): p is typeof p & { name: string } => !!p.name?.trim())
     .map((p) => ({
-      // The SAMS API sometimes omits uuid; assign a pseudo uuid so every player has a stable identity
-      uuid: p.uuid ?? crypto.randomUUID(),
+      // The SAMS API sometimes omits uuid; derive a deterministic pseudo uuid from stable fields
+      uuid: p.uuid ?? pseudoRosterUuid(teamUuid, "player", p.name, p.jerseyNumber),
       name: p.name,
       jerseyNumber: p.jerseyNumber,
       position: p.position,
@@ -72,13 +84,14 @@ function mapRosterPlayers(
 }
 
 function mapRosterOfficials(
+  teamUuid: string,
   officials: Array<{ uuid?: string; name?: string; role?: string }> = [],
 ): RosterOfficial[] {
   return officials
     .filter((o): o is typeof o & { name: string } => !!o.name?.trim())
     .map((o) => ({
-      // The SAMS API sometimes omits uuid; assign a pseudo uuid so every official has a stable identity
-      uuid: o.uuid ?? crypto.randomUUID(),
+      // The SAMS API sometimes omits uuid; derive a deterministic pseudo uuid from stable fields
+      uuid: o.uuid ?? pseudoRosterUuid(teamUuid, "official", o.name, o.role),
       name: o.name,
       role: o.role,
     }));
@@ -297,8 +310,8 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
           const rosterItem: SyncedRosterItem = {
             teamUuid: team.uuid,
             type: "roster",
-            players: mapRosterPlayers(rosterData.players),
-            officials: mapRosterOfficials(rosterData.officials),
+            players: mapRosterPlayers(team.uuid, rosterData.players),
+            officials: mapRosterOfficials(team.uuid, rosterData.officials),
             updatedAt: new Date().toISOString(),
             ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365,
           };
@@ -310,6 +323,12 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
         Sentry.captureException(error, {
           extra: { teamUuid: team.uuid, teamName: team.name },
         });
+        await samsEntities.roster
+          .delete({ teamUuid: team.uuid })
+          .go()
+          .catch((deleteError) => {
+            console.warn(`Failed to delete stale roster for team ${team.uuid}:`, deleteError);
+          });
         rostersFailed++;
       }
 
