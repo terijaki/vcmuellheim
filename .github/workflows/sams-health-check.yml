@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       has_drift: ${{ steps.diff.outputs.has_drift }}
+      drift_summary_markdown: ${{ steps.diff.outputs.drift_summary_markdown }}
     steps:
       - uses: actions/checkout@v6
 
@@ -25,33 +26,49 @@ jobs:
           node-version: "25"
           cache: true
 
+      - uses: oven-sh/setup-bun@v2
+
       - name: Install dependencies
         run: vp install
+
+      - name: Snapshot committed source.json
+        run: git show HEAD:codegen/sams/generated/source.json > /tmp/committed-source.json
 
       - name: Regenerate from live spec
         run: vp run sams:codegen
 
-      - name: Detect drift in source.json
+      - name: Detect semantic drift in source.json
         id: diff
         run: |
-          if git diff --quiet codegen/sams/generated/source.json; then
-            echo "has_drift=false" >> "$GITHUB_OUTPUT"
-            echo "✅ source.json unchanged — no upstream spec changes." >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "has_drift=true" >> "$GITHUB_OUTPUT"
-            {
-              echo "## ⚠️ Swagger drift detected"
-              echo ""
-              echo '```'
-              git diff --stat codegen/sams/generated/source.json
-              echo '```'
-              echo ""
-              echo "### Changed paths (sample)"
-              echo '```'
-              git diff codegen/sams/generated/source.json | grep '^[+-]' | grep -v '^[+-][+-][+-]' | head -40
-              echo '```'
-            } >> "$GITHUB_STEP_SUMMARY"
-          fi
+          bun scripts/check-sams-swagger-drift.ts \
+            /tmp/committed-source.json \
+            codegen/sams/generated/source.json \
+            > /tmp/swagger-drift-result.json
+
+          node -e "
+            const fs = require('fs');
+            const result = JSON.parse(fs.readFileSync('/tmp/swagger-drift-result.json', 'utf8'));
+            const summary = result.summaryMarkdown ?? '';
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'has_drift=' + (result.hasDrift ? 'true' : 'false') + '\n');
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'drift_summary_markdown<<EOF\n' + summary + '\nEOF\n');
+
+            if (!result.hasDrift) {
+              fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '✅ source.json semantically unchanged — no upstream spec changes.\\n');
+              return;
+            }
+
+            const lines = [
+              '## ⚠️ Swagger drift detected',
+              '',
+              result.changeCount + ' semantic change(s) in codegen/sams/generated/source.json',
+              '',
+              '### What changed',
+              '',
+              summary,
+              '',
+            ];
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\\n') + '\\n');
+          "
 
   # ── Job 2: Verify known upstream API bugs are still present ───────────────────
   bug-check:
@@ -207,6 +224,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HAS_DRIFT: ${{ needs.swagger-drift.outputs.has_drift }}
+          DRIFT_SUMMARY_MARKDOWN: ${{ needs.swagger-drift.outputs.drift_summary_markdown }}
           HAS_FIXED: ${{ needs.bug-check.outputs.has_fixed }}
           FIXED_BUG_IDS: ${{ needs.bug-check.outputs.fixed_bug_ids }}
           CHECK_FAILED_IDS: ${{ needs.bug-check.outputs.check_failed_ids }}
