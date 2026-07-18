@@ -1,41 +1,36 @@
 version: 2
 updates:
-  - package-ecosystem: "bun"
-    directory: "/"
+  # Single Bun entry — grouped PRs, no duplicate monthly/weekly configs.
+  # Group order matters: first matching group wins (no package in two groups).
+  - package-ecosystem: bun
+    directory: /
     schedule:
-      interval: "monthly"
+      interval: monthly
+    # Align with bunfig.toml minimumReleaseAge (2 days); security updates bypass cooldown.
     cooldown:
-      default-days: 30
-      semver-major-days: 30
-      semver-minor-days: 14
-      semver-patch-days: 7
-  # Group AWS dependencies for unified update PRs
-  - package-ecosystem: "bun"
-    directory: "/"
+      default-days: 5
+      semver-patch-days: 3
+      semver-minor-days: 7
+      semver-major-days: 14
     groups:
       aws:
         patterns:
           - "@aws-sdk/*"
+          - "@aws-lambda-powertools/*"
+          - "@smithy/*"
+          - "aws-xray-sdk-core"
           - "aws-cdk*"
-          - "cdk-*"
           - "aws-sdk-client-mock"
           - "constructs"
-      mantine:
+          - "@sentry/aws-serverless"
+          - "@types/aws-lambda"
+      ui:
         patterns:
+          - "@mantine/*"
           - "*mantine*"
           - "*postcss*"
-      tanstack:
-        patterns:
           - "*tanstack*"
-      trpc:
-        patterns:
-          - "*trpc*"
-          - "superjson"
-      tiptap:
-        patterns:
           - "*tiptap*"
-      react:
-        patterns:
           - "react"
           - "react-dom"
           - "@types/react"
@@ -43,27 +38,53 @@ updates:
           - "babel-plugin-react-compiler"
           - "lucide-react"
           - "react-icons"
-          - "react-fast-marquee"
           - "react-world-flags"
-      validation:
+          - "@sentry/react"
+          - "@sentry/tanstackstart-react"
+      platform:
         patterns:
+          - "nitro"
+          - "better-auth"
+          - "electrodb"
+          - "varlock"
+          - "@varlock/*"
           - "zod"
-          - "@biomejs/biome"
-          - "typescript"
-          - "@types/*"
-      dates-and-times:
-        patterns:
+          - "superjson"
+          - "@middy/*"
           - "dayjs"
           - "num-words-de"
           - "ts-ics"
-      vite:
+          - "@behold/*"
+      toolchain:
         patterns:
+          - "@hey-api/*"
+          - "@playwright/*"
+          - "@rolldown/*"
+          - "@sentry/vite-plugin"
+          - "@voidzero-dev/*"
+          - "@varlock/vite-integration"
+          - "esbuild"
+          - "tsx"
+          - "typescript"
           - "vite"
           - "*vite*"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
+          - "vite-plus"
+          - "@types/*"
+    open-pull-requests-limit: 2
     commit-message:
       prefix: "chore(deps)"
     labels:
-      - "dependencies"
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "chore(deps)"
+    labels:
+      - dependencies
