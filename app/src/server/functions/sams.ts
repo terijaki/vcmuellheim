@@ -15,6 +15,7 @@ import {
   handleGetSamsMatches,
   handleGetSamsRankingByLeagueUuid,
   handleGetSamsRankingsByLeagueUuids,
+  handleGetSamsRosterByTeamUuid,
   handleGetSamsTicker,
   handleListSamsClubs,
   handleListSamsTeams,
@@ -63,6 +64,10 @@ export const peekSamsMatchesCacheFn = createServerFn()
 export const listSamsClubsFn = createServerFn().handler(async () => handleListSamsClubs());
 
 export const listSamsTeamsFn = createServerFn().handler(async () => handleListSamsTeams());
+
+export const getSamsRosterByTeamUuidFn = createServerFn()
+  .validator(z.string().min(1))
+  .handler(async ({ data: teamUuid }) => handleGetSamsRosterByTeamUuid(teamUuid));
 
 export const getClubLogoUrlFn = createServerFn()
   .validator(clubLogoInputSchema)

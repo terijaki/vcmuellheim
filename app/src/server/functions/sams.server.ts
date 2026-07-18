@@ -32,6 +32,7 @@ import {
   getSamsClubByNameSlug,
   getSamsClubByNameSlugPrefix,
   getSamsClubBySportsclubUuid,
+  getSamsRosterByTeamUuid,
 } from "../queries";
 import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
 import { parseServerData } from "../schema-parse";
@@ -417,6 +418,10 @@ export async function handleListSamsTeams() {
     teams: result.items,
     lastEvaluatedKey: result.lastEvaluatedKey,
   };
+}
+
+export async function handleGetSamsRosterByTeamUuid(teamUuid: string) {
+  return getSamsRosterByTeamUuid(teamUuid);
 }
 
 type ClubLogoInput =

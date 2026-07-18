@@ -16,7 +16,7 @@ export default function ImageGallery({ images }: { images?: string[] }) {
   if (!images || images.length === 0) return null;
 
   return (
-    <Group gap="xs" justify="center" preventGrowOverflow={false} mt="md">
+    <Group gap="xs" justify="flex-start" preventGrowOverflow={false} mt="md">
       {shuffledGallery.map((imageUrl: string, index) => {
         return (
           <AspectRatio

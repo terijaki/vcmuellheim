@@ -1,9 +1,11 @@
+import { createHash } from "node:crypto";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import {
   getAllLeagueHierarchies,
   getAllLeagues,
   getAllSeasons,
+  getTeamRosterByTeamUuid,
   getTeamsForLeague,
 } from "@codegen/sams/generated";
 import middy from "@middy/core";
@@ -14,6 +16,7 @@ import { resolveConfiguredSamsSportsclubUuids, SAMS_TARGET_CLUB_SLUGS } from "..
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
+import type { RosterOfficial, RosterPlayer } from "./types";
 import { SamsTeamsSyncLambdaEnvironmentSchema } from "./types";
 
 const { logger, tracer } = createLambdaResources("sams-teams-sync");
@@ -38,6 +41,65 @@ type SyncedTeamItem = {
   updatedAt: string;
   ttl: number;
 };
+
+type SyncedRosterItem = {
+  teamUuid: string;
+  type: "roster";
+  players: RosterPlayer[];
+  officials: RosterOfficial[];
+  updatedAt: string;
+  ttl: number;
+};
+
+function pseudoRosterUuid(
+  teamUuid: string,
+  kind: "player" | "official",
+  ...parts: (string | number | undefined)[]
+): string {
+  const input = [teamUuid, kind, ...parts.map((part) => String(part ?? ""))].join("|");
+  const hex = createHash("sha256").update(input).digest("hex").slice(0, 32);
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
+}
+
+function mapRosterPlayers(
+  teamUuid: string,
+  players: Array<{
+    uuid?: string;
+    name?: string | null;
+    jerseyNumber?: number | null;
+    position?: string | null;
+    portraitImageLink?: string | null;
+  }> = [],
+): RosterPlayer[] {
+  return players
+    .filter((p): p is typeof p & { name: string } => !!p.name?.trim())
+    .map((p) => ({
+      // The SAMS API sometimes omits uuid; derive a deterministic pseudo uuid from stable fields
+      uuid: p.uuid ?? pseudoRosterUuid(teamUuid, "player", p.name, p.jerseyNumber ?? undefined),
+      name: p.name,
+      ...(p.jerseyNumber != null ? { jerseyNumber: p.jerseyNumber } : {}),
+      ...(p.position ? { position: p.position } : {}),
+      ...(p.portraitImageLink ? { portraitImageLink: p.portraitImageLink } : {}),
+    }));
+}
+
+function mapRosterOfficials(
+  teamUuid: string,
+  officials: Array<{
+    uuid?: string;
+    name?: string | null;
+    role?: string | null;
+  }> = [],
+): RosterOfficial[] {
+  return officials
+    .filter((o): o is typeof o & { name: string } => !!o.name?.trim())
+    .map((o) => ({
+      // The SAMS API sometimes omits uuid; derive a deterministic pseudo uuid from stable fields
+      uuid: o.uuid ?? pseudoRosterUuid(teamUuid, "official", o.name, o.role ?? undefined),
+      name: o.name,
+      ...(o.role ? { role: o.role } : {}),
+    }));
+}
 
 async function resolveConfiguredSamsClubsFromStorage() {
   const clubResponse = await samsEntities.club.query.byType({ type: "club" }).go({ pages: "all" });
@@ -237,15 +299,52 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
     });
     Sentry.setMeasurement("sams_teams_sync.teams_found", allTeams.length, "none");
 
-    // Step 5: Store teams in DynamoDB
+    // Step 5: Store teams (and their rosters) in DynamoDB
     let teamsProcessed = 0;
+    let rostersProcessed = 0;
+    let rostersFailed = 0;
 
     for (const team of allTeams) {
       await samsEntities.team.upsert(team).go();
       teamsProcessed++;
+
+      try {
+        const { data: rosterData, error: rosterError } = await getTeamRosterByTeamUuid({
+          path: { uuid: team.uuid },
+        });
+        if (rosterError) {
+          throw rosterError;
+        }
+        if (rosterData) {
+          const rosterItem: SyncedRosterItem = {
+            teamUuid: team.uuid,
+            type: "roster",
+            players: mapRosterPlayers(team.uuid, rosterData.players),
+            officials: mapRosterOfficials(team.uuid, rosterData.officials),
+            updatedAt: new Date().toISOString(),
+            ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365,
+          };
+          await samsEntities.roster.upsert(rosterItem).go();
+          rostersProcessed++;
+        }
+      } catch (error) {
+        console.warn(`Failed to fetch roster for team ${team.name} (${team.uuid}):`, error);
+        Sentry.captureException(error, {
+          extra: { teamUuid: team.uuid, teamName: team.name },
+        });
+        await samsEntities.roster
+          .delete({ teamUuid: team.uuid })
+          .go()
+          .catch((deleteError) => {
+            console.warn(`Failed to delete stale roster for team ${team.uuid}:`, deleteError);
+          });
+        rostersFailed++;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Rate limiting
     }
 
-    // Step 6: Delete stale teams (not updated in this sync)
+    // Step 6: Delete stale teams (not updated in this sync) and their rosters
     const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
     const existingResponse = await samsEntities.team.query
       .byType({ type: "team" })
@@ -254,6 +353,7 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
     for (const existingTeam of existingResponse.data) {
       if (existingTeam.updatedAt < oneHourAgo) {
         await samsEntities.team.delete({ uuid: existingTeam.uuid }).go();
+        await samsEntities.roster.delete({ teamUuid: existingTeam.uuid }).go();
         console.log(`Deleted stale team: ${existingTeam.name}`);
         teamsDeleted++;
       }
@@ -263,12 +363,16 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
       success: true,
       teamsProcessed,
       teamsDeleted,
+      rostersProcessed,
+      rostersFailed,
       timestamp: new Date().toISOString(),
     };
 
     console.log("Teams sync completed:", result);
     Sentry.setMeasurement("sams_teams_sync.teams_processed", teamsProcessed, "none");
     Sentry.setMeasurement("sams_teams_sync.teams_deleted", teamsDeleted, "none");
+    Sentry.setMeasurement("sams_teams_sync.rosters_processed", rostersProcessed, "none");
+    Sentry.setMeasurement("sams_teams_sync.rosters_failed", rostersFailed, "none");
     Sentry.addBreadcrumb({
       category: "sync",
       message: "Teams sync completed",

@@ -28,7 +28,7 @@ import {
   VolunteerTokenEntity,
 } from "./electrodb-entities";
 import { getContentTableName, getSamsTableName } from "./env";
-import { SamsClubEntity, SamsTeamEntity } from "./sams-electrodb-entities";
+import { SamsClubEntity, SamsRosterEntity, SamsTeamEntity } from "./sams-electrodb-entities";
 
 /** All entities registered in the service */
 const entityMap = {
@@ -75,6 +75,7 @@ export function db(): ReturnType<typeof createDb> {
 const samsEntityMap = {
   club: SamsClubEntity,
   team: SamsTeamEntity,
+  roster: SamsRosterEntity,
 } as const;
 
 /**

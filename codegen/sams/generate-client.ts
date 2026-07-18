@@ -216,6 +216,41 @@ createClient({
             }
           }
         },
+        // SAMS returns null (not omitted) for unset optional player/official fields.
+        // Without nullable:true, responseValidator rejects the roster and teams-sync
+        // silently skips writing (data=undefined, error set, no throw).
+        TeamPlayerDto: (schema) => {
+          if (schema.properties) {
+            for (const [key, property] of Object.entries(schema.properties)) {
+              if (typeof property === "object" && property !== null) {
+                switch (key) {
+                  case "uuid":
+                  case "name":
+                    property.nullable = false;
+                    break;
+                  default:
+                    property.nullable = true;
+                }
+              }
+            }
+          }
+        },
+        TeamOfficialDto: (schema) => {
+          if (schema.properties) {
+            for (const [key, property] of Object.entries(schema.properties)) {
+              if (typeof property === "object" && property !== null) {
+                switch (key) {
+                  case "uuid":
+                  case "name":
+                    property.nullable = false;
+                    break;
+                  default:
+                    property.nullable = true;
+                }
+              }
+            }
+          }
+        },
         SportsclubDto: (schema) => {
           if (schema.properties) {
             schema.required = ["uuid", "name"];

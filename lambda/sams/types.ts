@@ -190,6 +190,71 @@ export const TeamsResponseSchema = z.object({
 export type TeamsResponse = z.infer<typeof TeamsResponseSchema>;
 
 // ============================================================================
+// Roster Schemas & Types
+// ============================================================================
+
+/**
+ * A player entry within a synced SAMS team roster
+ * uuid and name are always present: sams-teams-sync.ts derives a deterministic pseudo uuid when the
+ * external API omits one, and filters out players without a name.
+ */
+const RosterPlayerSchema = z.object({
+  uuid: z.string(),
+  name: z.string(),
+  jerseyNumber: z.number().optional(),
+  position: z.string().optional(),
+  portraitImageLink: z.string().optional(),
+});
+
+export type RosterPlayer = z.infer<typeof RosterPlayerSchema>;
+
+/**
+ * An official/coach entry within a synced SAMS team roster
+ * uuid and name are always present: sams-teams-sync.ts derives a deterministic pseudo uuid when the
+ * external API omits one, and filters out officials without a name.
+ */
+const RosterOfficialSchema = z.object({
+  uuid: z.string(),
+  name: z.string(),
+  role: z.string().optional(),
+});
+
+export type RosterOfficial = z.infer<typeof RosterOfficialSchema>;
+
+/**
+ * Base roster schema for DynamoDB
+ */
+const BaseRosterItemSchema = z.object({
+  type: z.literal("roster").default("roster").describe("GSI partition key type"),
+  teamUuid: z.string(),
+  players: z.array(RosterPlayerSchema).default([]),
+  officials: z.array(RosterOfficialSchema).default([]),
+  updatedAt: z.string(),
+  ttl: z.number(), // DynamoDB TTL field
+});
+
+/**
+ * Internal DynamoDB representation of a roster
+ * Automatically strips undefined values to save storage
+ */
+export const RosterItemSchema = BaseRosterItemSchema.transform((data) => {
+  // Remove undefined values to save DynamoDB storage
+  return Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined));
+});
+
+export type RosterItem = z.infer<typeof RosterItemSchema>;
+
+/**
+ * Public API response for a team roster
+ * Excludes internal fields (ttl)
+ */
+export const RosterResponseSchema = BaseRosterItemSchema.omit({
+  ttl: true,
+});
+
+export type RosterResponse = z.infer<typeof RosterResponseSchema>;
+
+// ============================================================================
 // Seasons Schemas & Types
 // ============================================================================
 

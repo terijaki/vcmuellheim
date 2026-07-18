@@ -601,8 +601,8 @@ export type CompetitionMatchDto = {
   team2Mvp?: MostValuablePlayerDto;
   matchGroupUuid?: string | null;
   competitionUuid?: string | null;
-  delayPossible?: boolean | null;
   indefinitelyRescheduled?: boolean | null;
+  delayPossible?: boolean | null;
 };
 
 export type CompetitionMatchPage = {
@@ -750,8 +750,8 @@ export type LeagueMatchDto = {
   team2Mvp?: MostValuablePlayerDto;
   matchDayUuid?: string | null;
   leagueUuid?: string | null;
-  delayPossible?: boolean | null;
   indefinitelyRescheduled?: boolean | null;
+  delayPossible?: boolean | null;
 };
 
 export type LeagueMatchPage = {
@@ -880,21 +880,21 @@ export type SeasonDto = {
 export type TeamOfficialDto = {
   uuid?: string;
   name?: string;
-  birthdate?: string;
-  nationality?: string;
-  portraitImageLink?: string;
-  role?: string;
+  birthdate?: string | null;
+  nationality?: string | null;
+  portraitImageLink?: string | null;
+  role?: string | null;
 };
 
 export type TeamPlayerDto = {
   uuid?: string;
   name?: string;
-  birthdate?: string;
-  nationality?: string;
-  portraitImageLink?: string;
-  height?: number;
-  jerseyNumber?: number;
-  position?: string;
+  birthdate?: string | null;
+  nationality?: string | null;
+  portraitImageLink?: string | null;
+  height?: number | null;
+  jerseyNumber?: number | null;
+  position?: string | null;
 };
 
 export type TeamRosterDto = {

@@ -1,6 +1,8 @@
 import {
   type ClubResponse,
   ClubResponseSchema,
+  type RosterResponse,
+  RosterResponseSchema,
   type TeamResponse,
   TeamResponseSchema,
 } from "@/lambda/sams/types";
@@ -106,4 +108,9 @@ export async function getAllSamsTeams(): Promise<PaginatedResult<TeamResponse>> 
 export async function getSamsTeamByUuid(uuid: string): Promise<TeamResponse | null> {
   const result = await samsDb().team.get({ uuid }).go();
   return result.data ? TeamResponseSchema.parse(result.data) : null;
+}
+
+export async function getSamsRosterByTeamUuid(teamUuid: string): Promise<RosterResponse | null> {
+  const result = await samsDb().roster.get({ teamUuid }).go();
+  return result.data ? RosterResponseSchema.parse(result.data) : null;
 }
