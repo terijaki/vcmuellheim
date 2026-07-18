@@ -10,7 +10,7 @@
  * Bug descriptions must stay in sync with scripts/check-sams-bugs.ts.
  */
 
-export {};
+import { buildSwaggerDriftSection } from "./sams-swagger-drift";
 
 const token = process.env.GITHUB_TOKEN;
 const repository = process.env.GITHUB_REPOSITORY; // "owner/repo"
@@ -34,6 +34,7 @@ const failureStep = process.env.FAILURE_STEP ?? "";
 const swaggerJobFailed = process.env.SWAGGER_DRIFT_RESULT === "failure";
 const bugCheckJobFailed = process.env.BUG_CHECK_RESULT === "failure";
 const regenJobFailed = process.env.REGENERATE_RESULT === "failure";
+const driftSummaryMarkdown = process.env.DRIFT_SUMMARY_MARKDOWN ?? "";
 
 const bugDescriptions: Record<number, string> = {
   2: "`logoImageForScreenOutputLink` always `null` on `GET /teams/{uuid}`",
@@ -65,13 +66,12 @@ const titleParts: string[] = [];
 if (hasDrift) {
   labels.push("drift-detection");
   titleParts.push("⚠️ swagger drift");
-  sections.push(`## ⚠️ Swagger Drift Detected
-
-The upstream spec at \`https://www.volleyball-baden.de/api/v2/swagger.json\` has changed since the last committed raw snapshot in \`codegen/sams/generated/input.json\`.
-
-Run \`bun run sams:codegen\` locally, review \`codegen/sams/generated/input.json\` for the upstream change and \`codegen/sams/generated/source.json\` plus the generated client files for downstream impact, then commit the updated files once verified.
-
-[Full diff in workflow run](${runUrl})`);
+  sections.push(
+    buildSwaggerDriftSection({
+      runUrl,
+      summaryMarkdown: driftSummaryMarkdown,
+    }),
+  );
 }
 
 if (hasFixed) {

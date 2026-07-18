@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/vp-check-before-commit.sh",
+        "matcher": "git\\s+commit",
+        "failClosed": true,
+        "timeout": 300
+      }
+    ]
+  }
+}
