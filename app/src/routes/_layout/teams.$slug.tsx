@@ -1,12 +1,14 @@
 import {
   Anchor,
   Avatar,
+  Box,
   Button,
   Card,
   CardSection,
   Center,
   Flex,
   Group,
+  SimpleGrid,
   Stack,
   Text,
 } from "@mantine/core";
@@ -106,11 +108,11 @@ function RouteComponent() {
         <Suspense fallback={<CenteredLoader text="Lade Trainer..." />}>
           <TeamTrainers team={team} />
         </Suspense>
-        <Suspense fallback={<CenteredLoader text="Lade Fotos..." />}>
-          <TeamPictures team={team} />
-        </Suspense>
         <Suspense fallback={null}>
           <TeamRoster teamUuid={loaderData.samsTeam?.uuid} />
+        </Suspense>
+        <Suspense fallback={<CenteredLoader text="Lade Fotos..." />}>
+          <TeamPictures team={team} />
         </Suspense>
         <Suspense fallback={<CenteredLoader text="Lade Tabelle..." />}>
           {loaderData.samsTeam?.leagueUuid && (
@@ -370,62 +372,141 @@ function TeamTrainers({ team }: { team: NonNullable<ReturnType<typeof useTeamByS
   );
 }
 
+/** SAMS often returns "Nachname, Vorname" — prefer "Vorname Nachname" for display. */
+function parseRosterName(name: string): { first: string; last: string; display: string } {
+  const comma = name.indexOf(",");
+  if (comma === -1) {
+    const trimmed = name.trim();
+    return { first: trimmed, last: "", display: trimmed };
+  }
+  const last = name.slice(0, comma).trim();
+  const first = name.slice(comma + 1).trim();
+  if (!last || !first) {
+    const trimmed = name.trim();
+    return { first: trimmed, last: "", display: trimmed };
+  }
+  return { first, last, display: `${first} ${last}` };
+}
+
+function formatRosterName(name: string): string {
+  return parseRosterName(name).display;
+}
+
+function compareRosterPlayers(
+  a: { jerseyNumber?: number; name: string },
+  b: { jerseyNumber?: number; name: string },
+): number {
+  if (a.jerseyNumber != null && b.jerseyNumber != null && a.jerseyNumber !== b.jerseyNumber) {
+    return a.jerseyNumber - b.jerseyNumber;
+  }
+  if ((a.jerseyNumber != null) !== (b.jerseyNumber != null)) {
+    return a.jerseyNumber != null ? -1 : 1;
+  }
+  return parseRosterName(a.name).first.localeCompare(parseRosterName(b.name).first, "de");
+}
+
+function JerseyNumber({ number }: { number?: number }) {
+  const hasNumber = number != null;
+  return (
+    <Box
+      w={48}
+      h={48}
+      style={{
+        flexShrink: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "50%",
+        background: hasNumber
+          ? "var(--mantine-color-blumine-6)"
+          : "var(--mantine-color-aquahaze-2)",
+        color: hasNumber ? "white" : "var(--mantine-color-dimmed)",
+        fontWeight: 800,
+        fontSize: hasNumber ? (number >= 10 ? "1.1rem" : "1.35rem") : "1rem",
+        letterSpacing: hasNumber ? "-0.02em" : undefined,
+        fontVariantNumeric: "tabular-nums",
+        lineHeight: 1,
+      }}
+      aria-label={hasNumber ? `Trikotnummer ${number}` : "Keine Trikotnummer"}
+    >
+      {hasNumber ? number : "–"}
+    </Box>
+  );
+}
+
 function TeamRoster({ teamUuid }: { teamUuid?: string }) {
   const { data: roster } = useSamsRoster(teamUuid);
 
-  if (!roster || (!roster.players.length && !roster.officials.length)) return null;
+  if (!roster) return null;
 
-  const sortedPlayers = [...roster.players].sort((a, b) => {
-    if (a.jerseyNumber == null) return 1;
-    if (b.jerseyNumber == null) return -1;
-    return a.jerseyNumber - b.jerseyNumber;
-  });
+  const sortedPlayers = [...roster.players].sort(compareRosterPlayers);
+  const officialsWithRole = roster.officials.filter((official) => !!official.role?.trim());
 
+  if (!sortedPlayers.length && !officialsWithRole.length) return null;
   return (
     <Card>
-      <Stack>
+      <Stack gap="lg">
         <CardTitle>Kader</CardTitle>
         {sortedPlayers.length > 0 && (
-          <Flex wrap="wrap" gap="xl">
+          <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="md">
             {sortedPlayers.map((player) => (
-              <Group key={player.uuid} align="center">
-                <Avatar src={player.portraitImageLink} name={player.name} />
-                <Stack gap={0}>
-                  <Text fw="bold" c="turquoise">
-                    {player.jerseyNumber != null ? `#${player.jerseyNumber} ` : ""}
-                    {player.name}
+              <Group key={player.uuid} gap="sm" wrap="nowrap" align="center">
+                {player.portraitImageLink ? (
+                  <Avatar src={player.portraitImageLink} name={player.name} size={48} radius="xl" />
+                ) : (
+                  <JerseyNumber number={player.jerseyNumber} />
+                )}
+                <Stack gap={2} style={{ minWidth: 0 }}>
+                  {player.portraitImageLink && player.jerseyNumber != null && (
+                    <Text
+                      size="xs"
+                      fw={700}
+                      c="blumine"
+                      tt="uppercase"
+                      style={{ letterSpacing: "0.04em" }}
+                    >
+                      Nr. {player.jerseyNumber}
+                    </Text>
+                  )}
+                  <Text fw={700} c="blumine" truncate>
+                    {formatRosterName(player.name)}
                   </Text>
                   {player.position && (
-                    <Text c="dimmed" size="xs">
+                    <Text c="dimmed" size="xs" truncate>
                       {player.position}
                     </Text>
                   )}
                 </Stack>
               </Group>
             ))}
-          </Flex>
+          </SimpleGrid>
         )}
-        {roster.officials.length > 0 && (
-          <>
-            <Text fw="bold">Offizielle</Text>
-            <Flex wrap="wrap" gap="xl">
-              {roster.officials.map((official) => (
-                <Group key={official.uuid} align="center">
-                  <Avatar name={official.name} />
-                  <Stack gap={0}>
-                    <Text fw="bold" c="turquoise">
-                      {official.name}
+        {officialsWithRole.length > 0 && (
+          <Stack gap="sm">
+            <Text fw={700} size="sm" c="dimmed" tt="uppercase" style={{ letterSpacing: "0.06em" }}>
+              Offizielle
+            </Text>
+            <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="md">
+              {officialsWithRole.map((official) => (
+                <Group key={official.uuid} gap="sm" wrap="nowrap" align="center">
+                  <Avatar
+                    name={formatRosterName(official.name)}
+                    size={40}
+                    radius="xl"
+                    color="blumine"
+                  />
+                  <Stack gap={2} style={{ minWidth: 0 }}>
+                    <Text fw={700} c="blumine" truncate>
+                      {formatRosterName(official.name)}
                     </Text>
-                    {official.role && (
-                      <Text c="dimmed" size="xs">
-                        {official.role}
-                      </Text>
-                    )}
+                    <Text c="dimmed" size="xs" truncate>
+                      {official.role}
+                    </Text>
                   </Stack>
                 </Group>
               ))}
-            </Flex>
-          </>
+            </SimpleGrid>
+          </Stack>
         )}
       </Stack>
     </Card>
