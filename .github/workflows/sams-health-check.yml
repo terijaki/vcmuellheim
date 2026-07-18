@@ -42,33 +42,7 @@ jobs:
         run: |
           bun scripts/check-sams-swagger-drift.ts \
             /tmp/committed-source.json \
-            codegen/sams/generated/source.json \
-            > /tmp/swagger-drift-result.json
-
-          node -e "
-            const fs = require('fs');
-            const result = JSON.parse(fs.readFileSync('/tmp/swagger-drift-result.json', 'utf8'));
-            const summary = result.summaryMarkdown ?? '';
-            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'has_drift=' + (result.hasDrift ? 'true' : 'false') + '\n');
-            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'drift_summary_markdown<<EOF\n' + summary + '\nEOF\n');
-
-            if (!result.hasDrift) {
-              fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '✅ source.json semantically unchanged — no upstream spec changes.\\n');
-              return;
-            }
-
-            const lines = [
-              '## ⚠️ Swagger drift detected',
-              '',
-              result.changeCount + ' semantic change(s) in codegen/sams/generated/source.json',
-              '',
-              '### What changed',
-              '',
-              summary,
-              '',
-            ];
-            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\\n') + '\\n');
-          "
+            codegen/sams/generated/source.json
 
   # ── Job 2: Verify known upstream API bugs are still present ───────────────────
   bug-check:

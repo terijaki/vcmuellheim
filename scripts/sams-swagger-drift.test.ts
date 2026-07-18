@@ -3,6 +3,8 @@ import {
   buildSwaggerDriftSection,
   compareSwaggerSnapshots,
   formatDriftSummaryMarkdown,
+  formatGithubOutputFile,
+  formatGithubStepSummary,
   jsonEqualIgnoringKeyOrder,
 } from "./sams-swagger-drift";
 
@@ -165,9 +167,37 @@ describe("buildSwaggerDriftSection", () => {
   });
 });
 
+describe("GitHub Actions output helpers", () => {
+  it("formats step summary and job outputs for Actions to pick up", () => {
+    const summary = formatGithubStepSummary({
+      hasDrift: true,
+      changeCount: 1,
+      summaryMarkdown: "- **changed** `foo.type`: `boolean` → `string`",
+    });
+    expect(summary).toContain("Swagger drift detected");
+    expect(summary).toContain("### What changed");
+    expect(summary).toContain("foo.type");
+
+    const noDrift = formatGithubStepSummary({
+      hasDrift: false,
+      changeCount: 0,
+      summaryMarkdown: "",
+    });
+    expect(noDrift).toContain("semantically unchanged");
+
+    const outputs = formatGithubOutputFile({
+      hasDrift: true,
+      summaryMarkdown: "- **changed** `foo`",
+    });
+    expect(outputs).toContain("has_drift=true");
+    expect(outputs).toContain("drift_summary_markdown<<SWAGGER_DRIFT_EOF");
+    expect(outputs).toContain("- **changed** `foo`");
+  });
+});
+
 describe("check-sams-swagger-drift CLI", () => {
   it("reports no drift for key-order-only differences and drift for real changes", async () => {
-    const { mkdtempSync, writeFileSync, rmSync } = await import("node:fs");
+    const { mkdtempSync, writeFileSync, readFileSync, rmSync } = await import("node:fs");
     const { tmpdir } = await import("node:os");
     const { join } = await import("node:path");
     const { execFileSync } = await import("node:child_process");
@@ -177,6 +207,8 @@ describe("check-sams-swagger-drift CLI", () => {
       const committed = join(dir, "committed.json");
       const regeneratedSame = join(dir, "regenerated-same.json");
       const regeneratedChanged = join(dir, "regenerated-changed.json");
+      const githubOutput = join(dir, "github-output");
+      const githubStepSummary = join(dir, "github-step-summary");
 
       writeFileSync(
         committed,
@@ -215,10 +247,20 @@ describe("check-sams-swagger-drift CLI", () => {
       expect(sameResult.hasDrift).toBe(false);
       expect(sameResult.changeCount).toBe(0);
 
+      writeFileSync(githubOutput, "");
+      writeFileSync(githubStepSummary, "");
       const changedOutput = execFileSync(
         "bun",
         ["scripts/check-sams-swagger-drift.ts", committed, regeneratedChanged],
-        { encoding: "utf8", cwd: process.cwd() },
+        {
+          encoding: "utf8",
+          cwd: process.cwd(),
+          env: {
+            ...process.env,
+            GITHUB_OUTPUT: githubOutput,
+            GITHUB_STEP_SUMMARY: githubStepSummary,
+          },
+        },
       );
       const changedResult = JSON.parse(changedOutput) as {
         hasDrift: boolean;
@@ -228,6 +270,9 @@ describe("check-sams-swagger-drift CLI", () => {
       expect(changedResult.hasDrift).toBe(true);
       expect(changedResult.changeCount).toBeGreaterThan(0);
       expect(changedResult.summaryMarkdown).toContain("delayPossible");
+
+      expect(readFileSync(githubOutput, "utf8")).toContain("has_drift=true");
+      expect(readFileSync(githubStepSummary, "utf8")).toContain("What changed");
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }

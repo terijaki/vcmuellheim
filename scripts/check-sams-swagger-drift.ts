@@ -6,14 +6,20 @@
  *   bun scripts/check-sams-swagger-drift.ts <committed.json> <regenerated.json>
  *
  * Prints JSON: { hasDrift, changeCount, summaryMarkdown }
+ * When GITHUB_OUTPUT / GITHUB_STEP_SUMMARY are set (Actions), also appends job outputs and the step summary.
  * Exits 0 when the check completes (drift or not).
  * Exits 1 on usage errors or invalid JSON.
  *
  * Used by .github/workflows/sams-health-check.yml
  */
 
-import { readFileSync } from "node:fs";
-import { compareSwaggerSnapshots, formatDriftSummaryMarkdown } from "./sams-swagger-drift";
+import { appendFileSync, readFileSync } from "node:fs";
+import {
+  compareSwaggerSnapshots,
+  formatDriftSummaryMarkdown,
+  formatGithubOutputFile,
+  formatGithubStepSummary,
+} from "./sams-swagger-drift";
 
 const committedPath = process.argv[2];
 const regeneratedPath = process.argv[3];
@@ -43,11 +49,35 @@ try {
   process.exit(1);
 }
 
+const summaryMarkdown = formatDriftSummaryMarkdown(result.changes);
 const output = {
   hasDrift: result.hasDrift,
   changeCount: result.changes.length,
-  summaryMarkdown: formatDriftSummaryMarkdown(result.changes),
+  summaryMarkdown,
 };
+
+const githubOutputPath = process.env.GITHUB_OUTPUT;
+if (githubOutputPath) {
+  appendFileSync(
+    githubOutputPath,
+    formatGithubOutputFile({
+      hasDrift: result.hasDrift,
+      summaryMarkdown,
+    }),
+  );
+}
+
+const githubStepSummaryPath = process.env.GITHUB_STEP_SUMMARY;
+if (githubStepSummaryPath) {
+  appendFileSync(
+    githubStepSummaryPath,
+    formatGithubStepSummary({
+      hasDrift: result.hasDrift,
+      changeCount: result.changes.length,
+      summaryMarkdown,
+    }),
+  );
+}
 
 console.log(JSON.stringify(output));
 process.exit(0);

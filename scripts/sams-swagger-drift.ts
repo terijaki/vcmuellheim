@@ -200,6 +200,43 @@ export function formatDriftSummaryMarkdown(changes: JsonDriftChange[], maxItems 
 
 const SOURCE_JSON_PATH = "codegen/sams/generated/source.json";
 
+/** Job summary markdown written to $GITHUB_STEP_SUMMARY in CI. */
+export function formatGithubStepSummary(options: {
+  hasDrift: boolean;
+  changeCount: number;
+  summaryMarkdown: string;
+}): string {
+  if (!options.hasDrift) {
+    return "✅ source.json semantically unchanged — no upstream spec changes.\n";
+  }
+
+  return [
+    "## ⚠️ Swagger drift detected",
+    "",
+    `${options.changeCount} semantic change(s) in ${SOURCE_JSON_PATH}`,
+    "",
+    "### What changed",
+    "",
+    options.summaryMarkdown,
+    "",
+  ].join("\n");
+}
+
+/** Step outputs written to $GITHUB_OUTPUT in CI (multiline-safe). */
+export function formatGithubOutputFile(options: {
+  hasDrift: boolean;
+  summaryMarkdown: string;
+}): string {
+  const delimiter = "SWAGGER_DRIFT_EOF";
+  return [
+    `has_drift=${options.hasDrift ? "true" : "false"}`,
+    `drift_summary_markdown<<${delimiter}`,
+    options.summaryMarkdown,
+    delimiter,
+    "",
+  ].join("\n");
+}
+
 /** GitHub issue section for swagger drift notifications. */
 export function buildSwaggerDriftSection(options: {
   runUrl: string;
