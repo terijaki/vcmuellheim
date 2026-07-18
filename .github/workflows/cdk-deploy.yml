@@ -1,7 +1,7 @@
 name: CDK Deploy
 concurrency:
-  group: cdk-deploy-${{ github.event.pull_request.head.ref || github.ref_name }}
-  cancel-in-progress: true
+  group: cdk-deploy
+  cancel-in-progress: false
 
 on:
   push:
@@ -12,42 +12,24 @@ on:
       - "**.md" # Ignore markdown files
       - ".github/copilot**" # Ignore copilot files
       - ".vscode/**" # Ignore VSCode settings
-  pull_request_review:
-    types: [submitted]
 
 permissions:
   id-token: write # Required for AWS OIDC
   contents: write # Required for commenting on commits
 
-# Prod vs dev: push to main → prod; everything else (incl. Dependabot approve) → dev
-env:
-  IS_PROD: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
-
 jobs:
   deploy:
     name: Deploy CDK Stack
-    if: |
-      (github.event_name == 'push' &&
-       github.event.repository.owner.type == 'User' &&
-       github.actor == github.event.repository.owner.login) ||
-      (github.event_name == 'pull_request_review' &&
-       github.event.review.state == 'approved' &&
-       github.event.repository.owner.type == 'User' &&
-       github.actor == github.event.repository.owner.login &&
-       github.event.pull_request.user.login == 'dependabot[bot]')
     runs-on: ubuntu-latest
     outputs:
       webapp_url: ${{ steps.resolve-webapp-url.outputs.webapp_url }}
     env:
-      CDK_ENVIRONMENT: ${{ env.IS_PROD == 'true' && 'prod' || 'dev' }}
-      SENTRY_ENVIRONMENT: ${{ env.IS_PROD == 'true' && 'prod' || 'dev' }}
-      CDK_BRANCH_OVERWRITE: ${{ github.event.pull_request.head.ref || github.ref_name }}
+      CDK_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+      SENTRY_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - uses: voidzero-dev/setup-vp@v1
         with:
@@ -60,7 +42,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ env.IS_PROD == 'true' && secrets.AWS_ROLE_ARN_PROD || secrets.AWS_ROLE_ARN_DEV }}
+          role-to-assume: ${{ github.ref == 'refs/heads/main' && secrets.AWS_ROLE_ARN_PROD || secrets.AWS_ROLE_ARN_DEV }}
           aws-region: eu-central-1
 
       - name: Load environment variables
@@ -81,6 +63,8 @@ jobs:
 
       - name: Resolve deployed web app URL
         id: resolve-webapp-url
+        env:
+          CDK_BRANCH_OVERWRITE: ${{ github.ref_name }}
         run: |
           WEBAPP_URL=$(vp exec tsx -e '
             import { getSanitizedBranch } from "./utils/git.ts";
@@ -96,29 +80,20 @@ jobs:
 
       - name: Add deployment summary
         run: |
-          BRANCH=$(git rev-parse --abbrev-ref HEAD | tr -cd '[:alnum:]._/-')
-          if [ "$IS_PROD" = "true" ]; then
-            ICON="🚀"
-            ENV_LABEL="Production"
-          else
-            ICON="🔧"
-            ENV_LABEL="Development"
-          fi
-
-          echo "## ${ICON} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## ${{ github.ref == 'refs/heads/main' && '🚀' || '🔧' }} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Environment** | ${ENV_LABEL} |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Commit** | \`${GITHUB_SHA}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch** | \`${{ github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
 
           # Extract and display CDK outputs if available
           if [ -f "cdk-outputs.json" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### 🔗 Endpoints" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-
+            
             # Display outputs from both stacks
             cat cdk-outputs.json | grep -o '"[^"]*Url"[^"]*"[^"]*"' | while read -r line; do
               KEY=$(echo "$line" | sed 's/"\([^"]*\)".*/\1/')
@@ -127,7 +102,7 @@ jobs:
             done || true
           fi
 
-          if [ "$IS_PROD" != "true" ]; then
+          if [ "${{ github.ref }}" != "refs/heads/main" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### 💡 Cleanup" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
@@ -139,59 +114,6 @@ jobs:
             echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           fi
 
-  synth:
-    name: CDK Synth
-    if: github.event_name == 'push' && github.actor == 'dependabot[bot]'
-    runs-on: ubuntu-latest
-    env:
-      CDK_ENVIRONMENT: dev
-      SENTRY_ENVIRONMENT: dev
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - uses: voidzero-dev/setup-vp@v1
-        with:
-          node-version: "25"
-          cache: true
-
-      - name: Install dependencies
-        run: vp install
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v6
-        with:
-          # Non-secret account+role ARN. Hardcoded because Dependabot cannot read
-          # repository secrets (AWS_ROLE_ARN_DEV), so OIDC must use a literal ARN.
-          role-to-assume: arn:aws:iam::418553863544:role/GitHubActionsCDKRole
-          aws-region: eu-central-1
-
-      - name: Load environment variables
-        uses: dmno-dev/varlock-action@v1.0.1
-
-      - name: Lint check
-        run: vp lint
-
-      - name: Run tests
-        run: vp test
-
-      - name: CDK Synth
-        run: vp exec cdk synth --all
-
-      - name: Add synth summary
-        run: |
-          BRANCH=$(git rev-parse --abbrev-ref HEAD | tr -cd '[:alnum:]._/-')
-          echo "## 📦 CDK Synth Summary (Dependabot)" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
-          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Environment** | Development |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Commit** | \`${GITHUB_SHA}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Dependabot PRs validate infrastructure via synth only — no AWS deploy or E2E until the repo owner approves the PR." >> $GITHUB_STEP_SUMMARY
-
   e2e-tests:
     name: E2E Tests
     needs: deploy
@@ -199,8 +121,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - uses: voidzero-dev/setup-vp@v1
         with:
@@ -229,25 +149,19 @@ jobs:
             RESULT="Failed"
           fi
 
-          if [ "$IS_PROD" = "true" ]; then
-            ENV_LABEL="Production"
-          else
-            ENV_LABEL="Development"
-          fi
-
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## ${ICON} Playwright E2E Smoke" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Environment** | ${ENV_LABEL} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }} |" >> $GITHUB_STEP_SUMMARY
           echo "| **Base URL** | \`${{ needs.deploy.outputs.webapp_url }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **Browser** | Desktop Chrome |" >> $GITHUB_STEP_SUMMARY
           echo "| **Result** | ${RESULT} |" >> $GITHUB_STEP_SUMMARY
 
   comment-on-deployment:
-    if: always() && (needs.deploy.result == 'failure' || needs.e2e-tests.result == 'failure' || needs.synth.result == 'failure')
-    needs: [deploy, e2e-tests, synth]
+    if: always() && (needs.deploy.result == 'failure' || needs.e2e-tests.result == 'failure')
+    needs: [deploy, e2e-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -260,7 +174,7 @@ jobs:
           LOGS=$(gh run view ${{ github.run_id }} --log | tail -100)
           # Escape newlines and special characters for JSON
           LOGS_ESCAPED=$(echo "$LOGS" | jq -Rs .)
-          echo "error_logs=$LOGS_ESCAPED" >> "$GITHUB_OUTPUT"
+          echo "error_logs=$LOGS_ESCAPED" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -270,16 +184,6 @@ jobs:
           script: |
             const workflowUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
             const logs = ${{ steps.logs.outputs.error_logs }};
-            const commitSha = context.payload.pull_request?.head?.sha ?? context.sha;
-
-            const failedJobs = [];
-            if ('${{ needs.synth.result }}' === 'failure') failedJobs.push('Synth');
-            if ('${{ needs.deploy.result }}' === 'failure') failedJobs.push('Deploy');
-            if ('${{ needs.e2e-tests.result }}' === 'failure') failedJobs.push('E2E');
-
-            const failureLabel = failedJobs.length === 1
-              ? `CDK ${failedJobs[0]} Failed`
-              : `CDK Pipeline Failed (${failedJobs.join(', ')})`;
 
             let errorSection = '';
             if (logs && logs.trim()) {
@@ -292,6 +196,6 @@ jobs:
             github.rest.repos.createCommitComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              commit_sha: commitSha,
-              body: `🚨 **${failureLabel}**\n\n[View workflow run](${workflowUrl})${errorSection}`
+              commit_sha: context.sha,
+              body: `🚨 **CDK Deploy Pipeline Failed (including post-deploy E2E)**\n\n[View workflow run](${workflowUrl})${errorSection}`
             });
