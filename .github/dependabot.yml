@@ -38,7 +38,6 @@ updates:
           - "babel-plugin-react-compiler"
           - "lucide-react"
           - "react-icons"
-          - "react-world-flags"
           - "@sentry/react"
           - "@sentry/tanstackstart-react"
       platform:
@@ -49,7 +48,6 @@ updates:
           - "varlock"
           - "@varlock/*"
           - "zod"
-          - "superjson"
           - "@middy/*"
           - "dayjs"
           - "num-words-de"
@@ -62,7 +60,6 @@ updates:
           - "@rolldown/*"
           - "@sentry/vite-plugin"
           - "@voidzero-dev/*"
-          - "@varlock/vite-integration"
           - "esbuild"
           - "tsx"
           - "typescript"
