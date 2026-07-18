@@ -65,35 +65,39 @@ function mapRosterPlayers(
   teamUuid: string,
   players: Array<{
     uuid?: string;
-    name?: string;
-    jerseyNumber?: number;
-    position?: string;
-    portraitImageLink?: string;
+    name?: string | null;
+    jerseyNumber?: number | null;
+    position?: string | null;
+    portraitImageLink?: string | null;
   }> = [],
 ): RosterPlayer[] {
   return players
     .filter((p): p is typeof p & { name: string } => !!p.name?.trim())
     .map((p) => ({
       // The SAMS API sometimes omits uuid; derive a deterministic pseudo uuid from stable fields
-      uuid: p.uuid ?? pseudoRosterUuid(teamUuid, "player", p.name, p.jerseyNumber),
+      uuid: p.uuid ?? pseudoRosterUuid(teamUuid, "player", p.name, p.jerseyNumber ?? undefined),
       name: p.name,
-      jerseyNumber: p.jerseyNumber,
-      position: p.position,
-      portraitImageLink: p.portraitImageLink,
+      ...(p.jerseyNumber != null ? { jerseyNumber: p.jerseyNumber } : {}),
+      ...(p.position ? { position: p.position } : {}),
+      ...(p.portraitImageLink ? { portraitImageLink: p.portraitImageLink } : {}),
     }));
 }
 
 function mapRosterOfficials(
   teamUuid: string,
-  officials: Array<{ uuid?: string; name?: string; role?: string }> = [],
+  officials: Array<{
+    uuid?: string;
+    name?: string | null;
+    role?: string | null;
+  }> = [],
 ): RosterOfficial[] {
   return officials
     .filter((o): o is typeof o & { name: string } => !!o.name?.trim())
     .map((o) => ({
       // The SAMS API sometimes omits uuid; derive a deterministic pseudo uuid from stable fields
-      uuid: o.uuid ?? pseudoRosterUuid(teamUuid, "official", o.name, o.role),
+      uuid: o.uuid ?? pseudoRosterUuid(teamUuid, "official", o.name, o.role ?? undefined),
       name: o.name,
-      role: o.role,
+      ...(o.role ? { role: o.role } : {}),
     }));
 }
 
@@ -305,7 +309,12 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
       teamsProcessed++;
 
       try {
-        const { data: rosterData } = await getTeamRosterByTeamUuid({ path: { uuid: team.uuid } });
+        const { data: rosterData, error: rosterError } = await getTeamRosterByTeamUuid({
+          path: { uuid: team.uuid },
+        });
+        if (rosterError) {
+          throw rosterError;
+        }
         if (rosterData) {
           const rosterItem: SyncedRosterItem = {
             teamUuid: team.uuid,

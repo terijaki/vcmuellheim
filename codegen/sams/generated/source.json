@@ -5878,11 +5878,11 @@
             "type": "string",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           }
@@ -6296,11 +6296,11 @@
             "type": "string",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           }
@@ -6548,23 +6548,29 @@
         "type": "object",
         "properties": {
           "uuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": false
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "nullable": false
           },
           "birthdate": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "nationality": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "portraitImageLink": {
             "type": "string",
-            "format": "url"
+            "format": "url",
+            "nullable": true
           },
           "role": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -6572,31 +6578,39 @@
         "type": "object",
         "properties": {
           "uuid": {
-            "type": "string"
+            "type": "string",
+            "nullable": false
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "nullable": false
           },
           "birthdate": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "nationality": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "portraitImageLink": {
             "type": "string",
-            "format": "url"
+            "format": "url",
+            "nullable": true
           },
           "height": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "jerseyNumber": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "position": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },

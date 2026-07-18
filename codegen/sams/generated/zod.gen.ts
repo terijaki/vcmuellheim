@@ -141,29 +141,29 @@ export const zVolleyballMatchResultsDto = z.object({
 export const zTeamOfficialDto = z.object({
   uuid: z.string().optional(),
   name: z.string().optional(),
-  birthdate: z.string().optional(),
-  nationality: z.string().optional(),
-  portraitImageLink: z.string().optional(),
-  role: z.string().optional(),
+  birthdate: z.string().nullish(),
+  nationality: z.string().nullish(),
+  portraitImageLink: z.string().nullish(),
+  role: z.string().nullish(),
 });
 
 export const zTeamPlayerDto = z.object({
   uuid: z.string().optional(),
   name: z.string().optional(),
-  birthdate: z.string().optional(),
-  nationality: z.string().optional(),
-  portraitImageLink: z.string().optional(),
+  birthdate: z.string().nullish(),
+  nationality: z.string().nullish(),
+  portraitImageLink: z.string().nullish(),
   height: z
     .int()
     .min(-2147483648, { error: "Invalid value: Expected int32 to be >= -2147483648" })
     .max(2147483647, { error: "Invalid value: Expected int32 to be <= 2147483647" })
-    .optional(),
+    .nullish(),
   jerseyNumber: z
     .int()
     .min(-2147483648, { error: "Invalid value: Expected int32 to be >= -2147483648" })
     .max(2147483647, { error: "Invalid value: Expected int32 to be <= 2147483647" })
-    .optional(),
-  position: z.string().optional(),
+    .nullish(),
+  position: z.string().nullish(),
 });
 
 export const zLinkDto = z.object({
@@ -790,8 +790,8 @@ export const zCompetitionMatchDto = z.object({
   team2Mvp: zMostValuablePlayerDto.optional(),
   matchGroupUuid: z.string().nullish(),
   competitionUuid: z.string().nullish(),
-  delayPossible: z.boolean().nullish(),
   indefinitelyRescheduled: z.boolean().nullish(),
+  delayPossible: z.boolean().nullish(),
 });
 
 export const zCompetitionMatchPage = z.object({
@@ -937,8 +937,8 @@ export const zLeagueMatchDto = z.object({
   team2Mvp: zMostValuablePlayerDto.optional(),
   matchDayUuid: z.string().nullish(),
   leagueUuid: z.string().nullish(),
-  delayPossible: z.boolean().nullish(),
   indefinitelyRescheduled: z.boolean().nullish(),
+  delayPossible: z.boolean().nullish(),
 });
 
 export const zLeagueMatchPage = z.object({
