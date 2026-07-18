@@ -1,6 +1,6 @@
 name: CDK Deploy
 concurrency:
-  group: cdk-deploy-${{ github.event.pull_request.head.ref || github.ref }}
+  group: cdk-deploy-${{ github.event.pull_request.head.ref || github.ref_name }}
   cancel-in-progress: true
 
 on:
@@ -23,10 +23,13 @@ jobs:
   deploy:
     name: Deploy CDK Stack
     if: |
-      (github.event_name == 'push' && github.actor == github.repository_owner) ||
+      (github.event_name == 'push' &&
+       github.event.repository.owner.type == 'User' &&
+       github.actor == github.event.repository.owner.login) ||
       (github.event_name == 'pull_request_review' &&
        github.event.review.state == 'approved' &&
-       github.actor == github.repository_owner &&
+       github.event.repository.owner.type == 'User' &&
+       github.actor == github.event.repository.owner.login &&
        github.event.pull_request.user.login == 'dependabot[bot]')
     runs-on: ubuntu-latest
     outputs:
@@ -89,13 +92,14 @@ jobs:
 
       - name: Add deployment summary
         run: |
+          BRANCH=$(git rev-parse --abbrev-ref HEAD | tr -cd '[:alnum:]._/-')
           echo "## ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && '🚀' || '🔧' }} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
           echo "| **Environment** | ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'Production' || 'Development' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Branch** | \`${{ env.CDK_BRANCH_OVERWRITE }}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Commit** | \`${{ github.event.pull_request.head.sha || github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Commit** | \`${GITHUB_SHA}\` |" >> $GITHUB_STEP_SUMMARY
 
           # Extract and display CDK outputs if available
           if [ -f "cdk-outputs.json" ]; then
