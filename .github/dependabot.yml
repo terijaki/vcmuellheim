@@ -18,7 +18,6 @@ updates:
           - "@aws-sdk/*"
           - "@aws-lambda-powertools/*"
           - "@smithy/*"
-          - "aws-xray-sdk-core"
           - "aws-cdk*"
           - "aws-sdk-client-mock"
           - "constructs"
@@ -38,7 +37,6 @@ updates:
           - "babel-plugin-react-compiler"
           - "lucide-react"
           - "react-icons"
-          - "@sentry/react"
           - "@sentry/tanstackstart-react"
       platform:
         patterns:
@@ -58,7 +56,6 @@ updates:
           - "@hey-api/*"
           - "@playwright/*"
           - "@rolldown/*"
-          - "@sentry/vite-plugin"
           - "@voidzero-dev/*"
           - "esbuild"
           - "tsx"
