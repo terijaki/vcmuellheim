@@ -1,0 +1,7 @@
+{
+  "plugins": {
+    "aws-core": {
+      "enabled": true
+    }
+  }
+}
