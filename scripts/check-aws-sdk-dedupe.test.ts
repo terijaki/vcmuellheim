@@ -1,24 +1,28 @@
 import { describe, expect, it } from "vite-plus/test";
 import { findInstalledPackageVersions, uniqueVersions } from "./check-aws-sdk-dedupe";
 
+const PACKAGES = ["@aws-sdk/lib-dynamodb", "@aws-sdk/util-dynamodb"] as const;
+
 describe("AWS SDK / ElectroDB version dedupe", () => {
-  it("installs a single @aws-sdk/lib-dynamodb version", () => {
-    const installs = findInstalledPackageVersions("@aws-sdk/lib-dynamodb");
-    const versions = uniqueVersions(installs);
+  for (const packageName of PACKAGES) {
+    it(`installs a single ${packageName} version`, () => {
+      const installs = findInstalledPackageVersions(packageName);
+      const versions = uniqueVersions(installs);
 
-    expect(
-      versions,
-      [
-        "ElectroDB and app DocumentClient code must share one @aws-sdk/lib-dynamodb copy.",
-        "Multiple versions break ElectroDB queries (undefined LastEvaluatedKey / Item).",
-        'Fix: set package.json overrides["@aws-sdk/lib-dynamodb"] to the root dependency',
-        "version (e.g. ^3.1085.0), then reinstall.",
-        "",
-        "Installed copies:",
-        ...installs.map((install) => `- ${install.version} (${install.path})`),
-      ].join("\n"),
-    ).toHaveLength(1);
+      expect(
+        versions,
+        [
+          `ElectroDB and app DocumentClient code must share one ${packageName} copy.`,
+          "Multiple versions break ElectroDB queries (undefined LastEvaluatedKey / Item).",
+          `Fix: set package.json overrides["${packageName}"] to the root dependency`,
+          "version, then reinstall.",
+          "",
+          "Installed copies:",
+          ...installs.map((install) => `- ${install.version} (${install.path})`),
+        ].join("\n"),
+      ).toHaveLength(1);
 
-    expect(installs.length).toBeGreaterThan(0);
-  });
+      expect(installs.length).toBeGreaterThan(0);
+    });
+  }
 });
