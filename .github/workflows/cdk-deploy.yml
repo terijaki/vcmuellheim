@@ -19,6 +19,10 @@ permissions:
   id-token: write # Required for AWS OIDC
   contents: write # Required for commenting on commits
 
+# Prod vs dev: push to main → prod; everything else (incl. Dependabot approve) → dev
+env:
+  IS_PROD: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+
 jobs:
   deploy:
     name: Deploy CDK Stack
@@ -35,8 +39,8 @@ jobs:
     outputs:
       webapp_url: ${{ steps.resolve-webapp-url.outputs.webapp_url }}
     env:
-      CDK_ENVIRONMENT: ${{ github.event_name == 'push' && github.ref_name == 'main' && 'prod' || 'dev' }}
-      SENTRY_ENVIRONMENT: ${{ github.event_name == 'push' && github.ref_name == 'main' && 'prod' || 'dev' }}
+      CDK_ENVIRONMENT: ${{ env.IS_PROD == 'true' && 'prod' || 'dev' }}
+      SENTRY_ENVIRONMENT: ${{ env.IS_PROD == 'true' && 'prod' || 'dev' }}
       CDK_BRANCH_OVERWRITE: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
     steps:
@@ -56,7 +60,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.AWS_ROLE_ARN_PROD || secrets.AWS_ROLE_ARN_DEV }}
+          role-to-assume: ${{ env.IS_PROD == 'true' && secrets.AWS_ROLE_ARN_PROD || secrets.AWS_ROLE_ARN_DEV }}
           aws-region: eu-central-1
 
       - name: Load environment variables
@@ -93,11 +97,19 @@ jobs:
       - name: Add deployment summary
         run: |
           BRANCH=$(git rev-parse --abbrev-ref HEAD | tr -cd '[:alnum:]._/-')
-          echo "## ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && '🚀' || '🔧' }} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          if [ "$IS_PROD" = "true" ]; then
+            ICON="🚀"
+            ENV_LABEL="Production"
+          else
+            ICON="🔧"
+            ENV_LABEL="Development"
+          fi
+
+          echo "## ${ICON} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Environment** | ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'Production' || 'Development' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${ENV_LABEL} |" >> $GITHUB_STEP_SUMMARY
           echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **Commit** | \`${GITHUB_SHA}\` |" >> $GITHUB_STEP_SUMMARY
 
@@ -115,7 +127,7 @@ jobs:
             done || true
           fi
 
-          if [ "${{ github.event_name }}" != "push" ] || [ "${{ github.ref }}" != "refs/heads/main" ]; then
+          if [ "$IS_PROD" != "true" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### 💡 Cleanup" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
@@ -150,6 +162,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
+          # Non-secret account+role ARN. Hardcoded because Dependabot cannot read
+          # repository secrets (AWS_ROLE_ARN_DEV), so OIDC must use a literal ARN.
           role-to-assume: arn:aws:iam::418553863544:role/GitHubActionsCDKRole
           aws-region: eu-central-1
 
@@ -167,13 +181,14 @@ jobs:
 
       - name: Add synth summary
         run: |
+          BRANCH=$(git rev-parse --abbrev-ref HEAD | tr -cd '[:alnum:]._/-')
           echo "## 📦 CDK Synth Summary (Dependabot)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
           echo "| **Environment** | Development |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Branch** | \`${{ github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch** | \`${BRANCH}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Commit** | \`${GITHUB_SHA}\` |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Dependabot PRs validate infrastructure via synth only — no AWS deploy or E2E until the repo owner approves the PR." >> $GITHUB_STEP_SUMMARY
 
@@ -214,12 +229,18 @@ jobs:
             RESULT="Failed"
           fi
 
+          if [ "$IS_PROD" = "true" ]; then
+            ENV_LABEL="Production"
+          else
+            ENV_LABEL="Development"
+          fi
+
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## ${ICON} Playwright E2E Smoke" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Environment** | ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'Production' || 'Development' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${ENV_LABEL} |" >> $GITHUB_STEP_SUMMARY
           echo "| **Base URL** | \`${{ needs.deploy.outputs.webapp_url }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **Browser** | Desktop Chrome |" >> $GITHUB_STEP_SUMMARY
           echo "| **Result** | ${RESULT} |" >> $GITHUB_STEP_SUMMARY
@@ -251,6 +272,15 @@ jobs:
             const logs = ${{ steps.logs.outputs.error_logs }};
             const commitSha = context.payload.pull_request?.head?.sha ?? context.sha;
 
+            const failedJobs = [];
+            if ('${{ needs.synth.result }}' === 'failure') failedJobs.push('Synth');
+            if ('${{ needs.deploy.result }}' === 'failure') failedJobs.push('Deploy');
+            if ('${{ needs.e2e-tests.result }}' === 'failure') failedJobs.push('E2E');
+
+            const failureLabel = failedJobs.length === 1
+              ? `CDK ${failedJobs[0]} Failed`
+              : `CDK Pipeline Failed (${failedJobs.join(', ')})`;
+
             let errorSection = '';
             if (logs && logs.trim()) {
               // Get last 30 lines of logs and truncate if too long
@@ -263,5 +293,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               commit_sha: commitSha,
-              body: `🚨 **CDK Deploy Pipeline Failed (including post-deploy E2E)**\n\n[View workflow run](${workflowUrl})${errorSection}`
+              body: `🚨 **${failureLabel}**\n\n[View workflow run](${workflowUrl})${errorSection}`
             });
