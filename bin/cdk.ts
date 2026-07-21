@@ -1,5 +1,6 @@
 import "varlock/auto-load";
 import { ENV } from "varlock/env";
+import { shouldDeployAccountOpsStacks } from "@utils/cdk-deploy";
 import { getSanitizedBranch } from "@utils/git";
 import { getCdkNaming } from "@utils/cdk-naming";
 import { buildWebappUrl } from "@utils/webapp-url";
@@ -20,9 +21,9 @@ const app = new cdk.App();
 
 const environment = ENV.CDK_ENVIRONMENT || "dev";
 const isProd = environment === "prod";
-const isDestroy = process.env.CDK_DESTROY === "true";
 
 const branch = getSanitizedBranch();
+const deployAccountOpsStacks = shouldDeployAccountOpsStacks({ isProd, branch });
 
 // Environment-specific configuration
 const { stackName, envLabel } = getCdkNaming(isProd, branch);
@@ -121,45 +122,57 @@ new MailStack(app, mailStackName, {
   contentTableName: contentDbStack.contentTableName,
   alertEmail: ENV.CDK_MONITORING_ALERT_EMAIL || budgetEmail,
 });
-if (budgetEmail || isDestroy) {
-  new BudgetStack(app, budgetStackName, {
-    ...commonStackProps,
-    description: `Cost Budget & Alerts (${envLabel})`,
-    alertEmail: budgetEmail || "cleanup@example.com",
-  });
-} else {
-  const message = "❌ CDK_BUDGET_ALERT_EMAIL not set";
-  if (isProd) {
-    console.error(`🚨  ${message} - production deployment requires budget alerts.`);
-    process.exit(1);
+if (deployAccountOpsStacks) {
+  if (budgetEmail) {
+    new BudgetStack(app, budgetStackName, {
+      ...commonStackProps,
+      description: `Cost Budget & Alerts (${envLabel})`,
+      alertEmail: budgetEmail,
+    });
   } else {
-    console.warn(`⚠️  ${message} - skipping budget stack.`);
-    console.warn("    Set CDK_BUDGET_ALERT_EMAIL in .env to enable cost alerts.");
+    const message = "❌ CDK_BUDGET_ALERT_EMAIL not set";
+    if (isProd) {
+      console.error(`🚨  ${message} - production deployment requires budget alerts.`);
+      process.exit(1);
+    } else {
+      console.warn(`⚠️  ${message} - skipping budget stack.`);
+      console.warn("    Set CDK_BUDGET_ALERT_EMAIL in .env to enable cost alerts.");
+    }
   }
+} else {
+  console.warn(
+    `⚠️  Skipping budget stack on feature branch "${branch}" — account-baseline stack, deploy from main or prod only.`,
+  );
 }
 
 // Monitoring stack - setup alerts and dashboards
 const monitoringEmail = ENV.CDK_MONITORING_ALERT_EMAIL || budgetEmail;
-if (monitoringEmail || isDestroy) {
-  new MonitoringStack(app, monitoringStackName, {
-    ...commonStackProps,
-    description: `Monitoring & Alerting (${envLabel})`,
-    alertEmail: monitoringEmail || "cleanup@example.com",
-    webappLambda: webappStack.webappLambda,
-    contentTables: {
-      content: contentDbStack.contentTable,
-    },
-    mediaBucket: mediaStack.bucket,
-    mediaDistribution: mediaStack.distribution,
-    websiteDistribution: webappStack.distribution,
-  });
-} else {
-  const message = "❌ CDK_MONITORING_ALERT_EMAIL not set";
-  if (isProd) {
-    console.error(`🚨  ${message} - production deployment requires monitoring alerts.`);
-    process.exit(1);
+if (deployAccountOpsStacks) {
+  if (monitoringEmail) {
+    new MonitoringStack(app, monitoringStackName, {
+      ...commonStackProps,
+      description: `Monitoring & Alerting (${envLabel})`,
+      alertEmail: monitoringEmail,
+      webappLambda: webappStack.webappLambda,
+      contentTables: {
+        content: contentDbStack.contentTable,
+      },
+      mediaBucket: mediaStack.bucket,
+      mediaDistribution: mediaStack.distribution,
+      websiteDistribution: webappStack.distribution,
+    });
   } else {
-    console.warn(`⚠️  ${message} - skipping monitoring stack.`);
-    console.warn("    Set CDK_MONITORING_ALERT_EMAIL in .env to enable monitoring and alerts.");
+    const message = "❌ CDK_MONITORING_ALERT_EMAIL not set";
+    if (isProd) {
+      console.error(`🚨  ${message} - production deployment requires monitoring alerts.`);
+      process.exit(1);
+    } else {
+      console.warn(`⚠️  ${message} - skipping monitoring stack.`);
+      console.warn("    Set CDK_MONITORING_ALERT_EMAIL in .env to enable monitoring and alerts.");
+    }
   }
+} else {
+  console.warn(
+    `⚠️  Skipping monitoring stack on feature branch "${branch}" — account-baseline stack, deploy from main or prod only.`,
+  );
 }

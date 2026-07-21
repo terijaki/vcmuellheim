@@ -11,14 +11,15 @@ This file provides instructions specific to the `lib/` directory, which contains
   - `lib/social-media-stack.ts` — Instagram & Mastodon integration Lambdas + DynamoDB
   - `lib/media-stack.ts` — S3 bucket + CloudFront distribution for media assets
   - `lib/dns-stack.ts` — Route53 hosted zones and DNS records
-  - `lib/monitoring-stack.ts` — CloudWatch dashboards, alarms, SNS topics
-  - `lib/budget-stack.ts` — AWS Billing and cost alerts
+  - `lib/monitoring-stack.ts` — CloudWatch alarms and SNS topics (prod + shared-dev only)
+  - `lib/budget-stack.ts` — AWS Billing and cost alerts (prod + shared-dev only)
 - `lib/db/` — DynamoDB client, schemas, repositories, and types
 - `bin/cdk.ts` — CDK app entry point that instantiates all stacks
 
 ## Key files to reference
 
 - CDK entry: `bin/cdk.ts`
+- Account-baseline stacks: `BudgetStack` and `MonitoringStack` deploy for **prod** and **shared dev** (`main` / empty sanitized branch) only — not on feature-branch deploys. See `shouldDeployAccountOpsStacks` in `utils/cdk-deploy.ts`.
 - Active stacks: `lib/webapp-stack.ts`, `lib/content-db-stack.ts`, `lib/sams-api-stack.ts`, `lib/social-media-stack.ts`, `lib/media-stack.ts`, `lib/dns-stack.ts`, `lib/monitoring-stack.ts`, `lib/budget-stack.ts`
 - DB client: `lib/db/client.ts` (DynamoDB DocumentClient with X-Ray tracing)
 - DB schemas: `lib/db/schemas.ts` (Zod schemas for all entities)
