@@ -11,7 +11,7 @@ import * as Sentry from "@sentry/tanstackstart-react";
 import { createCacheKey } from "@utils/cache";
 import dayjs from "dayjs";
 import { filterAndSortSamsMatches } from "@utils/sams-match-filter";
-import { SAMS_API_TIMEOUT_MS } from "@utils/sams-api";
+import { SAMS_API_TIMEOUT_MS, SAMS_MATCHES_CACHE_TTL_MS } from "@utils/sams-api";
 import type { SamsMatchesInput } from "@utils/sams-matches";
 import {
   dedupeSamsMatchesByUuid,
@@ -20,14 +20,14 @@ import {
   shouldResolveDefaultSamsSportsclubs,
 } from "@utils/sams";
 import { type LeagueMatchesResponse, LeagueMatchesResponseSchema } from "@/lambda/sams/types";
-import { resolveConfiguredSportsclubUuidsFromClubs } from "@/lib/sams/club-resolution";
+import { resolveConfiguredSamsClubsFromRecords } from "@/lib/sams/club-resolution";
 import { getAllSamsClubs, getAllSamsTeams } from "../queries";
 import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
 import { parseServerData } from "../schema-parse";
 
 export type { SamsMatchesInput };
 
-const MATCHES_CACHE_TTL_MS = 5 * 60 * 1000;
+const MATCHES_CACHE_TTL_MS = SAMS_MATCHES_CACHE_TTL_MS;
 
 type ResolvedSamsMatchesQuery = {
   league?: string;
@@ -66,7 +66,7 @@ function toSamsMatchesInput(
 
 async function resolveConfiguredSamsSportsclubUuidsFromStorage(): Promise<string[]> {
   const { items } = await getAllSamsClubs();
-  const { sportsclubUuids, missingClubSlugs } = resolveConfiguredSportsclubUuidsFromClubs(items);
+  const { sportsclubUuids, missingClubSlugs } = resolveConfiguredSamsClubsFromRecords(items);
 
   if (missingClubSlugs.length > 0) {
     console.warn("Failed to resolve configured SAMS clubs", { missingClubSlugs });
@@ -93,7 +93,11 @@ export function createSamsMatchesCacheKey(
 async function resolveSyncedSeasonUuid(): Promise<string | undefined> {
   try {
     const syncedTeams = await getAllSamsTeams();
-    return resolveSyncedSeasonUuidFromTeams(syncedTeams.items);
+    return resolveSyncedSeasonUuidFromTeams(syncedTeams.items, {
+      onDisagreement: (seasonUuids) => {
+        console.warn("Synced SAMS teams disagree on season UUID", { seasonUuids });
+      },
+    });
   } catch (error) {
     console.warn("Failed to resolve synced SAMS season UUID; continuing without season filter", {
       error: error instanceof Error ? error.message : String(error),
@@ -159,6 +163,20 @@ async function resolveSeasonScopedSamsMatchesQuery(
   if (!syncedSeason) return null;
 
   return resolveSamsMatchesQuery({ ...data, season: syncedSeason });
+}
+
+/** Resolves effective match query params without cache or SAMS API (for SSR fallbacks). */
+export async function resolveSamsMatchesEffectiveInput(
+  data?: SamsMatchesInput,
+): Promise<SamsMatchesInput | null> {
+  const resolvedQuery = await resolveSamsMatchesQuery(data);
+  if (!resolvedQuery) return null;
+
+  const seasonScopedQuery = resolvedQuery.season
+    ? resolvedQuery
+    : await resolveSeasonScopedSamsMatchesQuery(data, resolvedQuery);
+
+  return toSamsMatchesInput(seasonScopedQuery ?? resolvedQuery, data);
 }
 
 async function readCachedSamsMatchesWithSeasonFallback(
@@ -230,12 +248,13 @@ async function fetchAllSamsLeagueMatches({
 
       if (pageData.content?.length) {
         allMatches.push(...pageData.content.map(({ _links: _, ...match }) => match));
-        currentPage++;
-      } else if (pageData.last !== true) {
-        break;
       }
 
-      if (pageData.last === true) hasMorePages = false;
+      if (pageData.last === true) {
+        hasMorePages = false;
+      } else {
+        currentPage++;
+      }
     }
   }
 

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vite-plus/test";
 import {
   filterConfiguredSamsClubs,
   findMissingConfiguredClubSlugs,
+  resolveConfiguredSamsClubsFromRecords,
   resolveConfiguredSportsclubUuidsFromClubs,
 } from "@/lib/sams/club-resolution";
 
@@ -22,6 +23,18 @@ describe("resolveConfiguredSportsclubUuidsFromClubs", () => {
     ]);
 
     expect(result.sportsclubUuids).toEqual(["uuid-a"]);
+    expect(result.missingClubSlugs).toContain("markgraefler-volleys");
+  });
+});
+
+describe("resolveConfiguredSamsClubsFromRecords", () => {
+  it("returns filtered clubs, UUIDs, and missing slugs from a storage snapshot", () => {
+    const result = resolveConfiguredSamsClubsFromRecords([
+      { nameSlug: "vc-muellheim", sportsclubUuid: "uuid-a" },
+    ]);
+
+    expect(result.sportsclubUuids).toEqual(["uuid-a"]);
+    expect(result.configuredClubs).toHaveLength(1);
     expect(result.missingClubSlugs).toContain("markgraefler-volleys");
   });
 });

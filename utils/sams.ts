@@ -13,6 +13,7 @@ type TeamLike = {
   uuid?: NullableString;
   sportsclubUuid?: NullableString;
   seasonUuid?: NullableString;
+  updatedAt?: NullableString;
 };
 
 type MatchLike = {
@@ -69,11 +70,44 @@ export function resolveEffectiveSamsSportsclubUuids(
   return [...defaultSportsclubUuids];
 }
 
+function compareIsoTimestampsDesc(left?: NullableString, right?: NullableString): number {
+  if (!left && !right) return 0;
+  if (!left) return 1;
+  if (!right) return -1;
+  return right.localeCompare(left);
+}
+
 /** Season UUID from synced teams in DynamoDB (teams sync output), not SAMS live currentSeason. */
-export function resolveSyncedSeasonUuidFromTeams<T extends Pick<TeamLike, "seasonUuid">>(
+export function resolveSyncedSeasonUuidFromTeams<
+  T extends Pick<TeamLike, "seasonUuid" | "updatedAt">,
+>(
   teams: readonly T[],
+  options?: { onDisagreement?: (seasonUuids: readonly string[]) => void },
 ): string | undefined {
-  return teams.find((team) => team.seasonUuid)?.seasonUuid ?? undefined;
+  const teamsWithSeason = teams.filter(
+    (team): team is T & { seasonUuid: string } => !!team.seasonUuid,
+  );
+  if (teamsWithSeason.length === 0) return undefined;
+
+  const counts = new Map<string, number>();
+  for (const team of teamsWithSeason) {
+    counts.set(team.seasonUuid, (counts.get(team.seasonUuid) ?? 0) + 1);
+  }
+
+  const distinctSeasons = [...counts.keys()];
+  if (distinctSeasons.length > 1) {
+    options?.onDisagreement?.(distinctSeasons);
+  }
+
+  const maxCount = Math.max(...counts.values());
+  const topSeasons = new Set(
+    [...counts.entries()].filter(([, count]) => count === maxCount).map(([uuid]) => uuid),
+  );
+
+  const candidates = teamsWithSeason.filter((team) => topSeasons.has(team.seasonUuid));
+  candidates.sort((left, right) => compareIsoTimestampsDesc(left.updatedAt, right.updatedAt));
+
+  return candidates[0]?.seasonUuid;
 }
 
 export function getOwnedSamsTeamUuids<T extends TeamLike>(teams: readonly T[]): Set<string> {

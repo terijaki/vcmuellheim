@@ -225,4 +225,48 @@ describe("loadSamsMatches", () => {
     expect(mockWriteCacheEntry).toHaveBeenCalledTimes(1);
     expect(mockGetAllLeagueMatches).toHaveBeenCalled();
   });
+
+  it("calls the SAMS API with for-season when season sync succeeds on cache miss", async () => {
+    mockGetAllSamsTeams.mockResolvedValue({
+      items: [syncedTeam],
+      lastEvaluatedKey: undefined,
+    });
+    mockGetAllLeagueMatches.mockResolvedValue({
+      data: {
+        content: [{ uuid: "m1", date: "2026-02-01", results: null }],
+        last: true,
+      },
+      request: new Request("https://example.com/matches"),
+      response: new Response(),
+    });
+
+    await loadSamsMatches({ range: "future" });
+
+    expect(mockGetAllLeagueMatches).toHaveBeenCalled();
+    const query = mockGetAllLeagueMatches.mock.calls[0]?.[0]?.query;
+    expect(query?.["for-season"]).toBe("season-synced");
+  });
+
+  it("continues pagination when a non-terminal page has empty content", async () => {
+    mockGetAllSamsTeams.mockResolvedValue({ items: [], lastEvaluatedKey: undefined });
+    mockGetAllLeagueMatches
+      .mockResolvedValueOnce({
+        data: { content: [], last: false },
+        request: new Request("https://example.com/matches?page=0"),
+        response: new Response(),
+      })
+      .mockResolvedValueOnce({
+        data: {
+          content: [{ uuid: "m2", date: "2026-02-02", results: null }],
+          last: true,
+        },
+        request: new Request("https://example.com/matches?page=1"),
+        response: new Response(),
+      });
+
+    const result = await loadSamsMatches({ team: "team-1", range: "future" });
+
+    expect(mockGetAllLeagueMatches).toHaveBeenCalledTimes(2);
+    expect(result.matches).toHaveLength(1);
+  });
 });

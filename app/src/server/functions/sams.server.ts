@@ -17,6 +17,7 @@ import {
   type LiveMatch,
   type LiveTickerResponse,
   LiveTickerResponseSchema,
+  type LeagueMatchesResponse,
   type RankingResponse,
   RankingResponseSchema,
 } from "@/lambda/sams/types";
@@ -33,6 +34,7 @@ import { parseServerData } from "../schema-parse";
 import {
   loadSamsMatches,
   readSamsMatchesCache,
+  resolveSamsMatchesEffectiveInput,
   resolveSamsMatchesForSsr,
 } from "./sams-match-loader.server";
 
@@ -120,11 +122,24 @@ export async function handlePeekSamsRankingsCache(leagueUuids: string[]) {
 
 /** Peek-only SSR loader bundle — returns hook options for useSamsMatches. */
 export async function handleLoadSamsMatchesForSsr(input?: SamsMatchesInput) {
-  const resolved = await resolveSamsMatchesForSsr(input);
-  const effectiveInput = resolved?.effectiveInput ?? input ?? {};
+  let cached: LeagueMatchesResponse | undefined;
+  let effectiveInput: SamsMatchesInput;
+
+  try {
+    const resolved = await resolveSamsMatchesForSsr(input);
+    cached = resolved?.cached ?? undefined;
+    effectiveInput =
+      resolved?.effectiveInput ?? (await resolveSamsMatchesEffectiveInput(input)) ?? input ?? {};
+  } catch (error) {
+    console.warn("SAMS SSR match load failed; using effective input without cache", {
+      error: error instanceof Error ? error.message : String(error),
+    });
+    effectiveInput = (await resolveSamsMatchesEffectiveInput(input)) ?? input ?? {};
+  }
+
   return {
-    cached: resolved?.cached ?? undefined,
-    hookOptions: buildSamsMatchesHookOptions(effectiveInput, resolved?.cached ?? null),
+    cached,
+    hookOptions: buildSamsMatchesHookOptions(effectiveInput, cached ?? null),
   };
 }
 

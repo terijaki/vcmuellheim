@@ -27,14 +27,28 @@ export function filterConfiguredSamsClubs<T extends SamsClubRecord>(clubs: reado
   );
 }
 
-/** Resolves configured sportsclub UUIDs and reports missing target slugs. */
-export function resolveConfiguredSportsclubUuidsFromClubs(clubs: readonly SamsClubRecord[]): {
+/** Resolves configured clubs from a storage snapshot (no I/O). */
+export function resolveConfiguredSamsClubsFromRecords(clubs: readonly SamsClubRecord[]): {
+  configuredClubs: SamsClubRecord[];
   sportsclubUuids: string[];
   missingClubSlugs: string[];
 } {
   const missingClubSlugs = findMissingConfiguredClubSlugs(clubs);
   return {
+    configuredClubs: filterConfiguredSamsClubs(clubs),
     sportsclubUuids: resolveConfiguredSamsSportsclubUuids(clubs),
     missingClubSlugs,
+  };
+}
+
+/** Resolves configured sportsclub UUIDs and reports missing target slugs. */
+export function resolveConfiguredSportsclubUuidsFromClubs(clubs: readonly SamsClubRecord[]): {
+  sportsclubUuids: string[];
+  missingClubSlugs: string[];
+} {
+  const resolved = resolveConfiguredSamsClubsFromRecords(clubs);
+  return {
+    sportsclubUuids: resolved.sportsclubUuids,
+    missingClubSlugs: resolved.missingClubSlugs,
   };
 }

@@ -27,6 +27,9 @@ Season scoping is best-effort and deferred to the cache-miss path:
 
 1. Try the DynamoDB cache entry without a season key (backward-compatible with older cache).
 2. On miss, read `seasonUuid` from synced teams in DynamoDB (`getAllSamsTeams()`).
+   When teams disagree, use the season UUID held by the **majority** of synced teams;
+   on a tie, prefer the **most recently updated** team's season. Log a warning when
+   multiple distinct season UUIDs are present.
 3. If found, retry cache and API calls with `for-season=<uuid>`.
 4. If season resolution fails (missing table, sync not run, dev environment), fall back
    to **all seasons** for the configured clubs.
@@ -64,7 +67,8 @@ Loaders receive `hookOptions` from the server function and pass them to
 `useSamsMatches`. Do not call `getSamsMatchesFn` in loaders.
 
 React Query passes cached loader data as `initialData` and refetches in the background
-when stale.
+when stale. `useSamsMatches` uses a **5 minute** `staleTime`, aligned with the DynamoDB
+match cache TTL.
 
 ## Per-page behaviour
 

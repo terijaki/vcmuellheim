@@ -17,8 +17,7 @@ import { slugify } from "@utils/slugify";
 import dayjs from "dayjs";
 import type { createSamsDb } from "@/lib/db/electrodb-client";
 import {
-  filterConfiguredSamsClubs,
-  findMissingConfiguredClubSlugs,
+  resolveConfiguredSamsClubsFromRecords,
   type SamsClubRecord,
 } from "@/lib/sams/club-resolution";
 import { mapRosterOfficials, mapRosterPlayers } from "@/lib/sams/roster-mapping";
@@ -160,13 +159,15 @@ export async function resolveConfiguredSamsClubsFromStorage(
   logger: TeamsSyncLogger,
 ): Promise<SamsClubRecord[]> {
   const clubResponse = await samsEntities.club.query.byType({ type: "club" }).go({ pages: "all" });
-  const missingClubSlugs = findMissingConfiguredClubSlugs(clubResponse.data);
+  const { configuredClubs, missingClubSlugs } = resolveConfiguredSamsClubsFromRecords(
+    clubResponse.data,
+  );
 
   if (missingClubSlugs.length > 0) {
     logger.warn("Failed to resolve configured SAMS clubs", { missingClubSlugs });
   }
 
-  return filterConfiguredSamsClubs(clubResponse.data);
+  return configuredClubs;
 }
 
 export async function fetchCurrentSeasonUuid(): Promise<{ uuid: string; name: string }> {
