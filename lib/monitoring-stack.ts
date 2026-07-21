@@ -107,15 +107,23 @@ export class MonitoringStack extends cdk.Stack {
       });
       webappErrorAlarm.addAlarmAction(new cw_actions.SnsAction(this.alertTopic));
 
+      // Gate on invocation volume so sparse cold starts (sample count 1) cannot trip Average.
+      const minInvocationsForDurationAlarm = 20;
       const webappDurationAlarm = new cloudwatch.Alarm(this, "WebappDurationAlarm", {
-        metric: props.webappLambda.metricDuration({
-          statistic: "Average",
+        metric: new cloudwatch.MathExpression({
+          expression: `IF(SAMPLE_COUNT(duration) >= ${minInvocationsForDurationAlarm}, AVG(duration), 0)`,
+          usingMetrics: {
+            duration: props.webappLambda.metricDuration({
+              period: cdk.Duration.minutes(5),
+            }),
+          },
           period: cdk.Duration.minutes(5),
+          label: `Average duration (≥${minInvocationsForDurationAlarm} samples)`,
         }),
         threshold: isProd ? 3000 : 5000,
         evaluationPeriods: 2,
         alarmName: `vcm-webapp-duration-${environment}${branchSuffix}`,
-        alarmDescription: "Alert when WebApp Lambda execution time is high",
+        alarmDescription: `Alert when WebApp Lambda average duration is high (≥${minInvocationsForDurationAlarm} samples in the period)`,
         treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
       });
       webappDurationAlarm.addAlarmAction(new cw_actions.SnsAction(this.warningTopic));
