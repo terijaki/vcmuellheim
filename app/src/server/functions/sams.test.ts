@@ -1,11 +1,11 @@
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { mockClient } from "aws-sdk-client-mock";
 import { beforeEach, describe, expect, it } from "vite-plus/test";
+import { resolveEffectiveSamsSportsclubUuids } from "@utils/sams";
 import {
   buildLiveMatchesFromRaw,
   createSamsMatchesCacheKey,
   invokeSamsLambdaAsync,
-  resolveEffectiveSamsSportsclubUuids,
   resolveClubLogoUrl,
 } from "./sams.server";
 import { triggerSamsClubsSyncFn, triggerSamsTeamsSyncFn } from "./sams";

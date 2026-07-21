@@ -13,13 +13,13 @@ import dayjs from "dayjs";
 import { filterAndSortSamsMatches } from "@utils/sams-match-filter";
 import { SAMS_API_TIMEOUT_MS } from "@utils/sams-api";
 import type { SamsMatchesInput } from "@utils/sams-matches";
-import { type LeagueMatchesResponse, LeagueMatchesResponseSchema } from "@/lambda/sams/types";
-import { resolveConfiguredSportsclubUuidsFromClubs } from "@/lib/sams/club-resolution";
 import {
   dedupeSamsMatchesByUuid,
   resolveEffectiveSamsSportsclubUuids,
   shouldResolveDefaultSamsSportsclubs,
 } from "@utils/sams";
+import { type LeagueMatchesResponse, LeagueMatchesResponseSchema } from "@/lambda/sams/types";
+import { resolveConfiguredSportsclubUuidsFromClubs } from "@/lib/sams/club-resolution";
 import { buildLeagueOrderingContext } from "@webapp/utils/ranking";
 import { getAllSamsClubs, getAllSamsTeams } from "../queries";
 import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
@@ -65,8 +65,6 @@ export function createSamsMatchesCacheKey(
     range: input.range,
   });
 }
-
-export { resolveEffectiveSamsSportsclubUuids };
 
 async function resolveSyncedSeasonUuid(): Promise<string | undefined> {
   try {
@@ -188,9 +186,11 @@ async function fetchAllSamsLeagueMatches({
         break;
       }
 
-      if (pageData.content) {
+      if (pageData.content?.length) {
         allMatches.push(...pageData.content.map(({ _links: _, ...match }) => match));
         currentPage++;
+      } else if (pageData.last !== true) {
+        break;
       }
 
       if (pageData.last === true) hasMorePages = false;

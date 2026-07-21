@@ -34,9 +34,9 @@ import {
   createSamsMatchesCacheKey,
   loadSamsMatches,
   peekSamsMatches,
-  resolveEffectiveSamsSportsclubUuids,
   resolveSamsMatchesQuery,
-} from "../sams/match-loader.server";
+} from "./sams-match-loader.server";
+import { resolveEffectiveSamsSportsclubUuids } from "@utils/sams";
 
 const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
 

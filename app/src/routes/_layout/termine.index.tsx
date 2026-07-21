@@ -22,7 +22,9 @@ export const Route = createFileRoute("/_layout/termine/")({
 
     const events = eventsResult.status === "fulfilled" ? eventsResult.value.items : [];
     const matchesQueryOptions =
-      matchesSsr.status === "fulfilled" ? matchesSsr.value.hookOptions : undefined;
+      matchesSsr.status === "fulfilled"
+        ? matchesSsr.value.hookOptions
+        : ({ range: "future" } satisfies SamsMatchesHookOptions);
 
     return { events, matchesQueryOptions };
   },
