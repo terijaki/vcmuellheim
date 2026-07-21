@@ -114,6 +114,8 @@ vpr cdk:deploy:prod # Deploy all stacks (prod, requires vcm-prod credentials)
 | `main`    | prod        | `AWS_ROLE_ARN_PROD` |
 | any other | dev         | `AWS_ROLE_ARN_DEV`  |
 
+Feature-branch deploys create branch-scoped app stacks only. **Budget** and **Monitoring** stacks are account-baseline resources and deploy for prod and shared dev (`main`) — not per feature branch.
+
 Deployments use OIDC — no long-lived access keys. The trust policies are in:
 
 - `github-actions-trust-policy.json` — prod account (`041632640830`)
