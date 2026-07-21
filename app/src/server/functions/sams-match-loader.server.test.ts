@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import {
   loadSamsMatches,
   readSamsMatchesCache,
+  resolveSamsMatchesEffectiveInput,
   resolveSamsMatchesForSsr,
   resolveSamsMatchesQuery,
 } from "./sams-match-loader.server";
@@ -160,6 +161,33 @@ describe("resolveSamsMatchesForSsr", () => {
 
     expect(result?.effectiveInput.season).toBe("season-synced");
     expect(result?.effectiveInput.range).toBe("future");
+  });
+});
+
+describe("resolveSamsMatchesEffectiveInput", () => {
+  beforeEach(() => {
+    mockGetAllSamsClubs.mockReset();
+    mockGetAllSamsTeams.mockReset();
+    mockReadCacheEntry.mockReset();
+    mockGetAllSamsClubs.mockResolvedValue({ items: configuredClubs });
+  });
+
+  it("includes synced season without reading cache", async () => {
+    mockGetAllSamsTeams.mockResolvedValue({
+      items: [syncedTeam],
+      lastEvaluatedKey: undefined,
+    });
+
+    const result = await resolveSamsMatchesEffectiveInput({ range: "future" });
+
+    expect(result).toMatchObject({ range: "future", season: "season-synced" });
+    expect(mockReadCacheEntry).not.toHaveBeenCalled();
+  });
+
+  it("returns null when configured clubs cannot be resolved", async () => {
+    mockGetAllSamsClubs.mockResolvedValue({ items: [], lastEvaluatedKey: undefined });
+
+    await expect(resolveSamsMatchesEffectiveInput({ range: "past" })).resolves.toBeNull();
   });
 });
 
