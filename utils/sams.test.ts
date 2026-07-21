@@ -4,6 +4,7 @@ import {
   getOwnedSamsSportsclubUuids,
   getOwnedSamsTeamUuids,
   resolveConfiguredSamsSportsclubUuids,
+  resolveSyncedSeasonUuidFromTeams,
   shouldResolveDefaultSamsSportsclubs,
 } from "./sams";
 
@@ -26,6 +27,18 @@ describe("shouldResolveDefaultSamsSportsclubs", () => {
     expect(shouldResolveDefaultSamsSportsclubs({ sportsclub: "club-a" })).toBe(false);
     expect(shouldResolveDefaultSamsSportsclubs({ team: "team-a" })).toBe(false);
     expect(shouldResolveDefaultSamsSportsclubs({ league: "league-a" })).toBe(false);
+  });
+});
+
+describe("resolveSyncedSeasonUuidFromTeams", () => {
+  it("returns the first season UUID on synced teams", () => {
+    expect(
+      resolveSyncedSeasonUuidFromTeams([{ seasonUuid: "season-a" }, { seasonUuid: "season-b" }]),
+    ).toBe("season-a");
+  });
+
+  it("returns undefined when no team has a season UUID", () => {
+    expect(resolveSyncedSeasonUuidFromTeams([{}, { seasonUuid: null }])).toBeUndefined();
   });
 });
 

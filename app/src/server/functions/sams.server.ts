@@ -32,8 +32,8 @@ import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
 import { parseServerData } from "../schema-parse";
 import {
   loadSamsMatches,
-  peekSamsMatches,
-  peekSamsMatchesForSsr,
+  readSamsMatchesCache,
+  resolveSamsMatchesForSsr,
 } from "./sams-match-loader.server";
 
 const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
@@ -41,7 +41,7 @@ const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
 export type { SamsMatchesInput };
 
 export const handleGetSamsMatches = loadSamsMatches;
-export const handlePeekSamsMatchesCache = peekSamsMatches;
+export const handleReadSamsMatchesCache = readSamsMatchesCache;
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
   const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
@@ -120,11 +120,11 @@ export async function handlePeekSamsRankingsCache(leagueUuids: string[]) {
 
 /** Peek-only SSR loader bundle — returns hook options for useSamsMatches. */
 export async function handleLoadSamsMatchesForSsr(input?: SamsMatchesInput) {
-  const peek = await peekSamsMatchesForSsr(input);
-  const effectiveInput = peek?.effectiveInput ?? input ?? {};
+  const resolved = await resolveSamsMatchesForSsr(input);
+  const effectiveInput = resolved?.effectiveInput ?? input ?? {};
   return {
-    cached: peek?.cached ?? undefined,
-    hookOptions: buildSamsMatchesHookOptions(effectiveInput, peek?.cached ?? null),
+    cached: resolved?.cached ?? undefined,
+    hookOptions: buildSamsMatchesHookOptions(effectiveInput, resolved?.cached ?? null),
   };
 }
 

@@ -2,8 +2,8 @@ import type { ClubResponse, TeamResponse } from "@/lambda/sams/types";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import {
   loadSamsMatches,
-  peekSamsMatches,
-  peekSamsMatchesForSsr,
+  readSamsMatchesCache,
+  resolveSamsMatchesForSsr,
   resolveSamsMatchesQuery,
 } from "./sams-match-loader.server";
 
@@ -93,7 +93,7 @@ const syncedTeam: TeamResponse = {
   updatedAt: "2026-01-01T00:00:00.000Z",
 };
 
-describe("peekSamsMatches season fallback", () => {
+describe("readSamsMatchesCache season fallback", () => {
   beforeEach(() => {
     mockGetAllSamsClubs.mockReset();
     mockGetAllSamsTeams.mockReset();
@@ -110,7 +110,7 @@ describe("peekSamsMatches season fallback", () => {
       .mockResolvedValueOnce(null)
       .mockResolvedValueOnce({ matches: [], timestamp: "2026-07-21T08:00:00.000Z" });
 
-    const result = await peekSamsMatches({ range: "future" });
+    const result = await readSamsMatchesCache({ range: "future" });
 
     expect(result?.matches).toEqual([]);
     expect(mockReadCacheEntry).toHaveBeenCalledTimes(2);
@@ -121,7 +121,7 @@ describe("peekSamsMatches season fallback", () => {
     mockGetAllSamsTeams.mockRejectedValue(new Error("DynamoDB unavailable"));
     mockReadCacheEntry.mockResolvedValue(null);
 
-    const result = await peekSamsMatches({ range: "future" });
+    const result = await readSamsMatchesCache({ range: "future" });
 
     expect(result).toBeNull();
     expect(mockReadCacheEntry).toHaveBeenCalledTimes(1);
@@ -131,7 +131,7 @@ describe("peekSamsMatches season fallback", () => {
     const cached = { matches: [{ uuid: "match-1" }], timestamp: "2026-07-21T08:00:00.000Z" };
     mockReadCacheEntry.mockResolvedValueOnce(cached);
 
-    const result = await peekSamsMatches({ range: "future" });
+    const result = await readSamsMatchesCache({ range: "future" });
 
     expect(result).toEqual(cached);
     expect(mockGetAllSamsTeams).not.toHaveBeenCalled();
@@ -139,7 +139,7 @@ describe("peekSamsMatches season fallback", () => {
   });
 });
 
-describe("peekSamsMatchesForSsr", () => {
+describe("resolveSamsMatchesForSsr", () => {
   beforeEach(() => {
     mockGetAllSamsClubs.mockReset();
     mockGetAllSamsTeams.mockReset();
@@ -156,7 +156,7 @@ describe("peekSamsMatchesForSsr", () => {
       .mockResolvedValueOnce(null)
       .mockResolvedValueOnce({ matches: [], timestamp: "2026-07-21T08:00:00.000Z" });
 
-    const result = await peekSamsMatchesForSsr({ range: "future" });
+    const result = await resolveSamsMatchesForSsr({ range: "future" });
 
     expect(result?.effectiveInput.season).toBe("season-synced");
     expect(result?.effectiveInput.range).toBe("future");

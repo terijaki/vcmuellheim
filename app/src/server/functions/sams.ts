@@ -2,8 +2,8 @@
  * SAMS server functions for read and sync triggers.
  * Read paths use server functions in this app; sync runs via scheduled Lambdas.
  *
- * Server-only logic lives in sams.server.ts (import-protected). This file exports
- * createServerFn wrappers that are safe to import from client code.
+ * Server-only logic lives in `sams.server.ts` and `sams-match-loader.server.ts`
+ * (import-protected). This file exports createServerFn wrappers safe for client code.
  */
 
 import { createServerFn } from "@tanstack/react-start";
@@ -21,7 +21,7 @@ import {
   handleListSamsClubs,
   handleListSamsTeams,
   handleLoadSamsMatchesForSsr,
-  handlePeekSamsMatchesCache,
+  handleReadSamsMatchesCache,
   handlePeekSamsRankingsCache,
   handleTriggerSamsClubsSync,
   handleTriggerSamsTeamsSync,
@@ -51,9 +51,9 @@ export const peekSamsRankingsCacheFn = createServerFn()
   .validator(z.object({ leagueUuids: z.array(z.string()) }))
   .handler(async ({ data }) => handlePeekSamsRankingsCache(data.leagueUuids));
 
-export const peekSamsMatchesCacheFn = createServerFn()
+export const readSamsMatchesCacheFn = createServerFn()
   .validator(samsMatchesInputSchema)
-  .handler(async ({ data }) => handlePeekSamsMatchesCache(data));
+  .handler(async ({ data }) => handleReadSamsMatchesCache(data));
 
 /** SSR loader helper — peek-only, returns hook options for useSamsMatches. */
 export const loadSamsMatchesForSsrFn = createServerFn()

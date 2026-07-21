@@ -12,6 +12,7 @@ type ClubLike = {
 type TeamLike = {
   uuid?: NullableString;
   sportsclubUuid?: NullableString;
+  seasonUuid?: NullableString;
 };
 
 type MatchLike = {
@@ -66,6 +67,13 @@ export function resolveEffectiveSamsSportsclubUuids(
   if (input.sportsclub) return [input.sportsclub];
   if (!shouldResolveDefaultSamsSportsclubs(input)) return [];
   return [...defaultSportsclubUuids];
+}
+
+/** Season UUID from synced teams in DynamoDB (teams sync output), not SAMS live currentSeason. */
+export function resolveSyncedSeasonUuidFromTeams<T extends Pick<TeamLike, "seasonUuid">>(
+  teams: readonly T[],
+): string | undefined {
+  return teams.find((team) => team.seasonUuid)?.seasonUuid ?? undefined;
 }
 
 export function getOwnedSamsTeamUuids<T extends TeamLike>(teams: readonly T[]): Set<string> {
