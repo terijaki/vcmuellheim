@@ -35,13 +35,10 @@ import {
   useSamsRoster,
   useTeamBySlug,
 } from "@/app/src/hooks/dataQueries";
-import {
-  listSamsTeamsFn,
-  peekSamsMatchesCacheFn,
-  peekSamsRankingsCacheFn,
-} from "@/app/src/server/functions/sams";
+import { listSamsTeamsFn, peekSamsRankingsCacheFn } from "@/app/src/server/functions/sams";
+import { loadSamsMatchesForSsr } from "@/app/src/server/sams-ssr-queries";
 import { getTeamBySlugFn } from "@/app/src/server/functions/teams";
-import type { LeagueMatchesResponse } from "@/lambda/sams/types";
+import type { SamsMatchesHookOptions } from "@/app/src/server/sams-ssr-queries";
 
 dayjs.locale(de);
 dayjs.extend(weekday);
@@ -55,23 +52,23 @@ export const Route = createFileRoute("/_layout/teams/$slug")({
     ]);
 
     if (!team) {
-      return { team: null, rankings: undefined, matches: undefined };
+      return { team: null, rankings: undefined, matchesQueryOptions: undefined };
     }
 
     const samsTeam = samsTeamsResult.teams.find((t) => t.uuid === team.sbvvTeamId);
 
     if (!samsTeam) {
-      return { team, samsTeam: undefined, rankings: undefined, matches: undefined };
+      return { team, samsTeam: undefined, rankings: undefined, matchesQueryOptions: undefined };
     }
 
-    const [rankings, matches] = await Promise.all([
+    const [rankings, matchesSsr] = await Promise.all([
       samsTeam.leagueUuid
         ? peekSamsRankingsCacheFn({ data: { leagueUuids: [samsTeam.leagueUuid] } })
         : Promise.resolve(undefined),
-      peekSamsMatchesCacheFn({ data: { team: samsTeam.uuid } }).then((m) => m ?? undefined),
+      loadSamsMatchesForSsr({ team: samsTeam.uuid }),
     ]);
 
-    return { team, samsTeam, rankings, matches };
+    return { team, samsTeam, rankings, matchesQueryOptions: matchesSsr.hookOptions };
   },
   component: RouteComponent,
 });
@@ -127,7 +124,10 @@ function RouteComponent() {
           <TeamCalendar slug={slug} loaderSamsTeam={loaderData.samsTeam} />
         </Suspense>
         <Suspense fallback={<CenteredLoader text="Lade Spielplan..." />}>
-          <TeamMatches loaderSamsTeam={loaderData.samsTeam} loaderMatches={loaderData.matches} />
+          <TeamMatches
+            loaderSamsTeam={loaderData.samsTeam}
+            matchesQueryOptions={loaderData.matchesQueryOptions}
+          />
         </Suspense>
         <Center>
           <Button component={Link} to="/#mannschaften">
@@ -168,20 +168,14 @@ function TeamCalendar({
 
 function TeamMatches({
   loaderSamsTeam,
-  loaderMatches,
+  matchesQueryOptions,
 }: {
   loaderSamsTeam: ReturnType<typeof Route.useLoaderData>["samsTeam"];
-  loaderMatches?: LeagueMatchesResponse;
+  matchesQueryOptions: SamsMatchesHookOptions | undefined;
 }) {
-  const matchesInitialDataUpdatedAt = loaderMatches?.timestamp
-    ? new Date(loaderMatches.timestamp).getTime()
-    : undefined;
-
-  const { data: matches, isLoading: isLoadingMatches } = useSamsMatches({
-    team: loaderSamsTeam?.uuid,
-    initialData: loaderMatches,
-    initialDataUpdatedAt: matchesInitialDataUpdatedAt,
-  });
+  const { data: matches, isLoading: isLoadingMatches } = useSamsMatches(
+    matchesQueryOptions ?? { team: loaderSamsTeam?.uuid },
+  );
 
   const currentMonth = dayjs().month() + 1;
   const isOffSeason = currentMonth >= 5 && currentMonth <= 9;

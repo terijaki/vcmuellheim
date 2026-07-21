@@ -48,6 +48,18 @@ export function shouldResolveDefaultSamsSportsclubs(filters: {
   return !filters.league && !filters.sportsclub && !filters.team;
 }
 
+export function resolveEffectiveSamsSportsclubUuids(
+  input: Pick<
+    { league?: NullableString; sportsclub?: NullableString; team?: NullableString },
+    "league" | "sportsclub" | "team"
+  >,
+  defaultSportsclubUuids: readonly string[],
+): string[] {
+  if (input.sportsclub) return [input.sportsclub];
+  if (!shouldResolveDefaultSamsSportsclubs(input)) return [];
+  return [...defaultSportsclubUuids];
+}
+
 export function getOwnedSamsTeamUuids<T extends TeamLike>(teams: readonly T[]): Set<string> {
   const teamUuids = new Set<string>();
 

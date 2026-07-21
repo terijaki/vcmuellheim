@@ -6,33 +6,31 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import { useSamsMatches } from "@webapp/hooks/dataQueries";
 import { getUpcomingEventsFn } from "@webapp/server/functions/events";
-import { peekSamsMatchesCacheFn } from "@webapp/server/functions/sams";
+import { loadSamsMatchesForSsr } from "@webapp/server/sams-ssr-queries";
 import { createWebcalLink } from "@webapp/utils/webcal";
 import dayjs from "dayjs";
 import { Fragment } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import type { LeagueMatchesResponse } from "@/lambda/sams/types";
+import type { SamsMatchesHookOptions } from "@webapp/server/sams-ssr-queries";
 
 export const Route = createFileRoute("/_layout/termine/")({
   loader: async () => {
-    const [eventsResult, cachedMatchesResult] = await Promise.allSettled([
+    const [eventsResult, matchesSsr] = await Promise.allSettled([
       getUpcomingEventsFn(),
-      peekSamsMatchesCacheFn({ data: { range: "future" } }),
+      loadSamsMatchesForSsr({ range: "future" }),
     ]);
 
     const events = eventsResult.status === "fulfilled" ? eventsResult.value.items : [];
-    const matches =
-      cachedMatchesResult.status === "fulfilled"
-        ? (cachedMatchesResult.value ?? undefined)
-        : undefined;
+    const matchesQueryOptions =
+      matchesSsr.status === "fulfilled" ? matchesSsr.value.hookOptions : undefined;
 
-    return { events, matches };
+    return { events, matchesQueryOptions };
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { events, matches: loaderMatches } = Route.useLoaderData();
+  const { events, matchesQueryOptions } = Route.useLoaderData();
   const webcalLink = createWebcalLink("/ics/all.ics");
 
   return (
@@ -57,7 +55,7 @@ function RouteComponent() {
           </Stack>
         </Card>
         <EventsContent events={events} />
-        <MatchesContent loaderMatches={loaderMatches} />
+        <MatchesContent matchesQueryOptions={matchesQueryOptions} />
       </Stack>
     </PageWithHeading>
   );
@@ -86,19 +84,16 @@ function EventsContent({
   );
 }
 
-function MatchesContent({ loaderMatches }: { loaderMatches: LeagueMatchesResponse | undefined }) {
-  const matchesInitialDataUpdatedAt = loaderMatches?.timestamp
-    ? new Date(loaderMatches.timestamp).getTime()
-    : undefined;
+function MatchesContent({
+  matchesQueryOptions,
+}: {
+  matchesQueryOptions: SamsMatchesHookOptions | undefined;
+}) {
   const {
     data: matchesData,
     isLoading,
     isError,
-  } = useSamsMatches({
-    range: "future",
-    initialData: loaderMatches,
-    initialDataUpdatedAt: matchesInitialDataUpdatedAt,
-  });
+  } = useSamsMatches(matchesQueryOptions ?? { range: "future" });
 
   const currentMonth = dayjs().month() + 1;
   const isOffSeason = currentMonth >= 5 && currentMonth <= 9;

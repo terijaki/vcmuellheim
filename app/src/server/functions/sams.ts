@@ -1,6 +1,6 @@
 /**
- * SAMS server functions — replaces lib/trpc/routers/samsClubs.ts + samsTeams.ts
- * plus the read lambdas from SamsStack (matches, rankings).
+ * SAMS server functions for read and sync triggers.
+ * Read paths use server functions in this app; sync runs via scheduled Lambdas.
  *
  * Server-only logic lives in sams.server.ts (import-protected). This file exports
  * createServerFn wrappers that are safe to import from client code.

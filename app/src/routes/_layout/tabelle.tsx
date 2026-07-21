@@ -5,11 +5,8 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
 import { useSamsMatches } from "@webapp/hooks/dataQueries";
-import {
-  listSamsTeamsFn,
-  peekSamsMatchesCacheFn,
-  peekSamsRankingsCacheFn,
-} from "@webapp/server/functions/sams";
+import { listSamsTeamsFn, peekSamsRankingsCacheFn } from "@webapp/server/functions/sams";
+import { loadSamsMatchesForSsr } from "@webapp/server/sams-ssr-queries";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import {
   buildLeagueOrderingContext,
@@ -17,39 +14,14 @@ import {
   sortLeagueUuidsByLevels,
 } from "@webapp/utils/ranking";
 import { numToWord } from "num-words-de";
-import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
+import type { RankingResponse } from "@/lambda/sams/types";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
 export const Route = createFileRoute("/_layout/tabelle")({
   /**
-   * LOADING STRATEGY — do not change without understanding the full picture.
-   *
-   * Goal: instant navigation (no skeleton), with a small spinner showing when data
-   * is being refreshed in the background.
-   *
-   * How it works:
-   *  1. Loader runs server-side before navigation completes. It must be FAST — any
-   *     async call that hits an external API blocks the browser from showing the page.
-   *     → Use only DDB cache-peek functions (peekSamsRankingsCacheFn, peekSamsMatchesCacheFn).
-   *     → These read DynamoDB only, never call the SAMS API, and use Infinity TTL so they
-   *       always return whatever is cached regardless of age.
-   *
-   *  2. The loader passes the cached data as `initialData` + `initialDataUpdatedAt` to
-   *     React Query hooks. React Query compares `initialDataUpdatedAt` against its
-   *     `staleTime` (10 min). If the data is stale, it starts a background refetch
-   *     immediately after render → `isFetching: true` → small spinner in RankingTable.
-   *
-   *  3. The React Query `queryFn` (getSamsRankingsByLeagueUuidsFn) has its own 5-min
-   *     DDB cache check and falls back to the SAMS API on miss — this is the only place
-   *     the SAMS API is called.
-   *
-   * Result: users always see cached data instantly. The spinner appears when React Query
-   * decides fresh data is needed. A loading skeleton only appears when the DDB cache is
-   * completely empty (first-ever visit or after a full cache eviction).
-   *
-   * PITFALL: Do NOT replace peek functions with getSamsRankingsByLeagueUuidsFn in the
-   * loader. That function calls the SAMS API on cache miss, blocking navigation for 2-3s.
+   * SSR uses cache-peek only (loadSamsMatchesForSsr) — never getSamsMatchesFn in loaders.
+   * See docs/adr/0001-sams-match-loading.md.
    */
   loader: async () => {
     // Main data comes from DynamoDB; only a batched SAMS metadata lookup is used for league ordering.
@@ -62,7 +34,7 @@ export const Route = createFileRoute("/_layout/tabelle")({
         teams: teams.items,
         lastResultCap: 6,
         rankingsByLeagueUuid: {} satisfies Record<string, RankingResponse>,
-        matches: undefined,
+        matchesQueryOptions: undefined,
       };
     }
 
@@ -78,49 +50,35 @@ export const Route = createFileRoute("/_layout/tabelle")({
     const lastResultCap = calculateLastResultCap(samsTeams.teams.length, GAMES_PER_TEAM);
 
     let rankingsByLeagueUuid: Record<string, RankingResponse> = {};
-    let matches: LeagueMatchesResponse | undefined;
+    let matchesQueryOptions;
     if (sortedLeagueUuids.length > 0) {
-      const [rankingsResult, matchesResult] = await Promise.all([
+      const [rankingsResult, matchesSsr] = await Promise.all([
         peekSamsRankingsCacheFn({ data: { leagueUuids: sortedLeagueUuids } }),
-        peekSamsMatchesCacheFn({ data: { range: "past", limit: lastResultCap } }),
+        loadSamsMatchesForSsr({ range: "past", limit: lastResultCap }),
       ]);
       rankingsByLeagueUuid = Object.fromEntries(rankingsResult.map((r) => [r.leagueUuid, r]));
-      matches = matchesResult ?? undefined;
+      matchesQueryOptions = matchesSsr.hookOptions;
     }
     return {
       leagueUuids: sortedLeagueUuids,
       teams: teams.items,
       lastResultCap,
       rankingsByLeagueUuid,
-      matches,
+      matchesQueryOptions,
     };
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const {
-    leagueUuids,
-    teams,
-    lastResultCap,
-    rankingsByLeagueUuid,
-    matches: loaderMatches,
-  } = Route.useLoaderData();
-
-  const matchesInitialDataUpdatedAt = loaderMatches?.timestamp
-    ? new Date(loaderMatches.timestamp).getTime()
-    : undefined;
+  const { leagueUuids, teams, lastResultCap, rankingsByLeagueUuid, matchesQueryOptions } =
+    Route.useLoaderData();
 
   const {
     data: matchesData,
     isLoading: isLoadingMatches,
     isError: isMatchesError,
-  } = useSamsMatches({
-    range: "past",
-    limit: lastResultCap,
-    initialData: loaderMatches,
-    initialDataUpdatedAt: matchesInitialDataUpdatedAt,
-  });
+  } = useSamsMatches(matchesQueryOptions ?? { range: "past", limit: lastResultCap });
   const recentMatches = matchesData?.matches ?? [];
   const lastResultWord =
     recentMatches.length > 1 && numToWord(recentMatches.length, { uppercase: false });

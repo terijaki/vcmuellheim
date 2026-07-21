@@ -10,7 +10,7 @@ function createTemplate(props?: Partial<ConstructorParameters<typeof VcmNodejsFu
   new VcmNodejsFunction(stack, "TestFn", {
     namespace: "sams",
     name: "my-func",
-    entry: "lambda/sams/sams-clubs.ts",
+    entry: "lambda/sams/sams-clubs-sync.ts",
     ...props,
   });
   return Template.fromStack(stack);
@@ -127,7 +127,7 @@ describe("VcmNodejsFunction", () => {
         new VcmNodejsFunction(stack, "TestFn", {
           namespace: "sams",
           name: "my-func",
-          entry: "lambda/sams/sams-clubs.ts",
+          entry: "lambda/sams/sams-clubs-sync.ts",
           bundling: {
             externalModules: ["@aws-sdk/*", "some-extra-module"],
           },
