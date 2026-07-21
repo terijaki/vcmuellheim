@@ -34,7 +34,7 @@ function createMonitoringWithWebapp(environment: string) {
 }
 
 describe("MonitoringStack", () => {
-  it("gates webapp duration average on sample count ≥ 20", () => {
+  it("gates webapp duration average on invocation count ≥ 20", () => {
     const template = createMonitoringWithWebapp("prod");
 
     template.hasResourceProperties("AWS::CloudWatch::Alarm", {
@@ -44,8 +44,21 @@ describe("MonitoringStack", () => {
       TreatMissingData: "notBreaching",
       Metrics: Match.arrayWith([
         Match.objectLike({
-          Id: Match.anyValue(),
-          Expression: "IF(SAMPLE_COUNT(duration) >= 20, AVG(duration), 0)",
+          Expression: "IF(invocations >= 20, duration, 0)",
+        }),
+        Match.objectLike({
+          Id: "invocations",
+          MetricStat: Match.objectLike({
+            Metric: Match.objectLike({ MetricName: "Invocations" }),
+            Stat: "Sum",
+          }),
+        }),
+        Match.objectLike({
+          Id: "duration",
+          MetricStat: Match.objectLike({
+            Metric: Match.objectLike({ MetricName: "Duration" }),
+            Stat: "Average",
+          }),
         }),
       ]),
     });
@@ -59,7 +72,7 @@ describe("MonitoringStack", () => {
       Threshold: 5000,
       Metrics: Match.arrayWith([
         Match.objectLike({
-          Expression: "IF(SAMPLE_COUNT(duration) >= 20, AVG(duration), 0)",
+          Expression: "IF(invocations >= 20, duration, 0)",
         }),
       ]),
     });
