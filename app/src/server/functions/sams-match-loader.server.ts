@@ -40,6 +40,25 @@ type ResolvedSamsMatchesQuery = {
   cacheKey: string;
 };
 
+export type SamsMatchesPeekResult = {
+  cached: LeagueMatchesResponse | null;
+  effectiveInput: SamsMatchesInput;
+};
+
+function toSamsMatchesInput(
+  query: ResolvedSamsMatchesQuery,
+  data?: SamsMatchesInput,
+): SamsMatchesInput {
+  return {
+    league: query.league ?? data?.league,
+    season: query.season ?? data?.season,
+    sportsclub: query.sportsclub ?? data?.sportsclub,
+    team: query.team ?? data?.team,
+    limit: query.limit ?? data?.limit,
+    range: query.range ?? data?.range,
+  };
+}
+
 async function resolveConfiguredSamsSportsclubUuidsFromStorage(): Promise<string[]> {
   const { items } = await getAllSamsClubs();
   const { sportsclubUuids, missingClubSlugs } = resolveConfiguredSportsclubUuidsFromClubs(items);
@@ -258,23 +277,37 @@ export async function loadSamsMatches(data?: SamsMatchesInput): Promise<LeagueMa
 }
 
 /**
+ * Cache-peek with resolved query params for SSR hookOptions (includes synced season when used).
+ */
+export async function peekSamsMatchesForSsr(
+  data?: SamsMatchesInput,
+): Promise<SamsMatchesPeekResult | null> {
+  const resolvedQuery = await resolveSamsMatchesQuery(data);
+  if (!resolvedQuery) return null;
+
+  let activeQuery = resolvedQuery;
+  let cached = await readCacheEntry<LeagueMatchesResponse>(activeQuery.cacheKey, Infinity);
+  if (!cached) {
+    const seasonScopedQuery = await resolveSeasonScopedSamsMatchesQuery(data, resolvedQuery);
+    if (seasonScopedQuery) {
+      activeQuery = seasonScopedQuery;
+      cached = await readCacheEntry<LeagueMatchesResponse>(activeQuery.cacheKey, Infinity);
+    }
+  }
+
+  return {
+    cached,
+    effectiveInput: toSamsMatchesInput(activeQuery, data),
+  };
+}
+
+/**
  * Cache-peek-only — reads DynamoDB without calling SAMS API.
  * Use in route loaders so navigation never blocks on a live SAMS fetch.
  */
 export async function peekSamsMatches(
   data?: SamsMatchesInput,
 ): Promise<LeagueMatchesResponse | null> {
-  const resolvedQuery = await resolveSamsMatchesQuery(data);
-  if (!resolvedQuery) return null;
-
-  const cachedMatches = await readCacheEntry<LeagueMatchesResponse>(
-    resolvedQuery.cacheKey,
-    Infinity,
-  );
-  if (cachedMatches) return cachedMatches;
-
-  const seasonScopedQuery = await resolveSeasonScopedSamsMatchesQuery(data, resolvedQuery);
-  if (!seasonScopedQuery) return null;
-
-  return readCacheEntry<LeagueMatchesResponse>(seasonScopedQuery.cacheKey, Infinity);
+  const peek = await peekSamsMatchesForSsr(data);
+  return peek?.cached ?? null;
 }

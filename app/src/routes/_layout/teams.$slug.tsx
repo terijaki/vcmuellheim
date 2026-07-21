@@ -34,13 +34,13 @@ import {
   useSamsMatches,
   useSamsRoster,
   useTeamBySlug,
-} from "@/app/src/hooks/dataQueries";
+} from "@webapp/hooks/dataQueries";
 import {
   listSamsTeamsFn,
   loadSamsMatchesForSsrFn,
   peekSamsRankingsCacheFn,
-} from "@/app/src/server/functions/sams";
-import { getTeamBySlugFn } from "@/app/src/server/functions/teams";
+} from "@webapp/server/functions/sams";
+import { getTeamBySlugFn } from "@webapp/server/functions/teams";
 import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
 dayjs.locale(de);
@@ -64,14 +64,18 @@ export const Route = createFileRoute("/_layout/teams/$slug")({
       return { team, samsTeam: undefined, rankings: undefined, matchesQueryOptions: undefined };
     }
 
-    const [rankings, matchesSsr] = await Promise.all([
+    const [rankingsResult, matchesSsr] = await Promise.allSettled([
       samsTeam.leagueUuid
         ? peekSamsRankingsCacheFn({ data: { leagueUuids: [samsTeam.leagueUuid] } })
         : Promise.resolve(undefined),
       loadSamsMatchesForSsrFn({ data: { team: samsTeam.uuid } }),
     ]);
 
-    return { team, samsTeam, rankings, matchesQueryOptions: matchesSsr.hookOptions };
+    const rankings = rankingsResult.status === "fulfilled" ? rankingsResult.value : undefined;
+    const matchesQueryOptions: SamsMatchesHookOptions =
+      matchesSsr.status === "fulfilled" ? matchesSsr.value.hookOptions : { team: samsTeam.uuid };
+
+    return { team, samsTeam, rankings, matchesQueryOptions };
   },
   component: RouteComponent,
 });

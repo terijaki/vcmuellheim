@@ -31,17 +31,17 @@ import {
 import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
 import { parseServerData } from "../schema-parse";
 import {
-  createSamsMatchesCacheKey,
   loadSamsMatches,
   peekSamsMatches,
-  resolveSamsMatchesQuery,
+  peekSamsMatchesForSsr,
 } from "./sams-match-loader.server";
-import { resolveEffectiveSamsSportsclubUuids } from "@utils/sams";
 
 const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
 
 export type { SamsMatchesInput };
-export { createSamsMatchesCacheKey, resolveEffectiveSamsSportsclubUuids, resolveSamsMatchesQuery };
+
+export const handleGetSamsMatches = loadSamsMatches;
+export const handlePeekSamsMatchesCache = peekSamsMatches;
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
   const cacheKey = createCacheKey({ type: "sams_rankings", leagueUuid });
@@ -93,10 +93,6 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
 
 // ── SAMS API proxy — Matches ─────────────────────────────────────────────────
 
-export async function handleGetSamsMatches(data?: SamsMatchesInput) {
-  return loadSamsMatches(data);
-}
-
 // ── SAMS API proxy — Rankings ────────────────────────────────────────────────
 
 export async function handleGetSamsRankingsByLeagueUuids(leagueUuids: string[]) {
@@ -122,17 +118,13 @@ export async function handlePeekSamsRankingsCache(leagueUuids: string[]) {
   return results.filter((r): r is RankingResponse => r !== null);
 }
 
-/** Cache-peek-only — DynamoDB read, never blocks on SAMS API. Prefer loadSamsMatchesForSsrFn in loaders. */
-export async function handlePeekSamsMatchesCache(data?: SamsMatchesInput) {
-  return peekSamsMatches(data);
-}
-
 /** Peek-only SSR loader bundle — returns hook options for useSamsMatches. */
 export async function handleLoadSamsMatchesForSsr(input?: SamsMatchesInput) {
-  const cached = await peekSamsMatches(input);
+  const peek = await peekSamsMatchesForSsr(input);
+  const effectiveInput = peek?.effectiveInput ?? input ?? {};
   return {
-    cached: cached ?? undefined,
-    hookOptions: buildSamsMatchesHookOptions(input ?? {}, cached),
+    cached: peek?.cached ?? undefined,
+    hookOptions: buildSamsMatchesHookOptions(effectiveInput, peek?.cached ?? null),
   };
 }
 

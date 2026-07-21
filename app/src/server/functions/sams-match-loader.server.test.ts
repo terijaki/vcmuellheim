@@ -1,6 +1,15 @@
 import type { ClubResponse, TeamResponse } from "@/lambda/sams/types";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { peekSamsMatches, resolveSamsMatchesQuery } from "./sams-match-loader.server";
+import {
+  loadSamsMatches,
+  peekSamsMatches,
+  peekSamsMatchesForSsr,
+  resolveSamsMatchesQuery,
+} from "./sams-match-loader.server";
+
+vi.mock("@codegen/sams/generated", () => ({
+  getAllLeagueMatches: vi.fn(),
+}));
 
 vi.mock("@webapp/server/queries", () => ({
   getAllSamsClubs: vi.fn(),
@@ -12,12 +21,15 @@ vi.mock("@webapp/server/ddb-cache", () => ({
   writeCacheEntry: vi.fn(),
 }));
 
-import { readCacheEntry } from "@webapp/server/ddb-cache";
+import { getAllLeagueMatches } from "@codegen/sams/generated";
+import { readCacheEntry, writeCacheEntry } from "@webapp/server/ddb-cache";
 import { getAllSamsClubs, getAllSamsTeams } from "@webapp/server/queries";
 
+const mockGetAllLeagueMatches = vi.mocked(getAllLeagueMatches);
 const mockGetAllSamsClubs = vi.mocked(getAllSamsClubs);
 const mockGetAllSamsTeams = vi.mocked(getAllSamsTeams);
 const mockReadCacheEntry = vi.mocked(readCacheEntry);
+const mockWriteCacheEntry = vi.mocked(writeCacheEntry);
 
 const configuredClubs: ClubResponse[] = [
   {
@@ -124,5 +136,93 @@ describe("peekSamsMatches season fallback", () => {
     expect(result).toEqual(cached);
     expect(mockGetAllSamsTeams).not.toHaveBeenCalled();
     expect(mockReadCacheEntry).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("peekSamsMatchesForSsr", () => {
+  beforeEach(() => {
+    mockGetAllSamsClubs.mockReset();
+    mockGetAllSamsTeams.mockReset();
+    mockReadCacheEntry.mockReset();
+    mockGetAllSamsClubs.mockResolvedValue({ items: configuredClubs });
+  });
+
+  it("includes synced season in effectiveInput when season-scoped cache is used", async () => {
+    mockGetAllSamsTeams.mockResolvedValue({
+      items: [syncedTeam],
+      lastEvaluatedKey: undefined,
+    });
+    mockReadCacheEntry
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce({ matches: [], timestamp: "2026-07-21T08:00:00.000Z" });
+
+    const result = await peekSamsMatchesForSsr({ range: "future" });
+
+    expect(result?.effectiveInput.season).toBe("season-synced");
+    expect(result?.effectiveInput.range).toBe("future");
+  });
+});
+
+describe("loadSamsMatches", () => {
+  beforeEach(() => {
+    mockGetAllSamsClubs.mockReset();
+    mockGetAllSamsTeams.mockReset();
+    mockReadCacheEntry.mockReset();
+    mockWriteCacheEntry.mockReset();
+    mockGetAllLeagueMatches.mockReset();
+    mockGetAllSamsClubs.mockResolvedValue({ items: configuredClubs });
+    mockReadCacheEntry.mockResolvedValue(null);
+    mockWriteCacheEntry.mockResolvedValue(undefined);
+  });
+
+  it("fetches without for-season when season sync fails", async () => {
+    mockGetAllSamsTeams.mockRejectedValue(new Error("DynamoDB unavailable"));
+    mockGetAllLeagueMatches.mockResolvedValue({
+      data: {
+        content: [{ uuid: "m1", date: "2026-02-01", results: null }],
+        last: true,
+      },
+      request: new Request("https://example.com/matches"),
+      response: new Response(),
+    });
+
+    await loadSamsMatches({ range: "future" });
+
+    expect(mockGetAllLeagueMatches).toHaveBeenCalled();
+    const query = mockGetAllLeagueMatches.mock.calls[0]?.[0]?.query;
+    expect(query?.["for-season"]).toBeUndefined();
+  });
+
+  it("returns season-scoped cache without calling the SAMS API", async () => {
+    mockGetAllSamsTeams.mockResolvedValue({
+      items: [syncedTeam],
+      lastEvaluatedKey: undefined,
+    });
+    mockReadCacheEntry.mockResolvedValueOnce(null).mockResolvedValueOnce({
+      matches: [{ uuid: "cached-match", date: "2026-01-01", results: { winner: "a" } }],
+      timestamp: "2026-07-21T08:00:00.000Z",
+    });
+
+    const result = await loadSamsMatches({ range: "past" });
+
+    expect(result.matches).toHaveLength(1);
+    expect(mockGetAllLeagueMatches).not.toHaveBeenCalled();
+  });
+
+  it("writes cache after API fetch on cache miss", async () => {
+    mockGetAllSamsTeams.mockRejectedValue(new Error("DynamoDB unavailable"));
+    mockGetAllLeagueMatches.mockResolvedValue({
+      data: {
+        content: [{ uuid: "m1", date: "2026-01-10", results: { winner: "a" } }],
+        last: true,
+      },
+      request: new Request("https://example.com/matches"),
+      response: new Response(),
+    });
+
+    await loadSamsMatches({ range: "past", limit: 5 });
+
+    expect(mockWriteCacheEntry).toHaveBeenCalledTimes(1);
+    expect(mockGetAllLeagueMatches).toHaveBeenCalled();
   });
 });

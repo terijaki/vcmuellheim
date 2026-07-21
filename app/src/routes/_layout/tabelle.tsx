@@ -18,6 +18,7 @@ import {
 } from "@webapp/utils/ranking";
 import { numToWord } from "num-words-de";
 import type { RankingResponse } from "@/lambda/sams/types";
+import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
 const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
 
@@ -53,14 +54,20 @@ export const Route = createFileRoute("/_layout/tabelle")({
     const lastResultCap = calculateLastResultCap(samsTeams.teams.length, GAMES_PER_TEAM);
 
     let rankingsByLeagueUuid: Record<string, RankingResponse> = {};
-    let matchesQueryOptions;
+    let matchesQueryOptions: SamsMatchesHookOptions | undefined;
     if (sortedLeagueUuids.length > 0) {
-      const [rankingsResult, matchesSsr] = await Promise.all([
+      const matchesInput = { range: "past" as const, limit: lastResultCap };
+      const [rankingsResult, matchesSsr] = await Promise.allSettled([
         peekSamsRankingsCacheFn({ data: { leagueUuids: sortedLeagueUuids } }),
-        loadSamsMatchesForSsrFn({ data: { range: "past", limit: lastResultCap } }),
+        loadSamsMatchesForSsrFn({ data: matchesInput }),
       ]);
-      rankingsByLeagueUuid = Object.fromEntries(rankingsResult.map((r) => [r.leagueUuid, r]));
-      matchesQueryOptions = matchesSsr.hookOptions;
+      if (rankingsResult.status === "fulfilled") {
+        rankingsByLeagueUuid = Object.fromEntries(
+          rankingsResult.value.map((r) => [r.leagueUuid, r]),
+        );
+      }
+      matchesQueryOptions =
+        matchesSsr.status === "fulfilled" ? matchesSsr.value.hookOptions : matchesInput;
     }
     return {
       leagueUuids: sortedLeagueUuids,

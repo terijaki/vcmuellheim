@@ -1,16 +1,32 @@
 import dayjs from "dayjs";
+import type { SamsMatchesInput } from "@utils/sams-matches";
 
-export type SamsMatchRangeFilter = "past" | "future";
-
-export type SamsMatchFilterInput = {
-  range?: SamsMatchRangeFilter;
-  limit?: number;
-};
+export type SamsMatchFilterInput = Pick<SamsMatchesInput, "range" | "limit">;
 
 type MatchWithResult = {
   date?: string | null;
   results?: { winner?: string | null } | null;
 };
+
+function compareMatchDates(a: MatchWithResult, b: MatchWithResult, ascending: boolean): number {
+  if (!a.date) return 1;
+  if (!b.date) return -1;
+  const aDate = dayjs(a.date);
+  const bDate = dayjs(b.date);
+  if (aDate.isSame(bDate)) return 0;
+  return ascending ? (aDate.isBefore(bDate) ? -1 : 1) : aDate.isAfter(bDate) ? -1 : 1;
+}
+
+function filterAndSortByRange<T extends MatchWithResult>(
+  matches: readonly T[],
+  range: "past" | "future",
+): T[] {
+  const filtered =
+    range === "future"
+      ? matches.filter((m) => !m.results?.winner)
+      : matches.filter((m) => !!m.results?.winner);
+  return [...filtered].sort((a, b) => compareMatchDates(a, b, range === "future"));
+}
 
 /** Post-fetch range/limit filtering for SAMS league matches (after API pagination). */
 export function filterAndSortSamsMatches<T extends MatchWithResult>(
@@ -19,15 +35,9 @@ export function filterAndSortSamsMatches<T extends MatchWithResult>(
 ): T[] {
   let filteredMatches = [...allMatches];
   if (input?.range === "future") {
-    filteredMatches = allMatches.filter((m) => !m.results?.winner);
-    filteredMatches.sort((a, b) =>
-      !a.date ? 1 : !b.date ? -1 : dayjs(a.date).isBefore(dayjs(b.date)) ? -1 : 1,
-    );
+    filteredMatches = filterAndSortByRange(allMatches, "future");
   } else if (input?.range === "past") {
-    filteredMatches = allMatches.filter((m) => !!m.results?.winner);
-    filteredMatches.sort((a, b) =>
-      !a.date ? 1 : !b.date ? -1 : dayjs(a.date).isAfter(dayjs(b.date)) ? -1 : 1,
-    );
+    filteredMatches = filterAndSortByRange(allMatches, "past");
   }
 
   if (input?.limit) filteredMatches = filteredMatches.slice(0, input.limit);
