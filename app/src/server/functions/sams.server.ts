@@ -9,6 +9,9 @@ import { getLeagueByUuid, getRankingsForLeague, getSeasonByUuid } from "@codegen
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { createCacheKey, createExpiringCache, getOrSetExpiringCacheValue } from "@utils/cache";
 import dayjs from "dayjs";
+import { SAMS_API_TIMEOUT_MS } from "@utils/sams-api";
+import type { SamsMatchesInput } from "@utils/sams-matches";
+import { buildSamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 import { z } from "zod";
 import {
   type LiveMatch,
@@ -33,12 +36,9 @@ import {
   peekSamsMatches,
   resolveEffectiveSamsSportsclubUuids,
   resolveSamsMatchesQuery,
-  type SamsMatchesInput,
-} from "../sams/match-loader";
+} from "../sams/match-loader.server";
 
 const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
-
-const SAMS_API_TIMEOUT_MS = 10_000;
 
 export type { SamsMatchesInput };
 export { createSamsMatchesCacheKey, resolveEffectiveSamsSportsclubUuids, resolveSamsMatchesQuery };
@@ -79,7 +79,7 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
     RankingResponseSchema,
     {
       teams: rankingsData.content,
-      timestamp: new Date().toISOString(),
+      timestamp: dayjs().toISOString(),
       leagueUuid,
       leagueName,
       seasonName,
@@ -122,9 +122,18 @@ export async function handlePeekSamsRankingsCache(leagueUuids: string[]) {
   return results.filter((r): r is RankingResponse => r !== null);
 }
 
-/** Cache-peek-only — DynamoDB read, never blocks on SAMS API. Prefer loadSamsMatchesForSsr in loaders. */
+/** Cache-peek-only — DynamoDB read, never blocks on SAMS API. Prefer loadSamsMatchesForSsrFn in loaders. */
 export async function handlePeekSamsMatchesCache(data?: SamsMatchesInput) {
   return peekSamsMatches(data);
+}
+
+/** Peek-only SSR loader bundle — returns hook options for useSamsMatches. */
+export async function handleLoadSamsMatchesForSsr(input?: SamsMatchesInput) {
+  const cached = await peekSamsMatches(input);
+  return {
+    cached: cached ?? undefined,
+    hookOptions: buildSamsMatchesHookOptions(input ?? {}, cached),
+  };
 }
 
 export async function handleListSamsClubs() {
@@ -317,7 +326,7 @@ export async function handleGetSamsTicker() {
           LiveTickerResponseSchema,
           {
             liveMatches,
-            timestamp: new Date().toISOString(),
+            timestamp: dayjs().toISOString(),
           },
           "Failed to parse SAMS live ticker response",
         ),

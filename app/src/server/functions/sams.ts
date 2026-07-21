@@ -7,6 +7,7 @@
  */
 
 import { createServerFn } from "@tanstack/react-start";
+import { samsMatchesInputSchema } from "@utils/sams-matches";
 import { z } from "zod";
 import { requireAdminMiddleware } from "../../middleware";
 import {
@@ -19,25 +20,15 @@ import {
   handleGetSamsTicker,
   handleListSamsClubs,
   handleListSamsTeams,
+  handleLoadSamsMatchesForSsr,
   handlePeekSamsMatchesCache,
   handlePeekSamsRankingsCache,
   handleTriggerSamsClubsSync,
   handleTriggerSamsTeamsSync,
 } from "./sams.server";
-import { handleLoadSamsMatchesForSsr } from "../sams-ssr-queries.server";
 
+export type { SamsMatchesInput } from "@utils/sams-matches";
 export type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
-
-const samsMatchesInputSchema = z
-  .object({
-    league: z.string().optional(),
-    season: z.string().optional(),
-    sportsclub: z.string().optional(),
-    team: z.string().optional(),
-    limit: z.number().int().positive().optional(),
-    range: z.enum(["past", "future"]).optional(),
-  })
-  .optional();
 
 const clubLogoInputSchema = z.union([
   z.object({ clubUuid: z.string().min(1), clubSlug: z.undefined().optional() }),

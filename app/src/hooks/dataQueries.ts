@@ -5,8 +5,9 @@
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { z } from "zod";
-import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
+import type { RankingResponse } from "@/lambda/sams/types";
 import type { PaginationCursor } from "@/lib/db/types";
+import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 import { getEventByIdFn, getUpcomingEventsFn } from "../server/functions/events";
 import { listLocationsFn } from "../server/functions/locations";
 import { listMembersFn } from "../server/functions/members";
@@ -234,16 +235,7 @@ export const useSamsMatches = ({
   range,
   initialData,
   initialDataUpdatedAt,
-}: {
-  league?: string;
-  season?: string;
-  sportsclub?: string;
-  team?: string;
-  limit?: number;
-  range?: "past" | "future";
-  initialData?: LeagueMatchesResponse;
-  initialDataUpdatedAt?: number;
-} = {}) => {
+}: SamsMatchesHookOptions = {}) => {
   return useQuery({
     queryKey: ["samsMatches", league, season, sportsclub, team, limit, range],
     queryFn: () => getSamsMatchesFn({ data: { league, season, sportsclub, team, limit, range } }),

@@ -11,6 +11,8 @@ import * as Sentry from "@sentry/tanstackstart-react";
 import { createCacheKey } from "@utils/cache";
 import dayjs from "dayjs";
 import { filterAndSortSamsMatches } from "@utils/sams-match-filter";
+import { SAMS_API_TIMEOUT_MS } from "@utils/sams-api";
+import type { SamsMatchesInput } from "@utils/sams-matches";
 import { type LeagueMatchesResponse, LeagueMatchesResponseSchema } from "@/lambda/sams/types";
 import { resolveConfiguredSportsclubUuidsFromClubs } from "@/lib/sams/club-resolution";
 import {
@@ -23,17 +25,9 @@ import { getAllSamsClubs, getAllSamsTeams } from "../queries";
 import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
 import { parseServerData } from "../schema-parse";
 
-const SAMS_API_TIMEOUT_MS = 10_000;
-const MATCHES_CACHE_TTL_MS = 5 * 60 * 1000;
+export type { SamsMatchesInput };
 
-export type SamsMatchesInput = {
-  league?: string;
-  season?: string;
-  sportsclub?: string;
-  team?: string;
-  limit?: number;
-  range?: "past" | "future";
-};
+const MATCHES_CACHE_TTL_MS = 5 * 60 * 1000;
 
 type ResolvedSamsMatchesQuery = {
   league?: string;

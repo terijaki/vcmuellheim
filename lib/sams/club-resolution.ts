@@ -1,16 +1,21 @@
-import { resolveConfiguredSamsSportsclubUuids, SAMS_TARGET_CLUB_SLUGS } from "@utils/sams";
+import {
+  resolveConfiguredSamsSportsclubUuids,
+  resolveSamsClubSlug,
+  SAMS_TARGET_CLUB_SLUGS,
+} from "@utils/sams";
 
 export type SamsClubRecord = {
   nameSlug?: string | null;
+  name?: string | null;
   sportsclubUuid?: string | null;
-  name?: string;
   associationUuid?: string | null;
 };
 
 /** Slugs from project config that have no matching club record in storage. */
 export function findMissingConfiguredClubSlugs(clubs: readonly SamsClubRecord[]): string[] {
   return SAMS_TARGET_CLUB_SLUGS.filter(
-    (clubSlug) => !clubs.some((club) => club.nameSlug === clubSlug && !!club.sportsclubUuid),
+    (clubSlug) =>
+      !clubs.some((club) => resolveSamsClubSlug(club) === clubSlug && !!club.sportsclubUuid),
   );
 }
 

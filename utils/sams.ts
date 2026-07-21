@@ -5,6 +5,7 @@ type NullableString = string | null | undefined;
 
 type ClubLike = {
   nameSlug?: NullableString;
+  name?: NullableString;
   sportsclubUuid?: NullableString;
 };
 
@@ -27,13 +28,20 @@ export function isConfiguredSamsClubSlug(nameSlug: NullableString): boolean {
   return !!nameSlug && samsTargetClubSlugSet.has(nameSlug);
 }
 
+export function resolveSamsClubSlug(club: ClubLike): string | undefined {
+  if (club.nameSlug) return club.nameSlug;
+  if (club.name) return slugify(club.name);
+  return undefined;
+}
+
 export function resolveConfiguredSamsSportsclubUuids<T extends ClubLike>(
   clubs: readonly T[],
 ): string[] {
   const sportsclubUuids = new Set<string>();
 
   for (const club of clubs) {
-    if (!club.sportsclubUuid || !isConfiguredSamsClubSlug(club.nameSlug)) continue;
+    const slug = resolveSamsClubSlug(club);
+    if (!club.sportsclubUuid || !isConfiguredSamsClubSlug(slug)) continue;
     sportsclubUuids.add(club.sportsclubUuid);
   }
 

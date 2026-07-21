@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { describe, expect, it } from "vite-plus/test";
 import { buildSamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
@@ -14,7 +15,7 @@ describe("buildSamsMatchesHookOptions", () => {
       range: "future",
       limit: 5,
       initialData: cached,
-      initialDataUpdatedAt: new Date(cached.timestamp).getTime(),
+      initialDataUpdatedAt: dayjs(cached.timestamp).valueOf(),
     });
   });
 

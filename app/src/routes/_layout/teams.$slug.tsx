@@ -41,7 +41,7 @@ import {
   peekSamsRankingsCacheFn,
 } from "@/app/src/server/functions/sams";
 import { getTeamBySlugFn } from "@/app/src/server/functions/teams";
-import type { SamsMatchesHookOptions } from "@/app/src/utils/sams-ssr";
+import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
 dayjs.locale(de);
 dayjs.extend(weekday);

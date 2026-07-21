@@ -6,7 +6,7 @@ CloudWatch duration alarms on the webapp Lambda after the new season started.
 
 **Decision:** Load matches scoped to configured clubs, prefer the synced season from
 DynamoDB on cache miss, apply `past`/`future` filtering in application code after fetch,
-and use cache-peek loaders (`peekSamsMatchesCacheFn`) for SSR so navigation never blocks
+and use cache-peek loaders (`loadSamsMatchesForSsrFn`) for SSR so navigation never blocks
 on a live SAMS API call.
 
 ## Club filter

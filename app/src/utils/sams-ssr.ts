@@ -1,13 +1,8 @@
+import dayjs from "dayjs";
 import type { LeagueMatchesResponse } from "@/lambda/sams/types";
+import type { SamsMatchesInput } from "@utils/sams-matches";
 
-export type SamsMatchesInput = {
-  league?: string;
-  season?: string;
-  sportsclub?: string;
-  team?: string;
-  limit?: number;
-  range?: "past" | "future";
-};
+export type { SamsMatchesInput };
 
 export type SamsMatchesHookOptions = SamsMatchesInput & {
   initialData?: LeagueMatchesResponse;
@@ -22,6 +17,6 @@ export function buildSamsMatchesHookOptions(
   return {
     ...input,
     initialData: cached ?? undefined,
-    initialDataUpdatedAt: cached?.timestamp ? new Date(cached.timestamp).getTime() : undefined,
+    initialDataUpdatedAt: cached?.timestamp ? dayjs(cached.timestamp).valueOf() : undefined,
   };
 }
