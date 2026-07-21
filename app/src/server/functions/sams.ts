@@ -24,6 +24,9 @@ import {
   handleTriggerSamsClubsSync,
   handleTriggerSamsTeamsSync,
 } from "./sams.server";
+import { handleLoadSamsMatchesForSsr } from "../sams-ssr-queries.server";
+
+export type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
 const samsMatchesInputSchema = z
   .object({
@@ -60,6 +63,11 @@ export const peekSamsRankingsCacheFn = createServerFn()
 export const peekSamsMatchesCacheFn = createServerFn()
   .validator(samsMatchesInputSchema)
   .handler(async ({ data }) => handlePeekSamsMatchesCache(data));
+
+/** SSR loader helper — peek-only, returns hook options for useSamsMatches. */
+export const loadSamsMatchesForSsrFn = createServerFn()
+  .validator(samsMatchesInputSchema)
+  .handler(async ({ data }) => handleLoadSamsMatchesForSsr(data));
 
 export const listSamsClubsFn = createServerFn().handler(async () => handleListSamsClubs());
 

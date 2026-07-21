@@ -5,8 +5,11 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
 import { useSamsMatches } from "@webapp/hooks/dataQueries";
-import { listSamsTeamsFn, peekSamsRankingsCacheFn } from "@webapp/server/functions/sams";
-import { loadSamsMatchesForSsr } from "@webapp/server/sams-ssr-queries";
+import {
+  listSamsTeamsFn,
+  loadSamsMatchesForSsrFn,
+  peekSamsRankingsCacheFn,
+} from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import {
   buildLeagueOrderingContext,
@@ -20,7 +23,7 @@ const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown
 
 export const Route = createFileRoute("/_layout/tabelle")({
   /**
-   * SSR uses cache-peek only (loadSamsMatchesForSsr) — never getSamsMatchesFn in loaders.
+   * SSR uses cache-peek only (loadSamsMatchesForSsrFn) — never getSamsMatchesFn in loaders.
    * See docs/adr/0001-sams-match-loading.md.
    */
   loader: async () => {
@@ -54,7 +57,7 @@ export const Route = createFileRoute("/_layout/tabelle")({
     if (sortedLeagueUuids.length > 0) {
       const [rankingsResult, matchesSsr] = await Promise.all([
         peekSamsRankingsCacheFn({ data: { leagueUuids: sortedLeagueUuids } }),
-        loadSamsMatchesForSsr({ range: "past", limit: lastResultCap }),
+        loadSamsMatchesForSsrFn({ data: { range: "past", limit: lastResultCap } }),
       ]);
       rankingsByLeagueUuid = Object.fromEntries(rankingsResult.map((r) => [r.leagueUuid, r]));
       matchesQueryOptions = matchesSsr.hookOptions;

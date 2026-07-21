@@ -34,7 +34,7 @@ import {
   resolveEffectiveSamsSportsclubUuids,
   resolveSamsMatchesQuery,
   type SamsMatchesInput,
-} from "@/lib/sams/match-loader";
+} from "../sams/match-loader";
 
 const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
 

@@ -10,17 +10,18 @@ import { getAllLeagueMatches, type LeagueMatchDto } from "@codegen/sams/generate
 import * as Sentry from "@sentry/tanstackstart-react";
 import { createCacheKey } from "@utils/cache";
 import dayjs from "dayjs";
+import { filterAndSortSamsMatches } from "@utils/sams-match-filter";
 import { type LeagueMatchesResponse, LeagueMatchesResponseSchema } from "@/lambda/sams/types";
-import { getAllSamsTeams, getSamsClubByNameSlug } from "@webapp/server/queries";
-import { readCacheEntry, writeCacheEntry } from "@webapp/server/ddb-cache";
-import { parseServerData } from "@webapp/server/schema-parse";
+import { resolveConfiguredSportsclubUuidsFromClubs } from "@/lib/sams/club-resolution";
 import {
   dedupeSamsMatchesByUuid,
-  SAMS_TARGET_CLUB_SLUGS,
-  shouldResolveDefaultSamsSportsclubs,
   resolveEffectiveSamsSportsclubUuids,
+  shouldResolveDefaultSamsSportsclubs,
 } from "@utils/sams";
 import { buildLeagueOrderingContext } from "@webapp/utils/ranking";
+import { getAllSamsClubs, getAllSamsTeams } from "../queries";
+import { readCacheEntry, writeCacheEntry } from "../ddb-cache";
+import { parseServerData } from "../schema-parse";
 
 const SAMS_API_TIMEOUT_MS = 10_000;
 const MATCHES_CACHE_TTL_MS = 5 * 60 * 1000;
@@ -46,22 +47,14 @@ type ResolvedSamsMatchesQuery = {
 };
 
 async function resolveConfiguredSamsSportsclubUuidsFromStorage(): Promise<string[]> {
-  const configuredClubs = await Promise.all(
-    SAMS_TARGET_CLUB_SLUGS.map(async (clubSlug) => ({
-      clubSlug,
-      club: await getSamsClubByNameSlug(clubSlug),
-    })),
-  );
-
-  const missingClubSlugs = configuredClubs
-    .filter(({ club }) => !club?.sportsclubUuid)
-    .map(({ clubSlug }) => clubSlug);
+  const { items } = await getAllSamsClubs();
+  const { sportsclubUuids, missingClubSlugs } = resolveConfiguredSportsclubUuidsFromClubs(items);
 
   if (missingClubSlugs.length > 0) {
     console.warn("Failed to resolve configured SAMS clubs", { missingClubSlugs });
   }
 
-  return configuredClubs.flatMap(({ club }) => (club?.sportsclubUuid ? [club.sportsclubUuid] : []));
+  return sportsclubUuids;
 }
 
 export function createSamsMatchesCacheKey(
@@ -213,31 +206,10 @@ async function fetchAllSamsLeagueMatches({
   return dedupeSamsMatchesByUuid(allMatches);
 }
 
-function filterAndSortMatches(
-  allMatches: Omit<LeagueMatchDto, "_links">[],
-  data?: SamsMatchesInput,
-): Omit<LeagueMatchDto, "_links">[] {
-  let filteredMatches = allMatches;
-  if (data?.range === "future") {
-    filteredMatches = allMatches.filter((m) => !m.results?.winner);
-    filteredMatches.sort((a, b) =>
-      !a.date ? 1 : !b.date ? -1 : dayjs(a.date).isBefore(dayjs(b.date)) ? -1 : 1,
-    );
-  } else if (data?.range === "past") {
-    filteredMatches = allMatches.filter((m) => !!m.results?.winner);
-    filteredMatches.sort((a, b) =>
-      !a.date ? 1 : !b.date ? -1 : dayjs(a.date).isAfter(dayjs(b.date)) ? -1 : 1,
-    );
-  }
-
-  if (data?.limit) filteredMatches = filteredMatches.slice(0, data.limit);
-  return filteredMatches;
-}
-
 function emptyMatchesResponse(): LeagueMatchesResponse {
   return parseServerData(
     LeagueMatchesResponseSchema,
-    { matches: [], timestamp: new Date().toISOString() },
+    { matches: [], timestamp: dayjs().toISOString() },
     "Failed to parse empty SAMS matches response",
   );
 }
@@ -282,8 +254,8 @@ export async function loadSamsMatches(data?: SamsMatchesInput): Promise<LeagueMa
   const result = parseServerData(
     LeagueMatchesResponseSchema,
     {
-      matches: filterAndSortMatches(allMatches, data),
-      timestamp: new Date().toISOString(),
+      matches: filterAndSortSamsMatches(allMatches, data),
+      timestamp: dayjs().toISOString(),
     },
     "Failed to parse SAMS matches response",
   );

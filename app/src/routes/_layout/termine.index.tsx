@@ -6,18 +6,18 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import { useSamsMatches } from "@webapp/hooks/dataQueries";
 import { getUpcomingEventsFn } from "@webapp/server/functions/events";
-import { loadSamsMatchesForSsr } from "@webapp/server/sams-ssr-queries";
+import { loadSamsMatchesForSsrFn } from "@webapp/server/functions/sams";
 import { createWebcalLink } from "@webapp/utils/webcal";
 import dayjs from "dayjs";
 import { Fragment } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
-import type { SamsMatchesHookOptions } from "@webapp/server/sams-ssr-queries";
+import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
 export const Route = createFileRoute("/_layout/termine/")({
   loader: async () => {
     const [eventsResult, matchesSsr] = await Promise.allSettled([
       getUpcomingEventsFn(),
-      loadSamsMatchesForSsr({ range: "future" }),
+      loadSamsMatchesForSsrFn({ data: { range: "future" } }),
     ]);
 
     const events = eventsResult.status === "fulfilled" ? eventsResult.value.items : [];

@@ -35,10 +35,13 @@ import {
   useSamsRoster,
   useTeamBySlug,
 } from "@/app/src/hooks/dataQueries";
-import { listSamsTeamsFn, peekSamsRankingsCacheFn } from "@/app/src/server/functions/sams";
-import { loadSamsMatchesForSsr } from "@/app/src/server/sams-ssr-queries";
+import {
+  listSamsTeamsFn,
+  loadSamsMatchesForSsrFn,
+  peekSamsRankingsCacheFn,
+} from "@/app/src/server/functions/sams";
 import { getTeamBySlugFn } from "@/app/src/server/functions/teams";
-import type { SamsMatchesHookOptions } from "@/app/src/server/sams-ssr-queries";
+import type { SamsMatchesHookOptions } from "@/app/src/utils/sams-ssr";
 
 dayjs.locale(de);
 dayjs.extend(weekday);
@@ -65,7 +68,7 @@ export const Route = createFileRoute("/_layout/teams/$slug")({
       samsTeam.leagueUuid
         ? peekSamsRankingsCacheFn({ data: { leagueUuids: [samsTeam.leagueUuid] } })
         : Promise.resolve(undefined),
-      loadSamsMatchesForSsr({ team: samsTeam.uuid }),
+      loadSamsMatchesForSsrFn({ data: { team: samsTeam.uuid } }),
     ]);
 
     return { team, samsTeam, rankings, matchesQueryOptions: matchesSsr.hookOptions };

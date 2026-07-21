@@ -53,12 +53,15 @@ are fetched first.
 Route loaders must not call `getSamsMatchesFn` directly. That function may hit the SAMS
 API on cache miss and block navigation for several seconds.
 
-| Route                 | Loader                                             | Client refresh                                   |
-| --------------------- | -------------------------------------------------- | ------------------------------------------------ |
-| `/termine`            | `peekSamsMatchesCacheFn({ range: "future" })`      | `useSamsMatches({ range: "future" })`            |
-| `/tabelle`            | `peekSamsMatchesCacheFn({ range: "past", limit })` | `useSamsMatches` with `initialData`              |
-| `/teams/$slug`        | `peekSamsMatchesCacheFn({ team })`                 | `useSamsMatches({ team })`                       |
-| Homepage (Heimspiele) | none                                               | `useSamsMatches({ range: "future", limit: 50 })` |
+| Route                 | Loader                                              | Client refresh                                   |
+| --------------------- | --------------------------------------------------- | ------------------------------------------------ |
+| `/termine`            | `loadSamsMatchesForSsrFn({ range: "future" })`      | `useSamsMatches(hookOptions)`                    |
+| `/tabelle`            | `loadSamsMatchesForSsrFn({ range: "past", limit })` | `useSamsMatches(hookOptions)`                    |
+| `/teams/$slug`        | `loadSamsMatchesForSsrFn({ team })`                 | `useSamsMatches(hookOptions)`                    |
+| Homepage (Heimspiele) | none                                                | `useSamsMatches({ range: "future", limit: 50 })` |
+
+Loaders receive `hookOptions` from the server function and pass them to
+`useSamsMatches`. Do not call `getSamsMatchesFn` in loaders.
 
 React Query passes cached loader data as `initialData` and refetches in the background
 when stale.

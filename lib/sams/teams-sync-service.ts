@@ -14,6 +14,7 @@ import {
   getTeamsForLeague,
 } from "@codegen/sams/generated";
 import { slugify } from "@utils/slugify";
+import dayjs from "dayjs";
 import type { createSamsDb } from "@/lib/db/electrodb-client";
 import {
   filterConfiguredSamsClubs,
@@ -77,6 +78,81 @@ const TEAM_TTL_SECONDS = 60 * 60 * 24 * 365;
 
 async function delay(ms: number): Promise<void> {
   await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+type SamsLeagueDto = {
+  uuid?: string;
+  name?: string | null;
+  seasonUuid?: string;
+  leagueHierarchyUuid?: string;
+};
+
+type SamsTeamDto = {
+  masterTeamUuid?: string | null;
+  sportsclubUuid?: string | null;
+  uuid?: string;
+  name?: string | null;
+  associationUuid?: string | null;
+};
+
+function isCurrentSeasonLeague(
+  league: SamsLeagueDto,
+  seasonUuid: string,
+): league is SamsLeagueDto & { uuid: string; name: string } {
+  return league.seasonUuid === seasonUuid && !!league.uuid && !!league.name;
+}
+
+function isSyncableTeam(
+  team: SamsTeamDto,
+  sportsclubUuids: Set<string>,
+): team is SamsTeamDto & {
+  uuid: string;
+  name: string;
+  sportsclubUuid: string;
+  associationUuid: string;
+} {
+  return (
+    !team.masterTeamUuid &&
+    !!team.sportsclubUuid &&
+    sportsclubUuids.has(team.sportsclubUuid) &&
+    !!team.uuid &&
+    !!team.name &&
+    !!team.associationUuid
+  );
+}
+
+export function buildSyncedTeamItem(
+  team: SamsTeamDto & {
+    uuid: string;
+    name: string;
+    sportsclubUuid: string;
+    associationUuid: string;
+  },
+  league: { uuid: string; name: string; leagueHierarchyUuid?: string },
+  season: { uuid: string; name: string },
+  hierarchyLevelByUuid: Map<string, number>,
+  nowIso: string,
+  ttl: number,
+): SyncedTeamItem {
+  const leagueHierarchyLevel = league.leagueHierarchyUuid
+    ? hierarchyLevelByUuid.get(league.leagueHierarchyUuid)
+    : undefined;
+
+  return {
+    uuid: team.uuid,
+    type: "team",
+    name: team.name,
+    nameSlug: slugify(team.name),
+    sportsclubUuid: team.sportsclubUuid,
+    associationUuid: team.associationUuid,
+    leagueUuid: league.uuid,
+    leagueName: league.name,
+    ...(leagueHierarchyLevel !== undefined ? { leagueHierarchyLevel } : {}),
+    seasonUuid: season.uuid,
+    seasonName: season.name,
+    updatedAt: nowIso,
+    ttl,
+  };
 }
 
 export async function resolveConfiguredSamsClubsFromStorage(
@@ -151,14 +227,9 @@ async function fetchLeaguesForAssociations(
       });
 
       if (leagueData?.content) {
-        const currentSeasonLeagues = leagueData.content.filter(
-          (league) => league.seasonUuid === seasonUuid && league.uuid && league.name,
-        ) as Array<{
-          uuid: string;
-          name: string;
-          seasonUuid?: string;
-          leagueHierarchyUuid?: string;
-        }>;
+        const currentSeasonLeagues = leagueData.content.filter((league) =>
+          isCurrentSeasonLeague(league, seasonUuid),
+        );
         allLeagues.push(...currentSeasonLeagues);
         leaguePage++;
       }
@@ -182,8 +253,8 @@ async function fetchTeamsForLeagues(
   rateLimitMs: number,
 ): Promise<SyncedTeamItem[]> {
   const allTeams: SyncedTeamItem[] = [];
-  const now = new Date().toISOString();
-  const ttl = Math.floor(Date.now() / 1000) + TEAM_TTL_SECONDS;
+  const nowIso = dayjs().toISOString();
+  const ttl = dayjs().unix() + TEAM_TTL_SECONDS;
 
   for (const league of leagues) {
     let teamPage = 0;
@@ -196,31 +267,11 @@ async function fetchTeamsForLeagues(
       });
 
       if (teamData?.content) {
-        const ourTeams: SyncedTeamItem[] = teamData.content
-          .filter((t) => !t.masterTeamUuid)
-          .filter((t) => !!t.sportsclubUuid && sportsclubUuids.has(t.sportsclubUuid))
-          .filter((t) => !!t.uuid && !!t.name && !!t.sportsclubUuid && !!t.associationUuid)
-          .map((t) => {
-            const leagueHierarchyLevel = league.leagueHierarchyUuid
-              ? hierarchyLevelByUuid.get(league.leagueHierarchyUuid)
-              : undefined;
-
-            return {
-              uuid: t.uuid as string,
-              type: "team" as const,
-              name: t.name as string,
-              nameSlug: slugify(t.name || ""),
-              sportsclubUuid: t.sportsclubUuid as string,
-              associationUuid: t.associationUuid as string,
-              leagueUuid: league.uuid,
-              leagueName: league.name,
-              ...(leagueHierarchyLevel !== undefined ? { leagueHierarchyLevel } : {}),
-              seasonUuid: season.uuid,
-              seasonName: season.name,
-              updatedAt: now,
-              ttl,
-            };
-          });
+        const ourTeams = teamData.content
+          .filter((team) => isSyncableTeam(team, sportsclubUuids))
+          .map((team) =>
+            buildSyncedTeamItem(team, league, season, hierarchyLevelByUuid, nowIso, ttl),
+          );
 
         allTeams.push(...ourTeams);
         teamPage++;
@@ -262,8 +313,8 @@ async function upsertTeamsAndRosters(
           type: "roster",
           players: mapRosterPlayers(team.uuid, rosterData.players),
           officials: mapRosterOfficials(team.uuid, rosterData.officials),
-          updatedAt: new Date().toISOString(),
-          ttl: Math.floor(Date.now() / 1000) + TEAM_TTL_SECONDS,
+          updatedAt: dayjs().toISOString(),
+          ttl: dayjs().unix() + TEAM_TTL_SECONDS,
         };
         await samsEntities.roster.upsert(rosterItem).go();
         rostersProcessed++;
@@ -284,7 +335,7 @@ async function upsertTeamsAndRosters(
 }
 
 async function deleteStaleTeams(samsEntities: SamsDb): Promise<number> {
-  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const oneHourAgo = dayjs().subtract(1, "hour").toISOString();
   const existingResponse = await samsEntities.team.query
     .byType({ type: "team" })
     .go({ pages: "all" });
@@ -359,7 +410,7 @@ export async function runSamsTeamsSync(ctx: TeamsSyncContext): Promise<TeamsSync
     teamsDeleted,
     rostersProcessed,
     rostersFailed,
-    timestamp: new Date().toISOString(),
+    timestamp: dayjs().toISOString(),
   };
 
   ctx.onComplete?.(result);

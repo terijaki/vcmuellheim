@@ -18,6 +18,18 @@ export function findMissingConfiguredClubSlugs(clubs: readonly SamsClubRecord[])
 export function filterConfiguredSamsClubs<T extends SamsClubRecord>(clubs: readonly T[]): T[] {
   const sportsclubUuids = new Set(resolveConfiguredSamsSportsclubUuids(clubs));
   return clubs.filter(
-    (club) => club.sportsclubUuid && sportsclubUuids.has(club.sportsclubUuid),
-  ) as T[];
+    (club): club is T => !!club.sportsclubUuid && sportsclubUuids.has(club.sportsclubUuid),
+  );
+}
+
+/** Resolves configured sportsclub UUIDs and reports missing target slugs. */
+export function resolveConfiguredSportsclubUuidsFromClubs(clubs: readonly SamsClubRecord[]): {
+  sportsclubUuids: string[];
+  missingClubSlugs: string[];
+} {
+  const missingClubSlugs = findMissingConfiguredClubSlugs(clubs);
+  return {
+    sportsclubUuids: resolveConfiguredSamsSportsclubUuids(clubs),
+    missingClubSlugs,
+  };
 }
