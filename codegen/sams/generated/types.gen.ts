@@ -597,12 +597,12 @@ export type CompetitionMatchDto = {
   team1Description?: string | null;
   team2Description?: string | null;
   results?: VolleyballMatchResultsDto | null;
-  team1Mvp?: MostValuablePlayerDto;
-  team2Mvp?: MostValuablePlayerDto;
+  team1Mvp?: MostValuablePlayerDto | null;
+  team2Mvp?: MostValuablePlayerDto | null;
   matchGroupUuid?: string | null;
   competitionUuid?: string | null;
-  indefinitelyRescheduled?: boolean | null;
   delayPossible?: boolean | null;
+  indefinitelyRescheduled?: boolean | null;
 };
 
 export type CompetitionMatchPage = {
@@ -746,12 +746,12 @@ export type LeagueMatchDto = {
   team1Description?: string | null;
   team2Description?: string | null;
   results?: VolleyballMatchResultsDto | null;
-  team1Mvp?: MostValuablePlayerDto;
-  team2Mvp?: MostValuablePlayerDto;
+  team1Mvp?: MostValuablePlayerDto | null;
+  team2Mvp?: MostValuablePlayerDto | null;
   matchDayUuid?: string | null;
   leagueUuid?: string | null;
-  indefinitelyRescheduled?: boolean | null;
   delayPossible?: boolean | null;
+  indefinitelyRescheduled?: boolean | null;
 };
 
 export type LeagueMatchPage = {
