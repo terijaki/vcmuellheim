@@ -4,14 +4,15 @@ This file provides instructions specific to the `lambda/` directory, which conta
 
 ## Structure
 
-- `lambda/sams/` — Lambdas that sync and serve SAMS sports data (clubs, teams, rankings, matches, seasons, associations)
+- `lambda/sams/` — Lambdas that sync SAMS sports data (clubs sync, teams sync) and shared types
 - `lambda/content/` — Lambdas for content management (ICS calendar, image processing, S3 cleanup, sitemap)
 - `lambda/social/` — Lambdas for social media integrations (Instagram, Mastodon)
 - `lambda/utils/` — Shared Lambda utilities (e.g., Sentry error reporting)
 
 ## Key files to reference
 
-- `lambda/sams/sams-clubs.ts` — example of a typical SAMS sync Lambda
+- `lambda/sams/sams-clubs-sync.ts` — clubs sync Lambda (scheduled + admin trigger)
+- `lambda/sams/sams-teams-sync.ts` — teams sync Lambda (thin adapter over `lib/sams/teams-sync-service.ts`)
 - `lambda/content/handler.ts` — content Lambda handler
 - `lambda/social/mastodon-share.ts` — social media Lambda example
 - Generated SAMS API client: `codegen/sams/generated/` (do not edit generated files manually; run `vpr sams:codegen` to regenerate)
@@ -19,7 +20,7 @@ This file provides instructions specific to the `lambda/` directory, which conta
 ## Lambda conventions
 
 - Each Lambda file exports a single handler function.
-- Unit tests live alongside the Lambda file (e.g., `sams-clubs.test.ts` next to `sams-clubs.ts`).
+- Unit tests live alongside the Lambda file (e.g., `sams-clubs.test.ts` next to `sams-clubs-sync.ts`).
 - Use `aws-sdk-client-mock` in tests wherever AWS SDK calls are present.
 - Use the Sentry utility (`lambda/utils/sentry.ts`) for error reporting.
 - The SAMS API client is generated from `codegen/sams/swagger.json` — use it via `codegen/sams/generated/`.

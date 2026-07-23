@@ -1,22 +1,12 @@
-import { createHash } from "node:crypto";
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import {
-  getAllLeagueHierarchies,
-  getAllLeagues,
-  getAllSeasons,
-  getTeamRosterByTeamUuid,
-  getTeamsForLeague,
-} from "@codegen/sams/generated";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandler } from "aws-lambda";
 import { createSamsDb } from "@/lib/db/electrodb-client";
-import { slugify } from "../../utils/slugify";
-import { resolveConfiguredSamsSportsclubUuids, SAMS_TARGET_CLUB_SLUGS } from "../../utils/sams";
+import { runSamsTeamsSync } from "@/lib/sams/teams-sync-service";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
-import type { RosterOfficial, RosterPlayer } from "./types";
 import { SamsTeamsSyncLambdaEnvironmentSchema } from "./types";
 
 const { logger, tracer } = createLambdaResources("sams-teams-sync");
@@ -26,365 +16,55 @@ const env = parseLambdaEnv(SamsTeamsSyncLambdaEnvironmentSchema);
 const TABLE_NAME = env.SAMS_TABLE_NAME;
 const samsEntities = createSamsDb(docClient, TABLE_NAME);
 
-type SyncedTeamItem = {
-  uuid: string;
-  type: "team";
-  name: string;
-  nameSlug: string;
-  sportsclubUuid: string;
-  associationUuid: string;
-  leagueUuid: string;
-  leagueName: string;
-  leagueHierarchyLevel?: number;
-  seasonUuid: string;
-  seasonName: string;
-  updatedAt: string;
-  ttl: number;
-};
-
-type SyncedRosterItem = {
-  teamUuid: string;
-  type: "roster";
-  players: RosterPlayer[];
-  officials: RosterOfficial[];
-  updatedAt: string;
-  ttl: number;
-};
-
-function pseudoRosterUuid(
-  teamUuid: string,
-  kind: "player" | "official",
-  ...parts: (string | number | undefined)[]
-): string {
-  const input = [teamUuid, kind, ...parts.map((part) => String(part ?? ""))].join("|");
-  const hex = createHash("sha256").update(input).digest("hex").slice(0, 32);
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
-}
-
-function mapRosterPlayers(
-  teamUuid: string,
-  players: Array<{
-    uuid?: string;
-    name?: string | null;
-    jerseyNumber?: number | null;
-    position?: string | null;
-    portraitImageLink?: string | null;
-  }> = [],
-): RosterPlayer[] {
-  return players
-    .filter((p): p is typeof p & { name: string } => !!p.name?.trim())
-    .map((p) => ({
-      // The SAMS API sometimes omits uuid; derive a deterministic pseudo uuid from stable fields
-      uuid: p.uuid ?? pseudoRosterUuid(teamUuid, "player", p.name, p.jerseyNumber ?? undefined),
-      name: p.name,
-      ...(p.jerseyNumber != null ? { jerseyNumber: p.jerseyNumber } : {}),
-      ...(p.position ? { position: p.position } : {}),
-      ...(p.portraitImageLink ? { portraitImageLink: p.portraitImageLink } : {}),
-    }));
-}
-
-function mapRosterOfficials(
-  teamUuid: string,
-  officials: Array<{
-    uuid?: string;
-    name?: string | null;
-    role?: string | null;
-  }> = [],
-): RosterOfficial[] {
-  return officials
-    .filter((o): o is typeof o & { name: string } => !!o.name?.trim())
-    .map((o) => ({
-      // The SAMS API sometimes omits uuid; derive a deterministic pseudo uuid from stable fields
-      uuid: o.uuid ?? pseudoRosterUuid(teamUuid, "official", o.name, o.role ?? undefined),
-      name: o.name,
-      ...(o.role ? { role: o.role } : {}),
-    }));
-}
-
-async function resolveConfiguredSamsClubsFromStorage() {
-  const clubResponse = await samsEntities.club.query.byType({ type: "club" }).go({ pages: "all" });
-  const missingClubSlugs = SAMS_TARGET_CLUB_SLUGS.filter(
-    (clubSlug) =>
-      !clubResponse.data.some((club) => club.nameSlug === clubSlug && !!club.sportsclubUuid),
-  );
-
-  if (missingClubSlugs.length > 0) {
-    logger.warn("Failed to resolve configured SAMS clubs", { missingClubSlugs });
-  }
-
-  const sportsclubUuids = new Set(resolveConfiguredSamsSportsclubUuids(clubResponse.data));
-  return clubResponse.data.filter(
-    (club) => club.sportsclubUuid && sportsclubUuids.has(club.sportsclubUuid),
-  );
-}
-
 const lambdaHandler: APIGatewayProxyHandler = async () => {
   logger.info("Starting SAMS teams sync...");
   Sentry.addBreadcrumb({ category: "sync", message: "Starting SAMS teams sync", level: "info" });
+
   try {
-    // Step 1: Get configured SAMS clubs from DynamoDB
-    console.log("Fetching configured SAMS club data...");
-    const clubs = await resolveConfiguredSamsClubsFromStorage();
-    if (clubs.length === 0) {
-      throw new Error("No configured SAMS clubs found in DynamoDB");
-    }
-
-    const sportsclubUuids = new Set(clubs.map((club) => club.sportsclubUuid));
-    const associationUuids = [
-      ...new Set(clubs.flatMap((club) => (club.associationUuid ? [club.associationUuid] : []))),
-    ];
-
-    if (associationUuids.length === 0) {
-      throw new Error("Configured SAMS clubs have no associationUuid — cannot fetch leagues");
-    }
-
-    console.log(
-      `Found configured clubs: ${clubs.map((club) => `${club.name} (${club.sportsclubUuid})`).join(", ")}`,
-    );
-    Sentry.addBreadcrumb({
-      category: "sync",
-      message: "Found configured SAMS clubs",
-      level: "info",
-      data: {
-        clubs: clubs.map((club) => ({ name: club.name, sportsclubUuid: club.sportsclubUuid })),
+    const result = await runSamsTeamsSync({
+      samsEntities,
+      logger: {
+        info: (message, meta) => logger.info(message, meta ?? {}),
+        warn: (message, meta) => logger.warn(message, meta ?? {}),
       },
-    });
-
-    // Step 2: Get current season
-    console.log("Fetching current season...");
-    const { data: seasons } = await getAllSeasons({});
-
-    const currentSeason = seasons?.find((s) => s.currentSeason);
-    if (!currentSeason) {
-      throw new Error("Current season not found");
-    }
-    if (!currentSeason.uuid || !currentSeason.name) {
-      throw new Error("Current season is missing uuid or name");
-    }
-    console.log(`Current season: ${currentSeason.name} (${currentSeason.uuid})`);
-
-    // Step 3: Get all leagues for the association filtered by current season.
-    // build a hierarchy level map so we can store the level on each team.
-    console.log(`Fetching leagues for associations ${associationUuids.join(", ")}...`);
-    const allLeagues = [];
-    let leaguePage = 0;
-    let hasMoreLeagues = true;
-
-    // Build hierarchy level map: hierarchyUuid → level number
-    const hierarchyLevelByUuid = new Map<string, number>();
-    for (const associationUuid of associationUuids) {
-      let hierarchyPage = 0;
-      let hasMoreHierarchies = true;
-      while (hasMoreHierarchies) {
-        const { data: hierarchyData } = await getAllLeagueHierarchies({
-          query: {
-            association: associationUuid,
-            "for-season": currentSeason.uuid,
-            page: hierarchyPage,
-            size: 100,
-          },
+      onTeamsFound: (teamsFound, teamsBySportsclubUuid) => {
+        console.log(`Found ${teamsFound} teams for configured SAMS clubs`);
+        Sentry.addBreadcrumb({
+          category: "sync",
+          message: `Found ${teamsFound} teams for configured SAMS clubs`,
+          level: "info",
+          data: { teamsFound, teamsBySportsclubUuid },
         });
-        for (const hierarchy of hierarchyData?.content ?? []) {
-          if (hierarchy.uuid && hierarchy.level !== undefined) {
-            hierarchyLevelByUuid.set(hierarchy.uuid, hierarchy.level);
-          }
-        }
-        hasMoreHierarchies = hierarchyData?.last !== true;
-        hierarchyPage++;
-      }
-
-      leaguePage = 0;
-      hasMoreLeagues = true;
-      while (hasMoreLeagues) {
-        const { data: leagueData } = await getAllLeagues({
-          query: {
-            association: associationUuid,
-            page: leaguePage,
-            size: 100,
-          },
-        });
-
-        if (leagueData?.content) {
-          const currentSeasonLeagues = leagueData.content.filter(
-            (league) => league.seasonUuid === currentSeason.uuid,
-          );
-          allLeagues.push(...currentSeasonLeagues);
-          leaguePage++;
-        }
-
-        if (leagueData?.last === true) {
-          hasMoreLeagues = false;
-        }
-
-        await new Promise((resolve) => setTimeout(resolve, 500));
-      }
-    }
-
-    console.log(`Found ${allLeagues.length} leagues for current season`);
-    Sentry.addBreadcrumb({
-      category: "sync",
-      message: `Found ${allLeagues.length} leagues for current season`,
-      level: "info",
-      data: { leaguesFound: allLeagues.length },
-    });
-    Sentry.setMeasurement("sams_teams_sync.leagues_found", allLeagues.length, "none");
-
-    // Step 4: Get teams from each league
-    const allTeams: SyncedTeamItem[] = [];
-    for (const league of allLeagues) {
-      if (!league.uuid || !league.name) continue;
-
-      console.log(`Fetching teams for league: ${league.name}...`);
-      let teamPage = 0;
-      let hasMoreTeams = true;
-
-      while (hasMoreTeams) {
-        const { data: teamData } = await getTeamsForLeague({
-          path: { uuid: league.uuid },
-          query: { page: teamPage, size: 100 },
-        });
-
-        if (teamData?.content) {
-          // Filter: only our club's teams, no sub-teams (masterTeamUuid)
-          const ourTeams: SyncedTeamItem[] = teamData.content
-            .filter((t) => !t.masterTeamUuid)
-            .filter((t) => !!t.sportsclubUuid && sportsclubUuids.has(t.sportsclubUuid))
-            .filter((t) => !!t.uuid && !!t.name && !!t.sportsclubUuid && !!t.associationUuid)
-            .map((t) => {
-              const leagueHierarchyLevel = league.leagueHierarchyUuid
-                ? hierarchyLevelByUuid.get(league.leagueHierarchyUuid)
-                : undefined;
-
-              return {
-                uuid: t.uuid as string,
-                type: "team" as const,
-                name: t.name as string,
-                nameSlug: slugify(t.name || ""),
-                sportsclubUuid: t.sportsclubUuid as string,
-                associationUuid: t.associationUuid as string,
-                leagueUuid: league.uuid as string,
-                leagueName: league.name as string,
-                ...(leagueHierarchyLevel !== undefined ? { leagueHierarchyLevel } : {}),
-                seasonUuid: currentSeason.uuid as string,
-                seasonName: currentSeason.name as string,
-                updatedAt: new Date().toISOString(),
-                ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365,
-              };
-            });
-
-          allTeams.push(...ourTeams);
-          teamPage++;
-        }
-        if (teamData?.last === true) {
-          hasMoreTeams = false;
-        }
-
-        await new Promise((resolve) => setTimeout(resolve, 500)); // Rate limiting
-      }
-    }
-
-    const teamsBySportsclubUuid = Object.fromEntries(
-      [...sportsclubUuids].map((sportsclubUuid) => [
-        sportsclubUuid,
-        allTeams.filter((team) => team.sportsclubUuid === sportsclubUuid).length,
-      ]),
-    );
-
-    console.log(`Found ${allTeams.length} teams for configured SAMS clubs`);
-    Sentry.addBreadcrumb({
-      category: "sync",
-      message: `Found ${allTeams.length} teams for configured SAMS clubs`,
-      level: "info",
-      data: { teamsFound: allTeams.length, teamsBySportsclubUuid },
-    });
-    Sentry.setMeasurement("sams_teams_sync.teams_found", allTeams.length, "none");
-
-    // Step 5: Store teams (and their rosters) in DynamoDB
-    let teamsProcessed = 0;
-    let rostersProcessed = 0;
-    let rostersFailed = 0;
-
-    for (const team of allTeams) {
-      await samsEntities.team.upsert(team).go();
-      teamsProcessed++;
-
-      try {
-        const { data: rosterData, error: rosterError } = await getTeamRosterByTeamUuid({
-          path: { uuid: team.uuid },
-        });
-        if (rosterError) {
-          throw rosterError;
-        }
-        if (rosterData) {
-          const rosterItem: SyncedRosterItem = {
-            teamUuid: team.uuid,
-            type: "roster",
-            players: mapRosterPlayers(team.uuid, rosterData.players),
-            officials: mapRosterOfficials(team.uuid, rosterData.officials),
-            updatedAt: new Date().toISOString(),
-            ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365,
-          };
-          await samsEntities.roster.upsert(rosterItem).go();
-          rostersProcessed++;
-        }
-      } catch (error) {
+        Sentry.setMeasurement("sams_teams_sync.teams_found", teamsFound, "none");
+      },
+      captureRosterError: (error, team) => {
         console.warn(`Failed to fetch roster for team ${team.name} (${team.uuid}):`, error);
         Sentry.captureException(error, {
           extra: { teamUuid: team.uuid, teamName: team.name },
         });
-        await samsEntities.roster
-          .delete({ teamUuid: team.uuid })
-          .go()
-          .catch((deleteError) => {
-            console.warn(`Failed to delete stale roster for team ${team.uuid}:`, deleteError);
-          });
-        rostersFailed++;
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Rate limiting
-    }
-
-    // Step 6: Delete stale teams (not updated in this sync) and their rosters
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-    const existingResponse = await samsEntities.team.query
-      .byType({ type: "team" })
-      .go({ pages: "all" });
-    let teamsDeleted = 0;
-    for (const existingTeam of existingResponse.data) {
-      if (existingTeam.updatedAt < oneHourAgo) {
-        await samsEntities.team.delete({ uuid: existingTeam.uuid }).go();
-        await samsEntities.roster.delete({ teamUuid: existingTeam.uuid }).go();
-        console.log(`Deleted stale team: ${existingTeam.name}`);
-        teamsDeleted++;
-      }
-    }
-
-    const result = {
-      success: true,
-      teamsProcessed,
-      teamsDeleted,
-      rostersProcessed,
-      rostersFailed,
-      timestamp: new Date().toISOString(),
-    };
-
-    console.log("Teams sync completed:", result);
-    Sentry.setMeasurement("sams_teams_sync.teams_processed", teamsProcessed, "none");
-    Sentry.setMeasurement("sams_teams_sync.teams_deleted", teamsDeleted, "none");
-    Sentry.setMeasurement("sams_teams_sync.rosters_processed", rostersProcessed, "none");
-    Sentry.setMeasurement("sams_teams_sync.rosters_failed", rostersFailed, "none");
-    Sentry.addBreadcrumb({
-      category: "sync",
-      message: "Teams sync completed",
-      level: "info",
-      data: result,
+      },
+      onComplete: (syncResult) => {
+        console.log("Teams sync completed:", syncResult);
+        Sentry.setMeasurement("sams_teams_sync.teams_processed", syncResult.teamsProcessed, "none");
+        Sentry.setMeasurement("sams_teams_sync.teams_deleted", syncResult.teamsDeleted, "none");
+        Sentry.setMeasurement(
+          "sams_teams_sync.rosters_processed",
+          syncResult.rostersProcessed,
+          "none",
+        );
+        Sentry.setMeasurement("sams_teams_sync.rosters_failed", syncResult.rostersFailed, "none");
+        Sentry.addBreadcrumb({
+          category: "sync",
+          message: "Teams sync completed",
+          level: "info",
+          data: syncResult,
+        });
+      },
     });
 
     return {
       statusCode: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(result),
     };
   } catch (error) {
@@ -392,9 +72,7 @@ const lambdaHandler: APIGatewayProxyHandler = async () => {
     Sentry.captureException(error);
     return {
       statusCode: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         error: "Internal server error",
         message: error instanceof Error ? error.message : "Unknown error",
