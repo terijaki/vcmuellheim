@@ -5,8 +5,10 @@
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { z } from "zod";
-import type { LeagueMatchesResponse, RankingResponse } from "@/lambda/sams/types";
+import type { RankingResponse } from "@/lambda/sams/types";
 import type { PaginationCursor } from "@/lib/db/types";
+import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
+import { SAMS_MATCHES_CACHE_TTL_MS } from "@utils/sams-api";
 import { getEventByIdFn, getUpcomingEventsFn } from "../server/functions/events";
 import { listLocationsFn } from "../server/functions/locations";
 import { listMembersFn } from "../server/functions/members";
@@ -234,21 +236,12 @@ export const useSamsMatches = ({
   range,
   initialData,
   initialDataUpdatedAt,
-}: {
-  league?: string;
-  season?: string;
-  sportsclub?: string;
-  team?: string;
-  limit?: number;
-  range?: "past" | "future";
-  initialData?: LeagueMatchesResponse;
-  initialDataUpdatedAt?: number;
-} = {}) => {
+}: SamsMatchesHookOptions = {}) => {
   return useQuery({
     queryKey: ["samsMatches", league, season, sportsclub, team, limit, range],
     queryFn: () => getSamsMatchesFn({ data: { league, season, sportsclub, team, limit, range } }),
     retry: 1,
-    staleTime: 1000 * 60 * 2,
+    staleTime: SAMS_MATCHES_CACHE_TTL_MS,
     placeholderData: (previousData) => previousData,
     refetchOnWindowFocus: false,
     initialData,

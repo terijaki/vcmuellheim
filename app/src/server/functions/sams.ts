@@ -1,12 +1,13 @@
 /**
- * SAMS server functions — replaces lib/trpc/routers/samsClubs.ts + samsTeams.ts
- * plus the read lambdas from SamsStack (matches, rankings).
+ * SAMS server functions for read and sync triggers.
+ * Read paths use server functions in this app; sync runs via scheduled Lambdas.
  *
- * Server-only logic lives in sams.server.ts (import-protected). This file exports
- * createServerFn wrappers that are safe to import from client code.
+ * Server-only logic lives in `sams.server.ts` and `sams-match-loader.server.ts`
+ * (import-protected). This file exports createServerFn wrappers safe for client code.
  */
 
 import { createServerFn } from "@tanstack/react-start";
+import { samsMatchesInputSchema } from "@utils/sams-matches";
 import { z } from "zod";
 import { requireAdminMiddleware } from "../../middleware";
 import {
@@ -19,22 +20,15 @@ import {
   handleGetSamsTicker,
   handleListSamsClubs,
   handleListSamsTeams,
-  handlePeekSamsMatchesCache,
+  handleLoadSamsMatchesForSsr,
+  handleReadSamsMatchesCache,
   handlePeekSamsRankingsCache,
   handleTriggerSamsClubsSync,
   handleTriggerSamsTeamsSync,
 } from "./sams.server";
 
-const samsMatchesInputSchema = z
-  .object({
-    league: z.string().optional(),
-    season: z.string().optional(),
-    sportsclub: z.string().optional(),
-    team: z.string().optional(),
-    limit: z.number().int().positive().optional(),
-    range: z.enum(["past", "future"]).optional(),
-  })
-  .optional();
+export type { SamsMatchesInput } from "@utils/sams-matches";
+export type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
 const clubLogoInputSchema = z.union([
   z.object({ clubUuid: z.string().min(1), clubSlug: z.undefined().optional() }),
@@ -57,9 +51,14 @@ export const peekSamsRankingsCacheFn = createServerFn()
   .validator(z.object({ leagueUuids: z.array(z.string()) }))
   .handler(async ({ data }) => handlePeekSamsRankingsCache(data.leagueUuids));
 
-export const peekSamsMatchesCacheFn = createServerFn()
+export const readSamsMatchesCacheFn = createServerFn()
   .validator(samsMatchesInputSchema)
-  .handler(async ({ data }) => handlePeekSamsMatchesCache(data));
+  .handler(async ({ data }) => handleReadSamsMatchesCache(data));
+
+/** SSR loader helper — peek-only, returns hook options for useSamsMatches. */
+export const loadSamsMatchesForSsrFn = createServerFn()
+  .validator(samsMatchesInputSchema)
+  .handler(async ({ data }) => handleLoadSamsMatchesForSsr(data));
 
 export const listSamsClubsFn = createServerFn().handler(async () => handleListSamsClubs());
 
