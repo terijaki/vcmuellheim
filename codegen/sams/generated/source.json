@@ -5863,11 +5863,19 @@
             "nullable": true
           },
           "team1Mvp": {
-            "$ref": "#/components/schemas/MostValuablePlayerDto",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MostValuablePlayerDto"
+              }
+            ],
             "nullable": true
           },
           "team2Mvp": {
-            "$ref": "#/components/schemas/MostValuablePlayerDto",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MostValuablePlayerDto"
+              }
+            ],
             "nullable": true
           },
           "matchGroupUuid": {
@@ -5878,11 +5886,11 @@
             "type": "string",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           }
@@ -6281,11 +6289,19 @@
             "nullable": true
           },
           "team1Mvp": {
-            "$ref": "#/components/schemas/MostValuablePlayerDto",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MostValuablePlayerDto"
+              }
+            ],
             "nullable": true
           },
           "team2Mvp": {
-            "$ref": "#/components/schemas/MostValuablePlayerDto",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MostValuablePlayerDto"
+              }
+            ],
             "nullable": true
           },
           "matchDayUuid": {
@@ -6296,11 +6312,11 @@
             "type": "string",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           }

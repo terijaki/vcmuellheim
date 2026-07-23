@@ -37,8 +37,9 @@ createClient({
     patch: {
       schemas: {
         // _embedded (team1/team2) is not in the upstream spec — injected here based on actual API responses.
-        // results: null when no match has been played; referees: null when none assigned.
-        //   NOTE: hey-api no longer respects nullable:true on $ref fields — must use explicit anyOf with null instead.
+        // results: null when no match has been played; referees: null when none assigned;
+        // team1Mvp/team2Mvp: null when no MVP is assigned (typical for unplayed matches).
+        //   NOTE: hey-api no longer respects nullable:true on $ref fields — must use explicit allOf+nullable instead.
         // date.format corrected to "date" (upstream uses "date-time" which generates wrong Zod type).
         CompetitionMatchDto: (schema) => {
           if (schema.properties) {
@@ -74,9 +75,12 @@ createClient({
                   case "results":
                   case "referees":
                   case "location":
+                  case "team1Mvp":
+                  case "team2Mvp":
                     // hey-api silently drops nullable:true when paired with $ref — wrap in allOf
                     // so nullable:true is on a schema object (not a $ref), which the generator
                     // correctly converts to z.union([zType, z.null()]).
+                    // team1Mvp/team2Mvp are null when no MVP is assigned (common for unplayed matches).
                     schema.properties[key] = { allOf: [property], nullable: true };
                     break;
                   default:
@@ -124,9 +128,12 @@ createClient({
                   case "results":
                   case "referees":
                   case "location":
+                  case "team1Mvp":
+                  case "team2Mvp":
                     // hey-api silently drops nullable:true when paired with $ref — wrap in allOf
                     // so nullable:true is on a schema object (not a $ref), which the generator
                     // correctly converts to z.union([zType, z.null()]).
+                    // team1Mvp/team2Mvp are null when no MVP is assigned (common for unplayed matches).
                     schema.properties[key] = { allOf: [property], nullable: true };
                     break;
                   default:
