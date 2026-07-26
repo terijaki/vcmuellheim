@@ -91,7 +91,14 @@ export default function Matches({
                       </time>
                     )}
                     {match.location && (
-                      <MapsLink {...match.location} size="sm" maw={{ base: "100%", sm: 160 }} />
+                      <MapsLink
+                        name={match.location.name}
+                        street={match.location.address?.street}
+                        postal={match.location.address?.postcode}
+                        city={match.location.address?.city}
+                        size="sm"
+                        maw={{ base: "100%", sm: 160 }}
+                      />
                     )}
                   </Flex>
                 </GridCol>
@@ -237,7 +244,14 @@ export default function Matches({
 
               {match.location && (
                 <GridCol span={{ base: 12, sm: 3 }}>
-                  <MapsLink {...match.location} size="sm" maw={{ base: "100%", sm: 160 }} />
+                  <MapsLink
+                    name={match.location.name}
+                    street={match.location.address?.street}
+                    postal={match.location.address?.postcode}
+                    city={match.location.address?.city}
+                    size="sm"
+                    maw={{ base: "100%", sm: 160 }}
+                  />
                 </GridCol>
               )}
             </Grid>
