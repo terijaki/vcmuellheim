@@ -38,6 +38,9 @@ export type Association = {
       [key: string]: unknown;
     };
   } | null;
+  attributes?: {
+    [key: string]: JsonNode;
+  } | null;
   name: string;
   shortname?: string | null;
   parentUuid?: string | null;
@@ -54,6 +57,13 @@ export type Embedded = {
 export type HalRepresentation = {
   _links?: Links;
   _embedded?: Embedded;
+  attributes?: {
+    [key: string]: JsonNode;
+  };
+};
+
+export type JsonNode = {
+  [key: string]: unknown;
 };
 
 export type Links = {
@@ -70,6 +80,9 @@ export type AssociationResourcePage = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   content?: Array<Association>;
   empty?: boolean;
@@ -103,6 +116,9 @@ export type Committee = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   /**
    * Reference to the association this entity belongs to
@@ -152,6 +168,9 @@ export type CommitteePage = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   content?: Array<Committee>;
   empty?: boolean;
   totalPages?: number;
@@ -172,10 +191,14 @@ export type SportsclubDto = {
       [key: string]: unknown;
     };
   } | null;
+  attributes?: {
+    [key: string]: JsonNode;
+  } | null;
   name: string;
   shortname?: string | null;
   sportsclubNumber?: number | null;
   associationUuid?: string | null;
+  ticketshopUrl?: string | null;
   logoImageLink?: string | null;
 };
 
@@ -189,6 +212,9 @@ export type SportsclubPage = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   content?: Array<SportsclubDto>;
   empty?: boolean;
@@ -210,6 +236,9 @@ export type LeagueHierarchyDto = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   name?: string;
   shortName?: string;
   seasonUuid?: string;
@@ -228,6 +257,9 @@ export type LeagueHierarchyPage = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   content?: Array<LeagueHierarchyDto>;
   empty?: boolean;
@@ -248,6 +280,9 @@ export type CompetitionDto = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   name?: string;
   shortName?: string;
@@ -275,6 +310,9 @@ export type CompetitionPage = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   content?: Array<CompetitionDto>;
   empty?: boolean;
   totalPages?: number;
@@ -294,6 +332,9 @@ export type LeagueDto = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   name?: string;
   shortName?: string;
@@ -317,6 +358,9 @@ export type LeaguePage = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   content?: Array<LeagueDto>;
   empty?: boolean;
   totalPages?: number;
@@ -336,6 +380,9 @@ export type SuperCompetitionDto = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   name?: string;
   shortName?: string;
@@ -363,6 +410,9 @@ export type SuperCompetitionPage = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   content?: Array<SuperCompetitionDto>;
   empty?: boolean;
   totalPages?: number;
@@ -386,6 +436,9 @@ export type Location = {
       [key: string]: unknown;
     };
   } | null;
+  attributes?: {
+    [key: string]: JsonNode;
+  } | null;
   name?: string | null;
   longitude?: number | null;
   latitude?: number | null;
@@ -402,6 +455,9 @@ export type LocationResourcePage = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   content?: Array<Location>;
   empty?: boolean;
@@ -423,6 +479,9 @@ export type CompetitionMatchGroupDto = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   name?: string;
   tourneyLevel?: number;
   seasonUuid?: string;
@@ -440,6 +499,9 @@ export type CompetitionMatchGroupPage = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   content?: Array<CompetitionMatchGroupDto>;
   empty?: boolean;
@@ -461,6 +523,9 @@ export type CompetitionMatchGroupRankingsDto = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   matchGroupName?: string;
   rankings?: Array<LeagueRankingsEntryDto>;
 };
@@ -475,6 +540,9 @@ export type CompetitionRankingsResourcePage = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   content?: Array<CompetitionMatchGroupRankingsDto>;
   empty?: boolean;
@@ -495,6 +563,9 @@ export type LeagueRankingsEntryDto = {
     [key: string]: {
       [key: string]: unknown;
     };
+  } | null;
+  attributes?: {
+    [key: string]: JsonNode;
   } | null;
   teamName?: string | null;
   rank?: number;
@@ -532,6 +603,9 @@ export type TeamDto = {
       [key: string]: unknown;
     };
   } | null;
+  attributes?: {
+    [key: string]: JsonNode;
+  } | null;
   masterTeamUuid?: string | null;
   name?: string;
   shortName?: string | null;
@@ -541,6 +615,7 @@ export type TeamDto = {
   logoImageForScreenOutputLink?: string | null;
   sportsclubUuid?: string | null;
   associationUuid?: string | null;
+  ticketshopUrl?: string | null;
 };
 
 export type TeamPage = {
@@ -553,6 +628,9 @@ export type TeamPage = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   content?: Array<TeamDto>;
   empty?: boolean;
@@ -581,9 +659,14 @@ export type CompetitionMatchDto = {
       sportsclubUuid: string;
     };
   } | null;
+  attributes?: {
+    [key: string]: JsonNode;
+  } | null;
   date?: string | null;
   time?: string | null;
   matchNumber?: number | null;
+  fieldRoundNumber?: number | null;
+  playingField?: string | null;
   decidingMatch?: boolean | null;
   gameReassessed?: boolean | null;
   host?: string | null;
@@ -601,8 +684,8 @@ export type CompetitionMatchDto = {
   team2Mvp?: MostValuablePlayerDto;
   matchGroupUuid?: string | null;
   competitionUuid?: string | null;
-  indefinitelyRescheduled?: boolean | null;
   delayPossible?: boolean | null;
+  indefinitelyRescheduled?: boolean | null;
 };
 
 export type CompetitionMatchPage = {
@@ -615,6 +698,9 @@ export type CompetitionMatchPage = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   content?: Array<CompetitionMatchDto>;
   empty?: boolean;
@@ -667,6 +753,9 @@ export type LeagueMatchDayDto = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   name?: string;
   matchdate?: string;
   seasonUuid?: string;
@@ -685,6 +774,9 @@ export type LeagueMatchDayPage = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   content?: Array<LeagueMatchDayDto>;
   empty?: boolean;
   totalPages?: number;
@@ -702,6 +794,9 @@ export type LeagueRankingsResourcePage = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   content?: Array<LeagueRankingsEntryDto>;
   empty?: boolean;
@@ -730,9 +825,14 @@ export type LeagueMatchDto = {
       sportsclubUuid: string;
     };
   } | null;
+  attributes?: {
+    [key: string]: JsonNode;
+  } | null;
   date?: string | null;
   time?: string | null;
   matchNumber?: number | null;
+  fieldRoundNumber?: number | null;
+  playingField?: string | null;
   decidingMatch?: boolean | null;
   gameReassessed?: boolean | null;
   host?: string | null;
@@ -750,8 +850,8 @@ export type LeagueMatchDto = {
   team2Mvp?: MostValuablePlayerDto;
   matchDayUuid?: string | null;
   leagueUuid?: string | null;
-  indefinitelyRescheduled?: boolean | null;
   delayPossible?: boolean | null;
+  indefinitelyRescheduled?: boolean | null;
 };
 
 export type LeagueMatchPage = {
@@ -764,6 +864,9 @@ export type LeagueMatchPage = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   content?: Array<LeagueMatchDto>;
   empty?: boolean;
@@ -784,6 +887,9 @@ export type Event = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   name?: string;
   shortname?: string;
@@ -829,6 +935,9 @@ export type EventPage = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   content?: Array<Event>;
   empty?: boolean;
   totalPages?: number;
@@ -852,10 +961,17 @@ export type EventType = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   name?: string;
   description?: string;
   category?: string;
   associationUuid?: string;
+};
+
+export type SamsScoreAccessCodeDto = {
+  accessCode?: string;
 };
 
 export type SeasonDto = {
@@ -870,6 +986,9 @@ export type SeasonDto = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   name?: string;
   startDate?: string;
@@ -910,6 +1029,9 @@ export type TeamRosterDto = {
       [key: string]: unknown;
     };
   };
+  attributes?: {
+    [key: string]: JsonNode;
+  };
   teamUuid?: string;
   note?: string;
   players?: Array<TeamPlayerDto>;
@@ -928,6 +1050,9 @@ export type UserDetailsDto = {
     [key: string]: {
       [key: string]: unknown;
     };
+  };
+  attributes?: {
+    [key: string]: JsonNode;
   };
   firstName?: string;
   lastName?: string;
@@ -3087,6 +3212,57 @@ export type GetEventTypesResponses = {
 };
 
 export type GetEventTypesResponse = GetEventTypesResponses[keyof GetEventTypesResponses];
+
+export type GenerateAccessCodeForMatchData = {
+  body?: never;
+  headers?: {
+    /**
+     * A SAMS API key with permission to access this API.
+     */
+    "X-Api-Key"?: string;
+  };
+  path: {
+    /**
+     * UUID of the match.
+     */
+    uuid: string;
+  };
+  query?: never;
+  url: "/score/matches/{uuid}/access-code";
+};
+
+export type GenerateAccessCodeForMatchErrors = {
+  /**
+   * POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.
+   */
+  400: ValidationError;
+  /**
+   * API key is missing or has no SAMS Score access.
+   */
+  403: unknown;
+  /**
+   * Match not found.
+   */
+  404: unknown;
+  /**
+   * The request could not be processed due to invalid request data. Check the response for more details.
+   */
+  409: ResponseExceptionMessage;
+  /**
+   * An unexpected error occurred. Please contact support and supply the response data.
+   */
+  500: ResponseException;
+};
+
+export type GenerateAccessCodeForMatchError =
+  GenerateAccessCodeForMatchErrors[keyof GenerateAccessCodeForMatchErrors];
+
+export type GenerateAccessCodeForMatchResponses = {
+  200: SamsScoreAccessCodeDto;
+};
+
+export type GenerateAccessCodeForMatchResponse =
+  GenerateAccessCodeForMatchResponses[keyof GenerateAccessCodeForMatchResponses];
 
 export type GetAllSeasonsData = {
   body?: never;

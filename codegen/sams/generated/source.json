@@ -3621,6 +3621,79 @@
         }
       }
     },
+    "/score/matches/{uuid}/access-code": {
+      "get": {
+        "tags": ["SAMS Score access API"],
+        "summary": "Generates a SAMS Score access code for a match.",
+        "operationId": "generateAccessCodeForMatch",
+        "parameters": [
+          {
+            "name": "X-Api-Key",
+            "in": "header",
+            "description": "A SAMS API key with permission to access this API.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "UUID of the match.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SamsScoreAccessCodeDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "POST only: A violation occurred while validating the processed request data, for example caused by an invalid email address. Check the response for further details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "API key is missing or has no SAMS Score access."
+          },
+          "404": {
+            "description": "Match not found."
+          },
+          "409": {
+            "description": "The request could not be processed due to invalid request data. Check the response for more details.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseExceptionMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred. Please contact support and supply the response data.",
+            "content": {
+              "application/hal+json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseException"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/seasons": {
       "get": {
         "tags": ["SAMS seasons API"],
@@ -4504,6 +4577,13 @@
             },
             "nullable": true
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            },
+            "nullable": true
+          },
           "name": {
             "type": "string",
             "nullable": false
@@ -4541,8 +4621,17 @@
           },
           "_embedded": {
             "$ref": "#/components/schemas/Embedded"
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
           }
         }
+      },
+      "JsonNode": {
+        "type": "object"
       },
       "Links": {
         "type": "object",
@@ -4573,6 +4662,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "content": {
@@ -4647,6 +4742,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "associationUuid": {
@@ -4757,6 +4858,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "content": {
             "type": "array",
             "items": {
@@ -4800,6 +4907,13 @@
             },
             "nullable": true
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            },
+            "nullable": true
+          },
           "name": {
             "type": "string",
             "nullable": false
@@ -4814,6 +4928,10 @@
             "nullable": true
           },
           "associationUuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "ticketshopUrl": {
             "type": "string",
             "nullable": true
           },
@@ -4846,6 +4964,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "content": {
@@ -4887,6 +5011,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "name": {
@@ -4934,6 +5064,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "content": {
             "type": "array",
             "items": {
@@ -4972,6 +5108,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "name": {
@@ -5033,6 +5175,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "content": {
             "type": "array",
             "items": {
@@ -5071,6 +5219,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "name": {
@@ -5128,6 +5282,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "content": {
             "type": "array",
             "items": {
@@ -5166,6 +5326,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "name": {
@@ -5227,6 +5393,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "content": {
             "type": "array",
             "items": {
@@ -5267,6 +5439,13 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            },
+            "nullable": true
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             },
             "nullable": true
           },
@@ -5314,6 +5493,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "content": {
             "type": "array",
             "items": {
@@ -5352,6 +5537,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "name": {
@@ -5395,6 +5586,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "content": {
             "type": "array",
             "items": {
@@ -5435,6 +5632,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "matchGroupName": {
             "type": "string"
           },
@@ -5467,6 +5670,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "content": {
@@ -5509,6 +5718,13 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            },
+            "nullable": true
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             },
             "nullable": true
           },
@@ -5646,6 +5862,13 @@
             },
             "nullable": true
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            },
+            "nullable": true
+          },
           "masterTeamUuid": {
             "type": "string",
             "nullable": true
@@ -5684,6 +5907,10 @@
           "associationUuid": {
             "type": "string",
             "nullable": true
+          },
+          "ticketshopUrl": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -5708,6 +5935,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "content": {
@@ -5782,6 +6015,13 @@
             },
             "nullable": true
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            },
+            "nullable": true
+          },
           "date": {
             "type": "string",
             "format": "date",
@@ -5794,6 +6034,15 @@
           "matchNumber": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "fieldRoundNumber": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "playingField": {
+            "type": "string",
             "nullable": true
           },
           "decidingMatch": {
@@ -5878,11 +6127,11 @@
             "type": "string",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           }
@@ -5910,6 +6159,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "content": {
@@ -6043,6 +6298,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "name": {
             "type": "string"
           },
@@ -6082,6 +6343,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "content": {
@@ -6126,6 +6393,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "content": {
@@ -6200,6 +6473,13 @@
             },
             "nullable": true
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            },
+            "nullable": true
+          },
           "date": {
             "type": "string",
             "format": "date",
@@ -6212,6 +6492,15 @@
           "matchNumber": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "fieldRoundNumber": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "playingField": {
+            "type": "string",
             "nullable": true
           },
           "decidingMatch": {
@@ -6296,11 +6585,11 @@
             "type": "string",
             "nullable": true
           },
-          "indefinitelyRescheduled": {
+          "delayPossible": {
             "type": "boolean",
             "nullable": true
           },
-          "delayPossible": {
+          "indefinitelyRescheduled": {
             "type": "boolean",
             "nullable": true
           }
@@ -6328,6 +6617,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "content": {
@@ -6368,6 +6663,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "name": {
@@ -6456,6 +6757,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "content": {
             "type": "array",
             "items": {
@@ -6496,6 +6803,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "name": {
             "type": "string"
           },
@@ -6510,6 +6823,14 @@
           }
         },
         "description": "Type of an event."
+      },
+      "SamsScoreAccessCodeDto": {
+        "type": "object",
+        "properties": {
+          "accessCode": {
+            "type": "string"
+          }
+        }
       },
       "SeasonDto": {
         "type": "object",
@@ -6528,6 +6849,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "name": {
@@ -6633,6 +6960,12 @@
               "type": "object"
             }
           },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
+            }
+          },
           "teamUuid": {
             "type": "string"
           },
@@ -6670,6 +7003,12 @@
             "type": "object",
             "additionalProperties": {
               "type": "object"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonNode"
             }
           },
           "firstName": {
