@@ -5,6 +5,9 @@ import * as z from "zod";
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from "./client";
 import { client } from "./client.gen";
 import type {
+  GenerateAccessCodeForMatchData,
+  GenerateAccessCodeForMatchErrors,
+  GenerateAccessCodeForMatchResponses,
   GetAllCommitteesData,
   GetAllCommitteesErrors,
   GetAllCommitteesResponses,
@@ -156,6 +159,9 @@ import type {
   UserDetailsRootLinksResponses,
 } from "./types.gen";
 import {
+  zGenerateAccessCodeForMatchHeaders,
+  zGenerateAccessCodeForMatchPath,
+  zGenerateAccessCodeForMatchResponse,
   zGetAllCommitteesHeaders,
   zGetAllCommitteesQuery,
   zGetAllCommitteesResponse,
@@ -1350,6 +1356,35 @@ export const getEventTypes = <ThrowOnError extends boolean = false>(
         .parseAsync(data),
     responseValidator: async (data) => await zGetEventTypesResponse.parseAsync(data),
     url: "/event-types",
+    ...options,
+  });
+
+/**
+ * Generates a SAMS Score access code for a match.
+ */
+export const generateAccessCodeForMatch = <ThrowOnError extends boolean = false>(
+  options: Options<GenerateAccessCodeForMatchData, ThrowOnError>,
+): RequestResult<
+  GenerateAccessCodeForMatchResponses,
+  GenerateAccessCodeForMatchErrors,
+  ThrowOnError
+> =>
+  (options.client ?? client).get<
+    GenerateAccessCodeForMatchResponses,
+    GenerateAccessCodeForMatchErrors,
+    ThrowOnError
+  >({
+    requestValidator: async (data) =>
+      await z
+        .object({
+          body: z.never().optional(),
+          headers: zGenerateAccessCodeForMatchHeaders.optional(),
+          path: zGenerateAccessCodeForMatchPath,
+          query: z.never().optional(),
+        })
+        .parseAsync(data),
+    responseValidator: async (data) => await zGenerateAccessCodeForMatchResponse.parseAsync(data),
+    url: "/score/matches/{uuid}/access-code",
     ...options,
   });
 

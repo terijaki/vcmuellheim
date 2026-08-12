@@ -27,6 +27,8 @@ export const zEmbedded = z.object({
   empty: z.boolean().optional(),
 });
 
+export const zJsonNode = z.record(z.string(), z.unknown());
+
 export const zLinks = z.object({
   empty: z.boolean().optional(),
 });
@@ -34,6 +36,7 @@ export const zLinks = z.object({
 export const zHalRepresentation = z.object({
   _links: zLinks.optional(),
   _embedded: zEmbedded.optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
 });
 
 /**
@@ -138,6 +141,10 @@ export const zVolleyballMatchResultsDto = z.object({
   sets: z.array(zVolleyballMatchSetRestDto).nullish(),
 });
 
+export const zSamsScoreAccessCodeDto = z.object({
+  accessCode: z.string().optional(),
+});
+
 export const zTeamOfficialDto = z.object({
   uuid: z.string().optional(),
   name: z.string().optional(),
@@ -176,6 +183,7 @@ export const zAssociation = z.object({
   }),
   _links: z.record(z.string(), zLinkDto).nullish(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).nullish(),
+  attributes: z.record(z.string(), zJsonNode).nullish(),
   name: z.string(),
   shortname: z.string().nullish(),
   parentUuid: z.string().nullish(),
@@ -199,6 +207,7 @@ export const zAssociationResourcePage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zAssociation).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -219,6 +228,7 @@ export const zCommittee = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   associationUuid: z
     .string()
     .register(z.globalRegistry, {
@@ -246,6 +256,7 @@ export const zCommitteePage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zCommittee).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -263,6 +274,7 @@ export const zSportsclubDto = z.object({
   }),
   _links: z.record(z.string(), zLinkDto).nullish(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).nullish(),
+  attributes: z.record(z.string(), zJsonNode).nullish(),
   name: z.string(),
   shortname: z.string().nullish(),
   sportsclubNumber: z.coerce
@@ -275,6 +287,7 @@ export const zSportsclubDto = z.object({
     })
     .nullish(),
   associationUuid: z.string().nullish(),
+  ticketshopUrl: z.string().nullish(),
   logoImageLink: z.string().nullish(),
 });
 
@@ -291,6 +304,7 @@ export const zSportsclubPage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zSportsclubDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -311,6 +325,7 @@ export const zLeagueHierarchyDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   name: z.string().optional(),
   shortName: z.string().optional(),
   seasonUuid: z.string().optional(),
@@ -336,6 +351,7 @@ export const zLeagueHierarchyPage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zLeagueHierarchyDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -356,6 +372,7 @@ export const zCompetitionDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   name: z.string().optional(),
   shortName: z.string().optional(),
   gender: z.enum(["MALE", "FEMALE", "MIXED"]).optional(),
@@ -387,6 +404,7 @@ export const zCompetitionPage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zCompetitionDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -407,6 +425,7 @@ export const zLeagueDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   name: z.string().optional(),
   shortName: z.string().optional(),
   gender: z.enum(["MALE", "FEMALE", "MIXED"]).optional(),
@@ -431,6 +450,7 @@ export const zLeaguePage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zLeagueDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -451,6 +471,7 @@ export const zSuperCompetitionDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   name: z.string().optional(),
   shortName: z.string().optional(),
   gender: z.enum(["MALE", "FEMALE", "MIXED"]).optional(),
@@ -482,6 +503,7 @@ export const zSuperCompetitionPage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zSuperCompetitionDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -501,6 +523,7 @@ export const zLocation = z
     uuid: z.string().nullish(),
     _links: z.record(z.string(), zLinkDto).nullish(),
     _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).nullish(),
+    attributes: z.record(z.string(), zJsonNode).nullish(),
     name: z.string().nullish(),
     longitude: z.number().nullish(),
     latitude: z.number().nullish(),
@@ -524,6 +547,7 @@ export const zLocationResourcePage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zLocation).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -544,6 +568,7 @@ export const zCompetitionMatchGroupDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   name: z.string().optional(),
   tourneyLevel: z
     .int()
@@ -568,6 +593,7 @@ export const zCompetitionMatchGroupPage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zCompetitionMatchGroupDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -588,6 +614,7 @@ export const zLeagueRankingsEntryDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).nullish(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).nullish(),
+  attributes: z.record(z.string(), zJsonNode).nullish(),
   teamName: z.string().nullish(),
   rank: z
     .int()
@@ -659,6 +686,7 @@ export const zCompetitionMatchGroupRankingsDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   matchGroupName: z.string().optional(),
   rankings: z.array(zLeagueRankingsEntryDto).optional(),
 });
@@ -676,6 +704,7 @@ export const zCompetitionRankingsResourcePage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zCompetitionMatchGroupRankingsDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -696,6 +725,7 @@ export const zTeamDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).nullish(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).nullish(),
+  attributes: z.record(z.string(), zJsonNode).nullish(),
   masterTeamUuid: z.string().nullish(),
   name: z.string().optional(),
   shortName: z.string().nullish(),
@@ -709,6 +739,7 @@ export const zTeamDto = z.object({
   logoImageForScreenOutputLink: z.string().nullish(),
   sportsclubUuid: z.string().nullish(),
   associationUuid: z.string().nullish(),
+  ticketshopUrl: z.string().nullish(),
 });
 
 export const zTeamPage = z.object({
@@ -724,6 +755,7 @@ export const zTeamPage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zTeamDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -758,6 +790,7 @@ export const zCompetitionMatchDto = z.object({
         .optional(),
     })
     .nullish(),
+  attributes: z.record(z.string(), zJsonNode).nullish(),
   date: z.iso.date().nullish(),
   time: z.string().nullish(),
   matchNumber: z
@@ -765,6 +798,12 @@ export const zCompetitionMatchDto = z.object({
     .min(-2147483648, { error: "Invalid value: Expected int32 to be >= -2147483648" })
     .max(2147483647, { error: "Invalid value: Expected int32 to be <= 2147483647" })
     .nullish(),
+  fieldRoundNumber: z
+    .int()
+    .min(-2147483648, { error: "Invalid value: Expected int32 to be >= -2147483648" })
+    .max(2147483647, { error: "Invalid value: Expected int32 to be <= 2147483647" })
+    .nullish(),
+  playingField: z.string().nullish(),
   decidingMatch: z.boolean().nullish(),
   gameReassessed: z.boolean().nullish(),
   host: z.string().nullish(),
@@ -807,6 +846,7 @@ export const zCompetitionMatchPage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zCompetitionMatchDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -827,6 +867,7 @@ export const zLeagueMatchDayDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   name: z.string().optional(),
   matchdate: z.iso.datetime({ offset: true, local: true }).optional(),
   seasonUuid: z.string().optional(),
@@ -847,6 +888,7 @@ export const zLeagueMatchDayPage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zLeagueMatchDayDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -871,6 +913,7 @@ export const zLeagueRankingsResourcePage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zLeagueRankingsEntryDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -905,6 +948,7 @@ export const zLeagueMatchDto = z.object({
         .optional(),
     })
     .nullish(),
+  attributes: z.record(z.string(), zJsonNode).nullish(),
   date: z.iso.date().nullish(),
   time: z.string().nullish(),
   matchNumber: z
@@ -912,6 +956,12 @@ export const zLeagueMatchDto = z.object({
     .min(-2147483648, { error: "Invalid value: Expected int32 to be >= -2147483648" })
     .max(2147483647, { error: "Invalid value: Expected int32 to be <= 2147483647" })
     .nullish(),
+  fieldRoundNumber: z
+    .int()
+    .min(-2147483648, { error: "Invalid value: Expected int32 to be >= -2147483648" })
+    .max(2147483647, { error: "Invalid value: Expected int32 to be <= 2147483647" })
+    .nullish(),
+  playingField: z.string().nullish(),
   decidingMatch: z.boolean().nullish(),
   gameReassessed: z.boolean().nullish(),
   host: z.string().nullish(),
@@ -954,6 +1004,7 @@ export const zLeagueMatchPage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zLeagueMatchDto).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -974,6 +1025,7 @@ export const zEvent = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   name: z.string().optional(),
   shortname: z.string().optional(),
   eventNumber: z
@@ -1045,6 +1097,7 @@ export const zEventPage = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   content: z.array(zEvent).optional(),
   empty: z.boolean().optional(),
   totalPages: z
@@ -1069,6 +1122,7 @@ export const zEventType = z
       .optional(),
     _links: z.record(z.string(), zLinkDto).optional(),
     _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+    attributes: z.record(z.string(), zJsonNode).optional(),
     name: z.string().optional(),
     description: z.string().optional(),
     category: z.string().optional(),
@@ -1087,6 +1141,7 @@ export const zSeasonDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   name: z.string().optional(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
@@ -1102,6 +1157,7 @@ export const zTeamRosterDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   teamUuid: z.string().optional(),
   note: z.string().optional(),
   players: z.array(zTeamPlayerDto).optional(),
@@ -1117,6 +1173,7 @@ export const zUserDetailsDto = z.object({
     .optional(),
   _links: z.record(z.string(), zLinkDto).optional(),
   _embedded: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+  attributes: z.record(z.string(), zJsonNode).optional(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
   dateOfBirth: z.iso.datetime({ offset: true, local: true }).optional(),
@@ -2436,6 +2493,23 @@ export const zGetEventTypesQuery = z.object({
  * Successful operation
  */
 export const zGetEventTypesResponse = zEventType;
+
+export const zGenerateAccessCodeForMatchHeaders = z.object({
+  "X-Api-Key": z
+    .string()
+    .register(z.globalRegistry, {
+      description: "A SAMS API key with permission to access this API.",
+    })
+    .optional(),
+});
+
+export const zGenerateAccessCodeForMatchPath = z.object({
+  uuid: z.string().register(z.globalRegistry, {
+    description: "UUID of the match.",
+  }),
+});
+
+export const zGenerateAccessCodeForMatchResponse = zSamsScoreAccessCodeDto;
 
 export const zGetAllSeasonsHeaders = z.object({
   "X-Api-Key": z
