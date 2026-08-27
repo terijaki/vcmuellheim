@@ -21,7 +21,6 @@
       "@lambda/*": ["./lambda/*"],
       "@utils/*": ["./utils/*"],
       "@data/*": ["./data/*"],
-      "@codegen/*": ["./codegen/*"],
       "@webapp/*": ["./app/src/*"],
       "@project.config": ["./project.config.ts"]
     },
@@ -33,7 +32,6 @@
   "include": ["**/*.ts", "**/*.tsx", ".agents/**/*.ts"],
   "exclude": [
     "node_modules",
-    "codegen/sams/generated/**",
     "data/migrations",
     "apps/*/src/**", // required to avoid TS errors between different app tsconfigs
     "app/src/**" // required to avoid TS errors between different app tsconfigs

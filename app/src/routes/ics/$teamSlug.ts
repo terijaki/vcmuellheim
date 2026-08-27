@@ -6,7 +6,8 @@
  * The .ics file extension is stripped automatically.
  */
 
-import { getAllLeagueMatches, type LeagueMatchDto } from "@codegen/sams/generated";
+import type { LeagueMatchDto } from "sams-rest-v2";
+import { sams } from "@/utils/sams-client";
 import { Club } from "@project.config";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
@@ -37,7 +38,7 @@ async function fetchMatchesForTeam(teamUuid: string): Promise<LeagueMatchDto[]> 
   let hasMorePages = true;
 
   while (hasMorePages) {
-    const { data } = await getAllLeagueMatches({
+    const { data } = await sams.getAllLeagueMatches({
       query: {
         "for-team": teamUuid,
         page: currentPage,

@@ -56,10 +56,6 @@
       "approve": true,
       "matchCommandLine": true
     },
-    "/^vpr sams:codegen$/": {
-      "approve": true,
-      "matchCommandLine": true
-    },
     "/^vpr sams-api(?: --help| -h| [a-z][a-z-]*(?: [0-9a-fA-F-]{36})?(?: [a-z][a-z-]*)?(?: --query [a-zA-Z][\\w-]*=[^\\s|;&`$<>]+)*)?(?: 2>\\/dev\\/null)?(?: \\| jq(?: -[a-zA-Z]+)*(?: '[^']*')?)?$/": {
       "approve": true,
       "matchCommandLine": true

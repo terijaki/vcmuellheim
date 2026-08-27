@@ -15,7 +15,7 @@ This file provides instructions specific to the `lambda/` directory, which conta
 - `lambda/sams/sams-teams-sync.ts` — teams sync Lambda (thin adapter over `lib/sams/teams-sync-service.ts`)
 - `lambda/content/handler.ts` — content Lambda handler
 - `lambda/social/mastodon-share.ts` — social media Lambda example
-- Generated SAMS API client: `codegen/sams/generated/` (do not edit generated files manually; run `vpr sams:codegen` to regenerate)
+- Generated SAMS API client: [`sams-rest-v2`](https://www.npmjs.com/package/sams-rest-v2) via `utils/sams-client.ts` (do not call the API with raw `fetch`)
 
 ## Lambda conventions
 
@@ -23,7 +23,7 @@ This file provides instructions specific to the `lambda/` directory, which conta
 - Unit tests live alongside the Lambda file (e.g., `sams-clubs.test.ts` next to `sams-clubs-sync.ts`).
 - Use `aws-sdk-client-mock` in tests wherever AWS SDK calls are present.
 - Use the Sentry utility (`lambda/utils/sentry.ts`) for error reporting.
-- The SAMS API client is generated from `codegen/sams/swagger.json` — use it via `codegen/sams/generated/`.
+- The SAMS API client comes from the `sams-rest-v2` npm package — use `import { sams } from "@/utils/sams-client"`.
 
 ## Testing
 

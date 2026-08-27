@@ -1,18 +1,20 @@
-import type { SeasonDto } from "@codegen/sams/generated";
+import type { SeasonDto } from "sams-rest-v2";
 import { describe, expect, it, vi } from "vite-plus/test";
 import { buildSyncedTeamItem, fetchCurrentSeasonUuid } from "@/lib/sams/teams-sync-service";
 
-vi.mock("@codegen/sams/generated", () => ({
-  getAllSeasons: vi.fn(),
-  getAllLeagueHierarchies: vi.fn(),
-  getAllLeagues: vi.fn(),
-  getTeamRosterByTeamUuid: vi.fn(),
-  getTeamsForLeague: vi.fn(),
+vi.mock("@/utils/sams-client", () => ({
+  sams: {
+    getAllSeasons: vi.fn(),
+    getAllLeagueHierarchies: vi.fn(),
+    getAllLeagues: vi.fn(),
+    getTeamRosterByTeamUuid: vi.fn(),
+    getTeamsForLeague: vi.fn(),
+  },
 }));
 
-import { getAllSeasons } from "@codegen/sams/generated";
+import { sams } from "@/utils/sams-client";
 
-const mockGetAllSeasons = vi.mocked(getAllSeasons);
+const mockGetAllSeasons = vi.mocked(sams.getAllSeasons);
 
 function mockSeasonsResponse(seasons: SeasonDto[]) {
   mockGetAllSeasons.mockImplementation(async () => ({

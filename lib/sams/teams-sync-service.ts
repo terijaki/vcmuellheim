@@ -6,14 +6,9 @@
  * seasonUuid — see docs/adr/0001-sams-match-loading.md.
  */
 
-import {
-  getAllLeagueHierarchies,
-  getAllLeagues,
-  getAllSeasons,
-  getTeamRosterByTeamUuid,
-  getTeamsForLeague,
-} from "@codegen/sams/generated";
+import { getTeamRosterByTeamUuid, type LeagueDto, type TeamDto } from "sams-rest-v2";
 import { slugify } from "@utils/slugify";
+import { sams } from "@/utils/sams-client";
 import dayjs from "dayjs";
 import type { createSamsDb } from "@/lib/db/electrodb-client";
 import {
@@ -79,20 +74,9 @@ async function delay(ms: number): Promise<void> {
   await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-type SamsLeagueDto = {
-  uuid?: string;
-  name?: string | null;
-  seasonUuid?: string;
-  leagueHierarchyUuid?: string;
-};
+type SamsLeagueDto = LeagueDto;
 
-type SamsTeamDto = {
-  masterTeamUuid?: string | null;
-  sportsclubUuid?: string | null;
-  uuid?: string;
-  name?: string | null;
-  associationUuid?: string | null;
-};
+type SamsTeamDto = TeamDto;
 
 function isCurrentSeasonLeague(
   league: SamsLeagueDto,
@@ -127,7 +111,7 @@ export function buildSyncedTeamItem(
     sportsclubUuid: string;
     associationUuid: string;
   },
-  league: { uuid: string; name: string; leagueHierarchyUuid?: string },
+  league: { uuid: string; name: string; leagueHierarchyUuid?: string | null },
   season: { uuid: string; name: string },
   hierarchyLevelByUuid: Map<string, number>,
   nowIso: string,
@@ -171,7 +155,7 @@ export async function resolveConfiguredSamsClubsFromStorage(
 }
 
 export async function fetchCurrentSeasonUuid(): Promise<{ uuid: string; name: string }> {
-  const { data: seasons } = await getAllSeasons({});
+  const { data: seasons } = await sams.getAllSeasons({});
   const currentSeason = seasons?.find((s) => s.currentSeason);
   if (!currentSeason?.uuid || !currentSeason.name) {
     throw new Error("Current season not found or missing uuid/name");
@@ -184,14 +168,19 @@ async function fetchLeaguesForAssociations(
   seasonUuid: string,
   rateLimitMs: number,
 ): Promise<{
-  leagues: Array<{ uuid: string; name: string; seasonUuid?: string; leagueHierarchyUuid?: string }>;
+  leagues: Array<{
+    uuid: string;
+    name: string;
+    seasonUuid?: string | null;
+    leagueHierarchyUuid?: string | null;
+  }>;
   hierarchyLevelByUuid: Map<string, number>;
 }> {
   const allLeagues: Array<{
     uuid: string;
     name: string;
-    seasonUuid?: string;
-    leagueHierarchyUuid?: string;
+    seasonUuid?: string | null;
+    leagueHierarchyUuid?: string | null;
   }> = [];
   const hierarchyLevelByUuid = new Map<string, number>();
 
@@ -199,7 +188,7 @@ async function fetchLeaguesForAssociations(
     let hierarchyPage = 0;
     let hasMoreHierarchies = true;
     while (hasMoreHierarchies) {
-      const { data: hierarchyData } = await getAllLeagueHierarchies({
+      const { data: hierarchyData } = await sams.getAllLeagueHierarchies({
         query: {
           association: associationUuid,
           "for-season": seasonUuid,
@@ -219,7 +208,7 @@ async function fetchLeaguesForAssociations(
     let leaguePage = 0;
     let hasMoreLeagues = true;
     while (hasMoreLeagues) {
-      const { data: leagueData } = await getAllLeagues({
+      const { data: leagueData } = await sams.getAllLeagues({
         query: {
           association: associationUuid,
           page: leaguePage,
@@ -247,7 +236,7 @@ async function fetchLeaguesForAssociations(
 }
 
 async function fetchTeamsForLeagues(
-  leagues: Array<{ uuid: string; name: string; leagueHierarchyUuid?: string }>,
+  leagues: Array<{ uuid: string; name: string; leagueHierarchyUuid?: string | null }>,
   sportsclubUuids: Set<string>,
   season: { uuid: string; name: string },
   hierarchyLevelByUuid: Map<string, number>,
@@ -262,7 +251,7 @@ async function fetchTeamsForLeagues(
     let hasMoreTeams = true;
 
     while (hasMoreTeams) {
-      const { data: teamData } = await getTeamsForLeague({
+      const { data: teamData } = await sams.getTeamsForLeague({
         path: { uuid: league.uuid },
         query: { page: teamPage, size: 100 },
       });
@@ -303,6 +292,7 @@ async function upsertTeamsAndRosters(
 
     try {
       const { data: rosterData, error: rosterError } = await getTeamRosterByTeamUuid({
+        client: sams.client,
         path: { uuid: team.uuid },
       });
       if (rosterError) {
