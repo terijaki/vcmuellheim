@@ -5,7 +5,7 @@
  * Server function wrappers live in `sams.ts`; tests import helpers from here.
  */
 
-import { getLeagueByUuid, getRankingsForLeague, getSeasonByUuid } from "@codegen/sams/generated";
+import { sams } from "@/utils/sams-client";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { createCacheKey, createExpiringCache, getOrSetExpiringCacheValue } from "@utils/cache";
 import dayjs from "dayjs";
@@ -51,12 +51,12 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
   if (cached) return cached;
 
   const [{ data: rankingsData }, { data: leagueData }] = await Promise.all([
-    getRankingsForLeague({
+    sams.getRankingsForLeague({
       path: { uuid: leagueUuid },
       query: { page: 0, size: 100 },
       signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
     }),
-    getLeagueByUuid({
+    sams.getLeagueByUuid({
       path: { uuid: leagueUuid },
       signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
     }),
@@ -70,7 +70,7 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
   if (leagueData?.name) leagueName = leagueData.name;
 
   if (leagueData?.seasonUuid) {
-    const { data: seasonData } = await getSeasonByUuid({
+    const { data: seasonData } = await sams.getSeasonByUuid({
       path: { uuid: leagueData.seasonUuid },
       signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
     });

@@ -8,8 +8,10 @@ import {
   resolveSamsMatchesQuery,
 } from "./sams-match-loader.server";
 
-vi.mock("@codegen/sams/generated", () => ({
-  getAllLeagueMatches: vi.fn(),
+vi.mock("@/utils/sams-client", () => ({
+  sams: {
+    getAllLeagueMatches: vi.fn(),
+  },
 }));
 
 vi.mock("@webapp/server/queries", () => ({
@@ -22,11 +24,11 @@ vi.mock("@webapp/server/ddb-cache", () => ({
   writeCacheEntry: vi.fn(),
 }));
 
-import { getAllLeagueMatches } from "@codegen/sams/generated";
+import { sams } from "@/utils/sams-client";
 import { readCacheEntry, writeCacheEntry } from "@webapp/server/ddb-cache";
 import { getAllSamsClubs, getAllSamsTeams } from "@webapp/server/queries";
 
-const mockGetAllLeagueMatches = vi.mocked(getAllLeagueMatches);
+const mockGetAllLeagueMatches = vi.mocked(sams.getAllLeagueMatches);
 const mockGetAllSamsClubs = vi.mocked(getAllSamsClubs);
 const mockGetAllSamsTeams = vi.mocked(getAllSamsTeams);
 const mockReadCacheEntry = vi.mocked(readCacheEntry);

@@ -20,7 +20,6 @@
     "check:fix": "vp check --fix",
     "db:seed": "bun ./scripts/db-seed.ts",
     "db:seed:sams": "bun ./scripts/data-trigger-syncs.ts",
-    "sams:codegen": "bun ./codegen/sams/generate-client.ts",
     "verify": "vp check --fix && vp test",
     "cdk:deploy": "cdk deploy --require-approval=never",
     "cdk:deploy:all": "cdk deploy --all --require-approval=never",
@@ -72,6 +71,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-icons": "^5.7.0",
+    "sams-rest-v2": "^0.1.9",
     "ts-ics": "^2.4.6",
     "varlock": "^1.9.0",
     "zod": "^4.4.3"
@@ -79,7 +79,6 @@
   "devDependencies": {
     "@aws-sdk/client-lambda": "^3.1088.0",
     "@behold/types": "0.3.4",
-    "@hey-api/openapi-ts": "^0.99.0",
     "@playwright/test": "^1.61.1",
     "@types/aws-lambda": "^8.10.162",
     "@types/node": "^26.1.0",

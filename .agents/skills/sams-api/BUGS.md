@@ -92,7 +92,7 @@ Callers must guard against both `null` and `""` to detect a missing value.
 ```
 
 Note that the `time` is a separate string field (`HH:mm`), confirming the intent is a date-only `date` field. The `date-time` format in the spec is wrong — it should be `date`.  
-**Workaround:** Override `date.format` to `"date"` in `parser.patch.schemas` for both DTOs (see `codegen/sams/generate-client.ts`).
+**Workaround:** Override `date.format` to `"date"` in `parser.patch.schemas` for both DTOs (see [`sams-rest-v2` `scripts/generate-client.ts`](https://github.com/terijaki/sams-rest-v2)).
 
 ---
 
@@ -117,7 +117,7 @@ Note that the `time` is a separate string field (`HH:mm`), confirming the intent
 ```
 
 **Impact:** After updating `@hey-api/openapi-ts` (≥ v0.92.x), the generated Zod validator for `getAllLeagueMatches` started rejecting responses where `referees` or `results` is `null`. The SDK `responseValidator` threw synchronously, bypassing the lambda's error handling and causing a silent 500 with no Sentry report.  
-**Workaround:** In `parser.patch.schemas` (`codegen/sams/generate-client.ts`) replace both properties with `{ allOf: [property], nullable: true }` — wrapping the `$ref` in an `allOf` moves `nullable: true` to a non-`$ref` schema object, which the generator correctly converts to `z.union([zType, z.null()])` and TypeScript `Type | null`.
+**Workaround:** In `parser.patch.schemas` ([`sams-rest-v2` `scripts/generate-client.ts`](https://github.com/terijaki/sams-rest-v2)) replace both properties with `{ allOf: [property], nullable: true }` — wrapping the `$ref` in an `allOf` moves `nullable: true` to a non-`$ref` schema object, which the generator correctly converts to `z.union([zType, z.null()])` and TypeScript `Type | null`.
 
 ---
 
@@ -136,4 +136,4 @@ Note that the `time` is a separate string field (`HH:mm`), confirming the intent
 ```
 
 **Impact:** The generated SDK/Zod response validator rejects valid hierarchy responses with `Invalid input: expected string, received null`. This broke `/tabelle` sorting when reading hierarchy levels through `getAllLeagueHierarchies`.  
-**Workaround:** Patch `LeagueHierarchyDto` in `parser.patch.schemas` (`codegen/sams/generate-client.ts`) to make `parentLeagueHierarchyUuid` nullable before regenerating the client.
+**Workaround:** Patch `LeagueHierarchyDto` in `parser.patch.schemas` ([`sams-rest-v2` `scripts/generate-client.ts`](https://github.com/terijaki/sams-rest-v2)) to make `parentLeagueHierarchyUuid` nullable before regenerating the client.

@@ -9,10 +9,10 @@ export default defineConfig({
     "*": "vp check --fix",
   },
   fmt: {
-    ignorePatterns: ["app/src/routeTree.gen.ts", "codegen/sams/generated/**", "env.d.ts"],
+    ignorePatterns: ["app/src/routeTree.gen.ts", "env.d.ts"],
   },
   lint: {
-    ignorePatterns: ["codegen/sams/generated/**", "app/src/routeTree.gen.ts"],
+    ignorePatterns: ["app/src/routeTree.gen.ts"],
     plugins: ["react"],
     options: {
       typeAware: true,

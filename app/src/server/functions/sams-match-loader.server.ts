@@ -6,7 +6,8 @@
  * not SAMS live currentSeason — see docs/adr/0001-sams-match-loading.md.
  */
 
-import { getAllLeagueMatches, type LeagueMatchDto } from "@codegen/sams/generated";
+import type { LeagueMatchDto } from "sams-rest-v2";
+import { sams } from "@/utils/sams-client";
 import * as Sentry from "@sentry/tanstackstart-react";
 import { createCacheKey } from "@utils/cache";
 import dayjs from "dayjs";
@@ -219,7 +220,7 @@ async function fetchAllSamsLeagueMatches({
     let hasMorePages = true;
 
     while (hasMorePages) {
-      const { data: pageData } = await getAllLeagueMatches({
+      const { data: pageData } = await sams.getAllLeagueMatches({
         query: { ...defaultQueryParams, page: currentPage, size: 100 },
         signal: AbortSignal.timeout(SAMS_API_TIMEOUT_MS),
       });

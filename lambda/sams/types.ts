@@ -4,7 +4,7 @@ import {
   zLocation,
   zSeasonDto,
   zVolleyballMatchResultsDto,
-} from "@codegen/sams/generated/zod.gen";
+} from "sams-rest-v2";
 import { z } from "zod";
 import { optionalEnvString, requiredEnvString } from "../utils/env";
 

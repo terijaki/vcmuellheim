@@ -1,7 +1,8 @@
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { getAllSportsclubs, getAssociationByUuid, getAssociations } from "@codegen/sams/generated";
+import { getAllSportsclubs, getAssociationByUuid, getAssociations } from "sams-rest-v2";
+import { sams } from "@/utils/sams-client";
 import middy from "@middy/core";
 import type { EventBridgeEvent } from "aws-lambda";
 import { createSamsDb } from "@/lib/db/electrodb-client";
@@ -83,6 +84,7 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 
     while (hasMorePages) {
       const { data, error, response } = await getAssociations({
+        client: sams.client,
         query: { page: currentPage, size: 100 },
       });
 
@@ -112,6 +114,7 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
     // Workaround if association still not found. Issue reported on 27.11.2025
     if (!associationUuid) {
       const { data, error, response } = await getAssociationByUuid({
+        client: sams.client,
         path: { uuid: "2b7571b5-f985-c552-ea1c-f819ed3811c1" },
       });
       if (error) {
@@ -156,6 +159,7 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
 
     while (hasMorePages) {
       const { data, error, response } = await getAllSportsclubs({
+        client: sams.client,
         query: {
           association: associationUuid,
           page: currentPage,

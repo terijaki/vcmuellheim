@@ -38,7 +38,7 @@ This file provides instructions specific to the `lib/` directory, which contains
 ## Integration points / external services
 
 - **AWS:** CDK stacks create Lambdas, DynamoDB tables, S3 buckets, and Cognito resources. Use the `vcm-dev` profile for dev and `vcm-prod` for prod.
-- **SAMS API:** `codegen/sams/` contains the Swagger spec and client generation for the external SAMS sports data API used by sync Lambdas. Regenerate the client with `vpr sams:codegen`.
+- **SAMS API:** Use the [`sams-rest-v2`](https://www.npmjs.com/package/sams-rest-v2) npm package via `import { sams } from "@/utils/sams-client"`. Bump the dependency when the upstream SAMS spec or bug workarounds change.
 - **Background/schedulers:** EventBridge rules are defined in CDK constructs.
 
 ## DB conventions
