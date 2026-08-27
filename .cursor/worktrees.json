@@ -1,9 +1,3 @@
 {
-  "setup-worktree-unix": "setup-worktree-unix.sh",
-  "setup-worktree": [
-    "git fetch origin main",
-    "git update-ref refs/heads/main origin/main",
-    "git merge origin/main --no-edit",
-    "vp install"
-  ]
+  "setup-worktree-unix": "setup-worktree-unix.sh"
 }
