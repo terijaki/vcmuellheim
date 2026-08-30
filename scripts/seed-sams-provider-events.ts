@@ -17,12 +17,21 @@ import {
   buildMockSamsProviderSqsBody,
   buildSamsProviderSeedFixtures,
   resolveTargetClubTeamCount,
+  SEED_OPPONENT_CLUBS,
   SEED_TARGET_CLUBS,
   SEED_SEASON,
 } from "@/fixtures/sams-provider-events";
 
 const SQS_BATCH_SIZE = 10;
-const MIN_PROJECTION_ITEMS = 20;
+
+function countExpectedProjectionItems(variationSeed: string): number {
+  let total = SEED_OPPONENT_CLUBS.length + 1;
+  for (const club of SEED_TARGET_CLUBS) {
+    const teamCount = resolveTargetClubTeamCount(variationSeed, club.uuid);
+    total += 1 + 1 + teamCount * 3;
+  }
+  return total;
+}
 
 function checkAwsSession() {
   try {
@@ -130,7 +139,11 @@ async function sendMockEvents(
   console.log(`✅ Sent ${entries.length} mock SAMS provider events to ${queueUrl}`);
 }
 
-async function waitUntilSeedReady(tableName: string, deadline: number): Promise<boolean> {
+async function waitUntilSeedReady(
+  tableName: string,
+  deadline: number,
+  minProjectionItems: number,
+): Promise<boolean> {
   const doc = createSeedDocClient();
 
   while (Date.now() < deadline) {
@@ -159,7 +172,7 @@ async function waitUntilSeedReady(tableName: string, deadline: number): Promise<
       .map((result) => scheduleMatchCount(result.Item))
       .reduce((sum, value) => sum + value, 0);
 
-    if (count >= MIN_PROJECTION_ITEMS && totalScheduleMatches > 0) {
+    if (count >= minProjectionItems && totalScheduleMatches > 0) {
       console.log(
         `✅ SAMS projections ready in ${tableName} (${count} items, ${totalScheduleMatches} schedule matches)`,
       );
@@ -167,7 +180,7 @@ async function waitUntilSeedReady(tableName: string, deadline: number): Promise<
     }
 
     console.log(
-      `Waiting for SAMS processor (${count}/${MIN_PROJECTION_ITEMS} items, ${totalScheduleMatches} schedule matches)...`,
+      `Waiting for SAMS processor (${count}/${minProjectionItems} items, ${totalScheduleMatches} schedule matches)...`,
     );
     await new Promise((resolveSleep) => setTimeout(resolveSleep, POLL_INTERVAL_MS));
   }
@@ -197,6 +210,7 @@ async function sendScheduleRetry(
 async function main() {
   const variationSeed = buildVariationSeed(BRANCH);
   const fixtures = buildSamsProviderSeedFixtures({ variationSeed });
+  const minProjectionItems = countExpectedProjectionItems(variationSeed);
 
   const queueName = computeSamsProviderEventsQueueName(ENVIRONMENT, BRANCH);
   const queueUrl = readQueueUrlFromCdkOutputs() ?? (await resolveQueueUrlFromAws(queueName));
@@ -217,10 +231,14 @@ async function main() {
 
   await sendMockEvents(queueUrl, fixtures);
   const deadline = Date.now() + POLL_TIMEOUT_MS;
-  let ready = await waitUntilSeedReady(tableName, Math.min(Date.now() + INITIAL_POLL_MS, deadline));
+  let ready = await waitUntilSeedReady(
+    tableName,
+    Math.min(Date.now() + INITIAL_POLL_MS, deadline),
+    minProjectionItems,
+  );
   if (!ready && Date.now() < deadline) {
     await sendScheduleRetry(queueUrl, variationSeed, fixtures);
-    ready = await waitUntilSeedReady(tableName, deadline);
+    ready = await waitUntilSeedReady(tableName, deadline, minProjectionItems);
   }
 
   if (!ready) {
