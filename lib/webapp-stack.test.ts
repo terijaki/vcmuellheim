@@ -78,7 +78,6 @@ describe("WebAppStack", () => {
     cleanupOutputFixtures = ensureNitroOutputFixtures();
     process.env.BETTER_AUTH_SECRET = "test-auth-secret";
     delete process.env.CDK_DESTROY;
-    Reflect.deleteProperty(process.env, "SAMS_API_KEY");
   });
 
   afterEach(() => {

@@ -17,28 +17,6 @@ export function computeResourceBranchSuffix(environment: string, branch: string)
   return branch ? `-${branch}` : "";
 }
 
-/** Environment variable name for the dedicated cache table */
-export const CACHE_TABLE_ENV_VAR = "CACHE_TABLE_NAME" as const;
-
-/** Get the cache table name from the environment, throwing if not configured */
-export function getCacheTableName(): string {
-  const tableName = process.env[CACHE_TABLE_ENV_VAR];
-  if (!tableName) {
-    throw new Error(
-      `Cache table not configured. Missing environment variable: ${CACHE_TABLE_ENV_VAR}`,
-    );
-  }
-  return tableName;
-}
-/**
- * Compute the canonical cache table name for a given environment and branch.
- * Single source of truth used by CacheStack, WebAppStack, and SocialMediaStack.
- */
-export function computeCacheTableName(environment: string, branch: string): string {
-  const branchSuffix = computeResourceBranchSuffix(environment, branch);
-  return `vcm-cache-${environment}${branchSuffix}`;
-}
-
 /** Environment variable name for the dedicated social media table */
 export const SOCIAL_TABLE_ENV_VAR = "SOCIAL_TABLE_NAME" as const;
 
