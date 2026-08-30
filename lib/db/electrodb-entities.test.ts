@@ -21,7 +21,13 @@ import {
   VolunteerSignupEntity,
   VolunteerTokenEntity,
 } from "./electrodb-entities";
-import { SamsClubEntity, SamsRosterEntity, SamsTeamEntity } from "./sams-electrodb-entities";
+import {
+  SamsClubEntity,
+  SamsRankingEntity,
+  SamsRosterEntity,
+  SamsScheduleEntity,
+  SamsTeamEntity,
+} from "./sams-electrodb-entities";
 import {
   busSchema,
   eventSchema,
@@ -30,7 +36,9 @@ import {
   memberSchema,
   newsSchema,
   samsClubSchema,
+  samsLeagueRankingProjectionSchema,
   samsRosterSchema,
+  samsClubScheduleProjectionSchema,
   samsTeamSchema,
   sponsorSchema,
   teamSchema,
@@ -175,6 +183,14 @@ describe("SAMS ElectroDB ↔ Zod drift detection", () => {
 
   it("SamsRoster entity attributes match samsRosterSchema", () => {
     checkDrift("SamsRoster", samsRosterSchema, SamsRosterEntity);
+  });
+
+  it("SamsSchedule entity attributes match samsClubScheduleProjectionSchema", () => {
+    checkDrift("SamsSchedule", samsClubScheduleProjectionSchema, SamsScheduleEntity);
+  });
+
+  it("SamsRanking entity attributes match samsLeagueRankingProjectionSchema", () => {
+    checkDrift("SamsRanking", samsLeagueRankingProjectionSchema, SamsRankingEntity);
   });
 });
 

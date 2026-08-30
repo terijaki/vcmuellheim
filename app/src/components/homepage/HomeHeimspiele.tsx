@@ -55,11 +55,8 @@ export default function HomeHeimspiele() {
 
     const matchesAll = matchesData.matches;
 
-    // Filter to only matches we are hosting
-    const matchesHomeGames = matchesAll.filter((match) => {
-      const hostUuid = match.host;
-      return !!hostUuid && ourTeamUuids.has(hostUuid);
-    });
+    // Filter to only matches we are hosting (provider team1 is the home side)
+    const matchesHomeGames = matchesAll.filter((match) => ourTeamUuids.has(match.team1.uuid));
 
     // Sort by date
     const matchesHomeGamesSorted = matchesHomeGames.sort((a, b) => {
@@ -193,8 +190,8 @@ function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["
           // Check if any match in this card group is currently live
           const allMatchesInCard = Object.values(leagueGroups).flat() as MatchesArray;
           const isCardLive = allMatchesInCard.some((match) => {
-            const t1 = match._embedded?.team1?.uuid;
-            const t2 = match._embedded?.team2?.uuid;
+            const t1 = match.team1.uuid;
+            const t2 = match.team2.uuid;
             return tickerData?.liveMatches.some(
               (lm) =>
                 lm.state.started &&
@@ -226,12 +223,7 @@ function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["
                       </Badge>
                     )}
                   </Group>
-                  <MapsLink
-                    name={location?.name}
-                    street={location?.address?.street}
-                    postal={location?.address?.postcode}
-                    city={location?.address?.city}
-                  />
+                  <MapsLink name={location?.name} />
                 </Flex>
                 {Object.entries(leagueGroups).map(([leagueUuid, matches]) => {
                   const leagueName = leagues.get(leagueUuid);
@@ -256,12 +248,9 @@ function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["
                       {/* GUESTS LIST */}
                       <List spacing={0} withPadding listStyleType="none">
                         {matchesArray.map((match) => {
-                          const matchTeams = [match._embedded?.team1, match._embedded?.team2];
-                          const guests = matchTeams.filter((t) => t?.uuid !== match.host);
-                          // display the guest team
                           return (
-                            <ListItem key={guests[0]?.uuid} opacity={0.8}>
-                              {guests[0]?.name}
+                            <ListItem key={match.uuid} opacity={0.8}>
+                              {match.team2.name}
                             </ListItem>
                           );
                         })}

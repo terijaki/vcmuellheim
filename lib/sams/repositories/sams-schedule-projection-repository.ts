@@ -1,23 +1,18 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { GetCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
+import { createSamsDb } from "@/lib/db/electrodb-client";
 import { getSamsTableName } from "@/lib/db/env";
 import {
   samsClubScheduleProjectionSchema,
   type SamsClubScheduleProjectionInput,
   type SamsProjectionMatchInput,
 } from "@/lib/db/schemas";
-import { samsSchedulePk, samsSeasonSk } from "@/lib/sams/key-constants";
 import {
   isoTimestampNow,
   parseWithSchema,
   SAMS_PROJECTION_TTL_DAYS,
   unixTtlSecondsFromNow,
 } from "@/lib/sams/repository-utils";
-
-function parseSchedule(value: unknown, message: string): SamsClubScheduleProjectionInput {
-  return parseWithSchema(samsClubScheduleProjectionSchema, value, message);
-}
 
 export type SamsScheduleProjectionMeta = {
   snapshotVersion: string;
@@ -40,48 +35,32 @@ export class SamsScheduleProjectionRepository {
     private readonly tableName?: string,
   ) {}
 
-  private resolveTableName(): string {
-    return this.tableName ?? getSamsTableName();
+  private entities() {
+    const table = this.tableName ?? getSamsTableName();
+    return createSamsDb(this.documentClient, table);
   }
 
-  private buildItem(input: SamsClubScheduleUpsertInput): SamsClubScheduleProjectionInput & {
-    pk: string;
-    sk: string;
-  } {
-    const item = parseSchedule(
-      {
-        ...input,
-        type: "schedule",
-        updatedAt: input.updatedAt ?? isoTimestampNow(),
-        ttl: input.ttl ?? unixTtlSecondsFromNow(SAMS_PROJECTION_TTL_DAYS),
-      },
-      "Failed to parse SAMS schedule projection upsert input",
+  private parseItem(value: unknown): SamsClubScheduleProjectionInput {
+    return parseWithSchema(
+      samsClubScheduleProjectionSchema,
+      value,
+      "Failed to parse SAMS schedule projection",
     );
-    return {
-      ...item,
-      pk: samsSchedulePk(item.sportsclubUuid),
-      sk: samsSeasonSk(item.seasonUuid),
-    };
   }
 
   async get(
     sportsclubUuid: string,
     seasonUuid: string,
   ): Promise<SamsClubScheduleProjectionInput | null> {
-    const result = await this.documentClient.send(
-      new GetCommand({
-        TableName: this.resolveTableName(),
-        Key: { pk: samsSchedulePk(sportsclubUuid), sk: samsSeasonSk(seasonUuid) },
-      }),
-    );
-    if (!result.Item) return null;
+    const result = await this.entities().schedule.get({ sportsclubUuid, seasonUuid }).go();
+    if (!result.data) return null;
 
-    const parsed = samsClubScheduleProjectionSchema.safeParse(result.Item);
+    const parsed = samsClubScheduleProjectionSchema.safeParse(result.data);
     if (!parsed.success) {
       console.warn("Failed to parse SAMS schedule projection; treating as missing", {
         sportsclubUuid,
         seasonUuid,
-        issues: parsed.error.issues.map((issue: { message: string }) => issue.message),
+        issues: parsed.error.issues.map((issue) => issue.message),
       });
       return null;
     }
@@ -92,26 +71,19 @@ export class SamsScheduleProjectionRepository {
     sportsclubUuid: string,
     seasonUuid: string,
   ): Promise<string | undefined> {
-    const result = await this.documentClient.send(
-      new GetCommand({
-        TableName: this.resolveTableName(),
-        Key: { pk: samsSchedulePk(sportsclubUuid), sk: samsSeasonSk(seasonUuid) },
-      }),
-    );
-    const snapshotVersion = result.Item?.snapshotVersion;
-    return typeof snapshotVersion === "string" ? snapshotVersion : undefined;
+    const existing = await this.get(sportsclubUuid, seasonUuid);
+    return existing?.snapshotVersion;
   }
 
   async replace(input: SamsClubScheduleUpsertInput): Promise<SamsClubScheduleProjectionInput> {
-    const item = this.buildItem(input);
-    await this.documentClient.send(
-      new PutCommand({
-        TableName: this.resolveTableName(),
-        Item: item,
-      }),
-    );
-    const { pk: _pk, sk: _sk, ...stored } = item;
-    return stored;
+    const item = this.parseItem({
+      ...input,
+      type: "schedule",
+      updatedAt: input.updatedAt ?? isoTimestampNow(),
+      ttl: input.ttl ?? unixTtlSecondsFromNow(SAMS_PROJECTION_TTL_DAYS),
+    });
+    await this.entities().schedule.put(item).go();
+    return item;
   }
 
   async mergeMatchesForClub(

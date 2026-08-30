@@ -5,7 +5,7 @@ export type SamsMatchFilterInput = Pick<SamsMatchesInput, "range" | "limit">;
 
 type MatchWithResult = {
   date?: string | null;
-  results?: { winner?: string | null } | null;
+  hasResult?: boolean;
 };
 
 function compareMatchDates(a: MatchWithResult, b: MatchWithResult, ascending: boolean): number {
@@ -23,8 +23,8 @@ function filterAndSortByRange<T extends MatchWithResult>(
 ): T[] {
   const filtered =
     range === "future"
-      ? matches.filter((m) => !m.results?.winner)
-      : matches.filter((m) => !!m.results?.winner);
+      ? matches.filter((match) => !match.hasResult)
+      : matches.filter((match) => !!match.hasResult);
   return [...filtered].sort((a, b) => compareMatchDates(a, b, range === "future"));
 }
 

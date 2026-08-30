@@ -2,235 +2,20 @@ import { z } from "zod";
 import { samsProjectionMatchSchema, samsProjectionRankingEntrySchema } from "@/lib/db/schemas";
 import { optionalEnvString, requiredEnvString } from "../utils/env";
 
-// ============================================================================
-// Lambda Environment Contracts
-// ============================================================================
-
 export const SamsProviderProcessorLambdaEnvironmentSchema = z.object({
   CDK_ENVIRONMENT: optionalEnvString,
   SAMS_TABLE_NAME: requiredEnvString,
-  MEDIA_BUCKET_NAME: optionalEnvString,
 });
 
 export type SamsProviderProcessorLambdaEnvironment = z.infer<
   typeof SamsProviderProcessorLambdaEnvironmentSchema
 >;
 
-export const SamsClubsSyncLambdaEnvironmentSchema = z.object({
-  CDK_ENVIRONMENT: optionalEnvString,
-  SAMS_TABLE_NAME: requiredEnvString,
-  MEDIA_BUCKET_NAME: requiredEnvString,
-  MEDIA_CLOUDFRONT_URL: requiredEnvString,
-});
-
-export type SamsClubsSyncLambdaEnvironment = z.infer<typeof SamsClubsSyncLambdaEnvironmentSchema>;
-
-export const SamsTeamsSyncLambdaEnvironmentSchema = z.object({
-  CDK_ENVIRONMENT: optionalEnvString,
-  SAMS_TABLE_NAME: requiredEnvString,
-});
-
-export type SamsTeamsSyncLambdaEnvironment = z.infer<typeof SamsTeamsSyncLambdaEnvironmentSchema>;
-
-export const SamsLogoProxyLambdaEnvironmentSchema = z.object({
-  SAMS_TABLE_NAME: requiredEnvString,
-});
-
-export type SamsLogoProxyLambdaEnvironment = z.infer<typeof SamsLogoProxyLambdaEnvironmentSchema>;
-
-// ============================================================================
-// Club Schemas & Types
-// ============================================================================
-
-/**
- * Base club schema for DynamoDB
- */
-const BaseClubItemSchema = z.object({
-  type: z.literal("club").default("club").describe("GSI partition key type"),
-  sportsclubUuid: z.string(),
-  name: z.string(),
-  nameSlug: z.string(), // Used for case-insensitive queries
-  associationUuid: z.string().nullish(),
-  associationName: z.string().nullish(),
-  logoImageLink: z.string().nullish(),
-  logoS3Key: z.string().nullish(),
-  updatedAt: z.string(),
-  ttl: z.number(), // DynamoDB TTL field
-});
-
-/**
- * Internal DynamoDB representation of a club
- * Automatically strips undefined values to save storage
- */
-export const ClubItemSchema = BaseClubItemSchema.transform((data) => {
-  // Remove undefined values to save DynamoDB storage
-  return Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined));
-});
-
-export type ClubItem = z.infer<typeof ClubItemSchema>;
-
-/**
- * Public API response for a club
- * Excludes internal fields (nameSlug, ttl)
- */
-export const ClubResponseSchema = BaseClubItemSchema.omit({
-  nameSlug: true,
-  ttl: true,
-});
-
-export type ClubResponse = z.infer<typeof ClubResponseSchema>;
-
-/**
- * Response for multiple clubs
- */
-export const ClubsResponseSchema = z.object({
-  clubs: z.array(ClubResponseSchema),
-  count: z.number(),
-});
-
-export type ClubsResponse = z.infer<typeof ClubsResponseSchema>;
-
-/**
- * Query options for getting a club's logo
- */
-export const ClubLogoQueryParamsSchema = z.union([
-  z.object({ clubUuid: z.uuid(), clubSlug: z.undefined() }).strict(),
-  z.object({ clubSlug: z.string().min(3), clubUuid: z.undefined() }).strict(),
-]);
-
-export type ClubLogoQueryParams = z.infer<typeof ClubLogoQueryParamsSchema>;
-
-// ============================================================================
-// Team Schemas & Types
-// ============================================================================
-
-/**
- * Base team schema for DynamoDB
- */
-const BaseTeamItemSchema = z.object({
-  type: z.literal("team").default("team").describe("GSI partition key type"),
-  uuid: z.string(),
-  name: z.string(),
-  nameSlug: z.string(), // Used for case-insensitive queries
-  sportsclubUuid: z.string(),
-  associationUuid: z.string(),
-  leagueUuid: z.string(),
-  leagueName: z.string(),
-  leagueHierarchyLevel: z
-    .number()
-    .nonnegative()
-    .optional()
-    .describe("Optional league hierarchy level for sorting; lower means higher league"),
-  seasonUuid: z.string(),
-  seasonName: z.string(),
-  updatedAt: z.string(),
-  ttl: z.number(), // DynamoDB TTL field
-});
-
-/**
- * Internal DynamoDB representation of a team
- * Automatically strips undefined values to save storage
- */
-export const TeamItemSchema = BaseTeamItemSchema.transform((data) => {
-  // Remove undefined values to save DynamoDB storage
-  return Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined));
-});
-
-export type TeamItem = z.infer<typeof TeamItemSchema>;
-
-/**
- * Public API response for a team
- * Excludes internal fields (nameSlug, ttl)
- */
-export const TeamResponseSchema = BaseTeamItemSchema.omit({
-  nameSlug: true,
-  ttl: true,
-});
-
-export type TeamResponse = z.infer<typeof TeamResponseSchema>;
-
-/**
- * Response for multiple teams
- */
-export const TeamsResponseSchema = z.object({
-  teams: z.array(TeamResponseSchema),
-});
-
-export type TeamsResponse = z.infer<typeof TeamsResponseSchema>;
-
-// ============================================================================
-// Roster Schemas & Types
-// ============================================================================
-
-/**
- * A player entry within a synced SAMS team roster
- * uuid and name are always present: sams-teams-sync.ts derives a deterministic pseudo uuid when the
- * external API omits one, and filters out players without a name.
- */
-const RosterPlayerSchema = z.object({
-  uuid: z.string(),
-  name: z.string(),
-  jerseyNumber: z.number().optional(),
-  position: z.string().optional(),
-  portraitImageLink: z.string().optional(),
-});
-
-export type RosterPlayer = z.infer<typeof RosterPlayerSchema>;
-
-/**
- * An official/coach entry within a synced SAMS team roster
- * uuid and name are always present: sams-teams-sync.ts derives a deterministic pseudo uuid when the
- * external API omits one, and filters out officials without a name.
- */
-const RosterOfficialSchema = z.object({
-  uuid: z.string(),
-  name: z.string(),
-  role: z.string().optional(),
-});
-
-export type RosterOfficial = z.infer<typeof RosterOfficialSchema>;
-
-/**
- * Base roster schema for DynamoDB
- */
-const BaseRosterItemSchema = z.object({
-  type: z.literal("roster").default("roster").describe("GSI partition key type"),
-  teamUuid: z.string(),
-  players: z.array(RosterPlayerSchema).default([]),
-  officials: z.array(RosterOfficialSchema).default([]),
-  updatedAt: z.string(),
-  ttl: z.number(), // DynamoDB TTL field
-});
-
-/**
- * Internal DynamoDB representation of a roster
- * Automatically strips undefined values to save storage
- */
-export const RosterItemSchema = BaseRosterItemSchema.transform((data) => {
-  // Remove undefined values to save DynamoDB storage
-  return Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined));
-});
-
-export type RosterItem = z.infer<typeof RosterItemSchema>;
-
-/**
- * Public API response for a team roster
- * Excludes internal fields (ttl)
- */
-export const RosterResponseSchema = BaseRosterItemSchema.omit({
-  ttl: true,
-});
-
-export type RosterResponse = z.infer<typeof RosterResponseSchema>;
-
-// ============================================================================
-// Rankings Schemas & Types
-// ============================================================================
-
 const RankingEntryResponseSchema = samsProjectionRankingEntrySchema.pick({
   uuid: true,
   teamName: true,
   rank: true,
+  logoUrl: true,
   matchesPlayed: true,
   points: true,
   wins: true,
@@ -248,10 +33,6 @@ export const RankingResponseSchema = z.object({
 
 export type RankingResponse = z.infer<typeof RankingResponseSchema>;
 
-// ============================================================================
-// League Matches Schemas & Types
-// ============================================================================
-
 export type LeagueMatch = z.infer<typeof samsProjectionMatchSchema>;
 
 export const LeagueMatchesResponseSchema = z.object({
@@ -260,10 +41,6 @@ export const LeagueMatchesResponseSchema = z.object({
 });
 
 export type LeagueMatchesResponse = z.infer<typeof LeagueMatchesResponseSchema>;
-
-// ============================================================================
-// Live Ticker Schemas & Types
-// ============================================================================
 
 const TickerSetSchema = z.object({
   setNumber: z.number(),

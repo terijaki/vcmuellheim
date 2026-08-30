@@ -9,10 +9,6 @@ export type SamsRosterUpsertInput = Omit<SamsRosterInput, "type" | "updatedAt"> 
   updatedAt?: string;
 };
 
-function parseRoster(value: unknown, message: string): SamsRosterInput {
-  return parseWithSchema(samsRosterSchema, value, message);
-}
-
 export class SamsRostersRepository {
   constructor(
     private readonly documentClient: DynamoDBDocumentClient = docClient,
@@ -26,11 +22,14 @@ export class SamsRostersRepository {
 
   async getByTeamUuid(teamUuid: string): Promise<SamsRosterInput | null> {
     const result = await this.entities().roster.get({ teamUuid }).go();
-    return result.data ? parseRoster(result.data, "Failed to parse SAMS roster data") : null;
+    return result.data
+      ? parseWithSchema(samsRosterSchema, result.data, "Failed to parse SAMS roster data")
+      : null;
   }
 
   async upsert(input: SamsRosterUpsertInput): Promise<SamsRosterInput> {
-    const item = parseRoster(
+    const item = parseWithSchema(
+      samsRosterSchema,
       {
         ...input,
         type: "roster",

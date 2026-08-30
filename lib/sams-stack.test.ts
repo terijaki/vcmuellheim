@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, it } from "vite-plus/test";
+import { afterEach, beforeEach, describe, expect, it } from "vite-plus/test";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { SamsStack } from "./sams-stack";
 import { SamsTableIndexes } from "./db/sams-electrodb-entities";
@@ -133,6 +133,47 @@ describe("SamsStack", () => {
         }),
       });
     });
+
+    it("does not grant the provider account send access on non-prod queues", () => {
+      const app = createTestApp();
+      const stack = new SamsStack(app, "TestStack", {
+        env: {
+          account: "123456789012",
+          region: "eu-central-1",
+        },
+        stackProps: {
+          environment: "dev",
+          branch: "feature-xyz",
+        },
+      });
+
+      const template = Template.fromStack(stack);
+      const policies = JSON.stringify(template.findResources("AWS::SQS::QueuePolicy"));
+      expect(policies).not.toContain("AllowSamsProviderEventBridgeSendMessage");
+      expect(policies).not.toContain(SAMS_PROVIDER_ACCOUNT_ID);
+    });
+
+    it("does not put SAMS_API_KEY on the processor", () => {
+      const app = createTestApp();
+      const stack = new SamsStack(app, "TestStack", {
+        env: {
+          account: "123456789012",
+          region: "eu-central-1",
+        },
+        stackProps: {
+          environment: "dev",
+          branch: "test-branch",
+        },
+      });
+
+      const template = Template.fromStack(stack);
+      const functions = template.findResources("AWS::Lambda::Function");
+      for (const resource of Object.values(functions)) {
+        const variables = resource.Properties?.Environment?.Variables ?? {};
+        expect(variables.SAMS_API_KEY).toBeUndefined();
+        expect(variables.MEDIA_BUCKET_NAME).toBeUndefined();
+      }
+    });
   });
 
   describe("Production environment", () => {
@@ -194,6 +235,24 @@ describe("SamsStack", () => {
           ]),
         }),
       });
+    });
+
+    it("does not put SAMS_API_KEY on the prod processor", () => {
+      const app = createTestApp();
+      const stack = new SamsStack(app, "TestStack", {
+        stackProps: {
+          environment: "prod",
+          branch: "",
+        },
+      });
+
+      const template = Template.fromStack(stack);
+      const functions = template.findResources("AWS::Lambda::Function");
+      for (const resource of Object.values(functions)) {
+        const variables = resource.Properties?.Environment?.Variables ?? {};
+        expect(variables.SAMS_API_KEY).toBeUndefined();
+        expect(variables.MEDIA_BUCKET_NAME).toBeUndefined();
+      }
     });
   });
 

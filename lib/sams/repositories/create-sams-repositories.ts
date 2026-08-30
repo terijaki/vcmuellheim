@@ -1,10 +1,6 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { createSamsClubsRepository, type SamsClubsRepository } from "./sams-clubs-repository";
 import {
-  createSamsOpsMetadataRepository,
-  type SamsOpsMetadataRepository,
-} from "./sams-ops-metadata-repository";
-import {
   createSamsRankingProjectionRepository,
   type SamsRankingProjectionRepository,
 } from "./sams-ranking-projection-repository";
@@ -24,7 +20,6 @@ export type SamsRepositories = {
   rosters: PublicInstance<SamsRostersRepository>;
   schedules: PublicInstance<SamsScheduleProjectionRepository>;
   rankings: PublicInstance<SamsRankingProjectionRepository>;
-  ops: PublicInstance<SamsOpsMetadataRepository>;
 };
 
 export function createSamsRepositories(
@@ -37,6 +32,5 @@ export function createSamsRepositories(
     rosters: createSamsRostersRepository(client, tableName),
     schedules: createSamsScheduleProjectionRepository(client, tableName),
     rankings: createSamsRankingProjectionRepository(client, tableName),
-    ops: createSamsOpsMetadataRepository(client, tableName),
   };
 }

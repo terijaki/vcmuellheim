@@ -3,10 +3,10 @@ import { filterAndSortSamsMatches } from "@/utils/sams-match-filter";
 
 describe("filterAndSortSamsMatches", () => {
   const matches = [
-    { uuid: "1", date: "2026-01-10", results: { winner: "a" } },
-    { uuid: "2", date: "2026-01-05", results: { winner: "b" } },
-    { uuid: "3", date: "2026-02-01", results: null },
-    { uuid: "4", date: "2026-01-20", results: null },
+    { uuid: "1", date: "2026-01-10", hasResult: true },
+    { uuid: "2", date: "2026-01-05", hasResult: true },
+    { uuid: "3", date: "2026-02-01", hasResult: false },
+    { uuid: "4", date: "2026-01-20", hasResult: false },
   ];
 
   it("keeps completed matches newest-first for past range", () => {

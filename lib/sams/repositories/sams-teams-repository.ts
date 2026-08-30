@@ -9,10 +9,6 @@ export type SamsTeamUpsertInput = Omit<SamsTeamInput, "type" | "updatedAt"> & {
   updatedAt?: string;
 };
 
-function parseTeam(value: unknown, message: string): SamsTeamInput {
-  return parseWithSchema(samsTeamSchema, value, message);
-}
-
 export class SamsTeamsRepository {
   constructor(
     private readonly documentClient: DynamoDBDocumentClient = docClient,
@@ -26,12 +22,16 @@ export class SamsTeamsRepository {
 
   async listAll(): Promise<SamsTeamInput[]> {
     const result = await this.entities().team.query.byType({ type: "team" }).go({ pages: "all" });
-    return result.data.map((item) => parseTeam(item, "Failed to parse SAMS team list item"));
+    return result.data.map((item) =>
+      parseWithSchema(samsTeamSchema, item, "Failed to parse SAMS team list item"),
+    );
   }
 
   async getById(uuid: string): Promise<SamsTeamInput | null> {
     const result = await this.entities().team.get({ uuid }).go();
-    return result.data ? parseTeam(result.data, "Failed to parse SAMS team data") : null;
+    return result.data
+      ? parseWithSchema(samsTeamSchema, result.data, "Failed to parse SAMS team data")
+      : null;
   }
 
   async getByNameSlug(nameSlug: string): Promise<SamsTeamInput | null> {
@@ -44,11 +44,14 @@ export class SamsTeamsRepository {
       .team.query.byType({ type: "team" })
       .begins({ nameSlug: nameSlugPrefix })
       .go({ pages: "all" });
-    return result.data.map((item) => parseTeam(item, "Failed to parse SAMS team query item"));
+    return result.data.map((item) =>
+      parseWithSchema(samsTeamSchema, item, "Failed to parse SAMS team query item"),
+    );
   }
 
   async upsert(input: SamsTeamUpsertInput): Promise<SamsTeamInput> {
-    const item = parseTeam(
+    const item = parseWithSchema(
+      samsTeamSchema,
       {
         ...input,
         type: "team",

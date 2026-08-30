@@ -32,14 +32,6 @@ async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
   return result.data.map((item) => eventSchema.parse(item));
 }
 
-function resolveHostTeamUuid(match: LeagueMatch): string | undefined {
-  const host = match.host;
-  if (typeof host === "string") return host;
-  if (host === true) return match._embedded?.team1?.uuid;
-  if (host === false) return match._embedded?.team2?.uuid;
-  return undefined;
-}
-
 function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
   const startTime = dayjs(event.startDate);
   const endTime = event.endDate ? dayjs(event.endDate) : undefined;
@@ -78,19 +70,11 @@ function convertMatchToIcs(
     .utc();
   if (!startTime.isValid()) return null;
 
-  const team1 = match._embedded?.team1;
-  const team2 = match._embedded?.team2;
-  const hostTeamUuid = resolveHostTeamUuid(match);
-  const homeTeam = [team1, team2].find((t) => t?.uuid === hostTeamUuid)?.name;
-  const guestTeam = [team1, team2].find((t) => t?.uuid !== hostTeamUuid)?.name;
+  const homeTeam = match.team1.name;
+  const guestTeam = match.team2.name;
 
   const locationParts: string[] = [];
   if (match.location?.name) locationParts.push(match.location.name);
-  if (match.location?.address?.street) locationParts.push(match.location.address.street);
-  const postalCity = [match.location?.address?.postcode, match.location?.address?.city]
-    .filter(Boolean)
-    .join(" ");
-  if (postalCity) locationParts.push(postalCity);
 
   const baseDesc = [
     teamLeagueName,
@@ -99,7 +83,7 @@ function convertMatchToIcs(
   ]
     .filter(Boolean)
     .join(", ");
-  const score = match.results?.setPoints;
+  const score = match.result?.setPoints;
   const description = score ? `Ergebnis: ${score}, ${baseDesc}` : baseDesc;
 
   return {
@@ -107,7 +91,7 @@ function convertMatchToIcs(
     duration: { hours: 3 },
     stamp: { date: timestamp, type: "DATE-TIME" },
     uid: match.uuid,
-    summary: `${team1?.name} vs ${team2?.name}`,
+    summary: `${match.team1.name} vs ${match.team2.name}`,
     description,
     location: locationParts.join(", "),
   };

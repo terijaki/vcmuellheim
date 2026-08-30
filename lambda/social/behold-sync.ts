@@ -15,10 +15,10 @@
 
 import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
 import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import middy from "@middy/core";
 import type { EventBridgeEvent } from "aws-lambda";
 import dayjs from "dayjs";
+import { createBeholdFeedRepository } from "@/lib/social/behold-feed";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
@@ -29,6 +29,7 @@ const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(BeholdSyncLambdaEnvironmentSchema);
 const TABLE_NAME = env.SOCIAL_TABLE_NAME;
+const feedRepository = createBeholdFeedRepository(docClient, TABLE_NAME);
 
 const MAX_POSTS = 2;
 const MAX_AGE_DAYS = 14;
@@ -36,9 +37,6 @@ const BEHOLD_TIMEOUT_MS = 10_000;
 
 /** 3 months — DDB hygiene TTL to eventually reclaim storage */
 const DDB_TTL_SECONDS = 90 * 24 * 60 * 60;
-
-const BEHOLD_FEED_PK = "social#behold";
-const BEHOLD_FEED_SK = "feed";
 
 const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
   logger.info("Starting Behold Instagram feed sync", { event });
@@ -120,19 +118,7 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
     .filter((post) => dayjs(post.timestamp).isAfter(cutoff))
     .slice(0, MAX_POSTS);
 
-  const nowMs = Date.now();
-  await docClient.send(
-    new PutCommand({
-      TableName: TABLE_NAME,
-      Item: {
-        pk: BEHOLD_FEED_PK,
-        sk: BEHOLD_FEED_SK,
-        data: JSON.stringify(posts),
-        cachedAt: new Date(nowMs).toISOString(),
-        ttl: Math.floor(nowMs / 1000) + DDB_TTL_SECONDS,
-      },
-    }),
-  );
+  await feedRepository.writePosts(posts, DDB_TTL_SECONDS);
 
   logger.info("Behold feed synced successfully", { postCount: posts.length });
   Sentry.setMeasurement("behold_sync.posts_written", posts.length, "none");

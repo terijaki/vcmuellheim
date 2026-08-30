@@ -78,8 +78,6 @@ const mediaStack = new MediaStack(app, mediaStackName, {
 new SamsStack(app, samsStackName, {
   ...commonStackProps,
   description: `SAMS provider consumer (${envLabel})`,
-  mediaBucketName: mediaStack.bucketName,
-  mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
   alertEmail: ENV.CDK_MONITORING_ALERT_EMAIL || ENV.CDK_BUDGET_ALERT_EMAIL,
 });
 

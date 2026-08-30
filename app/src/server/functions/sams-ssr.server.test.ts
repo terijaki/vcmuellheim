@@ -46,7 +46,15 @@ describe("handleLoadSamsMatchesForSsr", () => {
         },
       ],
     });
-    mockList.mockResolvedValue([{ uuid: "m1", date: "2026-02-01", results: null, host: null }]);
+    mockList.mockResolvedValue([
+      {
+        uuid: "m1",
+        date: "2026-02-01",
+        hasResult: false,
+        team1: { uuid: "t1", name: "Team 1" },
+        team2: { uuid: "t2", name: "Team 2" },
+      },
+    ]);
   });
 
   it("returns hook options from projection peek", async () => {

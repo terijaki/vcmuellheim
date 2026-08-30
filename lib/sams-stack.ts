@@ -5,7 +5,6 @@ import * as actions from "aws-cdk-lib/aws-cloudwatch-actions";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambdaEventSources from "aws-cdk-lib/aws-lambda-event-sources";
-import * as s3 from "aws-cdk-lib/aws-s3";
 import * as sns from "aws-cdk-lib/aws-sns";
 import * as snsSubscriptions from "aws-cdk-lib/aws-sns-subscriptions";
 import * as sqs from "aws-cdk-lib/aws-sqs";
@@ -26,8 +25,6 @@ interface SamsStackProps extends cdk.StackProps {
     environment: string;
     branch: string;
   };
-  mediaBucketName?: string;
-  mediaCloudFrontUrl?: string;
   /** Optional alert email for DLQ alarm (feature branches may omit). */
   alertEmail?: string;
 }
@@ -129,14 +126,10 @@ export class SamsStack extends cdk.Stack {
       environment: {
         ...commonEnvironment,
         SAMS_TABLE_NAME: samsDataTable.tableName,
-        MEDIA_BUCKET_NAME: props?.mediaBucketName ?? "",
       } satisfies SamsProviderProcessorLambdaEnvironment,
     }).lambdaFunction;
 
     samsDataTable.grantReadWriteData(processor);
-    if (props?.mediaBucketName) {
-      s3.Bucket.fromBucketName(this, "MediaBucketRef", props.mediaBucketName).grantWrite(processor);
-    }
 
     processor.addEventSource(
       new lambdaEventSources.SqsEventSource(providerEventsQueue, {

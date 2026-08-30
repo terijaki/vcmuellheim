@@ -142,7 +142,7 @@ export default function RankingTable(props: RankingTable) {
                 teamLink={teamLink}
                 clubLogo={
                   <ClubLogo
-                    logoUrl={logoUrlMap?.[clubSlug]}
+                    logoUrl={team.logoUrl ?? logoUrlMap?.[clubSlug]}
                     label={team.teamName ?? undefined}
                     light={shouldHighlight}
                   />

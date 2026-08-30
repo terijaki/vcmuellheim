@@ -52,20 +52,19 @@ export default function Matches({
         )}
         <Stack gap={0}>
           {matches.map((match, index) => {
-            const winnerId = match.results?.winner;
+            const winnerId = match.result?.winner;
             // determine if this is a win for the club/team
             let winForClubOrTeam = Boolean(winnerId && winnerId === highlightTeamUuid);
             if (!highlightTeamUuid)
               winForClubOrTeam = Boolean(winnerId && ourTeamUuids.has(winnerId));
             // determine if the index is odd or even for alternating background colors
             const oddIndex = Boolean((isOddMatches ? index : index + 1) % 2 === 0);
-            const team1 = match._embedded?.team1;
-            const team2 = match._embedded?.team2;
+            const team1 = match.team1;
+            const team2 = match.team2;
             const leagueName = match.leagueUuid && leagues.get(match.leagueUuid);
             return (
               <Grid
                 key={match.uuid}
-                data-match-number={match.matchNumber}
                 data-match-uuid={match.uuid}
                 bg={oddIndex ? "gray.1" : undefined}
                 p="xs"
@@ -93,9 +92,6 @@ export default function Matches({
                     {match.location && (
                       <MapsLink
                         name={match.location.name}
-                        street={match.location.address?.street}
-                        postal={match.location.address?.postcode}
-                        city={match.location.address?.city}
                         size="sm"
                         maw={{ base: "100%", sm: 160 }}
                       />
@@ -132,7 +128,7 @@ export default function Matches({
                   </Stack>
                 </GridCol>
                 {/* score*/}
-                {match.results && (
+                {match.result && (
                   <GridCol span={{ base: 12, sm: 2 }}>
                     <Flex
                       columnGap="xs"
@@ -143,16 +139,16 @@ export default function Matches({
                       <Group gap={4} c={winForClubOrTeam ? "turquoise" : undefined}>
                         <IconResult />
                         <Text span size="sm" fw="bold" hiddenFrom="sm">
-                          {match.results.setPoints}
+                          {match.result.setPoints}
                         </Text>
                         <Text span size="lg" fw="bold" visibleFrom="sm">
-                          {match.results.setPoints}
+                          {match.result.setPoints}
                         </Text>
                         {winForClubOrTeam && <Text span>🏆</Text>}
                       </Group>
-                      {match.results.sets && match.results.sets.length > 0 && (
+                      {match.result.sets && match.result.sets.length > 0 && (
                         <Text span c="dimmed" size="xs">
-                          ({match.results.sets?.map((set) => set.ballPoints).join(", ")})
+                          ({match.result.sets?.map((set) => set.ballPoints).join(", ")})
                         </Text>
                       )}
                     </Flex>
@@ -176,14 +172,13 @@ export default function Matches({
         {matches.map((match, index) => {
           // determine if the index is odd or even for alternating background colors
           const oddIndex = Boolean((isOddMatches ? index : index + 1) % 2 === 0);
-          const team1 = match._embedded?.team1;
-          const team2 = match._embedded?.team2;
+          const team1 = match.team1;
+          const team2 = match.team2;
           const leagueName = match.leagueUuid && leagues.get(match.leagueUuid);
 
           return (
             <Grid
               key={match.uuid}
-              data-match-number={match.matchNumber}
               data-match-uuid={match.uuid}
               bg={oddIndex ? "gray.1" : undefined}
               p="xs"
@@ -244,14 +239,7 @@ export default function Matches({
 
               {match.location && (
                 <GridCol span={{ base: 12, sm: 3 }}>
-                  <MapsLink
-                    name={match.location.name}
-                    street={match.location.address?.street}
-                    postal={match.location.address?.postcode}
-                    city={match.location.address?.city}
-                    size="sm"
-                    maw={{ base: "100%", sm: 160 }}
-                  />
+                  <MapsLink name={match.location.name} size="sm" maw={{ base: "100%", sm: 160 }} />
                 </GridCol>
               )}
             </Grid>

@@ -297,17 +297,11 @@ export function buildSamsProviderSeedFixtures(
   const projectedAt = anchor.toISOString();
   const fixtures: SamsProviderFixture[] = [];
   let snapshotIndex = 0;
-  const countsBySportsclubUuid: Record<string, number> = {};
-  const changedTeamUuids: string[] = [];
-  let totalTeams = 0;
 
   for (const club of SEED_TARGET_CLUBS) {
     const teams = SEED_CLUB_TEAMS[club.uuid];
     const teamCount = resolveTargetClubTeamCount(options.variationSeed, club.uuid);
     const activeTeams = teams.slice(0, teamCount);
-    totalTeams += activeTeams.length;
-    countsBySportsclubUuid[club.uuid] = activeTeams.length;
-    changedTeamUuids.push(...activeTeams.map((team) => team.uuid));
 
     fixtures.push({
       type: SamsEventType.clubUpdated,
@@ -395,18 +389,6 @@ export function buildSamsProviderSeedFixtures(
       snapshotVersion: snapshotVersion(options.variationSeed, snapshotIndex++),
     });
   }
-
-  fixtures.push({
-    type: SamsEventType.teamsSyncCompleted,
-    payload: {
-      seasonUuid: SEED_SEASON.uuid,
-      seasonName: SEED_SEASON.name,
-      teamsCount: totalTeams,
-      countsBySportsclubUuid,
-      changedTeamUuids,
-    },
-    snapshotVersion: snapshotVersion(options.variationSeed, snapshotIndex++),
-  });
 
   return fixtures;
 }

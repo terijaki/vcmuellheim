@@ -8,6 +8,7 @@ import {
   type Match,
   type SamsEvent,
 } from "sams-provider-events";
+import type { SamsRosterOfficialInput, SamsRosterPlayerInput } from "@/lib/db/schemas";
 import type { SamsRepositories } from "@/lib/sams/repositories/create-sams-repositories";
 import type { SamsScheduleProjectionMeta } from "@/lib/sams/repositories/sams-schedule-projection-repository";
 import { createSamsRepositories } from "@/lib/sams/repositories";
@@ -20,13 +21,11 @@ import { slugify } from "@/utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
-import { uploadClubLogoToS3 } from "./club-logo-upload";
 import {
   collectSportsclubUuidsFromMatches,
   mapProviderMatchToProjection,
   mapProviderRankingEntry,
 } from "./provider-mappers";
-import type { RosterOfficial, RosterPlayer } from "./types";
 import { SamsProviderProcessorLambdaEnvironmentSchema } from "./types";
 
 const { logger, tracer } = createLambdaResources("sams-provider-processor");
@@ -34,12 +33,13 @@ const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsProviderProcessorLambdaEnvironmentSchema);
 const TABLE_NAME = env.SAMS_TABLE_NAME;
-const MEDIA_BUCKET_NAME = env.MEDIA_BUCKET_NAME;
 
 const RESERVED_EVENT_TYPES = new Set<string>([
   SamsEventType.matchesUpdated,
   SamsEventType.syncCompleted,
   SamsEventType.syncFailed,
+  SamsEventType.clubsSyncCompleted,
+  SamsEventType.teamsSyncCompleted,
 ]);
 
 function mapRosterPlayers(
@@ -50,7 +50,7 @@ function mapRosterPlayers(
     position?: string;
     portraitUrl?: string;
   }>,
-): RosterPlayer[] {
+): SamsRosterPlayerInput[] {
   return players.map((player) => ({
     uuid: player.uuid,
     name: player.name,
@@ -62,7 +62,7 @@ function mapRosterPlayers(
 
 function mapRosterOfficials(
   officials: Array<{ uuid: string; name: string; role?: string }>,
-): RosterOfficial[] {
+): SamsRosterOfficialInput[] {
   return officials.map((official) => ({
     uuid: official.uuid,
     name: official.name,
@@ -128,6 +128,7 @@ async function replaceClubSeasonTeams(
   for (const existingTeam of existingTeams) {
     if (
       existingTeam.sportsclubUuid === sportsclubUuid &&
+      existingTeam.seasonUuid === seasonUuid &&
       !teamUuidsInEvent.has(existingTeam.uuid)
     ) {
       await repos.teams.delete(existingTeam.uuid);
@@ -239,13 +240,6 @@ async function upsertClub(
   const now = event.occurredAt;
   const ttl = unixTtlSecondsFromNow(SAMS_CLUB_TTL_DAYS);
 
-  let logoS3Key = existing?.logoS3Key;
-  const mediaBucketName = MEDIA_BUCKET_NAME ?? "";
-  if (club.logoUrl) {
-    const uploaded = await uploadClubLogoToS3(mediaBucketName, club.uuid, club.logoUrl);
-    if (uploaded) logoS3Key = uploaded;
-  }
-
   await repos.clubs.upsert({
     sportsclubUuid: club.uuid,
     name: club.name,
@@ -253,7 +247,6 @@ async function upsertClub(
     ...(club.associationUuid ? { associationUuid: club.associationUuid } : {}),
     ...(club.associationName ? { associationName: club.associationName } : {}),
     ...(club.logoUrl ? { logoImageLink: club.logoUrl } : {}),
-    ...(logoS3Key ? { logoS3Key } : {}),
     snapshotVersion: event.snapshotVersion,
     updatedAt: now,
     ttl,
@@ -315,14 +308,6 @@ async function mergeMatchBlock(
   matches: Match[],
   meta: SamsScheduleProjectionMeta,
 ): Promise<void> {
-  if (await shouldSkipProjection(repos, sportsclubUuid, seasonUuid, meta.snapshotVersion)) {
-    logger.info("Skipping unchanged match-block merge", {
-      sportsclubUuid,
-      seasonUuid,
-      snapshotVersion: meta.snapshotVersion,
-    });
-    return;
-  }
   await repos.schedules.mergeMatchesForClub(
     sportsclubUuid,
     seasonUuid,
@@ -408,22 +393,6 @@ export async function processSamsProviderEvent(
       });
       return;
     }
-
-    case SamsEventType.clubsSyncCompleted:
-      await repos.ops.upsert({
-        scope: "clubs-sync",
-        occurredAt: event.occurredAt,
-        payload: { ...event.payload },
-      });
-      return;
-
-    case SamsEventType.teamsSyncCompleted:
-      await repos.ops.upsert({
-        scope: "teams-sync",
-        occurredAt: event.occurredAt,
-        payload: { ...event.payload },
-      });
-      return;
 
     default:
       logger.info("Ignoring unknown SAMS provider event type", { type: event.type });

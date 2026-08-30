@@ -6,31 +6,7 @@ import {
 } from "@/lib/db/schemas";
 
 export function mapProviderMatchToProjection(match: Match): SamsProjectionMatchInput {
-  return samsProjectionMatchSchema.parse({
-    uuid: match.uuid,
-    date: match.date,
-    time: match.time,
-    leagueUuid: match.leagueUuid,
-    results: match.result,
-    location: match.location
-      ? {
-          uuid: match.location.uuid,
-          name: match.location.name,
-        }
-      : undefined,
-    _embedded: {
-      team1: {
-        uuid: match.team1.uuid,
-        name: match.team1.name,
-        sportsclubUuid: match.team1.sportsclubUuid ?? "",
-      },
-      team2: {
-        uuid: match.team2.uuid,
-        name: match.team2.name,
-        sportsclubUuid: match.team2.sportsclubUuid ?? "",
-      },
-    },
-  });
+  return samsProjectionMatchSchema.parse(match);
 }
 
 export function mapProviderRankingEntry(

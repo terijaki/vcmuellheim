@@ -64,4 +64,22 @@ test.describe("sams smoke", () => {
       });
     });
   });
+
+  test.describe("seeded projections", () => {
+    test.skip(
+      !process.env.WEBAPP_URL,
+      "Requires WEBAPP_URL against a webapp seeded with SAMS provider fixtures",
+    );
+
+    test("/termine shows league matches from projections", async ({ page }) => {
+      const response = await page.goto("/termine", { waitUntil: "domcontentloaded" });
+
+      expect(response?.ok()).toBeTruthy();
+      await expect(page.getByRole("heading", { name: "Ligaspiele" })).toBeVisible({
+        timeout: 20_000,
+      });
+      await expect(page.locator("[data-match-uuid]").first()).toBeVisible({ timeout: 20_000 });
+      await expect(page.getByText("Keine Ligaspiele")).toHaveCount(0);
+    });
+  });
 });

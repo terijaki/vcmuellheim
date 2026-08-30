@@ -3,11 +3,11 @@
  */
 
 import type { BeholdPost } from "@/lambda/social/types";
-import { readBeholdFeed } from "../social-feed";
+import { beholdFeedRepository } from "@/lib/social/behold-feed";
 
 export async function handleGetInstagramPosts(): Promise<BeholdPost[]> {
   try {
-    return await readBeholdFeed();
+    return await beholdFeedRepository.readPosts();
   } catch {
     return [];
   }

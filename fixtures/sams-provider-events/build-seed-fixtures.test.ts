@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vite-plus/test";
-import { SamsEventType } from "sams-provider-events";
+import { parseSamsEventFromSqsBody, SamsEventType } from "sams-provider-events";
 import {
+  buildMockSamsProviderSqsBody,
   buildSamsProviderSeedFixtures,
   buildTestSamsProviderFixtures,
   SEED_MGV_CLUB,
@@ -47,9 +48,19 @@ describe("sams-provider-events fixtures", () => {
       ).toBe(true);
     }
 
-    expect(fixtures.some((fixture) => fixture.type === SamsEventType.teamsSyncCompleted)).toBe(
-      true,
+    expect(fixtures.some((fixture) => fixture.type === SamsEventType.clubsSyncCompleted)).toBe(
+      false,
     );
+    expect(fixtures.some((fixture) => fixture.type === SamsEventType.teamsSyncCompleted)).toBe(
+      false,
+    );
+  });
+
+  it("parses every seed fixture with the provider event schema", () => {
+    const fixtures = buildSamsProviderSeedFixtures({ variationSeed: "fixture-test" });
+    for (const fixture of fixtures) {
+      expect(() => parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture))).not.toThrow();
+    }
   });
 
   it("includes VC Müllheim and Markgräfler Volleys club ids", () => {

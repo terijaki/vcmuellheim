@@ -41,8 +41,6 @@ import {
 import { parseServerData } from "../schema-parse";
 import { buildSamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
-const MEDIA_CLOUDFRONT_URL = () => process.env.MEDIA_CLOUDFRONT_URL || "";
-
 const TICKER_FETCH_TIMEOUT_MS = SAMS_API_TIMEOUT_MS;
 
 export type SamsMatchesInput = {
@@ -207,9 +205,7 @@ async function loadMatchesFromProjections({
     matches = matches.filter((match) => match.leagueUuid === league);
   }
   if (team) {
-    matches = matches.filter(
-      (match) => match._embedded?.team1?.uuid === team || match._embedded?.team2?.uuid === team,
-    );
+    matches = matches.filter((match) => match.team1.uuid === team || match.team2.uuid === team);
   }
 
   return dedupeSamsMatchesByUuid(matches);
@@ -236,22 +232,15 @@ export async function loadScheduleMatchesForSamsTeamUuids(
     seasonUuid,
   );
 
-  const filtered = projectionMatches.filter((match) => {
-    const team1Uuid = match._embedded?.team1?.uuid;
-    const team2Uuid = match._embedded?.team2?.uuid;
-    return teamUuidSet.has(team1Uuid ?? "") || teamUuidSet.has(team2Uuid ?? "");
-  });
+  const filtered = projectionMatches.filter(
+    (match) => teamUuidSet.has(match.team1.uuid) || teamUuidSet.has(match.team2.uuid),
+  );
 
   return dedupeSamsMatchesByUuid(filtered);
 }
 
-function isPastProjectionMatch(
-  match: { results?: { winner?: string | null } | null; date?: string | null },
-  anchor = dayjs(),
-): boolean {
-  if (match.results?.winner) return true;
-  if (match.date && anchor.isAfter(dayjs(match.date), "day")) return true;
-  return false;
+function isPastProjectionMatch(match: { hasResult: boolean }): boolean {
+  return match.hasResult;
 }
 
 async function buildMatchesResponse(
@@ -290,11 +279,13 @@ async function buildMatchesResponse(
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
   const seasonUuid = await resolveSyncedSeasonUuid();
-  if (!seasonUuid) throw new Error("No synced SAMS season available for rankings");
+  if (!seasonUuid) {
+    return emptyRankingResponse(leagueUuid);
+  }
 
   const projection = await samsRankingProjectionRepository.get(leagueUuid, seasonUuid);
-  if (!projection || projection.teams.length === 0) {
-    throw new Error("No rankings found for this league");
+  if (!projection) {
+    return emptyRankingResponse(leagueUuid);
   }
 
   return parseServerData(
@@ -308,6 +299,16 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
     },
     "Failed to parse SAMS rankings response",
   );
+}
+
+function emptyRankingResponse(leagueUuid: string): RankingResponse {
+  return {
+    teams: [],
+    timestamp: new Date().toISOString(),
+    leagueUuid,
+    leagueName: null,
+    seasonName: null,
+  };
 }
 
 async function peekRankingProjectionForSeason(
@@ -443,17 +444,13 @@ export async function handleGetClubLogoUrl(data: ClubLogoInput) {
     : data.clubSlug
       ? await getSamsClubByNameSlug(data.clubSlug)
       : null;
-  return resolveClubLogoUrl(club, MEDIA_CLOUDFRONT_URL());
+  return resolveClubLogoUrl(club);
 }
 
 /** Pure helper — resolves a club's effective logo URL from a club record.
  * Exported for unit testing. */
-export function resolveClubLogoUrl(
-  club: { logoS3Key?: string | null; logoImageLink?: string | null } | null,
-  cloudfrontUrl: string,
-): string | null {
+export function resolveClubLogoUrl(club: { logoImageLink?: string | null } | null): string | null {
   if (!club) return null;
-  if (club.logoS3Key && cloudfrontUrl) return `${cloudfrontUrl}/${club.logoS3Key}`;
   return club.logoImageLink ?? null;
 }
 
@@ -602,11 +599,10 @@ export async function handleGetSamsTicker() {
 }
 
 export async function handleGetClubLogoUrlsBatch(clubSlugs: string[]) {
-  const cfUrl = MEDIA_CLOUDFRONT_URL();
   const entries = await Promise.all(
     clubSlugs.map(async (slug) => {
       const club = (await getSamsClubByNameSlug(slug)) ?? (await getSamsClubByNameSlugPrefix(slug));
-      return [slug, resolveClubLogoUrl(club, cfUrl)] as const;
+      return [slug, resolveClubLogoUrl(club)] as const;
     }),
   );
   return Object.fromEntries(entries) as Record<string, string | null>;

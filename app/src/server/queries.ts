@@ -5,7 +5,7 @@ import {
   RosterResponseSchema,
   type TeamResponse,
   TeamResponseSchema,
-} from "@/lambda/sams/types";
+} from "@/lib/db/schemas";
 import { db, samsDb } from "@/lib/db/electrodb-client";
 import { memberSchema, newsSchema } from "@/lib/db/schemas";
 import type { Member, News, PaginationCursor } from "@/lib/db/types";
