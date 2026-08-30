@@ -19,7 +19,7 @@
     "lint": "vp check",
     "check:fix": "vp check --fix",
     "db:seed": "bun ./scripts/db-seed.ts",
-    "db:seed:sams": "bun ./scripts/data-trigger-syncs.ts",
+    "db:seed:sams": "bun ./scripts/seed-sams-provider-events.ts",
     "verify": "vp check --fix && vp test",
     "cdk:deploy": "cdk deploy --require-approval=never",
     "cdk:deploy:all": "cdk deploy --all --require-approval=never",

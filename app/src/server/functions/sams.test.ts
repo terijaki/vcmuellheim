@@ -21,8 +21,18 @@ const mockClubs = vi.mocked(getAllSamsClubs);
 const mockTeams = vi.mocked(getAllSamsTeams);
 
 const clubs: ClubResponse[] = [
-  { type: "club", name: "VC Müllheim", sportsclubUuid: "uuid-a", updatedAt: "2026-01-01T00:00:00.000Z" },
-  { type: "club", name: "Markgräfler Volleys", sportsclubUuid: "uuid-b", updatedAt: "2026-01-01T00:00:00.000Z" },
+  {
+    type: "club",
+    name: "VC Müllheim",
+    sportsclubUuid: "uuid-a",
+    updatedAt: "2026-01-01T00:00:00.000Z",
+  },
+  {
+    type: "club",
+    name: "Markgräfler Volleys",
+    sportsclubUuid: "uuid-b",
+    updatedAt: "2026-01-01T00:00:00.000Z",
+  },
 ];
 const team: TeamResponse = {
   type: "team",
