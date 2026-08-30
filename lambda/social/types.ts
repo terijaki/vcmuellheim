@@ -7,7 +7,7 @@ import { optionalEnvString, requiredEnvString } from "../utils/env";
 
 export const BeholdSyncLambdaEnvironmentSchema = z.object({
   CDK_ENVIRONMENT: optionalEnvString,
-  CACHE_TABLE_NAME: requiredEnvString,
+  SOCIAL_TABLE_NAME: requiredEnvString,
   BEHOLD_FEED_URL: requiredEnvString,
 });
 

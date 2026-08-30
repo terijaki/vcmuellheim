@@ -27,9 +27,9 @@ import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import type { Construct } from "constructs";
 import { Club } from "@project.config";
 import {
-  CACHE_TABLE_ENV_VAR,
   CONTENT_TABLE_ENV_VAR,
-  computeCacheTableName,
+  SOCIAL_TABLE_ENV_VAR,
+  computeResourceBranchSuffix,
   computeSamsDataTableName,
 } from "./db/env";
 import { buildWebappDomain, buildWebappUrl } from "@utils/webapp-url";
@@ -40,16 +40,13 @@ export interface WebAppStackProps extends cdk.StackProps {
     branch: string;
   };
   contentTableName: string;
+  socialTableName: string;
   mediaBucketName: string;
   /** CloudFront URL of the media stack — used for serving uploaded images */
   mediaCloudFrontUrl?: string;
   hostedZone?: route53.IHostedZone;
   /** CloudFront certificate (must be in us-east-1) */
   cloudFrontCertificate?: acm.ICertificate;
-  /** Optional sync Lambda function names from SamsStack — grants invoke permissions to the webapp Lambda.
-   * Use function names (strings) instead of CDK cross-stack object references so SamsStack can be updated independently without CF blocking export deletion. */
-  samsClubsSyncFunctionName?: string;
-  samsTeamsSyncFunctionName?: string;
 }
 
 export class WebAppStack extends cdk.Stack {
@@ -62,7 +59,7 @@ export class WebAppStack extends cdk.Stack {
 
     const environment = props.stackProps?.environment || "dev";
     const branch = props.stackProps?.branch || "";
-    const branchSuffix = branch ? `-${branch}` : "";
+    const branchSuffix = computeResourceBranchSuffix(environment, branch);
     const isProd = environment === "prod";
     const isCdkDestroy = process.env.CDK_DESTROY === "true";
     // prod: vcmuellheim.de  dev: dev.new.vcmuellheim.de  feature: dev-<branch>.new.vcmuellheim.de
@@ -95,30 +92,22 @@ export class WebAppStack extends cdk.Stack {
       resource: "table",
       resourceName: samsTableName,
     });
-    const cacheTableName = computeCacheTableName(environment, branch);
-    const cacheTableArn = stack.formatArn({
+    const socialTableArn = stack.formatArn({
       service: "dynamodb",
       resource: "table",
-      resourceName: cacheTableName,
+      resourceName: props.socialTableName,
     });
 
     const lambdaEnvironment: Record<string, string> = {
       [CONTENT_TABLE_ENV_VAR]: props.contentTableName,
-      [CACHE_TABLE_ENV_VAR]: cacheTableName,
+      [SOCIAL_TABLE_ENV_VAR]: props.socialTableName,
       CDK_ENVIRONMENT: environment,
       APP_BASE_URL: webappUrl,
       BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
       MEDIA_BUCKET_NAME: props.mediaBucketName,
       SAMS_TABLE_NAME: samsTableName,
       ...(branch ? { BRANCH_NAME: branch } : {}),
-      ...(process.env.SAMS_API_KEY ? { SAMS_API_KEY: process.env.SAMS_API_KEY } : {}),
       ...(props.mediaCloudFrontUrl ? { MEDIA_CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
-      ...(props.samsClubsSyncFunctionName
-        ? { SAMS_CLUBS_SYNC_FUNCTION_NAME: props.samsClubsSyncFunctionName }
-        : {}),
-      ...(props.samsTeamsSyncFunctionName
-        ? { SAMS_TEAMS_SYNC_FUNCTION_NAME: props.samsTeamsSyncFunctionName }
-        : {}),
       NODE_ENV: "production",
     };
 
@@ -154,11 +143,11 @@ export class WebAppStack extends cdk.Stack {
       tracing: lambda.Tracing.ACTIVE,
     });
 
-    // Grant Lambda access to content, cache, and SAMS tables via computed ARNs (no CF cross-stack exports)
+    // Grant Lambda access to content, social, and SAMS tables via computed ARNs (no CF cross-stack exports)
     dynamodb.Table.fromTableArn(this, "ContentTableRef", contentTableArn).grantReadWriteData(
       this.webappLambda,
     );
-    dynamodb.Table.fromTableArn(this, "CacheTableRef", cacheTableArn).grantReadWriteData(
+    dynamodb.Table.fromTableArn(this, "SocialTableRef", socialTableArn).grantReadData(
       this.webappLambda,
     );
     this.webappLambda.addToRolePolicy(
@@ -183,22 +172,6 @@ export class WebAppStack extends cdk.Stack {
     s3.Bucket.fromBucketName(this, "MediaBucketRef", props.mediaBucketName).grantReadWrite(
       this.webappLambda,
     );
-
-    // Grant invoke permissions for SAMS sync Lambdas if provided
-    if (props.samsClubsSyncFunctionName) {
-      lambda.Function.fromFunctionName(
-        this,
-        "SamsClubsSyncRef",
-        props.samsClubsSyncFunctionName,
-      ).grantInvoke(this.webappLambda);
-    }
-    if (props.samsTeamsSyncFunctionName) {
-      lambda.Function.fromFunctionName(
-        this,
-        "SamsTeamsSyncRef",
-        props.samsTeamsSyncFunctionName,
-      ).grantInvoke(this.webappLambda);
-    }
 
     // Grant SES access for OTP emails
     this.webappLambda.addToRolePolicy(

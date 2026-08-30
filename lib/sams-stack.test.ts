@@ -1,13 +1,9 @@
-import { afterEach, beforeAll, beforeEach, describe, it } from "vite-plus/test";
+import { afterEach, beforeEach, describe, it } from "vite-plus/test";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { SamsStack } from "./sams-stack";
 import { SamsTableIndexes } from "./db/sams-electrodb-entities";
+import { getProviderEventDeliveryRoleArn, SAMS_PROVIDER_ACCOUNT_ID } from "./sams-provider-env";
 import { createTestApp } from "./test-helpers";
-
-// Set required environment variables before tests
-beforeAll(() => {
-  process.env.SAMS_API_KEY = "test-api-key";
-});
 
 beforeEach(() => {
   process.env.CDK_ENVIRONMENT = "dev";
@@ -21,7 +17,7 @@ afterEach(() => {
 
 describe("SamsStack", () => {
   describe("Development environment", () => {
-    it("should create stack with correct resources", () => {
+    it("should create provider consumer resources", () => {
       const app = createTestApp();
       const stack = new SamsStack(app, "TestStack", {
         env: {
@@ -36,29 +32,54 @@ describe("SamsStack", () => {
 
       const template = Template.fromStack(stack);
 
-      // Should have 2 Lambda functions (clubs sync + teams sync)
-      template.resourceCountIs("AWS::Lambda::Function", 2);
-
-      // Should have 1 DynamoDB table
+      template.resourceCountIs("AWS::Lambda::Function", 1);
       template.resourceCountIs("AWS::DynamoDB::Table", 1);
-
-      // Should have 2 EventBridge rules (for nightly syncs)
-      template.resourceCountIs("AWS::Events::Rule", 2);
+      template.resourceCountIs("AWS::SQS::Queue", 2);
+      template.resourceCountIs("AWS::Events::Rule", 0);
     });
 
-    it("should set correct removal policy for dev", () => {
+    it("creates a DLQ alarm without an SNS subscription when alertEmail is omitted", () => {
       const app = createTestApp();
       const stack = new SamsStack(app, "TestStack", {
+        env: {
+          account: "123456789012",
+          region: "eu-central-1",
+        },
         stackProps: {
           environment: "dev",
-          branch: "",
+          branch: "test-branch",
         },
       });
 
       const template = Template.fromStack(stack);
 
-      template.hasResourceProperties("AWS::DynamoDB::Table", {
-        TableName: "sams-data-dev",
+      template.hasResourceProperties("AWS::CloudWatch::Alarm", {
+        AlarmName: Match.stringLikeRegexp("^sams-provider-dlq-depth-"),
+      });
+      template.resourceCountIs("AWS::SNS::Topic", 0);
+      template.resourceCountIs("AWS::SNS::Subscription", 0);
+    });
+
+    it("emails DLQ alarms when alertEmail is set", () => {
+      const app = createTestApp();
+      const stack = new SamsStack(app, "TestStack", {
+        env: {
+          account: "123456789012",
+          region: "eu-central-1",
+        },
+        stackProps: {
+          environment: "dev",
+          branch: "test-branch",
+        },
+        alertEmail: "alerts@example.com",
+      });
+
+      const template = Template.fromStack(stack);
+
+      template.resourceCountIs("AWS::SNS::Topic", 1);
+      template.hasResourceProperties("AWS::SNS::Subscription", {
+        Protocol: "email",
+        Endpoint: "alerts@example.com",
       });
     });
 
@@ -74,14 +95,42 @@ describe("SamsStack", () => {
 
       const template = Template.fromStack(stack);
 
-      // Check Lambda function names include branch suffix
       template.hasResourceProperties("AWS::Lambda::Function", {
-        FunctionName: "vcm-sams-clubs-sync-dev-feature-xyz",
+        FunctionName: "vcm-sams-provider-processor-dev-feature-xyz",
       });
 
-      // Check DynamoDB table names include branch suffix
       template.hasResourceProperties("AWS::DynamoDB::Table", {
         TableName: "sams-data-dev-feature-xyz",
+      });
+    });
+
+    it("should allow GitHub Actions to seed mock events on dev queues", () => {
+      const app = createTestApp();
+      const stack = new SamsStack(app, "TestStack", {
+        env: {
+          account: "123456789012",
+          region: "eu-central-1",
+        },
+        stackProps: {
+          environment: "dev",
+          branch: "feature-xyz",
+        },
+      });
+
+      const template = Template.fromStack(stack);
+
+      template.hasResourceProperties("AWS::SQS::QueuePolicy", {
+        PolicyDocument: Match.objectLike({
+          Statement: Match.arrayWith([
+            Match.objectLike({
+              Sid: "AllowGitHubActionsCdkRoleSeed",
+              Action: Match.arrayWith(["sqs:SendMessage"]),
+              Principal: Match.objectLike({
+                AWS: Match.stringLikeRegexp("role/GitHubActionsCDKRole$"),
+              }),
+            }),
+          ]),
+        }),
       });
     });
   });
@@ -91,7 +140,7 @@ describe("SamsStack", () => {
       process.env.CDK_ENVIRONMENT = "prod";
     });
 
-    it("should set RETAIN removal policy for prod tables", () => {
+    it("should set RETAIN removal policy for prod tables and queues", () => {
       const app = createTestApp();
       const stack = new SamsStack(app, "TestStack", {
         stackProps: {
@@ -102,13 +151,16 @@ describe("SamsStack", () => {
 
       const template = Template.fromStack(stack);
 
-      // Prod tables should have RETAIN removal policy
       template.hasResourceProperties("AWS::DynamoDB::Table", {
         TableName: "sams-data-prod",
       });
+
+      template.hasResourceProperties("AWS::SQS::Queue", {
+        QueueName: "sams-provider-events-prod",
+      });
     });
 
-    it("should not include branch suffix in prod", () => {
+    it("should allow provider EventBridge to send messages on prod queue", () => {
       const app = createTestApp();
       const stack = new SamsStack(app, "TestStack", {
         stackProps: {
@@ -119,56 +171,28 @@ describe("SamsStack", () => {
 
       const template = Template.fromStack(stack);
 
-      // Prod function names should not have branch suffix
-      template.hasResourceProperties("AWS::Lambda::Function", {
-        FunctionName: "vcm-sams-clubs-sync-prod",
-      });
-    });
-  });
-
-  describe("Lambda function configuration", () => {
-    it("should configure Lambda timeouts correctly", () => {
-      const app = createTestApp();
-      const stack = new SamsStack(app, "TestStack", {
-        stackProps: {
-          environment: "dev",
-          branch: "",
-        },
-      });
-
-      const template = Template.fromStack(stack);
-
-      // Sync functions should have 3 minute timeout
-      template.hasResourceProperties("AWS::Lambda::Function", {
-        FunctionName: "vcm-sams-clubs-sync-dev",
-        Timeout: 180, // 3 minutes
-      });
-
-      // Teams sync should also have 3 minute timeout
-      template.hasResourceProperties("AWS::Lambda::Function", {
-        FunctionName: "vcm-sams-teams-sync-dev",
-        Timeout: 180, // 3 minutes
-      });
-    });
-
-    it("should set environment variables for all Lambdas", () => {
-      const app = createTestApp();
-      const stack = new SamsStack(app, "TestStack", {
-        stackProps: {
-          environment: "dev",
-          branch: "",
-        },
-      });
-
-      const template = Template.fromStack(stack);
-
-      // All Lambdas should have SAMS_API_KEY
-      template.hasResourceProperties("AWS::Lambda::Function", {
-        Environment: {
-          Variables: {
-            SAMS_API_KEY: "test-api-key",
-          },
-        },
+      template.hasResourceProperties("AWS::SQS::QueuePolicy", {
+        PolicyDocument: Match.objectLike({
+          Statement: Match.arrayWith([
+            Match.objectLike({
+              Sid: "AllowSamsProviderEventBridgeSendMessage",
+              Action: "sqs:SendMessage",
+              Principal: {
+                AWS: Match.objectLike({
+                  "Fn::Join": Match.arrayWith([
+                    "",
+                    Match.arrayWith([`:iam::${SAMS_PROVIDER_ACCOUNT_ID}:root`]),
+                  ]),
+                }),
+              },
+              Condition: {
+                ArnEquals: {
+                  "aws:PrincipalArn": getProviderEventDeliveryRoleArn(),
+                },
+              },
+            }),
+          ]),
+        }),
       });
     });
   });
@@ -185,55 +209,11 @@ describe("SamsStack", () => {
 
       const template = Template.fromStack(stack);
 
-      // Sams data table should have GSI1-BySamsType
       template.hasResourceProperties("AWS::DynamoDB::Table", {
         TableName: "sams-data-dev",
         GlobalSecondaryIndexes: Match.arrayWith([
           Match.objectLike({ IndexName: SamsTableIndexes.gsi1 }),
         ]),
-      });
-    });
-
-    it("should enable TTL on the sams data table", () => {
-      const app = createTestApp();
-      const stack = new SamsStack(app, "TestStack", {
-        stackProps: {
-          environment: "dev",
-          branch: "",
-        },
-      });
-
-      const template = Template.fromStack(stack);
-
-      // Both tables should have TTL enabled
-      template.hasResourceProperties("AWS::DynamoDB::Table", {
-        TimeToLiveSpecification: {
-          AttributeName: "ttl",
-          Enabled: true,
-        },
-      });
-    });
-  });
-
-  describe("EventBridge schedules", () => {
-    it("should create nightly sync schedules", () => {
-      const app = createTestApp();
-      const stack = new SamsStack(app, "TestStack", {
-        stackProps: {
-          environment: "dev",
-          branch: "",
-        },
-      });
-
-      const template = Template.fromStack(stack);
-
-      // Should have EventBridge rules for nightly syncs (paused in June/July for season prep)
-      template.hasResourceProperties("AWS::Events::Rule", {
-        ScheduleExpression: "cron(0 2 ? 1,2,3,4,5,8,9,10,11,12 WED *)", // Clubs sync: Wed 2 AM UTC
-      });
-
-      template.hasResourceProperties("AWS::Events::Rule", {
-        ScheduleExpression: "cron(0 3 * 1,2,3,4,5,8,9,10,11,12 ? *)", // Teams sync: Daily 3 AM UTC
       });
     });
   });

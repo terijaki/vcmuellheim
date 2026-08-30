@@ -1,19 +1,25 @@
 import * as path from "node:path";
 import * as cdk from "aws-cdk-lib";
+import * as cloudwatch from "aws-cdk-lib/aws-cloudwatch";
+import * as actions from "aws-cdk-lib/aws-cloudwatch-actions";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
-import * as events from "aws-cdk-lib/aws-events";
-import * as targets from "aws-cdk-lib/aws-events-targets";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as lambdaEventSources from "aws-cdk-lib/aws-lambda-event-sources";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import * as sns from "aws-cdk-lib/aws-sns";
+import * as snsSubscriptions from "aws-cdk-lib/aws-sns-subscriptions";
+import * as sqs from "aws-cdk-lib/aws-sqs";
 import type { Construct } from "constructs";
-import type {
-  SamsClubsSyncLambdaEnvironment,
-  SamsCommonLambdaEnvironment,
-  SamsTeamsSyncLambdaEnvironment,
-} from "@/lambda/sams/types";
-import { computeSamsDataTableName } from "./db/env";
+import type { SamsProviderProcessorLambdaEnvironment } from "@/lambda/sams/types";
+import { computeResourceBranchSuffix, computeSamsDataTableName } from "./db/env";
 import { SamsTableIndexes } from "./db/sams-electrodb-entities";
-import { buildLambdaFunctionName, VcmNodejsFunction } from "./construct/vcm-nodejs-function";
+import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
+import {
+  computeSamsProviderEventsDlqName,
+  computeSamsProviderEventsQueueName,
+  getProviderEventDeliveryRoleArn,
+  SAMS_PROVIDER_ACCOUNT_ID,
+} from "./sams-provider-env";
 
 interface SamsStackProps extends cdk.StackProps {
   stackProps?: {
@@ -22,15 +28,15 @@ interface SamsStackProps extends cdk.StackProps {
   };
   mediaBucketName?: string;
   mediaCloudFrontUrl?: string;
+  /** Optional alert email for DLQ alarm (feature branches may omit). */
+  alertEmail?: string;
 }
 
 export class SamsStack extends cdk.Stack {
   public readonly samsDataTable: dynamodb.Table;
-  public readonly samsClubsSync: NodejsFunction;
-  public readonly samsTeamsSync: NodejsFunction;
-  /** Stable plain-string function names — safe to pass cross-stack without creating CloudFormation exports. */
-  public readonly samsClubsSyncFunctionName: string;
-  public readonly samsTeamsSyncFunctionName: string;
+  public readonly providerEventsQueue: sqs.Queue;
+  public readonly providerEventsQueueUrl: string;
+  public readonly providerEventsQueueArn: string;
 
   constructor(scope: Construct, id: string, props?: SamsStackProps) {
     super(scope, id, props);
@@ -38,22 +44,12 @@ export class SamsStack extends cdk.Stack {
     const environment = props?.stackProps?.environment || "dev";
     const isProd = environment === "prod";
     const branch = props?.stackProps?.branch || "";
-    const branchSuffix = branch ? `-${branch}` : "";
-
-    // Environment variables for all Lambda functions
-    const samsKey = process.env.SAMS_API_KEY;
-    const isCdkDestroy = process.env.CDK_DESTROY === "true";
-
-    if (!isCdkDestroy) {
-      if (!samsKey) throw new Error("❌ SAMS_API_KEY environment variable is required");
-    }
+    const branchSuffix = computeResourceBranchSuffix(environment, branch);
 
     const commonEnvironment = {
-      SAMS_API_KEY: samsKey || "",
       CDK_ENVIRONMENT: environment,
-    } satisfies SamsCommonLambdaEnvironment;
+    };
 
-    // Create single DynamoDB table for all SAMS data
     const samsDataTable = new dynamodb.Table(this, "SamsDataTable", {
       tableName: computeSamsDataTableName(environment, branch),
       partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
@@ -63,7 +59,6 @@ export class SamsStack extends cdk.Stack {
       timeToLiveAttribute: "ttl",
     });
 
-    // GSI1 — type-based list queries for clubs and teams
     samsDataTable.addGlobalSecondaryIndex({
       indexName: SamsTableIndexes.gsi1,
       partitionKey: { name: "gsi1pk", type: dynamodb.AttributeType.STRING },
@@ -71,80 +66,112 @@ export class SamsStack extends cdk.Stack {
       projectionType: dynamodb.ProjectionType.ALL,
     });
 
-    // Expose table for cross-stack reference
     this.samsDataTable = samsDataTable;
 
-    const CLUBS_SYNC_FUNCTION_NAME = "sams-clubs-sync";
-    const TEAMS_SYNC_FUNCTION_NAME = "sams-teams-sync";
-    this.samsClubsSyncFunctionName = buildLambdaFunctionName(CLUBS_SYNC_FUNCTION_NAME);
-    this.samsTeamsSyncFunctionName = buildLambdaFunctionName(TEAMS_SYNC_FUNCTION_NAME);
+    const dlq = new sqs.Queue(this, "SamsProviderEventsDlq", {
+      queueName: computeSamsProviderEventsDlqName(environment, branch),
+      retentionPeriod: cdk.Duration.days(14),
+      enforceSSL: true,
+      removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
+    });
 
-    // Create Lambda function for nightly clubs sync
-    this.samsClubsSync = new VcmNodejsFunction(this, "SamsClubsSync", {
+    const providerEventsQueue = new sqs.Queue(this, "SamsProviderEventsQueue", {
+      queueName: computeSamsProviderEventsQueueName(environment, branch),
+      retentionPeriod: cdk.Duration.days(14),
+      enforceSSL: true,
+      visibilityTimeout: cdk.Duration.minutes(6),
+      deadLetterQueue: {
+        queue: dlq,
+        maxReceiveCount: 5,
+      },
+      removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
+    });
+
+    this.providerEventsQueue = providerEventsQueue;
+    this.providerEventsQueueUrl = providerEventsQueue.queueUrl;
+    this.providerEventsQueueArn = providerEventsQueue.queueArn;
+
+    if (isProd) {
+      providerEventsQueue.addToResourcePolicy(
+        new iam.PolicyStatement({
+          sid: "AllowSamsProviderEventBridgeSendMessage",
+          effect: iam.Effect.ALLOW,
+          principals: [new iam.AccountPrincipal(SAMS_PROVIDER_ACCOUNT_ID)],
+          actions: ["sqs:SendMessage"],
+          resources: [providerEventsQueue.queueArn],
+          conditions: {
+            ArnEquals: {
+              "aws:PrincipalArn": getProviderEventDeliveryRoleArn(),
+            },
+          },
+        }),
+      );
+    } else {
+      const githubActionsRoleArn = `arn:aws:iam::${cdk.Stack.of(this).account}:role/GitHubActionsCDKRole`;
+      providerEventsQueue.addToResourcePolicy(
+        new iam.PolicyStatement({
+          sid: "AllowGitHubActionsCdkRoleSeed",
+          effect: iam.Effect.ALLOW,
+          principals: [new iam.ArnPrincipal(githubActionsRoleArn)],
+          actions: ["sqs:SendMessage", "sqs:GetQueueUrl", "sqs:GetQueueAttributes"],
+          resources: [providerEventsQueue.queueArn],
+        }),
+      );
+    }
+
+    const PROCESSOR_FUNCTION_NAME = "sams-provider-processor";
+    const processor = new VcmNodejsFunction(this, "SamsProviderProcessor", {
       namespace: "sams",
-      name: CLUBS_SYNC_FUNCTION_NAME,
-      entry: path.join(__dirname, "../lambda/sams/sams-clubs-sync.ts"),
-      timeout: cdk.Duration.minutes(3),
+      name: PROCESSOR_FUNCTION_NAME,
+      entry: path.join(__dirname, "../lambda/sams/sams-provider-events.ts"),
+      timeout: cdk.Duration.minutes(5),
+      memorySize: 1024,
       environment: {
         ...commonEnvironment,
         SAMS_TABLE_NAME: samsDataTable.tableName,
         MEDIA_BUCKET_NAME: props?.mediaBucketName ?? "",
-        MEDIA_CLOUDFRONT_URL: props?.mediaCloudFrontUrl ?? "",
-      } satisfies SamsClubsSyncLambdaEnvironment,
+      } satisfies SamsProviderProcessorLambdaEnvironment,
     }).lambdaFunction;
 
-    // Grant DynamoDB permissions to clubs sync Lambda
-    samsDataTable.grantReadWriteData(this.samsClubsSync);
+    samsDataTable.grantReadWriteData(processor);
     if (props?.mediaBucketName) {
-      s3.Bucket.fromBucketName(this, "MediaBucketRef", props.mediaBucketName).grantWrite(
-        this.samsClubsSync,
-      );
+      s3.Bucket.fromBucketName(this, "MediaBucketRef", props.mediaBucketName).grantWrite(processor);
     }
 
-    // Create Lambda function for nightly teams sync
-    this.samsTeamsSync = new VcmNodejsFunction(this, "SamsTeamsSync", {
-      namespace: "sams",
-      name: TEAMS_SYNC_FUNCTION_NAME,
-      entry: path.join(__dirname, "../lambda/sams/sams-teams-sync.ts"),
-      timeout: cdk.Duration.minutes(3),
-      environment: {
-        ...commonEnvironment,
-        SAMS_TABLE_NAME: samsDataTable.tableName,
-      } satisfies SamsTeamsSyncLambdaEnvironment,
-    }).lambdaFunction;
-
-    // Grant DynamoDB permissions to teams sync Lambda
-    samsDataTable.grantReadWriteData(this.samsTeamsSync);
-
-    // SAMS data is incomplete during season preparation — skip scheduled syncs in June/July.
-    // Manual syncs via admin UI invoke the Lambdas directly and are unaffected.
-    const samsSyncActiveMonths = "1,2,3,4,5,8,9,10,11,12";
-
-    // Create EventBridge rule to trigger sync Lambda weekly on Wednesday at 2 AM UTC
-    const syncRule = new events.Rule(this, "SamsClubsSyncRule", {
-      ruleName: `sams-clubs-weekly-sync-${environment}${branchSuffix}`,
-      description: `Trigger SAMS clubs sync every Wednesday at 2 AM UTC, except June/July season prep (${environment}${branchSuffix})`,
-      schedule: events.Schedule.cron({
-        weekDay: "WED",
-        hour: "2",
-        minute: "0",
-        month: samsSyncActiveMonths,
+    processor.addEventSource(
+      new lambdaEventSources.SqsEventSource(providerEventsQueue, {
+        batchSize: 10,
+        maxBatchingWindow: cdk.Duration.seconds(5),
+        reportBatchItemFailures: true,
       }),
-    }); // Add Lambda as target for EventBridge rule
-    syncRule.addTarget(new targets.LambdaFunction(this.samsClubsSync));
+    );
 
-    // Create EventBridge rule to trigger teams sync nightly at 3 AM UTC
-    const teamsSyncRule = new events.Rule(this, "SamsTeamsSyncRule", {
-      ruleName: `sams-teams-nightly-sync-${environment}${branchSuffix}`,
-      description: `Trigger SAMS teams sync every night at 3 AM UTC, except June/July season prep (${environment}${branchSuffix})`,
-      schedule: events.Schedule.cron({
-        hour: "3",
-        minute: "0",
-        month: samsSyncActiveMonths,
-      }),
+    const dlqAlarm = new cloudwatch.Alarm(this, "SamsProviderDlqAlarm", {
+      alarmName: `sams-provider-dlq-depth-${environment}${branchSuffix}`,
+      alarmDescription: "SAMS provider events dead-letter queue has messages",
+      metric: dlq.metricApproximateNumberOfMessagesVisible(),
+      threshold: 1,
+      evaluationPeriods: 1,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
     });
 
-    // Add teams Lambda as target for EventBridge rule
-    teamsSyncRule.addTarget(new targets.LambdaFunction(this.samsTeamsSync));
+    if (props?.alertEmail) {
+      const dlqAlarmTopic = new sns.Topic(this, "SamsProviderDlqAlarmTopic", {
+        displayName: `SAMS provider DLQ alarms (${environment}${branchSuffix})`,
+      });
+      dlqAlarmTopic.addSubscription(new snsSubscriptions.EmailSubscription(props.alertEmail));
+      dlqAlarm.addAlarmAction(new actions.SnsAction(dlqAlarmTopic));
+    }
+
+    new cdk.CfnOutput(this, "SamsProviderEventsQueueUrl", {
+      value: providerEventsQueue.queueUrl,
+      exportName: `SamsProviderEventsQueueUrl-${environment}${branchSuffix}`,
+    });
+
+    new cdk.CfnOutput(this, "SamsProviderEventsQueueArn", {
+      value: providerEventsQueue.queueArn,
+      exportName: `SamsProviderEventsQueueArn-${environment}${branchSuffix}`,
+    });
   }
 }

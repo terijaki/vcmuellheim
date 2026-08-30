@@ -184,6 +184,7 @@ export const samsClubSchema = z.object({
   associationName: z.string().optional(),
   logoImageLink: z.string().optional(),
   logoS3Key: z.string().optional(),
+  snapshotVersion: z.string().min(1).optional(),
   updatedAt: z.iso.datetime(),
   ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (30-day expiry)"),
 });
@@ -201,6 +202,7 @@ export const samsTeamSchema = z.object({
   leagueHierarchyLevel: z.number().nonnegative().optional(),
   seasonUuid: z.string().min(1),
   seasonName: z.string().min(1),
+  snapshotVersion: z.string().min(1).optional(),
   updatedAt: z.iso.datetime(),
   ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (1-year expiry)"),
 });
@@ -238,11 +240,157 @@ export const samsRosterSchema = z.object({
   type: z.literal("roster").default("roster").describe("Entity type discriminator for GSI queries"),
   players: z.array(samsRosterPlayerSchema).default([]),
   officials: z.array(samsRosterOfficialSchema).default([]),
+  snapshotVersion: z.string().min(1).optional(),
   updatedAt: z.iso.datetime(),
   ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (1-year expiry)"),
 });
 
 export type SamsRosterInput = z.infer<typeof samsRosterSchema>;
+export type SamsRosterPlayerInput = z.infer<typeof samsRosterPlayerSchema>;
+export type SamsRosterOfficialInput = z.infer<typeof samsRosterOfficialSchema>;
+
+/** Stored league match row inside a club schedule projection. */
+const samsProjectionMatchLocationAddressSchema = z.object({
+  street: z.string().optional(),
+  postcode: z.string().optional(),
+  city: z.string().optional(),
+});
+
+const samsProjectionMatchSetSchema = z.object({
+  number: z.number(),
+  ballPoints: z.string().optional(),
+  winner: z.string().optional(),
+  winnerName: z.string().optional(),
+  duration: z.number().optional(),
+});
+
+const samsProjectionMatchResultsSchema = z
+  .object({
+    winner: z.string().nullish(),
+    winnerName: z.string().nullish(),
+    setPoints: z.string().nullish(),
+    ballPoints: z.string().nullish(),
+    sets: z.array(samsProjectionMatchSetSchema).optional(),
+  })
+  .nullish();
+
+export const samsProjectionMatchSchema = z
+  .object({
+    uuid: z.string(),
+    date: z.string().nullish(),
+    time: z.string().nullish(),
+    matchNumber: z.string().nullish(),
+    host: z.union([z.string(), z.boolean()]).nullish(),
+    leagueUuid: z.string().nullish(),
+    results: samsProjectionMatchResultsSchema,
+    location: z
+      .object({
+        uuid: z.string(),
+        name: z.string().nullish(),
+        longitude: z.number().nullish(),
+        latitude: z.number().nullish(),
+        address: z
+          .union([z.string(), samsProjectionMatchLocationAddressSchema])
+          .nullish()
+          .transform((address) => (typeof address === "string" ? undefined : address)),
+      })
+      .nullish(),
+    _embedded: z
+      .object({
+        team1: z
+          .object({
+            uuid: z.string(),
+            name: z.string(),
+            sportsclubUuid: z.string(),
+          })
+          .optional(),
+        team2: z
+          .object({
+            uuid: z.string(),
+            name: z.string(),
+            sportsclubUuid: z.string(),
+          })
+          .optional(),
+      })
+      .nullish(),
+  })
+  .loose()
+  .transform((match) => {
+    if (typeof match.host === "string") {
+      return { ...match, host: match.host };
+    }
+    const team1Uuid = match._embedded?.team1?.uuid;
+    const team2Uuid = match._embedded?.team2?.uuid;
+    let host: string | null = null;
+    if (match.host === true && team1Uuid) host = team1Uuid;
+    else if (match.host === false && team2Uuid) host = team2Uuid;
+    else host = team1Uuid ?? null;
+    return { ...match, host };
+  });
+
+export type SamsProjectionMatchInput = z.infer<typeof samsProjectionMatchSchema>;
+
+/** Club schedule projection — rolling match window for one club/season. */
+export const samsClubScheduleProjectionSchema = z.object({
+  sportsclubUuid: z.string().min(1),
+  seasonUuid: z.string().min(1),
+  seasonName: z.string().optional(),
+  type: z.literal("schedule").default("schedule"),
+  matches: z.array(samsProjectionMatchSchema).default([]),
+  snapshotVersion: z.string().min(1),
+  projectedAt: z.iso.datetime().optional(),
+  cachedAt: z.iso.datetime().optional(),
+  isStale: z.boolean().optional(),
+  updatedAt: z.iso.datetime(),
+  ttl: z.number().int().positive(),
+});
+
+export type SamsClubScheduleProjectionInput = z.infer<typeof samsClubScheduleProjectionSchema>;
+
+/** League ranking projection row (RankingResponse teams entry shape). */
+export const samsProjectionRankingEntrySchema = z.object({
+  uuid: z.string(),
+  teamName: z.string(),
+  rank: z.number().optional(),
+  sportsclubUuid: z.string().min(1).optional(),
+  logoUrl: z.string().optional(),
+  matchesPlayed: z.number().nullish(),
+  points: z.number().nullish(),
+  wins: z.number().nullish(),
+  setWins: z.number().nullish(),
+  setLosses: z.number().nullish(),
+});
+
+export type SamsProjectionRankingEntryInput = z.infer<typeof samsProjectionRankingEntrySchema>;
+
+/** League ranking projection for one league/season. */
+export const samsLeagueRankingProjectionSchema = z.object({
+  leagueUuid: z.string().min(1),
+  seasonUuid: z.string().min(1),
+  seasonName: z.string().optional(),
+  leagueName: z.string().optional(),
+  type: z.literal("ranking").default("ranking"),
+  teams: z.array(samsProjectionRankingEntrySchema).default([]),
+  snapshotVersion: z.string().min(1),
+  cachedAt: z.iso.datetime().optional(),
+  isStale: z.boolean().optional(),
+  updatedAt: z.iso.datetime(),
+  ttl: z.number().int().positive(),
+});
+
+export type SamsLeagueRankingProjectionInput = z.infer<typeof samsLeagueRankingProjectionSchema>;
+
+/** Optional ops metadata from provider sync.completed events. */
+export const samsOpsMetadataSchema = z.object({
+  scope: z.string().min(1),
+  type: z.literal("ops").default("ops"),
+  occurredAt: z.iso.datetime(),
+  payload: z.record(z.string(), z.unknown()).optional(),
+  updatedAt: z.iso.datetime(),
+  ttl: z.number().int().positive().optional(),
+});
+
+export type SamsOpsMetadataInput = z.infer<typeof samsOpsMetadataSchema>;
 
 // ---------------------------------------------------------------------------
 // Volunteer Event Planner schemas
