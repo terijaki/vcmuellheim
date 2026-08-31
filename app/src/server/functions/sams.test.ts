@@ -7,7 +7,6 @@ import {
   handleGetSamsRankingByLeagueUuid,
   handlePeekSamsMatchesCache,
   handleServeClubLogo,
-  resolveClubLogoUrl,
 } from "./sams.server";
 
 vi.mock("@/lib/sams/repositories", () => ({
@@ -18,8 +17,6 @@ vi.mock("@webapp/server/queries", () => ({
   getAllSamsClubs: vi.fn(),
   getAllSamsTeams: vi.fn(),
   getSamsClubBySportsclubUuid: vi.fn(),
-  getSamsClubByNameSlug: vi.fn(),
-  getSamsClubByNameSlugPrefix: vi.fn(),
   getSamsRosterByTeamUuid: vi.fn(),
 }));
 
@@ -160,21 +157,6 @@ describe("projection reads", () => {
   });
 });
 
-describe("resolveClubLogoUrl", () => {
-  it("returns the same-origin logo proxy when the club has a logo and uuid", () => {
-    expect(
-      resolveClubLogoUrl({
-        sportsclubUuid: "club-1",
-        logoImageLink: "https://cdn.example.com/x.png",
-      }),
-    ).toBe("/api/sams/logos?clubUuid=club-1");
-  });
-
-  it("returns null without a provider logo", () => {
-    expect(resolveClubLogoUrl({ sportsclubUuid: "club-1", logoImageLink: null })).toBeNull();
-  });
-});
-
 describe("handleServeClubLogo", () => {
   afterEach(() => {
     vi.unstubAllGlobals();
@@ -190,7 +172,7 @@ describe("handleServeClubLogo", () => {
       updatedAt: "2026-01-01T00:00:00.000Z",
     });
 
-    const response = await handleServeClubLogo({ clubUuid: "club-1" });
+    const response = await handleServeClubLogo("club-1");
     expect(response.status).toBe(200);
     expect(response.headers.get("Content-Type")).toBe("image/svg+xml;charset=utf-8");
     expect(await response.text()).toBe(svg);
@@ -214,7 +196,7 @@ describe("handleServeClubLogo", () => {
       ),
     );
 
-    const response = await handleServeClubLogo({ clubUuid: "club-1" });
+    const response = await handleServeClubLogo("club-1");
     expect(response.status).toBe(200);
     expect(response.headers.get("Content-Type")).toBe("image/png");
     expect(Buffer.from(await response.arrayBuffer()).toString()).toBe("png-bytes");
@@ -227,7 +209,7 @@ describe("handleServeClubLogo", () => {
       sportsclubUuid: "club-1",
       updatedAt: "2026-01-01T00:00:00.000Z",
     });
-    const response = await handleServeClubLogo({ clubUuid: "club-1" });
+    const response = await handleServeClubLogo("club-1");
     expect(response.status).toBe(404);
   });
 });

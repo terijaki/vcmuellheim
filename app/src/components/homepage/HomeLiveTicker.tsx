@@ -18,41 +18,38 @@ export default function HomeLiveTicker({ matches }: HomeLiveTickerProps) {
   );
 }
 
+function MatchClubLogo({
+  clubUuid,
+  label,
+  size,
+}: {
+  clubUuid?: string;
+  label: string;
+  size: number;
+}) {
+  return clubUuid ? (
+    <ClubLogo clubUuid={clubUuid} label={label} size={size} />
+  ) : (
+    <ClubLogo logoUrl={null} label={label} size={size} />
+  );
+}
+
 function LiveMatchCard({ match }: { match: LiveTickerDisplayMatch }) {
   const activeSet = match.activeSetNumber
     ? match.setScores.find((setScore) => setScore.setNumber === match.activeSetNumber)
     : undefined;
 
-  const team1Logo = match.team1ClubUuid ? (
-    <ClubLogo clubUuid={match.team1ClubUuid} label={match.team1Name} size={104} />
-  ) : match.team1ClubSlug ? (
-    <ClubLogo clubSlug={match.team1ClubSlug} label={match.team1Name} size={104} />
-  ) : (
-    <ClubLogo logoUrl={null} label={match.team1Name} size={104} />
+  const team1Logo = (
+    <MatchClubLogo clubUuid={match.team1ClubUuid} label={match.team1Name} size={104} />
   );
-
-  const team2Logo = match.team2ClubUuid ? (
-    <ClubLogo clubUuid={match.team2ClubUuid} label={match.team2Name} size={104} />
-  ) : match.team2ClubSlug ? (
-    <ClubLogo clubSlug={match.team2ClubSlug} label={match.team2Name} size={104} />
-  ) : (
-    <ClubLogo logoUrl={null} label={match.team2Name} size={104} />
+  const team2Logo = (
+    <MatchClubLogo clubUuid={match.team2ClubUuid} label={match.team2Name} size={104} />
   );
-
-  const team1LogoMobile = match.team1ClubUuid ? (
-    <ClubLogo clubUuid={match.team1ClubUuid} label={match.team1Name} size={72} />
-  ) : match.team1ClubSlug ? (
-    <ClubLogo clubSlug={match.team1ClubSlug} label={match.team1Name} size={72} />
-  ) : (
-    <ClubLogo logoUrl={null} label={match.team1Name} size={72} />
+  const team1LogoMobile = (
+    <MatchClubLogo clubUuid={match.team1ClubUuid} label={match.team1Name} size={72} />
   );
-
-  const team2LogoMobile = match.team2ClubUuid ? (
-    <ClubLogo clubUuid={match.team2ClubUuid} label={match.team2Name} size={72} />
-  ) : match.team2ClubSlug ? (
-    <ClubLogo clubSlug={match.team2ClubSlug} label={match.team2Name} size={72} />
-  ) : (
-    <ClubLogo logoUrl={null} label={match.team2Name} size={72} />
+  const team2LogoMobile = (
+    <MatchClubLogo clubUuid={match.team2ClubUuid} label={match.team2Name} size={72} />
   );
 
   return (

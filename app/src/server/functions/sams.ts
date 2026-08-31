@@ -9,8 +9,6 @@ import { createServerFn } from "@tanstack/react-start";
 import { samsMatchesInputSchema } from "@utils/sams-matches";
 import { z } from "zod";
 import {
-  handleGetClubLogoUrl,
-  handleGetClubLogoUrlsBatch,
   handleGetSamsMatches,
   handleGetSamsProjectionFreshness,
   handleGetSamsRankingByLeagueUuid,
@@ -26,11 +24,6 @@ import {
 
 export type { SamsMatchesInput } from "@utils/sams-matches";
 export type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
-
-const clubLogoInputSchema = z.union([
-  z.object({ clubUuid: z.string().min(1), clubSlug: z.undefined().optional() }),
-  z.object({ clubSlug: z.string().min(1), clubUuid: z.undefined().optional() }),
-]);
 
 export const getSamsMatchesFn = createServerFn()
   .validator(samsMatchesInputSchema)
@@ -67,13 +60,5 @@ export const listSamsTeamsFn = createServerFn().handler(async () => handleListSa
 export const getSamsRosterByTeamUuidFn = createServerFn()
   .validator(z.string().min(1))
   .handler(async ({ data: teamUuid }) => handleGetSamsRosterByTeamUuid(teamUuid));
-
-export const getClubLogoUrlFn = createServerFn()
-  .validator(clubLogoInputSchema)
-  .handler(async ({ data }) => handleGetClubLogoUrl(data));
-
-export const getClubLogoUrlsBatchFn = createServerFn()
-  .validator(z.object({ clubSlugs: z.array(z.string().min(1)) }))
-  .handler(async ({ data }) => handleGetClubLogoUrlsBatch(data.clubSlugs));
 
 export const getSamsTickerFn = createServerFn().handler(async () => handleGetSamsTicker());

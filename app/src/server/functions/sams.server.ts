@@ -33,8 +33,6 @@ import {
 import {
   getAllSamsClubs,
   getAllSamsTeams,
-  getSamsClubByNameSlug,
-  getSamsClubByNameSlugPrefix,
   getSamsClubBySportsclubUuid,
   getSamsRosterByTeamUuid,
 } from "../queries";
@@ -282,7 +280,7 @@ function withProxiedClubLogoUrl<T extends { sportsclubUuid?: string; logoUrl?: s
   team: T,
 ): T {
   if (!team.sportsclubUuid) return team;
-  return { ...team, logoUrl: clubLogoProxyUrl({ clubUuid: team.sportsclubUuid }) };
+  return { ...team, logoUrl: clubLogoProxyUrl(team.sportsclubUuid) };
 }
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
@@ -442,29 +440,6 @@ export async function handleGetSamsRosterByTeamUuid(teamUuid: string) {
   return getSamsRosterByTeamUuid(teamUuid);
 }
 
-type ClubLogoInput =
-  | { clubUuid: string; clubSlug?: undefined }
-  | { clubSlug: string; clubUuid?: undefined };
-
-export async function handleGetClubLogoUrl(data: ClubLogoInput) {
-  const club = data.clubUuid
-    ? await getSamsClubBySportsclubUuid(data.clubUuid)
-    : data.clubSlug
-      ? await getSamsClubByNameSlug(data.clubSlug)
-      : null;
-  return resolveClubLogoUrl(club);
-}
-
-/** Pure helper — resolves a club's effective logo URL from a club record.
- * Exported for unit testing. */
-export function resolveClubLogoUrl(
-  club: { sportsclubUuid?: string; logoImageLink?: string | null } | null,
-): string | null {
-  if (!club?.logoImageLink) return null;
-  if (club.sportsclubUuid) return clubLogoProxyUrl({ clubUuid: club.sportsclubUuid });
-  return club.logoImageLink;
-}
-
 const CLUB_LOGO_MAX_BYTES = 512 * 1024;
 const CLUB_LOGO_CACHE_CONTROL = "public, max-age=86400, s-maxage=86400";
 const CLUB_LOGO_ERROR_CACHE_CONTROL = "public, max-age=60";
@@ -506,13 +481,8 @@ function responseFromDataUri(uri: string): Response {
   });
 }
 
-export async function handleServeClubLogo(data: ClubLogoInput): Promise<Response> {
-  const club = data.clubUuid
-    ? await getSamsClubBySportsclubUuid(data.clubUuid)
-    : data.clubSlug
-      ? ((await getSamsClubByNameSlug(data.clubSlug)) ??
-        (await getSamsClubByNameSlugPrefix(data.clubSlug)))
-      : null;
+export async function handleServeClubLogo(clubUuid: string): Promise<Response> {
+  const club = await getSamsClubBySportsclubUuid(clubUuid);
   const source = club?.logoImageLink;
   if (!source) return logoErrorResponse(404, "Not found");
   if (source.startsWith("data:")) return responseFromDataUri(source);
@@ -686,15 +656,6 @@ export async function handleGetSamsTicker() {
   return result.data;
 }
 
-export async function handleGetClubLogoUrlsBatch(clubSlugs: string[]) {
-  const entries = await Promise.all(
-    clubSlugs.map(async (slug) => {
-      const club = (await getSamsClubByNameSlug(slug)) ?? (await getSamsClubByNameSlugPrefix(slug));
-      return [slug, resolveClubLogoUrl(club)] as const;
-    }),
-  );
-  return Object.fromEntries(entries) as Record<string, string | null>;
-}
 export async function resolveSamsMatchesEffectiveInput(
   data?: SamsMatchesInput,
 ): Promise<SamsMatchesInput | null> {

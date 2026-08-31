@@ -16,8 +16,6 @@ import { listMembersFn } from "../server/functions/members";
 // Server functions
 import { getGalleryImagesFn, getNewsByIdFn, getPublishedNewsFn } from "../server/functions/news";
 import {
-  getClubLogoUrlFn,
-  getClubLogoUrlsBatchFn,
   getSamsMatchesFn,
   getSamsRankingByLeagueUuidFn,
   getSamsRosterByTeamUuidFn,
@@ -182,33 +180,6 @@ export const useSamsRoster = (teamUuid?: string) => {
     queryKey: ["samsRoster", teamUuid],
     queryFn: () => getSamsRosterByTeamUuidFn({ data: teamUuid as string }),
     enabled: !!teamUuid,
-  });
-};
-
-export const useClubLogoUrl = ({
-  clubUuid,
-  clubSlug,
-}: {
-  clubUuid?: string;
-  clubSlug?: string;
-}) => {
-  const identifier = clubUuid || clubSlug;
-  return useQuery({
-    queryKey: ["clubLogoUrl", clubUuid ?? clubSlug],
-    queryFn: () => {
-      if (clubUuid) return getClubLogoUrlFn({ data: { clubUuid } });
-      if (clubSlug) return getClubLogoUrlFn({ data: { clubSlug } });
-      throw new Error("Either clubUuid or clubSlug is required");
-    },
-    enabled: !!identifier,
-  });
-};
-
-export const useClubLogoUrlsBatch = (clubSlugs: string[]) => {
-  return useQuery({
-    queryKey: ["clubLogoUrls", clubSlugs],
-    queryFn: () => getClubLogoUrlsBatchFn({ data: { clubSlugs } }),
-    enabled: clubSlugs.length > 0,
   });
 };
 

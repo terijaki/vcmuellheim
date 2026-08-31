@@ -1,11 +1,10 @@
 import { Flex, Image } from "@mantine/core";
 import { FaVolleyball as Ball } from "react-icons/fa6";
-import { useClubLogoUrl } from "../hooks/dataQueries";
+import { clubLogoProxyUrl } from "@webapp/utils/club-logo";
 
 type ClubLogoProps = (
-  | { clubUuid: string; clubSlug?: never; logoUrl?: never }
-  | { clubSlug: string; clubUuid?: never; logoUrl?: never }
-  | { logoUrl: string | null | undefined; clubUuid?: never; clubSlug?: never }
+  | { clubUuid: string; logoUrl?: never }
+  | { logoUrl: string | null | undefined; clubUuid?: never }
 ) & {
   label?: string;
   light?: boolean;
@@ -14,15 +13,12 @@ type ClubLogoProps = (
 
 export default function ClubLogo({
   clubUuid,
-  clubSlug,
   logoUrl: proppedLogoUrl,
   label,
   light,
   size = 24,
 }: ClubLogoProps) {
-  const useHook = !!(clubUuid || clubSlug);
-  const { data: fetchedLogoUrl } = useClubLogoUrl({ clubUuid, clubSlug });
-  const logoUrl = useHook ? fetchedLogoUrl : proppedLogoUrl;
+  const logoUrl = clubUuid ? clubLogoProxyUrl(clubUuid) : proppedLogoUrl;
 
   if (!logoUrl) {
     return <ClubLogoFallback size={size} />;

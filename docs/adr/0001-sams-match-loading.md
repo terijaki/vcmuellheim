@@ -98,5 +98,6 @@ Missing rankings return an empty settled payload (`teams: []`), not an error.
   `seasonUuid` and the provider has not published a new club-season schedule.
 - Rankings and matches are only as fresh as the last processed provider event.
 - Club logos are stored as the provider `logoUrl` (`logoImageLink`) and served
-  through the same-origin `/api/sams/logos` proxy (CloudFront-cached). They are
-  not copied to S3.
+  through the same-origin `/api/sams/logos?clubUuid=` proxy (CloudFront-cached).
+  Rankings expose `sportsclubUuid` and a rewritten same-origin `logoUrl`; there
+  is no team-name→club-slug lookup. Logos are not copied to S3.

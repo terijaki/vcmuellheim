@@ -203,7 +203,7 @@ export class WebAppStack extends cdk.Stack {
 
     // SSR/API: no cache by default — let the app set Cache-Control headers.
     // Club logos are a dedicated behavior so prod (CACHING_DISABLED default)
-    // still caches /api/sams/logos?clubSlug=X separately from clubSlug=Y.
+    // still caches /api/sams/logos?clubUuid=X separately from clubUuid=Y.
     const ssrCachePolicy = isProd
       ? cloudfront.CachePolicy.CACHING_DISABLED
       : new cloudfront.CachePolicy(this, "SsrCachePolicy", {
@@ -220,8 +220,8 @@ export class WebAppStack extends cdk.Stack {
       defaultTtl: cdk.Duration.days(1),
       minTtl: cdk.Duration.seconds(0),
       maxTtl: cdk.Duration.days(7),
-      comment: "Cache /api/sams/logos per clubUuid/clubSlug query string",
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList("clubUuid", "clubSlug"),
+      comment: "Cache /api/sams/logos per clubUuid query string",
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList("clubUuid"),
     });
 
     // ── CloudFront distribution ────────────────────────────────────────────

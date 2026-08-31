@@ -172,14 +172,14 @@ describe("WebAppStack", () => {
 
     template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
       CachePolicyConfig: {
-        Comment: "Cache /api/sams/logos per clubUuid/clubSlug query string",
+        Comment: "Cache /api/sams/logos per clubUuid query string",
         DefaultTTL: 86400,
         MinTTL: 0,
         MaxTTL: 604800,
         ParametersInCacheKeyAndForwardedToOrigin: {
           QueryStringsConfig: {
             QueryStringBehavior: "whitelist",
-            QueryStrings: ["clubUuid", "clubSlug"],
+            QueryStrings: ["clubUuid"],
           },
         },
       },
