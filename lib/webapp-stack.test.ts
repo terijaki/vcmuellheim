@@ -116,7 +116,7 @@ describe("WebAppStack", () => {
     template.resourceCountIs("AWS::Lambda::Url", 1);
     template.resourceCountIs("AWS::CloudFront::Distribution", 1);
     template.resourceCountIs("AWS::CloudFront::OriginAccessControl", 1);
-    template.resourceCountIs("AWS::CloudFront::CachePolicy", 2);
+    template.resourceCountIs("AWS::CloudFront::CachePolicy", 3);
     template.resourceCountIs("AWS::S3::Bucket", 1);
   });
 
@@ -170,6 +170,21 @@ describe("WebAppStack", () => {
       },
     });
 
+    template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
+      CachePolicyConfig: {
+        Comment: "Cache /api/sams/logos per clubUuid/clubSlug query string",
+        DefaultTTL: 86400,
+        MinTTL: 0,
+        MaxTTL: 604800,
+        ParametersInCacheKeyAndForwardedToOrigin: {
+          QueryStringsConfig: {
+            QueryStringBehavior: "whitelist",
+            QueryStrings: ["clubUuid", "clubSlug"],
+          },
+        },
+      },
+    });
+
     template.hasResourceProperties("AWS::CloudFront::Distribution", {
       DistributionConfig: {
         DefaultCacheBehavior: {
@@ -180,6 +195,7 @@ describe("WebAppStack", () => {
         CacheBehaviors: Match.arrayWith([
           Match.objectLike({ PathPattern: "/assets/*" }),
           Match.objectLike({ PathPattern: "/_build/*" }),
+          Match.objectLike({ PathPattern: "/api/sams/logos" }),
           Match.objectLike({ PathPattern: "/docs/*" }),
         ]),
         PriceClass: "PriceClass_100",

@@ -15,6 +15,7 @@ const RankingEntryResponseSchema = samsProjectionRankingEntrySchema.pick({
   uuid: true,
   teamName: true,
   rank: true,
+  sportsclubUuid: true,
   logoUrl: true,
   matchesPlayed: true,
   points: true,

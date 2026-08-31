@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { samsRankingQuery, useClubLogoUrlsBatch } from "@webapp/hooks/dataQueries";
+import { clubLogoProxyUrl } from "@webapp/utils/club-logo";
 import dayjs from "dayjs";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { Team } from "@/lib/db/types";
@@ -142,7 +143,11 @@ export default function RankingTable(props: RankingTable) {
                 teamLink={teamLink}
                 clubLogo={
                   <ClubLogo
-                    logoUrl={team.logoUrl ?? logoUrlMap?.[clubSlug]}
+                    logoUrl={
+                      team.sportsclubUuid
+                        ? clubLogoProxyUrl({ clubUuid: team.sportsclubUuid })
+                        : (team.logoUrl ?? logoUrlMap?.[clubSlug])
+                    }
                     label={team.teamName ?? undefined}
                     light={shouldHighlight}
                   />

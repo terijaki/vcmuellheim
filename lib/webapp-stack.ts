@@ -7,6 +7,7 @@
  * - Lambda Function URL (streaming) ← Nitro server handler (.output/server/index.mjs)
  * - CloudFront distribution
  *   · Default behavior → Lambda Function URL (all requests: SSR + API routes)
+ *   · /api/sams/logos → Lambda Function URL (cached per club query string)
  *   · /assets/* behavior → S3 static assets origin (immutable, long TTL)
  *   · /docs/* behavior → S3 static assets origin (downloadable documents)
  * - S3 bucket for static assets (.output/public/)
@@ -200,9 +201,9 @@ export class WebAppStack extends cdk.Stack {
       comment: "Long-lived cache for hashed static assets",
     });
 
-    // SSR/API: no cache by default — let the app set Cache-Control headers
-    // Query strings must be in the cache key so /api/sams/logos?clubSlug=X
-    // is cached separately from /api/sams/logos?clubSlug=Y.
+    // SSR/API: no cache by default — let the app set Cache-Control headers.
+    // Club logos are a dedicated behavior so prod (CACHING_DISABLED default)
+    // still caches /api/sams/logos?clubSlug=X separately from clubSlug=Y.
     const ssrCachePolicy = isProd
       ? cloudfront.CachePolicy.CACHING_DISABLED
       : new cloudfront.CachePolicy(this, "SsrCachePolicy", {
@@ -213,6 +214,15 @@ export class WebAppStack extends cdk.Stack {
           comment: "Dev: passthrough (no cache) for SSR + API",
           queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
         });
+
+    const clubLogosCachePolicy = new cloudfront.CachePolicy(this, "ClubLogosCachePolicy", {
+      cachePolicyName: `vcm-webapp-club-logos-${environment}${branchSuffix}`,
+      defaultTtl: cdk.Duration.days(1),
+      minTtl: cdk.Duration.seconds(0),
+      maxTtl: cdk.Duration.days(7),
+      comment: "Cache /api/sams/logos per clubUuid/clubSlug query string",
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList("clubUuid", "clubSlug"),
+    });
 
     // ── CloudFront distribution ────────────────────────────────────────────
     const lambdaOrigin = new origins.FunctionUrlOrigin(fnUrl);
@@ -245,6 +255,17 @@ export class WebAppStack extends cdk.Stack {
           allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
           cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
           cachePolicy: staticAssetsCachePolicy,
+          compress: true,
+        },
+        // Same-origin club logo proxy (provider URLs are not used as <img src>)
+        "/api/sams/logos": {
+          origin: lambdaOrigin,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+          cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+          cachePolicy: clubLogosCachePolicy,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+          responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
           compress: true,
         },
         // Downloadable documents (PDFs, spreadsheets, etc.)

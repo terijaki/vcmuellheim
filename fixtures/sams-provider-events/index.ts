@@ -25,6 +25,7 @@ export {
   SEED_VCM_TEAMS,
   type SeedTargetClub,
 } from "./ids";
+export { clubLogoDataUri } from "./club-logo";
 export { picsumImageUrl } from "./picsum";
 
 export const samsProviderEventFixtures = buildTestSamsProviderFixtures();

@@ -11,6 +11,7 @@ import {
   SEED_TARGET_CLUBS,
   type SeedTargetClub,
 } from "./ids";
+import { clubLogoDataUri } from "./club-logo";
 import { picsumImageUrl } from "./picsum";
 
 export type SamsProviderFixture = {
@@ -63,30 +64,12 @@ function clubProjection(club: SeedTargetClub | (typeof SEED_OPPONENT_CLUBS)[numb
     slug: club.slug,
     associationUuid: SEED_TARGET_CLUBS[0].associationUuid,
     associationName: SEED_TARGET_CLUBS[0].associationName,
-    logoUrl: picsumImageUrl(club.picsumSeed, 128, 128),
+    logoUrl: clubLogoDataUri(club),
   };
 }
 
 function leagueOpponentOffset(leagueUuid: string, variationSeed: string): number {
   return hashVariationSeed(`${variationSeed}:${leagueUuid}`) % SEED_OPPONENT_CLUBS.length;
-}
-
-function targetTeamDisplayName(
-  club: SeedTargetClub,
-  team: SeedTeam,
-  variationSeed: string,
-): string {
-  const style = hashVariationSeed(`${variationSeed}:name:${club.uuid}:${team.uuid}`) % 4;
-  switch (style) {
-    case 0:
-      return team.name;
-    case 1:
-      return `${club.name.split(" ").at(-1)} ${team.leagueName}`;
-    case 2:
-      return `${team.leagueName} — ${club.name}`;
-    default:
-      return `${club.name} ${team.slug.replace(/-/g, " ")}`;
-  }
 }
 
 function pickOpponentClub(leagueUuid: string, opponentIndex: number, variationSeed: string) {
@@ -144,9 +127,9 @@ function buildOpponentRankingEntries(
       entries.push({
         rank,
         teamUuid: team.uuid,
-        teamName: targetTeamDisplayName(club, team, variationSeed),
+        teamName: team.name,
         sportsclubUuid: club.uuid,
-        logoUrl: picsumImageUrl(club.picsumSeed, 128, 128),
+        logoUrl: clubLogoDataUri(club),
         ...stats,
       });
       continue;
@@ -165,7 +148,7 @@ function buildOpponentRankingEntries(
       teamUuid,
       teamName: opponentTeamDisplayName(opponentClub, opponentIndex + leagueIndex * 2),
       sportsclubUuid: opponentClub.uuid,
-      logoUrl: picsumImageUrl(opponentClub.picsumSeed, 128, 128),
+      logoUrl: clubLogoDataUri(opponentClub),
       ...stats,
     });
     opponentIndex++;
@@ -182,7 +165,7 @@ function buildMatchesForTeam(
   variationSeed: string,
 ) {
   const matches: Array<Record<string, unknown>> = [];
-  const displayName = targetTeamDisplayName(club, team, variationSeed);
+  const displayName = team.name;
 
   for (let index = 1; index <= 4; index++) {
     const opponentClub = pickOpponentClub(team.leagueUuid, index - 1, variationSeed);
@@ -209,7 +192,7 @@ function buildMatchesForTeam(
         : { uuid: team.uuid, name: displayName, sportsclubUuid: club.uuid },
       location: {
         uuid: `location-${team.leagueUuid}-${index % 3}`,
-        name: `${opponentClub.name.split(" ")[0]} Halle ${(index % 3) + 1}`,
+        name: `${opponentClub.shortName} Halle ${(index % 3) + 1}`,
       },
       hasResult: true,
       result: {
@@ -316,7 +299,7 @@ export function buildSamsProviderSeedFixtures(
         season: { ...SEED_SEASON, current: true },
         teams: activeTeams.map((team) => ({
           uuid: team.uuid,
-          name: targetTeamDisplayName(club, team, options.variationSeed),
+          name: team.name,
           slug: team.slug,
           leagueUuid: team.leagueUuid,
           leagueName: team.leagueName,

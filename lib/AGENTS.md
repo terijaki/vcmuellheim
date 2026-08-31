@@ -38,7 +38,7 @@ This file provides instructions specific to the `lib/` directory, which contains
 ## Integration points / external services
 
 - **AWS:** CDK stacks create Lambdas, DynamoDB tables, S3 buckets, and Cognito resources. Use the `vcm-dev` profile for dev and `vcm-prod` for prod.
-- **SAMS:** Consume `sams-provider` events via SQS (`sams-provider-events` package). Persist and serve DynamoDB projections only — do not call the SAMS REST API or depend on `sams-rest-v2`. Club logos use the provider `logoUrl` as `logoImageLink` (no S3 re-upload). Live ticker stays on `backend.sams-ticker.de`.
+- **SAMS:** Consume `sams-provider` events via SQS (`sams-provider-events` package). Persist and serve DynamoDB projections only — do not call the SAMS REST API or depend on `sams-rest-v2`. Club logos use the provider `logoUrl` as `logoImageLink` (no S3 re-upload) and are served via the same-origin `/api/sams/logos` CloudFront cache. Live ticker stays on `backend.sams-ticker.de`.
 - **Background/schedulers:** EventBridge rules are defined in CDK constructs.
 
 ## DB conventions

@@ -97,4 +97,6 @@ Missing rankings return an empty settled payload (`teams: []`), not an error.
 - Match data may be empty early in a new season if projected teams still reference the old
   `seasonUuid` and the provider has not published a new club-season schedule.
 - Rankings and matches are only as fresh as the last processed provider event.
-- Club logos are the provider `logoUrl` (`logoImageLink`); they are not copied to S3.
+- Club logos are stored as the provider `logoUrl` (`logoImageLink`) and served
+  through the same-origin `/api/sams/logos` proxy (CloudFront-cached). They are
+  not copied to S3.

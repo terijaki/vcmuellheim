@@ -40,6 +40,7 @@ import {
 } from "../queries";
 import { parseServerData } from "../schema-parse";
 import { buildSamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
+import { clubLogoProxyUrl } from "@webapp/utils/club-logo";
 
 const TICKER_FETCH_TIMEOUT_MS = SAMS_API_TIMEOUT_MS;
 
@@ -277,6 +278,13 @@ async function buildMatchesResponse(
   );
 }
 
+function withProxiedClubLogoUrl<T extends { sportsclubUuid?: string; logoUrl?: string }>(
+  team: T,
+): T {
+  if (!team.sportsclubUuid) return team;
+  return { ...team, logoUrl: clubLogoProxyUrl({ clubUuid: team.sportsclubUuid }) };
+}
+
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
   const seasonUuid = await resolveSyncedSeasonUuid();
   if (!seasonUuid) {
@@ -291,7 +299,7 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
   return parseServerData(
     RankingResponseSchema,
     {
-      teams: projection.teams,
+      teams: projection.teams.map(withProxiedClubLogoUrl),
       timestamp: projection.updatedAt,
       leagueUuid,
       leagueName: projection.leagueName,
@@ -321,7 +329,7 @@ async function peekRankingProjectionForSeason(
   return parseServerData(
     RankingResponseSchema,
     {
-      teams: projection.teams,
+      teams: projection.teams.map(withProxiedClubLogoUrl),
       timestamp: projection.updatedAt,
       leagueUuid,
       leagueName: projection.leagueName,
@@ -449,9 +457,89 @@ export async function handleGetClubLogoUrl(data: ClubLogoInput) {
 
 /** Pure helper — resolves a club's effective logo URL from a club record.
  * Exported for unit testing. */
-export function resolveClubLogoUrl(club: { logoImageLink?: string | null } | null): string | null {
-  if (!club) return null;
-  return club.logoImageLink ?? null;
+export function resolveClubLogoUrl(
+  club: { sportsclubUuid?: string; logoImageLink?: string | null } | null,
+): string | null {
+  if (!club?.logoImageLink) return null;
+  if (club.sportsclubUuid) return clubLogoProxyUrl({ clubUuid: club.sportsclubUuid });
+  return club.logoImageLink;
+}
+
+const CLUB_LOGO_MAX_BYTES = 512 * 1024;
+const CLUB_LOGO_CACHE_CONTROL = "public, max-age=86400, s-maxage=86400";
+const CLUB_LOGO_ERROR_CACHE_CONTROL = "public, max-age=60";
+
+function logoErrorResponse(status: number, message: string): Response {
+  return new Response(message, {
+    status,
+    headers: { "Content-Type": "text/plain", "Cache-Control": CLUB_LOGO_ERROR_CACHE_CONTROL },
+  });
+}
+
+function isImageContentType(value: string): boolean {
+  const mime = value.split(";")[0]?.trim().toLowerCase() ?? "";
+  return mime.startsWith("image/") || mime === "application/octet-stream";
+}
+
+function responseFromDataUri(uri: string): Response {
+  if (!uri.startsWith("data:")) return logoErrorResponse(404, "Invalid logo");
+  const comma = uri.indexOf(",");
+  if (comma < 0) return logoErrorResponse(404, "Invalid logo");
+  const header = uri.slice("data:".length, comma);
+  const data = uri.slice(comma + 1);
+  const [mime, ...params] = header.split(";");
+  const isBase64 = params.some((param) => param === "base64");
+  const charset = params.find((param) => param.startsWith("charset="));
+  const body = isBase64
+    ? Buffer.from(data, "base64")
+    : Buffer.from(decodeURIComponent(data), "utf8");
+  if (body.byteLength > CLUB_LOGO_MAX_BYTES) return logoErrorResponse(502, "Logo too large");
+  const contentType = charset
+    ? `${mime || "application/octet-stream"};${charset}`
+    : mime || "application/octet-stream";
+  return new Response(body, {
+    status: 200,
+    headers: {
+      "Content-Type": contentType,
+      "Cache-Control": CLUB_LOGO_CACHE_CONTROL,
+    },
+  });
+}
+
+export async function handleServeClubLogo(data: ClubLogoInput): Promise<Response> {
+  const club = data.clubUuid
+    ? await getSamsClubBySportsclubUuid(data.clubUuid)
+    : data.clubSlug
+      ? ((await getSamsClubByNameSlug(data.clubSlug)) ??
+        (await getSamsClubByNameSlugPrefix(data.clubSlug)))
+      : null;
+  const source = club?.logoImageLink;
+  if (!source) return logoErrorResponse(404, "Not found");
+  if (source.startsWith("data:")) return responseFromDataUri(source);
+  if (!source.startsWith("https://")) return logoErrorResponse(404, "Unsupported logo URL");
+
+  try {
+    const upstream = await fetch(source, {
+      redirect: "follow",
+      signal: AbortSignal.timeout(10_000),
+      headers: { Accept: "image/*,*/*;q=0.8" },
+    });
+    if (!upstream.ok) return logoErrorResponse(502, "Logo fetch failed");
+    const contentType = upstream.headers.get("content-type") ?? "application/octet-stream";
+    if (!isImageContentType(contentType)) return logoErrorResponse(502, "Logo fetch failed");
+    const body = Buffer.from(await upstream.arrayBuffer());
+    if (body.byteLength > CLUB_LOGO_MAX_BYTES) return logoErrorResponse(502, "Logo too large");
+    const mime = contentType.split(";")[0]?.trim() || "application/octet-stream";
+    return new Response(body, {
+      status: 200,
+      headers: {
+        "Content-Type": mime,
+        "Cache-Control": CLUB_LOGO_CACHE_CONTROL,
+      },
+    });
+  } catch {
+    return logoErrorResponse(502, "Logo fetch failed");
+  }
 }
 
 // ── SAMS Live Ticker proxy ────────────────────────────────────────────────────

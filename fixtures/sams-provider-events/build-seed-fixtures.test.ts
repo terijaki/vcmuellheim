@@ -5,8 +5,10 @@ import {
   buildSamsProviderSeedFixtures,
   buildTestSamsProviderFixtures,
   SEED_MGV_CLUB,
+  SEED_MGV_TEAMS,
   SEED_TARGET_CLUBS,
   SEED_VCM_CLUB,
+  SEED_VCM_TEAMS,
 } from "./index";
 
 describe("sams-provider-events fixtures", () => {
@@ -71,5 +73,79 @@ describe("sams-provider-events fixtures", () => {
 
     expect(clubUuids).toContain(SEED_VCM_CLUB.uuid);
     expect(clubUuids).toContain(SEED_MGV_CLUB.uuid);
+  });
+
+  it("uses canonical short club name plus optional team number, not variation-dependent labels", () => {
+    const allowedNames = [...SEED_VCM_TEAMS, ...SEED_MGV_TEAMS].map((team) => team.name);
+    for (const variationSeed of ["seed-a", "seed-b"]) {
+      const fixtures = buildSamsProviderSeedFixtures({ variationSeed });
+      const teamNames = fixtures
+        .filter((fixture) => fixture.type === SamsEventType.clubSeasonTeamsUpdated)
+        .flatMap((fixture) =>
+          (fixture.payload.teams as Array<{ name: string }>).map((team) => team.name),
+        );
+      expect(teamNames.length).toBeGreaterThan(0);
+      for (const name of teamNames) {
+        expect(allowedNames).toContain(name);
+      }
+    }
+  });
+
+  it("uses short club name plus optional team number 1-4, never league or gender", () => {
+    const fixtures = buildSamsProviderSeedFixtures({ variationSeed: "names-test" });
+    const teamNames: string[] = [];
+    for (const fixture of fixtures) {
+      if (fixture.type === SamsEventType.clubSeasonTeamsUpdated) {
+        for (const team of fixture.payload.teams as Array<{ name: string }>) {
+          teamNames.push(team.name);
+        }
+      }
+      if (fixture.type === SamsEventType.leagueRankingUpdated) {
+        for (const entry of fixture.payload.entries as Array<{ teamName: string }>) {
+          teamNames.push(entry.teamName);
+        }
+      }
+    }
+
+    expect(teamNames.length).toBeGreaterThan(0);
+    for (const name of teamNames) {
+      expect(name).not.toMatch(/Herren|Damen|Mix|U\d+|Landesliga|Verbandsliga|Bezirksliga/i);
+      expect(name).toMatch(/^(?:.+?)(?: [1-4])?$/);
+    }
+  });
+
+  it("uses obvious 90s-cartoon opponent club names", () => {
+    const fixtures = buildSamsProviderSeedFixtures({ variationSeed: "names-test" });
+    const clubNames = fixtures
+      .filter((fixture) => fixture.type === SamsEventType.clubUpdated)
+      .map((fixture) => fixture.payload.name as string);
+
+    expect(clubNames).toEqual(
+      expect.arrayContaining([
+        "Mighty Ducks",
+        "Animaniacs",
+        "Rugrats United",
+        "Dexter Lab",
+        "Pinky & Brain",
+        "Hey Arnold VC",
+        "Gargoyles",
+        "Ninja Turtles",
+        "Team Rocket",
+        "Johnny Bravo",
+      ]),
+    );
+  });
+
+  it("stores SVG data-URI club logos, not picsum photos", () => {
+    const fixtures = buildSamsProviderSeedFixtures({ variationSeed: "logo-test" });
+    const logos = fixtures
+      .filter((fixture) => fixture.type === SamsEventType.clubUpdated)
+      .map((fixture) => fixture.payload.logoUrl as string);
+
+    expect(logos.length).toBeGreaterThan(0);
+    for (const logo of logos) {
+      expect(logo.startsWith("data:image/svg+xml")).toBe(true);
+      expect(logo).not.toContain("picsum.photos");
+    }
   });
 });

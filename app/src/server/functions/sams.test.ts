@@ -1,11 +1,12 @@
 import type { ClubResponse, TeamResponse } from "@/lib/db/schemas";
 import type { LeagueMatch } from "@/lambda/sams/types";
-import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import {
   buildLiveMatchesFromRaw,
   handleGetSamsMatches,
   handleGetSamsRankingByLeagueUuid,
   handlePeekSamsMatchesCache,
+  handleServeClubLogo,
   resolveClubLogoUrl,
 } from "./sams.server";
 
@@ -13,18 +14,30 @@ vi.mock("@/lib/sams/repositories", () => ({
   samsScheduleProjectionRepository: { listMatchesForSportsclubs: vi.fn(), get: vi.fn() },
   samsRankingProjectionRepository: { get: vi.fn() },
 }));
-vi.mock("@webapp/server/queries", () => ({ getAllSamsClubs: vi.fn(), getAllSamsTeams: vi.fn() }));
+vi.mock("@webapp/server/queries", () => ({
+  getAllSamsClubs: vi.fn(),
+  getAllSamsTeams: vi.fn(),
+  getSamsClubBySportsclubUuid: vi.fn(),
+  getSamsClubByNameSlug: vi.fn(),
+  getSamsClubByNameSlugPrefix: vi.fn(),
+  getSamsRosterByTeamUuid: vi.fn(),
+}));
 
 import {
   samsRankingProjectionRepository,
   samsScheduleProjectionRepository,
 } from "@/lib/sams/repositories";
-import { getAllSamsClubs, getAllSamsTeams } from "@webapp/server/queries";
+import {
+  getAllSamsClubs,
+  getAllSamsTeams,
+  getSamsClubBySportsclubUuid,
+} from "@webapp/server/queries";
 
 const mockList = vi.mocked(samsScheduleProjectionRepository.listMatchesForSportsclubs);
 const mockRankingGet = vi.mocked(samsRankingProjectionRepository.get);
 const mockClubs = vi.mocked(getAllSamsClubs);
 const mockTeams = vi.mocked(getAllSamsTeams);
+const mockClubByUuid = vi.mocked(getSamsClubBySportsclubUuid);
 
 const clubs: ClubResponse[] = [
   {
@@ -120,7 +133,7 @@ describe("projection reads", () => {
     expect(mockRankingGet).not.toHaveBeenCalled();
   });
 
-  it("returns ranking rows including provider logoUrl", async () => {
+  it("rewrites ranking logoUrl to the same-origin CloudFront proxy when sportsclubUuid is present", async () => {
     mockRankingGet.mockResolvedValue({
       leagueUuid: "l1",
       seasonUuid: "season-synced",
@@ -132,6 +145,7 @@ describe("projection reads", () => {
           uuid: "t1",
           teamName: "VC",
           rank: 1,
+          sportsclubUuid: "club-1",
           logoUrl: "https://cdn.example.com/logo.png",
         },
       ],
@@ -140,20 +154,81 @@ describe("projection reads", () => {
       ttl: 1,
     });
     const result = await handleGetSamsRankingByLeagueUuid("l1");
-    expect(result.teams?.[0]?.logoUrl).toBe("https://cdn.example.com/logo.png");
+    expect(result.teams?.[0]?.logoUrl).toBe("/api/sams/logos?clubUuid=club-1");
+    expect(result.teams?.[0]?.sportsclubUuid).toBe("club-1");
     expect(result.leagueName).toBe("BL");
   });
 });
 
 describe("resolveClubLogoUrl", () => {
-  it("returns the provider logo URL", () => {
-    expect(resolveClubLogoUrl({ logoImageLink: "https://cdn.example.com/x.png" })).toBe(
-      "https://cdn.example.com/x.png",
-    );
+  it("returns the same-origin logo proxy when the club has a logo and uuid", () => {
+    expect(
+      resolveClubLogoUrl({
+        sportsclubUuid: "club-1",
+        logoImageLink: "https://cdn.example.com/x.png",
+      }),
+    ).toBe("/api/sams/logos?clubUuid=club-1");
   });
 
   it("returns null without a provider logo", () => {
-    expect(resolveClubLogoUrl({ logoImageLink: null })).toBeNull();
+    expect(resolveClubLogoUrl({ sportsclubUuid: "club-1", logoImageLink: null })).toBeNull();
+  });
+});
+
+describe("handleServeClubLogo", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("streams SVG bytes from a data URI stored on the club", async () => {
+    const svg = "<svg xmlns='http://www.w3.org/2000/svg'></svg>";
+    mockClubByUuid.mockResolvedValue({
+      type: "club",
+      name: "Mighty Ducks",
+      sportsclubUuid: "club-1",
+      logoImageLink: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    });
+
+    const response = await handleServeClubLogo({ clubUuid: "club-1" });
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toBe("image/svg+xml;charset=utf-8");
+    expect(await response.text()).toBe(svg);
+  });
+
+  it("proxies https provider logos", async () => {
+    mockClubByUuid.mockResolvedValue({
+      type: "club",
+      name: "VC Müllheim",
+      sportsclubUuid: "club-1",
+      logoImageLink: "https://cdn.example.com/logo.png",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    });
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        new Response(Buffer.from("png-bytes"), {
+          status: 200,
+          headers: { "Content-Type": "image/png" },
+        }),
+      ),
+    );
+
+    const response = await handleServeClubLogo({ clubUuid: "club-1" });
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toBe("image/png");
+    expect(Buffer.from(await response.arrayBuffer()).toString()).toBe("png-bytes");
+  });
+
+  it("returns 404 when the club has no logo", async () => {
+    mockClubByUuid.mockResolvedValue({
+      type: "club",
+      name: "VC Müllheim",
+      sportsclubUuid: "club-1",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    });
+    const response = await handleServeClubLogo({ clubUuid: "club-1" });
+    expect(response.status).toBe(404);
   });
 });
 
