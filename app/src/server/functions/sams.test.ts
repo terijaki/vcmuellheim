@@ -155,6 +155,30 @@ describe("projection reads", () => {
     expect(result.teams?.[0]?.sportsclubUuid).toBe("club-1");
     expect(result.leagueName).toBe("BL");
   });
+
+  it("leaves ranking rows without a provider logoUrl unset so ClubLogo can fall back", async () => {
+    mockRankingGet.mockResolvedValue({
+      leagueUuid: "l1",
+      seasonUuid: "season-synced",
+      seasonName: "25/26",
+      leagueName: "BL",
+      type: "ranking",
+      teams: [
+        {
+          uuid: "t2",
+          teamName: "Hey Arnold",
+          rank: 2,
+          sportsclubUuid: "club-no-logo",
+        },
+      ],
+      snapshotVersion: "abc",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+      ttl: 1,
+    });
+    const result = await handleGetSamsRankingByLeagueUuid("l1");
+    expect(result.teams?.[0]?.logoUrl).toBeUndefined();
+    expect(result.teams?.[0]?.sportsclubUuid).toBe("club-no-logo");
+  });
 });
 
 describe("handleServeClubLogo", () => {

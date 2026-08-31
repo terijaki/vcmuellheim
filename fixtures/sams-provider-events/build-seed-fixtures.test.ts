@@ -136,16 +136,26 @@ describe("sams-provider-events fixtures", () => {
     );
   });
 
-  it("stores SVG data-URI club logos, not picsum photos", () => {
+  it("uses picsum club logos and omits logoUrl for some clubs so the UI fallback can be tested", () => {
     const fixtures = buildSamsProviderSeedFixtures({ variationSeed: "logo-test" });
-    const logos = fixtures
+    const clubLogos = fixtures
       .filter((fixture) => fixture.type === SamsEventType.clubUpdated)
-      .map((fixture) => fixture.payload.logoUrl as string);
+      .map((fixture) => fixture.payload.logoUrl as string | null);
+    const rankingLogos = fixtures
+      .filter((fixture) => fixture.type === SamsEventType.leagueRankingUpdated)
+      .flatMap((fixture) =>
+        (fixture.payload.entries as Array<{ logoUrl?: string }>).map((entry) => entry.logoUrl),
+      );
 
-    expect(logos.length).toBeGreaterThan(0);
-    for (const logo of logos) {
-      expect(logo.startsWith("data:image/svg+xml")).toBe(true);
-      expect(logo).not.toContain("picsum.photos");
+    const withLogo = [...clubLogos, ...rankingLogos].filter(
+      (logo): logo is string => typeof logo === "string",
+    );
+    const withoutLogo = [...clubLogos, ...rankingLogos].filter((logo) => logo == null);
+
+    expect(withLogo.length).toBeGreaterThan(0);
+    expect(withoutLogo.length).toBeGreaterThan(0);
+    for (const logo of withLogo) {
+      expect(logo).toContain("picsum.photos/seed/");
     }
   });
 });

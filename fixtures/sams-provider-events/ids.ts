@@ -11,8 +11,7 @@ export const SEED_VCM_CLUB = {
   slug: "vc-muellheim",
   associationUuid: ASSOCIATION.uuid,
   associationName: ASSOCIATION.name,
-  initials: "VM",
-  color: "#366273",
+  picsumSeed: "club-vc-muellheim",
 } as const;
 
 export const SEED_MGV_CLUB = {
@@ -22,8 +21,7 @@ export const SEED_MGV_CLUB = {
   slug: "markgraefler-volleys",
   associationUuid: ASSOCIATION.uuid,
   associationName: ASSOCIATION.name,
-  initials: "MV",
-  color: "#9B2226",
+  picsumSeed: "club-markgraefler-volleys",
 } as const;
 
 export const SEED_TARGET_CLUBS = [SEED_VCM_CLUB, SEED_MGV_CLUB] as const;
@@ -88,15 +86,15 @@ export const SEED_CLUB_TEAMS = {
   [SEED_MGV_CLUB.uuid]: SEED_MGV_TEAMS,
 } as const;
 
-/** 90s-cartoon opponent clubs. `teamNumbers` mix 1–4 with `null` (no team number). */
+/** 90s-cartoon opponent clubs. `teamNumbers` mix 1–4 with `null` (no team number).
+ * Clubs without `picsumSeed` have no logo so the UI fallback can be tested. */
 export const SEED_OPPONENT_CLUBS = [
   {
     uuid: "club-opp-mighty-ducks",
     name: "Mighty Ducks",
     shortName: "Mighty Ducks",
     slug: "mighty-ducks",
-    initials: "MD",
-    color: "#2E86AB",
+    picsumSeed: "opp-mighty-ducks",
     teamNumbers: [1, 2],
   },
   {
@@ -104,8 +102,7 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Animaniacs",
     shortName: "Animaniacs",
     slug: "animaniacs",
-    initials: "AW",
-    color: "#E63946",
+    picsumSeed: "opp-animaniacs",
     teamNumbers: [null, 1, 2],
   },
   {
@@ -113,8 +110,7 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Rugrats United",
     shortName: "Rugrats",
     slug: "rugrats-united",
-    initials: "RU",
-    color: "#F4A261",
+    picsumSeed: "opp-rugrats",
     teamNumbers: [1, 3],
   },
   {
@@ -122,8 +118,7 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Dexter Lab",
     shortName: "Dexter Lab",
     slug: "dexter-lab",
-    initials: "DL",
-    color: "#7B2CBF",
+    picsumSeed: "opp-dexter",
     teamNumbers: [1],
   },
   {
@@ -131,8 +126,7 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Pinky & Brain",
     shortName: "Pinky Brain",
     slug: "pinky-brain",
-    initials: "PB",
-    color: "#2A9D8F",
+    picsumSeed: "opp-pinky-brain",
     teamNumbers: [2, 4],
   },
   {
@@ -140,8 +134,6 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Hey Arnold VC",
     shortName: "Hey Arnold",
     slug: "hey-arnold-vc",
-    initials: "HA",
-    color: "#E9C46A",
     teamNumbers: [null],
   },
   {
@@ -149,8 +141,7 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Gargoyles",
     shortName: "Gargoyles",
     slug: "gargoyles",
-    initials: "GG",
-    color: "#264653",
+    picsumSeed: "opp-gargoyles",
     teamNumbers: [1, 2, 3],
   },
   {
@@ -158,8 +149,7 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Ninja Turtles",
     shortName: "Ninja Turtles",
     slug: "ninja-turtles",
-    initials: "NT",
-    color: "#2D6A4F",
+    picsumSeed: "opp-ninja-turtles",
     teamNumbers: [1, 2],
   },
   {
@@ -167,8 +157,6 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Team Rocket",
     shortName: "Team Rocket",
     slug: "team-rocket",
-    initials: "TR",
-    color: "#9B2226",
     teamNumbers: [null, 1],
   },
   {
@@ -176,8 +164,7 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Johnny Bravo",
     shortName: "Johnny Bravo",
     slug: "johnny-bravo",
-    initials: "JB",
-    color: "#FFB703",
+    picsumSeed: "opp-johnny-bravo",
     teamNumbers: [1, 4],
   },
   {
@@ -185,8 +172,6 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Recess Rangers",
     shortName: "Recess",
     slug: "recess-rangers",
-    initials: "RR",
-    color: "#457B9D",
     teamNumbers: [2],
   },
   {
@@ -194,8 +179,7 @@ export const SEED_OPPONENT_CLUBS = [
     name: "Rocko's Modern VC",
     shortName: "Rocko",
     slug: "rockos-modern-vc",
-    initials: "RK",
-    color: "#E76F51",
+    picsumSeed: "opp-rocko",
     teamNumbers: [1, 2, 3],
   },
 ] as const;

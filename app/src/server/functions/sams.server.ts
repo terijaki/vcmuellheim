@@ -279,7 +279,7 @@ async function buildMatchesResponse(
 function withProxiedClubLogoUrl<T extends { sportsclubUuid?: string; logoUrl?: string }>(
   team: T,
 ): T {
-  if (!team.sportsclubUuid) return team;
+  if (!team.sportsclubUuid || !team.logoUrl) return team;
   return { ...team, logoUrl: clubLogoProxyUrl(team.sportsclubUuid) };
 }
 

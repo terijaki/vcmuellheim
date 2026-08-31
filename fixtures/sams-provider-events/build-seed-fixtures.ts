@@ -11,7 +11,6 @@ import {
   SEED_TARGET_CLUBS,
   type SeedTargetClub,
 } from "./ids";
-import { clubLogoDataUri } from "./club-logo";
 import { picsumImageUrl } from "./picsum";
 
 export type SamsProviderFixture = {
@@ -57,6 +56,11 @@ function clampOpponentsPerLeague(value: number | undefined): number {
   return Math.min(9, Math.max(6, value));
 }
 
+function clubLogoUrl(club: SeedTargetClub | (typeof SEED_OPPONENT_CLUBS)[number]): string | null {
+  if (!("picsumSeed" in club)) return null;
+  return picsumImageUrl(club.picsumSeed, 128, 128);
+}
+
 function clubProjection(club: SeedTargetClub | (typeof SEED_OPPONENT_CLUBS)[number]) {
   return {
     uuid: club.uuid,
@@ -64,7 +68,7 @@ function clubProjection(club: SeedTargetClub | (typeof SEED_OPPONENT_CLUBS)[numb
     slug: club.slug,
     associationUuid: SEED_TARGET_CLUBS[0].associationUuid,
     associationName: SEED_TARGET_CLUBS[0].associationName,
-    logoUrl: clubLogoDataUri(club),
+    logoUrl: clubLogoUrl(club),
   };
 }
 
@@ -112,7 +116,7 @@ function buildOpponentRankingEntries(
     teamUuid: string;
     teamName: string;
     sportsclubUuid: string;
-    logoUrl: string;
+    logoUrl?: string;
     points: number;
     wins: number;
     setWins: number;
@@ -124,12 +128,13 @@ function buildOpponentRankingEntries(
   for (let rank = 1; rank <= totalEntries; rank++) {
     if (rank === teamRank) {
       const stats = rankingStatsForRank(rank, leagueIndex, team.leagueUuid, variationSeed);
+      const logoUrl = clubLogoUrl(club);
       entries.push({
         rank,
         teamUuid: team.uuid,
         teamName: team.name,
         sportsclubUuid: club.uuid,
-        logoUrl: clubLogoDataUri(club),
+        ...(logoUrl ? { logoUrl } : {}),
         ...stats,
       });
       continue;
@@ -143,12 +148,13 @@ function buildOpponentRankingEntries(
       team.leagueUuid,
       `${variationSeed}:opp:${opponentIndex}`,
     );
+    const opponentLogoUrl = clubLogoUrl(opponentClub);
     entries.push({
       rank,
       teamUuid,
       teamName: opponentTeamDisplayName(opponentClub, opponentIndex + leagueIndex * 2),
       sportsclubUuid: opponentClub.uuid,
-      logoUrl: clubLogoDataUri(opponentClub),
+      ...(opponentLogoUrl ? { logoUrl: opponentLogoUrl } : {}),
       ...stats,
     });
     opponentIndex++;
