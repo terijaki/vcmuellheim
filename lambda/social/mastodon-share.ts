@@ -198,6 +198,9 @@ export async function shareToMastodon(
 export async function shareMatchToMastodon(
   request: MastodonMatchShareRequest,
 ): Promise<MastodonStatusResponse> {
+  if ((env.CDK_ENVIRONMENT ?? "") !== "prod") {
+    throw new Error("Match Mastodon sharing is only allowed in production");
+  }
   if (!MASTODON_ACCESS_TOKEN) {
     throw new Error("MASTODON_ACCESS_TOKEN environment variable is not set");
   }

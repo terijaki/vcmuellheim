@@ -303,10 +303,8 @@ describe("processSamsProviderEvent", () => {
     expect(repos.clubs.upsert).not.toHaveBeenCalled();
   });
 
-  it("does not claim or invoke Mastodon share outside prod", async () => {
-    const claim = vi.fn().mockResolvedValue(true);
-    const getShare = vi.fn();
-    const invokeShare = vi.fn();
+  it("does not enqueue Mastodon share outside prod", async () => {
+    const sendMatchShare = vi.fn();
 
     const previousMatch = {
       uuid: "match-conclude-1",
@@ -359,24 +357,18 @@ describe("processSamsProviderEvent", () => {
       repos,
       {
         environment: "dev",
-        socialTableName: "social",
-        mastodonLambdaName: "mastodon-share",
-        documentClient: {} as never,
-        shareRepository: { claim, get: getShare, markPosted: vi.fn() } as never,
-        invokeMatchShare: invokeShare,
+        queueUrl: "https://sqs.eu-central-1.amazonaws.com/123/queue",
+        sendMatchShare,
         logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
       },
     );
 
-    expect(claim).not.toHaveBeenCalled();
-    expect(invokeShare).not.toHaveBeenCalled();
+    expect(sendMatchShare).not.toHaveBeenCalled();
     expect(repos.schedules.replace).toHaveBeenCalledOnce();
   });
 
-  it("claims and invokes Mastodon share once per newly concluded match in prod", async () => {
-    const claim = vi.fn().mockResolvedValue(true);
-    const getShare = vi.fn().mockResolvedValue({ status: "pending" });
-    const invokeShare = vi.fn().mockResolvedValue(undefined);
+  it("enqueues Mastodon share once per newly concluded match in prod", async () => {
+    const sendMatchShare = vi.fn().mockResolvedValue(undefined);
 
     const previousMatch = {
       uuid: "match-conclude-2",
@@ -429,25 +421,19 @@ describe("processSamsProviderEvent", () => {
       repos,
       {
         environment: "prod",
-        socialTableName: "social",
-        mastodonLambdaName: "mastodon-share",
-        documentClient: {} as never,
-        shareRepository: { claim, get: getShare, markPosted: vi.fn() } as never,
-        invokeMatchShare: invokeShare,
+        queueUrl: "https://sqs.eu-central-1.amazonaws.com/123/queue",
+        sendMatchShare,
         logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
       },
     );
 
-    expect(claim).toHaveBeenCalledWith("match-conclude-2");
-    expect(invokeShare).toHaveBeenCalledOnce();
-    expect(invokeShare.mock.calls[0]?.[0].match.uuid).toBe("match-conclude-2");
+    expect(sendMatchShare).toHaveBeenCalledOnce();
+    expect(sendMatchShare.mock.calls[0]?.[0].match.uuid).toBe("match-conclude-2");
     expect(repos.schedules.replace).toHaveBeenCalledOnce();
   });
 
-  it("invokes pending claims on retry even when the projection already has hasResult", async () => {
-    const claim = vi.fn().mockResolvedValue(false);
-    const getShare = vi.fn().mockResolvedValue({ status: "pending" });
-    const invokeShare = vi.fn().mockResolvedValue(undefined);
+  it("does not enqueue when the match already had a result", async () => {
+    const sendMatchShare = vi.fn();
 
     const concludedMatch = {
       uuid: "match-retry-1",
@@ -496,17 +482,13 @@ describe("processSamsProviderEvent", () => {
       repos,
       {
         environment: "prod",
-        socialTableName: "social",
-        mastodonLambdaName: "mastodon-share",
-        documentClient: {} as never,
-        shareRepository: { claim, get: getShare, markPosted: vi.fn() } as never,
-        invokeMatchShare: invokeShare,
+        queueUrl: "https://sqs.eu-central-1.amazonaws.com/123/queue",
+        sendMatchShare,
         logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
       },
     );
 
-    expect(claim).not.toHaveBeenCalled();
-    expect(invokeShare).toHaveBeenCalledOnce();
+    expect(sendMatchShare).not.toHaveBeenCalled();
     expect(repos.schedules.replace).not.toHaveBeenCalled();
   });
 });

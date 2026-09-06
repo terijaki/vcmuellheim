@@ -33,9 +33,10 @@ describe("SocialMediaStack", () => {
       // Should have no API Gateway (removed with Instagram pipeline)
       template.resourceCountIs("AWS::ApiGatewayV2::Api", 0);
 
-      // MastodonShare + BeholdSync + social DynamoDB table
-      template.resourceCountIs("AWS::Lambda::Function", 2);
+      // MastodonShare + BeholdSync + match-mastodon-handler + social DynamoDB table
+      template.resourceCountIs("AWS::Lambda::Function", 3);
       template.resourceCountIs("AWS::DynamoDB::Table", 1);
+      template.resourceCountIs("AWS::SQS::Queue", 2);
 
       template.hasResourceProperties("AWS::DynamoDB::Table", {
         TableName: "vcm-social-dev",
@@ -44,6 +45,14 @@ describe("SocialMediaStack", () => {
           AttributeName: "ttl",
           Enabled: true,
         },
+      });
+
+      template.hasResourceProperties("AWS::SQS::Queue", {
+        QueueName: "vcm-match-mastodon-dev",
+      });
+
+      template.hasResourceProperties("AWS::Lambda::Function", {
+        FunctionName: "vcm-match-mastodon-handler-dev",
       });
 
       // BeholdSync always has its schedule
@@ -111,8 +120,8 @@ describe("SocialMediaStack", () => {
 
       const template = Template.fromStack(stack);
 
-      // MastodonShare + BeholdSync (MastodonStreamHandler also needs websiteUrl)
-      template.resourceCountIs("AWS::Lambda::Function", 2);
+      // MastodonShare + BeholdSync + match-mastodon-handler (stream handler needs websiteUrl)
+      template.resourceCountIs("AWS::Lambda::Function", 3);
       template.resourceCountIs("AWS::DynamoDB::Table", 1);
 
       // One EventBridge rule for the Behold sync schedule

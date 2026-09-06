@@ -255,15 +255,18 @@ describe("SamsStack", () => {
       }
     });
 
-    it("wires social table and Mastodon Lambda env/IAM when share props are set", () => {
+    it("wires match Mastodon queue env/IAM when queue name is set", () => {
       const app = createTestApp();
       const stack = new SamsStack(app, "TestStack", {
+        env: {
+          account: "123456789012",
+          region: "eu-central-1",
+        },
         stackProps: {
           environment: "prod",
           branch: "",
         },
-        socialTableName: "vcm-social-prod",
-        mastodonLambdaName: "vcm-mastodon-share-prod",
+        matchMastodonQueueName: "vcm-match-mastodon-prod",
       });
 
       const template = Template.fromStack(stack);
@@ -272,18 +275,18 @@ describe("SamsStack", () => {
         FunctionName: "vcm-sams-provider-processor-prod",
         Environment: {
           Variables: Match.objectLike({
-            SOCIAL_TABLE_NAME: "vcm-social-prod",
-            MASTODON_LAMBDA_NAME: "vcm-mastodon-share-prod",
+            MATCH_MASTODON_QUEUE_URL:
+              "https://sqs.eu-central-1.amazonaws.com/123456789012/vcm-match-mastodon-prod",
             CDK_ENVIRONMENT: "prod",
           }),
         },
       });
 
       const policyJson = JSON.stringify(template.findResources("AWS::IAM::Policy"));
-      expect(policyJson).toContain("lambda:InvokeFunction");
-      expect(policyJson).toContain(":function:vcm-mastodon-share-prod");
-      expect(policyJson).toContain("dynamodb:PutItem");
-      expect(policyJson).toContain(":table/vcm-social-prod");
+      expect(policyJson).toContain("sqs:SendMessage");
+      expect(policyJson).toContain(":vcm-match-mastodon-prod");
+      expect(policyJson).not.toContain("lambda:InvokeFunction");
+      expect(policyJson).not.toContain(":table/vcm-social-prod");
     });
   });
 

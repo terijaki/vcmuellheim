@@ -32,11 +32,11 @@ function involvesConfiguredClub(
  * First-seen matches that already have a result are intentionally excluded (no backfill).
  */
 export function findNewlyConcludedMatches<T extends MatchForConclusion>(
-  previousMatches: readonly T[],
+  previousMatches: readonly MatchForConclusion[],
   incomingMatches: readonly T[],
   configuredSportsclubUuids: ReadonlySet<string>,
 ): T[] {
-  const previousByUuid = new Map<string, T>();
+  const previousByUuid = new Map<string, MatchForConclusion>();
   for (const match of previousMatches) {
     previousByUuid.set(match.uuid, match);
   }

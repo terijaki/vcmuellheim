@@ -35,6 +35,7 @@ global.fetch = mockFetch as unknown as typeof global.fetch;
 // Set up environment
 process.env.MASTODON_ACCESS_TOKEN = "test-token";
 process.env.SOCIAL_TABLE_NAME = "test-social-table";
+process.env.CDK_ENVIRONMENT = "prod";
 
 describe("Mastodon Share Lambda", () => {
   beforeEach(() => {
@@ -569,7 +570,31 @@ describe("Mastodon Share Lambda", () => {
     expect(body.status).toContain("end.");
   });
 
+  test("match sharing is rejected outside prod", async () => {
+    process.env.CDK_ENVIRONMENT = "dev";
+    vi.resetModules();
+    const { shareMatchToMastodon } = await import("./mastodon-share");
+
+    await expect(
+      shareMatchToMastodon({
+        match: {
+          uuid: "match-dev",
+          hasResult: true,
+          team1: { uuid: "t1", name: "VC Müllheim 1", sportsclubUuid: "club-a" },
+          team2: { uuid: "t2", name: "TV Foo", sportsclubUuid: "other" },
+          result: { winner: "t1", setPoints: "3:0" },
+        },
+        configuredSportsclubUuids: ["club-a"],
+      }),
+    ).rejects.toThrow(/only allowed in production/);
+
+    expect(mockFetch).not.toHaveBeenCalled();
+    process.env.CDK_ENVIRONMENT = "prod";
+    vi.resetModules();
+  });
+
   test("match payload posts with match idempotency key, unlisted visibility, and German language", async () => {
+    process.env.CDK_ENVIRONMENT = "prod";
     const { shareMatchToMastodon } = await import("./mastodon-share");
     const { buildMatchResultStatus } = await import("./match-result-status");
 

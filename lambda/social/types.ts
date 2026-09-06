@@ -34,6 +34,16 @@ export type MastodonStreamHandlerLambdaEnvironment = z.infer<
   typeof MastodonStreamHandlerLambdaEnvironmentSchema
 >;
 
+export const MatchMastodonHandlerLambdaEnvironmentSchema = z.object({
+  CDK_ENVIRONMENT: optionalEnvString,
+  SOCIAL_TABLE_NAME: requiredEnvString,
+  MASTODON_ACCESS_TOKEN: requiredEnvString,
+});
+
+export type MatchMastodonHandlerLambdaEnvironment = z.infer<
+  typeof MatchMastodonHandlerLambdaEnvironmentSchema
+>;
+
 // ============================================================================
 // Behold.so Schemas & Types
 // ============================================================================
