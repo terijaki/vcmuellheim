@@ -1,15 +1,17 @@
-import { Anchor, Card, Loader, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Card, Group, Loader, SimpleGrid, Stack, Switch, Text, Title } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
 import EventCard from "@webapp/components/EventCard";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
-import { useSamsMatches } from "@webapp/hooks/dataQueries";
+import { useSamsMatches, useSamsTeams } from "@webapp/hooks/dataQueries";
 import { getUpcomingEventsFn } from "@webapp/server/functions/events";
 import { loadSamsMatchesForSsrFn } from "@webapp/server/functions/sams";
 import { createWebcalLink } from "@webapp/utils/webcal";
+import { filterHomeMatches } from "@/utils/sams-match-filter";
+import { getOwnedSamsTeamUuids } from "@/utils/sams";
 import dayjs from "dayjs";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
@@ -91,6 +93,8 @@ function MatchesContent({
 }: {
   matchesQueryOptions: SamsMatchesHookOptions | undefined;
 }) {
+  const [homeGamesOnly, setHomeGamesOnly] = useState(false);
+  const { data: samsTeamsData, isPending: isSamsTeamsPending } = useSamsTeams();
   const {
     data: matchesData,
     isLoading,
@@ -99,6 +103,11 @@ function MatchesContent({
 
   const currentMonth = dayjs().month() + 1;
   const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
+  const ownedTeamUuids = getOwnedSamsTeamUuids(samsTeamsData?.teams ?? []);
+  const matches = matchesData?.matches ?? [];
+  const homeFilterPending = homeGamesOnly && isSamsTeamsPending;
+  const visibleMatches =
+    homeGamesOnly && !isSamsTeamsPending ? filterHomeMatches(matches, ownedTeamUuids) : matches;
 
   if (isLoading && !matchesData) {
     return (
@@ -123,14 +132,32 @@ function MatchesContent({
     );
   }
 
-  if (matchesData?.matches && matchesData.matches.length > 0) {
-    const timestampDate = matchesData.timestamp ? new Date(matchesData.timestamp) : undefined;
+  if (matches.length > 0) {
+    const timestampDate = matchesData?.timestamp ? new Date(matchesData.timestamp) : undefined;
     return (
       <Card>
-        <Title order={2} c="blumine">
-          Ligaspiele
-        </Title>
-        <Matches matches={matchesData.matches} timestamp={timestampDate} type="future" />
+        <Group justify="space-between" align="center" mb="sm" wrap="wrap">
+          <Title order={2} c="blumine">
+            Ligaspiele
+          </Title>
+          <Switch
+            label="Nur Heimspiele"
+            checked={homeGamesOnly}
+            onChange={(event) => setHomeGamesOnly(event.currentTarget.checked)}
+          />
+        </Group>
+        {homeFilterPending ? (
+          <Stack align="center" py="md" gap="xs">
+            <Loader size="sm" />
+            <Text c="dimmed" size="sm">
+              Lade Heimspiele...
+            </Text>
+          </Stack>
+        ) : visibleMatches.length > 0 ? (
+          <Matches matches={visibleMatches} timestamp={timestampDate} type="future" />
+        ) : (
+          <Text>Derzeit stehen keine Heimspiele an.</Text>
+        )}
       </Card>
     );
   }
