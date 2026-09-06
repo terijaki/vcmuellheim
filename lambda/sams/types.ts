@@ -5,6 +5,8 @@ import { optionalEnvString, requiredEnvString } from "../utils/env";
 export const SamsProviderProcessorLambdaEnvironmentSchema = z.object({
   CDK_ENVIRONMENT: optionalEnvString,
   SAMS_TABLE_NAME: requiredEnvString,
+  SOCIAL_TABLE_NAME: optionalEnvString,
+  MASTODON_LAMBDA_NAME: optionalEnvString,
 });
 
 export type SamsProviderProcessorLambdaEnvironment = z.infer<

@@ -4,6 +4,7 @@ import * as cloudwatch from "aws-cdk-lib/aws-cloudwatch";
 import * as actions from "aws-cdk-lib/aws-cloudwatch-actions";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as iam from "aws-cdk-lib/aws-iam";
+import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambdaEventSources from "aws-cdk-lib/aws-lambda-event-sources";
 import * as sns from "aws-cdk-lib/aws-sns";
 import * as snsSubscriptions from "aws-cdk-lib/aws-sns-subscriptions";
@@ -27,6 +28,10 @@ interface SamsStackProps extends cdk.StackProps {
   };
   /** Optional alert email for DLQ alarm (feature branches may omit). */
   alertEmail?: string;
+  /** Plain-string social table name — avoids CloudFormation cross-stack exports. */
+  socialTableName?: string;
+  /** Plain-string Mastodon share Lambda name — avoids CloudFormation cross-stack exports. */
+  mastodonLambdaName?: string;
 }
 
 export class SamsStack extends cdk.Stack {
@@ -126,10 +131,30 @@ export class SamsStack extends cdk.Stack {
       environment: {
         ...commonEnvironment,
         SAMS_TABLE_NAME: samsDataTable.tableName,
+        ...(props?.socialTableName ? { SOCIAL_TABLE_NAME: props.socialTableName } : {}),
+        ...(props?.mastodonLambdaName ? { MASTODON_LAMBDA_NAME: props.mastodonLambdaName } : {}),
       } satisfies SamsProviderProcessorLambdaEnvironment,
     }).lambdaFunction;
 
     samsDataTable.grantReadWriteData(processor);
+
+    if (props?.socialTableName) {
+      const socialTable = dynamodb.Table.fromTableName(
+        this,
+        "SocialTableRef",
+        props.socialTableName,
+      );
+      socialTable.grantReadWriteData(processor);
+    }
+
+    if (props?.mastodonLambdaName) {
+      const mastodonShare = lambda.Function.fromFunctionName(
+        this,
+        "MastodonShareRef",
+        props.mastodonLambdaName,
+      );
+      mastodonShare.grantInvoke(processor);
+    }
 
     processor.addEventSource(
       new lambdaEventSources.SqsEventSource(providerEventsQueue, {

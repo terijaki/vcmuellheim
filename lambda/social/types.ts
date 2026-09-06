@@ -17,6 +17,7 @@ export const MastodonShareLambdaEnvironmentSchema = z.object({
   CDK_ENVIRONMENT: optionalEnvString,
   MASTODON_ACCESS_TOKEN: requiredEnvString,
   MEDIA_BUCKET_NAME: optionalEnvString,
+  SOCIAL_TABLE_NAME: optionalEnvString,
 });
 
 export type MastodonShareLambdaEnvironment = z.infer<typeof MastodonShareLambdaEnvironmentSchema>;

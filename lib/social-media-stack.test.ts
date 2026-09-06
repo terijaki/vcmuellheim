@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, it } from "vite-plus/test";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import { SocialMediaStack } from "./social-media-stack";
 import { createTestApp } from "./test-helpers";
 
@@ -67,6 +67,11 @@ describe("SocialMediaStack", () => {
         FunctionName: "vcm-mastodon-share-dev",
         Timeout: 30,
         MemorySize: 512,
+        Environment: {
+          Variables: Match.objectLike({
+            SOCIAL_TABLE_NAME: "vcm-social-dev",
+          }),
+        },
       });
     });
 

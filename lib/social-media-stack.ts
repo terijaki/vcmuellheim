@@ -80,9 +80,12 @@ export class SocialMediaStack extends cdk.Stack {
       environment: {
         ...commonEnvironment,
         MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
+        SOCIAL_TABLE_NAME: this.socialTableName,
         ...(props.mediaBucketName ? { MEDIA_BUCKET_NAME: props.mediaBucketName } : {}),
       } satisfies MastodonShareLambdaEnvironment,
     }).lambdaFunction;
+
+    socialTable.grantReadWriteData(mastodonShare);
 
     // Grant S3 read permissions to Mastodon Lambda for image uploads
     if (props.mediaBucketName) {

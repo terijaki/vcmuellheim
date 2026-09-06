@@ -254,6 +254,37 @@ describe("SamsStack", () => {
         expect(variables.MEDIA_BUCKET_NAME).toBeUndefined();
       }
     });
+
+    it("wires social table and Mastodon Lambda env/IAM when share props are set", () => {
+      const app = createTestApp();
+      const stack = new SamsStack(app, "TestStack", {
+        stackProps: {
+          environment: "prod",
+          branch: "",
+        },
+        socialTableName: "vcm-social-prod",
+        mastodonLambdaName: "vcm-mastodon-share-prod",
+      });
+
+      const template = Template.fromStack(stack);
+
+      template.hasResourceProperties("AWS::Lambda::Function", {
+        FunctionName: "vcm-sams-provider-processor-prod",
+        Environment: {
+          Variables: Match.objectLike({
+            SOCIAL_TABLE_NAME: "vcm-social-prod",
+            MASTODON_LAMBDA_NAME: "vcm-mastodon-share-prod",
+            CDK_ENVIRONMENT: "prod",
+          }),
+        },
+      });
+
+      const policyJson = JSON.stringify(template.findResources("AWS::IAM::Policy"));
+      expect(policyJson).toContain("lambda:InvokeFunction");
+      expect(policyJson).toContain(":function:vcm-mastodon-share-prod");
+      expect(policyJson).toContain("dynamodb:PutItem");
+      expect(policyJson).toContain(":table/vcm-social-prod");
+    });
   });
 
   describe("DynamoDB tables", () => {

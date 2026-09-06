@@ -17,6 +17,7 @@ import {
   SAMS_PROJECTION_TTL_DAYS,
   unixTtlSecondsFromNow,
 } from "@/lib/sams/repository-utils";
+import { resolveConfiguredSamsSportsclubUuids } from "@/utils/sams";
 import { slugify } from "@/utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
@@ -26,6 +27,11 @@ import {
   mapProviderMatchToProjection,
   mapProviderRankingEntry,
 } from "./provider-mappers";
+import {
+  claimNewlyConcludedMatchShares,
+  invokePendingMatchMastodonShares,
+  type MatchMastodonTriggerDeps,
+} from "./match-mastodon-trigger";
 import { SamsProviderProcessorLambdaEnvironmentSchema } from "./types";
 
 const { logger, tracer } = createLambdaResources("sams-provider-processor");
@@ -33,6 +39,14 @@ const docClient = createDynamoDocClient(tracer);
 
 const env = parseLambdaEnv(SamsProviderProcessorLambdaEnvironmentSchema);
 const TABLE_NAME = env.SAMS_TABLE_NAME;
+
+const defaultMatchShareDeps: MatchMastodonTriggerDeps = {
+  environment: env.CDK_ENVIRONMENT ?? "",
+  socialTableName: env.SOCIAL_TABLE_NAME,
+  mastodonLambdaName: env.MASTODON_LAMBDA_NAME,
+  documentClient: docClient,
+  logger,
+};
 
 const RESERVED_EVENT_TYPES = new Set<string>([
   SamsEventType.matchesUpdated,
@@ -70,19 +84,6 @@ function mapRosterOfficials(
   }));
 }
 
-async function shouldSkipProjection(
-  repos: SamsRepositories,
-  sportsclubUuid: string,
-  seasonUuid: string,
-  snapshotVersion: string,
-): Promise<boolean> {
-  const existingSnapshotVersion = await repos.schedules.getSnapshotVersion(
-    sportsclubUuid,
-    seasonUuid,
-  );
-  return existingSnapshotVersion === snapshotVersion;
-}
-
 async function shouldSkipRanking(
   repos: SamsRepositories,
   leagueUuid: string,
@@ -91,6 +92,11 @@ async function shouldSkipRanking(
 ): Promise<boolean> {
   const existing = await repos.rankings.get(leagueUuid, seasonUuid);
   return existing?.snapshotVersion === snapshotVersion;
+}
+
+async function resolveConfiguredClubUuidSet(repos: SamsRepositories): Promise<Set<string>> {
+  const clubs = await repos.clubs.listAll();
+  return new Set(resolveConfiguredSamsSportsclubUuids(clubs));
 }
 
 async function replaceClubSeasonTeams(
@@ -260,13 +266,26 @@ async function replaceClubSchedule(
   seasonName: string,
   matches: Match[],
   meta: SamsScheduleProjectionMeta,
+  matchShareDeps: MatchMastodonTriggerDeps = defaultMatchShareDeps,
 ): Promise<void> {
-  if (await shouldSkipProjection(repos, sportsclubUuid, seasonUuid, meta.snapshotVersion)) {
+  const existing = await repos.schedules.get(sportsclubUuid, seasonUuid);
+  const previousMatches = existing?.matches ?? [];
+  const configuredSportsclubUuids = await resolveConfiguredClubUuidSet(repos);
+
+  await claimNewlyConcludedMatchShares(
+    previousMatches,
+    matches,
+    configuredSportsclubUuids,
+    matchShareDeps,
+  );
+
+  if (existing?.snapshotVersion === meta.snapshotVersion) {
     logger.info("Skipping unchanged club schedule projection", {
       sportsclubUuid,
       seasonUuid,
       snapshotVersion: meta.snapshotVersion,
     });
+    await invokePendingMatchMastodonShares(matches, configuredSportsclubUuids, matchShareDeps);
     return;
   }
 
@@ -298,6 +317,8 @@ async function replaceClubSchedule(
     });
     throw error;
   }
+
+  await invokePendingMatchMastodonShares(matches, configuredSportsclubUuids, matchShareDeps);
 }
 
 async function mergeMatchBlock(
@@ -307,7 +328,19 @@ async function mergeMatchBlock(
   seasonName: string | undefined,
   matches: Match[],
   meta: SamsScheduleProjectionMeta,
+  matchShareDeps: MatchMastodonTriggerDeps = defaultMatchShareDeps,
 ): Promise<void> {
+  const existing = await repos.schedules.get(sportsclubUuid, seasonUuid);
+  const previousMatches = existing?.matches ?? [];
+  const configuredSportsclubUuids = await resolveConfiguredClubUuidSet(repos);
+
+  await claimNewlyConcludedMatchShares(
+    previousMatches,
+    matches,
+    configuredSportsclubUuids,
+    matchShareDeps,
+  );
+
   await repos.schedules.mergeMatchesForClub(
     sportsclubUuid,
     seasonUuid,
@@ -315,11 +348,14 @@ async function mergeMatchBlock(
     matches.map(mapProviderMatchToProjection),
     meta,
   );
+
+  await invokePendingMatchMastodonShares(matches, configuredSportsclubUuids, matchShareDeps);
 }
 
 export async function processSamsProviderEvent(
   event: SamsEvent,
   repos: SamsRepositories = createSamsRepositories(docClient, TABLE_NAME),
+  matchShareDeps: MatchMastodonTriggerDeps = defaultMatchShareDeps,
 ): Promise<void> {
   if (RESERVED_EVENT_TYPES.has(event.type)) {
     logger.info("Ignoring reserved SAMS provider event type", { type: event.type });
@@ -345,12 +381,20 @@ export async function processSamsProviderEvent(
 
     case SamsEventType.clubMatchScheduleUpdated: {
       const { club, season, matches, projectedAt, cachedAt, isStale } = event.payload;
-      await replaceClubSchedule(repos, club.uuid, season.uuid, season.name, matches, {
-        snapshotVersion: event.snapshotVersion,
-        projectedAt,
-        cachedAt,
-        isStale,
-      });
+      await replaceClubSchedule(
+        repos,
+        club.uuid,
+        season.uuid,
+        season.name,
+        matches,
+        {
+          snapshotVersion: event.snapshotVersion,
+          projectedAt,
+          cachedAt,
+          isStale,
+        },
+        matchShareDeps,
+      );
       return;
     }
 
@@ -365,11 +409,19 @@ export async function processSamsProviderEvent(
         );
         const seasonUuid = clubMatches.find((match) => match.seasonUuid)?.seasonUuid;
         if (!seasonUuid) continue;
-        await mergeMatchBlock(repos, sportsclubUuid, seasonUuid, undefined, clubMatches, {
-          snapshotVersion: event.snapshotVersion,
-          cachedAt,
-          isStale,
-        });
+        await mergeMatchBlock(
+          repos,
+          sportsclubUuid,
+          seasonUuid,
+          undefined,
+          clubMatches,
+          {
+            snapshotVersion: event.snapshotVersion,
+            cachedAt,
+            isStale,
+          },
+          matchShareDeps,
+        );
       }
       return;
     }
@@ -402,9 +454,10 @@ export async function processSamsProviderEvent(
 export async function processSamsProviderSqsBody(
   body: string,
   repos?: SamsRepositories,
+  matchShareDeps?: MatchMastodonTriggerDeps,
 ): Promise<void> {
   const event = parseSamsEventFromSqsBody(body);
-  await processSamsProviderEvent(event, repos);
+  await processSamsProviderEvent(event, repos, matchShareDeps);
 }
 
 const lambdaHandler: SQSHandler = async (event: SQSEvent) => {

@@ -175,7 +175,10 @@ describe("processSamsProviderEvent", () => {
     );
     expect(fixture).toBeDefined();
     const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
-    repos.schedules.getSnapshotVersion = vi.fn().mockResolvedValue(event.snapshotVersion);
+    repos.schedules.get = vi.fn().mockResolvedValue({
+      snapshotVersion: event.snapshotVersion,
+      matches: [],
+    });
 
     await processSamsProviderEvent(event, repos);
 
@@ -298,5 +301,212 @@ describe("processSamsProviderEvent", () => {
     await processSamsProviderEvent(event, repos);
 
     expect(repos.clubs.upsert).not.toHaveBeenCalled();
+  });
+
+  it("does not claim or invoke Mastodon share outside prod", async () => {
+    const claim = vi.fn().mockResolvedValue(true);
+    const getShare = vi.fn();
+    const invokeShare = vi.fn();
+
+    const previousMatch = {
+      uuid: "match-conclude-1",
+      hasResult: false,
+      seasonUuid: SEED_SEASON.uuid,
+      team1: { uuid: "t1", name: "VC Müllheim 1", sportsclubUuid: SEED_VCM_CLUB.uuid },
+      team2: { uuid: "t2", name: "TV Foo", sportsclubUuid: "other" },
+    };
+    const concludedMatch = {
+      ...previousMatch,
+      hasResult: true,
+      result: { winner: "t1", setPoints: "3:0" },
+    };
+
+    repos.clubs.listAll = vi.fn().mockResolvedValue([
+      {
+        sportsclubUuid: SEED_VCM_CLUB.uuid,
+        nameSlug: SEED_VCM_CLUB.slug,
+        name: SEED_VCM_CLUB.name,
+      },
+    ]);
+    repos.schedules.get = vi.fn().mockResolvedValue({
+      snapshotVersion: "old",
+      matches: [previousMatch],
+    });
+
+    await processSamsProviderEvent(
+      {
+        schemaVersion: "1.0.0",
+        eventId: "evt-share-dev",
+        occurredAt: "2026-09-01T12:00:00.000Z",
+        source: "sams-provider",
+        type: SamsEventType.clubMatchScheduleUpdated,
+        sourceSyncId: "sync-share",
+        snapshotVersion: "new",
+        payload: {
+          club: {
+            uuid: SEED_VCM_CLUB.uuid,
+            name: SEED_VCM_CLUB.name,
+            slug: SEED_VCM_CLUB.slug,
+            logoUrl: null,
+          },
+          season: { ...SEED_SEASON, current: true },
+          matches: [concludedMatch],
+          projectedAt: "2026-09-01T12:00:00.000Z",
+          cachedAt: "2026-09-01T12:00:00.000Z",
+          isStale: false,
+        },
+      },
+      repos,
+      {
+        environment: "dev",
+        socialTableName: "social",
+        mastodonLambdaName: "mastodon-share",
+        documentClient: {} as never,
+        shareRepository: { claim, get: getShare, markPosted: vi.fn() } as never,
+        invokeMatchShare: invokeShare,
+        logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
+      },
+    );
+
+    expect(claim).not.toHaveBeenCalled();
+    expect(invokeShare).not.toHaveBeenCalled();
+    expect(repos.schedules.replace).toHaveBeenCalledOnce();
+  });
+
+  it("claims and invokes Mastodon share once per newly concluded match in prod", async () => {
+    const claim = vi.fn().mockResolvedValue(true);
+    const getShare = vi.fn().mockResolvedValue({ status: "pending" });
+    const invokeShare = vi.fn().mockResolvedValue(undefined);
+
+    const previousMatch = {
+      uuid: "match-conclude-2",
+      hasResult: false,
+      seasonUuid: SEED_SEASON.uuid,
+      team1: { uuid: "t1", name: "VC Müllheim 1", sportsclubUuid: SEED_VCM_CLUB.uuid },
+      team2: { uuid: "t2", name: "TV Foo", sportsclubUuid: "other" },
+    };
+    const concludedMatch = {
+      ...previousMatch,
+      hasResult: true,
+      result: { winner: "t1", setPoints: "3:1" },
+    };
+
+    repos.clubs.listAll = vi.fn().mockResolvedValue([
+      {
+        sportsclubUuid: SEED_VCM_CLUB.uuid,
+        nameSlug: SEED_VCM_CLUB.slug,
+        name: SEED_VCM_CLUB.name,
+      },
+    ]);
+    repos.schedules.get = vi.fn().mockResolvedValue({
+      snapshotVersion: "old",
+      matches: [previousMatch],
+    });
+
+    await processSamsProviderEvent(
+      {
+        schemaVersion: "1.0.0",
+        eventId: "evt-share-prod",
+        occurredAt: "2026-09-01T12:00:00.000Z",
+        source: "sams-provider",
+        type: SamsEventType.clubMatchScheduleUpdated,
+        sourceSyncId: "sync-share-prod",
+        snapshotVersion: "new",
+        payload: {
+          club: {
+            uuid: SEED_VCM_CLUB.uuid,
+            name: SEED_VCM_CLUB.name,
+            slug: SEED_VCM_CLUB.slug,
+            logoUrl: null,
+          },
+          season: { ...SEED_SEASON, current: true },
+          matches: [concludedMatch],
+          projectedAt: "2026-09-01T12:00:00.000Z",
+          cachedAt: "2026-09-01T12:00:00.000Z",
+          isStale: false,
+        },
+      },
+      repos,
+      {
+        environment: "prod",
+        socialTableName: "social",
+        mastodonLambdaName: "mastodon-share",
+        documentClient: {} as never,
+        shareRepository: { claim, get: getShare, markPosted: vi.fn() } as never,
+        invokeMatchShare: invokeShare,
+        logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
+      },
+    );
+
+    expect(claim).toHaveBeenCalledWith("match-conclude-2");
+    expect(invokeShare).toHaveBeenCalledOnce();
+    expect(invokeShare.mock.calls[0]?.[0].match.uuid).toBe("match-conclude-2");
+    expect(repos.schedules.replace).toHaveBeenCalledOnce();
+  });
+
+  it("invokes pending claims on retry even when the projection already has hasResult", async () => {
+    const claim = vi.fn().mockResolvedValue(false);
+    const getShare = vi.fn().mockResolvedValue({ status: "pending" });
+    const invokeShare = vi.fn().mockResolvedValue(undefined);
+
+    const concludedMatch = {
+      uuid: "match-retry-1",
+      hasResult: true,
+      seasonUuid: SEED_SEASON.uuid,
+      team1: { uuid: "t1", name: "VC Müllheim 1", sportsclubUuid: SEED_VCM_CLUB.uuid },
+      team2: { uuid: "t2", name: "TV Foo", sportsclubUuid: "other" },
+      result: { winner: "t1", setPoints: "3:0" },
+    };
+
+    repos.clubs.listAll = vi.fn().mockResolvedValue([
+      {
+        sportsclubUuid: SEED_VCM_CLUB.uuid,
+        nameSlug: SEED_VCM_CLUB.slug,
+        name: SEED_VCM_CLUB.name,
+      },
+    ]);
+    repos.schedules.get = vi.fn().mockResolvedValue({
+      snapshotVersion: "same",
+      matches: [concludedMatch],
+    });
+
+    await processSamsProviderEvent(
+      {
+        schemaVersion: "1.0.0",
+        eventId: "evt-share-retry",
+        occurredAt: "2026-09-01T12:00:00.000Z",
+        source: "sams-provider",
+        type: SamsEventType.clubMatchScheduleUpdated,
+        sourceSyncId: "sync-share-retry",
+        snapshotVersion: "same",
+        payload: {
+          club: {
+            uuid: SEED_VCM_CLUB.uuid,
+            name: SEED_VCM_CLUB.name,
+            slug: SEED_VCM_CLUB.slug,
+            logoUrl: null,
+          },
+          season: { ...SEED_SEASON, current: true },
+          matches: [concludedMatch],
+          projectedAt: "2026-09-01T12:00:00.000Z",
+          cachedAt: "2026-09-01T12:00:00.000Z",
+          isStale: false,
+        },
+      },
+      repos,
+      {
+        environment: "prod",
+        socialTableName: "social",
+        mastodonLambdaName: "mastodon-share",
+        documentClient: {} as never,
+        shareRepository: { claim, get: getShare, markPosted: vi.fn() } as never,
+        invokeMatchShare: invokeShare,
+        logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
+      },
+    );
+
+    expect(claim).not.toHaveBeenCalled();
+    expect(invokeShare).toHaveBeenCalledOnce();
+    expect(repos.schedules.replace).not.toHaveBeenCalled();
   });
 });
