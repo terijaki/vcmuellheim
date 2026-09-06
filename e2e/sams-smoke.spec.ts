@@ -7,6 +7,7 @@ import { expect, test } from "@playwright/test";
  * Routes whose loaders require DynamoDB are skipped when AWS_REGION is unset
  * (Playwright's default `vp dev` webServer has no AWS credentials).
  * Point WEBAPP_URL at a `vpr`-started server (or set AWS_REGION) to run the full suite.
+ * Seeded-projection assertions also need SAMS_SEEDED=true (CI sets this after db:seed:sams).
  */
 const hasAws = Boolean(process.env.AWS_REGION);
 
@@ -66,9 +67,11 @@ test.describe("sams smoke", () => {
   });
 
   test.describe("seeded projections", () => {
+    // Prod is never seeded (`db:seed:sams` is skipped on main). WEBAPP_URL is
+    // always set in CI, including against vcmuellheim.de after merge.
     test.skip(
-      !process.env.WEBAPP_URL,
-      "Requires WEBAPP_URL against a webapp seeded with SAMS provider fixtures",
+      process.env.SAMS_SEEDED !== "true",
+      "Requires SAMS_SEEDED=true against a webapp seeded with SAMS provider fixtures",
     );
 
     test("/termine shows league matches from projections", async ({ page }) => {
