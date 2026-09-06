@@ -144,6 +144,7 @@ jobs:
         id: playwright
         env:
           WEBAPP_URL: ${{ needs.deploy.outputs.webapp_url }}
+          SAMS_SEEDED: ${{ github.ref != 'refs/heads/main' && 'true' || 'false' }}
         run: vp run test:e2e
 
       - name: Add E2E summary
