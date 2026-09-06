@@ -25,9 +25,6 @@ CDK_MONITORING_ALERT_EMAIL="you@example.com"
 # Auth
 BETTER_AUTH_SECRET=""
 
-# SAMS
-SAMS_API_KEY=""
-
 # Mastodon
 MASTODON_ACCESS_TOKEN=""
 MASTODON_CLIENT_KEY=""
@@ -97,7 +94,7 @@ vp test             # Run tests
 vpr verify      # Lint + typecheck + tests (full quality gate)
 
 vpr db:seed         # Seed dev DynamoDB with fake data
-vpr db:seed:sams    # Trigger SAMS sync Lambdas
+vpr db:seed:sams    # Publish mock SAMS provider events (dev only)
 
 vpr cdk:synth       # Synthesize CDK stacks (dev)
 vpr cdk:diff        # Show changes vs deployed (dev)
@@ -128,4 +125,4 @@ Deployments use OIDC — no long-lived access keys. The trust policies are in:
 | `AWS_ROLE_ARN_DEV`  | ARN of the GitHub Actions OIDC role in the dev account  |
 | `AWS_ROLE_ARN_PROD` | ARN of the GitHub Actions OIDC role in the prod account |
 
-Application and deployment environment values such as `SAMS_API_KEY`, `BETTER_AUTH_SECRET`, and `CDK_BUDGET_ALERT_EMAIL` are **not** stored as GitHub repository secrets. GitHub Actions assumes the appropriate AWS role via OIDC, then Varlock loads those values from AWS SSM Parameter Store / AWS Secrets Manager as defined by the environment schema.
+Application and deployment environment values such as `BETTER_AUTH_SECRET` and `CDK_BUDGET_ALERT_EMAIL` are **not** stored as GitHub repository secrets. GitHub Actions assumes the appropriate AWS role via OIDC, then Varlock loads those values from AWS SSM Parameter Store / AWS Secrets Manager as defined by the environment schema.

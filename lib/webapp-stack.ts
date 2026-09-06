@@ -7,6 +7,7 @@
  * - Lambda Function URL (streaming) ← Nitro server handler (.output/server/index.mjs)
  * - CloudFront distribution
  *   · Default behavior → Lambda Function URL (all requests: SSR + API routes)
+ *   · /api/sams/logos → Lambda Function URL (cached per club query string)
  *   · /assets/* behavior → S3 static assets origin (immutable, long TTL)
  *   · /docs/* behavior → S3 static assets origin (downloadable documents)
  * - S3 bucket for static assets (.output/public/)
@@ -27,9 +28,9 @@ import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import type { Construct } from "constructs";
 import { Club } from "@project.config";
 import {
-  CACHE_TABLE_ENV_VAR,
   CONTENT_TABLE_ENV_VAR,
-  computeCacheTableName,
+  SOCIAL_TABLE_ENV_VAR,
+  computeResourceBranchSuffix,
   computeSamsDataTableName,
 } from "./db/env";
 import { buildWebappDomain, buildWebappUrl } from "@utils/webapp-url";
@@ -40,16 +41,13 @@ export interface WebAppStackProps extends cdk.StackProps {
     branch: string;
   };
   contentTableName: string;
+  socialTableName: string;
   mediaBucketName: string;
   /** CloudFront URL of the media stack — used for serving uploaded images */
   mediaCloudFrontUrl?: string;
   hostedZone?: route53.IHostedZone;
   /** CloudFront certificate (must be in us-east-1) */
   cloudFrontCertificate?: acm.ICertificate;
-  /** Optional sync Lambda function names from SamsStack — grants invoke permissions to the webapp Lambda.
-   * Use function names (strings) instead of CDK cross-stack object references so SamsStack can be updated independently without CF blocking export deletion. */
-  samsClubsSyncFunctionName?: string;
-  samsTeamsSyncFunctionName?: string;
 }
 
 export class WebAppStack extends cdk.Stack {
@@ -62,7 +60,7 @@ export class WebAppStack extends cdk.Stack {
 
     const environment = props.stackProps?.environment || "dev";
     const branch = props.stackProps?.branch || "";
-    const branchSuffix = branch ? `-${branch}` : "";
+    const branchSuffix = computeResourceBranchSuffix(environment, branch);
     const isProd = environment === "prod";
     const isCdkDestroy = process.env.CDK_DESTROY === "true";
     // prod: vcmuellheim.de  dev: dev.new.vcmuellheim.de  feature: dev-<branch>.new.vcmuellheim.de
@@ -95,30 +93,22 @@ export class WebAppStack extends cdk.Stack {
       resource: "table",
       resourceName: samsTableName,
     });
-    const cacheTableName = computeCacheTableName(environment, branch);
-    const cacheTableArn = stack.formatArn({
+    const socialTableArn = stack.formatArn({
       service: "dynamodb",
       resource: "table",
-      resourceName: cacheTableName,
+      resourceName: props.socialTableName,
     });
 
     const lambdaEnvironment: Record<string, string> = {
       [CONTENT_TABLE_ENV_VAR]: props.contentTableName,
-      [CACHE_TABLE_ENV_VAR]: cacheTableName,
+      [SOCIAL_TABLE_ENV_VAR]: props.socialTableName,
       CDK_ENVIRONMENT: environment,
       APP_BASE_URL: webappUrl,
       BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || "",
       MEDIA_BUCKET_NAME: props.mediaBucketName,
       SAMS_TABLE_NAME: samsTableName,
       ...(branch ? { BRANCH_NAME: branch } : {}),
-      ...(process.env.SAMS_API_KEY ? { SAMS_API_KEY: process.env.SAMS_API_KEY } : {}),
       ...(props.mediaCloudFrontUrl ? { MEDIA_CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
-      ...(props.samsClubsSyncFunctionName
-        ? { SAMS_CLUBS_SYNC_FUNCTION_NAME: props.samsClubsSyncFunctionName }
-        : {}),
-      ...(props.samsTeamsSyncFunctionName
-        ? { SAMS_TEAMS_SYNC_FUNCTION_NAME: props.samsTeamsSyncFunctionName }
-        : {}),
       NODE_ENV: "production",
     };
 
@@ -154,11 +144,11 @@ export class WebAppStack extends cdk.Stack {
       tracing: lambda.Tracing.ACTIVE,
     });
 
-    // Grant Lambda access to content, cache, and SAMS tables via computed ARNs (no CF cross-stack exports)
+    // Grant Lambda access to content, social, and SAMS tables via computed ARNs (no CF cross-stack exports)
     dynamodb.Table.fromTableArn(this, "ContentTableRef", contentTableArn).grantReadWriteData(
       this.webappLambda,
     );
-    dynamodb.Table.fromTableArn(this, "CacheTableRef", cacheTableArn).grantReadWriteData(
+    dynamodb.Table.fromTableArn(this, "SocialTableRef", socialTableArn).grantReadData(
       this.webappLambda,
     );
     this.webappLambda.addToRolePolicy(
@@ -183,22 +173,6 @@ export class WebAppStack extends cdk.Stack {
     s3.Bucket.fromBucketName(this, "MediaBucketRef", props.mediaBucketName).grantReadWrite(
       this.webappLambda,
     );
-
-    // Grant invoke permissions for SAMS sync Lambdas if provided
-    if (props.samsClubsSyncFunctionName) {
-      lambda.Function.fromFunctionName(
-        this,
-        "SamsClubsSyncRef",
-        props.samsClubsSyncFunctionName,
-      ).grantInvoke(this.webappLambda);
-    }
-    if (props.samsTeamsSyncFunctionName) {
-      lambda.Function.fromFunctionName(
-        this,
-        "SamsTeamsSyncRef",
-        props.samsTeamsSyncFunctionName,
-      ).grantInvoke(this.webappLambda);
-    }
 
     // Grant SES access for OTP emails
     this.webappLambda.addToRolePolicy(
@@ -227,9 +201,9 @@ export class WebAppStack extends cdk.Stack {
       comment: "Long-lived cache for hashed static assets",
     });
 
-    // SSR/API: no cache by default — let the app set Cache-Control headers
-    // Query strings must be in the cache key so /api/sams/logos?clubSlug=X
-    // is cached separately from /api/sams/logos?clubSlug=Y.
+    // SSR/API: no cache by default — let the app set Cache-Control headers.
+    // Club logos are a dedicated behavior so prod (CACHING_DISABLED default)
+    // still caches /api/sams/logos?clubUuid=X separately from clubUuid=Y.
     const ssrCachePolicy = isProd
       ? cloudfront.CachePolicy.CACHING_DISABLED
       : new cloudfront.CachePolicy(this, "SsrCachePolicy", {
@@ -240,6 +214,15 @@ export class WebAppStack extends cdk.Stack {
           comment: "Dev: passthrough (no cache) for SSR + API",
           queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
         });
+
+    const clubLogosCachePolicy = new cloudfront.CachePolicy(this, "ClubLogosCachePolicy", {
+      cachePolicyName: `vcm-webapp-club-logos-${environment}${branchSuffix}`,
+      defaultTtl: cdk.Duration.days(1),
+      minTtl: cdk.Duration.seconds(0),
+      maxTtl: cdk.Duration.days(7),
+      comment: "Cache /api/sams/logos per clubUuid query string",
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList("clubUuid"),
+    });
 
     // ── CloudFront distribution ────────────────────────────────────────────
     const lambdaOrigin = new origins.FunctionUrlOrigin(fnUrl);
@@ -272,6 +255,17 @@ export class WebAppStack extends cdk.Stack {
           allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
           cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
           cachePolicy: staticAssetsCachePolicy,
+          compress: true,
+        },
+        // Same-origin club logo proxy (provider URLs are not used as <img src>)
+        "/api/sams/logos": {
+          origin: lambdaOrigin,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+          cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+          cachePolicy: clubLogosCachePolicy,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+          responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
           compress: true,
         },
         // Downloadable documents (PDFs, spreadsheets, etc.)

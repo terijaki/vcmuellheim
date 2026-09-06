@@ -1,9 +1,9 @@
 import type { PluginOption } from "vite-plus";
 import {
-  CACHE_TABLE_ENV_VAR,
   CONTENT_TABLE_ENV_VAR,
-  computeCacheTableName,
+  SOCIAL_TABLE_ENV_VAR,
   computeSamsDataTableName,
+  computeSocialTableName,
 } from "../../lib/db/env.ts";
 import { getSanitizedBranch } from "../../utils/git.ts";
 
@@ -34,7 +34,7 @@ export function localAwsResourceEnvPlugin(): PluginOption {
 
       // Set resource names that require the sanitized branch
       setDefaultEnv(CONTENT_TABLE_ENV_VAR, `vcm-content-${environment}${branchSuffix}`);
-      setDefaultEnv(CACHE_TABLE_ENV_VAR, computeCacheTableName(environment, sanitizedBranch));
+      setDefaultEnv(SOCIAL_TABLE_ENV_VAR, computeSocialTableName(environment, sanitizedBranch));
       setDefaultEnv("SAMS_TABLE_NAME", computeSamsDataTableName(environment, sanitizedBranch));
       setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
 

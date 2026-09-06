@@ -20,7 +20,6 @@ export const SAMS = {
     { name: "Markgräfler Volleys" },
     // { name: "TV Staufen" },
   ] as const,
-  server: "https://www.volleyball-baden.de" as const,
   association: { name: "Südbadischer Volleyball-Verband" as const, shortName: "SBVV" as const },
 };
 /** The clubs identity/account on the fediverse. */

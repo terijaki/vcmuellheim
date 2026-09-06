@@ -11,11 +11,10 @@ import {
   Text,
 } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { samsRankingQuery, useClubLogoUrlsBatch } from "@webapp/hooks/dataQueries";
+import { samsRankingQuery } from "@webapp/hooks/dataQueries";
 import dayjs from "dayjs";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { Team } from "@/lib/db/types";
-import { slugify } from "@/utils/slugify";
 import CardTitle from "./CardTitle";
 import ClubLogo from "./ClubLogo";
 import RankingTableItem from "./RankingTableItem";
@@ -40,12 +39,6 @@ export default function RankingTable(props: RankingTable) {
   } = useQuery(
     samsRankingQuery(props.leagueUuid, { initialData: props.initialData, initialDataUpdatedAt }),
   );
-
-  // Batch-fetch all logo URLs in a single server function call instead of one per row
-  const teamSlugs = (ranking?.teams ?? []).map((t) =>
-    slugify((t.teamName ?? "").replace(/\s+\d+$/, "")),
-  );
-  const { data: logoUrlMap } = useClubLogoUrlsBatch(teamSlugs);
 
   if (isError && !ranking) {
     return (
@@ -133,7 +126,6 @@ export default function RankingTable(props: RankingTable) {
             // Enable links only when linkToTeamPage is true (tabelle page) and team has a slug
             const teamLink =
               props.linkToTeamPage && isClubsTeam?.slug ? `/teams/${isClubsTeam.slug}` : null;
-            const clubSlug = slugify((team.teamName ?? "").replace(/\s+\d+$/, ""));
             return (
               <RankingTableItem
                 key={team.uuid}
@@ -142,7 +134,7 @@ export default function RankingTable(props: RankingTable) {
                 teamLink={teamLink}
                 clubLogo={
                   <ClubLogo
-                    logoUrl={logoUrlMap?.[clubSlug]}
+                    logoUrl={team.logoUrl}
                     label={team.teamName ?? undefined}
                     light={shouldHighlight}
                   />

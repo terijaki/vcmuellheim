@@ -8,26 +8,36 @@
 
 import { z } from "zod";
 
-/** Environment variable name for the dedicated cache table */
-export const CACHE_TABLE_ENV_VAR = "CACHE_TABLE_NAME" as const;
+/**
+ * Branch suffix for resource names. Prod omits branch; dev includes `-{branch}` when set.
+ * Single source of truth for table names, queue names, and alarm suffixes.
+ */
+export function computeResourceBranchSuffix(environment: string, branch: string): string {
+  if (environment === "prod") return "";
+  return branch ? `-${branch}` : "";
+}
 
-/** Get the cache table name from the environment, throwing if not configured */
-export function getCacheTableName(): string {
-  const tableName = process.env[CACHE_TABLE_ENV_VAR];
+/** Environment variable name for the dedicated social media table */
+export const SOCIAL_TABLE_ENV_VAR = "SOCIAL_TABLE_NAME" as const;
+
+/** Get the social table name from the environment, throwing if not configured */
+export function getSocialTableName(): string {
+  const tableName = process.env[SOCIAL_TABLE_ENV_VAR];
   if (!tableName) {
     throw new Error(
-      `Cache table not configured. Missing environment variable: ${CACHE_TABLE_ENV_VAR}`,
+      `Social table not configured. Missing environment variable: ${SOCIAL_TABLE_ENV_VAR}`,
     );
   }
   return tableName;
 }
+
 /**
- * Compute the canonical cache table name for a given environment and branch.
- * Single source of truth used by CacheStack, WebAppStack, and SocialMediaStack.
+ * Compute the canonical social table name for a given environment and branch.
+ * Single source of truth used by SocialMediaStack and WebAppStack.
  */
-export function computeCacheTableName(environment: string, branch: string): string {
-  const branchSuffix = branch ? `-${branch}` : "";
-  return `vcm-cache-${environment}${branchSuffix}`;
+export function computeSocialTableName(environment: string, branch: string): string {
+  const branchSuffix = computeResourceBranchSuffix(environment, branch);
+  return `vcm-social-${environment}${branchSuffix}`;
 }
 
 /** Environment variable name for the single content table */
@@ -53,7 +63,7 @@ export function getContentTableName(): string {
  * — keeping them in sync without a CloudFormation cross-stack reference.
  */
 export function computeContentTableName(environment: string, branch: string): string {
-  const branchSuffix = branch ? `-${branch}` : "";
+  const branchSuffix = computeResourceBranchSuffix(environment, branch);
   return `vcm-content-${environment}${branchSuffix}`;
 }
 
@@ -75,6 +85,6 @@ export function getSamsTableName(): string {
  * vite plugin — keeping them in sync without a CloudFormation cross-stack reference.
  */
 export function computeSamsDataTableName(environment: string, branch: string): string {
-  const branchSuffix = branch ? `-${branch}` : "";
+  const branchSuffix = computeResourceBranchSuffix(environment, branch);
   return `sams-data-${environment}${branchSuffix}`;
 }

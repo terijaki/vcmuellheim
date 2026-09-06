@@ -38,6 +38,7 @@ export const SamsClubEntity = new Entity({
     associationName: { type: "string" },
     logoImageLink: { type: "string" },
     logoS3Key: { type: "string" },
+    snapshotVersion: { type: "string" },
     updatedAt: { type: "string", required: true },
     ttl: { type: "number", required: true },
   },
@@ -76,6 +77,7 @@ export const SamsTeamEntity = new Entity({
     leagueHierarchyLevel: { type: "number" },
     seasonUuid: { type: "string", required: true },
     seasonName: { type: "string", required: true },
+    snapshotVersion: { type: "string" },
     updatedAt: { type: "string", required: true },
     ttl: { type: "number", required: true },
   },
@@ -107,6 +109,7 @@ export const SamsRosterEntity = new Entity({
     type: { type: "string", required: true, default: () => "roster" as const },
     players: { type: "any", required: true },
     officials: { type: "any", required: true },
+    snapshotVersion: { type: "string" },
     updatedAt: { type: "string", required: true },
     ttl: { type: "number", required: true },
   },
@@ -123,11 +126,75 @@ export const SamsRosterEntity = new Entity({
   },
 } as const);
 
+// ---------------------------------------------------------------------------
+// SamsSchedule entity — club/season match window
+// ---------------------------------------------------------------------------
+
+export const SamsScheduleEntity = new Entity({
+  model: {
+    entity: "samsschedule",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    sportsclubUuid: { type: "string", required: true },
+    seasonUuid: { type: "string", required: true },
+    type: { type: "string", required: true, default: () => "schedule" as const },
+    seasonName: { type: "string" },
+    matches: { type: "any", required: true },
+    snapshotVersion: { type: "string", required: true },
+    projectedAt: { type: "string" },
+    cachedAt: { type: "string" },
+    isStale: { type: "boolean" },
+    updatedAt: { type: "string", required: true },
+    ttl: { type: "number", required: true },
+  },
+  indexes: {
+    byClubSeason: {
+      pk: { field: "pk", composite: ["sportsclubUuid"] },
+      sk: { field: "sk", composite: ["seasonUuid"] },
+    },
+  },
+} as const);
+
+// ---------------------------------------------------------------------------
+// SamsRanking entity — league/season standings
+// ---------------------------------------------------------------------------
+
+export const SamsRankingEntity = new Entity({
+  model: {
+    entity: "samsranking",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    leagueUuid: { type: "string", required: true },
+    seasonUuid: { type: "string", required: true },
+    type: { type: "string", required: true, default: () => "ranking" as const },
+    seasonName: { type: "string" },
+    leagueName: { type: "string" },
+    teams: { type: "any", required: true },
+    snapshotVersion: { type: "string", required: true },
+    cachedAt: { type: "string" },
+    isStale: { type: "boolean" },
+    updatedAt: { type: "string", required: true },
+    ttl: { type: "number", required: true },
+  },
+  indexes: {
+    byLeagueSeason: {
+      pk: { field: "pk", composite: ["leagueUuid"] },
+      sk: { field: "sk", composite: ["seasonUuid"] },
+    },
+  },
+} as const);
+
 /** All SAMS entities — useful for building a service */
 export const SamsEntities = {
   club: SamsClubEntity,
   team: SamsTeamEntity,
   roster: SamsRosterEntity,
+  schedule: SamsScheduleEntity,
+  ranking: SamsRankingEntity,
 } as const;
 
 export type SamsEntityName = keyof typeof SamsEntities;

@@ -13,7 +13,11 @@ import type {
   MastodonShareLambdaEnvironment,
   MastodonStreamHandlerLambdaEnvironment,
 } from "@/lambda/social/types";
-import { computeCacheTableName, computeContentTableName } from "./db/env";
+import {
+  computeContentTableName,
+  computeResourceBranchSuffix,
+  computeSocialTableName,
+} from "./db/env";
 import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 
 interface SocialMediaStackProps extends cdk.StackProps {
@@ -30,6 +34,8 @@ interface SocialMediaStackProps extends cdk.StackProps {
 }
 
 export class SocialMediaStack extends cdk.Stack {
+  /** Stable plain-string table name — safe to pass cross-stack without creating CloudFormation exports. */
+  public readonly socialTableName: string;
   public readonly mastodonLambda: lambda.IFunction;
 
   constructor(scope: Construct, id: string, props: SocialMediaStackProps) {
@@ -37,7 +43,7 @@ export class SocialMediaStack extends cdk.Stack {
 
     const environment = props?.stackProps?.environment || "dev";
     const branch = props?.stackProps?.branch || "";
-    const branchSuffix = branch ? `-${branch}` : "";
+    const branchSuffix = computeResourceBranchSuffix(environment, branch);
     const isProd = environment === "prod";
 
     const isCdkDestroy = process.env.CDK_DESTROY === "true";
@@ -53,6 +59,18 @@ export class SocialMediaStack extends cdk.Stack {
         "⚠️  MASTODON_ACCESS_TOKEN not set - Mastodon sharing will be disabled in production",
       );
     }
+
+    this.socialTableName = computeSocialTableName(environment, branch);
+
+    const socialTable = new dynamodb.Table(this, "SocialTable", {
+      tableName: this.socialTableName,
+      partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
+      sortKey: { name: "sk", type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      deletionProtection: false,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      timeToLiveAttribute: "ttl",
+    });
 
     // Create Lambda function for Mastodon sharing
     const mastodonShare = new VcmNodejsFunction(this, "MastodonShare", {
@@ -75,15 +93,6 @@ export class SocialMediaStack extends cdk.Stack {
 
     // Create scheduled Lambda to proactively sync Behold Instagram posts to DynamoDB.
     // Runs hourly during German daytime — ~465 calls/month (~39% of Behold's 1200/month free-tier limit).
-    const contentTableName = props.contentTableName ?? computeContentTableName(environment, branch);
-    const cacheTableName = computeCacheTableName(environment, branch);
-    const cacheTableArn = cdk.Stack.of(this).formatArn({
-      service: "dynamodb",
-      resource: "table",
-      resourceName: cacheTableName,
-    });
-    const cacheTableRef = dynamodb.Table.fromTableArn(this, "CacheTableRef", cacheTableArn);
-
     const beholdSync = new VcmNodejsFunction(this, "BeholdSync", {
       namespace: "social",
       name: "behold-sync",
@@ -91,12 +100,12 @@ export class SocialMediaStack extends cdk.Stack {
       memorySize: 128,
       environment: {
         ...commonEnvironment,
-        CACHE_TABLE_NAME: cacheTableName,
+        SOCIAL_TABLE_NAME: this.socialTableName,
         BEHOLD_FEED_URL: process.env.BEHOLD_FEED_URL,
       } satisfies BeholdSyncLambdaEnvironment,
     }).lambdaFunction;
 
-    cacheTableRef.grantReadWriteData(beholdSync);
+    socialTable.grantReadWriteData(beholdSync);
 
     // Trigger hourly during German daytime (7:00–21:00 UTC = 8–22h CET / 9–23h CEST)
     // ~15 runs/day, ~465 calls/month (~39% of Behold's 1200/month free-tier limit)
@@ -108,6 +117,7 @@ export class SocialMediaStack extends cdk.Stack {
     beholdSyncRule.addTarget(new targets.LambdaFunction(beholdSync));
 
     // Create Lambda function for Mastodon stream handler (DynamoDB streams)
+    const contentTableName = props.contentTableName ?? computeContentTableName(environment, branch);
     if (props.contentTableName && props.contentTableStreamArn && props.websiteUrl) {
       const contentTableArn = cdk.Stack.of(this).formatArn({
         service: "dynamodb",

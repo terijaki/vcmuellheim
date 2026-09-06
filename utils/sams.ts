@@ -110,6 +110,19 @@ export function resolveSyncedSeasonUuidFromTeams<
   return candidates[0]?.seasonUuid;
 }
 
+export function pickSyncedSeasonUuid<
+  T extends Pick<TeamLike, "seasonUuid" | "updatedAt" | "sportsclubUuid">,
+>(teams: readonly T[], preferredSportsclubUuids?: readonly string[]): string | undefined {
+  if (preferredSportsclubUuids && preferredSportsclubUuids.length > 0) {
+    const preferred = new Set(preferredSportsclubUuids);
+    const scopedTeams = teams.filter(
+      (team) => team.sportsclubUuid && preferred.has(team.sportsclubUuid),
+    );
+    return resolveSyncedSeasonUuidFromTeams(scopedTeams);
+  }
+  return resolveSyncedSeasonUuidFromTeams(teams);
+}
+
 export function getOwnedSamsTeamUuids<T extends TeamLike>(teams: readonly T[]): Set<string> {
   const teamUuids = new Set<string>();
 

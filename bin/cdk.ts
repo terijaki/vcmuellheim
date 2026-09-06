@@ -7,7 +7,6 @@ import { buildWebappUrl } from "@utils/webapp-url";
 import * as cdk from "aws-cdk-lib";
 import { DNS } from "@/project.config";
 import { BudgetStack } from "../lib/budget-stack";
-import { CacheStack } from "../lib/cache-stack";
 import { ContentDbStack } from "../lib/content-db-stack";
 import { DnsStack } from "../lib/dns-stack";
 import { MailStack } from "../lib/mail-stack";
@@ -29,7 +28,6 @@ const deployAccountOpsStacks = shouldDeployAccountOpsStacks({ isProd, branch });
 const { stackName, envLabel } = getCdkNaming(isProd, branch);
 
 const contentDbStackName = stackName("ContentDbStack");
-const cacheStackName = stackName("CacheStack");
 const mediaStackName = stackName("MediaStack");
 const webappStackName = stackName("WebAppStack");
 const samsStackName = stackName("SamsStack");
@@ -70,11 +68,6 @@ const contentDbStack = new ContentDbStack(app, contentDbStackName, {
   description: `Content Database Tables (${envLabel})`,
 });
 
-new CacheStack(app, cacheStackName, {
-  ...commonStackProps,
-  description: `Cache Table (${envLabel})`,
-});
-
 const mediaStack = new MediaStack(app, mediaStackName, {
   ...commonStackProps,
   description: `Media Storage (S3) (${envLabel})`,
@@ -82,20 +75,17 @@ const mediaStack = new MediaStack(app, mediaStackName, {
   cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
-const samsStack = new SamsStack(app, samsStackName, {
+new SamsStack(app, samsStackName, {
   ...commonStackProps,
-  description: `SAMS API Services (${envLabel})`,
-  mediaBucketName: mediaStack.bucketName,
-  mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
+  description: `SAMS provider consumer (${envLabel})`,
+  alertEmail: ENV.CDK_MONITORING_ALERT_EMAIL || ENV.CDK_BUDGET_ALERT_EMAIL,
 });
 
-// Social Media Stack with Mastodon integration
-new SocialMediaStack(app, socialMediaStackName, {
+const socialMediaStack = new SocialMediaStack(app, socialMediaStackName, {
   ...commonStackProps,
   description: `Social Media API Services (${envLabel})`,
   contentTableName: contentDbStack.contentTableName,
   contentTableStreamArn: contentDbStack.contentTableStreamArn,
-  // Pass the webapp URL for Mastodon news-sharing links
   websiteUrl: buildWebappUrl(environment, branch),
   mediaBucketName: mediaStack.bucketName,
 });
@@ -104,12 +94,11 @@ const webappStack = new WebAppStack(app, webappStackName, {
   ...commonStackProps,
   description: `VCM WebApp + Admin (${envLabel})`,
   contentTableName: contentDbStack.contentTableName,
+  socialTableName: socialMediaStack.socialTableName,
   mediaBucketName: mediaStack.bucketName,
   mediaCloudFrontUrl: mediaStack.cloudFrontUrl,
   hostedZone: dnsStack.hostedZone,
   cloudFrontCertificate: dnsStack.cloudFrontCertificate,
-  samsClubsSyncFunctionName: samsStack.samsClubsSyncFunctionName,
-  samsTeamsSyncFunctionName: samsStack.samsTeamsSyncFunctionName,
 });
 
 // Budget monitoring - requires email for alerts

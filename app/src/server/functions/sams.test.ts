@@ -1,297 +1,245 @@
-import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
-import { mockClient } from "aws-sdk-client-mock";
-import { beforeEach, describe, expect, it } from "vite-plus/test";
-import { resolveEffectiveSamsSportsclubUuids } from "@utils/sams";
-import { createSamsMatchesCacheKey } from "./sams-match-loader.server";
-import { buildLiveMatchesFromRaw, invokeSamsLambdaAsync, resolveClubLogoUrl } from "./sams.server";
-import { triggerSamsClubsSyncFn, triggerSamsTeamsSyncFn } from "./sams";
+import type { ClubResponse, TeamResponse } from "@/lib/db/schemas";
+import type { LeagueMatch } from "@/lambda/sams/types";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
+import {
+  buildLiveMatchesFromRaw,
+  handleGetSamsMatches,
+  handleGetSamsRankingByLeagueUuid,
+  handlePeekSamsMatchesCache,
+  handleServeClubLogo,
+} from "./sams.server";
 
-describe("resolveClubLogoUrl", () => {
-  const CF = "https://cdn.example.com";
+vi.mock("@/lib/sams/repositories", () => ({
+  samsScheduleProjectionRepository: { listMatchesForSportsclubs: vi.fn(), get: vi.fn() },
+  samsRankingProjectionRepository: { get: vi.fn() },
+}));
+vi.mock("@webapp/server/queries", () => ({
+  getAllSamsClubs: vi.fn(),
+  getAllSamsTeams: vi.fn(),
+  getSamsClubBySportsclubUuid: vi.fn(),
+  getSamsRosterByTeamUuid: vi.fn(),
+}));
 
-  it("returns CloudFront URL when logoS3Key and cloudfrontUrl are set", () => {
-    const result = resolveClubLogoUrl({ logoS3Key: "sams-logos/abc.png" }, CF);
-    expect(result).toBe("https://cdn.example.com/sams-logos/abc.png");
+import {
+  samsRankingProjectionRepository,
+  samsScheduleProjectionRepository,
+} from "@/lib/sams/repositories";
+import {
+  getAllSamsClubs,
+  getAllSamsTeams,
+  getSamsClubBySportsclubUuid,
+} from "@webapp/server/queries";
+
+const mockList = vi.mocked(samsScheduleProjectionRepository.listMatchesForSportsclubs);
+const mockRankingGet = vi.mocked(samsRankingProjectionRepository.get);
+const mockClubs = vi.mocked(getAllSamsClubs);
+const mockTeams = vi.mocked(getAllSamsTeams);
+const mockClubByUuid = vi.mocked(getSamsClubBySportsclubUuid);
+
+const clubs: ClubResponse[] = [
+  {
+    type: "club",
+    name: "VC Müllheim",
+    sportsclubUuid: "uuid-a",
+    updatedAt: "2026-01-01T00:00:00.000Z",
+  },
+  {
+    type: "club",
+    name: "Markgräfler Volleys",
+    sportsclubUuid: "uuid-b",
+    updatedAt: "2026-01-01T00:00:00.000Z",
+  },
+];
+const team: TeamResponse = {
+  type: "team",
+  uuid: "team-1",
+  name: "VC",
+  sportsclubUuid: "uuid-a",
+  associationUuid: "a",
+  leagueUuid: "l1",
+  leagueName: "BL",
+  seasonUuid: "season-synced",
+  seasonName: "25/26",
+  updatedAt: "2026-01-01T00:00:00.000Z",
+};
+
+function sampleMatch(overrides: Partial<LeagueMatch> = {}): LeagueMatch {
+  return {
+    uuid: "m1",
+    date: "2026-12-01",
+    hasResult: false,
+    team1: { uuid: "t1", name: "Team 1", sportsclubUuid: "uuid-a" },
+    team2: { uuid: "t2", name: "Team 2", sportsclubUuid: "uuid-b" },
+    ...overrides,
+  };
+}
+
+describe("projection reads", () => {
+  beforeEach(() => {
+    mockClubs.mockResolvedValue({ items: clubs });
+    mockTeams.mockResolvedValue({ items: [team] });
+    mockList.mockReset();
+    mockRankingGet.mockReset();
   });
 
-  it("falls back to logoImageLink when logoS3Key is absent", () => {
-    const result = resolveClubLogoUrl({ logoImageLink: "https://sams.cdn/logo.png" }, CF);
-    expect(result).toBe("https://sams.cdn/logo.png");
+  it("loads projections", async () => {
+    mockList.mockResolvedValue([sampleMatch()]);
+    expect((await handlePeekSamsMatchesCache({ range: "future" }))?.matches).toHaveLength(1);
   });
 
-  it("falls back to logoImageLink when cloudfrontUrl is empty", () => {
-    const result = resolveClubLogoUrl(
-      { logoS3Key: "sams-logos/abc.png", logoImageLink: "https://sams.cdn/logo.png" },
-      "",
-    );
-    expect(result).toBe("https://sams.cdn/logo.png");
-  });
-
-  it("returns null when club has neither logo field", () => {
-    const result = resolveClubLogoUrl({}, CF);
-    expect(result).toBeNull();
-  });
-
-  it("returns null when club is null", () => {
-    const result = resolveClubLogoUrl(null, CF);
-    expect(result).toBeNull();
-  });
-});
-
-describe("resolveEffectiveSamsSportsclubUuids", () => {
-  it("uses configured defaults when no explicit filter is present", () => {
-    expect(resolveEffectiveSamsSportsclubUuids({}, ["club-a", "club-b"])).toEqual([
-      "club-a",
-      "club-b",
+  it("filters future matches by hasResult", async () => {
+    mockList.mockResolvedValue([
+      sampleMatch({ uuid: "f1", date: "2026-12-01", hasResult: false }),
+      sampleMatch({ uuid: "p1", date: "2026-01-01", hasResult: true }),
+    ]);
+    expect((await handleGetSamsMatches({ range: "future" })).matches.map((m) => m.uuid)).toEqual([
+      "f1",
     ]);
   });
 
-  it("keeps explicit sportsclub filters authoritative", () => {
-    expect(
-      resolveEffectiveSamsSportsclubUuids(
-        { sportsclub: "club-explicit", team: "team-a", league: "league-a" },
-        ["club-a", "club-b"],
+  it("loads matches from both configured clubs", async () => {
+    mockList.mockImplementation(async (sportsclubUuids) => {
+      expect([...sportsclubUuids]).toEqual(expect.arrayContaining(["uuid-a", "uuid-b"]));
+      return [
+        sampleMatch({
+          uuid: "a1",
+          team1: { uuid: "team-a", name: "VCM", sportsclubUuid: "uuid-a" },
+        }),
+        sampleMatch({
+          uuid: "b1",
+          team1: { uuid: "team-b", name: "MGV", sportsclubUuid: "uuid-b" },
+        }),
+      ];
+    });
+
+    const result = await handleGetSamsMatches({ range: "future" });
+    expect(result.matches.map((match) => match.uuid).sort()).toEqual(["a1", "b1"]);
+  });
+
+  it("returns an empty ranking payload when no projection exists", async () => {
+    mockRankingGet.mockResolvedValue(null);
+    const result = await handleGetSamsRankingByLeagueUuid("league-missing");
+    expect(result.teams).toEqual([]);
+    expect(result.leagueUuid).toBe("league-missing");
+  });
+
+  it("returns an empty ranking payload when no synced season exists", async () => {
+    mockTeams.mockResolvedValue({ items: [] });
+    const result = await handleGetSamsRankingByLeagueUuid("league-1");
+    expect(result.teams).toEqual([]);
+    expect(mockRankingGet).not.toHaveBeenCalled();
+  });
+
+  it("rewrites ranking logoUrl to the same-origin CloudFront proxy when sportsclubUuid is present", async () => {
+    mockRankingGet.mockResolvedValue({
+      leagueUuid: "l1",
+      seasonUuid: "season-synced",
+      seasonName: "25/26",
+      leagueName: "BL",
+      type: "ranking",
+      teams: [
+        {
+          uuid: "t1",
+          teamName: "VC",
+          rank: 1,
+          sportsclubUuid: "club-1",
+          logoUrl: "https://cdn.example.com/logo.png",
+        },
+      ],
+      snapshotVersion: "abc",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+      ttl: 1,
+    });
+    const result = await handleGetSamsRankingByLeagueUuid("l1");
+    expect(result.teams?.[0]?.logoUrl).toBe("/api/sams/logos?clubUuid=club-1");
+    expect(result.teams?.[0]?.sportsclubUuid).toBe("club-1");
+    expect(result.leagueName).toBe("BL");
+  });
+
+  it("leaves ranking rows without a provider logoUrl unset so ClubLogo can fall back", async () => {
+    mockRankingGet.mockResolvedValue({
+      leagueUuid: "l1",
+      seasonUuid: "season-synced",
+      seasonName: "25/26",
+      leagueName: "BL",
+      type: "ranking",
+      teams: [
+        {
+          uuid: "t2",
+          teamName: "Hey Arnold",
+          rank: 2,
+          sportsclubUuid: "club-no-logo",
+        },
+      ],
+      snapshotVersion: "abc",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+      ttl: 1,
+    });
+    const result = await handleGetSamsRankingByLeagueUuid("l1");
+    expect(result.teams?.[0]?.logoUrl).toBeUndefined();
+    expect(result.teams?.[0]?.sportsclubUuid).toBe("club-no-logo");
+  });
+});
+
+describe("handleServeClubLogo", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("streams SVG bytes from a data URI stored on the club", async () => {
+    const svg = "<svg xmlns='http://www.w3.org/2000/svg'></svg>";
+    mockClubByUuid.mockResolvedValue({
+      type: "club",
+      name: "Mighty Ducks",
+      sportsclubUuid: "club-1",
+      logoImageLink: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    });
+
+    const response = await handleServeClubLogo("club-1");
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toBe("image/svg+xml;charset=utf-8");
+    expect(await response.text()).toBe(svg);
+  });
+
+  it("proxies https provider logos", async () => {
+    mockClubByUuid.mockResolvedValue({
+      type: "club",
+      name: "VC Müllheim",
+      sportsclubUuid: "club-1",
+      logoImageLink: "https://cdn.example.com/logo.png",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    });
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        new Response(Buffer.from("png-bytes"), {
+          status: 200,
+          headers: { "Content-Type": "image/png" },
+        }),
       ),
-    ).toEqual(["club-explicit"]);
-  });
-
-  it("does not apply defaults when team or league filters are present", () => {
-    expect(resolveEffectiveSamsSportsclubUuids({ team: "team-a" }, ["club-a", "club-b"])).toEqual(
-      [],
-    );
-    expect(
-      resolveEffectiveSamsSportsclubUuids({ league: "league-a" }, ["club-a", "club-b"]),
-    ).toEqual([]);
-  });
-});
-
-describe("createSamsMatchesCacheKey", () => {
-  it("matches the cache key for default and explicit single-club filters", () => {
-    const defaultKey = createSamsMatchesCacheKey({ range: "future", limit: 10 }, ["club-a"]);
-    const explicitKey = createSamsMatchesCacheKey(
-      { sportsclub: "club-a", range: "future", limit: 10 },
-      ["club-a"],
     );
 
-    expect(defaultKey).toBe(explicitKey);
+    const response = await handleServeClubLogo("club-1");
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toBe("image/png");
+    expect(Buffer.from(await response.arrayBuffer()).toString()).toBe("png-bytes");
   });
 
-  it("normalizes multi-club cache key order", () => {
-    const left = createSamsMatchesCacheKey({ range: "future" }, ["club-b", "club-a"]);
-    const right = createSamsMatchesCacheKey({ range: "future" }, ["club-a", "club-b"]);
-
-    expect(left).toBe(right);
+  it("returns 404 when the club has no logo", async () => {
+    mockClubByUuid.mockResolvedValue({
+      type: "club",
+      name: "VC Müllheim",
+      sportsclubUuid: "club-1",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    });
+    const response = await handleServeClubLogo("club-1");
+    expect(response.status).toBe(404);
   });
 });
-
-// Minimal raw ticker shape (post-parse defaults applied)
-const makeRaw = (
-  overrides: {
-    matchDays?: {
-      date?: string;
-      matches: {
-        id: string;
-        date?: string | number;
-        team1: string;
-        team2: string;
-        teamDescription1?: string;
-        teamDescription2?: string;
-      }[];
-    }[];
-    matchStates?: Record<
-      string,
-      {
-        started: boolean;
-        finished: boolean;
-        setPoints?: { team1: number; team2: number };
-        matchSets: { setNumber: number; setScore: { team1: number; team2: number } }[];
-      }
-    >;
-  } = {},
-) => ({
-  matchDays: overrides.matchDays ?? [],
-  matchStates: overrides.matchStates ?? {},
-});
-
-const today = new Date();
-const yesterday = new Date(today);
-yesterday.setDate(yesterday.getDate() - 1);
-const todayIso = today.toISOString();
-const yesterdayIso = yesterday.toISOString();
 
 describe("buildLiveMatchesFromRaw", () => {
-  it("returns empty array when there are no matchStates", () => {
-    const result = buildLiveMatchesFromRaw(makeRaw());
-    expect(result).toHaveLength(0);
-  });
-
-  it("filters out matches that are not started", () => {
-    const result = buildLiveMatchesFromRaw(
-      makeRaw({
-        matchDays: [{ matches: [{ id: "m1", team1: "t1", team2: "t2" }] }],
-        matchStates: { m1: { started: false, finished: false, matchSets: [] } },
-      }),
-    );
-    expect(result).toHaveLength(0);
-  });
-
-  it("filters out started matches with no team metadata", () => {
-    const result = buildLiveMatchesFromRaw(
-      makeRaw({
-        matchStates: { "unknown-match": { started: true, finished: false, matchSets: [] } },
-      }),
-    );
-    expect(result).toHaveLength(0);
-  });
-
-  it("includes started matches that have team metadata", () => {
-    const result = buildLiveMatchesFromRaw(
-      makeRaw({
-        matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "t1", team2: "t2" }] }],
-        matchStates: { m1: { started: true, finished: false, matchSets: [] } },
-      }),
-    );
-    expect(result).toHaveLength(1);
-    expect(result[0]?.matchUuid).toBe("m1");
-  });
-
-  it("defaults setPoints to 0:0 when absent", () => {
-    const result = buildLiveMatchesFromRaw(
-      makeRaw({
-        matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "t1", team2: "t2" }] }],
-        matchStates: { m1: { started: true, finished: false, matchSets: [] } },
-      }),
-    );
-    expect(result[0]?.state.setPoints).toEqual({ team1: 0, team2: 0 });
-  });
-
-  it("uses setPoints from state when present", () => {
-    const result = buildLiveMatchesFromRaw(
-      makeRaw({
-        matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "t1", team2: "t2" }] }],
-        matchStates: {
-          m1: { started: true, finished: false, setPoints: { team1: 2, team2: 1 }, matchSets: [] },
-        },
-      }),
-    );
-    expect(result[0]?.state.setPoints).toEqual({ team1: 2, team2: 1 });
-  });
-
-  it("uses teamDescription1/2 as names when provided", () => {
-    const result = buildLiveMatchesFromRaw(
-      makeRaw({
-        matchDays: [
-          {
-            matches: [
-              {
-                id: "m1",
-                date: todayIso,
-                team1: "uuid-1",
-                team2: "uuid-2",
-                teamDescription1: "VC Müllheim",
-                teamDescription2: "Other Club",
-              },
-            ],
-          },
-        ],
-        matchStates: { m1: { started: true, finished: false, matchSets: [] } },
-      }),
-    );
-    expect(result[0]?.team1Name).toBe("VC Müllheim");
-    expect(result[0]?.team2Name).toBe("Other Club");
-  });
-
-  it("falls back to team UUID as name when teamDescription is absent", () => {
-    const result = buildLiveMatchesFromRaw(
-      makeRaw({
-        matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "uuid-1", team2: "uuid-2" }] }],
-        matchStates: { m1: { started: true, finished: false, matchSets: [] } },
-      }),
-    );
-    expect(result[0]?.team1Name).toBe("uuid-1");
-    expect(result[0]?.team2Name).toBe("uuid-2");
-  });
-
-  it("maps finished state correctly", () => {
-    const result = buildLiveMatchesFromRaw(
-      makeRaw({
-        matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "t1", team2: "t2" }] }],
-        matchStates: {
-          m1: { started: true, finished: true, setPoints: { team1: 3, team2: 1 }, matchSets: [] },
-        },
-      }),
-    );
-    expect(result[0]?.state.finished).toBe(true);
-  });
-
-  it("filters out started matches from previous days", () => {
-    const result = buildLiveMatchesFromRaw(
-      makeRaw({
-        matchDays: [{ matches: [{ id: "m1", date: yesterdayIso, team1: "t1", team2: "t2" }] }],
-        matchStates: { m1: { started: true, finished: true, matchSets: [] } },
-      }),
-    );
-    expect(result).toHaveLength(0);
-  });
-
-  it("uses matchDay date fallback when match date is missing", () => {
-    const result = buildLiveMatchesFromRaw(
-      makeRaw({
-        matchDays: [{ date: todayIso, matches: [{ id: "m1", team1: "t1", team2: "t2" }] }],
-        matchStates: { m1: { started: true, finished: false, matchSets: [] } },
-      }),
-    );
-    expect(result).toHaveLength(1);
-  });
-});
-
-// ── invokeSamsLambdaAsync ────────────────────────────────────────────────────
-
-const lambdaMock = mockClient(LambdaClient);
-
-describe("invokeSamsLambdaAsync", () => {
-  beforeEach(() => {
-    lambdaMock.reset();
-    process.env.SAMS_CLUBS_SYNC_FUNCTION_NAME = "test-clubs-sync";
-    process.env.SAMS_TEAMS_SYNC_FUNCTION_NAME = "test-teams-sync";
-  });
-
-  it("resolves without error when StatusCode is 202", async () => {
-    lambdaMock.on(InvokeCommand).resolves({ StatusCode: 202 });
-    await expect(invokeSamsLambdaAsync("test-fn", "test label")).resolves.toBeUndefined();
-  });
-
-  it("throws when StatusCode is not 202", async () => {
-    lambdaMock.on(InvokeCommand).resolves({ StatusCode: 500 });
-    await expect(invokeSamsLambdaAsync("test-fn", "test label")).rejects.toThrow(
-      "test label trigger failed: StatusCode=500",
-    );
-  });
-
-  it("passes the function name to InvokeCommand", async () => {
-    lambdaMock.on(InvokeCommand).resolves({ StatusCode: 202 });
-    await invokeSamsLambdaAsync("my-function", "label");
-    const calls = lambdaMock.commandCalls(InvokeCommand);
-    expect(calls).toHaveLength(1);
-    expect(calls[0]?.args[0].input).toMatchObject({
-      FunctionName: "my-function",
-      InvocationType: "Event",
-    });
-  });
-});
-
-// ── triggerSamsClubsSyncFn / triggerSamsTeamsSyncFn — admin guard ────────────
-
-describe("triggerSamsClubsSyncFn", () => {
-  it("rejects when there is no active admin session (no HTTP request context)", async () => {
-    // In a Node.js test environment, requireAdminMiddleware finds no session
-    // via getRequest() and throws an authorization error.
-    await expect(triggerSamsClubsSyncFn()).rejects.toThrow();
-  });
-});
-
-describe("triggerSamsTeamsSyncFn", () => {
-  it("rejects when there is no active admin session (no HTTP request context)", async () => {
-    await expect(triggerSamsTeamsSyncFn()).rejects.toThrow();
+  it("returns empty without states", () => {
+    expect(buildLiveMatchesFromRaw({ matchDays: [], matchStates: {} })).toHaveLength(0);
   });
 });

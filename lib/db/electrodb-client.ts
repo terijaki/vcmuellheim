@@ -28,7 +28,13 @@ import {
   VolunteerTokenEntity,
 } from "./electrodb-entities";
 import { getContentTableName, getSamsTableName } from "./env";
-import { SamsClubEntity, SamsRosterEntity, SamsTeamEntity } from "./sams-electrodb-entities";
+import {
+  SamsClubEntity,
+  SamsRankingEntity,
+  SamsRosterEntity,
+  SamsScheduleEntity,
+  SamsTeamEntity,
+} from "./sams-electrodb-entities";
 
 /** All entities registered in the service */
 const entityMap = {
@@ -76,6 +82,8 @@ const samsEntityMap = {
   club: SamsClubEntity,
   team: SamsTeamEntity,
   roster: SamsRosterEntity,
+  schedule: SamsScheduleEntity,
+  ranking: SamsRankingEntity,
 } as const;
 
 /**

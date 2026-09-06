@@ -33,11 +33,18 @@ describe("SocialMediaStack", () => {
       // Should have no API Gateway (removed with Instagram pipeline)
       template.resourceCountIs("AWS::ApiGatewayV2::Api", 0);
 
-      // MastodonShare + BeholdSync (always created)
+      // MastodonShare + BeholdSync + social DynamoDB table
       template.resourceCountIs("AWS::Lambda::Function", 2);
+      template.resourceCountIs("AWS::DynamoDB::Table", 1);
 
-      // Should have no DynamoDB tables (Instagram table removed)
-      template.resourceCountIs("AWS::DynamoDB::Table", 0);
+      template.hasResourceProperties("AWS::DynamoDB::Table", {
+        TableName: "vcm-social-dev",
+        BillingMode: "PAY_PER_REQUEST",
+        TimeToLiveSpecification: {
+          AttributeName: "ttl",
+          Enabled: true,
+        },
+      });
 
       // BeholdSync always has its schedule
       template.resourceCountIs("AWS::Events::Rule", 1);
@@ -62,6 +69,29 @@ describe("SocialMediaStack", () => {
         MemorySize: 512,
       });
     });
+
+    it("should configure Behold sync function with correct settings", () => {
+      const app = createTestApp();
+      const stack = new SocialMediaStack(app, "TestStack", {
+        stackProps: {
+          environment: "dev",
+          branch: "",
+        },
+      });
+
+      const template = Template.fromStack(stack);
+
+      template.hasResourceProperties("AWS::Lambda::Function", {
+        FunctionName: "vcm-behold-sync-dev",
+        Timeout: 30,
+        MemorySize: 128,
+        Environment: {
+          Variables: {
+            SOCIAL_TABLE_NAME: "vcm-social-dev",
+          },
+        },
+      });
+    });
   });
 
   describe("Behold sync Lambda", () => {
@@ -78,6 +108,7 @@ describe("SocialMediaStack", () => {
 
       // MastodonShare + BeholdSync (MastodonStreamHandler also needs websiteUrl)
       template.resourceCountIs("AWS::Lambda::Function", 2);
+      template.resourceCountIs("AWS::DynamoDB::Table", 1);
 
       // One EventBridge rule for the Behold sync schedule
       template.resourceCountIs("AWS::Events::Rule", 1);
@@ -112,6 +143,10 @@ describe("SocialMediaStack", () => {
 
       template.hasResourceProperties("AWS::Events::Rule", {
         Name: "behold-sync-schedule-dev-feature-x",
+      });
+
+      template.hasResourceProperties("AWS::DynamoDB::Table", {
+        TableName: "vcm-social-dev-feature-x",
       });
     });
   });

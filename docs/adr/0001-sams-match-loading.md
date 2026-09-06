@@ -1,60 +1,60 @@
-# SAMS match loading: club scope, season filter, and cache-peek SSR
+# SAMS match loading: club-scoped projections and cache-peek SSR
 
-The website loads league matches from the external SAMS API via `getSamsMatchesFn` in
-`app/src/server/functions/sams.ts`. Slow, unscoped fetches were triggering production
-CloudWatch duration alarms on the webapp Lambda after the new season started.
+The website loads league matches from DynamoDB schedule projections written by the
+`sams-provider` event processor (`getSamsMatchesFn` in `app/src/server/functions/sams.ts`).
+The live ticker remains a proxy to `backend.sams-ticker.de`. There is no SAMS REST
+client (`sams-rest-v2`) on the read path.
 
-**Decision:** Load matches scoped to configured clubs, prefer the synced season from
-DynamoDB on cache miss, apply `past`/`future` filtering in application code after fetch,
-and use cache-peek loaders (`loadSamsMatchesForSsrFn`) for SSR so navigation never blocks
-on a live SAMS API call.
+**Decision:** Serve matches and rankings from provider projections only. Scope to
+configured clubs (VC Müllheim and Markgräfler Volleys), prefer the season UUID stored
+on projected teams, apply `past`/`future` filtering in application code with
+`hasResult`, and use cache-peek loaders (`loadSamsMatchesForSsrFn`) for SSR so
+navigation never blocks on a live SAMS API call.
 
 ## Club filter
 
-When no `league`, `sportsclub`, or `team` parameter is passed, matches are fetched for
+When no `league`, `sportsclub`, or `team` parameter is passed, matches are loaded for
 all sportsclubs configured in `project.config.ts`.
 
-Their `sportsclubUuid` values are resolved from the SAMS DynamoDB table (clubs sync).
-The SAMS API is called once per club with `for-sportsclub=<uuid>`, paginated at
-`size=100`.
+Their `sportsclubUuid` values are resolved from the SAMS DynamoDB table (club
+projections). Schedule rows are read per club/season and merged.
 
-When a `team` filter is set (team detail pages), the default club filter is **not**
-applied. Only `for-team=<uuid>` is sent.
+When a `team` filter is set (team detail pages), only matches whose `team1` or
+`team2` UUID matches are kept.
 
 ## Season filter
 
-Season scoping is best-effort and deferred to the cache-miss path:
+Season scoping is best-effort:
 
-1. Try the DynamoDB cache entry without a season key (backward-compatible with older cache).
-2. On miss, read `seasonUuid` from synced teams in DynamoDB (`getAllSamsTeams()`).
-   When teams disagree, use the season UUID held by the **majority** of synced teams;
+1. Read `seasonUuid` from projected teams in DynamoDB (`getAllSamsTeams()`).
+   When teams disagree, use the season UUID held by the **majority** of teams;
    on a tie, prefer the **most recently updated** team's season. Log a warning when
    multiple distinct season UUIDs are present.
-3. If found, retry cache and API calls with `for-season=<uuid>`.
-4. If season resolution fails (missing table, sync not run, dev environment), fall back
-   to **all seasons** for the configured clubs.
+2. Load that club/season schedule projection.
+3. If season resolution fails (missing table, processor not seeded, dev environment),
+   return an empty match list rather than calling an external API.
 
-We intentionally use the **synced** season from the teams sync lambda, not SAMS's live
-`currentSeason` flag. If the teams sync is stale (e.g. paused during off-season prep),
-match queries may scope to the previous season until the next sync runs.
+We use the **projected** season from club-season team events, not a live
+`currentSeason` flag from SAMS.
 
 ## Post-fetch filtering
 
-SAMS API filters narrow the download; additional filtering happens in memory:
+Projections are the full rolling window for a club/season; additional filtering
+happens in memory:
 
-| Parameter         | Effect                                            |
-| ----------------- | ------------------------------------------------- |
-| `range: "future"` | Keep matches without `results.winner` (unplayed)  |
-| `range: "past"`   | Keep matches with `results.winner` (completed)    |
-| `limit: N`        | Slice to N results **after** pagination completes |
+| Parameter         | Effect                                             |
+| ----------------- | -------------------------------------------------- |
+| `range: "future"` | Keep matches with `hasResult === false` (unplayed) |
+| `range: "past"`   | Keep matches with `hasResult === true` (completed) |
+| `limit: N`        | Slice to N results after filtering                 |
 
-`limit` does not reduce SAMS API pagination — all pages matching the API-level filters
-are fetched first.
+Stored matches are provider `Match` objects (`team1` / `team2` / `result` /
+`hasResult`). `team1` is the home / first-listed side.
 
 ## SSR loading strategy
 
-Route loaders must not call `getSamsMatchesFn` directly. That function may hit the SAMS
-API on cache miss and block navigation for several seconds.
+Route loaders must not call `getSamsMatchesFn` directly when a peek helper exists.
+Use cache-peek loaders so navigation stays on DynamoDB.
 
 | Route                 | Loader                                              | Client refresh                                   |
 | --------------------- | --------------------------------------------------- | ------------------------------------------------ |
@@ -67,33 +67,37 @@ Loaders receive `hookOptions` from the server function and pass them to
 `useSamsMatches`. Do not call `getSamsMatchesFn` in loaders.
 
 React Query passes cached loader data as `initialData` and refetches in the background
-when stale. `useSamsMatches` uses a **5 minute** `staleTime`, aligned with the DynamoDB
-match cache TTL.
+when stale. `useSamsMatches` uses a **5 minute** `staleTime`.
+
+The ICS calendar at `/ics/$teamSlug` is a TanStack Start **server route**
+(`server.handlers.GET` only). Importing `*.server.ts` there is allowed.
 
 ## Per-page behaviour
 
-| Page                  | SAMS API filters                  | Post-filter                                        |
-| --------------------- | --------------------------------- | -------------------------------------------------- |
-| Homepage (Heimspiele) | 2 clubs + season (if resolved)    | `future`, `limit: 50`, then home-game filter in UI |
-| `/termine`            | same                              | `future`                                           |
-| `/tabelle`            | same                              | `past`, dynamic `limit`                            |
-| Team page             | `for-team` + season (if resolved) | all matches for that team                          |
+| Page                  | Projection filters               | Post-filter                                      |
+| --------------------- | -------------------------------- | ------------------------------------------------ |
+| Homepage (Heimspiele) | 2 clubs + season (if resolved)   | `future`, `limit: 50`, then home games (`team1`) |
+| `/termine`            | same                             | `future`                                         |
+| `/tabelle`            | same                             | `past`, dynamic `limit`                          |
+| Team page             | team UUID + season (if resolved) | all matches for that team                        |
+
+Missing rankings return an empty settled payload (`teams: []`), not an error.
 
 ## Considered options
 
 - **Live** `currentSeason` **from SAMS API** — more accurate during season transitions, but
-  adds an extra API call on every cache miss. Deferred; synced season is good enough when
-  teams sync runs regularly.
+  reintroduces REST dependency. Rejected; projected season is the source of truth.
 - **SSR-blocking** `getSamsMatchesFn` **in loaders** — simpler code, but caused Lambda duration
-  alarms. Rejected for public routes.
-- **Pass** `limit` **to SAMS API** — not supported; pagination always returns full result sets
-  for the applied filters.
+  alarms when the path still hit SAMS. Rejected for public routes.
+- **HAL `_embedded` / `results` adapter** — mapped provider matches back to the old REST DTO.
+  Rejected; store and serve provider `Match`.
 
 ## Consequences
 
-- Match data may be empty early in a new season if synced teams still reference the old
-  `seasonUuid` and the SAMS API has no future matches for that season.
-- Cache entries are keyed by resolved params (clubs, season, team, range, limit). A
-  season change after teams sync invalidates keys naturally via new `seasonUuid`.
-- Production alarms on average Lambda duration should drop once cache-peek loaders are
-  deployed and season-scoped fetches replace full-history pagination.
+- Match data may be empty early in a new season if projected teams still reference the old
+  `seasonUuid` and the provider has not published a new club-season schedule.
+- Rankings and matches are only as fresh as the last processed provider event.
+- Club logos are stored as the provider `logoUrl` (`logoImageLink`) and served
+  through the same-origin `/api/sams/logos?clubUuid=` proxy (CloudFront-cached).
+  Rankings expose `sportsclubUuid` and a rewritten same-origin `logoUrl`; there
+  is no team-name→club-slug lookup. Logos are not copied to S3.

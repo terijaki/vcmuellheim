@@ -6,8 +6,8 @@
  * The .ics file extension is stripped automatically.
  */
 
-import type { LeagueMatchDto } from "sams-rest-v2";
-import { sams } from "@/utils/sams-client";
+import type { LeagueMatch } from "@/lambda/sams/types";
+import { loadScheduleMatchesForSamsTeamUuids } from "@webapp/server/functions/sams.server";
 import { Club } from "@project.config";
 import { createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
@@ -30,46 +30,6 @@ async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
     ? query.where((attr, op) => op.contains(attr.teamIds, teamId)).go({ pages: "all" })
     : query.go({ pages: "all" }));
   return result.data.map((item) => eventSchema.parse(item));
-}
-
-async function fetchMatchesForTeam(teamUuid: string): Promise<LeagueMatchDto[]> {
-  const allMatches: LeagueMatchDto[] = [];
-  let currentPage = 0;
-  let hasMorePages = true;
-
-  while (hasMorePages) {
-    const { data } = await sams.getAllLeagueMatches({
-      query: {
-        "for-team": teamUuid,
-        page: currentPage,
-        size: 100,
-      },
-    });
-
-    if (!data) break;
-    if (data.content) {
-      allMatches.push(...data.content);
-      currentPage++;
-    }
-    if (data.last === true) hasMorePages = false;
-  }
-
-  return allMatches;
-}
-
-async function fetchAllLeagueMatches(teamUuids: string[]): Promise<LeagueMatchDto[]> {
-  const perTeam = await Promise.all(teamUuids.map((uuid) => fetchMatchesForTeam(uuid)));
-  const seen = new Set<string>();
-  const deduped: LeagueMatchDto[] = [];
-  for (const matches of perTeam) {
-    for (const match of matches) {
-      if (match.uuid && !seen.has(match.uuid)) {
-        seen.add(match.uuid);
-        deduped.push(match);
-      }
-    }
-  }
-  return deduped;
 }
 
 function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
@@ -100,7 +60,7 @@ function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
 }
 
 function convertMatchToIcs(
-  match: LeagueMatchDto,
+  match: LeagueMatch,
   teamLeagueName: string | undefined,
   timestamp: Date,
 ): IcsEvent | null {
@@ -110,18 +70,11 @@ function convertMatchToIcs(
     .utc();
   if (!startTime.isValid()) return null;
 
-  const team1 = match._embedded?.team1;
-  const team2 = match._embedded?.team2;
-  const homeTeam = [team1, team2].find((t) => t?.uuid === match.host)?.name;
-  const guestTeam = [team1, team2].find((t) => t?.uuid !== match.host)?.name;
+  const homeTeam = match.team1.name;
+  const guestTeam = match.team2.name;
 
   const locationParts: string[] = [];
   if (match.location?.name) locationParts.push(match.location.name);
-  if (match.location?.address?.street) locationParts.push(match.location.address.street);
-  const postalCity = [match.location?.address?.postcode, match.location?.address?.city]
-    .filter(Boolean)
-    .join(" ");
-  if (postalCity) locationParts.push(postalCity);
 
   const baseDesc = [
     teamLeagueName,
@@ -130,7 +83,7 @@ function convertMatchToIcs(
   ]
     .filter(Boolean)
     .join(", ");
-  const score = match.results?.setPoints;
+  const score = match.result?.setPoints;
   const description = score ? `Ergebnis: ${score}, ${baseDesc}` : baseDesc;
 
   return {
@@ -138,7 +91,7 @@ function convertMatchToIcs(
     duration: { hours: 3 },
     stamp: { date: timestamp, type: "DATE-TIME" },
     uid: match.uuid,
-    summary: `${team1?.name} vs ${team2?.name}`,
+    summary: `${match.team1.name} vs ${match.team2.name}`,
     description,
     location: locationParts.join(", "),
   };
@@ -180,7 +133,7 @@ export const Route = createFileRoute("/ics/$teamSlug")({
           }
 
           const timestamp = new Date();
-          const matches = await fetchAllLeagueMatches(teamSamsUuids);
+          const matches = await loadScheduleMatchesForSamsTeamUuids(teamSamsUuids);
           const matchEvents = matches
             .map((match) => convertMatchToIcs(match, teamLeagueName, timestamp))
             .filter((e): e is IcsEvent => e !== null);

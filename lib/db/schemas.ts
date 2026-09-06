@@ -3,6 +3,7 @@
  * Using Zod v4 top-level string formats for optimal performance
  */
 
+import { matchProjectionSchema } from "sams-provider-events";
 import { z } from "zod";
 
 /** Base fields for all entities */
@@ -174,7 +175,7 @@ export type TrainingScheduleInput = z.infer<typeof trainingScheduleSchema>;
 // SAMS entity schemas
 // ---------------------------------------------------------------------------
 
-/** SAMS club record (synced from external SAMS API) */
+/** SAMS club record (from provider `sams.club.updated` events) */
 export const samsClubSchema = z.object({
   sportsclubUuid: z.string().min(1),
   type: z.literal("club").default("club").describe("Entity type discriminator for GSI queries"),
@@ -184,11 +185,12 @@ export const samsClubSchema = z.object({
   associationName: z.string().optional(),
   logoImageLink: z.string().optional(),
   logoS3Key: z.string().optional(),
+  snapshotVersion: z.string().min(1).optional(),
   updatedAt: z.iso.datetime(),
   ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (30-day expiry)"),
 });
 
-/** SAMS team record (synced from external SAMS API — only VC Müllheim teams) */
+/** SAMS team record (from provider club-season team events) */
 export const samsTeamSchema = z.object({
   uuid: z.string().min(1),
   type: z.literal("team").default("team").describe("Entity type discriminator for GSI queries"),
@@ -201,12 +203,27 @@ export const samsTeamSchema = z.object({
   leagueHierarchyLevel: z.number().nonnegative().optional(),
   seasonUuid: z.string().min(1),
   seasonName: z.string().min(1),
+  snapshotVersion: z.string().min(1).optional(),
   updatedAt: z.iso.datetime(),
   ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (1-year expiry)"),
 });
 
 export type SamsClubInput = z.infer<typeof samsClubSchema>;
 export type SamsTeamInput = z.infer<typeof samsTeamSchema>;
+
+/** Public club record — omits query/TTL internals. */
+export const ClubResponseSchema = samsClubSchema.omit({
+  nameSlug: true,
+  ttl: true,
+});
+export type ClubResponse = z.infer<typeof ClubResponseSchema>;
+
+/** Public team record — omits query/TTL internals. */
+export const TeamResponseSchema = samsTeamSchema.omit({
+  nameSlug: true,
+  ttl: true,
+});
+export type TeamResponse = z.infer<typeof TeamResponseSchema>;
 
 /**
  * A player entry within a SAMS team roster
@@ -238,11 +255,71 @@ export const samsRosterSchema = z.object({
   type: z.literal("roster").default("roster").describe("Entity type discriminator for GSI queries"),
   players: z.array(samsRosterPlayerSchema).default([]),
   officials: z.array(samsRosterOfficialSchema).default([]),
+  snapshotVersion: z.string().min(1).optional(),
   updatedAt: z.iso.datetime(),
   ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (1-year expiry)"),
 });
 
 export type SamsRosterInput = z.infer<typeof samsRosterSchema>;
+export type SamsRosterPlayerInput = z.infer<typeof samsRosterPlayerSchema>;
+export type SamsRosterOfficialInput = z.infer<typeof samsRosterOfficialSchema>;
+
+export const RosterResponseSchema = samsRosterSchema.omit({ ttl: true });
+export type RosterResponse = z.infer<typeof RosterResponseSchema>;
+
+/** Stored league match — provider `Match` projection, not a HAL DTO. */
+export const samsProjectionMatchSchema = matchProjectionSchema;
+export type SamsProjectionMatchInput = z.infer<typeof samsProjectionMatchSchema>;
+
+/** Club schedule projection — rolling match window for one club/season. */
+export const samsClubScheduleProjectionSchema = z.object({
+  sportsclubUuid: z.string().min(1),
+  seasonUuid: z.string().min(1),
+  seasonName: z.string().optional(),
+  type: z.literal("schedule").default("schedule"),
+  matches: z.array(samsProjectionMatchSchema).default([]),
+  snapshotVersion: z.string().min(1),
+  projectedAt: z.iso.datetime().optional(),
+  cachedAt: z.iso.datetime().optional(),
+  isStale: z.boolean().optional(),
+  updatedAt: z.iso.datetime(),
+  ttl: z.number().int().positive(),
+});
+
+export type SamsClubScheduleProjectionInput = z.infer<typeof samsClubScheduleProjectionSchema>;
+
+/** League ranking projection row (RankingResponse teams entry shape). */
+export const samsProjectionRankingEntrySchema = z.object({
+  uuid: z.string(),
+  teamName: z.string(),
+  rank: z.number().optional(),
+  sportsclubUuid: z.string().min(1).optional(),
+  logoUrl: z.string().optional(),
+  matchesPlayed: z.number().nullish(),
+  points: z.number().nullish(),
+  wins: z.number().nullish(),
+  setWins: z.number().nullish(),
+  setLosses: z.number().nullish(),
+});
+
+export type SamsProjectionRankingEntryInput = z.infer<typeof samsProjectionRankingEntrySchema>;
+
+/** League ranking projection for one league/season. */
+export const samsLeagueRankingProjectionSchema = z.object({
+  leagueUuid: z.string().min(1),
+  seasonUuid: z.string().min(1),
+  seasonName: z.string().optional(),
+  leagueName: z.string().optional(),
+  type: z.literal("ranking").default("ranking"),
+  teams: z.array(samsProjectionRankingEntrySchema).default([]),
+  snapshotVersion: z.string().min(1),
+  cachedAt: z.iso.datetime().optional(),
+  isStale: z.boolean().optional(),
+  updatedAt: z.iso.datetime(),
+  ttl: z.number().int().positive(),
+});
+
+export type SamsLeagueRankingProjectionInput = z.infer<typeof samsLeagueRankingProjectionSchema>;
 
 // ---------------------------------------------------------------------------
 // Volunteer Event Planner schemas

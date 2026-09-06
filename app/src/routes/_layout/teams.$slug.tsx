@@ -205,8 +205,8 @@ function TeamMatches({
     );
   }
 
-  const futureMatches = matches?.matches.filter((m) => !m.results?.winner);
-  const pastMatches = matches?.matches.filter((m) => !!m.results?.winner);
+  const futureMatches = matches?.matches.filter((m) => !m.hasResult);
+  const pastMatches = matches?.matches.filter((m) => m.hasResult);
 
   futureMatches?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date)));
   pastMatches?.sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));

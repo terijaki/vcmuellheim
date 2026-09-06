@@ -13,5 +13,13 @@ export function createLambdaResources(serviceName: string): { logger: Logger; tr
 export function createDynamoDocClient(tracer: Tracer): DynamoDBDocumentClient {
   const baseClient = new DynamoDBClient({});
   const dynamoClient = tracer.captureAWSv3Client(baseClient);
-  return DynamoDBDocumentClient.from(dynamoClient);
+  return DynamoDBDocumentClient.from(dynamoClient, {
+    marshallOptions: {
+      removeUndefinedValues: true,
+      convertClassInstanceToMap: true,
+    },
+    unmarshallOptions: {
+      wrapNumbers: false,
+    },
+  });
 }

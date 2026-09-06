@@ -184,4 +184,20 @@ describe("toLiveTickerDisplayMatches", () => {
     expect(result?.team1Name).toBe("VC Müllheim 1");
     expect(result?.team2Name).toBe("Gegner 2");
   });
+
+  it("maps club logos from team UUID to sportsclub UUID, not from the team name", () => {
+    const match = makeMatch({ team1Name: "VC Müllheim 1", team2Name: "Mighty Ducks 2" });
+    const [result] = toLiveTickerDisplayMatches({
+      liveMatches: [match],
+      ourTeamUuids,
+      teamClubByUuid: new Map([
+        [OUR_UUID, "club-vc-muellheim"],
+        [THEIR_UUID, "club-opp-mighty-ducks"],
+      ]),
+    });
+    expect(result?.team1ClubUuid).toBe("club-vc-muellheim");
+    expect(result?.team2ClubUuid).toBe("club-opp-mighty-ducks");
+    expect(result).not.toHaveProperty("team1ClubSlug");
+    expect(result).not.toHaveProperty("team2ClubSlug");
+  });
 });

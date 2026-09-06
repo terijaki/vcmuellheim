@@ -90,6 +90,7 @@ export default defineConfig({
       JSII_DEPRECATED: "quiet",
       CONTENT_TABLE_NAME: "test-content-table",
       SAMS_TABLE_NAME: "test-sams-table",
+      SOCIAL_TABLE_NAME: "test-social-table",
       APP_BASE_URL: "https://test.vcmuellheim.de",
     },
   },
@@ -109,11 +110,6 @@ export default defineConfig({
       },
       "seed-sams": {
         command: "bun run db:seed:sams",
-        cache: false,
-      },
-      "sams-api": {
-        command:
-          "AWS_PROFILE=vcm-dev vp exec varlock run -- vp exec tsx .agents/skills/sams-api/sams.ts",
         cache: false,
       },
       // Deploy + seed in one command for new branches

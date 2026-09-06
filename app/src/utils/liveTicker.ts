@@ -1,5 +1,4 @@
 import type { LiveMatch } from "@/lambda/sams/types";
-import { slugify } from "@/utils/slugify";
 
 type TeamSide = "team1" | "team2";
 
@@ -9,8 +8,6 @@ export type LiveTickerDisplayMatch = {
   team2Name: string;
   team1ClubUuid?: string;
   team2ClubUuid?: string;
-  team1ClubSlug?: string;
-  team2ClubSlug?: string;
   setPointsText: string;
   team1SetPoints: number;
   team2SetPoints: number;
@@ -61,8 +58,6 @@ export function toLiveTickerDisplayMatches(args: {
       team2Name,
       team1ClubUuid: teamClubByUuid.get(match.team1Uuid),
       team2ClubUuid: teamClubByUuid.get(match.team2Uuid),
-      team1ClubSlug: slugify(team1Name.replace(/\s+\d+$/, "")),
-      team2ClubSlug: slugify(team2Name.replace(/\s+\d+$/, "")),
       setPointsText,
       team1SetPoints,
       team2SetPoints,

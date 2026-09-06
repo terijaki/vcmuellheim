@@ -4,7 +4,7 @@ import { Match, Template } from "aws-cdk-lib/assertions";
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { CACHE_TABLE_ENV_VAR, CONTENT_TABLE_ENV_VAR } from "./db/env";
+import { CONTENT_TABLE_ENV_VAR, SOCIAL_TABLE_ENV_VAR } from "./db/env";
 import { createTestApp } from "./test-helpers";
 
 const { buildMock } = vi.hoisted(() => ({
@@ -67,6 +67,7 @@ function ensureNitroOutputFixtures() {
 function createDependencies() {
   return {
     contentTableName: "vcm-content-dev",
+    socialTableName: "vcm-social-dev",
     mediaBucketName: "vcmuellheim-media-dev",
   };
 }
@@ -77,7 +78,6 @@ describe("WebAppStack", () => {
     cleanupOutputFixtures = ensureNitroOutputFixtures();
     process.env.BETTER_AUTH_SECRET = "test-auth-secret";
     delete process.env.CDK_DESTROY;
-    Reflect.deleteProperty(process.env, "SAMS_API_KEY");
   });
 
   afterEach(() => {
@@ -116,7 +116,7 @@ describe("WebAppStack", () => {
     template.resourceCountIs("AWS::Lambda::Url", 1);
     template.resourceCountIs("AWS::CloudFront::Distribution", 1);
     template.resourceCountIs("AWS::CloudFront::OriginAccessControl", 1);
-    template.resourceCountIs("AWS::CloudFront::CachePolicy", 2);
+    template.resourceCountIs("AWS::CloudFront::CachePolicy", 3);
     template.resourceCountIs("AWS::S3::Bucket", 1);
   });
 
@@ -143,7 +143,7 @@ describe("WebAppStack", () => {
       Environment: {
         Variables: {
           [CONTENT_TABLE_ENV_VAR]: Match.anyValue(),
-          [CACHE_TABLE_ENV_VAR]: Match.anyValue(),
+          [SOCIAL_TABLE_ENV_VAR]: Match.anyValue(),
           APP_BASE_URL: "https://dev.new.vcmuellheim.de",
           BETTER_AUTH_SECRET: "test-auth-secret",
           CDK_ENVIRONMENT: "dev",
@@ -170,6 +170,21 @@ describe("WebAppStack", () => {
       },
     });
 
+    template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
+      CachePolicyConfig: {
+        Comment: "Cache /api/sams/logos per clubUuid query string",
+        DefaultTTL: 86400,
+        MinTTL: 0,
+        MaxTTL: 604800,
+        ParametersInCacheKeyAndForwardedToOrigin: {
+          QueryStringsConfig: {
+            QueryStringBehavior: "whitelist",
+            QueryStrings: ["clubUuid"],
+          },
+        },
+      },
+    });
+
     template.hasResourceProperties("AWS::CloudFront::Distribution", {
       DistributionConfig: {
         DefaultCacheBehavior: {
@@ -180,6 +195,7 @@ describe("WebAppStack", () => {
         CacheBehaviors: Match.arrayWith([
           Match.objectLike({ PathPattern: "/assets/*" }),
           Match.objectLike({ PathPattern: "/_build/*" }),
+          Match.objectLike({ PathPattern: "/api/sams/logos" }),
           Match.objectLike({ PathPattern: "/docs/*" }),
         ]),
         PriceClass: "PriceClass_100",
