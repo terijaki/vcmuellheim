@@ -4,36 +4,21 @@
 
 import { GetCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { z } from "zod";
 import { docClient } from "@/lib/db/client";
 import { getSocialTableName } from "@/lib/db/env";
+import {
+  MATCH_MASTODON_SHARE_SK,
+  matchMastodonShareItemSchema,
+  matchMastodonSharePk,
+  type MatchMastodonShareItem,
+} from "@/lib/db/schemas";
 import { SAMS_PROJECTION_TTL_DAYS, unixTtlSecondsFromNow } from "@/lib/sams/repository-utils";
 
-export const MATCH_MASTODON_SHARE_SK = "mastodon-share";
-
-export function matchMastodonSharePk(matchUuid: string): string {
-  return `match#${matchUuid}`;
-}
-
-export const matchMastodonShareItemSchema = z.object({
-  pk: z.string().min(1),
-  sk: z.literal(MATCH_MASTODON_SHARE_SK),
-  status: z.enum(["pending", "posted"]),
-  createdAt: z.iso.datetime(),
-  postedAt: z.iso.datetime().optional(),
-  mastodonStatusId: z.string().optional(),
-  ttl: z.number().int().positive(),
-});
-
-export type MatchMastodonShareItem = z.infer<typeof matchMastodonShareItemSchema>;
-
 function isConditionalCheckFailed(error: unknown): boolean {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "name" in error &&
-    (error as { name: string }).name === "ConditionalCheckFailedException"
-  );
+  if (typeof error !== "object" || error === null || !("name" in error)) {
+    return false;
+  }
+  return error.name === "ConditionalCheckFailedException";
 }
 
 export class MatchMastodonShareRepository {
@@ -106,11 +91,4 @@ export class MatchMastodonShareRepository {
       }),
     );
   }
-}
-
-export function createMatchMastodonShareRepository(
-  client: DynamoDBDocumentClient,
-  tableName: string,
-): MatchMastodonShareRepository {
-  return new MatchMastodonShareRepository(client, tableName);
 }

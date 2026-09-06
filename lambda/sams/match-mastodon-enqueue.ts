@@ -7,6 +7,7 @@ import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
 import type { Logger } from "@aws-lambda-powertools/logger";
 import type { Match } from "sams-provider-events";
 import type { MastodonMatchShareRequest } from "@/lambda/social/mastodon-share";
+import { isProdEnvironment } from "@/lambda/utils/environment";
 import { findNewlyConcludedMatches, type MatchForConclusion } from "./match-conclusion";
 
 export type MatchMastodonEnqueueDeps = {
@@ -16,10 +17,6 @@ export type MatchMastodonEnqueueDeps = {
   sendMatchShare?: (payload: MastodonMatchShareRequest) => Promise<void>;
   logger: Pick<Logger, "info" | "warn" | "error">;
 };
-
-function isProd(environment: string): boolean {
-  return environment === "prod";
-}
 
 async function defaultSend(
   deps: MatchMastodonEnqueueDeps,
@@ -51,7 +48,7 @@ export async function enqueueNewlyConcludedMatchShares(
   configuredSportsclubUuids: ReadonlySet<string>,
   deps: MatchMastodonEnqueueDeps,
 ): Promise<void> {
-  if (!isProd(deps.environment)) {
+  if (!isProdEnvironment(deps.environment)) {
     deps.logger.info("Skipping match Mastodon enqueue - not in production environment");
     return;
   }

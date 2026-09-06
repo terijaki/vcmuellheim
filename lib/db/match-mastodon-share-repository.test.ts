@@ -6,16 +6,14 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
 import { beforeAll, beforeEach, describe, expect, it } from "vite-plus/test";
-import { MATCH_MASTODON_SHARE_SK, matchMastodonSharePk } from "./match-mastodon-share";
+import { MATCH_MASTODON_SHARE_SK, matchMastodonSharePk } from "@/lib/db/schemas";
+import { MatchMastodonShareRepository } from "./match-mastodon-share-repository";
 
 const ddbMock = mockClient(DynamoDBDocumentClient);
 
-let createMatchMastodonShareRepository: typeof import("./match-mastodon-share").createMatchMastodonShareRepository;
-
 describe("MatchMastodonShareRepository", () => {
-  beforeAll(async () => {
+  beforeAll(() => {
     process.env.SOCIAL_TABLE_NAME = "test-social-table";
-    ({ createMatchMastodonShareRepository } = await import("./match-mastodon-share"));
   });
 
   beforeEach(() => {
@@ -24,7 +22,7 @@ describe("MatchMastodonShareRepository", () => {
 
   it("claims a match UUID with pending status and season-length TTL", async () => {
     ddbMock.on(PutCommand).resolves({});
-    const repo = createMatchMastodonShareRepository(ddbMock as never, "test-social-table");
+    const repo = new MatchMastodonShareRepository(ddbMock as never, "test-social-table");
 
     const claimed = await repo.claim("match-1", Date.parse("2026-09-01T00:00:00.000Z"));
     expect(claimed).toBe(true);
@@ -44,7 +42,7 @@ describe("MatchMastodonShareRepository", () => {
 
   it("does not overwrite when a second claim races", async () => {
     ddbMock.on(PutCommand).rejects({ name: "ConditionalCheckFailedException" });
-    const repo = createMatchMastodonShareRepository(ddbMock as never, "test-social-table");
+    const repo = new MatchMastodonShareRepository(ddbMock as never, "test-social-table");
 
     const claimed = await repo.claim("match-1");
     expect(claimed).toBe(false);
@@ -62,7 +60,7 @@ describe("MatchMastodonShareRepository", () => {
     });
     ddbMock.on(UpdateCommand).resolves({});
 
-    const repo = createMatchMastodonShareRepository(ddbMock as never, "test-social-table");
+    const repo = new MatchMastodonShareRepository(ddbMock as never, "test-social-table");
     const item = await repo.get("match-1");
     expect(item?.status).toBe("pending");
 

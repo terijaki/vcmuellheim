@@ -8,8 +8,9 @@ import middy from "@middy/core";
 import type { SQSEvent, SQSHandler } from "aws-lambda";
 import { z } from "zod";
 import { matchProjectionSchema } from "sams-provider-events";
-import { createMatchMastodonShareRepository } from "@/lib/social/match-mastodon-share";
+import { MatchMastodonShareRepository } from "@/lib/db/match-mastodon-share-repository";
 import { parseLambdaEnv } from "../utils/env";
+import { isProdEnvironment } from "../utils/environment";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
 import { shareMatchToMastodon, type MastodonMatchShareRequest } from "./mastodon-share";
@@ -27,10 +28,6 @@ const matchSharePayloadSchema = z.object({
   configuredSportsclubUuids: z.array(z.string().min(1)).min(1),
 });
 
-function isProd(environment: string): boolean {
-  return environment === "prod";
-}
-
 export async function processMatchMastodonShareMessage(
   body: string,
   options?: {
@@ -40,7 +37,7 @@ export async function processMatchMastodonShareMessage(
   },
 ): Promise<void> {
   const environment = options?.environment ?? ENVIRONMENT;
-  if (!isProd(environment)) {
+  if (!isProdEnvironment(environment)) {
     logger.info("Skipping match Mastodon share - not in production environment");
     return;
   }
@@ -49,7 +46,7 @@ export async function processMatchMastodonShareMessage(
   const payload = matchSharePayloadSchema.parse(parsedJson);
 
   const tableName = options?.socialTableName ?? SOCIAL_TABLE_NAME;
-  const shareRepo = createMatchMastodonShareRepository(docClient, tableName);
+  const shareRepo = new MatchMastodonShareRepository(docClient, tableName);
 
   const existing = await shareRepo.get(payload.match.uuid);
   if (existing?.status === "posted") {

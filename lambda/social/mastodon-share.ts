@@ -4,10 +4,10 @@
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import type { Match } from "sams-provider-events";
+import { MatchMastodonShareRepository } from "@/lib/db/match-mastodon-share-repository";
 import type { News } from "@/lib/db/types";
-import { createMatchMastodonShareRepository } from "@/lib/social/match-mastodon-share";
-import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { parseLambdaEnv } from "../utils/env";
+import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
 import { buildMatchResultStatus } from "./match-result-status";
 import { MastodonShareLambdaEnvironmentSchema } from "./types";
@@ -221,7 +221,7 @@ export async function shareMatchToMastodon(
 
   const result = await postMastodonStatus({ status, idempotencyKey });
 
-  const shareRepo = createMatchMastodonShareRepository(docClient, SOCIAL_TABLE_NAME);
+  const shareRepo = new MatchMastodonShareRepository(docClient, SOCIAL_TABLE_NAME);
   await shareRepo.markPosted(request.match.uuid, result.id);
 
   logger.info("Successfully shared match to Mastodon", {

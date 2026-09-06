@@ -11,12 +11,12 @@ const claimMock = vi.fn();
 const getMock = vi.fn();
 const shareMatchMock = vi.fn();
 
-vi.mock("@/lib/social/match-mastodon-share", () => ({
-  createMatchMastodonShareRepository: () => ({
-    claim: claimMock,
-    get: getMock,
-    markPosted: vi.fn(),
-  }),
+vi.mock("@/lib/db/match-mastodon-share-repository", () => ({
+  MatchMastodonShareRepository: class {
+    claim = claimMock;
+    get = getMock;
+    markPosted = vi.fn();
+  },
 }));
 
 vi.mock("./mastodon-share", () => ({
@@ -67,7 +67,6 @@ describe("processMatchMastodonShareMessage", () => {
     await processMatchMastodonShareMessage(JSON.stringify(matchPayload), {
       environment: "prod",
       socialTableName: "test-social-table",
-      shareMatch: shareMatchMock,
     });
 
     expect(claimMock).toHaveBeenCalledWith("match-1");
@@ -83,7 +82,6 @@ describe("processMatchMastodonShareMessage", () => {
     await processMatchMastodonShareMessage(JSON.stringify(matchPayload), {
       environment: "prod",
       socialTableName: "test-social-table",
-      shareMatch: shareMatchMock,
     });
 
     expect(claimMock).not.toHaveBeenCalled();

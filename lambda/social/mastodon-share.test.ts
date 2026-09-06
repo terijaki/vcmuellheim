@@ -9,12 +9,12 @@ vi.mock("../utils/sentry", () => ({
 }));
 
 const markPostedMock = vi.fn().mockResolvedValue(undefined);
-vi.mock("@/lib/social/match-mastodon-share", () => ({
-  createMatchMastodonShareRepository: () => ({
-    markPosted: markPostedMock,
-    claim: vi.fn(),
-    get: vi.fn(),
-  }),
+vi.mock("@/lib/db/match-mastodon-share-repository", () => ({
+  MatchMastodonShareRepository: class {
+    markPosted = markPostedMock;
+    claim = vi.fn();
+    get = vi.fn();
+  },
 }));
 
 // Mock fetch globally

@@ -2,6 +2,8 @@
  * Club-centric German Mastodon status text for concluded SAMS matches.
  */
 
+import { isConfiguredSportsclubUuid } from "@/utils/sams";
+
 export type MatchResultTeam = {
   uuid: string;
   name: string;
@@ -106,10 +108,14 @@ function pickOurSide(
   match: MatchForStatus,
   configuredSportsclubUuids: ReadonlySet<string>,
 ): { our: MatchResultTeam; opp: MatchResultTeam; ourIsTeam1: boolean } | null {
-  const team1Configured =
-    !!match.team1.sportsclubUuid && configuredSportsclubUuids.has(match.team1.sportsclubUuid);
-  const team2Configured =
-    !!match.team2.sportsclubUuid && configuredSportsclubUuids.has(match.team2.sportsclubUuid);
+  const team1Configured = isConfiguredSportsclubUuid(
+    match.team1.sportsclubUuid,
+    configuredSportsclubUuids,
+  );
+  const team2Configured = isConfiguredSportsclubUuid(
+    match.team2.sportsclubUuid,
+    configuredSportsclubUuids,
+  );
 
   if (team1Configured && team2Configured) {
     const winnerUuid = match.result?.winner;
