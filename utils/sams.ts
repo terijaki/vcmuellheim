@@ -30,6 +30,30 @@ export function isConfiguredSamsClubSlug(nameSlug: NullableString): boolean {
   return !!nameSlug && samsTargetClubSlugSet.has(nameSlug);
 }
 
+/** True when the sportsclub UUID is in the resolved configured-club set. */
+export function isConfiguredSportsclubUuid(
+  sportsclubUuid: string | undefined,
+  configuredSportsclubUuids: ReadonlySet<string>,
+): boolean {
+  return !!sportsclubUuid && configuredSportsclubUuids.has(sportsclubUuid);
+}
+
+type MatchSidesLike = {
+  team1: { sportsclubUuid?: string };
+  team2: { sportsclubUuid?: string };
+};
+
+/** True when either match side belongs to a configured sportsclub. */
+export function matchInvolvesConfiguredSportsclub(
+  match: MatchSidesLike,
+  configuredSportsclubUuids: ReadonlySet<string>,
+): boolean {
+  return (
+    isConfiguredSportsclubUuid(match.team1.sportsclubUuid, configuredSportsclubUuids) ||
+    isConfiguredSportsclubUuid(match.team2.sportsclubUuid, configuredSportsclubUuids)
+  );
+}
+
 export function resolveSamsClubSlug(club: ClubLike): string | undefined {
   if (club.nameSlug) return club.nameSlug;
   if (club.name) return slugify(club.name);

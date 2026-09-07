@@ -175,7 +175,10 @@ describe("processSamsProviderEvent", () => {
     );
     expect(fixture).toBeDefined();
     const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
-    repos.schedules.getSnapshotVersion = vi.fn().mockResolvedValue(event.snapshotVersion);
+    repos.schedules.get = vi.fn().mockResolvedValue({
+      snapshotVersion: event.snapshotVersion,
+      matches: [],
+    });
 
     await processSamsProviderEvent(event, repos);
 
@@ -298,5 +301,194 @@ describe("processSamsProviderEvent", () => {
     await processSamsProviderEvent(event, repos);
 
     expect(repos.clubs.upsert).not.toHaveBeenCalled();
+  });
+
+  it("does not enqueue Mastodon share outside prod", async () => {
+    const sendMatchShare = vi.fn();
+
+    const previousMatch = {
+      uuid: "match-conclude-1",
+      hasResult: false,
+      seasonUuid: SEED_SEASON.uuid,
+      team1: { uuid: "t1", name: "VC Müllheim 1", sportsclubUuid: SEED_VCM_CLUB.uuid },
+      team2: { uuid: "t2", name: "TV Foo", sportsclubUuid: "other" },
+    };
+    const concludedMatch = {
+      ...previousMatch,
+      hasResult: true,
+      result: { winner: "t1", setPoints: "3:0" },
+    };
+
+    repos.clubs.listAll = vi.fn().mockResolvedValue([
+      {
+        sportsclubUuid: SEED_VCM_CLUB.uuid,
+        nameSlug: SEED_VCM_CLUB.slug,
+        name: SEED_VCM_CLUB.name,
+      },
+    ]);
+    repos.schedules.get = vi.fn().mockResolvedValue({
+      snapshotVersion: "old",
+      matches: [previousMatch],
+    });
+
+    await processSamsProviderEvent(
+      {
+        schemaVersion: "1.0.0",
+        eventId: "evt-share-dev",
+        occurredAt: "2026-09-01T12:00:00.000Z",
+        source: "sams-provider",
+        type: SamsEventType.clubMatchScheduleUpdated,
+        sourceSyncId: "sync-share",
+        snapshotVersion: "new",
+        payload: {
+          club: {
+            uuid: SEED_VCM_CLUB.uuid,
+            name: SEED_VCM_CLUB.name,
+            slug: SEED_VCM_CLUB.slug,
+            logoUrl: null,
+          },
+          season: { ...SEED_SEASON, current: true },
+          matches: [concludedMatch],
+          projectedAt: "2026-09-01T12:00:00.000Z",
+          cachedAt: "2026-09-01T12:00:00.000Z",
+          isStale: false,
+        },
+      },
+      repos,
+      {
+        environment: "dev",
+        queueUrl: "https://sqs.eu-central-1.amazonaws.com/123/queue",
+        sendMatchShare,
+        logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
+      },
+    );
+
+    expect(sendMatchShare).not.toHaveBeenCalled();
+    expect(repos.schedules.replace).toHaveBeenCalledOnce();
+  });
+
+  it("enqueues Mastodon share once per newly concluded match in prod", async () => {
+    const sendMatchShare = vi.fn().mockResolvedValue(undefined);
+
+    const previousMatch = {
+      uuid: "match-conclude-2",
+      hasResult: false,
+      seasonUuid: SEED_SEASON.uuid,
+      team1: { uuid: "t1", name: "VC Müllheim 1", sportsclubUuid: SEED_VCM_CLUB.uuid },
+      team2: { uuid: "t2", name: "TV Foo", sportsclubUuid: "other" },
+    };
+    const concludedMatch = {
+      ...previousMatch,
+      hasResult: true,
+      result: { winner: "t1", setPoints: "3:1" },
+    };
+
+    repos.clubs.listAll = vi.fn().mockResolvedValue([
+      {
+        sportsclubUuid: SEED_VCM_CLUB.uuid,
+        nameSlug: SEED_VCM_CLUB.slug,
+        name: SEED_VCM_CLUB.name,
+      },
+    ]);
+    repos.schedules.get = vi.fn().mockResolvedValue({
+      snapshotVersion: "old",
+      matches: [previousMatch],
+    });
+
+    await processSamsProviderEvent(
+      {
+        schemaVersion: "1.0.0",
+        eventId: "evt-share-prod",
+        occurredAt: "2026-09-01T12:00:00.000Z",
+        source: "sams-provider",
+        type: SamsEventType.clubMatchScheduleUpdated,
+        sourceSyncId: "sync-share-prod",
+        snapshotVersion: "new",
+        payload: {
+          club: {
+            uuid: SEED_VCM_CLUB.uuid,
+            name: SEED_VCM_CLUB.name,
+            slug: SEED_VCM_CLUB.slug,
+            logoUrl: null,
+          },
+          season: { ...SEED_SEASON, current: true },
+          matches: [concludedMatch],
+          projectedAt: "2026-09-01T12:00:00.000Z",
+          cachedAt: "2026-09-01T12:00:00.000Z",
+          isStale: false,
+        },
+      },
+      repos,
+      {
+        environment: "prod",
+        queueUrl: "https://sqs.eu-central-1.amazonaws.com/123/queue",
+        sendMatchShare,
+        logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
+      },
+    );
+
+    expect(sendMatchShare).toHaveBeenCalledOnce();
+    expect(sendMatchShare.mock.calls[0]?.[0].match.uuid).toBe("match-conclude-2");
+    expect(repos.schedules.replace).toHaveBeenCalledOnce();
+  });
+
+  it("does not enqueue when the match already had a result", async () => {
+    const sendMatchShare = vi.fn();
+
+    const concludedMatch = {
+      uuid: "match-retry-1",
+      hasResult: true,
+      seasonUuid: SEED_SEASON.uuid,
+      team1: { uuid: "t1", name: "VC Müllheim 1", sportsclubUuid: SEED_VCM_CLUB.uuid },
+      team2: { uuid: "t2", name: "TV Foo", sportsclubUuid: "other" },
+      result: { winner: "t1", setPoints: "3:0" },
+    };
+
+    repos.clubs.listAll = vi.fn().mockResolvedValue([
+      {
+        sportsclubUuid: SEED_VCM_CLUB.uuid,
+        nameSlug: SEED_VCM_CLUB.slug,
+        name: SEED_VCM_CLUB.name,
+      },
+    ]);
+    repos.schedules.get = vi.fn().mockResolvedValue({
+      snapshotVersion: "same",
+      matches: [concludedMatch],
+    });
+
+    await processSamsProviderEvent(
+      {
+        schemaVersion: "1.0.0",
+        eventId: "evt-share-retry",
+        occurredAt: "2026-09-01T12:00:00.000Z",
+        source: "sams-provider",
+        type: SamsEventType.clubMatchScheduleUpdated,
+        sourceSyncId: "sync-share-retry",
+        snapshotVersion: "same",
+        payload: {
+          club: {
+            uuid: SEED_VCM_CLUB.uuid,
+            name: SEED_VCM_CLUB.name,
+            slug: SEED_VCM_CLUB.slug,
+            logoUrl: null,
+          },
+          season: { ...SEED_SEASON, current: true },
+          matches: [concludedMatch],
+          projectedAt: "2026-09-01T12:00:00.000Z",
+          cachedAt: "2026-09-01T12:00:00.000Z",
+          isStale: false,
+        },
+      },
+      repos,
+      {
+        environment: "prod",
+        queueUrl: "https://sqs.eu-central-1.amazonaws.com/123/queue",
+        sendMatchShare,
+        logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
+      },
+    );
+
+    expect(sendMatchShare).not.toHaveBeenCalled();
+    expect(repos.schedules.replace).not.toHaveBeenCalled();
   });
 });
