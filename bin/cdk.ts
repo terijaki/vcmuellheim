@@ -75,12 +75,6 @@ const mediaStack = new MediaStack(app, mediaStackName, {
   cloudFrontCertificate: dnsStack.cloudFrontCertificate,
 });
 
-new SamsStack(app, samsStackName, {
-  ...commonStackProps,
-  description: `SAMS provider consumer (${envLabel})`,
-  alertEmail: ENV.CDK_MONITORING_ALERT_EMAIL || ENV.CDK_BUDGET_ALERT_EMAIL,
-});
-
 const socialMediaStack = new SocialMediaStack(app, socialMediaStackName, {
   ...commonStackProps,
   description: `Social Media API Services (${envLabel})`,
@@ -88,6 +82,13 @@ const socialMediaStack = new SocialMediaStack(app, socialMediaStackName, {
   contentTableStreamArn: contentDbStack.contentTableStreamArn,
   websiteUrl: buildWebappUrl(environment, branch),
   mediaBucketName: mediaStack.bucketName,
+});
+
+new SamsStack(app, samsStackName, {
+  ...commonStackProps,
+  description: `SAMS provider consumer (${envLabel})`,
+  alertEmail: ENV.CDK_MONITORING_ALERT_EMAIL || ENV.CDK_BUDGET_ALERT_EMAIL,
+  matchMastodonQueueName: socialMediaStack.matchMastodonQueueName,
 });
 
 const webappStack = new WebAppStack(app, webappStackName, {

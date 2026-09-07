@@ -443,3 +443,22 @@ export type VolunteerRoleInput = z.infer<typeof volunteerRoleSchema>;
 export type VolunteerSignupInput = z.infer<typeof volunteerSignupSchema>;
 export type VolunteerSignupData = z.infer<typeof volunteerSignupDataSchema>;
 export type VolunteerTokenInput = z.infer<typeof volunteerTokenSchema>;
+
+/** Social-table ledger item for one Mastodon share of a concluded match UUID. */
+export const MATCH_MASTODON_SHARE_SK = "mastodon-share";
+
+export function matchMastodonSharePk(matchUuid: string): string {
+  return `match#${matchUuid}`;
+}
+
+export const matchMastodonShareItemSchema = z.object({
+  pk: z.string().min(1),
+  sk: z.literal(MATCH_MASTODON_SHARE_SK),
+  status: z.enum(["pending", "posted"]),
+  createdAt: z.iso.datetime(),
+  postedAt: z.iso.datetime().optional(),
+  mastodonStatusId: z.string().optional(),
+  ttl: z.number().int().positive(),
+});
+
+export type MatchMastodonShareItem = z.infer<typeof matchMastodonShareItemSchema>;

@@ -254,6 +254,40 @@ describe("SamsStack", () => {
         expect(variables.MEDIA_BUCKET_NAME).toBeUndefined();
       }
     });
+
+    it("wires match Mastodon queue env/IAM when queue name is set", () => {
+      const app = createTestApp();
+      const stack = new SamsStack(app, "TestStack", {
+        env: {
+          account: "123456789012",
+          region: "eu-central-1",
+        },
+        stackProps: {
+          environment: "prod",
+          branch: "",
+        },
+        matchMastodonQueueName: "vcm-match-mastodon-prod",
+      });
+
+      const template = Template.fromStack(stack);
+
+      template.hasResourceProperties("AWS::Lambda::Function", {
+        FunctionName: "vcm-sams-provider-processor-prod",
+        Environment: {
+          Variables: Match.objectLike({
+            MATCH_MASTODON_QUEUE_URL:
+              "https://sqs.eu-central-1.amazonaws.com/123456789012/vcm-match-mastodon-prod",
+            CDK_ENVIRONMENT: "prod",
+          }),
+        },
+      });
+
+      const policyJson = JSON.stringify(template.findResources("AWS::IAM::Policy"));
+      expect(policyJson).toContain("sqs:SendMessage");
+      expect(policyJson).toContain(":vcm-match-mastodon-prod");
+      expect(policyJson).not.toContain("lambda:InvokeFunction");
+      expect(policyJson).not.toContain(":table/vcm-social-prod");
+    });
   });
 
   describe("DynamoDB tables", () => {
