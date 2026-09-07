@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { filterAndSortSamsMatches } from "@/utils/sams-match-filter";
+import { filterAndSortSamsMatches, filterHomeMatches } from "@/utils/sams-match-filter";
 
 describe("filterAndSortSamsMatches", () => {
   const matches = [
@@ -23,5 +23,26 @@ describe("filterAndSortSamsMatches", () => {
     const result = filterAndSortSamsMatches(matches, { range: "future", limit: 1 });
     expect(result).toHaveLength(1);
     expect(result[0]?.uuid).toBe("4");
+  });
+});
+
+describe("filterHomeMatches", () => {
+  const ownedTeamUuids = new Set(["our-home", "our-other"]);
+
+  const matches = [
+    { uuid: "home", team1: { uuid: "our-home" }, team2: { uuid: "away-guest" } },
+    { uuid: "away", team1: { uuid: "opponent-home" }, team2: { uuid: "our-home" } },
+    { uuid: "other-home", team1: { uuid: "our-other" }, team2: { uuid: "guest" } },
+    { uuid: "unrelated", team1: { uuid: "a" }, team2: { uuid: "b" } },
+  ];
+
+  it("keeps only matches where an owned team is the home side (team1)", () => {
+    const result = filterHomeMatches(matches, ownedTeamUuids);
+    expect(result.map((m) => m.uuid)).toEqual(["home", "other-home"]);
+  });
+
+  it("returns an empty list when no owned teams are hosting", () => {
+    const result = filterHomeMatches(matches, new Set(["nobody"]));
+    expect(result).toEqual([]);
   });
 });
