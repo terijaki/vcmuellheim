@@ -8,6 +8,15 @@ vi.mock("../utils/sentry", () => ({
   },
 }));
 
+const markPostedMock = vi.fn().mockResolvedValue(undefined);
+vi.mock("@/lib/db/match-mastodon-share-repository", () => ({
+  MatchMastodonShareRepository: class {
+    markPosted = markPostedMock;
+    claim = vi.fn();
+    get = vi.fn();
+  },
+}));
+
 // Mock fetch globally
 const mockFetch = vi.fn((_url: string, _init?: RequestInit) =>
   Promise.resolve({
@@ -25,10 +34,13 @@ global.fetch = mockFetch as unknown as typeof global.fetch;
 
 // Set up environment
 process.env.MASTODON_ACCESS_TOKEN = "test-token";
+process.env.SOCIAL_TABLE_NAME = "test-social-table";
+process.env.CDK_ENVIRONMENT = "prod";
 
 describe("Mastodon Share Lambda", () => {
   beforeEach(() => {
     mockFetch.mockClear();
+    markPostedMock.mockClear();
   });
 
   test("short article (content + title ≤ 2500) shares full plain text without URL", async () => {
@@ -556,5 +568,101 @@ describe("Mastodon Share Lambda", () => {
     // Plain text content is preserved
     expect(body.status).toContain("Normal text");
     expect(body.status).toContain("end.");
+  });
+
+  test("match sharing is rejected outside prod", async () => {
+    process.env.CDK_ENVIRONMENT = "dev";
+    vi.resetModules();
+    const { shareMatchToMastodon } = await import("./mastodon-share");
+
+    await expect(
+      shareMatchToMastodon({
+        match: {
+          uuid: "match-dev",
+          hasResult: true,
+          team1: { uuid: "t1", name: "VC Müllheim 1", sportsclubUuid: "club-a" },
+          team2: { uuid: "t2", name: "TV Foo", sportsclubUuid: "other" },
+          result: { winner: "t1", setPoints: "3:0" },
+        },
+        configuredSportsclubUuids: ["club-a"],
+      }),
+    ).rejects.toThrow(/only allowed in production/);
+
+    expect(mockFetch).not.toHaveBeenCalled();
+    process.env.CDK_ENVIRONMENT = "prod";
+    vi.resetModules();
+  });
+
+  test("match payload posts with match idempotency key, unlisted visibility, and German language", async () => {
+    process.env.CDK_ENVIRONMENT = "prod";
+    const { shareMatchToMastodon } = await import("./mastodon-share");
+    const { buildMatchResultStatus } = await import("./match-result-status");
+
+    const match = {
+      uuid: "match-abc",
+      hasResult: true,
+      team1: { uuid: "t1", name: "VC Müllheim 1", sportsclubUuid: "club-a" },
+      team2: { uuid: "t2", name: "TV Foo", sportsclubUuid: "other" },
+      result: {
+        winner: "t1",
+        setPoints: "3:0",
+        sets: [
+          { number: 1, ballPoints: "25:20" },
+          { number: 2, ballPoints: "25:18" },
+          { number: 3, ballPoints: "25:16" },
+        ],
+      },
+    };
+
+    await shareMatchToMastodon({
+      match,
+      configuredSportsclubUuids: ["club-a"],
+    });
+
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+    const calls = mockFetch.mock.calls as Array<[string, RequestInit?]>;
+    expect(calls[0][0]).toBe("https://freiburg.social/api/v1/statuses");
+
+    const headers = calls[0][1]?.headers as Record<string, string>;
+    expect(headers["Idempotency-Key"]).toBe("match-match-abc");
+
+    const body = JSON.parse(calls[0][1]?.body as string);
+    expect(body.visibility).toBe("unlisted");
+    expect(body.language).toBe("de");
+    expect(body.status).toContain("VC Müllheim 1");
+    expect(body.status).toContain("3:0");
+    expect(body.status).toContain("Sätze:");
+
+    // Status text comes from the same builder used in production
+    const rebuilt = buildMatchResultStatus(match, ["club-a"], {
+      pickTemplate: () => "{our} gewinnt {score} gegen {opp}",
+      pickEmoji: () => "🔥",
+    });
+    expect(rebuilt).toContain("gewinnt 3:0 gegen TV Foo");
+
+    expect(markPostedMock).toHaveBeenCalledWith("match-abc", "123456789");
+  });
+
+  test("news payload still works alongside match support", async () => {
+    const { shareToMastodon } = await import("./mastodon-share");
+
+    await shareToMastodon({
+      newsArticle: {
+        id: "news-still-works",
+        type: "article",
+        title: "Still Works",
+        slug: "still-works",
+        content: "<p>Hello</p>",
+        status: "published",
+        createdAt: "2024-01-01T00:00:00.000Z",
+        updatedAt: "2024-01-01T00:00:00.000Z",
+      },
+      websiteUrl: "https://vcmuellheim.de",
+    });
+
+    const calls = mockFetch.mock.calls as Array<[string, RequestInit?]>;
+    const headers = calls[0][1]?.headers as Record<string, string>;
+    expect(headers["Idempotency-Key"]).toBe("news-news-still-works");
+    expect(markPostedMock).not.toHaveBeenCalled();
   });
 });

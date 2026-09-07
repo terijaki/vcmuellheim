@@ -40,6 +40,27 @@ export function computeSocialTableName(environment: string, branch: string): str
   return `vcm-social-${environment}${branchSuffix}`;
 }
 
+/** Queue for newly concluded match → Mastodon share work (SocialMediaStack owns it). */
+export function computeMatchMastodonQueueName(environment: string, branch: string): string {
+  const branchSuffix = computeResourceBranchSuffix(environment, branch);
+  return `vcm-match-mastodon-${environment}${branchSuffix}`;
+}
+
+export function computeMatchMastodonDlqName(environment: string, branch: string): string {
+  const branchSuffix = computeResourceBranchSuffix(environment, branch);
+  return `vcm-match-mastodon-dlq-${environment}${branchSuffix}`;
+}
+
+/** Build a regional SQS queue URL from a stable queue name (avoids CFN cross-stack exports). */
+export function computeSqsQueueUrl(account: string, region: string, queueName: string): string {
+  return `https://sqs.${region}.amazonaws.com/${account}/${queueName}`;
+}
+
+/** Build a regional SQS queue ARN from a stable queue name. */
+export function computeSqsQueueArn(account: string, region: string, queueName: string): string {
+  return `arn:aws:sqs:${region}:${account}:${queueName}`;
+}
+
 /** Environment variable name for the single content table */
 export const CONTENT_TABLE_ENV_VAR = "CONTENT_TABLE_NAME" as const;
 

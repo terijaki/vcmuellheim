@@ -17,6 +17,7 @@ export const MastodonShareLambdaEnvironmentSchema = z.object({
   CDK_ENVIRONMENT: optionalEnvString,
   MASTODON_ACCESS_TOKEN: requiredEnvString,
   MEDIA_BUCKET_NAME: optionalEnvString,
+  SOCIAL_TABLE_NAME: optionalEnvString,
 });
 
 export type MastodonShareLambdaEnvironment = z.infer<typeof MastodonShareLambdaEnvironmentSchema>;
@@ -31,6 +32,16 @@ export const MastodonStreamHandlerLambdaEnvironmentSchema = z.object({
 
 export type MastodonStreamHandlerLambdaEnvironment = z.infer<
   typeof MastodonStreamHandlerLambdaEnvironmentSchema
+>;
+
+export const MatchMastodonHandlerLambdaEnvironmentSchema = z.object({
+  CDK_ENVIRONMENT: optionalEnvString,
+  SOCIAL_TABLE_NAME: requiredEnvString,
+  MASTODON_ACCESS_TOKEN: requiredEnvString,
+});
+
+export type MatchMastodonHandlerLambdaEnvironment = z.infer<
+  typeof MatchMastodonHandlerLambdaEnvironmentSchema
 >;
 
 // ============================================================================

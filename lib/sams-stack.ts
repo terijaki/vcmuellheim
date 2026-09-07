@@ -10,7 +10,12 @@ import * as snsSubscriptions from "aws-cdk-lib/aws-sns-subscriptions";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 import type { Construct } from "constructs";
 import type { SamsProviderProcessorLambdaEnvironment } from "@/lambda/sams/types";
-import { computeResourceBranchSuffix, computeSamsDataTableName } from "./db/env";
+import {
+  computeResourceBranchSuffix,
+  computeSamsDataTableName,
+  computeSqsQueueArn,
+  computeSqsQueueUrl,
+} from "./db/env";
 import { SamsTableIndexes } from "./db/sams-electrodb-entities";
 import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 import {
@@ -27,6 +32,11 @@ interface SamsStackProps extends cdk.StackProps {
   };
   /** Optional alert email for DLQ alarm (feature branches may omit). */
   alertEmail?: string;
+  /**
+   * Plain-string match→Mastodon queue name owned by SocialMediaStack.
+   * Avoids CloudFormation cross-stack exports of the queue object.
+   */
+  matchMastodonQueueName?: string;
 }
 
 export class SamsStack extends cdk.Stack {
@@ -116,6 +126,11 @@ export class SamsStack extends cdk.Stack {
       );
     }
 
+    const matchMastodonQueueUrl =
+      props?.matchMastodonQueueName && this.account && this.region
+        ? computeSqsQueueUrl(this.account, this.region, props.matchMastodonQueueName)
+        : undefined;
+
     const PROCESSOR_FUNCTION_NAME = "sams-provider-processor";
     const processor = new VcmNodejsFunction(this, "SamsProviderProcessor", {
       namespace: "sams",
@@ -126,10 +141,20 @@ export class SamsStack extends cdk.Stack {
       environment: {
         ...commonEnvironment,
         SAMS_TABLE_NAME: samsDataTable.tableName,
+        ...(matchMastodonQueueUrl ? { MATCH_MASTODON_QUEUE_URL: matchMastodonQueueUrl } : {}),
       } satisfies SamsProviderProcessorLambdaEnvironment,
     }).lambdaFunction;
 
     samsDataTable.grantReadWriteData(processor);
+
+    if (props?.matchMastodonQueueName && this.account && this.region) {
+      const matchMastodonQueue = sqs.Queue.fromQueueArn(
+        this,
+        "MatchMastodonQueueRef",
+        computeSqsQueueArn(this.account, this.region, props.matchMastodonQueueName),
+      );
+      matchMastodonQueue.grantSendMessages(processor);
+    }
 
     processor.addEventSource(
       new lambdaEventSources.SqsEventSource(providerEventsQueue, {

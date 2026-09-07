@@ -5,16 +5,20 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as lambda from "aws-cdk-lib/aws-lambda";
-import { DynamoEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
+import { DynamoEventSource, SqsEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
 import * as s3Bucket from "aws-cdk-lib/aws-s3";
+import * as sqs from "aws-cdk-lib/aws-sqs";
 import type { Construct } from "constructs";
 import type {
   BeholdSyncLambdaEnvironment,
+  MatchMastodonHandlerLambdaEnvironment,
   MastodonShareLambdaEnvironment,
   MastodonStreamHandlerLambdaEnvironment,
 } from "@/lambda/social/types";
 import {
   computeContentTableName,
+  computeMatchMastodonDlqName,
+  computeMatchMastodonQueueName,
   computeResourceBranchSuffix,
   computeSocialTableName,
 } from "./db/env";
@@ -36,6 +40,8 @@ interface SocialMediaStackProps extends cdk.StackProps {
 export class SocialMediaStack extends cdk.Stack {
   /** Stable plain-string table name — safe to pass cross-stack without creating CloudFormation exports. */
   public readonly socialTableName: string;
+  /** Stable plain-string queue name for match → Mastodon work (Sams send-only). */
+  public readonly matchMastodonQueueName: string;
   public readonly mastodonLambda: lambda.IFunction;
 
   constructor(scope: Construct, id: string, props: SocialMediaStackProps) {
@@ -61,6 +67,7 @@ export class SocialMediaStack extends cdk.Stack {
     }
 
     this.socialTableName = computeSocialTableName(environment, branch);
+    this.matchMastodonQueueName = computeMatchMastodonQueueName(environment, branch);
 
     const socialTable = new dynamodb.Table(this, "SocialTable", {
       tableName: this.socialTableName,
@@ -80,9 +87,12 @@ export class SocialMediaStack extends cdk.Stack {
       environment: {
         ...commonEnvironment,
         MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
+        SOCIAL_TABLE_NAME: this.socialTableName,
         ...(props.mediaBucketName ? { MEDIA_BUCKET_NAME: props.mediaBucketName } : {}),
       } satisfies MastodonShareLambdaEnvironment,
     }).lambdaFunction;
+
+    socialTable.grantReadWriteData(mastodonShare);
 
     // Grant S3 read permissions to Mastodon Lambda for image uploads
     if (props.mediaBucketName) {
@@ -90,6 +100,48 @@ export class SocialMediaStack extends cdk.Stack {
         mastodonShare,
       );
     }
+
+    const matchMastodonDlq = new sqs.Queue(this, "MatchMastodonDlq", {
+      queueName: computeMatchMastodonDlqName(environment, branch),
+      retentionPeriod: cdk.Duration.days(14),
+      enforceSSL: true,
+      removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
+    });
+
+    const matchMastodonQueue = new sqs.Queue(this, "MatchMastodonQueue", {
+      queueName: this.matchMastodonQueueName,
+      retentionPeriod: cdk.Duration.days(14),
+      enforceSSL: true,
+      visibilityTimeout: cdk.Duration.minutes(1),
+      deadLetterQueue: {
+        queue: matchMastodonDlq,
+        maxReceiveCount: 5,
+      },
+      removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
+    });
+
+    const matchMastodonHandler = new VcmNodejsFunction(this, "MatchMastodonHandler", {
+      namespace: "social",
+      name: "match-mastodon-handler",
+      entry: path.join(__dirname, "../lambda/social/match-mastodon-handler.ts"),
+      timeout: cdk.Duration.seconds(30),
+      memorySize: 256,
+      environment: {
+        ...commonEnvironment,
+        SOCIAL_TABLE_NAME: this.socialTableName,
+        MASTODON_ACCESS_TOKEN: mastodonAccessToken || "",
+      } satisfies MatchMastodonHandlerLambdaEnvironment,
+    }).lambdaFunction;
+
+    socialTable.grantReadWriteData(matchMastodonHandler);
+    matchMastodonQueue.grantConsumeMessages(matchMastodonHandler);
+    matchMastodonHandler.addEventSource(
+      new SqsEventSource(matchMastodonQueue, {
+        batchSize: 10,
+        maxBatchingWindow: cdk.Duration.seconds(5),
+        reportBatchItemFailures: true,
+      }),
+    );
 
     // Create scheduled Lambda to proactively sync Behold Instagram posts to DynamoDB.
     // Runs hourly during German daytime — ~465 calls/month (~39% of Behold's 1200/month free-tier limit).
