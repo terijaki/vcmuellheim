@@ -35,7 +35,11 @@ export const Route = createFileRoute("/_layout/termine/")({
 
 function RouteComponent() {
   const { events, matchesQueryOptions } = Route.useLoaderData();
-  const webcalLink = createWebcalLink("/ics/all.ics");
+  const [homeGamesOnly, setHomeGamesOnly] = useState(false);
+  const webcalLink = createWebcalLink(homeGamesOnly ? "/ics/home.ics" : "/ics/all.ics");
+  const subscribeLabel = homeGamesOnly
+    ? "Abboniere unsere Heimspiele"
+    : "Abboniere unseren Vereinskalender";
 
   return (
     <PageWithHeading
@@ -45,10 +49,17 @@ function RouteComponent() {
       <Stack>
         <Card>
           <Stack>
-            <CardTitle>Kalender Integration</CardTitle>
+            <Group justify="space-between" align="center" wrap="wrap">
+              <CardTitle>Kalender Integration</CardTitle>
+              <Switch
+                label="Nur Heimspiele"
+                checked={homeGamesOnly}
+                onChange={(event) => setHomeGamesOnly(event.currentTarget.checked)}
+              />
+            </Group>
             <Text>
               <Anchor href={webcalLink} style={{ display: "inline-flex", gap: 4 }}>
-                <IconSubscribe /> Abboniere unseren Vereinskalender
+                <IconSubscribe /> {subscribeLabel}
               </Anchor>
               , um neue Termine saisonübergreifend automatisch in deiner{" "}
               <Text fw="bold" span>
@@ -59,7 +70,11 @@ function RouteComponent() {
           </Stack>
         </Card>
         <EventsContent events={events} />
-        <MatchesContent matchesQueryOptions={matchesQueryOptions} />
+        <MatchesContent
+          matchesQueryOptions={matchesQueryOptions}
+          homeGamesOnly={homeGamesOnly}
+          onHomeGamesOnlyChange={setHomeGamesOnly}
+        />
       </Stack>
     </PageWithHeading>
   );
@@ -90,10 +105,13 @@ function EventsContent({
 
 function MatchesContent({
   matchesQueryOptions,
+  homeGamesOnly,
+  onHomeGamesOnlyChange,
 }: {
   matchesQueryOptions: SamsMatchesHookOptions | undefined;
+  homeGamesOnly: boolean;
+  onHomeGamesOnlyChange: (value: boolean) => void;
 }) {
-  const [homeGamesOnly, setHomeGamesOnly] = useState(false);
   const { data: samsTeamsData, isPending: isSamsTeamsPending } = useSamsTeams();
   const {
     data: matchesData,
@@ -143,7 +161,7 @@ function MatchesContent({
           <Switch
             label="Nur Heimspiele"
             checked={homeGamesOnly}
-            onChange={(event) => setHomeGamesOnly(event.currentTarget.checked)}
+            onChange={(event) => onHomeGamesOnlyChange(event.currentTarget.checked)}
           />
         </Group>
         {homeFilterPending ? (

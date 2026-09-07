@@ -2,7 +2,7 @@
  * ICS calendar API route — /ics/$teamSlug
  *
  * Returns an iCalendar (.ics) file combining SAMS match data and custom DynamoDB events.
- * teamSlug can be "all" or a specific team slug (e.g. "herren1").
+ * teamSlug can be "all", "home", or a specific team slug (e.g. "herren1").
  * The .ics file extension is stripped automatically.
  */
 
@@ -10,6 +10,7 @@ import type { LeagueMatch } from "@/lambda/sams/types";
 import { loadScheduleMatchesForSamsTeamUuids } from "@webapp/server/functions/sams.server";
 import { Club } from "@project.config";
 import { createFileRoute } from "@tanstack/react-router";
+import { filterHomeMatches } from "@/utils/sams-match-filter";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import timezone from "dayjs/plugin/timezone";
@@ -109,8 +110,13 @@ export const Route = createFileRoute("/ics/$teamSlug")({
           let teamLeagueName: string | undefined;
           let calendarTitle: string = Club.shortName;
 
-          if (!teamSlug || teamSlug === "all") {
-            calendarTitle = `${calendarTitle} - Vereinskalender`;
+          const isClubWideCalendar = !teamSlug || teamSlug === "all" || teamSlug === "home";
+          const homeGamesOnly = teamSlug === "home";
+
+          if (isClubWideCalendar) {
+            calendarTitle = homeGamesOnly
+              ? `${calendarTitle} - Heimspiele`
+              : `${calendarTitle} - Vereinskalender`;
             const allTeamsResult = await db()
               .team.query.byType({ type: "team" })
               .go({ pages: "all" });
@@ -134,11 +140,15 @@ export const Route = createFileRoute("/ics/$teamSlug")({
 
           const timestamp = new Date();
           const matches = await loadScheduleMatchesForSamsTeamUuids(teamSamsUuids);
-          const matchEvents = matches
+          const scopedMatches = homeGamesOnly
+            ? filterHomeMatches(matches, new Set(teamSamsUuids))
+            : matches;
+          const matchEvents = scopedMatches
             .map((match) => convertMatchToIcs(match, teamLeagueName, timestamp))
             .filter((e): e is IcsEvent => e !== null);
 
-          const customEvents = await fetchCustomEvents(teamId);
+          // Home-games calendar is match-only; keep club/team event feeds on all/team calendars.
+          const customEvents = homeGamesOnly ? [] : await fetchCustomEvents(teamId);
           const customIcsEvents = customEvents.map((evt) => convertEventToIcs(evt, timestamp));
 
           const icsCalendar: IcsCalendar = {
