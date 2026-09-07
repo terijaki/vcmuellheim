@@ -43,3 +43,18 @@ export function filterAndSortSamsMatches<T extends MatchWithResult>(
   if (input?.limit) filteredMatches = filteredMatches.slice(0, input.limit);
   return filteredMatches;
 }
+
+type MatchWithHomeTeam = {
+  team1?: { uuid?: string | null } | null;
+};
+
+/** Keep matches hosted by an owned team (SAMS team1 is the home side). */
+export function filterHomeMatches<T extends MatchWithHomeTeam>(
+  matches: readonly T[],
+  ownedTeamUuids: ReadonlySet<string>,
+): T[] {
+  return matches.filter((match) => {
+    const homeTeamUuid = match.team1?.uuid;
+    return !!homeTeamUuid && ownedTeamUuids.has(homeTeamUuid);
+  });
+}
