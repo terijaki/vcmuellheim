@@ -79,7 +79,9 @@ export function shouldResolveDefaultSamsSportsclubs(filters: {
   sportsclub?: NullableString;
   team?: NullableString;
 }): boolean {
-  return !filters.league && !filters.sportsclub && !filters.team;
+  // Team and league filters are applied after loading club schedule projections.
+  // Only an explicit sportsclub filter replaces the configured default clubs.
+  return !filters.sportsclub;
 }
 
 export function resolveEffectiveSamsSportsclubUuids(

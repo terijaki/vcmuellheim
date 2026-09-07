@@ -116,6 +116,28 @@ describe("projection reads", () => {
     expect(result.matches.map((match) => match.uuid).sort()).toEqual(["a1", "b1"]);
   });
 
+  it("loads club schedule projections when filtering by team UUID", async () => {
+    mockList.mockImplementation(async (sportsclubUuids) => {
+      expect([...sportsclubUuids]).toEqual(expect.arrayContaining(["uuid-a", "uuid-b"]));
+      return [
+        sampleMatch({
+          uuid: "a1",
+          team1: { uuid: "team-a", name: "VCM", sportsclubUuid: "uuid-a" },
+          team2: { uuid: "opp", name: "Opp", sportsclubUuid: "uuid-b" },
+        }),
+        sampleMatch({
+          uuid: "b1",
+          team1: { uuid: "team-b", name: "MGV", sportsclubUuid: "uuid-b" },
+          team2: { uuid: "opp", name: "Opp", sportsclubUuid: "uuid-a" },
+        }),
+      ];
+    });
+
+    const result = await handleGetSamsMatches({ team: "team-a" });
+    expect(mockList).toHaveBeenCalled();
+    expect(result.matches.map((match) => match.uuid)).toEqual(["a1"]);
+  });
+
   it("returns an empty ranking payload when no projection exists", async () => {
     mockRankingGet.mockResolvedValue(null);
     const result = await handleGetSamsRankingByLeagueUuid("league-missing");
