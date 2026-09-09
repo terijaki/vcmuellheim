@@ -15,14 +15,20 @@ export default function Matches({
   type,
   highlightTeamUuid,
   uniqueLeague = false,
+  ownedTeamUuids,
+  leagueNameByUuid,
 }: {
   matches: LeagueMatchesResponse["matches"];
   timestamp?: Date;
   type: "future" | "past";
   highlightTeamUuid?: string;
   uniqueLeague?: boolean;
+  ownedTeamUuids?: readonly string[];
+  leagueNameByUuid?: Readonly<Record<string, string>>;
 }) {
-  const { data: samsTeams } = useSamsTeams();
+  const { data: samsTeams } = useSamsTeams({
+    enabled: !ownedTeamUuids || !leagueNameByUuid,
+  });
   if (!matches || matches.length === 0) return null;
   // define how dates should be displayed
   const dateFormat = new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" });
@@ -34,12 +40,15 @@ export default function Matches({
   }
   const isOddMatches = Boolean(matches.length % 2 === 0);
 
-  // league data so that we can get the league name from the league id
+  // Prefer application read-model metadata when provided; fall back to SAMS teams list.
   const ourTeams = samsTeams?.teams;
-  const ourTeamUuids = getOwnedSamsTeamUuids(ourTeams || []);
-  const leagues = new Map<string, string>();
-  for (const team of ourTeams || []) {
-    if (team.leagueUuid && team.leagueName) leagues.set(team.leagueUuid, team.leagueName);
+  const ourTeamUuids =
+    ownedTeamUuids !== undefined ? new Set(ownedTeamUuids) : getOwnedSamsTeamUuids(ourTeams || []);
+  const leagues = new Map<string, string>(leagueNameByUuid ? Object.entries(leagueNameByUuid) : []);
+  if (leagues.size === 0) {
+    for (const team of ourTeams || []) {
+      if (team.leagueUuid && team.leagueName) leagues.set(team.leagueUuid, team.leagueName);
+    }
   }
 
   if (type === "past") {

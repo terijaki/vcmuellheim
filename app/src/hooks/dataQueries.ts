@@ -168,10 +168,11 @@ export const useFileUrls = (s3Keys?: string[]) => {
 // SAMS
 // ============================================================================
 
-export const useSamsTeams = () => {
+export const useSamsTeams = (options?: { enabled?: boolean }) => {
   return useQuery({
     queryKey: ["samsTeams"],
     queryFn: () => listSamsTeamsFn(),
+    enabled: options?.enabled ?? true,
   });
 };
 

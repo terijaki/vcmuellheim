@@ -3,62 +3,40 @@ import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 vi.mock("@/lib/sams/repositories", () => ({
   samsScheduleProjectionRepository: { listMatchesForSportsclubs: vi.fn(), get: vi.fn() },
   samsRankingProjectionRepository: { get: vi.fn() },
+  appTabelleRepository: { listByDataset: vi.fn(), replaceDataset: vi.fn() },
+  appTermineRepository: { listByDataset: vi.fn(), query: vi.fn(), replaceDataset: vi.fn() },
 }));
 vi.mock("@webapp/server/queries", () => ({ getAllSamsClubs: vi.fn(), getAllSamsTeams: vi.fn() }));
 
-import { samsScheduleProjectionRepository } from "@/lib/sams/repositories";
-import { getAllSamsClubs, getAllSamsTeams } from "@webapp/server/queries";
+import { appTermineRepository } from "@/lib/sams/repositories";
 import { handleLoadSamsMatchesForSsr } from "./sams.server";
 
-const mockList = vi.mocked(samsScheduleProjectionRepository.listMatchesForSportsclubs);
+const mockAppTermineQuery = vi.mocked(appTermineRepository.query);
 
 describe("handleLoadSamsMatchesForSsr", () => {
   beforeEach(() => {
-    vi.mocked(getAllSamsClubs).mockResolvedValue({
-      items: [
-        {
-          type: "club",
-          name: "VC Müllheim",
-          sportsclubUuid: "uuid-a",
-          updatedAt: "2026-01-01T00:00:00.000Z",
-        },
-        {
-          type: "club",
-          name: "Markgräfler Volleys",
-          sportsclubUuid: "uuid-b",
-          updatedAt: "2026-01-01T00:00:00.000Z",
-        },
-      ],
-    });
-    vi.mocked(getAllSamsTeams).mockResolvedValue({
-      items: [
-        {
-          type: "team",
-          uuid: "team-1",
-          name: "VC",
-          sportsclubUuid: "uuid-a",
-          associationUuid: "a",
-          leagueUuid: "l1",
-          leagueName: "BL",
-          seasonUuid: "season-synced",
-          seasonName: "25/26",
-          updatedAt: "2026-01-01T00:00:00.000Z",
-        },
-      ],
-    });
-    mockList.mockResolvedValue([
+    mockAppTermineQuery.mockResolvedValue([
       {
-        uuid: "m1",
+        datasetId: "current",
+        matchSortKey: "F#2026-02-01#m1",
+        type: "apptermine",
+        matchUuid: "m1",
         date: "2026-02-01",
-        hasResult: false,
         team1: { uuid: "t1", name: "Team 1" },
         team2: { uuid: "t2", name: "Team 2" },
+        hasResult: false,
+        isHomeGame: true,
+        ownedTeamUuids: ["t1"],
+        updatedAt: "2026-01-01T00:00:00.000Z",
+        ttl: 1,
       },
     ]);
   });
 
-  it("returns hook options from projection peek", async () => {
+  it("returns hook options from the application Termine read model", async () => {
     const result = await handleLoadSamsMatchesForSsr({ range: "future" });
-    expect(result.hookOptions.season).toBe("season-synced");
+    expect(result.hookOptions.range).toBe("future");
+    expect(result.cached?.matches).toHaveLength(1);
+    expect(result.hookOptions.season).toBeUndefined();
   });
 });

@@ -3,6 +3,8 @@ import type { LeagueMatch } from "@/lambda/sams/types";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import {
   buildLiveMatchesFromRaw,
+  handleGetCurrentTabelle,
+  handleGetCurrentTermine,
   handleGetSamsMatches,
   handleGetSamsRankingByLeagueUuid,
   handlePeekSamsMatchesCache,
@@ -12,6 +14,8 @@ import {
 vi.mock("@/lib/sams/repositories", () => ({
   samsScheduleProjectionRepository: { listMatchesForSportsclubs: vi.fn(), get: vi.fn() },
   samsRankingProjectionRepository: { get: vi.fn() },
+  appTabelleRepository: { listByDataset: vi.fn(), replaceDataset: vi.fn() },
+  appTermineRepository: { listByDataset: vi.fn(), query: vi.fn(), replaceDataset: vi.fn() },
 }));
 vi.mock("@webapp/server/queries", () => ({
   getAllSamsClubs: vi.fn(),
@@ -21,6 +25,8 @@ vi.mock("@webapp/server/queries", () => ({
 }));
 
 import {
+  appTabelleRepository,
+  appTermineRepository,
   samsRankingProjectionRepository,
   samsScheduleProjectionRepository,
 } from "@/lib/sams/repositories";
@@ -32,6 +38,8 @@ import {
 
 const mockList = vi.mocked(samsScheduleProjectionRepository.listMatchesForSportsclubs);
 const mockRankingGet = vi.mocked(samsRankingProjectionRepository.get);
+const mockAppTabelleList = vi.mocked(appTabelleRepository.listByDataset);
+const mockAppTermineQuery = vi.mocked(appTermineRepository.query);
 const mockClubs = vi.mocked(getAllSamsClubs);
 const mockTeams = vi.mocked(getAllSamsTeams);
 const mockClubByUuid = vi.mocked(getSamsClubBySportsclubUuid);
@@ -74,111 +82,145 @@ function sampleMatch(overrides: Partial<LeagueMatch> = {}): LeagueMatch {
   };
 }
 
-describe("projection reads", () => {
+function sampleAppTermine(overrides: Record<string, unknown> = {}) {
+  return {
+    datasetId: "current",
+    matchSortKey: "F#2026-12-01#m1",
+    type: "apptermine" as const,
+    matchUuid: "m1",
+    date: "2026-12-01",
+    leagueUuid: "l1",
+    leagueName: "BL",
+    seasonUuid: "season-synced",
+    team1: { uuid: "t1", name: "Team 1", sportsclubUuid: "uuid-a" },
+    team2: { uuid: "t2", name: "Team 2", sportsclubUuid: "uuid-b" },
+    hasResult: false,
+    isHomeGame: true,
+    ownedTeamUuids: ["t1"],
+    updatedAt: "2026-01-01T00:00:00.000Z",
+    ttl: 1,
+    ...overrides,
+  };
+}
+
+describe("application read models", () => {
   beforeEach(() => {
     mockClubs.mockResolvedValue({ items: clubs });
     mockTeams.mockResolvedValue({ items: [team] });
     mockList.mockReset();
     mockRankingGet.mockReset();
+    mockAppTabelleList.mockReset();
+    mockAppTermineQuery.mockReset();
+    mockAppTabelleList.mockResolvedValue([]);
+    mockAppTermineQuery.mockResolvedValue([]);
   });
 
-  it("loads projections", async () => {
-    mockList.mockResolvedValue([sampleMatch()]);
-    expect((await handlePeekSamsMatchesCache({ range: "future" }))?.matches).toHaveLength(1);
+  it("reads current Termine without club/season discovery", async () => {
+    mockAppTermineQuery.mockResolvedValue([sampleAppTermine()]);
+    const result = await handleGetCurrentTermine({ range: "future" });
+    expect(result.matches).toHaveLength(1);
+    expect(result.matches[0]?.uuid).toBe("m1");
+    expect(result.ownedTeamUuids).toEqual(["t1"]);
+    expect(mockClubs).not.toHaveBeenCalled();
+    expect(mockTeams).not.toHaveBeenCalled();
   });
 
-  it("filters future matches by hasResult", async () => {
-    mockList.mockResolvedValue([
-      sampleMatch({ uuid: "f1", date: "2026-12-01", hasResult: false }),
-      sampleMatch({ uuid: "p1", date: "2026-01-01", hasResult: true }),
+  it("reads current Tabelle without season discovery", async () => {
+    mockAppTabelleList.mockResolvedValue([
+      {
+        datasetId: "current",
+        leagueSortKey: "00004#l1",
+        type: "apptabelle",
+        leagueUuid: "l1",
+        leagueName: "BL",
+        seasonUuid: "season-synced",
+        seasonName: "25/26",
+        teams: [
+          {
+            uuid: "t1",
+            teamName: "VC",
+            rank: 1,
+            sportsclubUuid: "club-1",
+            logoUrl: "https://cdn.example.com/logo.png",
+          },
+        ],
+        ownedTeamUuids: ["t1"],
+        updatedAt: "2026-01-01T00:00:00.000Z",
+        ttl: 1,
+      },
     ]);
+
+    const result = await handleGetCurrentTabelle();
+    expect(result.leagueUuids).toEqual(["l1"]);
+    expect(result.rankingsByLeagueUuid.l1?.teams?.[0]?.logoUrl).toBe(
+      "/api/sams/logos?clubUuid=club-1",
+    );
+    expect(mockTeams).not.toHaveBeenCalled();
+  });
+
+  it("uses Termine read model for default match queries", async () => {
+    mockAppTermineQuery.mockResolvedValue([
+      sampleAppTermine({ matchUuid: "f1", matchSortKey: "F#2026-12-01#f1", hasResult: false }),
+    ]);
+    expect((await handlePeekSamsMatchesCache({ range: "future" }))?.matches).toHaveLength(1);
     expect((await handleGetSamsMatches({ range: "future" })).matches.map((m) => m.uuid)).toEqual([
       "f1",
     ]);
+    expect(mockList).not.toHaveBeenCalled();
   });
 
-  it("loads matches from both configured clubs", async () => {
-    mockList.mockImplementation(async (sportsclubUuids) => {
-      expect([...sportsclubUuids]).toEqual(expect.arrayContaining(["uuid-a", "uuid-b"]));
-      return [
-        sampleMatch({
-          uuid: "a1",
-          team1: { uuid: "team-a", name: "VCM", sportsclubUuid: "uuid-a" },
-        }),
-        sampleMatch({
-          uuid: "b1",
-          team1: { uuid: "team-b", name: "MGV", sportsclubUuid: "uuid-b" },
-        }),
-      ];
-    });
-
-    const result = await handleGetSamsMatches({ range: "future" });
-    expect(result.matches.map((match) => match.uuid).sort()).toEqual(["a1", "b1"]);
-  });
-
-  it("loads club schedule projections when filtering by team UUID", async () => {
-    mockList.mockImplementation(async (sportsclubUuids) => {
-      expect([...sportsclubUuids]).toEqual(expect.arrayContaining(["uuid-a", "uuid-b"]));
-      return [
-        sampleMatch({
-          uuid: "a1",
-          team1: { uuid: "team-a", name: "VCM", sportsclubUuid: "uuid-a" },
-          team2: { uuid: "opp", name: "Opp", sportsclubUuid: "uuid-b" },
-        }),
-        sampleMatch({
-          uuid: "b1",
-          team1: { uuid: "team-b", name: "MGV", sportsclubUuid: "uuid-b" },
-          team2: { uuid: "opp", name: "Opp", sportsclubUuid: "uuid-a" },
-        }),
-      ];
-    });
+  it("filters Termine by team UUID via the application read model", async () => {
+    mockAppTermineQuery.mockResolvedValue([
+      sampleAppTermine({
+        matchUuid: "a1",
+        team1: { uuid: "team-a", name: "VCM", sportsclubUuid: "uuid-a" },
+        team2: { uuid: "opp", name: "Opp", sportsclubUuid: "uuid-b" },
+      }),
+      sampleAppTermine({
+        matchUuid: "b1",
+        matchSortKey: "F#2026-12-02#b1",
+        team1: { uuid: "team-b", name: "MGV", sportsclubUuid: "uuid-b" },
+        team2: { uuid: "opp", name: "Opp", sportsclubUuid: "uuid-a" },
+      }),
+    ]);
 
     const result = await handleGetSamsMatches({ team: "team-a" });
-    expect(mockList).toHaveBeenCalled();
     expect(result.matches.map((match) => match.uuid)).toEqual(["a1"]);
+    expect(mockList).not.toHaveBeenCalled();
   });
 
-  it("returns an empty ranking payload when no projection exists", async () => {
-    mockRankingGet.mockResolvedValue(null);
-    const result = await handleGetSamsRankingByLeagueUuid("league-missing");
-    expect(result.teams).toEqual([]);
-    expect(result.leagueUuid).toBe("league-missing");
-  });
-
-  it("returns an empty ranking payload when no synced season exists", async () => {
-    mockTeams.mockResolvedValue({ items: [] });
-    const result = await handleGetSamsRankingByLeagueUuid("league-1");
-    expect(result.teams).toEqual([]);
+  it("returns ranking from application Tabelle when present", async () => {
+    mockAppTabelleList.mockResolvedValue([
+      {
+        datasetId: "current",
+        leagueSortKey: "00004#l1",
+        type: "apptabelle",
+        leagueUuid: "l1",
+        leagueName: "BL",
+        seasonUuid: "season-synced",
+        seasonName: "25/26",
+        teams: [
+          {
+            uuid: "t1",
+            teamName: "VC",
+            rank: 1,
+            sportsclubUuid: "club-1",
+            logoUrl: "https://cdn.example.com/logo.png",
+          },
+        ],
+        ownedTeamUuids: ["t1"],
+        updatedAt: "2026-01-01T00:00:00.000Z",
+        ttl: 1,
+      },
+    ]);
+    const result = await handleGetSamsRankingByLeagueUuid("l1");
+    expect(result.teams?.[0]?.logoUrl).toBe("/api/sams/logos?clubUuid=club-1");
+    expect(result.leagueName).toBe("BL");
     expect(mockRankingGet).not.toHaveBeenCalled();
   });
 
-  it("rewrites ranking logoUrl to the same-origin CloudFront proxy when sportsclubUuid is present", async () => {
-    mockRankingGet.mockResolvedValue({
-      leagueUuid: "l1",
-      seasonUuid: "season-synced",
-      seasonName: "25/26",
-      leagueName: "BL",
-      type: "ranking",
-      teams: [
-        {
-          uuid: "t1",
-          teamName: "VC",
-          rank: 1,
-          sportsclubUuid: "club-1",
-          logoUrl: "https://cdn.example.com/logo.png",
-        },
-      ],
-      snapshotVersion: "abc",
-      updatedAt: "2026-01-01T00:00:00.000Z",
-      ttl: 1,
-    });
-    const result = await handleGetSamsRankingByLeagueUuid("l1");
-    expect(result.teams?.[0]?.logoUrl).toBe("/api/sams/logos?clubUuid=club-1");
-    expect(result.teams?.[0]?.sportsclubUuid).toBe("club-1");
-    expect(result.leagueName).toBe("BL");
-  });
-
-  it("leaves ranking rows without a provider logoUrl unset so ClubLogo can fall back", async () => {
+  it("falls back to canonical ranking when app Tabelle is empty", async () => {
+    mockAppTabelleList.mockResolvedValue([]);
     mockRankingGet.mockResolvedValue({
       leagueUuid: "l1",
       seasonUuid: "season-synced",
@@ -200,6 +242,21 @@ describe("projection reads", () => {
     const result = await handleGetSamsRankingByLeagueUuid("l1");
     expect(result.teams?.[0]?.logoUrl).toBeUndefined();
     expect(result.teams?.[0]?.sportsclubUuid).toBe("club-no-logo");
+  });
+
+  it("returns an empty ranking payload when no projection exists", async () => {
+    mockAppTabelleList.mockResolvedValue([]);
+    mockRankingGet.mockResolvedValue(null);
+    const result = await handleGetSamsRankingByLeagueUuid("league-missing");
+    expect(result.teams).toEqual([]);
+    expect(result.leagueUuid).toBe("league-missing");
+  });
+
+  it("uses canonical schedule path when an explicit sportsclub filter is set", async () => {
+    mockList.mockResolvedValue([sampleMatch({ uuid: "club-only" })]);
+    const result = await handleGetSamsMatches({ sportsclub: "uuid-a", range: "future" });
+    expect(result.matches.map((match) => match.uuid)).toEqual(["club-only"]);
+    expect(mockList).toHaveBeenCalled();
   });
 });
 

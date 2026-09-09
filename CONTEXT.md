@@ -4,6 +4,14 @@ Public website and admin app for VC Müllheim, including SAMS league data (match
 
 ## Language
 
+**Application Tabelle**:
+The write-time standings read model for the currently published season, keyed for a single Query without season or club discovery.
+_Avoid_: Ranking projection (canonical SAMS league/season blob)
+
+**Application Termine**:
+The write-time match calendar read model for configured clubs, date-sorted and range-partitioned for past/future queries.
+_Avoid_: Schedule projection (canonical SAMS club/season match blob)
+
 **Synced season**:
 The season UUID stored on team records by the teams sync, read from DynamoDB when loading matches.
 _Avoid_: Current season, live season

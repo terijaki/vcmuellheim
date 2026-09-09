@@ -5,75 +5,40 @@ import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import Matches from "@webapp/components/Matches";
 import RankingTable from "@webapp/components/RankingTable";
 import { useSamsMatches } from "@webapp/hooks/dataQueries";
-import {
-  listSamsTeamsFn,
-  loadSamsMatchesForSsrFn,
-  peekSamsRankingsCacheFn,
-} from "@webapp/server/functions/sams";
+import { getCurrentTabelleFn, getCurrentTermineFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
-import {
-  buildLeagueOrderingContext,
-  calculateLastResultCap,
-  sortLeagueUuidsByLevels,
-} from "@webapp/utils/ranking";
+import { buildSamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 import { numToWord } from "num-words-de";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
-const GAMES_PER_TEAM: number = 2.3; // maximum number of games per team to shown below the rankings
-
 export const Route = createFileRoute("/_layout/tabelle")({
   /**
-   * SSR uses cache-peek only (loadSamsMatchesForSsrFn) — never getSamsMatchesFn in loaders.
-   * See docs/adr/0001-sams-match-loading.md.
+   * SSR loads application Tabelle/Termine read models — no season/club discovery.
+   * See docs/adr/0001-sams-match-loading.md and issue #391.
    */
   loader: async () => {
-    // Main data comes from DynamoDB; only a batched SAMS metadata lookup is used for league ordering.
-    const [samsTeams, teams] = await Promise.all([listSamsTeamsFn(), listTeamsFn()]);
-    const orderingContext = buildLeagueOrderingContext(samsTeams.teams);
+    const [tabelle, teams, pastTermine] = await Promise.all([
+      getCurrentTabelleFn(),
+      listTeamsFn(),
+      getCurrentTermineFn({ data: { range: "past", limit: 20 } }),
+    ]);
 
-    if (samsTeams.teams.length === 0) {
-      return {
-        leagueUuids: [],
-        teams: teams.items,
-        lastResultCap: 6,
-        rankingsByLeagueUuid: {} satisfies Record<string, RankingResponse>,
-        matchesQueryOptions: undefined,
-      };
-    }
+    const matchesInput = { range: "past" as const, limit: tabelle.lastResultCap };
+    const pastMatches = pastTermine.matches.slice(0, tabelle.lastResultCap);
+    const cached =
+      pastMatches.length > 0 ? { matches: pastMatches, timestamp: pastTermine.timestamp } : null;
+    const matchesQueryOptions: SamsMatchesHookOptions = buildSamsMatchesHookOptions(
+      matchesInput,
+      cached,
+    );
 
-    // League levels are stored on each team by the sync lambda — no extra API call needed.
-    const leagueLevels = Object.fromEntries(orderingContext.leagueLevelByUuid);
-
-    const sortedLeagueUuids = sortLeagueUuidsByLevels({
-      leagueUuids: orderingContext.leagueUuids,
-      leagueLevels,
-      leagueNameByUuid: orderingContext.leagueNameByUuid,
-      leagueOrderByUuid: orderingContext.leagueOrderByUuid,
-    });
-    const lastResultCap = calculateLastResultCap(samsTeams.teams.length, GAMES_PER_TEAM);
-
-    let rankingsByLeagueUuid: Record<string, RankingResponse> = {};
-    let matchesQueryOptions: SamsMatchesHookOptions | undefined;
-    if (sortedLeagueUuids.length > 0) {
-      const matchesInput = { range: "past" as const, limit: lastResultCap };
-      const [rankingsResult, matchesSsr] = await Promise.allSettled([
-        peekSamsRankingsCacheFn({ data: { leagueUuids: sortedLeagueUuids } }),
-        loadSamsMatchesForSsrFn({ data: matchesInput }),
-      ]);
-      if (rankingsResult.status === "fulfilled") {
-        rankingsByLeagueUuid = Object.fromEntries(
-          rankingsResult.value.map((r) => [r.leagueUuid, r]),
-        );
-      }
-      matchesQueryOptions =
-        matchesSsr.status === "fulfilled" ? matchesSsr.value.hookOptions : matchesInput;
-    }
     return {
-      leagueUuids: sortedLeagueUuids,
+      leagueUuids: tabelle.leagueUuids,
       teams: teams.items,
-      lastResultCap,
-      rankingsByLeagueUuid,
+      lastResultCap: tabelle.lastResultCap,
+      rankingsByLeagueUuid: tabelle.rankingsByLeagueUuid satisfies Record<string, RankingResponse>,
+      ownedTeamUuids: tabelle.ownedTeamUuids,
       matchesQueryOptions,
     };
   },
@@ -81,8 +46,14 @@ export const Route = createFileRoute("/_layout/tabelle")({
 });
 
 function RouteComponent() {
-  const { leagueUuids, teams, lastResultCap, rankingsByLeagueUuid, matchesQueryOptions } =
-    Route.useLoaderData();
+  const {
+    leagueUuids,
+    teams,
+    lastResultCap,
+    rankingsByLeagueUuid,
+    ownedTeamUuids,
+    matchesQueryOptions,
+  } = Route.useLoaderData();
 
   const {
     data: matchesData,
@@ -116,7 +87,17 @@ function RouteComponent() {
           <Card>
             <CardTitle>Unsere letzten {lastResultWord} Spiele</CardTitle>
             <CardSection p={{ base: undefined, sm: "sm" }}>
-              <Matches matches={recentMatches} type="past" />
+              <Matches
+                matches={recentMatches}
+                type="past"
+                ownedTeamUuids={ownedTeamUuids}
+                leagueNameByUuid={Object.fromEntries(
+                  leagueUuids.map((leagueUuid) => [
+                    leagueUuid,
+                    rankingsByLeagueUuid[leagueUuid]?.leagueName ?? "",
+                  ]),
+                )}
+              />
             </CardSection>
           </Card>
         )}

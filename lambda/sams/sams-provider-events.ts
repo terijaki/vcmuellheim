@@ -22,6 +22,7 @@ import { slugify } from "@/utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
 import { Sentry } from "../utils/sentry";
+import { rebuildAppProjections } from "@/lib/sams/app-projections/rebuild-app-projections";
 import {
   collectSportsclubUuidsFromMatches,
   mapProviderMatchToProjection,
@@ -344,6 +345,11 @@ async function mergeMatchBlock(
   );
 }
 
+async function rebuildAppReadModels(repos: SamsRepositories): Promise<void> {
+  const result = await rebuildAppProjections(repos);
+  logger.info("Rebuilt application SAMS read models", result);
+}
+
 export async function processSamsProviderEvent(
   event: SamsEvent,
   repos: SamsRepositories = createSamsRepositories(docClient, TABLE_NAME),
@@ -357,10 +363,12 @@ export async function processSamsProviderEvent(
   switch (event.type) {
     case SamsEventType.clubUpdated:
       await upsertClub(repos, event);
+      await rebuildAppReadModels(repos);
       return;
 
     case SamsEventType.clubSeasonTeamsUpdated:
       await replaceClubSeasonTeams(repos, event);
+      await rebuildAppReadModels(repos);
       return;
 
     case SamsEventType.clubSeasonRostersUpdated:
@@ -387,6 +395,7 @@ export async function processSamsProviderEvent(
         },
         matchShareDeps,
       );
+      await rebuildAppReadModels(repos);
       return;
     }
 
@@ -415,6 +424,7 @@ export async function processSamsProviderEvent(
           matchShareDeps,
         );
       }
+      await rebuildAppReadModels(repos);
       return;
     }
 
@@ -435,6 +445,7 @@ export async function processSamsProviderEvent(
         isStale,
         ttl: unixTtlSecondsFromNow(SAMS_PROJECTION_TTL_DAYS),
       });
+      await rebuildAppReadModels(repos);
       return;
     }
 

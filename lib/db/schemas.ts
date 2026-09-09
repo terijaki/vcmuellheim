@@ -322,6 +322,55 @@ export const samsLeagueRankingProjectionSchema = z.object({
 export type SamsLeagueRankingProjectionInput = z.infer<typeof samsLeagueRankingProjectionSchema>;
 
 // ---------------------------------------------------------------------------
+// Application read models (Tabelle / Termine) — written at SAMS sync time
+// ---------------------------------------------------------------------------
+
+/** Stable dataset id for the currently published application projections. */
+export const APP_DATASET_CURRENT = "current" as const;
+
+/** One league standings row in the Tabelle application projection. */
+export const appTabelleLeagueSchema = z.object({
+  datasetId: z.string().min(1),
+  leagueSortKey: z.string().min(1),
+  type: z.literal("apptabelle").default("apptabelle"),
+  leagueUuid: z.string().min(1),
+  leagueName: z.string().min(1),
+  leagueHierarchyLevel: z.number().nonnegative().optional(),
+  seasonUuid: z.string().min(1),
+  seasonName: z.string().optional(),
+  teams: z.array(samsProjectionRankingEntrySchema).default([]),
+  ownedTeamUuids: z.array(z.string().min(1)).default([]),
+  updatedAt: z.iso.datetime(),
+  ttl: z.number().int().positive(),
+});
+
+export type AppTabelleLeagueInput = z.infer<typeof appTabelleLeagueSchema>;
+
+/** One match row in the Termine application projection. */
+export const appTermineMatchSchema = z.object({
+  datasetId: z.string().min(1),
+  matchSortKey: z.string().min(1),
+  type: z.literal("apptermine").default("apptermine"),
+  matchUuid: z.string().min(1),
+  date: z.string().optional(),
+  time: z.string().optional(),
+  leagueUuid: z.string().min(1).optional(),
+  leagueName: z.string().min(1).optional(),
+  seasonUuid: z.string().min(1).optional(),
+  team1: samsProjectionMatchSchema.shape.team1,
+  team2: samsProjectionMatchSchema.shape.team2,
+  location: samsProjectionMatchSchema.shape.location,
+  result: samsProjectionMatchSchema.shape.result,
+  hasResult: z.boolean(),
+  isHomeGame: z.boolean(),
+  ownedTeamUuids: z.array(z.string().min(1)).default([]),
+  updatedAt: z.iso.datetime(),
+  ttl: z.number().int().positive(),
+});
+
+export type AppTermineMatchInput = z.infer<typeof appTermineMatchSchema>;
+
+// ---------------------------------------------------------------------------
 // Volunteer Event Planner schemas
 // ---------------------------------------------------------------------------
 
