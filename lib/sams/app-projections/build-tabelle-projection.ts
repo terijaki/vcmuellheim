@@ -1,6 +1,6 @@
 import type {
+  AppTabelleLeagueInput,
   SamsLeagueRankingProjectionInput,
-  SamsProjectionRankingEntryInput,
   SamsTeamInput,
 } from "@/lib/db/schemas";
 import { padLeagueSortLevel } from "./sort-keys";
@@ -21,19 +21,8 @@ export type TabelleRankingSource = Pick<
   "leagueUuid" | "seasonUuid" | "leagueName" | "seasonName" | "teams"
 >;
 
-export type AppTabelleLeagueRecord = {
-  datasetId: string;
-  leagueSortKey: string;
+export type AppTabelleLeagueRecord = Omit<AppTabelleLeagueInput, "type"> & {
   type: "apptabelle";
-  leagueUuid: string;
-  leagueName: string;
-  leagueHierarchyLevel?: number;
-  seasonUuid: string;
-  seasonName?: string;
-  teams: SamsProjectionRankingEntryInput[];
-  ownedTeamUuids: string[];
-  updatedAt: string;
-  ttl: number;
 };
 
 export function buildTabelleProjection(input: {

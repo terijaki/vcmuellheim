@@ -7,6 +7,7 @@ export const samsMatchesQuerySchema = z.object({
   team: z.string().optional(),
   limit: z.number().int().positive().optional(),
   range: z.enum(["past", "future"]).optional(),
+  homeOnly: z.boolean().optional(),
 });
 
 export type SamsMatchesInput = z.infer<typeof samsMatchesQuerySchema>;

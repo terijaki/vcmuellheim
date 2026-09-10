@@ -54,6 +54,7 @@ export type SamsMatchesInput = {
   team?: string;
   limit?: number;
   range?: "past" | "future";
+  homeOnly?: boolean;
 };
 
 async function resolveConfiguredSamsSportsclubUuidsFromStorage(): Promise<string[]> {
@@ -345,11 +346,14 @@ export async function handleGetCurrentTabelle() {
     GAMES_PER_TEAM_FOR_LAST_RESULTS,
   );
 
+  const rankingsByLeagueUuid: Record<string, RankingResponse> = {};
+  for (const ranking of rankings) {
+    rankingsByLeagueUuid[ranking.leagueUuid] = ranking;
+  }
+
   return {
     leagueUuids: leagues.map((league) => league.leagueUuid),
-    rankingsByLeagueUuid: Object.fromEntries(
-      rankings.map((ranking) => [ranking.leagueUuid, ranking]),
-    ) as Record<string, RankingResponse>,
+    rankingsByLeagueUuid,
     ownedTeamUuids,
     lastResultCap,
     seasonUuid: leagues[0]?.seasonUuid,
@@ -365,22 +369,22 @@ export async function handleGetCurrentTermine(input?: {
   homeOnly?: boolean;
   team?: string;
 }) {
-  let matches = await appTermineRepository.query({
+  const matches = await appTermineRepository.query({
     range: input?.range,
-    limit: input?.team ? undefined : input?.limit,
+    limit: input?.limit,
     homeOnly: input?.homeOnly,
+    teamUuid: input?.team,
   });
 
-  if (input?.team) {
-    matches = matches.filter(
-      (match) => match.team1.uuid === input.team || match.team2.uuid === input.team,
-    );
-    if (input.limit) matches = matches.slice(0, input.limit);
-  }
-
-  const ownedTeamUuids = [...new Set(matches.flatMap((match) => match.ownedTeamUuids))].sort(
-    (a, b) => a.localeCompare(b),
-  );
+  // Prefer full owned-team set from Tabelle so UI metadata stays complete even when
+  // Termine is filtered (home-only / team / limit).
+  const tabelle = await appTabelleRepository.listByDataset();
+  const ownedTeamUuids = [
+    ...new Set([
+      ...tabelle.flatMap((league) => league.ownedTeamUuids),
+      ...matches.flatMap((match) => match.ownedTeamUuids),
+    ]),
+  ].sort((a, b) => a.localeCompare(b));
 
   const response = parseServerData(
     LeagueMatchesResponseSchema,
@@ -404,6 +408,22 @@ export async function handleGetCurrentTermine(input?: {
 
 function canUseAppTermineReadModel(data?: SamsMatchesInput): boolean {
   return !data?.league && !data?.sportsclub && !data?.season;
+}
+
+async function loadLeagueMatchesFromAppTermine(
+  data?: Pick<SamsMatchesInput, "range" | "limit" | "team" | "homeOnly">,
+): Promise<LeagueMatchesResponse> {
+  const appTermine = await handleGetCurrentTermine({
+    range: data?.range,
+    limit: data?.limit,
+    team: data?.team,
+    homeOnly: data?.homeOnly,
+  });
+  return parseServerData(
+    LeagueMatchesResponseSchema,
+    { matches: appTermine.matches, timestamp: appTermine.timestamp },
+    "Failed to parse app Termine matches response",
+  );
 }
 
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
@@ -460,16 +480,7 @@ async function peekRankingProjectionForSeason(
 
 export async function handleGetSamsMatches(data?: SamsMatchesInput) {
   if (canUseAppTermineReadModel(data)) {
-    const appTermine = await handleGetCurrentTermine({
-      range: data?.range,
-      limit: data?.limit,
-      team: data?.team,
-    });
-    return parseServerData(
-      LeagueMatchesResponseSchema,
-      { matches: appTermine.matches, timestamp: appTermine.timestamp },
-      "Failed to parse app Termine matches response",
-    );
+    return loadLeagueMatchesFromAppTermine(data);
   }
 
   const resolvedQuery = await resolveSamsMatchesQuery(data);
@@ -538,18 +549,8 @@ export async function handlePeekSamsMatchesCache(
   context?: SamsPeekContext,
 ) {
   if (canUseAppTermineReadModel(data)) {
-    const appTermine = await handleGetCurrentTermine({
-      range: data?.range,
-      limit: data?.limit,
-      team: data?.team,
-    });
-    return appTermine.matches.length > 0
-      ? parseServerData(
-          LeagueMatchesResponseSchema,
-          { matches: appTermine.matches, timestamp: appTermine.timestamp },
-          "Failed to parse app Termine peek response",
-        )
-      : null;
+    const response = await loadLeagueMatchesFromAppTermine(data);
+    return response.matches.length > 0 ? response : null;
   }
 
   const resolvedQuery = await resolveSamsMatchesQuery(data, {
@@ -833,23 +834,13 @@ export async function handleReadSamsMatchesCache(data?: SamsMatchesInput) {
 }
 export async function handleLoadSamsMatchesForSsr(input?: SamsMatchesInput) {
   if (canUseAppTermineReadModel(input)) {
-    const appTermine = await handleGetCurrentTermine({
-      range: input?.range,
-      limit: input?.limit,
-      team: input?.team,
-    });
-    const cached =
-      appTermine.matches.length > 0
-        ? parseServerData(
-            LeagueMatchesResponseSchema,
-            { matches: appTermine.matches, timestamp: appTermine.timestamp },
-            "Failed to parse app Termine SSR response",
-          )
-        : undefined;
+    const response = await loadLeagueMatchesFromAppTermine(input);
+    const cached = response.matches.length > 0 ? response : undefined;
     const effectiveInput: SamsMatchesInput = {
       ...(input?.range ? { range: input.range } : {}),
       ...(input?.limit !== undefined ? { limit: input.limit } : {}),
       ...(input?.team ? { team: input.team } : {}),
+      ...(input?.homeOnly !== undefined ? { homeOnly: input.homeOnly } : {}),
     };
     return { cached, hookOptions: buildSamsMatchesHookOptions(effectiveInput, cached ?? null) };
   }

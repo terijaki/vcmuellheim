@@ -1,26 +1,9 @@
-import type { SamsProjectionMatchInput } from "@/lib/db/schemas";
+import type { SamsProjectionMatchInput, AppTermineMatchInput } from "@/lib/db/schemas";
 import { matchInvolvesConfiguredSportsclub } from "@/utils/sams";
 import { buildTermineMatchSortKey } from "./sort-keys";
 
-export type AppTermineMatchRecord = {
-  datasetId: string;
-  matchSortKey: string;
+export type AppTermineMatchRecord = Omit<AppTermineMatchInput, "type"> & {
   type: "apptermine";
-  matchUuid: string;
-  date?: string;
-  time?: string;
-  leagueUuid?: string;
-  leagueName?: string;
-  seasonUuid?: string;
-  team1: SamsProjectionMatchInput["team1"];
-  team2: SamsProjectionMatchInput["team2"];
-  location?: SamsProjectionMatchInput["location"];
-  result?: SamsProjectionMatchInput["result"];
-  hasResult: boolean;
-  isHomeGame: boolean;
-  ownedTeamUuids: string[];
-  updatedAt: string;
-  ttl: number;
 };
 
 export function buildTermineProjection(input: {

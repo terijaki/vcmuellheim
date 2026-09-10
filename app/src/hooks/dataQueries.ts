@@ -206,12 +206,14 @@ export const useSamsMatches = ({
   team,
   limit,
   range,
+  homeOnly,
   initialData,
   initialDataUpdatedAt,
 }: SamsMatchesHookOptions = {}) => {
   return useQuery({
-    queryKey: ["samsMatches", league, season, sportsclub, team, limit, range],
-    queryFn: () => getSamsMatchesFn({ data: { league, season, sportsclub, team, limit, range } }),
+    queryKey: ["samsMatches", league, season, sportsclub, team, limit, range, homeOnly],
+    queryFn: () =>
+      getSamsMatchesFn({ data: { league, season, sportsclub, team, limit, range, homeOnly } }),
     retry: 1,
     staleTime: SAMS_MATCHES_CACHE_TTL_MS,
     placeholderData: (previousData) => previousData,

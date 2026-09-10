@@ -27,7 +27,14 @@ export type AppTermineQueryOptions = {
   range?: "past" | "future";
   limit?: number;
   homeOnly?: boolean;
+  teamUuid?: string;
 };
+
+const DEFAULT_PAGE_SIZE = 50;
+
+function matchInvolvesTeam(match: AppTermineMatchInput, teamUuid: string): boolean {
+  return match.team1.uuid === teamUuid || match.team2.uuid === teamUuid;
+}
 
 export class AppTermineRepository {
   constructor(
@@ -49,33 +56,64 @@ export class AppTermineRepository {
     );
   }
 
+  /**
+   * Query the current (or given) Termine dataset.
+   * Uses DynamoDB begins_with for past/future partitions, FilterExpression for
+   * home-only, and paginated Limit — not pages:"all" + slice.
+   */
   async query(options: AppTermineQueryOptions = {}): Promise<AppTermineMatchInput[]> {
     const datasetId = options.datasetId ?? APP_DATASET_CURRENT;
     const rangePrefix =
       options.range === "past" ? "P#" : options.range === "future" ? "F#" : undefined;
-    const goOptions = {
-      pages: "all" as const,
-      order: (options.range === "past" ? "desc" : "asc") as "asc" | "desc",
-    };
+    const order = (options.range === "past" ? "desc" : "asc") as "asc" | "desc";
+    const needsPostFilter = Boolean(options.teamUuid);
+    const targetCount = options.limit;
 
-    const baseQuery = this.entities().appTermine.query.byDataset({ datasetId });
-    const result = rangePrefix
-      ? await baseQuery.begins({ matchSortKey: rangePrefix }).go(goOptions)
-      : await baseQuery.go(goOptions);
+    const collected: AppTermineMatchInput[] = [];
+    let cursor: string | null = null;
 
-    let matches = result.data.map((item) =>
-      parseWithSchema(appTermineMatchSchema, item, "Failed to parse app Termine match"),
-    );
+    do {
+      const remaining =
+        targetCount === undefined ? DEFAULT_PAGE_SIZE : Math.max(targetCount - collected.length, 1);
+      // When FilterExpression or post-filters drop items, over-fetch a bit per page.
+      const pageLimit =
+        options.homeOnly || needsPostFilter
+          ? Math.min(DEFAULT_PAGE_SIZE, remaining * 3)
+          : remaining;
 
-    if (options.homeOnly) {
-      matches = matches.filter((match) => match.isHomeGame);
-    }
+      const baseQuery = this.entities().appTermine.query.byDataset({ datasetId });
+      const rangedQuery = rangePrefix ? baseQuery.begins({ matchSortKey: rangePrefix }) : baseQuery;
+      const filteredQuery = options.homeOnly
+        ? rangedQuery.where(({ isHomeGame }, { eq }) => eq(isHomeGame, true))
+        : rangedQuery;
 
-    if (options.limit !== undefined) {
-      matches = matches.slice(0, options.limit);
-    }
+      // Annotate the page result to avoid ElectroDB's circular cursor inference.
+      const result: { data: unknown[]; cursor: string | null } = await filteredQuery.go({
+        order,
+        limit: pageLimit,
+        cursor,
+        pages: 1,
+      });
 
-    return matches;
+      let page = result.data.map((item) =>
+        parseWithSchema(appTermineMatchSchema, item, "Failed to parse app Termine match"),
+      );
+      const teamUuid = options.teamUuid;
+      if (teamUuid) {
+        page = page.filter((match) => matchInvolvesTeam(match, teamUuid));
+      }
+
+      for (const match of page) {
+        collected.push(match);
+        if (targetCount !== undefined && collected.length >= targetCount) {
+          return collected.slice(0, targetCount);
+        }
+      }
+
+      cursor = result.cursor;
+    } while (cursor);
+
+    return targetCount === undefined ? collected : collected.slice(0, targetCount);
   }
 
   async replaceDataset(

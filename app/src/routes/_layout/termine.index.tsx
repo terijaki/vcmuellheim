@@ -29,11 +29,12 @@ export const Route = createFileRoute("/_layout/termine/")({
         : null;
     const matchesQueryOptions = buildSamsMatchesHookOptions({ range: "future" }, cached);
     const ownedTeamUuids = termine?.ownedTeamUuids ?? [];
-    const leagueNameByUuid = Object.fromEntries(
-      (termine?.matchesWithMeta ?? [])
-        .filter((match) => match.leagueUuid && match.leagueName)
-        .map((match) => [match.leagueUuid!, match.leagueName!]),
-    );
+    const leagueNameByUuid: Record<string, string> = {};
+    for (const match of termine?.matchesWithMeta ?? []) {
+      if (match.leagueUuid && match.leagueName) {
+        leagueNameByUuid[match.leagueUuid] = match.leagueName;
+      }
+    }
 
     return { events, matchesQueryOptions, ownedTeamUuids, leagueNameByUuid };
   },
@@ -129,15 +130,16 @@ function MatchesContent({
     data: matchesData,
     isLoading,
     isError,
-  } = useSamsMatches(matchesQueryOptions ?? { range: "future" });
+  } = useSamsMatches({
+    ...(matchesQueryOptions ?? { range: "future" }),
+    homeOnly: homeGamesOnly || undefined,
+    // Loader seed is for the unfiltered future list; don't reuse it for home-only.
+    ...(homeGamesOnly ? { initialData: undefined, initialDataUpdatedAt: undefined } : {}),
+  });
 
   const currentMonth = dayjs().month() + 1;
   const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
   const matches = matchesData?.matches ?? [];
-  const ownedUuidSet = new Set(ownedTeamUuids);
-  const visibleMatches = homeGamesOnly
-    ? matches.filter((match) => match.team1.uuid && ownedUuidSet.has(match.team1.uuid))
-    : matches;
 
   if (isLoading && !matchesData) {
     return (
@@ -162,7 +164,7 @@ function MatchesContent({
     );
   }
 
-  if (matches.length > 0) {
+  if (matches.length > 0 || homeGamesOnly) {
     const timestampDate = matchesData?.timestamp ? new Date(matchesData.timestamp) : undefined;
     return (
       <Card>
@@ -176,9 +178,9 @@ function MatchesContent({
             onChange={(event) => onHomeGamesOnlyChange(event.currentTarget.checked)}
           />
         </Group>
-        {visibleMatches.length > 0 ? (
+        {matches.length > 0 ? (
           <Matches
-            matches={visibleMatches}
+            matches={matches}
             timestamp={timestampDate}
             type="future"
             ownedTeamUuids={ownedTeamUuids}
