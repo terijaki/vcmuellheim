@@ -8,13 +8,15 @@ vi.mock("@/lib/sams/repositories", () => ({
 }));
 vi.mock("@webapp/server/queries", () => ({ getAllSamsClubs: vi.fn(), getAllSamsTeams: vi.fn() }));
 
-import { appTermineRepository } from "@/lib/sams/repositories";
+import { appTabelleRepository, appTermineRepository } from "@/lib/sams/repositories";
 import { handleLoadSamsMatchesForSsr } from "./sams.server";
 
+const mockAppTabelleList = vi.mocked(appTabelleRepository.listByDataset);
 const mockAppTermineQuery = vi.mocked(appTermineRepository.query);
 
 describe("handleLoadSamsMatchesForSsr", () => {
   beforeEach(() => {
+    mockAppTabelleList.mockResolvedValue([]);
     mockAppTermineQuery.mockResolvedValue([
       {
         datasetId: "current",

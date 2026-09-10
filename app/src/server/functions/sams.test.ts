@@ -170,22 +170,30 @@ describe("application read models", () => {
   });
 
   it("filters Termine by team UUID via the application read model", async () => {
-    mockAppTermineQuery.mockResolvedValue([
-      sampleAppTermine({
-        matchUuid: "a1",
-        team1: { uuid: "team-a", name: "VCM", sportsclubUuid: "uuid-a" },
-        team2: { uuid: "opp", name: "Opp", sportsclubUuid: "uuid-b" },
-      }),
-      sampleAppTermine({
-        matchUuid: "b1",
-        matchSortKey: "F#2026-12-02#b1",
-        team1: { uuid: "team-b", name: "MGV", sportsclubUuid: "uuid-b" },
-        team2: { uuid: "opp", name: "Opp", sportsclubUuid: "uuid-a" },
-      }),
-    ]);
+    const matchA = sampleAppTermine({
+      matchUuid: "a1",
+      team1: { uuid: "team-a", name: "VCM", sportsclubUuid: "uuid-a" },
+      team2: { uuid: "opp", name: "Opp", sportsclubUuid: "uuid-b" },
+    });
+    mockAppTermineQuery.mockImplementation(async (options) => {
+      // Repository applies teamUuid filtering; the mock mirrors that contract.
+      if (options?.teamUuid === "team-a") return [matchA];
+      return [
+        matchA,
+        sampleAppTermine({
+          matchUuid: "b1",
+          matchSortKey: "F#2026-12-02#b1",
+          team1: { uuid: "team-b", name: "MGV", sportsclubUuid: "uuid-b" },
+          team2: { uuid: "opp", name: "Opp", sportsclubUuid: "uuid-a" },
+        }),
+      ];
+    });
 
     const result = await handleGetSamsMatches({ team: "team-a" });
     expect(result.matches.map((match) => match.uuid)).toEqual(["a1"]);
+    expect(mockAppTermineQuery).toHaveBeenCalledWith(
+      expect.objectContaining({ teamUuid: "team-a" }),
+    );
     expect(mockList).not.toHaveBeenCalled();
   });
 
