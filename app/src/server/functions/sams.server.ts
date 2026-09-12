@@ -20,9 +20,13 @@ import {
   RankingResponseSchema,
 } from "@/lambda/sams/types";
 import {
+  appTabelleRepository,
+  appTermineRepository,
   samsRankingProjectionRepository,
   samsScheduleProjectionRepository,
 } from "@/lib/sams/repositories";
+import type { AppTermineMatchInput } from "@/lib/db/schemas";
+import { calculateLastResultCap } from "@webapp/utils/ranking";
 import { resolveConfiguredSamsClubsFromRecords } from "@/lib/sams/club-resolution";
 import {
   dedupeSamsMatchesByUuid,
@@ -41,6 +45,7 @@ import { buildSamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 import { clubLogoProxyUrl } from "@webapp/utils/club-logo";
 
 const TICKER_FETCH_TIMEOUT_MS = SAMS_API_TIMEOUT_MS;
+const GAMES_PER_TEAM_FOR_LAST_RESULTS = 2.3;
 
 export type SamsMatchesInput = {
   league?: string;
@@ -49,6 +54,7 @@ export type SamsMatchesInput = {
   team?: string;
   limit?: number;
   range?: "past" | "future";
+  homeOnly?: boolean;
 };
 
 async function resolveConfiguredSamsSportsclubUuidsFromStorage(): Promise<string[]> {
@@ -283,7 +289,150 @@ function withProxiedClubLogoUrl<T extends { sportsclubUuid?: string; logoUrl?: s
   return { ...team, logoUrl: clubLogoProxyUrl(team.sportsclubUuid) };
 }
 
+function emptyRankingResponse(leagueUuid: string): RankingResponse {
+  return {
+    teams: [],
+    timestamp: new Date().toISOString(),
+    leagueUuid,
+    leagueName: null,
+    seasonName: null,
+  };
+}
+
+function mapAppTermineMatchToLeagueMatch(match: AppTermineMatchInput): LeagueMatch {
+  return {
+    uuid: match.matchUuid,
+    ...(match.date ? { date: match.date } : {}),
+    ...(match.time ? { time: match.time } : {}),
+    ...(match.leagueUuid ? { leagueUuid: match.leagueUuid } : {}),
+    ...(match.seasonUuid ? { seasonUuid: match.seasonUuid } : {}),
+    team1: match.team1,
+    team2: match.team2,
+    ...(match.location ? { location: match.location } : {}),
+    ...(match.result ? { result: match.result } : {}),
+    hasResult: match.hasResult,
+  };
+}
+
+function rankingResponseFromAppTabelle(league: {
+  leagueUuid: string;
+  leagueName: string;
+  seasonName?: string;
+  teams: RankingResponse["teams"];
+  updatedAt: string;
+}): RankingResponse {
+  return parseServerData(
+    RankingResponseSchema,
+    {
+      teams: (league.teams ?? []).map(withProxiedClubLogoUrl),
+      timestamp: league.updatedAt,
+      leagueUuid: league.leagueUuid,
+      leagueName: league.leagueName,
+      seasonName: league.seasonName,
+    },
+    "Failed to parse app Tabelle ranking response",
+  );
+}
+
+/** Current Tabelle read model — no season/club discovery at request time. */
+export async function handleGetCurrentTabelle() {
+  const leagues = await appTabelleRepository.listByDataset();
+  const rankings = leagues.map(rankingResponseFromAppTabelle);
+  const ownedTeamUuids = [...new Set(leagues.flatMap((league) => league.ownedTeamUuids))].sort(
+    (a, b) => a.localeCompare(b),
+  );
+  const lastResultCap = calculateLastResultCap(
+    Math.max(ownedTeamUuids.length, 1),
+    GAMES_PER_TEAM_FOR_LAST_RESULTS,
+  );
+
+  const rankingsByLeagueUuid: Record<string, RankingResponse> = {};
+  for (const ranking of rankings) {
+    rankingsByLeagueUuid[ranking.leagueUuid] = ranking;
+  }
+
+  return {
+    leagueUuids: leagues.map((league) => league.leagueUuid),
+    rankingsByLeagueUuid,
+    ownedTeamUuids,
+    lastResultCap,
+    seasonUuid: leagues[0]?.seasonUuid,
+    seasonName: leagues[0]?.seasonName,
+    timestamp: leagues[0]?.updatedAt ?? new Date().toISOString(),
+  };
+}
+
+/** Current Termine read model — date-range query against the application projection. */
+export async function handleGetCurrentTermine(input?: {
+  range?: "past" | "future";
+  limit?: number;
+  homeOnly?: boolean;
+  team?: string;
+}) {
+  const matches = await appTermineRepository.query({
+    range: input?.range,
+    limit: input?.limit,
+    homeOnly: input?.homeOnly,
+    teamUuid: input?.team,
+  });
+
+  // Prefer full owned-team set from Tabelle so UI metadata stays complete even when
+  // Termine is filtered (home-only / team / limit).
+  const tabelle = await appTabelleRepository.listByDataset();
+  const ownedTeamUuids = [
+    ...new Set([
+      ...tabelle.flatMap((league) => league.ownedTeamUuids),
+      ...matches.flatMap((match) => match.ownedTeamUuids),
+    ]),
+  ].sort((a, b) => a.localeCompare(b));
+
+  const response = parseServerData(
+    LeagueMatchesResponseSchema,
+    {
+      matches: matches.map(mapAppTermineMatchToLeagueMatch),
+      timestamp: matches[0]?.updatedAt ?? new Date().toISOString(),
+    },
+    "Failed to parse app Termine response",
+  );
+
+  return {
+    ...response,
+    ownedTeamUuids,
+    matchesWithMeta: matches.map((match) => ({
+      ...mapAppTermineMatchToLeagueMatch(match),
+      leagueName: match.leagueName,
+      isHomeGame: match.isHomeGame,
+    })),
+  };
+}
+
+function canUseAppTermineReadModel(data?: SamsMatchesInput): boolean {
+  return !data?.league && !data?.sportsclub && !data?.season;
+}
+
+async function loadLeagueMatchesFromAppTermine(
+  data?: Pick<SamsMatchesInput, "range" | "limit" | "team" | "homeOnly">,
+): Promise<LeagueMatchesResponse> {
+  const appTermine = await handleGetCurrentTermine({
+    range: data?.range,
+    limit: data?.limit,
+    team: data?.team,
+    homeOnly: data?.homeOnly,
+  });
+  return parseServerData(
+    LeagueMatchesResponseSchema,
+    { matches: appTermine.matches, timestamp: appTermine.timestamp },
+    "Failed to parse app Termine matches response",
+  );
+}
+
 async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<RankingResponse> {
+  const appLeagues = await appTabelleRepository.listByDataset();
+  const appLeague = appLeagues.find((league) => league.leagueUuid === leagueUuid);
+  if (appLeague) {
+    return rankingResponseFromAppTabelle(appLeague);
+  }
+
   const seasonUuid = await resolveSyncedSeasonUuid();
   if (!seasonUuid) {
     return emptyRankingResponse(leagueUuid);
@@ -305,16 +454,6 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
     },
     "Failed to parse SAMS rankings response",
   );
-}
-
-function emptyRankingResponse(leagueUuid: string): RankingResponse {
-  return {
-    teams: [],
-    timestamp: new Date().toISOString(),
-    leagueUuid,
-    leagueName: null,
-    seasonName: null,
-  };
 }
 
 async function peekRankingProjectionForSeason(
@@ -340,6 +479,10 @@ async function peekRankingProjectionForSeason(
 // ── SAMS projections — Matches ───────────────────────────────────────────────
 
 export async function handleGetSamsMatches(data?: SamsMatchesInput) {
+  if (canUseAppTermineReadModel(data)) {
+    return loadLeagueMatchesFromAppTermine(data);
+  }
+
   const resolvedQuery = await resolveSamsMatchesQuery(data);
   if (!resolvedQuery) {
     console.warn("No configured SAMS sportsclub UUIDs resolved; returning empty matches", {
@@ -379,11 +522,18 @@ export async function handleGetSamsRankingByLeagueUuid(leagueUuid: string) {
   return fetchSamsRankingsByLeagueUuid(leagueUuid);
 }
 
-/** Projection peek for rankings — returns stored data regardless of age. */
+/** Projection peek for rankings — prefers application Tabelle read model. */
 export async function handlePeekSamsRankingsCache(
   leagueUuids: string[],
   context?: Pick<SamsPeekContext, "seasonUuid">,
 ) {
+  const appTabelle = await handleGetCurrentTabelle();
+  if (appTabelle.leagueUuids.length > 0) {
+    return leagueUuids
+      .map((leagueUuid) => appTabelle.rankingsByLeagueUuid[leagueUuid])
+      .filter((ranking): ranking is RankingResponse => ranking !== undefined);
+  }
+
   const seasonUuid = context?.seasonUuid ?? (await resolveSyncedSeasonUuid());
   if (!seasonUuid) return [];
 
@@ -393,11 +543,16 @@ export async function handlePeekSamsRankingsCache(
   return results.filter((result): result is RankingResponse => result !== null);
 }
 
-/** Projection peek for matches — fast route loaders without assembling filters at read time. */
+/** Projection peek for matches — prefers application Termine read model. */
 export async function handlePeekSamsMatchesCache(
   data?: SamsMatchesInput,
   context?: SamsPeekContext,
 ) {
+  if (canUseAppTermineReadModel(data)) {
+    const response = await loadLeagueMatchesFromAppTermine(data);
+    return response.matches.length > 0 ? response : null;
+  }
+
   const resolvedQuery = await resolveSamsMatchesQuery(data, {
     defaultSportsclubUuids: context?.sportsclubUuids,
   });
@@ -678,6 +833,18 @@ export async function handleReadSamsMatchesCache(data?: SamsMatchesInput) {
   return handlePeekSamsMatchesCache(data);
 }
 export async function handleLoadSamsMatchesForSsr(input?: SamsMatchesInput) {
+  if (canUseAppTermineReadModel(input)) {
+    const response = await loadLeagueMatchesFromAppTermine(input);
+    const cached = response.matches.length > 0 ? response : undefined;
+    const effectiveInput: SamsMatchesInput = {
+      ...(input?.range ? { range: input.range } : {}),
+      ...(input?.limit !== undefined ? { limit: input.limit } : {}),
+      ...(input?.team ? { team: input.team } : {}),
+      ...(input?.homeOnly !== undefined ? { homeOnly: input.homeOnly } : {}),
+    };
+    return { cached, hookOptions: buildSamsMatchesHookOptions(effectiveInput, cached ?? null) };
+  }
+
   let cached: LeagueMatchesResponse | undefined;
   let effectiveInput: SamsMatchesInput;
   try {
@@ -691,14 +858,27 @@ export async function handleLoadSamsMatchesForSsr(input?: SamsMatchesInput) {
   }
   return { cached, hookOptions: buildSamsMatchesHookOptions(effectiveInput, cached ?? null) };
 }
+
 export async function handleGetSamsProjectionFreshness() {
+  const [tabelle, termine] = await Promise.all([
+    appTabelleRepository.listByDataset(),
+    appTermineRepository.query({ limit: 1 }),
+  ]);
+  const updatedAts = [
+    ...tabelle.map((league) => league.updatedAt),
+    ...termine.map((match) => match.updatedAt),
+  ].filter((value): value is string => !!value);
+  if (updatedAts.length > 0) {
+    return { maxUpdatedAt: updatedAts.reduce((max, value) => (value > max ? value : max)) };
+  }
+
   const sportsclubUuids = await resolveConfiguredSamsSportsclubUuidsFromStorage();
   const seasonUuid = await resolveSyncedSeasonUuid();
   if (!seasonUuid || sportsclubUuids.length === 0) return { maxUpdatedAt: null as string | null };
   const schedules = await Promise.all(
     sportsclubUuids.map((id) => samsScheduleProjectionRepository.get(id, seasonUuid)),
   );
-  const updatedAts = schedules.map((s) => s?.updatedAt).filter((v): v is string => !!v);
-  if (!updatedAts.length) return { maxUpdatedAt: null as string | null };
-  return { maxUpdatedAt: updatedAts.reduce((max, v) => (v > max ? v : max)) };
+  const scheduleUpdatedAts = schedules.map((s) => s?.updatedAt).filter((v): v is string => !!v);
+  if (!scheduleUpdatedAts.length) return { maxUpdatedAt: null as string | null };
+  return { maxUpdatedAt: scheduleUpdatedAts.reduce((max, v) => (v > max ? v : max)) };
 }

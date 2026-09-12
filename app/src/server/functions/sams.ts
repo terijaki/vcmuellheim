@@ -9,6 +9,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { samsMatchesInputSchema } from "@utils/sams-matches";
 import { z } from "zod";
 import {
+  handleGetCurrentTabelle,
+  handleGetCurrentTermine,
   handleGetSamsMatches,
   handleGetSamsProjectionFreshness,
   handleGetSamsRankingByLeagueUuid,
@@ -24,6 +26,21 @@ import {
 
 export type { SamsMatchesInput } from "@utils/sams-matches";
 export type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
+
+export const getCurrentTabelleFn = createServerFn().handler(async () => handleGetCurrentTabelle());
+
+export const getCurrentTermineFn = createServerFn()
+  .validator(
+    z
+      .object({
+        range: z.enum(["past", "future"]).optional(),
+        limit: z.number().int().positive().optional(),
+        homeOnly: z.boolean().optional(),
+        team: z.string().min(1).optional(),
+      })
+      .optional(),
+  )
+  .handler(async ({ data }) => handleGetCurrentTermine(data));
 
 export const getSamsMatchesFn = createServerFn()
   .validator(samsMatchesInputSchema)

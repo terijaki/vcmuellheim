@@ -1,5 +1,15 @@
 export { createSamsRepositories, type SamsRepositories } from "./create-sams-repositories";
 export {
+  AppTabelleRepository,
+  createAppTabelleRepository,
+  appTabelleRepository,
+} from "./app-tabelle-repository";
+export {
+  AppTermineRepository,
+  createAppTermineRepository,
+  appTermineRepository,
+} from "./app-termine-repository";
+export {
   SamsScheduleProjectionRepository,
   createSamsScheduleProjectionRepository,
   samsScheduleProjectionRepository,

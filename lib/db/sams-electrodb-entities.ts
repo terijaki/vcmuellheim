@@ -188,6 +188,76 @@ export const SamsRankingEntity = new Entity({
   },
 } as const);
 
+// ---------------------------------------------------------------------------
+// App Tabelle entity — application standings read model
+// ---------------------------------------------------------------------------
+
+export const AppTabelleLeagueEntity = new Entity({
+  model: {
+    entity: "apptabelle",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    datasetId: { type: "string", required: true },
+    leagueSortKey: { type: "string", required: true },
+    type: { type: "string", required: true, default: () => "apptabelle" as const },
+    leagueUuid: { type: "string", required: true },
+    leagueName: { type: "string", required: true },
+    leagueHierarchyLevel: { type: "number" },
+    seasonUuid: { type: "string", required: true },
+    seasonName: { type: "string" },
+    teams: { type: "any", required: true },
+    ownedTeamUuids: { type: "any", required: true },
+    updatedAt: { type: "string", required: true },
+    ttl: { type: "number", required: true },
+  },
+  indexes: {
+    byDataset: {
+      pk: { field: "pk", composite: ["datasetId"] },
+      sk: { field: "sk", composite: ["leagueSortKey"] },
+    },
+  },
+} as const);
+
+// ---------------------------------------------------------------------------
+// App Termine entity — application match calendar read model
+// ---------------------------------------------------------------------------
+
+export const AppTermineMatchEntity = new Entity({
+  model: {
+    entity: "apptermine",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    datasetId: { type: "string", required: true },
+    matchSortKey: { type: "string", required: true },
+    type: { type: "string", required: true, default: () => "apptermine" as const },
+    matchUuid: { type: "string", required: true },
+    date: { type: "string" },
+    time: { type: "string" },
+    leagueUuid: { type: "string" },
+    leagueName: { type: "string" },
+    seasonUuid: { type: "string" },
+    team1: { type: "any", required: true },
+    team2: { type: "any", required: true },
+    location: { type: "any" },
+    result: { type: "any" },
+    hasResult: { type: "boolean", required: true },
+    isHomeGame: { type: "boolean", required: true },
+    ownedTeamUuids: { type: "any", required: true },
+    updatedAt: { type: "string", required: true },
+    ttl: { type: "number", required: true },
+  },
+  indexes: {
+    byDataset: {
+      pk: { field: "pk", composite: ["datasetId"] },
+      sk: { field: "sk", composite: ["matchSortKey"] },
+    },
+  },
+} as const);
+
 /** All SAMS entities — useful for building a service */
 export const SamsEntities = {
   club: SamsClubEntity,
@@ -195,6 +265,8 @@ export const SamsEntities = {
   roster: SamsRosterEntity,
   schedule: SamsScheduleEntity,
   ranking: SamsRankingEntity,
+  appTabelle: AppTabelleLeagueEntity,
+  appTermine: AppTermineMatchEntity,
 } as const;
 
 export type SamsEntityName = keyof typeof SamsEntities;

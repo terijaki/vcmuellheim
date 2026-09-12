@@ -47,6 +47,15 @@ function createMockRepos(): SamsRepositories {
       get: vi.fn().mockResolvedValue(null),
       replace: vi.fn().mockResolvedValue(undefined),
     },
+    appTabelle: {
+      listByDataset: vi.fn().mockResolvedValue([]),
+      replaceDataset: vi.fn().mockResolvedValue([]),
+    },
+    appTermine: {
+      listByDataset: vi.fn().mockResolvedValue([]),
+      query: vi.fn().mockResolvedValue([]),
+      replaceDataset: vi.fn().mockResolvedValue([]),
+    },
   } satisfies SamsRepositories;
 }
 
@@ -490,5 +499,60 @@ describe("processSamsProviderEvent", () => {
 
     expect(sendMatchShare).not.toHaveBeenCalled();
     expect(repos.schedules.replace).not.toHaveBeenCalled();
+  });
+
+  it("rebuilds application Tabelle/Termine after ranking updates", async () => {
+    const fixture = samsProviderEventFixtures.find(
+      (entry) => entry.type === SamsEventType.leagueRankingUpdated,
+    );
+    expect(fixture).toBeDefined();
+
+    const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
+    await processSamsProviderEvent(event, repos);
+
+    expect(repos.appTabelle.replaceDataset).toHaveBeenCalled();
+    expect(repos.appTermine.replaceDataset).toHaveBeenCalled();
+  });
+
+  it("rebuilds application read models after club schedule updates", async () => {
+    const fixture = samsProviderEventFixtures.find(
+      (entry) => entry.type === SamsEventType.clubMatchScheduleUpdated,
+    );
+    expect(fixture).toBeDefined();
+
+    const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
+    await processSamsProviderEvent(event, repos);
+
+    expect(repos.appTabelle.replaceDataset).toHaveBeenCalled();
+    expect(repos.appTermine.replaceDataset).toHaveBeenCalled();
+  });
+
+  it("does not rebuild application read models for roster-only events", async () => {
+    const fixture = samsProviderEventFixtures.find(
+      (entry) => entry.type === SamsEventType.clubSeasonRostersUpdated,
+    );
+    expect(fixture).toBeDefined();
+
+    const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
+    await processSamsProviderEvent(event, repos);
+
+    expect(repos.rosters.upsert).toHaveBeenCalled();
+    expect(repos.appTabelle.replaceDataset).not.toHaveBeenCalled();
+    expect(repos.appTermine.replaceDataset).not.toHaveBeenCalled();
+  });
+
+  it("does not rebuild when ranking snapshot is unchanged", async () => {
+    const fixture = samsProviderEventFixtures.find(
+      (entry) => entry.type === SamsEventType.leagueRankingUpdated,
+    );
+    expect(fixture).toBeDefined();
+    const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
+    repos.rankings.get = vi.fn().mockResolvedValue({ snapshotVersion: event.snapshotVersion });
+
+    await processSamsProviderEvent(event, repos);
+
+    expect(repos.rankings.replace).not.toHaveBeenCalled();
+    expect(repos.appTabelle.replaceDataset).not.toHaveBeenCalled();
+    expect(repos.appTermine.replaceDataset).not.toHaveBeenCalled();
   });
 });

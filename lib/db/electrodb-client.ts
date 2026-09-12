@@ -29,6 +29,8 @@ import {
 } from "./electrodb-entities";
 import { getContentTableName, getSamsTableName } from "./env";
 import {
+  AppTabelleLeagueEntity,
+  AppTermineMatchEntity,
   SamsClubEntity,
   SamsRankingEntity,
   SamsRosterEntity,
@@ -84,6 +86,8 @@ const samsEntityMap = {
   roster: SamsRosterEntity,
   schedule: SamsScheduleEntity,
   ranking: SamsRankingEntity,
+  appTabelle: AppTabelleLeagueEntity,
+  appTermine: AppTermineMatchEntity,
 } as const;
 
 /**
