@@ -12,7 +12,7 @@ This file provides instructions specific to the `lambda/` directory, which conta
 ## Key files to reference
 
 - `lambda/sams/sams-provider-events.ts` — SQS consumer for `sams-provider` events (writes DynamoDB projections)
-- `lambda/content/handler.ts` — content Lambda handler
+- `lambda/content/image-processor.ts` — invoke-only Bun.Image processor (`vcm-bun-image-processor-*`)
 - `lambda/social/mastodon-share.ts` — social media Lambda example
 - `lambda/social/behold-sync.ts` — scheduled Instagram feed cache writer
 

@@ -36,6 +36,10 @@ export function localAwsResourceEnvPlugin(): PluginOption {
       setDefaultEnv(CONTENT_TABLE_ENV_VAR, `vcm-content-${environment}${branchSuffix}`);
       setDefaultEnv(SOCIAL_TABLE_ENV_VAR, computeSocialTableName(environment, sanitizedBranch));
       setDefaultEnv("SAMS_TABLE_NAME", computeSamsDataTableName(environment, sanitizedBranch));
+      setDefaultEnv(
+        "IMAGE_PROCESSOR_FUNCTION_NAME",
+        `vcm-bun-image-processor-${environment}${branchSuffix}`,
+      );
       setDefaultEnv("MEDIA_BUCKET_NAME", `vcmuellheim-media-${environment}${branchSuffix}`);
 
       const envPrefix = `${environment}${branchSuffix}-`;

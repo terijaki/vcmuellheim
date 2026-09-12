@@ -236,6 +236,49 @@ describe("WebAppStack", () => {
     });
   });
 
+  it("configures image processor invoke permissions when function name is provided", () => {
+    const app = createTestApp();
+    const dependencies = createDependencies();
+
+    const stack = new WebAppStack(app, "TestStack", {
+      env: testEnv,
+      stackProps: {
+        environment: "dev",
+        branch: "",
+      },
+      imageProcessorFunctionName: "vcm-bun-image-processor-dev",
+      ...dependencies,
+    });
+
+    const template = Template.fromStack(stack);
+
+    template.hasResourceProperties("AWS::Lambda::Function", {
+      FunctionName: "vcm-webapp-dev",
+      Environment: {
+        Variables: Match.objectLike({
+          IMAGE_PROCESSOR_FUNCTION_NAME: "vcm-bun-image-processor-dev",
+        }),
+      },
+    });
+
+    template.hasResourceProperties("AWS::IAM::Policy", {
+      PolicyDocument: {
+        Statement: Match.arrayWith([
+          Match.objectLike({
+            Action: "lambda:InvokeFunction",
+            Resource: Match.arrayWith([
+              Match.objectLike({
+                "Fn::Join": Match.arrayWith([
+                  Match.arrayWith([Match.stringLikeRegexp("vcm-bun-image-processor-dev")]),
+                ]),
+              }),
+            ]),
+          }),
+        ]),
+      },
+    });
+  });
+
   it("maps all public folders to CloudFront S3 behaviors", () => {
     const app = createTestApp();
     const dependencies = createDependencies();

@@ -99,9 +99,8 @@ export async function seedTeamsData(ctx: SeedContext): Promise<void> {
     validatedTeams[i].pictureS3Keys = [];
     for (const [pictureIndex, pictureUrl] of pictureUrls.entries()) {
       try {
-        const uploadKey = `uploads/teams/${validatedTeams[i].id}-${pictureIndex}.jpg`;
         const finalKey = `teams/${validatedTeams[i].id}-${pictureIndex}.jpg`;
-        await uploadImageToS3(ctx, pictureUrl, uploadKey);
+        await uploadImageToS3(ctx, pictureUrl, finalKey);
         validatedTeams[i].pictureS3Keys?.push(finalKey);
         await new Promise((resolve) => setTimeout(resolve, 200));
       } catch (error) {

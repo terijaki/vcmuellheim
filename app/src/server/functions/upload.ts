@@ -5,7 +5,12 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireAuthMiddleware } from "../../middleware";
-import { handleGetFileUrl, handleGetFileUrls, handleGetPresignedUrl } from "./upload.server";
+import {
+  handleGetFileUrl,
+  handleGetFileUrls,
+  handleGetPresignedUrl,
+  handleProcessMediaImage,
+} from "./upload.server";
 
 export const getFileUrlFn = createServerFn()
   .validator(z.object({ s3Key: z.string() }))
@@ -25,3 +30,8 @@ export const getPresignedUrlFn = createServerFn()
     }),
   )
   .handler(async ({ data }) => handleGetPresignedUrl(data));
+
+export const processMediaImageFn = createServerFn()
+  .middleware([requireAuthMiddleware])
+  .validator(z.object({ s3Key: z.string() }))
+  .handler(async ({ data }) => handleProcessMediaImage(data.s3Key));

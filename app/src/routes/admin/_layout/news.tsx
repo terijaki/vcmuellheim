@@ -36,7 +36,8 @@ import {
   listAllNewsFn,
   updateNewsFn,
 } from "@webapp/server/functions/news";
-import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
+import { getFileUrlFn } from "@webapp/server/functions/upload";
+import { uploadImageFile } from "@webapp/utils/upload-image";
 import dayjs from "dayjs";
 import { Plus, Search, SquarePen, Trash2, Upload, X } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -90,10 +91,6 @@ function NewsPage() {
   } = useQuery({
     queryKey: ["news", "list"],
     queryFn: () => listAllNewsFn({ data: { limit: 100 } }),
-  });
-  const uploadMutation = useMutation({
-    mutationFn: (data: Parameters<typeof getPresignedUrlFn>[0]["data"]) =>
-      getPresignedUrlFn({ data }),
   });
   const createMutation = useMutation({
     mutationFn: (data: Parameters<typeof createNewsFn>[0]["data"]) => createNewsFn({ data }),
@@ -164,28 +161,7 @@ function NewsPage() {
 
       // Upload new images
       if (imageFiles.length > 0) {
-        const uploadPromises = imageFiles.map(async (file) => {
-          const { uploadUrl, key } = await uploadMutation.mutateAsync({
-            filename: file.name,
-            contentType: file.type,
-            folder: "news",
-          });
-          const uploadResponse = await fetch(uploadUrl, {
-            method: "PUT",
-            body: file,
-            headers: {
-              "Content-Type": file.type,
-            },
-          });
-
-          if (!uploadResponse.ok) {
-            throw new Error(`Bild-Upload fehlgeschlagen: ${file.name}`);
-          }
-
-          return key;
-        });
-
-        const newKeys = await Promise.all(uploadPromises);
+        const newKeys = await Promise.all(imageFiles.map((file) => uploadImageFile(file, "news")));
         imageS3Keys = [...imageS3Keys, ...newKeys];
       }
 

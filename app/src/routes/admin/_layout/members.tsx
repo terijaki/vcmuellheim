@@ -39,7 +39,8 @@ import {
   suggestProxyAliasFn,
   updateMemberFn,
 } from "@webapp/server/functions/members";
-import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
+import { getFileUrlFn } from "@webapp/server/functions/upload";
+import { uploadImageFile } from "@webapp/utils/upload-image";
 import { Pencil, Plus, Trash2, Upload, User, X } from "lucide-react";
 import { useState } from "react";
 import z from "zod";
@@ -359,22 +360,7 @@ function MembersPage() {
       }
       // Upload new avatar if a file was selected
       else if (avatarFile) {
-        const { uploadUrl, key } = await getPresignedUrlFn({
-          data: { filename: avatarFile.name, contentType: avatarFile.type, folder: "members" },
-        });
-
-        // Upload file to S3
-        const uploadResponse = await fetch(uploadUrl, {
-          method: "PUT",
-          body: avatarFile,
-          headers: { "Content-Type": avatarFile.type },
-        });
-
-        if (!uploadResponse.ok) {
-          throw new Error("Datei-Upload fehlgeschlagen");
-        }
-
-        avatarS3Key = key;
+        avatarS3Key = await uploadImageFile(avatarFile, "members");
       }
 
       // Filter out empty strings to avoid DynamoDB GSI errors.

@@ -86,9 +86,8 @@ export async function seedMembersData(ctx: SeedContext): Promise<void> {
     const member = validatedMembers[i];
     if (i === 0 || i === 1 || i === 3 || i === 5) {
       try {
-        const uploadKey = `uploads/members/${member.id}-avatar.jpg`;
         const finalKey = `members/${member.id}-avatar.jpg`;
-        await uploadImageToS3(ctx, avatarUrls[avatarIndex], uploadKey);
+        await uploadImageToS3(ctx, avatarUrls[avatarIndex], finalKey);
         member.avatarS3Key = finalKey;
         avatarIndex++;
         await new Promise((resolve) => setTimeout(resolve, 200));

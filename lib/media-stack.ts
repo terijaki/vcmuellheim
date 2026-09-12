@@ -6,14 +6,13 @@ import * as cdk from "aws-cdk-lib";
 import type * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
-import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import * as s3 from "aws-cdk-lib/aws-s3";
-import * as s3Notifications from "aws-cdk-lib/aws-s3-notifications";
 import type { Construct } from "constructs";
-import { Club, LambdaLayers } from "@/project.config";
-import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
+import { Club } from "@/project.config";
+import { VcmBunFunction } from "./construct/vcm-bun-function";
+import { buildLambdaFunctionName } from "./construct/vcm-nodejs-function";
 
 /**
  * Compute the canonical media S3 bucket name for a given environment and branch.
@@ -40,6 +39,7 @@ export class MediaStack extends cdk.Stack {
   public readonly cloudFrontUrl: string;
   /** Stable plain-string bucket name — safe to pass cross-stack without creating CloudFormation exports. */
   public readonly bucketName: string;
+  public readonly imageProcessorFunctionName: string;
 
   constructor(scope: Construct, id: string, props?: MediaStackProps) {
     super(scope, id, props);
@@ -120,21 +120,12 @@ export class MediaStack extends cdk.Stack {
       this.cloudFrontUrl = `https://${this.distribution.distributionDomainName}`;
     }
 
-    // === Image Processing Lambda ===
-    // Add ImageMagick Lambda layer for image processing
-    const imageMagickLayer = lambda.LayerVersion.fromLayerVersionArn(
-      this,
-      "ImageMagickLayer",
-      isProd ? LambdaLayers.prod.imageMagick : LambdaLayers.dev.imageMagick,
-    ); // TODO investigate if we can avoid the layer and bundle resources instead
-
-    // Create image processor Lambda function
-    const imageProcessorFunction = new VcmNodejsFunction(this, "ImageProcessor", {
+    // === Image Processing Lambda (Bun.Image on custom runtime) ===
+    const imageProcessorFunction = new VcmBunFunction(this, "BunImageProcessor", {
       namespace: "media",
-      name: "image-processor",
+      name: "bun-image-processor",
       entry: "lambda/content/image-processor.ts",
       timeout: cdk.Duration.minutes(5),
-      layers: [imageMagickLayer],
       environment: {
         CDK_ENVIRONMENT: environment,
       },
@@ -144,17 +135,6 @@ export class MediaStack extends cdk.Stack {
     this.bucket.grantRead(imageProcessorFunction);
     this.bucket.grantWrite(imageProcessorFunction);
 
-    // Trigger Lambda on S3 object creation for image files in uploads/ prefix only
-    // This prevents recursion when Lambda writes processed images back to the bucket
-    const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
-    imageExtensions.forEach((ext) => {
-      this.bucket.addObjectCreatedNotification(
-        new s3Notifications.LambdaDestination(imageProcessorFunction),
-        {
-          prefix: "uploads/",
-          suffix: ext,
-        },
-      );
-    });
+    this.imageProcessorFunctionName = buildLambdaFunctionName("bun-image-processor");
   }
 }

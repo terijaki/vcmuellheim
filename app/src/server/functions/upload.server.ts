@@ -5,6 +5,7 @@
 import { randomUUID } from "node:crypto";
 import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { invokeImageProcessorAsync } from "@/lib/media/image-processing";
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = () => process.env.MEDIA_BUCKET_NAME || "";
@@ -43,16 +44,10 @@ export async function handleGetPresignedUrl(data: {
   const finalKey = sanitizedExtension
     ? `${data.folder}/${uuid}.${sanitizedExtension}`
     : `${data.folder}/${uuid}`;
-  const isSvg = sanitizedExtension === "svg";
-  const uploadKey = isSvg
-    ? finalKey
-    : sanitizedExtension
-      ? `uploads/${data.folder}/${uuid}.${sanitizedExtension}`
-      : `uploads/${data.folder}/${uuid}`;
 
   const command = new PutObjectCommand({
     Bucket: BUCKET_NAME(),
-    Key: uploadKey,
+    Key: finalKey,
     ContentType: data.contentType,
   });
 
@@ -63,4 +58,13 @@ export async function handleGetPresignedUrl(data: {
     key: finalKey,
     bucket: BUCKET_NAME(),
   };
+}
+
+export async function handleProcessMediaImage(s3Key: string): Promise<void> {
+  const bucket = BUCKET_NAME();
+  if (!bucket) {
+    throw new Error("MEDIA_BUCKET_NAME is not configured");
+  }
+
+  await invokeImageProcessorAsync(bucket, s3Key);
 }

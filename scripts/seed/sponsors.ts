@@ -59,9 +59,8 @@ export async function seedSponsorsData(ctx: SeedContext): Promise<void> {
   console.log("  Downloading and uploading sponsor logos...");
   for (let i = 0; i < validatedSponsors.length; i++) {
     try {
-      const uploadKey = `uploads/sponsors/${validatedSponsors[i].id}-logo.jpg`;
       const finalKey = `sponsors/${validatedSponsors[i].id}-logo.jpg`;
-      await uploadImageToS3(ctx, logoUrls[i], uploadKey);
+      await uploadImageToS3(ctx, logoUrls[i], finalKey);
       validatedSponsors[i].logoS3Key = finalKey;
       await new Promise((resolve) => setTimeout(resolve, 200));
     } catch (error) {

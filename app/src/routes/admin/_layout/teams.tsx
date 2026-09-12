@@ -41,7 +41,8 @@ import {
   listTeamsFn,
   updateTeamFn,
 } from "@webapp/server/functions/teams";
-import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
+import { getFileUrlFn } from "@webapp/server/functions/upload";
+import { uploadImageFile } from "@webapp/utils/upload-image";
 import dayjs from "dayjs";
 import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
@@ -399,17 +400,6 @@ function TeamsPage() {
     queryKey: ["locations", "list"],
     queryFn: () => listLocationsFn(),
   });
-  const uploadMutation = useMutation({
-    mutationFn: (data: Parameters<typeof getPresignedUrlFn>[0]["data"]) =>
-      getPresignedUrlFn({ data }),
-    onSuccess: () => setUploading(false),
-    onError: (error: unknown) => {
-      notification.error({
-        message: error instanceof Error ? error.message : "Upload des Fotos fehlgeschlagen",
-      });
-      setUploading(false);
-    },
-  });
 
   const createMutation = useMutation({
     mutationFn: (data: Parameters<typeof createTeamFn>[0]["data"]) => createTeamFn({ data }),
@@ -478,23 +468,7 @@ function TeamsPage() {
 
       // Upload new pictures
       for (const file of pictureFiles) {
-        const { uploadUrl, key } = await uploadMutation.mutateAsync({
-          filename: file.name,
-          contentType: file.type,
-          folder: "teams",
-        });
-        const uploadResponse = await fetch(uploadUrl, {
-          method: "PUT",
-          body: file,
-          headers: {
-            "Content-Type": file.type,
-          },
-        });
-
-        if (!uploadResponse.ok) {
-          throw new Error(`Upload fehlgeschlagen: ${file.name}`);
-        }
-
+        const key = await uploadImageFile(file, "teams");
         pictureS3Keys.push(key);
       }
 
