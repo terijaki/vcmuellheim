@@ -352,43 +352,49 @@ function MembersPage() {
       }
 
       const currentEditingId = value.id;
-      let avatarS3Key: string | null | undefined = value.avatarS3Key;
-
-      // Handle avatar deletion
-      if (deleteAvatar) {
-        avatarS3Key = null; // null tells the server to remove this attribute
-      }
-      // Upload new avatar if a file was selected
-      else if (avatarFile) {
-        avatarS3Key = await uploadImageFile(avatarFile, "members");
-      }
-
-      // Filter out empty strings to avoid DynamoDB GSI errors.
-      // When editing, convert empty optional string fields to null so they can be cleared.
-      const clearableOptionalFields = new Set(["privateEmail", "proxyEmail", "phone", "roleTitle"]);
-      const cleanedData: Record<string, unknown> = {};
-      for (const [key, val] of Object.entries({ ...value, avatarS3Key })) {
-        if (key === "id" || key === "adminRole") {
-          continue;
-        }
-
-        if (key === "avatarS3Key") {
-          cleanedData[key] = avatarS3Key; // always include (null for deletion, string for set, undefined for no change)
-        } else if (currentEditingId && clearableOptionalFields.has(key) && val === "") {
-          cleanedData[key] = null; // null signals the server to remove this attribute
-        } else if (val !== "" && val !== undefined) {
-          cleanedData[key] = val;
-        }
-      }
-
-      // Handle adminRole: "" = remove role, "Admin"/"Moderator" = set role
-      if (currentEditingId) {
-        cleanedData.authRole = value.adminRole === "" ? null : value.adminRole;
-      } else if (value.adminRole !== "") {
-        cleanedData.authRole = value.adminRole;
-      }
 
       try {
+        let avatarS3Key: string | null | undefined = value.avatarS3Key;
+
+        // Handle avatar deletion
+        if (deleteAvatar) {
+          avatarS3Key = null; // null tells the server to remove this attribute
+        }
+        // Upload new avatar if a file was selected
+        else if (avatarFile) {
+          avatarS3Key = await uploadImageFile(avatarFile, "members");
+        }
+
+        // Filter out empty strings to avoid DynamoDB GSI errors.
+        // When editing, convert empty optional string fields to null so they can be cleared.
+        const clearableOptionalFields = new Set([
+          "privateEmail",
+          "proxyEmail",
+          "phone",
+          "roleTitle",
+        ]);
+        const cleanedData: Record<string, unknown> = {};
+        for (const [key, val] of Object.entries({ ...value, avatarS3Key })) {
+          if (key === "id" || key === "adminRole") {
+            continue;
+          }
+
+          if (key === "avatarS3Key") {
+            cleanedData[key] = avatarS3Key; // always include (null for deletion, string for set, undefined for no change)
+          } else if (currentEditingId && clearableOptionalFields.has(key) && val === "") {
+            cleanedData[key] = null; // null signals the server to remove this attribute
+          } else if (val !== "" && val !== undefined) {
+            cleanedData[key] = val;
+          }
+        }
+
+        // Handle adminRole: "" = remove role, "Admin"/"Moderator" = set role
+        if (currentEditingId) {
+          cleanedData.authRole = value.adminRole === "" ? null : value.adminRole;
+        } else if (value.adminRole !== "") {
+          cleanedData.authRole = value.adminRole;
+        }
+
         if (currentEditingId) {
           await updateMemberFn({ data: { id: currentEditingId, data: cleanedData } });
           notification.success("Mitglied wurde aktualisiert");
