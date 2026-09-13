@@ -43,6 +43,7 @@
     "@aws-lambda-powertools/logger": "^2.34.0",
     "@aws-lambda-powertools/tracer": "^2.34.0",
     "@aws-sdk/client-dynamodb": "^3.1088.0",
+    "@aws-sdk/client-lambda": "^3.1088.0",
     "@aws-sdk/client-s3": "^3.1088.0",
     "@aws-sdk/client-sesv2": "^3.1088.0",
     "@aws-sdk/client-sqs": "^3.1088.0",
@@ -84,7 +85,6 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@aws-sdk/client-lambda": "^3.1088.0",
     "@behold/types": "0.3.4",
     "@playwright/test": "^1.61.1",
     "@types/aws-lambda": "^8.10.162",
