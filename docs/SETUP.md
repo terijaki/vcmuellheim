@@ -102,6 +102,20 @@ vpr cdk:deploy:all  # Deploy all stacks (dev)
 vpr cdk:deploy:prod # Deploy all stacks (prod, requires vcm-prod credentials)
 ```
 
+## Bun runtime layer (image processing)
+
+Image processing uses `Bun.Image` on a custom Lambda runtime. The Bun binary is published as an account-scoped layer via `BunTimeStack` — deploy **once per AWS account** before MediaStack can deploy:
+
+```sh
+# Dev account (418553863544)
+vpr cdk:deploy:buntime
+
+# Prod account (041632640830)
+vpr cdk:deploy:buntime:prod
+```
+
+`BunTimeStack` is **not** part of `cdk deploy --all` or GitHub Actions. Feature-branch destroy workflows never include it. The layer ARN is stored in SSM at `/vcmuellheim/lambda/buntime-arn`. After buntime exists, deploy MediaStack and WebAppStack together so the webapp can invoke `vcm-bun-image-processor-*`.
+
 ## GitHub Actions / CI
 
 ### How deployments work

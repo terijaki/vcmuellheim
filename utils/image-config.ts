@@ -18,6 +18,9 @@ export type ImageSize = (typeof IMAGE_SIZES)[number];
 /** Image quality for JPEG and WebP output */
 export const IMAGE_QUALITY = 85;
 
+/** Reject decode if width × height exceeds this (decompression bomb guard). */
+export const MAX_DECODE_PIXELS = 64_000_000;
+
 /** Image variant names (t-shirt sizes) for breakpoints */
 export const IMAGE_VARIANTS = {
   sm: 480, // Small (480px)

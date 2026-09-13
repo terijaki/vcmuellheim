@@ -113,9 +113,8 @@ export async function seedNewsData(ctx: SeedContext): Promise<void> {
     const imageUrls = imageUrlSets[i] || [];
     for (const [imageIndex, imageUrl] of imageUrls.entries()) {
       try {
-        const uploadKey = `uploads/news/${validatedArticles[i].id}-${imageIndex}.jpg`;
         const finalKey = `news/${validatedArticles[i].id}-${imageIndex}.jpg`;
-        await uploadImageToS3(ctx, imageUrl, uploadKey);
+        await uploadImageToS3(ctx, imageUrl, finalKey);
         validatedArticles[i].imageS3Keys?.push(finalKey);
         await new Promise((resolve) => setTimeout(resolve, 200));
       } catch (error) {

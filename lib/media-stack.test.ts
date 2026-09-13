@@ -1,4 +1,4 @@
-import { describe, it } from "vite-plus/test";
+import { afterEach, beforeEach, describe, expect, it } from "vite-plus/test";
 import { Template } from "aws-cdk-lib/assertions";
 import { MediaStack } from "./media-stack";
 import { createTestApp } from "./test-helpers";
@@ -236,6 +236,87 @@ describe("MediaStack", () => {
           ],
         },
       });
+    });
+  });
+
+  describe("Image processor", () => {
+    beforeEach(() => {
+      process.env.CDK_ENVIRONMENT = "dev";
+      process.env.CDK_BRANCH_OVERWRITE = "main";
+    });
+
+    afterEach(() => {
+      Reflect.deleteProperty(process.env, "CDK_ENVIRONMENT");
+      Reflect.deleteProperty(process.env, "CDK_BRANCH_OVERWRITE");
+    });
+
+    it("creates a Bun image processor Lambda on provided.al2023", () => {
+      const app = createTestApp();
+      const stack = new MediaStack(app, "TestStack", {
+        stackProps: {
+          environment: "dev",
+          branch: "",
+        },
+      });
+
+      const template = Template.fromStack(stack);
+
+      template.hasResourceProperties("AWS::Lambda::Function", {
+        FunctionName: "vcm-bun-image-processor-dev",
+        Runtime: "provided.al2023",
+        Architectures: ["x86_64"],
+        Handler: "index.handler",
+        Timeout: 300,
+      });
+    });
+
+    it("does not attach an ImageMagick layer", () => {
+      const app = createTestApp();
+      const stack = new MediaStack(app, "TestStack", {
+        stackProps: {
+          environment: "dev",
+          branch: "",
+        },
+      });
+
+      const template = Template.fromStack(stack);
+      const functions = template.findResources("AWS::Lambda::Function");
+      const imageProcessor = Object.values(functions).find(
+        (resource) =>
+          (resource.Properties as { FunctionName?: string }).FunctionName ===
+          "vcm-bun-image-processor-dev",
+      );
+
+      expect(imageProcessor).toBeDefined();
+      const layers =
+        (imageProcessor as { Properties: { Layers?: string[] } }).Properties.Layers ?? [];
+      expect(layers).toHaveLength(1);
+      expect(JSON.stringify(layers)).not.toContain("image-magick");
+    });
+
+    it("does not configure S3 upload notifications", () => {
+      const app = createTestApp();
+      const stack = new MediaStack(app, "TestStack", {
+        stackProps: {
+          environment: "dev",
+          branch: "",
+        },
+      });
+
+      const template = Template.fromStack(stack);
+      template.resourceCountIs("Custom::S3BucketNotifications", 0);
+    });
+
+    it("exposes the image processor function name", () => {
+      const app = createTestApp();
+      const stack = new MediaStack(app, "TestStack", {
+        stackProps: {
+          environment: "dev",
+          branch: "",
+        },
+      });
+
+      expect(stack.imageProcessorFunctionName).toBe("vcm-bun-image-processor-dev");
     });
   });
 });

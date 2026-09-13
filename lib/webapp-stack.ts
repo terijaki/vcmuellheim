@@ -48,6 +48,8 @@ export interface WebAppStackProps extends cdk.StackProps {
   hostedZone?: route53.IHostedZone;
   /** CloudFront certificate (must be in us-east-1) */
   cloudFrontCertificate?: acm.ICertificate;
+  /** Optional image processor function name from MediaStack */
+  imageProcessorFunctionName?: string;
 }
 
 export class WebAppStack extends cdk.Stack {
@@ -109,6 +111,9 @@ export class WebAppStack extends cdk.Stack {
       SAMS_TABLE_NAME: samsTableName,
       ...(branch ? { BRANCH_NAME: branch } : {}),
       ...(props.mediaCloudFrontUrl ? { MEDIA_CLOUDFRONT_URL: props.mediaCloudFrontUrl } : {}),
+      ...(props.imageProcessorFunctionName
+        ? { IMAGE_PROCESSOR_FUNCTION_NAME: props.imageProcessorFunctionName }
+        : {}),
       NODE_ENV: "production",
     };
 
@@ -173,6 +178,14 @@ export class WebAppStack extends cdk.Stack {
     s3.Bucket.fromBucketName(this, "MediaBucketRef", props.mediaBucketName).grantReadWrite(
       this.webappLambda,
     );
+
+    if (props.imageProcessorFunctionName) {
+      lambda.Function.fromFunctionName(
+        this,
+        "ImageProcessorRef",
+        props.imageProcessorFunctionName,
+      ).grantInvoke(this.webappLambda);
+    }
 
     // Grant SES access for OTP emails
     this.webappLambda.addToRolePolicy(

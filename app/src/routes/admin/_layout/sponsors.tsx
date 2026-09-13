@@ -30,7 +30,8 @@ import {
   listSponsorsFn,
   updateSponsorFn,
 } from "@webapp/server/functions/sponsors";
-import { getFileUrlFn, getPresignedUrlFn } from "@webapp/server/functions/upload";
+import { getFileUrlFn } from "@webapp/server/functions/upload";
+import { uploadImageFile } from "@webapp/utils/upload-image";
 import dayjs from "dayjs";
 import { Globe, Pencil, Plus, Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
@@ -261,10 +262,6 @@ function SponsorsPage() {
     isLoading,
     refetch,
   } = useQuery({ queryKey: ["sponsors", "list"], queryFn: () => listSponsorsFn() });
-  const uploadMutation = useMutation({
-    mutationFn: (data: Parameters<typeof getPresignedUrlFn>[0]["data"]) =>
-      getPresignedUrlFn({ data }),
-  });
   const createMutation = useMutation({
     mutationFn: (data: Parameters<typeof createSponsorFn>[0]["data"]) => createSponsorFn({ data }),
     onSuccess: () => {
@@ -334,26 +331,7 @@ function SponsorsPage() {
       }
       // Upload new logo if a file was selected
       else if (logoFile) {
-        const { uploadUrl, key } = await uploadMutation.mutateAsync({
-          filename: logoFile.name,
-          contentType: logoFile.type,
-          folder: "sponsors",
-        });
-
-        // Upload file to S3
-        const uploadResponse = await fetch(uploadUrl, {
-          method: "PUT",
-          body: logoFile,
-          headers: {
-            "Content-Type": logoFile.type,
-          },
-        });
-
-        if (!uploadResponse.ok) {
-          throw new Error("Datei-Upload fehlgeschlagen");
-        }
-
-        logoS3Key = key;
+        logoS3Key = await uploadImageFile(logoFile, "sponsors");
       }
 
       const ttl = expiryDate ? Math.floor(dayjs(expiryDate).unix()) : undefined;

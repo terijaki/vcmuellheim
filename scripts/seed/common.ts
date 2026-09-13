@@ -10,6 +10,7 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 import { createDb } from "@/lib/db/electrodb-client";
 import { type LocationInput, type MemberInput, type TeamInput } from "@/lib/db/schemas";
+import { invokeImageProcessorAsync } from "@/lib/media/image-processing";
 import { Club } from "@/project.config";
 import { getSanitizedBranch } from "@/utils/git";
 
@@ -237,6 +238,7 @@ export async function uploadImageToS3(
             console.log(
               `  ✓ Uploaded image to s3://${ctx.s3Bucket}/${s3Key} (${imageBuffer.length} bytes)`,
             );
+            await invokeImageProcessorAsync(ctx.s3Bucket, s3Key);
             resolve(s3Key);
           } catch (error) {
             reject(error);
