@@ -3,7 +3,7 @@
  * Using Zod v4 top-level string formats for optimal performance
  */
 
-import { matchProjectionSchema, matchLocationSchema } from "sams-provider-events";
+import { matchProjectionSchema } from "sams-provider-events";
 import { z } from "zod";
 
 /** Base fields for all entities */
@@ -266,9 +266,6 @@ export type SamsRosterOfficialInput = z.infer<typeof samsRosterOfficialSchema>;
 
 export const RosterResponseSchema = samsRosterSchema.omit({ ttl: true });
 export type RosterResponse = z.infer<typeof RosterResponseSchema>;
-
-/** Match venue — from sams-provider-events `matchLocationSchema` (address fields since 0.4.0). */
-export const samsMatchLocationSchema = matchLocationSchema;
 
 /** Stored league match — provider `Match` projection, not a HAL DTO. */
 export const samsProjectionMatchSchema = matchProjectionSchema;
