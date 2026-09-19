@@ -3,7 +3,7 @@
  * Using Zod v4 top-level string formats for optimal performance
  */
 
-import { matchProjectionSchema } from "sams-provider-events";
+import { matchProjectionSchema, matchLocationSchema } from "sams-provider-events";
 import { z } from "zod";
 
 /** Base fields for all entities */
@@ -267,20 +267,11 @@ export type SamsRosterOfficialInput = z.infer<typeof samsRosterOfficialSchema>;
 export const RosterResponseSchema = samsRosterSchema.omit({ ttl: true });
 export type RosterResponse = z.infer<typeof RosterResponseSchema>;
 
-/** Match venue — extends provider schema until sams-provider-events >= 0.4.0 is published. */
-export const samsMatchLocationSchema = z.object({
-  uuid: z.string().min(1),
-  name: z.string().min(1).optional(),
-  street: z.string().min(1).optional(),
-  postal: z.string().min(1).optional(),
-  city: z.string().min(1).optional(),
-  country: z.string().min(1).optional(),
-});
+/** Match venue — from sams-provider-events `matchLocationSchema` (address fields since 0.4.0). */
+export const samsMatchLocationSchema = matchLocationSchema;
 
 /** Stored league match — provider `Match` projection, not a HAL DTO. */
-export const samsProjectionMatchSchema = matchProjectionSchema.extend({
-  location: samsMatchLocationSchema.optional(),
-});
+export const samsProjectionMatchSchema = matchProjectionSchema;
 export type SamsProjectionMatchInput = z.infer<typeof samsProjectionMatchSchema>;
 
 /** Club schedule projection — rolling match window for one club/season. */
