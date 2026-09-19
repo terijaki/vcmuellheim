@@ -10,6 +10,7 @@ import type { LeagueMatch } from "@/lambda/sams/types";
 import { loadScheduleMatchesForSamsTeamUuids } from "@webapp/server/functions/sams.server";
 import { Club } from "@project.config";
 import { createFileRoute } from "@tanstack/react-router";
+import { formatSamsMatchLocationLine } from "@/utils/format-sams-match-location";
 import { filterHomeMatches } from "@/utils/sams-match-filter";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -74,9 +75,6 @@ function convertMatchToIcs(
   const homeTeam = match.team1.name;
   const guestTeam = match.team2.name;
 
-  const locationParts: string[] = [];
-  if (match.location?.name) locationParts.push(match.location.name);
-
   const baseDesc = [
     teamLeagueName,
     homeTeam ? `Heim: ${homeTeam}` : null,
@@ -94,7 +92,7 @@ function convertMatchToIcs(
     uid: match.uuid,
     summary: `${match.team1.name} vs ${match.team2.name}`,
     description,
-    location: locationParts.join(", "),
+    location: formatSamsMatchLocationLine(match.location),
   };
 }
 

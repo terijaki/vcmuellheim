@@ -267,8 +267,20 @@ export type SamsRosterOfficialInput = z.infer<typeof samsRosterOfficialSchema>;
 export const RosterResponseSchema = samsRosterSchema.omit({ ttl: true });
 export type RosterResponse = z.infer<typeof RosterResponseSchema>;
 
+/** Match venue — extends provider schema with postal address fields when projected. */
+export const samsMatchLocationSchema = z.object({
+  uuid: z.string().min(1),
+  name: z.string().min(1).optional(),
+  street: z.string().optional(),
+  postal: z.string().optional(),
+  city: z.string().optional(),
+  country: z.string().optional(),
+});
+
 /** Stored league match — provider `Match` projection, not a HAL DTO. */
-export const samsProjectionMatchSchema = matchProjectionSchema;
+export const samsProjectionMatchSchema = matchProjectionSchema.extend({
+  location: samsMatchLocationSchema.optional(),
+});
 export type SamsProjectionMatchInput = z.infer<typeof samsProjectionMatchSchema>;
 
 /** Club schedule projection — rolling match window for one club/season. */
