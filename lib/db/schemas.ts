@@ -267,14 +267,14 @@ export type SamsRosterOfficialInput = z.infer<typeof samsRosterOfficialSchema>;
 export const RosterResponseSchema = samsRosterSchema.omit({ ttl: true });
 export type RosterResponse = z.infer<typeof RosterResponseSchema>;
 
-/** Match venue — extends provider schema with postal address fields when projected. */
+/** Match venue — extends provider schema until sams-provider-events >= 0.4.0 is published. */
 export const samsMatchLocationSchema = z.object({
   uuid: z.string().min(1),
   name: z.string().min(1).optional(),
-  street: z.string().optional(),
-  postal: z.string().optional(),
-  city: z.string().optional(),
-  country: z.string().optional(),
+  street: z.string().min(1).optional(),
+  postal: z.string().min(1).optional(),
+  city: z.string().min(1).optional(),
+  country: z.string().min(1).optional(),
 });
 
 /** Stored league match — provider `Match` projection, not a HAL DTO. */
