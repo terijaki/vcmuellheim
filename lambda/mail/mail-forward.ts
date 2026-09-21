@@ -10,7 +10,7 @@
  *   5. Resolve recipient:
  *      a. Check hardcoded group aliases (trainer@, vorstand@, info@).
  *      b. Fall back to individual proxy email lookup in DynamoDB.
- *   6. Forward raw MIME via SES — rewrite From, add Reply-To.
+ *   6. Forward raw MIME via SES — rewrite From, add Reply-To; preserve To/Cc club aliases.
  *
  * Idempotency: EventBridge fires Object Created exactly once per S3 object.
  * The S3 lifecycle policy (14d prod / 3d dev) expires messages automatically.
@@ -509,7 +509,7 @@ function splitMimeIntoHeadersAndBody(rawMime: string): { headers: string; body: 
 }
 
 const BLOCKED_FORWARD_HEADER_PATTERN =
-  /^(return-path|sender|dkim-signature|arc-seal|arc-message-signature|arc-authentication-results|authentication-results|received-spf|reply-to|cc|bcc|disposition-notification-to|return-receipt-to|x-original-to):/i;
+  /^(return-path|sender|dkim-signature|arc-seal|arc-message-signature|arc-authentication-results|authentication-results|received-spf|reply-to|bcc|disposition-notification-to|return-receipt-to|x-original-to):/i;
 
 function stripBlockedForwardHeaders(headers: string): string {
   const headerLines = headers.split(/\r?\n/);
@@ -535,7 +535,7 @@ function stripBlockedForwardHeaders(headers: string): string {
 
 function replaceHeaderLineAndStripContinuations(
   headers: string,
-  headerName: "From" | "To",
+  headerName: "From",
   replacementValue: string,
 ): string {
   const headerLines = headers.split(/\r?\n/);
@@ -601,13 +601,10 @@ function applyForwardingHeaderRewrites(
   headers: string,
   originalFrom: string,
   rewrittenFrom: string,
-  newTo: string,
 ): string {
-  const sanitizedTo = sanitizeEmailAddress(newTo);
   const replyTo = buildReplyToHeaderValue(originalFrom);
 
-  let rewritten = replaceHeaderLineAndStripContinuations(headers, "From", rewrittenFrom);
-  rewritten = replaceHeaderLineAndStripContinuations(rewritten, "To", sanitizedTo);
+  const rewritten = replaceHeaderLineAndStripContinuations(headers, "From", rewrittenFrom);
 
   return `${rewritten}\r\nReply-To: ${replyTo}`;
 }
@@ -616,14 +613,9 @@ function applyForwardingHeaderRewrites(
  * Rewrite MIME headers for forwarding:
  * - Replace From with the verified domain sender
  * - Add Reply-To with the original From
- * - Replace To with the private destination
+ * - Preserve To/Cc so recipients see club aliases (Reply All includes co-recipients)
  */
-function rewriteMimeHeaders(
-  rawMime: string,
-  originalFrom: string,
-  newFrom: string,
-  newTo: string,
-): string {
+function rewriteMimeHeaders(rawMime: string, originalFrom: string, newFrom: string): string {
   const sections = splitMimeIntoHeadersAndBody(rawMime);
   if (!sections) return rawMime;
 
@@ -633,10 +625,38 @@ function rewriteMimeHeaders(
     strippedHeaders,
     originalFrom,
     rewrittenFrom,
-    newTo,
   );
 
   return rewrittenHeaders + sections.body;
+}
+
+function isAddressOnRecipientDomain(address: string): boolean {
+  const domain = address.split("@")[1];
+  return domain?.toLowerCase() === RECIPIENT_DOMAIN.toLowerCase();
+}
+
+/**
+ * Club proxy addresses that should receive a forward for this inbound message.
+ * Honors X-Original-To when it matches a To or Cc address (one forward per SES
+ * delivery); otherwise uses To + Cc.
+ */
+function resolveMatchingClubRecipientAddresses(rawMime: string): string[] {
+  const envelopeRecipientAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
+  const headerToAddresses = extractToAddresses(rawMime);
+  const headerCcAddresses = extractRecipientAddressesFromHeader(rawMime, "cc");
+  const headerRecipientSet = new Set(
+    [...headerToAddresses, ...headerCcAddresses].map((addr) => addr.toLowerCase()),
+  );
+  const hasValidatedEnvelopeRecipient = envelopeRecipientAddresses.some((addr) =>
+    headerRecipientSet.has(addr.toLowerCase()),
+  );
+
+  const candidateAddresses =
+    envelopeRecipientAddresses.length > 0 && hasValidatedEnvelopeRecipient
+      ? envelopeRecipientAddresses
+      : [...headerToAddresses, ...headerCcAddresses];
+
+  return dedupeAddresses(candidateAddresses.filter((addr) => isAddressOnRecipientDomain(addr)));
 }
 
 /**
@@ -654,7 +674,7 @@ async function sendForwardedEmail(input: SendForwardedEmailInput): Promise<Forwa
   const sanitizedFrom = sanitizeEmailAddress(newFrom);
 
   try {
-    const rewritten = rewriteMimeHeaders(rawMime, originalFrom, sanitizedFrom, sanitizedTarget);
+    const rewritten = rewriteMimeHeaders(rawMime, originalFrom, sanitizedFrom);
     await ses.send(
       new SendEmailCommand({
         FromEmailAddress: sanitizedFrom,
@@ -841,23 +861,13 @@ const lambdaHandler = async (event: unknown) => {
     };
   }
 
-  const envelopeRecipientAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
-  const headerToAddresses = extractToAddresses(rawMime);
-  const headerToAddressSet = new Set(headerToAddresses.map((addr) => addr.toLowerCase()));
-  const hasValidatedEnvelopeRecipient = envelopeRecipientAddresses.some((addr) =>
-    headerToAddressSet.has(addr.toLowerCase()),
-  );
-  const toAddresses =
-    envelopeRecipientAddresses.length > 0 && hasValidatedEnvelopeRecipient
-      ? envelopeRecipientAddresses
-      : headerToAddresses;
-  const matchingAddresses = dedupeAddresses(
-    toAddresses.filter((addr) => addr.split("@")[1] === RECIPIENT_DOMAIN),
-  );
+  const matchingAddresses = resolveMatchingClubRecipientAddresses(rawMime);
 
   if (matchingAddresses.length === 0) {
-    logger.warn("No matching To addresses for recipient domain — dropping", { toAddresses, s3Key });
-    return { statusCode: 200, body: "dropped: no matching To address" };
+    logger.warn("No matching recipient addresses for recipient domain — dropping", {
+      s3Key,
+    });
+    return { statusCode: 200, body: "dropped: no matching recipient address" };
   }
 
   const originalFrom = extractFromAddress(rawMime);
