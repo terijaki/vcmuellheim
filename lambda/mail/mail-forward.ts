@@ -637,15 +637,18 @@ function isAddressOnRecipientDomain(address: string): boolean {
 
 /**
  * Club proxy addresses that should receive a forward for this inbound message.
- * Honors X-Original-To when present (one forward per SES delivery) else To + Cc.
+ * Honors X-Original-To when it matches a To or Cc address (one forward per SES
+ * delivery); otherwise uses To + Cc.
  */
 function resolveMatchingClubRecipientAddresses(rawMime: string): string[] {
   const envelopeRecipientAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
   const headerToAddresses = extractToAddresses(rawMime);
   const headerCcAddresses = extractRecipientAddressesFromHeader(rawMime, "cc");
-  const headerToAddressSet = new Set(headerToAddresses.map((addr) => addr.toLowerCase()));
+  const headerRecipientSet = new Set(
+    [...headerToAddresses, ...headerCcAddresses].map((addr) => addr.toLowerCase()),
+  );
   const hasValidatedEnvelopeRecipient = envelopeRecipientAddresses.some((addr) =>
-    headerToAddressSet.has(addr.toLowerCase()),
+    headerRecipientSet.has(addr.toLowerCase()),
   );
 
   const candidateAddresses =
@@ -864,7 +867,7 @@ const lambdaHandler = async (event: unknown) => {
     logger.warn("No matching recipient addresses for recipient domain — dropping", {
       s3Key,
     });
-    return { statusCode: 200, body: "dropped: no matching To address" };
+    return { statusCode: 200, body: "dropped: no matching recipient address" };
   }
 
   const originalFrom = extractFromAddress(rawMime);

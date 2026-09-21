@@ -51,7 +51,9 @@ vi.mock("@/lib/db/electrodb-client", () => ({
   createDb: vi.fn(() => ({
     member: {
       query: {
-        byProxyEmail: () => ({ go: mockByProxyEmailGo }),
+        byProxyEmail: (input: { proxyEmail: string }) => ({
+          go: () => mockByProxyEmailGo(input),
+        }),
         byType: () => ({
           where: () => ({ go: mockByTypeWhereGo }),
         }),
@@ -638,6 +640,60 @@ describe("mail-forward Lambda", () => {
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
 
+    test("forwards to club aliases on both To and Cc when no X-Original-To is present", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              [
+                "From: sender@example.com",
+                "To: max.mustermann@vcmuellheim.de",
+                "Cc: erika.mustermann@vcmuellheim.de",
+                "Subject: Test",
+                "",
+                "Hello world",
+              ].join("\n"),
+            ),
+        } as never,
+      });
+      mockByProxyEmailGo.mockImplementation((input: { proxyEmail: string }) => {
+        const members: Record<string, { id: string; proxyEmail: string; privateEmail: string }> = {
+          "max.mustermann@vcmuellheim.de": {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+          "erika.mustermann@vcmuellheim.de": {
+            id: "m2",
+            proxyEmail: "erika.mustermann@vcmuellheim.de",
+            privateEmail: "erika@example.com",
+          },
+        };
+        const member = members[input.proxyEmail];
+        return Promise.resolve({ data: member ? [member] : [] });
+      });
+
+      const result = await handler(
+        makeEvent("emails/to-and-cc-routing.eml"),
+        mockLambdaContext as never,
+      );
+
+      const sesCalls = getForwardCalls();
+      expect(sesCalls).toHaveLength(2);
+      const destinations = sesCalls.map((c) => c.args[0].input.Destination!.ToAddresses![0]);
+      expect(destinations).toContain("max@example.com");
+      expect(destinations).toContain("erika@example.com");
+      for (const call of sesCalls) {
+        const rawMime = Buffer.from(call.args[0].input.Content!.Raw!.Data!).toString();
+        expect(rawMime).toMatch(/^To: max\.mustermann@vcmuellheim\.de$/im);
+        expect(rawMime).toMatch(/^Cc: erika\.mustermann@vcmuellheim\.de$/im);
+        expect(rawMime).not.toMatch(/max@example\.com/im);
+        expect(rawMime).not.toMatch(/erika@example\.com/im);
+      }
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
+    });
+
     test("skips member with invalid privateEmail and forwards to valid ones", async () => {
       mockByProxyEmailGo.mockResolvedValue({
         data: [
@@ -1005,6 +1061,55 @@ describe("mail-forward Lambda", () => {
       expect(rawMime).toMatch(/max\.mustermann@vcmuellheim\.de/im);
       expect(rawMime).toMatch(/erika\.mustermann@vcmuellheim\.de/im);
       expect(rawMime).toMatch(/john\.doe@vcmuellheim\.de/im);
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
+    });
+
+    test("prefers X-Original-To when the envelope recipient is only on Cc", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              [
+                "From: sender@example.com",
+                "To: max.mustermann@vcmuellheim.de",
+                "Cc: erika.mustermann@vcmuellheim.de",
+                "X-Original-To: erika.mustermann@vcmuellheim.de",
+                "Subject: Test",
+                "",
+                "Hello world",
+              ].join("\n"),
+            ),
+        } as never,
+      });
+      mockByProxyEmailGo.mockImplementation((input: { proxyEmail: string }) => {
+        const members: Record<string, { id: string; proxyEmail: string; privateEmail: string }> = {
+          "max.mustermann@vcmuellheim.de": {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+          "erika.mustermann@vcmuellheim.de": {
+            id: "m2",
+            proxyEmail: "erika.mustermann@vcmuellheim.de",
+            privateEmail: "erika@example.com",
+          },
+        };
+        const member = members[input.proxyEmail];
+        return Promise.resolve({ data: member ? [member] : [] });
+      });
+
+      const result = await handler(
+        makeEvent("emails/cc-original-to.eml"),
+        mockLambdaContext as never,
+      );
+
+      const sesCalls = getForwardCalls();
+      expect(sesCalls).toHaveLength(1);
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["erika@example.com"]);
+      const rawMime = Buffer.from(sesCalls[0].args[0].input.Content!.Raw!.Data!).toString();
+      expect(rawMime).toMatch(/^To: max\.mustermann@vcmuellheim\.de$/im);
+      expect(rawMime).toMatch(/^Cc: erika\.mustermann@vcmuellheim\.de$/im);
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
   });
