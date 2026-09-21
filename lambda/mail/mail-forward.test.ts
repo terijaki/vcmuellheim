@@ -6,7 +6,7 @@
  *   - Known alias → forward to privateEmail
  *   - Multiple To addresses → all resolved and forwarded
  *   - Group aliases: expansion, zero-member drop, info@ union
- *   - MIME rewrite: From rewritten, Reply-To added
+ *   - MIME rewrite: From rewritten, Reply-To added, To/Cc club aliases preserved
  */
 
 import { beforeEach, describe, expect, test, vi } from "vite-plus/test";
@@ -445,7 +445,7 @@ describe("mail-forward Lambda", () => {
       expect(rawMime).toMatch(/^Reply-To: sender@example\.com$/im);
     });
 
-    test("strips Cc and Bcc headers before forwarding", async () => {
+    test("preserves Cc and strips Bcc headers before forwarding", async () => {
       mockByProxyEmailGo.mockResolvedValue({
         data: [
           {
@@ -478,7 +478,7 @@ describe("mail-forward Lambda", () => {
       const rawMime = Buffer.from(
         getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
       ).toString();
-      expect(rawMime).not.toMatch(/^Cc:/im);
+      expect(rawMime).toMatch(/^Cc: cc@example\.com$/im);
       expect(rawMime).not.toMatch(/^Bcc:/im);
     });
 
@@ -518,7 +518,7 @@ describe("mail-forward Lambda", () => {
       expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["max@example.com"]);
     });
 
-    test("strips folded To header continuations after rewrite", async () => {
+    test("preserves original To header including folded continuations and co-recipients", async () => {
       mockByProxyEmailGo.mockResolvedValue({
         data: [
           {
@@ -550,8 +550,92 @@ describe("mail-forward Lambda", () => {
       const rawMime = Buffer.from(
         getForwardCalls()[0].args[0].input.Content!.Raw!.Data!,
       ).toString();
-      expect(rawMime).toMatch(/^To: max@example\.com$/im);
-      expect(rawMime).not.toMatch(/other@example\.com/im);
+      expect(rawMime).toMatch(/^To: other@example\.com,/im);
+      expect(rawMime).toMatch(/max\.mustermann@vcmuellheim\.de/im);
+    });
+
+    test("preserves club aliases in To for multi-recipient forwards (Reply All visibility)", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              makeMime("max.mustermann@vcmuellheim.de, erika.mustermann@vcmuellheim.de"),
+            ),
+        } as never,
+      });
+      mockByProxyEmailGo
+        .mockResolvedValueOnce({
+          data: [
+            {
+              id: "m1",
+              proxyEmail: "max.mustermann@vcmuellheim.de",
+              privateEmail: "max@example.com",
+            },
+          ],
+        })
+        .mockResolvedValueOnce({
+          data: [
+            {
+              id: "m2",
+              proxyEmail: "erika.mustermann@vcmuellheim.de",
+              privateEmail: "erika@example.com",
+            },
+          ],
+        });
+
+      await handler(makeEvent("emails/multi-to-headers.eml"), mockLambdaContext as never);
+
+      const sesCalls = getForwardCalls();
+      expect(sesCalls).toHaveLength(2);
+
+      for (const call of sesCalls) {
+        const rawMime = Buffer.from(call.args[0].input.Content!.Raw!.Data!).toString();
+        expect(rawMime).toMatch(
+          /^To: max\.mustermann@vcmuellheim\.de, erika\.mustermann@vcmuellheim\.de$/im,
+        );
+        expect(rawMime).toMatch(/^Reply-To: sender@example\.com$/im);
+        expect(rawMime).not.toMatch(/max@example\.com/im);
+        expect(rawMime).not.toMatch(/erika@example\.com/im);
+      }
+    });
+
+    test("forwards to member on Cc and preserves Cc header", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              [
+                "From: sender@example.com",
+                "To: external@example.com",
+                "Cc: erika.mustermann@vcmuellheim.de",
+                "Subject: Test",
+                "",
+                "Hello world",
+              ].join("\n"),
+            ),
+        } as never,
+      });
+      mockByProxyEmailGo.mockResolvedValue({
+        data: [
+          {
+            id: "m2",
+            proxyEmail: "erika.mustermann@vcmuellheim.de",
+            privateEmail: "erika@example.com",
+          },
+        ],
+      });
+
+      const result = await handler(makeEvent("emails/cc-routing.eml"), mockLambdaContext as never);
+
+      const sesCalls = getForwardCalls();
+      expect(sesCalls).toHaveLength(1);
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["erika@example.com"]);
+      const rawMime = Buffer.from(sesCalls[0].args[0].input.Content!.Raw!.Data!).toString();
+      expect(rawMime).toMatch(/^To: external@example\.com$/im);
+      expect(rawMime).toMatch(/^Cc: erika\.mustermann@vcmuellheim\.de$/im);
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
 
     test("skips member with invalid privateEmail and forwards to valid ones", async () => {
@@ -917,6 +1001,10 @@ describe("mail-forward Lambda", () => {
       const sesCalls = getForwardCalls();
       expect(sesCalls).toHaveLength(1);
       expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["erika@example.com"]);
+      const rawMime = Buffer.from(sesCalls[0].args[0].input.Content!.Raw!.Data!).toString();
+      expect(rawMime).toMatch(/max\.mustermann@vcmuellheim\.de/im);
+      expect(rawMime).toMatch(/erika\.mustermann@vcmuellheim\.de/im);
+      expect(rawMime).toMatch(/john\.doe@vcmuellheim\.de/im);
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
   });
