@@ -1,17 +1,13 @@
-import { execSync } from "node:child_process";
 import https from "node:https";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { PutObjectCommand, type S3Client } from "@aws-sdk/client-s3";
 import {
   BatchWriteCommand,
-  DynamoDBDocumentClient,
+  type DynamoDBDocumentClient,
   ScanCommand as ScanDocCommand,
 } from "@aws-sdk/lib-dynamodb";
-import { createDb } from "@/lib/db/electrodb-client";
+import { type createDb } from "@/lib/db/electrodb-client";
 import { type LocationInput, type MemberInput, type TeamInput } from "@/lib/db/schemas";
 import { invokeImageProcessorAsync } from "@/lib/media/image-processing";
-import { Club } from "@/project.config";
-import { getSanitizedBranch } from "@/utils/git";
 
 export interface SeedContext {
   cdkEnvironment: string;
@@ -25,94 +21,9 @@ export interface SeedContext {
   teamCache: TeamInput[];
 }
 
-function checkAwsSession(): void {
-  try {
-    execSync("aws sts get-caller-identity", { stdio: "ignore" });
-  } catch {
-    console.error(
-      "❌ No active AWS session found. Please authenticate via AWS SSO before running this script. See docs/SETUP.md for setup instructions.",
-    );
-    process.exit(1);
-  }
-}
-
-export function createSeedContext(): SeedContext {
-  const cdkEnvironment = process.env.CDK_ENVIRONMENT || "dev";
-  if (cdkEnvironment === "prod") {
-    console.error("❌ Cannot seed production environment!");
-    console.error("   Set CDK_ENVIRONMENT to 'dev' to seed.");
-    process.exit(1);
-  }
-
-  console.log(`🌱 Seeding database for environment: ${cdkEnvironment}`);
-
-  checkAwsSession();
-
-  const sanitizedBranch = getSanitizedBranch();
-  const branchSuffix = sanitizedBranch ? `-${sanitizedBranch}` : "";
-  const contentTableName = `vcm-content-${cdkEnvironment}${branchSuffix}`;
-  const s3Bucket = `${Club.slug}-media-${cdkEnvironment}${branchSuffix}`;
-
-  const client = new DynamoDBClient({
-    region: process.env.AWS_REGION || "eu-central-1",
-  });
-  const docClient = DynamoDBDocumentClient.from(client);
-  const s3Client = new S3Client({
-    region: process.env.AWS_REGION || "eu-central-1",
-  });
-
-  return {
-    cdkEnvironment,
-    s3Bucket,
-    contentTableName,
-    entities: createDb(docClient, contentTableName),
-    docClient,
-    s3Client,
-    locationCache: [],
-    membersCache: [],
-    teamCache: [],
-  };
-}
-
-export async function createCmsUser(ctx: SeedContext, email: string): Promise<void> {
-  console.log(`\n👤 Granting Admin role to member: ${email}...`);
-
-  const existing = await ctx.entities.member.query.byPrivateEmail({ privateEmail: email }).go();
-  if (existing.data && existing.data.length > 0) {
-    const member = existing.data[0];
-    if (member.authRole) {
-      console.log(`ℹ️  Member ${email} already has authRole: ${member.authRole}`);
-      process.exit(0);
-    }
-
-    await ctx.entities.member
-      .patch({ id: member.id })
-      .set({ authRole: "Admin", updatedAt: new Date().toISOString() })
-      .go();
-    console.log(`✅ Admin role granted to existing member ${email}`);
-    console.log(`   The member can now sign in at the CMS with email OTP (passwordless).`);
-    return;
-  }
-
-  await ctx.entities.member
-    .create({
-      id: crypto.randomUUID(),
-      name: email.split("@")[0],
-      privateEmail: email,
-      authRole: "Admin",
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    })
-    .go();
-
-  console.log(`✅ Member ${email} created with Admin role`);
-  console.log(`   The member can now sign in at the CMS with email OTP (passwordless).`);
-}
-
 export async function cleanupDatabase(ctx: SeedContext): Promise<void> {
   if (ctx.cdkEnvironment === "prod") {
-    console.error("❌ Cannot cleanup production environment!");
-    process.exit(1);
+    throw new Error("Cannot cleanup production environment");
   }
 
   console.log("\n🧹 Cleaning up database...");

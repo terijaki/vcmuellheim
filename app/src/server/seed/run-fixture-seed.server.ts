@@ -8,15 +8,15 @@ import { docClient } from "@/lib/db/client";
 import { getContentTableName } from "@/lib/db/env";
 import { rebuildAllPublicSnapshots } from "@/lib/read-models/public-snapshots";
 import { S3Client } from "@aws-sdk/client-s3";
-import { cleanupDatabase, type SeedContext } from "@/scripts/seed/common";
-import { seedBusData } from "@/scripts/seed/bus";
-import { seedEventsData } from "@/scripts/seed/events";
-import { seedLocationsData } from "@/scripts/seed/locations";
-import { seedMembersData } from "@/scripts/seed/members";
-import { seedNewsData } from "@/scripts/seed/news";
-import { seedSponsorsData } from "@/scripts/seed/sponsors";
-import { seedTeamsData } from "@/scripts/seed/teams";
-import { seedVolunteerEventsData } from "@/scripts/seed/volunteer-events";
+import { cleanupDatabase, type SeedContext } from "@/lib/fixture-seed/common";
+import { seedBusData } from "@/lib/fixture-seed/bus";
+import { seedEventsData } from "@/lib/fixture-seed/events";
+import { seedLocationsData } from "@/lib/fixture-seed/locations";
+import { seedMembersData } from "@/lib/fixture-seed/members";
+import { seedNewsData } from "@/lib/fixture-seed/news";
+import { seedSponsorsData } from "@/lib/fixture-seed/sponsors";
+import { seedTeamsData } from "@/lib/fixture-seed/teams";
+import { seedVolunteerEventsData } from "@/lib/fixture-seed/volunteer-events";
 
 function createDeployedSeedContext(): SeedContext {
   const cdkEnvironment = process.env.CDK_ENVIRONMENT || "dev";
