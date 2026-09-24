@@ -203,6 +203,8 @@ describe("WebAppStack", () => {
       },
     });
 
+    template.resourceCountIs("AWS::CloudFront::Function", 0);
+
     template.hasOutput("WebAppUrl", {
       Export: {
         Name: "vcm-webapp-url-dev",
@@ -367,7 +369,18 @@ describe("WebAppStack", () => {
     template.hasResourceProperties("AWS::CloudFront::Distribution", {
       DistributionConfig: {
         Aliases: Match.arrayWith(["vcmuellheim.de", "www.vcmuellheim.de"]),
+        CacheBehaviors: Match.arrayWith([
+          Match.objectLike({
+            PathPattern: "/api/dev/seed",
+            AllowedMethods: ["GET", "HEAD", "OPTIONS", "PUT", "PATCH", "POST", "DELETE"],
+          }),
+        ]),
       },
+    });
+
+    template.hasResourceProperties("AWS::CloudFront::Function", {
+      Name: "vcm-webapp-block-seed-prod",
+      FunctionCode: Match.stringLikeRegexp("statusCode: 404"),
     });
 
     template.resourceCountIs("AWS::Route53::RecordSet", 2);

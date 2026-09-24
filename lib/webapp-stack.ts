@@ -228,6 +228,18 @@ export class WebAppStack extends cdk.Stack {
           queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
         });
 
+    // Prod never invokes the seed handler. The viewer-request function returns 404
+    // before CloudFront contacts the Lambda origin.
+    const blockSeedRoute = isProd
+      ? new cloudfront.Function(this, "BlockSeedRoute", {
+          functionName: `vcm-webapp-block-seed-${environment}${branchSuffix}`,
+          comment: "Reject /api/dev/seed before it reaches the webapp Lambda",
+          code: cloudfront.FunctionCode.fromInline(
+            "function handler() { return { statusCode: 404, statusDescription: 'Not Found' }; }",
+          ),
+        })
+      : undefined;
+
     const clubLogosCachePolicy = new cloudfront.CachePolicy(this, "ClubLogosCachePolicy", {
       cachePolicyName: `vcm-webapp-club-logos-${environment}${branchSuffix}`,
       defaultTtl: cdk.Duration.days(1),
@@ -270,22 +282,31 @@ export class WebAppStack extends cdk.Stack {
           cachePolicy: staticAssetsCachePolicy,
           compress: true,
         },
-        // Feature-branch fixture seed. Prod has no behavior; the route 404s there anyway.
-        // Image downloads need a longer origin read timeout than the default SSR behavior.
-        ...(!isProd
-          ? {
-              "/api/dev/seed": {
-                origin: new origins.FunctionUrlOrigin(fnUrl, {
-                  readTimeout: cdk.Duration.seconds(60),
-                }),
-                viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-                allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
-                cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
-                originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
-                responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
-              },
-            }
-          : {}),
+        // Fixture seed. Non-prod allows a longer origin read for image downloads.
+        // Prod allows every method on this path so POST cannot fall through to the Lambda,
+        // then the viewer-request function answers 404 without calling the origin.
+        "/api/dev/seed": {
+          origin: isProd
+            ? lambdaOrigin
+            : new origins.FunctionUrlOrigin(fnUrl, {
+                readTimeout: cdk.Duration.seconds(60),
+              }),
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+          cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+          responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
+          ...(blockSeedRoute
+            ? {
+                functionAssociations: [
+                  {
+                    function: blockSeedRoute,
+                    eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+                  },
+                ],
+              }
+            : {}),
+        },
         // Same-origin club logo proxy (provider URLs are not used as <img src>)
         "/api/sams/logos": {
           origin: lambdaOrigin,
