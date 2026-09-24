@@ -1,4 +1,8 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
+import {
+  createAppHeimspieleRepository,
+  type AppHeimspieleRepository,
+} from "./app-heimspiele-repository";
 import { createAppTabelleRepository, type AppTabelleRepository } from "./app-tabelle-repository";
 import { createAppTermineRepository, type AppTermineRepository } from "./app-termine-repository";
 import { createSamsClubsRepository, type SamsClubsRepository } from "./sams-clubs-repository";
@@ -24,6 +28,7 @@ export type SamsRepositories = {
   rankings: PublicInstance<SamsRankingProjectionRepository>;
   appTabelle: PublicInstance<AppTabelleRepository>;
   appTermine: PublicInstance<AppTermineRepository>;
+  appHeimspiele: PublicInstance<AppHeimspieleRepository>;
 };
 
 export function createSamsRepositories(
@@ -38,5 +43,6 @@ export function createSamsRepositories(
     rankings: createSamsRankingProjectionRepository(client, tableName),
     appTabelle: createAppTabelleRepository(client, tableName),
     appTermine: createAppTermineRepository(client, tableName),
+    appHeimspiele: createAppHeimspieleRepository(client, tableName),
   };
 }

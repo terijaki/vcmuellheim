@@ -8,12 +8,21 @@ export default function MemberCard({
   show,
   dark,
 }: {
-  member: PublicMember;
+  member: PublicMember & { avatarUrl?: string };
   show?: "roles" | "email" | "phone";
   dark?: boolean;
 }) {
-  const { id, name, proxyEmail, phone, avatarS3Key, roleTitle } = member;
-  const { data: avatarUrl } = useFileUrl(avatarS3Key);
+  const {
+    id,
+    name,
+    proxyEmail,
+    phone,
+    avatarS3Key,
+    roleTitle,
+    avatarUrl: signedAvatarUrl,
+  } = member;
+  const { data: fetchedAvatarUrl } = useFileUrl(signedAvatarUrl ? undefined : avatarS3Key);
+  const avatarUrl = signedAvatarUrl ?? fetchedAvatarUrl;
   return (
     <Card
       component="a"

@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { eventSchema } from "@/lib/db/schemas";
+import { readUpcomingEvents, rebuildUpcomingEvents } from "@/lib/read-models/public-snapshots";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 import { resolveNullableUpdates } from "./patch-helpers";
@@ -30,6 +31,12 @@ type EventInput = z.infer<typeof eventInputSchema>;
 type EventUpdateInput = z.infer<typeof eventUpdateDataSchema>;
 
 export async function handleGetUpcomingEvents(data?: { limit?: number }) {
+  const snapshot = await readUpcomingEvents();
+  if (snapshot) {
+    const limit = data?.limit ?? 20;
+    return { items: snapshot.items.slice(0, limit), lastEvaluatedKey: undefined };
+  }
+
   const result = await db()
     .event.query.byType({ type: "event" })
     .gte({ startDate: dayjs().toISOString() })
@@ -69,6 +76,7 @@ export async function handleCreateEvent(data: EventInput) {
   });
 
   await db().event.create(event).go();
+  await rebuildUpcomingEvents();
 
   return event;
 }
@@ -105,10 +113,12 @@ export async function handleUpdateEvent(id: string, updates: EventUpdateInput) {
     : null;
 
   if (!event) throw new Error("Event not found");
+  await rebuildUpcomingEvents();
   return event;
 }
 
 export async function handleDeleteEvent(id: string) {
   await db().event.delete({ id }).go();
+  await rebuildUpcomingEvents();
   return { success: true as const };
 }

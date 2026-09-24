@@ -86,6 +86,11 @@ function createRepos(overrides: Partial<SamsRepositories> = {}): SamsRepositorie
       query: vi.fn().mockResolvedValue([]),
       replaceDataset: vi.fn().mockResolvedValue([]),
     },
+    appHeimspiele: {
+      get: vi.fn().mockResolvedValue(null),
+      put: vi.fn().mockResolvedValue(null),
+      delete: vi.fn().mockResolvedValue(undefined),
+    },
     ...overrides,
   };
 }
@@ -117,6 +122,13 @@ describe("rebuildAppProjections", () => {
     expect(currentTermineRows[0].matchUuid).toBe("match-1");
     expect(currentTermineRows[0].leagueName).toBe("Bezirksliga");
     expect(currentTermineRows[0].isHomeGame).toBe(true);
+    expect(repos.appHeimspiele.put).toHaveBeenCalledWith(
+      "current",
+      expect.arrayContaining([
+        expect.objectContaining({ opponentName: "Opp", leagueName: "Bezirksliga" }),
+      ]),
+      expect.any(Object),
+    );
   });
 
   it("clears current datasets when season or configured clubs are unresolved", async () => {
@@ -136,6 +148,7 @@ describe("rebuildAppProjections", () => {
     expect(result.seasonUuid).toBeNull();
     expect(repos.appTabelle.replaceDataset).toHaveBeenCalledWith("current", []);
     expect(repos.appTermine.replaceDataset).toHaveBeenCalledWith("current", []);
+    expect(repos.appHeimspiele.delete).toHaveBeenCalledWith("current");
   });
 
   it("publishes a new current season while retaining the previous season dataset id", async () => {

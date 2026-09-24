@@ -8,6 +8,7 @@ import { slugify } from "@utils/slugify";
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { newsSchema } from "@/lib/db/schemas";
+import { readLatestNews, rebuildLatestNews } from "@/lib/read-models/public-snapshots";
 import { withTimestamps } from "../dynamo";
 import { getAllNews, getPublishedNews } from "../queries";
 import { parseServerData } from "../schema-parse";
@@ -25,6 +26,13 @@ const newsInputSchema = newsSchema.omit({
 });
 
 type NewsInput = z.infer<typeof newsInputSchema>;
+
+export async function handleGetHomeNews() {
+  const snapshot = await readLatestNews();
+  if (snapshot) return { items: snapshot.items };
+  const page = await getPublishedNews(8);
+  return { items: page.items };
+}
 
 export async function handleGetPublishedNews(data?: { limit?: number; cursor?: string }) {
   return getPublishedNews(data?.limit, data?.cursor);
@@ -75,6 +83,7 @@ export async function handleCreateNews(data: NewsInput) {
   const news = withTimestamps({ ...data, id, slug, type: "article" as const });
 
   await db().news.create(news).go();
+  await rebuildLatestNews();
 
   return news;
 }
@@ -97,10 +106,12 @@ export async function handleUpdateNews(id: string, updates: Partial<NewsInput>) 
     ? parseServerData(newsSchema, refreshedResult.data, "Failed to parse news article")
     : null;
   if (!news) throw new Error("News article not found");
+  await rebuildLatestNews();
   return news;
 }
 
 export async function handleDeleteNews(id: string) {
   await db().news.delete({ id }).go();
+  await rebuildLatestNews();
   return { success: true as const };
 }

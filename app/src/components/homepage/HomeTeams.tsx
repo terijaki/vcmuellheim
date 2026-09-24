@@ -1,12 +1,18 @@
 import { Box, Center, Container, Group, Skeleton, Stack, Text } from "@mantine/core";
 import * as numToWordsDe from "num-words-de";
-import { useTeams } from "../../hooks/dataQueries";
+import { useMembers, useTeams } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import HomeTeamGrid from "./HomeTeamGrid";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default function HomeTeams() {
-  const { data, isLoading } = useTeams();
+export default function HomeTeams({
+  initialTeams,
+  initialMembers,
+}: {
+  initialTeams?: Awaited<ReturnType<typeof useTeams>>["data"];
+  initialMembers?: Awaited<ReturnType<typeof useMembers>>["data"];
+} = {}) {
+  const { data, isLoading } = useTeams(initialTeams ? { initialData: initialTeams } : undefined);
   const teams = data?.items;
 
   const numberOfTeams = teams?.length || 0;
@@ -48,7 +54,7 @@ export default function HomeTeams() {
               </Center>
             )}
           </Stack>
-          {hasTeamResults && <HomeTeamGrid teams={teams} />}
+          {hasTeamResults && <HomeTeamGrid teams={teams} initialMembers={initialMembers} />}
         </Stack>
       </Container>
     </Box>

@@ -12,75 +12,42 @@ import {
   ListItem,
   Overlay,
   SimpleGrid,
+  Skeleton,
   Stack,
   Text,
   Title,
 } from "@mantine/core";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
-import { useMemo } from "react";
-import type { LeagueMatchesResponse } from "@/lambda/sams/types";
 import type { Event } from "@/lib/db/types";
-import { getOwnedSamsTeamUuids } from "@/utils/sams";
-import { useEvents, useLiveTicker, useSamsMatches, useSamsTeams } from "../../hooks/dataQueries";
+import type { HeimspielCard } from "@/lib/db/schemas";
+import { useEvents, useHomeHeimspiele, useLiveTicker } from "../../hooks/dataQueries";
 import EventCard from "../EventCard";
 import MapsLink from "../MapsLink";
 import ScrollAnchor from "./ScrollAnchor";
 
 dayjs.locale("de");
 
-const TIME_RANGE = 14; // controls the display matches taking place # days in the future
+const TIME_RANGE = 14; // controls the empty-state copy
 const TIME_RANGE_MAX_MULTIPLIER = 3;
-const MAX_GAMES = 4;
 
-export default function HomeHeimspiele() {
-  // Fetch events and matches
-  const { data: eventsData } = useEvents();
+export default function HomeHeimspiele({
+  initialEvents,
+  initialHeimspiele,
+}: {
+  initialEvents?: Awaited<ReturnType<typeof useEvents>>["data"];
+  initialHeimspiele?: Awaited<ReturnType<typeof useHomeHeimspiele>>["data"];
+} = {}) {
+  const { data: eventsData, isPending: eventsPending } = useEvents(
+    initialEvents ? { initialData: initialEvents } : undefined,
+  );
   const events = eventsData?.items || [];
 
-  const { data: samsTeamsData, isPending: isSamsTeamsPending } = useSamsTeams();
-  const ourTeamUuids = useMemo(
-    () => getOwnedSamsTeamUuids(samsTeamsData?.teams ?? []),
-    [samsTeamsData?.teams],
+  const { data: heimspieleData, isPending: heimspielePending } = useHomeHeimspiele(
+    initialHeimspiele ? { initialData: initialHeimspiele } : undefined,
   );
-
-  const { data: matchesData } = useSamsMatches({
-    range: "future",
-    limit: 50,
-  });
-
-  // Process matches to show only home games
-  const homeMatchesToDisplay = useMemo(() => {
-    if (!matchesData?.matches) return [];
-
-    const matchesAll = matchesData.matches;
-
-    // Filter to only matches we are hosting (provider team1 is the home side)
-    const matchesHomeGames = matchesAll.filter((match) => ourTeamUuids.has(match.team1.uuid));
-
-    // Sort by date
-    const matchesHomeGamesSorted = matchesHomeGames.sort((a, b) => {
-      if (!a.date || !b.date) return 0;
-      return dayjs(a.date).valueOf() - dayjs(b.date).valueOf();
-    });
-
-    // Count unique combination of date, location
-    const uniqueHostsStrings = new Set<string>();
-    const result: typeof matchesHomeGames = [];
-
-    for (const m of matchesHomeGamesSorted) {
-      const dateLocationCombi = `${m.date}${m.location?.uuid}`;
-      if (
-        dayjs(m.date).isBefore(dayjs().add(TIME_RANGE, "days")) &&
-        (uniqueHostsStrings.size < MAX_GAMES || uniqueHostsStrings.has(dateLocationCombi))
-      ) {
-        uniqueHostsStrings.add(dateLocationCombi);
-        result.push(m);
-      }
-    }
-
-    return result;
-  }, [matchesData, ourTeamUuids]);
+  const homeMatchesToDisplay = heimspieleData?.games ?? [];
+  const isLoading = (eventsPending && !eventsData) || (heimspielePending && !heimspieleData);
 
   return (
     <Box bg="blumine">
@@ -97,13 +64,20 @@ export default function HomeHeimspiele() {
             <EventsList events={events} />
 
             {/* MATCHES */}
-            <HomeMatchesList homeMatches={homeMatchesToDisplay} />
+            {isLoading ? (
+              <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
+                <Skeleton height={160} />
+                <Skeleton height={160} />
+              </SimpleGrid>
+            ) : (
+              <HomeMatchesList homeMatches={homeMatchesToDisplay} />
+            )}
           </Stack>
         </Container>
 
         <NoMatchesNoEvents
-          matchCount={isSamsTeamsPending ? undefined : homeMatchesToDisplay.length}
-          eventCount={events.length}
+          matchCount={isLoading ? undefined : homeMatchesToDisplay.length}
+          eventCount={isLoading ? undefined : events.length}
         />
 
         <Overlay
@@ -139,32 +113,20 @@ function EventsList({ events }: { events: Event[] }) {
   );
 }
 
-function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["matches"] }) {
-  const { data: samsTeamsData } = useSamsTeams();
+function HomeMatchesList({ homeMatches }: { homeMatches: HeimspielCard[] }) {
   const { data: tickerData } = useLiveTicker();
 
   if (!homeMatches || homeMatches.length === 0) return null;
 
-  // league data so that we can get the league name from the league id
-  const leagues = new Map<string, string>();
-  for (const team of samsTeamsData?.teams || []) {
-    if (team.leagueUuid && team.leagueName) {
-      const cleanLeagueName = team.leagueName;
-      leagues.set(team.leagueUuid, cleanLeagueName);
-    }
-  }
-
-  // Group by date and locationUuid, then by leagueUuid
-  type MatchesArray = typeof homeMatches;
-  type GroupedMatches = Record<string, Record<string, MatchesArray>>;
+  type GroupedMatches = Record<string, Record<string, HeimspielCard[]>>;
 
   const groupedMatches = homeMatches.reduce<GroupedMatches>((acc, match) => {
     const dateFormatted = dayjs(match.date).format("YYYY-MM-DD");
-    const locationUuid = match.location?.uuid || "unknown_location";
+    const locationUuid = match.locationUuid || "unknown_location";
     const primaryKey = `${dateFormatted}_${locationUuid}`;
     const secondaryKey = match.leagueUuid || "unknown_league";
-    if (!acc[primaryKey]) acc[primaryKey] = {}; // create primary key
-    if (!acc[primaryKey][secondaryKey]) acc[primaryKey][secondaryKey] = []; // create secondary key
+    if (!acc[primaryKey]) acc[primaryKey] = {};
+    if (!acc[primaryKey][secondaryKey]) acc[primaryKey][secondaryKey] = [];
     acc[primaryKey][secondaryKey].push(match);
     return acc;
   }, {});
@@ -185,13 +147,13 @@ function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["
         {Object.entries(groupedMatches).map(([dateLocationKey, leagueGroups]) => {
           const [date, _locationUuid] = dateLocationKey.split("_");
           const firstLeagueMatches = Object.values(leagueGroups)[0];
-          const location = firstLeagueMatches?.[0]?.location;
+          const locationName = firstLeagueMatches?.[0]?.locationName;
 
           // Check if any match in this card group is currently live
-          const allMatchesInCard = Object.values(leagueGroups).flat() as MatchesArray;
+          const allMatchesInCard = Object.values(leagueGroups).flat();
           const isCardLive = allMatchesInCard.some((match) => {
-            const t1 = match.team1.uuid;
-            const t2 = match.team2.uuid;
+            const t1 = match.team1Uuid;
+            const t2 = match.team2Uuid;
             return tickerData?.liveMatches.some(
               (lm) =>
                 lm.state.started &&
@@ -223,11 +185,11 @@ function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["
                       </Badge>
                     )}
                   </Group>
-                  <MapsLink name={location?.name} />
+                  <MapsLink name={locationName} />
                 </Flex>
                 {Object.entries(leagueGroups).map(([leagueUuid, matches]) => {
-                  const leagueName = leagues.get(leagueUuid);
-                  const matchesArray = matches as MatchesArray;
+                  const leagueName = matches[0]?.leagueName;
+                  const matchesArray = matches;
                   const earliestStartTime = matchesArray.reduce((earliest, match) => {
                     const currentTime = dayjs(match.time, "HH:mm");
                     return currentTime.isBefore(dayjs(earliest, "HH:mm")) ? match.time : earliest;
@@ -249,8 +211,8 @@ function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["
                       <List spacing={0} withPadding listStyleType="none">
                         {matchesArray.map((match) => {
                           return (
-                            <ListItem key={match.uuid} opacity={0.8}>
-                              {match.team2.name}
+                            <ListItem key={match.matchUuid} opacity={0.8}>
+                              {match.opponentName}
                             </ListItem>
                           );
                         })}
@@ -272,16 +234,28 @@ function HomeMatchesList({ homeMatches }: { homeMatches: LeagueMatchesResponse["
   );
 }
 
+export function shouldShowNoHeimspiele({
+  isLoading,
+  matchCount,
+  eventCount,
+}: {
+  isLoading: boolean;
+  matchCount: number;
+  eventCount: number;
+}): boolean {
+  if (isLoading) return false;
+  return matchCount === 0 && eventCount === 0;
+}
+
 function NoMatchesNoEvents({
-  matchCount = 0,
-  eventCount = 0,
+  matchCount,
+  eventCount,
 }: {
   matchCount?: number;
   eventCount?: number;
 }) {
-  if (matchCount === undefined) return null;
-  if (eventCount > 0) return null;
-  if (matchCount > 0) return null;
+  if (matchCount === undefined || eventCount === undefined) return null;
+  if (!shouldShowNoHeimspiele({ isLoading: false, matchCount, eventCount })) return null;
 
   const weeksCount = Math.round((TIME_RANGE * TIME_RANGE_MAX_MULTIPLIER) / 7);
 

@@ -2,9 +2,16 @@ import { Checkbox, Divider, Flex, Grid, Group, SegmentedControl, Stack, Text } f
 import { Fragment, useState } from "react";
 import type { Team } from "@/lib/db/types";
 import { TeamContext } from "../context/HomeTeamContext";
+import type { useMembers } from "../../hooks/dataQueries";
 import TeamCard from "../TeamCard";
 
-export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
+export default function HomeTeamGrid({
+  teams,
+  initialMembers,
+}: {
+  teams: Team[];
+  initialMembers?: Awaited<ReturnType<typeof useMembers>>["data"];
+}) {
   const [gender, setGender] = useState<Team["gender"] | "">("");
   const [leagueParticipation, setLeagueParticipation] = useState(false);
 
@@ -70,7 +77,7 @@ export default function HomeTeamGrid({ teams }: { teams: Team[] }) {
             return (
               <Fragment key={team.id}>
                 <Grid.Col span={{ base: 12, sm: 12 / 2, lg: 12 / 3 }}>
-                  <TeamCard {...team} />
+                  <TeamCard {...team} initialMembers={initialMembers} />
                 </Grid.Col>
                 {lastSelectedTeam && (
                   <Grid.Col span={12}>

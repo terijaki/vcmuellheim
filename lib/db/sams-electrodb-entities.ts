@@ -258,6 +258,32 @@ export const AppTermineMatchEntity = new Entity({
   },
 } as const);
 
+// ---------------------------------------------------------------------------
+// App Heimspiele entity — homepage card document written at SAMS sync time
+// ---------------------------------------------------------------------------
+
+export const AppHeimspieleEntity = new Entity({
+  model: {
+    entity: "appheimspiele",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    datasetId: { type: "string", required: true },
+    documentKey: { type: "string", required: true },
+    type: { type: "string", required: true, default: () => "appheimspiele" as const },
+    games: { type: "any", required: true },
+    updatedAt: { type: "string", required: true },
+    ttl: { type: "number", required: true },
+  },
+  indexes: {
+    byDataset: {
+      pk: { field: "pk", composite: ["datasetId"] },
+      sk: { field: "sk", composite: ["documentKey"] },
+    },
+  },
+} as const);
+
 /** All SAMS entities — useful for building a service */
 export const SamsEntities = {
   club: SamsClubEntity,
@@ -267,6 +293,7 @@ export const SamsEntities = {
   ranking: SamsRankingEntity,
   appTabelle: AppTabelleLeagueEntity,
   appTermine: AppTermineMatchEntity,
+  appHeimspiele: AppHeimspieleEntity,
 } as const;
 
 export type SamsEntityName = keyof typeof SamsEntities;

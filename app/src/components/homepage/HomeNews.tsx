@@ -1,15 +1,19 @@
 import { Button, Center, Container, SimpleGrid, Skeleton, Stack, Text } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import { useNews } from "../../hooks/dataQueries";
+import { useHomeNews } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import NewsCard from "../NewsCard";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default function HomeNews() {
-  const { data, isLoading } = useNews({ limit: 4 }); // request the past 4 news articles, but we might not show all of them
+export default function HomeNews({
+  initialNews,
+}: {
+  initialNews?: Awaited<ReturnType<typeof useHomeNews>>["data"];
+} = {}) {
+  const { data, isLoading } = useHomeNews(initialNews ? { initialData: initialNews } : undefined);
 
-  let news = data?.pages?.flatMap((page) => page.items) || []; // Extract news from paginated response
+  let news = data?.items || [];
 
   // if the 3 and 4th news are older than 3 months, exclude them
   if (news && news.length > 2) {
