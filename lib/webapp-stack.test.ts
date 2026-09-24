@@ -138,7 +138,7 @@ describe("WebAppStack", () => {
 
     template.hasResourceProperties("AWS::Lambda::Function", {
       FunctionName: "vcm-webapp-dev",
-      Timeout: 30,
+      Timeout: 60,
       MemorySize: 1024,
       Environment: {
         Variables: {
@@ -195,6 +195,7 @@ describe("WebAppStack", () => {
         CacheBehaviors: Match.arrayWith([
           Match.objectLike({ PathPattern: "/assets/*" }),
           Match.objectLike({ PathPattern: "/_build/*" }),
+          Match.objectLike({ PathPattern: "/api/dev/seed" }),
           Match.objectLike({ PathPattern: "/api/sams/logos" }),
           Match.objectLike({ PathPattern: "/docs/*" }),
         ]),

@@ -59,20 +59,10 @@ export async function handleListPublicMembers() {
 
 export async function handleGetHomeMembers() {
   const snapshot = await readPublicMembers();
-  const source = snapshot ?? {
-    items: (await handleListPublicMembers()).items,
-    board: [] as Awaited<ReturnType<typeof handleListPublicMembers>>["items"],
-    trainers: [] as Awaited<ReturnType<typeof handleListPublicMembers>>["items"],
-    officials: [] as Awaited<ReturnType<typeof handleListPublicMembers>>["items"],
-  };
-  const grouped = snapshot
-    ? source
-    : {
-        items: source.items,
-        board: source.items.filter((member) => member.isBoardMember),
-        trainers: source.items.filter((member) => member.isTrainer),
-        officials: source.items.filter((member) => !member.isBoardMember && member.roleTitle),
-      };
+  if (!snapshot) {
+    return { items: [], board: [], trainers: [], officials: [] };
+  }
+  const grouped = snapshot;
   const items = await withAvatarUrls(grouped.items);
   const byId = new Map(items.map((member) => [member.id, member]));
   const pick = (group: typeof grouped.board) =>

@@ -27,10 +27,7 @@ import {
   samsScheduleProjectionRepository,
 } from "@/lib/sams/repositories";
 import type { AppTermineMatchInput } from "@/lib/db/schemas";
-import {
-  buildHeimspieleProjection,
-  selectHeimspieleCards,
-} from "@/lib/sams/app-projections/build-heimspiele-projection";
+import { selectHeimspieleCards } from "@/lib/sams/app-projections/build-heimspiele-projection";
 import { calculateLastResultCap } from "@webapp/utils/ranking";
 import { resolveConfiguredSamsClubsFromRecords } from "@/lib/sams/club-resolution";
 import {
@@ -370,17 +367,9 @@ export async function handleGetCurrentTabelle() {
 /** Homepage Heimspiele cards. Window is applied here, not at write time. */
 export async function handleGetHomeHeimspiele() {
   const document = await appHeimspieleRepository.get();
-  if (document) {
-    return {
-      games: selectHeimspieleCards(document.games),
-      updatedAt: document.updatedAt,
-    };
-  }
-
-  const matches = await appTermineRepository.query({ range: "future", homeOnly: true });
   return {
-    games: selectHeimspieleCards(buildHeimspieleProjection(matches)),
-    updatedAt: matches[0]?.updatedAt ?? new Date().toISOString(),
+    games: selectHeimspieleCards(document?.games ?? []),
+    updatedAt: document?.updatedAt ?? new Date().toISOString(),
   };
 }
 

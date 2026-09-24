@@ -32,21 +32,8 @@ type EventUpdateInput = z.infer<typeof eventUpdateDataSchema>;
 
 export async function handleGetUpcomingEvents(data?: { limit?: number }) {
   const snapshot = await readUpcomingEvents();
-  if (snapshot) {
-    const limit = data?.limit ?? 20;
-    return { items: snapshot.items.slice(0, limit), lastEvaluatedKey: undefined };
-  }
-
-  const result = await db()
-    .event.query.byType({ type: "event" })
-    .gte({ startDate: dayjs().toISOString() })
-    .go({ limit: data?.limit ?? 20 });
-  const items = parseServerArray(eventSchema, result.data, "Failed to parse upcoming events");
-
-  return {
-    items,
-    lastEvaluatedKey: result.cursor ?? undefined,
-  };
+  const limit = data?.limit ?? 20;
+  return { items: (snapshot?.items ?? []).slice(0, limit), lastEvaluatedKey: undefined };
 }
 
 export async function handleGetEventById(id: string) {

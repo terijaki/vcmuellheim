@@ -142,7 +142,7 @@ export class WebAppStack extends cdk.Stack {
         : lambda.Code.fromAsset("app/.output/server"),
       handler: "index.handler",
       runtime: lambda.Runtime.NODEJS_24_X,
-      timeout: cdk.Duration.seconds(30),
+      timeout: cdk.Duration.seconds(isProd ? 30 : 60),
       memorySize: 1024,
       logGroup,
       environment: lambdaEnvironment,
@@ -270,6 +270,22 @@ export class WebAppStack extends cdk.Stack {
           cachePolicy: staticAssetsCachePolicy,
           compress: true,
         },
+        // Feature-branch fixture seed. Prod has no behavior; the route 404s there anyway.
+        // Image downloads need a longer origin read timeout than the default SSR behavior.
+        ...(!isProd
+          ? {
+              "/api/dev/seed": {
+                origin: new origins.FunctionUrlOrigin(fnUrl, {
+                  readTimeout: cdk.Duration.seconds(60),
+                }),
+                viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+                cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+                originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+                responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
+              },
+            }
+          : {}),
         // Same-origin club logo proxy (provider URLs are not used as <img src>)
         "/api/sams/logos": {
           origin: lambdaOrigin,

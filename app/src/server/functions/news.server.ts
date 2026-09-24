@@ -29,9 +29,7 @@ type NewsInput = z.infer<typeof newsInputSchema>;
 
 export async function handleGetHomeNews() {
   const snapshot = await readLatestNews();
-  if (snapshot) return { items: snapshot.items };
-  const page = await getPublishedNews(8);
-  return { items: page.items };
+  return { items: snapshot?.items ?? [] };
 }
 
 export async function handleGetPublishedNews(data?: { limit?: number; cursor?: string }) {

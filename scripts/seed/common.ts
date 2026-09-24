@@ -1,4 +1,3 @@
-import "varlock/auto-load";
 import { execSync } from "node:child_process";
 import https from "node:https";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
