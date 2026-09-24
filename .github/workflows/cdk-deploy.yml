@@ -1,7 +1,7 @@
 name: CDK Deploy
 concurrency:
-  group: cdk-deploy
-  cancel-in-progress: false
+  group: cdk-deploy-${{ github.ref }}
+  cancel-in-progress: true
 
 on:
   workflow_dispatch:
@@ -61,6 +61,12 @@ jobs:
       - name: CDK Deploy
         run: |
           vp exec cdk deploy --require-approval never --all --outputs-file cdk-outputs.json
+
+      - name: Seed content database
+        if: github.ref != 'refs/heads/main'
+        env:
+          CDK_BRANCH_OVERWRITE: ${{ github.ref_name }}
+        run: vp run db:seed:ci
 
       - name: Seed SAMS provider events
         if: github.ref != 'refs/heads/main'
