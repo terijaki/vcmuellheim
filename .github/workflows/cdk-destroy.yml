@@ -102,7 +102,7 @@ jobs:
           CDK_DESTROY: "true"
         run: |
           echo "Destroying all stacks for branch: ${{ steps.branch.outputs.branch }}"
-          vp exec cdk destroy --all --force
+          vp exec cdk destroy --all --force --concurrency 8
 
       - name: Add destroy summary
         run: |
