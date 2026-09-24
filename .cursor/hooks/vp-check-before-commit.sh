@@ -2,9 +2,11 @@
 set -euo pipefail
 
 # Cursor project hooks run from the repository root.
+root="$(git rev-parse --show-toplevel)"
+vp="${root}/node_modules/.bin/vp"
 status_before=$(git status --porcelain 2>/dev/null || true)
 
-if ! vp check --fix; then
+if ! "$vp" check --fix; then
   printf '%s\n' \
     '{"permission":"deny","user_message":"Commit blocked: vp check --fix failed. Fix lint, format, or type errors before committing.","agent_message":"vp check --fix failed. Resolve the reported issues, then retry the commit."}'
   exit 2
