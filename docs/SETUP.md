@@ -94,7 +94,7 @@ vp test             # Run tests
 vpr verify      # Lint + typecheck + tests (full quality gate)
 
 vpr db:seed         # Seed dev DynamoDB with fake data
-vpr db:seed:ci      # Reset content table and re-seed (same as feature-branch CI)
+vpr db:seed:ci      # --reset: wipe content table and seed all entities (feature-branch CI)
 vpr db:seed:sams    # Publish mock SAMS provider events (dev only)
 
 Feature-branch CDK deploys run `db:seed:ci` after stack deploy so preview environments have CMS/content fixtures; `main` (production) is never seeded.

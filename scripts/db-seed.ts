@@ -6,6 +6,7 @@
  *
  * Usage:
  *   bun run db:seed                    # Seeds all entities
+ *   bun run db:seed --reset            # Cleanup + seed all entities (CI / fresh branch env)
  *   bun run db:seed --cleanup          # Cleanup only (validates prod protection)
  *   bun run db:seed --cleanup --members  # Cleanup + seed members
  *   bun run db:seed --events           # Seeds only events
@@ -31,17 +32,19 @@ import { seedSponsorsData } from "./seed/sponsors";
 import { seedTeamsData } from "./seed/teams";
 
 const args = process.argv.slice(2);
-const cleanupOnly = args.includes("--cleanup") && args.length === 1;
-const shouldCleanup = args.includes("--cleanup");
+const reset = args.includes("--reset");
+const cleanupOnly = args.includes("--cleanup") && args.length === 1 && !reset;
+const shouldCleanup = args.includes("--cleanup") || reset;
 
-const seedEvents = args.length === 0 || args.includes("--events");
-const seedVolunteerEvents = args.length === 0 || args.includes("--volunteer-events");
-const seedNews = args.length === 0 || args.includes("--news");
-const seedMembers = args.length === 0 || args.includes("--members");
-const seedTeams = args.length === 0 || args.includes("--teams");
-const seedLocations = args.length === 0 || args.includes("--locations");
-const seedSponsors = args.length === 0 || args.includes("--sponsors");
-const seedBus = args.length === 0 || args.includes("--bus");
+const seedAll = args.length === 0 || reset;
+const seedEvents = seedAll || args.includes("--events");
+const seedVolunteerEvents = seedAll || args.includes("--volunteer-events");
+const seedNews = seedAll || args.includes("--news");
+const seedMembers = seedAll || args.includes("--members");
+const seedTeams = seedAll || args.includes("--teams");
+const seedLocations = seedAll || args.includes("--locations");
+const seedSponsors = seedAll || args.includes("--sponsors");
+const seedBus = seedAll || args.includes("--bus");
 
 // Handle --user argument (email only — passwordless OTP authentication)
 const userArgIndex = args.indexOf("--user");
