@@ -11,6 +11,7 @@ import { z } from "zod";
 import {
   handleGetCurrentTabelle,
   handleGetCurrentTermine,
+  handleGetHomeHeimspiele,
   handleGetSamsMatches,
   handleGetSamsProjectionFreshness,
   handleGetSamsRankingByLeagueUuid,
@@ -28,6 +29,8 @@ export type { SamsMatchesInput } from "@utils/sams-matches";
 export type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
 export const getCurrentTabelleFn = createServerFn().handler(async () => handleGetCurrentTabelle());
+
+export const getHomeHeimspieleFn = createServerFn().handler(async () => handleGetHomeHeimspiele());
 
 export const getCurrentTermineFn = createServerFn()
   .validator(

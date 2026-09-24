@@ -9,6 +9,7 @@ import {
   resolveConfiguredSamsSportsclubUuids,
   resolveSyncedSeasonUuidFromTeams,
 } from "@/utils/sams";
+import { buildHeimspieleProjection } from "./build-heimspiele-projection";
 import { buildTabelleProjection } from "./build-tabelle-projection";
 import { buildTermineProjection } from "./build-termine-projection";
 import { APP_DATASET_CURRENT, seasonDatasetId } from "./sort-keys";
@@ -34,6 +35,7 @@ export async function rebuildAppProjections(
     await Promise.all([
       repos.appTabelle.replaceDataset(APP_DATASET_CURRENT, []),
       repos.appTermine.replaceDataset(APP_DATASET_CURRENT, []),
+      repos.appHeimspiele.delete(APP_DATASET_CURRENT),
     ]);
     return { seasonUuid: seasonUuid ?? null, tabelleLeagueCount: 0, termineMatchCount: 0 };
   }
@@ -98,12 +100,15 @@ export async function rebuildAppProjections(
     ...match,
     datasetId: historicalDatasetId,
   }));
+  const heimspieleGames = buildHeimspieleProjection(termineMatches);
 
   await Promise.all([
     repos.appTabelle.replaceDataset(APP_DATASET_CURRENT, tabelleLeagues),
     repos.appTabelle.replaceDataset(historicalDatasetId, historicalTabelle),
     repos.appTermine.replaceDataset(APP_DATASET_CURRENT, termineMatches),
     repos.appTermine.replaceDataset(historicalDatasetId, historicalTermine),
+    repos.appHeimspiele.put(APP_DATASET_CURRENT, heimspieleGames, { updatedAt, ttl }),
+    repos.appHeimspiele.put(historicalDatasetId, heimspieleGames, { updatedAt, ttl }),
   ]);
 
   return {

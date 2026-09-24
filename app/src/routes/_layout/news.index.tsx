@@ -7,16 +7,23 @@ import NewsCard from "@webapp/components/NewsCard";
 import { ServerCrash } from "lucide-react";
 import { useEffect } from "react";
 import { useNews } from "@/app/src/hooks/dataQueries";
+import { getPublishedNewsFn } from "@webapp/server/functions/news";
 
 export const Route = createFileRoute("/_layout/news/")({
+  loader: async () => {
+    const page = await getPublishedNewsFn({ data: { limit: 8 } });
+    return { news: page.items };
+  },
   component: RouteComponent,
 });
 
 const BATCH_SIZE = 8;
 
 function RouteComponent() {
+  const { news: initialNews } = Route.useLoaderData();
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage, error, isLoading } = useNews({
     limit: BATCH_SIZE,
+    initialItems: initialNews,
   });
   const news = data?.pages.flatMap((page) => page.items) ?? [];
 

@@ -129,6 +129,7 @@ function MatchesContent({
   const {
     data: matchesData,
     isLoading,
+    isFetching,
     isError,
   } = useSamsMatches({
     ...(matchesQueryOptions ?? { range: "future" }),
@@ -141,7 +142,7 @@ function MatchesContent({
   const isOffSeason = currentMonth >= 5 && currentMonth <= 9;
   const matches = matchesData?.matches ?? [];
 
-  if (isLoading && !matchesData) {
+  if ((isLoading && !matchesData) || (homeGamesOnly && isFetching)) {
     return (
       <Card>
         <CardTitle>Ligaspiele</CardTitle>

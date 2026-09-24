@@ -3,8 +3,8 @@ import { toLiveTickerDisplayMatches } from "../utils/liveTicker";
 import { useLiveTicker, useSamsTeams } from "./dataQueries";
 
 export function useHomeLiveTickerData() {
-  const { data: tickerData } = useLiveTicker();
-  const { data: samsTeamsData } = useSamsTeams();
+  const { data: tickerData, isPending: isTickerPending } = useLiveTicker();
+  const { data: samsTeamsData, isPending: isTeamsPending } = useSamsTeams();
   const liveMatches = tickerData?.liveMatches ?? [];
   const teams = samsTeamsData?.teams ?? [];
 
@@ -19,5 +19,6 @@ export function useHomeLiveTickerData() {
     ourMatches,
     hasMatchesToday,
     hasOpenMatches,
+    isPending: isTickerPending || isTeamsPending,
   };
 }

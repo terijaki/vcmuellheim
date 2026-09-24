@@ -5,6 +5,8 @@
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { memberSchema } from "@/lib/db/schemas";
+import { readPublicMembers, rebuildPublicMembers } from "@/lib/read-models/public-snapshots";
+import { handleGetFileUrls } from "./upload.server";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 import {
@@ -33,6 +35,18 @@ const memberUpdateDataSchema = memberSchema
 type MemberInput = z.infer<typeof memberInputSchema>;
 type MemberUpdateInput = z.infer<typeof memberUpdateDataSchema>;
 
+async function withAvatarUrls<T extends { avatarS3Key?: string }>(members: T[]) {
+  const keys = members.flatMap((member) => (member.avatarS3Key ? [member.avatarS3Key] : []));
+  const urls = keys.length > 0 ? await handleGetFileUrls(keys) : [];
+  let index = 0;
+  return members.map((member) => {
+    if (!member.avatarS3Key) return member;
+    const avatarUrl = urls[index];
+    index += 1;
+    return avatarUrl ? { ...member, avatarUrl } : member;
+  });
+}
+
 export async function handleListPublicMembers() {
   const result = await db().member.query.byType({ type: "member" }).go({ pages: "all" });
   const items = parseServerArray(publicMemberSchema, result.data, "Failed to parse member list");
@@ -40,6 +54,38 @@ export async function handleListPublicMembers() {
   return {
     items,
     lastEvaluatedKey: result.cursor ?? undefined,
+  };
+}
+
+export async function handleGetHomeMembers() {
+  const snapshot = await readPublicMembers();
+  const source = snapshot ?? {
+    items: (await handleListPublicMembers()).items,
+    board: [] as Awaited<ReturnType<typeof handleListPublicMembers>>["items"],
+    trainers: [] as Awaited<ReturnType<typeof handleListPublicMembers>>["items"],
+    officials: [] as Awaited<ReturnType<typeof handleListPublicMembers>>["items"],
+  };
+  const grouped = snapshot
+    ? source
+    : {
+        items: source.items,
+        board: source.items.filter((member) => member.isBoardMember),
+        trainers: source.items.filter((member) => member.isTrainer),
+        officials: source.items.filter((member) => !member.isBoardMember && member.roleTitle),
+      };
+  const items = await withAvatarUrls(grouped.items);
+  const byId = new Map(items.map((member) => [member.id, member]));
+  const pick = (group: typeof grouped.board) =>
+    group.flatMap((member) => {
+      const signed = byId.get(member.id);
+      return signed ? [signed] : [];
+    });
+
+  return {
+    items,
+    board: pick(grouped.board),
+    trainers: pick(grouped.trainers),
+    officials: pick(grouped.officials),
   };
 }
 
@@ -65,6 +111,7 @@ export async function handleCreateMember(data: MemberInput) {
   });
 
   await db().member.create(member).go();
+  await rebuildPublicMembers();
 
   return member;
 }
@@ -103,6 +150,7 @@ export async function handleUpdateMember(id: string, updates: MemberUpdateInput,
     : null;
 
   if (!member) throw new Error("Member not found");
+  await rebuildPublicMembers();
   return member;
 }
 
@@ -119,6 +167,7 @@ export async function handleDeleteMember(id: string) {
   }
 
   await db().member.delete({ id }).go();
+  await rebuildPublicMembers();
 
   return { success: true as const };
 }

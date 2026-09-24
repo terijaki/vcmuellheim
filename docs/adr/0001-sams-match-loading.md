@@ -33,15 +33,23 @@ side; `isHomeGame` is stored on each Termine row for Heimspiele filters.
 
 ## SSR loading strategy
 
-| Route                 | Loader                                     | Client refresh                                   |
-| --------------------- | ------------------------------------------ | ------------------------------------------------ |
-| `/termine`            | `getCurrentTermineFn({ range: "future" })` | `useSamsMatches(hookOptions)`                    |
-| `/tabelle`            | `getCurrentTabelleFn` + past Termine       | `useSamsMatches(hookOptions)`                    |
-| `/teams/$slug`        | `loadSamsMatchesForSsrFn({ team })`        | `useSamsMatches(hookOptions)`                    |
-| Homepage (Heimspiele) | none                                       | `useSamsMatches({ range: "future", limit: 50 })` |
+| Route                 | Loader                                     | Client refresh                |
+| --------------------- | ------------------------------------------ | ----------------------------- |
+| `/termine`            | `getCurrentTermineFn({ range: "future" })` | `useSamsMatches(hookOptions)` |
+| `/tabelle`            | `getCurrentTabelleFn` + past Termine       | `useSamsMatches(hookOptions)` |
+| `/teams/$slug`        | `loadSamsMatchesForSsrFn({ team })`        | `useSamsMatches(hookOptions)` |
+| Homepage (Heimspiele) | `getHomeHeimspieleFn`                      | `useHomeHeimspiele`           |
 
 React Query passes cached loader data as `initialData` and refetches in the background
 when stale. `useSamsMatches` uses a **5 minute** `staleTime`.
+
+The homepage does not filter 50 future matches in the browser. SAMS sync writes a
+Heimspiele card document (`META#heimspiele`) with league name, opponent, hall, and
+team UUIDs. The 14-day window and the four date-location cap are applied when that
+document is read, because the window depends on the current day. Content sections
+(events, news, sponsors, public members) are separate documents on the content table,
+rewritten when those records are saved. `bun run db:rebuild-public-reads` fills them
+once from existing rows after deploy. There is no schema migration of source items.
 
 The ICS calendar at `/ics/$teamSlug` is a TanStack Start **server route**
 (`server.handlers.GET` only). Importing `*.server.ts` there is allowed.

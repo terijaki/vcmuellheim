@@ -10,6 +10,7 @@ import {
   handleCheckProxyEmail,
   handleCreateMember,
   handleDeleteMember,
+  handleGetHomeMembers,
   handleGetTrainers,
   handleListAdminMembers,
   handleListPublicMembers,
@@ -22,6 +23,8 @@ export const publicMemberSchema = memberSchema.omit({ privateEmail: true, authRo
 export type PublicMember = z.infer<typeof publicMemberSchema>;
 
 export const listMembersFn = createServerFn().handler(async () => handleListPublicMembers());
+
+export const getHomeMembersFn = createServerFn().handler(async () => handleGetHomeMembers());
 
 export const getTrainersFn = createServerFn().handler(async () => handleGetTrainers());
 

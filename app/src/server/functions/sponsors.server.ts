@@ -5,6 +5,8 @@
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { sponsorSchema } from "@/lib/db/schemas";
+import { readSponsors, rebuildSponsors } from "@/lib/read-models/public-snapshots";
+import { handleGetFileUrls } from "./upload.server";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 import { resolveNullableUpdates } from "./patch-helpers";
@@ -24,6 +26,21 @@ const sponsorUpdateDataSchema = sponsorSchema
 type SponsorInput = z.infer<typeof sponsorInputSchema>;
 type SponsorUpdateInput = z.infer<typeof sponsorUpdateDataSchema>;
 
+export async function handleListPublicSponsors() {
+  const snapshot = await readSponsors();
+  const source = snapshot ?? (await handleListSponsors());
+  const keys = source.items.flatMap((sponsor) => (sponsor.logoS3Key ? [sponsor.logoS3Key] : []));
+  const urls = keys.length > 0 ? await handleGetFileUrls(keys) : [];
+  let index = 0;
+  const items = source.items.map((sponsor) => {
+    if (!sponsor.logoS3Key) return sponsor;
+    const logoUrl = urls[index];
+    index += 1;
+    return logoUrl ? { ...sponsor, logoUrl } : sponsor;
+  });
+  return { items };
+}
+
 export async function handleListSponsors() {
   const result = await db().sponsor.query.byType({ type: "sponsor" }).go({ pages: "all" });
   const items = parseServerArray(sponsorSchema, result.data, "Failed to parse sponsor list");
@@ -41,6 +58,7 @@ export async function handleCreateSponsor(data: SponsorInput) {
   });
 
   await db().sponsor.create(sponsor).go();
+  await rebuildSponsors();
 
   return sponsor;
 }
@@ -70,10 +88,12 @@ export async function handleUpdateSponsor(id: string, updates: SponsorUpdateInpu
     : null;
 
   if (!sponsor) throw new Error("Sponsor not found");
+  await rebuildSponsors();
   return sponsor;
 }
 
 export async function handleDeleteSponsor(id: string) {
   await db().sponsor.delete({ id }).go();
+  await rebuildSponsors();
   return { success: true as const };
 }

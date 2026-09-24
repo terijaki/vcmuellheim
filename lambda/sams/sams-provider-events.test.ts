@@ -56,6 +56,11 @@ function createMockRepos(): SamsRepositories {
       query: vi.fn().mockResolvedValue([]),
       replaceDataset: vi.fn().mockResolvedValue([]),
     },
+    appHeimspiele: {
+      get: vi.fn().mockResolvedValue(null),
+      put: vi.fn().mockResolvedValue(null),
+      delete: vi.fn().mockResolvedValue(undefined),
+    },
   } satisfies SamsRepositories;
 }
 
