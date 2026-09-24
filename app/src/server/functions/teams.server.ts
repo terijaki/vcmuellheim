@@ -6,6 +6,7 @@ import { slugify } from "@utils/slugify";
 import { z } from "zod";
 import { db } from "@/lib/db/electrodb-client";
 import { teamSchema } from "@/lib/db/schemas";
+import { rebuildUpcomingEvents } from "@/lib/read-models/public-snapshots";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
 import { resolveNullableUpdates } from "./patch-helpers";
@@ -52,6 +53,7 @@ export async function handleCreateTeam(data: TeamInput) {
   });
 
   await db().team.create(team).go();
+  await rebuildUpcomingEvents();
 
   return team;
 }
@@ -83,10 +85,12 @@ export async function handleUpdateTeam(id: string, updates: TeamUpdateInput) {
     : null;
 
   if (!team) throw new Error("Team not found");
+  await rebuildUpcomingEvents();
   return team;
 }
 
 export async function handleDeleteTeam(id: string) {
   await db().team.delete({ id }).go();
+  await rebuildUpcomingEvents();
   return { success: true as const };
 }

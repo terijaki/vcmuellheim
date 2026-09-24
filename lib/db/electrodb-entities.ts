@@ -454,6 +454,33 @@ export const VolunteerTokenEntity = new Entity({
   },
 } as const);
 
+// ---------------------------------------------------------------------------
+// Public snapshot — one homepage read document per section
+// ---------------------------------------------------------------------------
+
+export const PublicSnapshotEntity = new Entity({
+  model: {
+    entity: "publicsnapshot",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    section: {
+      type: ["events", "news", "sponsors", "members"] as const,
+      required: true,
+    },
+    type: { type: "string", required: true, default: () => "publicSnapshot" as const },
+    payload: { type: "any", required: true },
+    updatedAt: { type: "string", required: true },
+  },
+  indexes: {
+    bySection: {
+      pk: { field: "pk", composite: ["section"] },
+      sk: { field: "sk", composite: [] },
+    },
+  },
+} as const);
+
 /** All content entities — useful for iteration (e.g. in tests) */
 export const ContentEntities = {
   news: NewsEntity,
@@ -467,6 +494,7 @@ export const ContentEntities = {
   volunteerEvent: VolunteerEventEntity,
   volunteerSignup: VolunteerSignupEntity,
   volunteerToken: VolunteerTokenEntity,
+  publicSnapshot: PublicSnapshotEntity,
 } as const;
 
 export type ContentEntityName = keyof typeof ContentEntities;

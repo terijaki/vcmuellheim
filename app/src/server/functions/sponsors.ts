@@ -9,11 +9,16 @@ import { requireAuthMiddleware } from "../../middleware";
 import {
   handleCreateSponsor,
   handleDeleteSponsor,
+  handleListPublicSponsors,
   handleListSponsors,
   handleUpdateSponsor,
 } from "./sponsors.server";
 
 export const listSponsorsFn = createServerFn().handler(async () => handleListSponsors());
+
+export const listPublicSponsorsFn = createServerFn().handler(async () =>
+  handleListPublicSponsors(),
+);
 
 export const createSponsorFn = createServerFn()
   .middleware([requireAuthMiddleware])

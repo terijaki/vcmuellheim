@@ -10,6 +10,7 @@ import {
   handleCreateNews,
   handleDeleteNews,
   handleGetGalleryImages,
+  handleGetHomeNews,
   handleGetNewsById,
   handleGetPublishedNews,
   handleListAllNews,
@@ -25,6 +26,8 @@ const newsInputSchema = newsSchema.omit({
   type: true,
   slug: true,
 });
+
+export const getHomeNewsFn = createServerFn().handler(async () => handleGetHomeNews());
 
 export const getPublishedNewsFn = createServerFn()
   .validator(

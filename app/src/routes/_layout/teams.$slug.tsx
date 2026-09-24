@@ -40,6 +40,7 @@ import {
   loadSamsMatchesForSsrFn,
   peekSamsRankingsCacheFn,
 } from "@webapp/server/functions/sams";
+import { getHomeMembersFn } from "@webapp/server/functions/members";
 import { getTeamBySlugFn } from "@webapp/server/functions/teams";
 import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
@@ -49,19 +50,26 @@ dayjs.extend(weekday);
 export const Route = createFileRoute("/_layout/teams/$slug")({
   loader: async ({ params }) => {
     const { slug } = params;
-    const [team, samsTeamsResult] = await Promise.all([
+    const [team, samsTeamsResult, members] = await Promise.all([
       getTeamBySlugFn({ data: { slug } }),
       listSamsTeamsFn(),
+      getHomeMembersFn(),
     ]);
 
     if (!team) {
-      return { team: null, rankings: undefined, matchesQueryOptions: undefined };
+      return { team: null, members, rankings: undefined, matchesQueryOptions: undefined };
     }
 
     const samsTeam = samsTeamsResult.teams.find((t) => t.uuid === team.sbvvTeamId);
 
     if (!samsTeam) {
-      return { team, samsTeam: undefined, rankings: undefined, matchesQueryOptions: undefined };
+      return {
+        team,
+        members,
+        samsTeam: undefined,
+        rankings: undefined,
+        matchesQueryOptions: undefined,
+      };
     }
 
     const [rankingsResult, matchesSsr] = await Promise.allSettled([
@@ -75,7 +83,7 @@ export const Route = createFileRoute("/_layout/teams/$slug")({
     const matchesQueryOptions: SamsMatchesHookOptions =
       matchesSsr.status === "fulfilled" ? matchesSsr.value.hookOptions : { team: samsTeam.uuid };
 
-    return { team, samsTeam, rankings, matchesQueryOptions };
+    return { team, members, samsTeam, rankings, matchesQueryOptions };
   },
   component: RouteComponent,
 });
@@ -83,7 +91,7 @@ export const Route = createFileRoute("/_layout/teams/$slug")({
 function RouteComponent() {
   const { slug } = Route.useParams();
   const loaderData = Route.useLoaderData();
-  const { data: team, isLoading, error } = useTeamBySlug(slug);
+  const { data: team, isLoading, error } = useTeamBySlug(slug, loaderData.team ?? undefined);
 
   if (isLoading) {
     return (
@@ -110,7 +118,7 @@ function RouteComponent() {
           <TeamSchedule team={team} />
         </Suspense>
         <Suspense fallback={<CenteredLoader text="Lade Trainer..." />}>
-          <TeamTrainers team={team} />
+          <TeamTrainers team={team} initialMembers={loaderData.members} />
         </Suspense>
         <Suspense fallback={null}>
           <TeamRoster teamUuid={loaderData.samsTeam?.uuid} />
@@ -293,8 +301,16 @@ function TeamSchedule({ team }: { team: NonNullable<ReturnType<typeof useTeamByS
   );
 }
 
-function TeamTrainers({ team }: { team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]> }) {
-  const { data: members } = useMembers();
+function TeamTrainers({
+  team,
+  initialMembers,
+}: {
+  team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]>;
+  initialMembers?: Awaited<ReturnType<typeof useMembers>>["data"];
+}) {
+  const { data: members } = useMembers(
+    initialMembers ? { initialData: initialMembers } : undefined,
+  );
 
   const trainers = team.trainerIds
     ?.map((id) => members?.items.find((m) => m.id === id))

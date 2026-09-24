@@ -19,9 +19,11 @@ import {
   TeamEntity,
   VolunteerEventEntity,
   VolunteerSignupEntity,
+  PublicSnapshotEntity,
   VolunteerTokenEntity,
 } from "./electrodb-entities";
 import {
+  AppHeimspieleEntity,
   AppTabelleLeagueEntity,
   AppTermineMatchEntity,
   SamsClubEntity,
@@ -31,8 +33,10 @@ import {
   SamsTeamEntity,
 } from "./sams-electrodb-entities";
 import {
+  appHeimspieleSchema,
   appTabelleLeagueSchema,
   appTermineMatchSchema,
+  publicSnapshotSchema,
   busSchema,
   eventSchema,
   locationSchema,
@@ -204,6 +208,10 @@ describe("SAMS ElectroDB ↔ Zod drift detection", () => {
   it("AppTermineMatch entity attributes match appTermineMatchSchema", () => {
     checkDrift("AppTermineMatch", appTermineMatchSchema, AppTermineMatchEntity);
   });
+
+  it("AppHeimspiele entity attributes match appHeimspieleSchema", () => {
+    checkDrift("AppHeimspiele", appHeimspieleSchema, AppHeimspieleEntity);
+  });
 });
 
 describe("Volunteer ElectroDB ↔ Zod drift detection", () => {
@@ -217,5 +225,9 @@ describe("Volunteer ElectroDB ↔ Zod drift detection", () => {
 
   it("VolunteerToken entity attributes match volunteerTokenSchema", () => {
     checkDrift("VolunteerToken", volunteerTokenSchema, VolunteerTokenEntity);
+  });
+
+  it("PublicSnapshot entity attributes match publicSnapshotSchema", () => {
+    checkDrift("PublicSnapshot", publicSnapshotSchema, PublicSnapshotEntity);
   });
 });

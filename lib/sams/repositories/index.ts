@@ -5,6 +5,11 @@ export {
   appTabelleRepository,
 } from "./app-tabelle-repository";
 export {
+  AppHeimspieleRepository,
+  createAppHeimspieleRepository,
+  appHeimspieleRepository,
+} from "./app-heimspiele-repository";
+export {
   AppTermineRepository,
   createAppTermineRepository,
   appTermineRepository,

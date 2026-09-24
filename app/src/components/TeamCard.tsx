@@ -21,7 +21,9 @@ import MapsLink from "./MapsLink";
 dayjs.locale(de);
 dayjs.extend(weekday);
 
-export default function TeamCard(props: Team) {
+export default function TeamCard(
+  props: Team & { initialMembers?: Awaited<ReturnType<typeof useMembers>>["data"] },
+) {
   const {
     id,
     slug,
@@ -37,7 +39,9 @@ export default function TeamCard(props: Team) {
   } = props;
 
   const teamContext = useTeamContext();
-  const { data: members } = useMembers();
+  const { data: members } = useMembers(
+    props.initialMembers ? { initialData: props.initialMembers } : undefined,
+  );
   const { data: locations } = useLocations();
 
   const coaches = trainerIds

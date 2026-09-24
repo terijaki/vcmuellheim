@@ -11,18 +11,24 @@ import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 import { SAMS_MATCHES_CACHE_TTL_MS } from "@utils/sams-api";
 import { getEventByIdFn, getUpcomingEventsFn } from "../server/functions/events";
 import { listLocationsFn } from "../server/functions/locations";
-import { listMembersFn } from "../server/functions/members";
+import { getHomeMembersFn } from "../server/functions/members";
 
 // Server functions
-import { getGalleryImagesFn, getNewsByIdFn, getPublishedNewsFn } from "../server/functions/news";
 import {
+  getGalleryImagesFn,
+  getHomeNewsFn,
+  getNewsByIdFn,
+  getPublishedNewsFn,
+} from "../server/functions/news";
+import {
+  getHomeHeimspieleFn,
   getSamsMatchesFn,
   getSamsRankingByLeagueUuidFn,
   getSamsRosterByTeamUuidFn,
   getSamsTickerFn,
   listSamsTeamsFn,
 } from "../server/functions/sams";
-import { listSponsorsFn } from "../server/functions/sponsors";
+import { listPublicSponsorsFn } from "../server/functions/sponsors";
 import { getTeamBySlugFn, listTeamsFn } from "../server/functions/teams";
 import { getFileUrlFn, getFileUrlsFn } from "../server/functions/upload";
 
@@ -30,12 +36,36 @@ import { getFileUrlFn, getFileUrlsFn } from "../server/functions/upload";
 // News
 // ============================================================================
 
-export const useNews = ({ limit = 50 }: { limit?: number } = {}) => {
+export const useHomeNews = (options?: {
+  initialData?: Awaited<ReturnType<typeof getHomeNewsFn>>;
+}) => {
+  return useQuery({
+    queryKey: ["homeNews"],
+    queryFn: () => getHomeNewsFn(),
+    initialData: options?.initialData,
+    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
+  });
+};
+
+export const useNews = ({
+  limit = 50,
+  initialItems,
+}: {
+  limit?: number;
+  initialItems?: Awaited<ReturnType<typeof getPublishedNewsFn>>["items"];
+} = {}) => {
   return useInfiniteQuery({
     queryKey: ["news", limit],
     queryFn: ({ pageParam }) => getPublishedNewsFn({ data: { limit, cursor: pageParam } }),
     getNextPageParam: (lastPage) => lastPage.lastEvaluatedKey,
     initialPageParam: undefined as PaginationCursor | undefined,
+    initialData: initialItems
+      ? {
+          pages: [{ items: initialItems, lastEvaluatedKey: undefined }],
+          pageParams: [undefined],
+        }
+      : undefined,
+    initialDataUpdatedAt: initialItems ? Date.now() : undefined,
   });
 };
 
@@ -65,10 +95,14 @@ export const useGalleryImages = ({
 // Events
 // ============================================================================
 
-export const useEvents = () => {
+export const useEvents = (options?: {
+  initialData?: Awaited<ReturnType<typeof getUpcomingEventsFn>>;
+}) => {
   return useQuery({
     queryKey: ["events"],
     queryFn: () => getUpcomingEventsFn(),
+    initialData: options?.initialData,
+    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
   });
 };
 
@@ -84,18 +118,29 @@ export const useEventById = (id: string) => {
 // Teams
 // ============================================================================
 
-export const useTeams = () => {
+export const useTeams = (options?: {
+  enabled?: boolean;
+  initialData?: Awaited<ReturnType<typeof listTeamsFn>>;
+}) => {
   return useQuery({
     queryKey: ["teams"],
     queryFn: () => listTeamsFn(),
+    enabled: options?.enabled ?? true,
+    initialData: options?.initialData,
+    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
   });
 };
 
-export const useTeamBySlug = (slug: string) => {
+export const useTeamBySlug = (
+  slug: string,
+  initialData?: Awaited<ReturnType<typeof getTeamBySlugFn>>,
+) => {
   return useQuery({
     queryKey: ["teams", "slug", slug],
     queryFn: () => getTeamBySlugFn({ data: { slug } }),
     enabled: !!slug,
+    initialData,
+    initialDataUpdatedAt: initialData ? Date.now() : undefined,
   });
 };
 
@@ -103,10 +148,14 @@ export const useTeamBySlug = (slug: string) => {
 // Members
 // ============================================================================
 
-export const useMembers = () => {
+export const useMembers = (options?: {
+  initialData?: Awaited<ReturnType<typeof getHomeMembersFn>>;
+}) => {
   return useQuery({
-    queryKey: ["members"],
-    queryFn: () => listMembersFn(),
+    queryKey: ["homeMembers"],
+    queryFn: () => getHomeMembersFn(),
+    initialData: options?.initialData,
+    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
   });
 };
 
@@ -114,10 +163,27 @@ export const useMembers = () => {
 // Sponsors
 // ============================================================================
 
-export const useSponsors = () => {
+export const useSponsors = (options?: {
+  initialData?: Awaited<ReturnType<typeof listPublicSponsorsFn>>;
+}) => {
   return useQuery({
-    queryKey: ["sponsors"],
-    queryFn: () => listSponsorsFn(),
+    queryKey: ["sponsors", "public"],
+    queryFn: () => listPublicSponsorsFn(),
+    initialData: options?.initialData,
+    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
+  });
+};
+
+export const useHomeHeimspiele = (options?: {
+  initialData?: Awaited<ReturnType<typeof getHomeHeimspieleFn>>;
+}) => {
+  return useQuery({
+    queryKey: ["homeHeimspiele"],
+    queryFn: () => getHomeHeimspieleFn(),
+    staleTime: SAMS_MATCHES_CACHE_TTL_MS,
+    refetchOnWindowFocus: false,
+    initialData: options?.initialData,
+    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
   });
 };
 

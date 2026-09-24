@@ -4,6 +4,7 @@ import {
   BackgroundImage,
   Box,
   Button,
+  Center,
   Container,
   Flex,
   Group,
@@ -15,14 +16,23 @@ import {
   Text,
 } from "@mantine/core";
 import { Club } from "@project.config";
-import { useFileUrl, useSponsors } from "../../hooks/dataQueries";
+import { useSponsors } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default function HomeSponsors({ showFallback }: { showFallback?: boolean }) {
-  const { data } = useSponsors();
+export default function HomeSponsors({
+  showFallback,
+  initialSponsors,
+}: {
+  showFallback?: boolean;
+  initialSponsors?: Awaited<ReturnType<typeof useSponsors>>["data"];
+}) {
+  const { data, isPending } = useSponsors(
+    initialSponsors ? { initialData: initialSponsors } : undefined,
+  );
   const sponsors = data?.items || [];
-  if (sponsors.length === 0 && !showFallback) return null;
+  const isLoading = isPending && !data;
+  if (!isLoading && sponsors.length === 0 && !showFallback) return null;
 
   return (
     <Box bg="blumine">
@@ -36,7 +46,13 @@ export default function HomeSponsors({ showFallback }: { showFallback?: boolean 
         <Container size="xl" py="md" c="white">
           <Stack gap="xs">
             <SectionHeading text={sponsors.length === 1 ? "Sponsor" : "Sponsoren"} color="white" />
-            <Sponsors sponsors={sponsors} showFallback={showFallback} />
+            {isLoading ? (
+              <Center>
+                <Loader type="dots" color="white" />
+              </Center>
+            ) : (
+              <Sponsors sponsors={sponsors} showFallback={showFallback} />
+            )}
           </Stack>
         </Container>
         <Overlay
@@ -96,21 +112,10 @@ function Sponsors({ sponsors, showFallback }: { sponsors: Sponsor[]; showFallbac
   );
 }
 
-function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
-  const { name, description, logoS3Key, websiteUrl } = sponsor;
-  const { data: logoUrl, isLoading } = useFileUrl(logoS3Key);
+function SponsorCard({ sponsor }: { sponsor: Sponsor & { logoUrl?: string } }) {
+  const { name, description, websiteUrl, logoUrl } = sponsor;
 
   if (!name) return null;
-
-  if (isLoading) {
-    return (
-      <Stack w={220} maw={"50vw"} gap={6} align="center">
-        <Flex w={180} h={80} align="center" justify="center">
-          <Loader color="white" />
-        </Flex>
-      </Stack>
-    );
-  }
 
   const visual = (
     <Flex w={180} h={80} maw={"50vw"} align="center" justify="center">

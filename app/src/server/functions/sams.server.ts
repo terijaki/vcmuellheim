@@ -20,12 +20,17 @@ import {
   RankingResponseSchema,
 } from "@/lambda/sams/types";
 import {
+  appHeimspieleRepository,
   appTabelleRepository,
   appTermineRepository,
   samsRankingProjectionRepository,
   samsScheduleProjectionRepository,
 } from "@/lib/sams/repositories";
 import type { AppTermineMatchInput } from "@/lib/db/schemas";
+import {
+  buildHeimspieleProjection,
+  selectHeimspieleCards,
+} from "@/lib/sams/app-projections/build-heimspiele-projection";
 import { calculateLastResultCap } from "@webapp/utils/ranking";
 import { resolveConfiguredSamsClubsFromRecords } from "@/lib/sams/club-resolution";
 import {
@@ -362,6 +367,23 @@ export async function handleGetCurrentTabelle() {
   };
 }
 
+/** Homepage Heimspiele cards. Window is applied here, not at write time. */
+export async function handleGetHomeHeimspiele() {
+  const document = await appHeimspieleRepository.get();
+  if (document) {
+    return {
+      games: selectHeimspieleCards(document.games),
+      updatedAt: document.updatedAt,
+    };
+  }
+
+  const matches = await appTermineRepository.query({ range: "future", homeOnly: true });
+  return {
+    games: selectHeimspieleCards(buildHeimspieleProjection(matches)),
+    updatedAt: matches[0]?.updatedAt ?? new Date().toISOString(),
+  };
+}
+
 /** Current Termine read model — date-range query against the application projection. */
 export async function handleGetCurrentTermine(input?: {
   range?: "past" | "future";
@@ -376,15 +398,9 @@ export async function handleGetCurrentTermine(input?: {
     teamUuid: input?.team,
   });
 
-  // Prefer full owned-team set from Tabelle so UI metadata stays complete even when
-  // Termine is filtered (home-only / team / limit).
-  const tabelle = await appTabelleRepository.listByDataset();
-  const ownedTeamUuids = [
-    ...new Set([
-      ...tabelle.flatMap((league) => league.ownedTeamUuids),
-      ...matches.flatMap((match) => match.ownedTeamUuids),
-    ]),
-  ].sort((a, b) => a.localeCompare(b));
+  const ownedTeamUuids = [...new Set(matches.flatMap((match) => match.ownedTeamUuids))].sort(
+    (a, b) => a.localeCompare(b),
+  );
 
   const response = parseServerData(
     LeagueMatchesResponseSchema,

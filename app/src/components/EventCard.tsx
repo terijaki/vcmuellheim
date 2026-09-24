@@ -6,11 +6,13 @@ import type { Event } from "@/lib/db/types";
 import { useTeams } from "../hooks/dataQueries";
 import { CardLink } from "./CustomLink";
 
-export default function EventCard(props: Event & { dark?: boolean }) {
-  const { id, title, startDate, endDate, location, teamIds } = props;
+export default function EventCard(props: Event & { dark?: boolean; teamNames?: string[] }) {
+  const { id, title, startDate, endDate, location, teamIds, teamNames } = props;
   const [isHovering, setIsHovering] = useState(false);
-  const { data: teamsData } = useTeams();
-  const teamsList = (teamIds && teamsData?.items) || [];
+  const { data: teamsData } = useTeams({ enabled: !teamNames });
+  const resolvedTeamNames =
+    teamNames ??
+    (teamsData?.items ?? []).filter((team) => teamIds?.includes(team.id)).map((team) => team.name);
 
   let dateDisplay = dayjs(startDate).format("DD.MM.YYYY HH:mm [Uhr]");
   if (endDate) {
@@ -46,12 +48,9 @@ export default function EventCard(props: Event & { dark?: boolean }) {
               {location}
             </Text>
           )}
-          {teamsList.length > 0 && (
+          {resolvedTeamNames.length > 0 && (
             <Text size="sm" c="dimmed">
-              {teamsList
-                .map((team) => (teamIds?.includes(team.id) ? team.name : null))
-                .filter(Boolean)
-                .join(", ")}
+              {resolvedTeamNames.join(", ")}
             </Text>
           )}
         </Stack>

@@ -17,8 +17,14 @@ import { useMembers } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default function HomeKontakt() {
-  const { data: members } = useMembers();
+export default function HomeKontakt({
+  initialMembers,
+}: {
+  initialMembers?: Awaited<ReturnType<typeof useMembers>>["data"];
+} = {}) {
+  const { data: members } = useMembers(
+    initialMembers ? { initialData: initialMembers } : undefined,
+  );
 
   const treasurer = members?.items.find(
     (member) =>

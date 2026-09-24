@@ -1,19 +1,34 @@
 import type { PublicMember } from "@webapp/server/functions/members";
-import { Container, Group, Stack } from "@mantine/core";
-import { shuffleArray } from "@utils/shuffleArray";
+import { Container, Group, Skeleton, Stack } from "@mantine/core";
 import { useMembers } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import MemberCard from "../MemberCard";
 import ScrollAnchor from "./ScrollAnchor";
 
-export default function HomeMembers() {
-  const { data, isLoading } = useMembers();
-  if (isLoading) return null;
-  const members = data?.items || [];
-
-  const boardMembers = members.filter((member) => member.isBoardMember);
-  const trainers = members.filter((member) => member.isTrainer);
-  const otherMembers = members.filter((member) => !member.isBoardMember && member.roleTitle);
+export default function HomeMembers({
+  initialMembers,
+}: {
+  initialMembers?: Awaited<ReturnType<typeof useMembers>>["data"];
+} = {}) {
+  const { data, isPending } = useMembers(
+    initialMembers ? { initialData: initialMembers } : undefined,
+  );
+  if (isPending && !data) {
+    return (
+      <Container size="md" py="xl" px={{ base: "lg", md: "xl" }}>
+        <Stack>
+          <Skeleton height={28} width={180} />
+          <Group>
+            <Skeleton height={72} width={208} />
+            <Skeleton height={72} width={208} />
+          </Group>
+        </Stack>
+      </Container>
+    );
+  }
+  const boardMembers = data?.board || [];
+  const trainers = data?.trainers || [];
+  const otherMembers = data?.officials || [];
 
   return (
     <Container size="md" py="xl" px={{ base: "lg", md: "xl" }}>
@@ -28,7 +43,7 @@ export default function HomeMembers() {
         {trainers.length > 0 && (
           <Stack>
             <SectionHeading text="Trainer & Betreuer" />
-            <MemberList members={shuffleArray(trainers)} />
+            <MemberList members={trainers} />
           </Stack>
         )}
         {otherMembers.length > 0 && (

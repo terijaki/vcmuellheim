@@ -23,12 +23,14 @@ import {
   NewsEntity,
   SponsorEntity,
   TeamEntity,
+  PublicSnapshotEntity,
   VolunteerEventEntity,
   VolunteerSignupEntity,
   VolunteerTokenEntity,
 } from "./electrodb-entities";
 import { getContentTableName, getSamsTableName } from "./env";
 import {
+  AppHeimspieleEntity,
   AppTabelleLeagueEntity,
   AppTermineMatchEntity,
   SamsClubEntity,
@@ -51,6 +53,7 @@ const entityMap = {
   volunteerEvent: VolunteerEventEntity,
   volunteerSignup: VolunteerSignupEntity,
   volunteerToken: VolunteerTokenEntity,
+  publicSnapshot: PublicSnapshotEntity,
 } as const;
 
 /**
@@ -88,6 +91,7 @@ const samsEntityMap = {
   ranking: SamsRankingEntity,
   appTabelle: AppTabelleLeagueEntity,
   appTermine: AppTermineMatchEntity,
+  appHeimspiele: AppHeimspieleEntity,
 } as const;
 
 /**

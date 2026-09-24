@@ -370,6 +370,50 @@ export const appTermineMatchSchema = z.object({
 
 export type AppTermineMatchInput = z.infer<typeof appTermineMatchSchema>;
 
+/** Sort key for the single Heimspiele card document inside a dataset partition. */
+export const HEIMSPIELE_DOCUMENT_KEY = "META#heimspiele" as const;
+
+/** One future home game, shaped for the homepage card. The 14-day window is applied at read time. */
+export const heimspielCardSchema = z.object({
+  matchUuid: z.string().min(1),
+  date: z.string().optional(),
+  time: z.string().optional(),
+  leagueUuid: z.string().min(1).optional(),
+  leagueName: z.string().min(1).optional(),
+  team1Uuid: z.string().min(1),
+  team2Uuid: z.string().min(1),
+  opponentName: z.string().min(1),
+  locationName: z.string().optional(),
+  locationUuid: z.string().optional(),
+});
+
+export type HeimspielCard = z.infer<typeof heimspielCardSchema>;
+
+export const appHeimspieleSchema = z.object({
+  datasetId: z.string().min(1),
+  documentKey: z.literal(HEIMSPIELE_DOCUMENT_KEY).default(HEIMSPIELE_DOCUMENT_KEY),
+  type: z.literal("appheimspiele").default("appheimspiele"),
+  games: z.array(heimspielCardSchema).default([]),
+  updatedAt: z.iso.datetime(),
+  ttl: z.number().int().positive(),
+});
+
+export type AppHeimspieleInput = z.infer<typeof appHeimspieleSchema>;
+
+/** Content-table section keys for homepage read documents. */
+export const publicSnapshotSectionSchema = z.enum(["events", "news", "sponsors", "members"]);
+
+export type PublicSnapshotSection = z.infer<typeof publicSnapshotSectionSchema>;
+
+export const publicSnapshotSchema = z.object({
+  section: publicSnapshotSectionSchema,
+  type: z.literal("publicSnapshot").default("publicSnapshot"),
+  payload: z.unknown(),
+  updatedAt: z.iso.datetime(),
+});
+
+export type PublicSnapshotInput = z.infer<typeof publicSnapshotSchema>;
+
 // ---------------------------------------------------------------------------
 // Volunteer Event Planner schemas
 // ---------------------------------------------------------------------------
