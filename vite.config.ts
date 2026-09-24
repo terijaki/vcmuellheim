@@ -112,14 +112,9 @@ export default defineConfig({
         command: "bun run db:seed:sams",
         cache: false,
       },
-      "seed-ci": {
-        command: "bun run db:seed:ci",
-        dependsOn: ["lint", "test"],
-        cache: false,
-      },
-      // Deploy + reset seed in one command for new branches
+      // Deploy + seed in one command for new branches
       "deploy-seeded": {
-        command: "bun run db:seed:ci",
+        command: "bun run db:seed",
         dependsOn: ["deploy"],
         cache: false,
       },

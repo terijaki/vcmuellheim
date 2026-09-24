@@ -93,11 +93,10 @@ vp check            # Lint + typecheck
 vp test             # Run tests
 vpr verify      # Lint + typecheck + tests (full quality gate)
 
-vpr db:seed         # Seed dev DynamoDB with fake data
-vpr db:seed:ci      # --reset: wipe content table and seed all entities (feature-branch CI)
+vpr db:seed         # POST /api/dev/seed on the deployed feature branch
 vpr db:seed:sams    # Publish mock SAMS provider events (dev only)
 
-Feature-branch CDK deploys run `db:seed:ci` after stack deploy so preview environments have CMS/content fixtures; `main` (production) is never seeded.
+Feature-branch CDK deploys run `db:seed` after stack deploy. The script calls `POST /api/dev/seed` with `Authorization: Bearer` set to the SHA-256 hex of the sanitized branch name (`BRANCH_NAME`). The route resets the content table, seeds fixtures, and rebuilds homepage snapshots. Prod CloudFront answers 404 for that path before the Lambda runs. Deployments without a branch name return 404 from the app.
 
 vpr cdk:synth       # Synthesize CDK stacks (dev)
 vpr cdk:diff        # Show changes vs deployed (dev)

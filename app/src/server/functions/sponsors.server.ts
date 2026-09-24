@@ -28,7 +28,8 @@ type SponsorUpdateInput = z.infer<typeof sponsorUpdateDataSchema>;
 
 export async function handleListPublicSponsors() {
   const snapshot = await readSponsors();
-  const source = snapshot ?? (await handleListSponsors());
+  if (!snapshot) return { items: [] };
+  const source = snapshot;
   const keys = source.items.flatMap((sponsor) => (sponsor.logoS3Key ? [sponsor.logoS3Key] : []));
   const urls = keys.length > 0 ? await handleGetFileUrls(keys) : [];
   let index = 0;

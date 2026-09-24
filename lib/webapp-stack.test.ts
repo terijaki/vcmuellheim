@@ -138,7 +138,7 @@ describe("WebAppStack", () => {
 
     template.hasResourceProperties("AWS::Lambda::Function", {
       FunctionName: "vcm-webapp-dev",
-      Timeout: 30,
+      Timeout: 60,
       MemorySize: 1024,
       Environment: {
         Variables: {
@@ -195,12 +195,15 @@ describe("WebAppStack", () => {
         CacheBehaviors: Match.arrayWith([
           Match.objectLike({ PathPattern: "/assets/*" }),
           Match.objectLike({ PathPattern: "/_build/*" }),
+          Match.objectLike({ PathPattern: "/api/dev/seed" }),
           Match.objectLike({ PathPattern: "/api/sams/logos" }),
           Match.objectLike({ PathPattern: "/docs/*" }),
         ]),
         PriceClass: "PriceClass_100",
       },
     });
+
+    template.resourceCountIs("AWS::CloudFront::Function", 0);
 
     template.hasOutput("WebAppUrl", {
       Export: {
@@ -366,7 +369,18 @@ describe("WebAppStack", () => {
     template.hasResourceProperties("AWS::CloudFront::Distribution", {
       DistributionConfig: {
         Aliases: Match.arrayWith(["vcmuellheim.de", "www.vcmuellheim.de"]),
+        CacheBehaviors: Match.arrayWith([
+          Match.objectLike({
+            PathPattern: "/api/dev/seed",
+            AllowedMethods: ["GET", "HEAD", "OPTIONS", "PUT", "PATCH", "POST", "DELETE"],
+          }),
+        ]),
       },
+    });
+
+    template.hasResourceProperties("AWS::CloudFront::Function", {
+      Name: "vcm-webapp-block-seed-prod",
+      FunctionCode: Match.stringLikeRegexp("statusCode: 404"),
     });
 
     template.resourceCountIs("AWS::Route53::RecordSet", 2);

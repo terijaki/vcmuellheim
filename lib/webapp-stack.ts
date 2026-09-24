@@ -142,7 +142,7 @@ export class WebAppStack extends cdk.Stack {
         : lambda.Code.fromAsset("app/.output/server"),
       handler: "index.handler",
       runtime: lambda.Runtime.NODEJS_24_X,
-      timeout: cdk.Duration.seconds(30),
+      timeout: cdk.Duration.seconds(isProd ? 30 : 60),
       memorySize: 1024,
       logGroup,
       environment: lambdaEnvironment,
@@ -228,6 +228,18 @@ export class WebAppStack extends cdk.Stack {
           queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
         });
 
+    // Prod never invokes the seed handler. The viewer-request function returns 404
+    // before CloudFront contacts the Lambda origin.
+    const blockSeedRoute = isProd
+      ? new cloudfront.Function(this, "BlockSeedRoute", {
+          functionName: `vcm-webapp-block-seed-${environment}${branchSuffix}`,
+          comment: "Reject /api/dev/seed before it reaches the webapp Lambda",
+          code: cloudfront.FunctionCode.fromInline(
+            "function handler() { return { statusCode: 404, statusDescription: 'Not Found' }; }",
+          ),
+        })
+      : undefined;
+
     const clubLogosCachePolicy = new cloudfront.CachePolicy(this, "ClubLogosCachePolicy", {
       cachePolicyName: `vcm-webapp-club-logos-${environment}${branchSuffix}`,
       defaultTtl: cdk.Duration.days(1),
@@ -269,6 +281,31 @@ export class WebAppStack extends cdk.Stack {
           cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
           cachePolicy: staticAssetsCachePolicy,
           compress: true,
+        },
+        // Fixture seed. Non-prod allows a longer origin read for image downloads.
+        // Prod allows every method on this path so POST cannot fall through to the Lambda,
+        // then the viewer-request function answers 404 without calling the origin.
+        "/api/dev/seed": {
+          origin: isProd
+            ? lambdaOrigin
+            : new origins.FunctionUrlOrigin(fnUrl, {
+                readTimeout: cdk.Duration.seconds(60),
+              }),
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+          cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+          responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
+          ...(blockSeedRoute
+            ? {
+                functionAssociations: [
+                  {
+                    function: blockSeedRoute,
+                    eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+                  },
+                ],
+              }
+            : {}),
         },
         // Same-origin club logo proxy (provider URLs are not used as <img src>)
         "/api/sams/logos": {

@@ -1,120 +1,44 @@
 #!/usr/bin/env bun
 
 /**
- * Database seeding script for development/staging environments.
- * The actual seed logic lives in the scripts/seed directory.
+ * Ask a deployed feature-branch webapp to reset and seed its content table.
+ * Prod and branch-less deployments do not expose the route.
  *
- * Usage:
- *   bun run db:seed                    # Seeds all entities
- *   bun run db:seed --reset            # Cleanup + seed all entities (CI / fresh branch env)
- *   bun run db:seed --cleanup          # Cleanup only (validates prod protection)
- *   bun run db:seed --cleanup --members  # Cleanup + seed members
- *   bun run db:seed --events           # Seeds only events
- *   bun run db:seed --volunteer-events  # Seeds only volunteer events
- *   bun run db:seed --news             # Seeds only news articles
- *   bun run db:seed --members          # Seeds only members
- *   bun run db:seed --teams            # Seeds only teams
- *   bun run db:seed --locations        # Seeds only locations
- *   bun run db:seed --sponsors         # Seeds only sponsors
- *   bun run db:seed --bus              # Seeds only bus bookings
- *   bun run db:seed --user email@example.com  # Grant Admin role to a member (creates minimal member if not found)
+ * CI sets CDK_BRANCH_OVERWRITE to the git ref (same value used at deploy)
+ * and runs this after CDK deploy.
+ *
+ * Usage: bun run db:seed
  */
 
-import "varlock/auto-load";
-import { createSeedContext, cleanupDatabase, createCmsUser } from "./seed/common";
-import { seedBusData } from "./seed/bus";
-import { seedEventsData } from "./seed/events";
-import { seedVolunteerEventsData } from "./seed/volunteer-events";
-import { seedLocationsData } from "./seed/locations";
-import { seedMembersData } from "./seed/members";
-import { seedNewsData } from "./seed/news";
-import { seedSponsorsData } from "./seed/sponsors";
-import { seedTeamsData } from "./seed/teams";
+import { getSanitizedBranch } from "@/utils/git";
+import { featureBranchSeedToken } from "@/utils/seed-access";
+import { buildWebappUrl } from "@/utils/webapp-url";
 
-const args = process.argv.slice(2);
-const reset = args.includes("--reset");
-const cleanupOnly = args.includes("--cleanup") && args.length === 1 && !reset;
-const shouldCleanup = args.includes("--cleanup") || reset;
-
-const seedAll = args.length === 0 || reset;
-const seedEvents = seedAll || args.includes("--events");
-const seedVolunteerEvents = seedAll || args.includes("--volunteer-events");
-const seedNews = seedAll || args.includes("--news");
-const seedMembers = seedAll || args.includes("--members");
-const seedTeams = seedAll || args.includes("--teams");
-const seedLocations = seedAll || args.includes("--locations");
-const seedSponsors = seedAll || args.includes("--sponsors");
-const seedBus = seedAll || args.includes("--bus");
-
-// Handle --user argument (email only — passwordless OTP authentication)
-const userArgIndex = args.indexOf("--user");
-const shouldCreateUser = userArgIndex !== -1;
-let userEmail: string | undefined;
-
-if (shouldCreateUser) {
-  const email = args[userArgIndex + 1];
-  if (!email || email.startsWith("--")) {
-    console.error("❌ Email address required. Use: --user email@example.com");
-    process.exit(1);
-  }
-  userEmail = email;
+const branch = getSanitizedBranch();
+if (!branch) {
+  console.error("Content seed runs only against a feature-branch deployment.");
+  process.exit(1);
 }
 
-const ctx = createSeedContext();
-
-async function main() {
-  try {
-    if (shouldCreateUser && userEmail) {
-      await createCmsUser(ctx, userEmail);
-      return;
-    }
-
-    if (cleanupOnly) {
-      await cleanupDatabase(ctx);
-      return;
-    }
-
-    if (shouldCleanup) {
-      await cleanupDatabase(ctx);
-    }
-
-    if (seedLocations) {
-      await seedLocationsData(ctx);
-    }
-
-    if (seedMembers) {
-      await seedMembersData(ctx);
-    }
-
-    if (seedTeams) {
-      await seedTeamsData(ctx);
-    }
-
-    if (seedNews) {
-      await seedNewsData(ctx);
-    }
-
-    if (seedSponsors) {
-      await seedSponsorsData(ctx);
-    }
-
-    if (seedEvents) {
-      await seedEventsData(ctx);
-    }
-
-    if (seedVolunteerEvents) {
-      await seedVolunteerEventsData(ctx);
-    }
-
-    if (seedBus) {
-      await seedBusData(ctx);
-    }
-
-    console.log("\n🎉 Database seeding completed successfully!\n");
-  } catch (error) {
-    console.error("\n❌ Database seeding failed:", error);
-    process.exit(1);
-  }
+if (process.env.CDK_ENVIRONMENT === "prod") {
+  console.error("Cannot seed production.");
+  process.exit(1);
 }
 
-main();
+const url = `${buildWebappUrl("dev", branch)}/api/dev/seed`;
+const token = featureBranchSeedToken(branch);
+
+console.log(`Seeding ${url}`);
+
+const response = await fetch(url, {
+  method: "POST",
+  headers: { Authorization: `Bearer ${token}` },
+  signal: AbortSignal.timeout(90_000),
+});
+const body = await response.text();
+if (!response.ok) {
+  console.error(`Seed failed (${response.status}): ${body}`);
+  process.exit(1);
+}
+
+console.log(body.trim() || "Database seeding completed successfully");
