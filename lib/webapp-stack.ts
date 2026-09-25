@@ -201,7 +201,7 @@ export class WebAppStack extends cdk.Stack {
     // Lambda Function URL (NONE auth — CloudFront handles access control)
     const fnUrl = this.webappLambda.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
-      invokeMode: lambda.InvokeMode.BUFFERED,
+      invokeMode: lambda.InvokeMode.RESPONSE_STREAM,
     });
 
     // ── Cache policies ─────────────────────────────────────────────────────
@@ -222,10 +222,10 @@ export class WebAppStack extends cdk.Stack {
       cachePolicyName: `vcm-webapp-ssr-${environment}${branchSuffix}`,
       defaultTtl: cdk.Duration.seconds(0),
       minTtl: cdk.Duration.seconds(0),
-      maxTtl: isProd ? cdk.Duration.days(1) : cdk.Duration.seconds(60),
+      maxTtl: cdk.Duration.days(1),
       comment: isProd
         ? "Honor origin Cache-Control for public HTML; default TTL 0 so API stays uncached"
-        : "Dev: passthrough (no cache) for SSR + API",
+        : "Honor origin Cache-Control on feature/dev; default TTL 0 so API stays uncached",
       cookieBehavior: cloudfront.CacheCookieBehavior.none(),
       headerBehavior: cloudfront.CacheHeaderBehavior.none(),
       queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),

@@ -11,11 +11,14 @@ import { Club } from "@project.config";
 import * as Sentry from "@sentry/tanstackstart-react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import { getRequestHeader } from "@tanstack/react-start/server";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { useEffect } from "react";
 import type { RouterContext } from "../router";
+import { hasAuthSessionCookie } from "../lib/public-document-cache";
 import { getSessionFn } from "../server/functions/session";
+import type { AdminSessionUser } from "../server/functions/session-utils";
 import { theme } from "../lib/theme";
 
 dayjs.locale("de");
@@ -25,9 +28,13 @@ const DEFAULT_DESCRIPTION =
 const DEFAULT_IMAGE = `${Club.url}/assets/logos/logo-366273-500.png`;
 
 export const Route = createRootRouteWithContext<RouterContext>()({
-  beforeLoad: async () => {
-    const session = await getSessionFn();
-    return { session };
+  beforeLoad: async (): Promise<{ session: AdminSessionUser | null }> => {
+    const cookieHeader =
+      typeof document === "undefined" ? (getRequestHeader("cookie") ?? null) : document.cookie;
+    if (!hasAuthSessionCookie(cookieHeader)) {
+      return { session: null };
+    }
+    return { session: await getSessionFn() };
   },
   head: () => ({
     title: Club.name,
