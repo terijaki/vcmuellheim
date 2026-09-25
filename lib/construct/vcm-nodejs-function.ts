@@ -3,7 +3,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction, type NodejsFunctionProps } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as logs from "aws-cdk-lib/aws-logs";
 import type { Construct } from "constructs";
-import { getSanitizedBranch } from "@utils/git";
+import { buildLambdaFunctionName, buildLambdaLogGroupName } from "@utils/lambda-names";
 
 export interface VcmNodejsFunctionProps extends Omit<
   NodejsFunctionProps,
@@ -11,22 +11,6 @@ export interface VcmNodejsFunctionProps extends Omit<
 > {
   namespace: string;
   name: string;
-}
-
-export function buildLambdaFunctionName(baseName: string): string {
-  const environment = process.env.CDK_ENVIRONMENT || "dev";
-  const branch = getSanitizedBranch();
-  const branchSuffix = branch ? `-${branch}` : "";
-
-  return `vcm-${baseName}-${environment}${branchSuffix}`;
-}
-
-function buildLogGroupName(namespace: string, baseName: string): string {
-  const environment = process.env.CDK_ENVIRONMENT || "dev";
-  const branch = getSanitizedBranch();
-  const branchSuffix = branch ? `-${branch}` : "";
-
-  return `/vcm/${environment}${branchSuffix}/${namespace}/${baseName}`;
 }
 
 /** Shared NodejsFunction defaults with managed CloudWatch log group. */
@@ -39,7 +23,7 @@ export class VcmNodejsFunction extends cdk.Resource {
     const { bundling, namespace, name, ...restProps } = props;
 
     const logGroup = new logs.LogGroup(this, "LogGroup", {
-      logGroupName: buildLogGroupName(namespace, name ?? id),
+      logGroupName: buildLambdaLogGroupName(namespace, name ?? id),
       retention: logs.RetentionDays.TWO_MONTHS,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });

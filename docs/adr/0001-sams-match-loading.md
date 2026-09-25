@@ -33,15 +33,24 @@ side; `isHomeGame` is stored on each Termine row for Heimspiele filters.
 
 ## SSR loading strategy
 
-| Route                 | Loader                                     | Client refresh                |
-| --------------------- | ------------------------------------------ | ----------------------------- |
-| `/termine`            | `getCurrentTermineFn({ range: "future" })` | `useSamsMatches(hookOptions)` |
-| `/tabelle`            | `getCurrentTabelleFn` + past Termine       | `useSamsMatches(hookOptions)` |
-| `/teams/$slug`        | `loadSamsMatchesForSsrFn({ team })`        | `useSamsMatches(hookOptions)` |
-| Homepage (Heimspiele) | `getHomeHeimspieleFn`                      | `useHomeHeimspiele`           |
+| Route               | Loader                                     | Client refresh                |
+| ------------------- | ------------------------------------------ | ----------------------------- |
+| `/termine`          | `getCurrentTermineFn({ range: "future" })` | `useSamsMatches(hookOptions)` |
+| `/tabelle`          | `getCurrentTabelleFn` + past Termine       | `useSamsMatches(hookOptions)` |
+| `/teams/$slug`      | `loadSamsMatchesForSsrFn({ team })`        | `useSamsMatches(hookOptions)` |
+| Homepage (sections) | deferred `loadHomePageSections()`          | same hooks with `initialData` |
 
 React Query passes cached loader data as `initialData` and refetches in the background
 when stale. `useSamsMatches` uses a **5 minute** `staleTime`.
+
+The homepage loader awaits only the intro image. Each section is an unresolved promise
+rendered with `<Await>` and its own fallback, so the route does not wait for every read.
+The hero is shorter than a full viewport so the first fallback is on screen.
+Nitro uses the AWS Lambda **streaming** handler; the function URL uses **RESPONSE_STREAM**
+(not buffered). Anonymous `GET /` sends `Cache-Control` with `s-maxage=600` and
+`stale-while-revalidate` so CloudFront can serve HTML between sparse visits. Signed-in
+requests are `private, no-store`. Root `beforeLoad` skips `getSessionFn` when no session
+cookie is present.
 
 The homepage does not filter 50 future matches in the browser. SAMS sync writes a
 Heimspiele card document (`META#heimspiele`) with league name, opponent, hall, and

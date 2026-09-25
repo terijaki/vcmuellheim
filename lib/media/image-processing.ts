@@ -1,5 +1,5 @@
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
-import { buildLambdaFunctionName } from "../construct/vcm-nodejs-function";
+import { buildLambdaFunctionName } from "@utils/lambda-names";
 
 export type ProcessImagePayload = {
   bucket: string;

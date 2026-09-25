@@ -156,12 +156,16 @@ describe("WebAppStack", () => {
       },
     });
 
+    template.hasResourceProperties("AWS::Lambda::Url", {
+      InvokeMode: "RESPONSE_STREAM",
+    });
+
     template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
       CachePolicyConfig: {
-        Comment: "Dev: passthrough (no cache) for SSR + API",
+        Comment: "Honor origin Cache-Control on feature/dev; default TTL 0 so API stays uncached",
         DefaultTTL: 0,
         MinTTL: 0,
-        MaxTTL: 60,
+        MaxTTL: 86400,
         ParametersInCacheKeyAndForwardedToOrigin: {
           QueryStringsConfig: {
             QueryStringBehavior: "all",
@@ -365,6 +369,15 @@ describe("WebAppStack", () => {
     });
 
     const template = Template.fromStack(stack);
+
+    template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
+      CachePolicyConfig: {
+        Comment: "Honor origin Cache-Control for public HTML; default TTL 0 so API stays uncached",
+        DefaultTTL: 0,
+        MinTTL: 0,
+        MaxTTL: 86400,
+      },
+    });
 
     template.hasResourceProperties("AWS::CloudFront::Distribution", {
       DistributionConfig: {

@@ -45,9 +45,11 @@ export const Route = createFileRoute("/_layout")({
     </PageWithHeading>
   ),
   pendingComponent: () => (
-    <PageWithHeading title="">
-      <CenteredLoader text="Lade Seite..." />
-    </PageWithHeading>
+    <MainLayout>
+      <PageWithHeading title="">
+        <CenteredLoader text="Lade Seite..." />
+      </PageWithHeading>
+    </MainLayout>
   ),
   errorComponent: ({ error }) => {
     useEffect(() => {

@@ -40,6 +40,9 @@ export default defineConfig({
       localAwsResourceEnvPlugin(),
       nitro({
         preset: "aws-lambda",
+        awsLambda: {
+          streaming: true,
+        },
         output: {
           publicDir: "app/.output/public",
           serverDir: "app/.output/server",

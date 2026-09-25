@@ -9,13 +9,15 @@ import { HEADER_HEIGHT } from "../layout/Header";
 interface HomeIntroProps {
   backgroundImage: string;
   introContent: ReactNode;
+  /** Overrides the default full-viewport hero so the next section is on screen. */
+  minHeight?: string;
 }
 
-export default function HomeIntro({ backgroundImage, introContent }: HomeIntroProps) {
+export default function HomeIntro({ backgroundImage, introContent, minHeight }: HomeIntroProps) {
   const { height, width } = useViewportSize();
   const isPortrait = height > width;
   const isMobile = width < 768;
-  const HEIGHT = `calc(90vh - ${HEADER_HEIGHT}px)`;
+  const HEIGHT = minHeight ?? `calc(90vh - ${HEADER_HEIGHT}px)`;
   return (
     <BackgroundImage
       src={backgroundImage}

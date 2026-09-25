@@ -201,7 +201,7 @@ export class WebAppStack extends cdk.Stack {
     // Lambda Function URL (NONE auth — CloudFront handles access control)
     const fnUrl = this.webappLambda.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
-      invokeMode: lambda.InvokeMode.BUFFERED,
+      invokeMode: lambda.InvokeMode.RESPONSE_STREAM,
     });
 
     // ── Cache policies ─────────────────────────────────────────────────────
@@ -214,19 +214,22 @@ export class WebAppStack extends cdk.Stack {
       comment: "Long-lived cache for hashed static assets",
     });
 
-    // SSR/API: no cache by default — let the app set Cache-Control headers.
-    // Club logos are a dedicated behavior so prod (CACHING_DISABLED default)
-    // still caches /api/sams/logos?clubUuid=X separately from clubUuid=Y.
-    const ssrCachePolicy = isProd
-      ? cloudfront.CachePolicy.CACHING_DISABLED
-      : new cloudfront.CachePolicy(this, "SsrCachePolicy", {
-          cachePolicyName: `vcm-webapp-ssr-${environment}${branchSuffix}`,
-          defaultTtl: cdk.Duration.seconds(0),
-          minTtl: cdk.Duration.seconds(0),
-          maxTtl: cdk.Duration.seconds(60),
-          comment: "Dev: passthrough (no cache) for SSR + API",
-          queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
-        });
+    // SSR/API: default TTL 0 so unmarked responses (server functions, auth) stay uncached.
+    // The homepage sets Cache-Control; max TTL lets CloudFront honor s-maxage and
+    // stale-while-revalidate. Cookies are forwarded by the origin request policy
+    // but kept out of the cache key so anonymous HTML can be shared.
+    const ssrCachePolicy = new cloudfront.CachePolicy(this, "SsrCachePolicy", {
+      cachePolicyName: `vcm-webapp-ssr-${environment}${branchSuffix}`,
+      defaultTtl: cdk.Duration.seconds(0),
+      minTtl: cdk.Duration.seconds(0),
+      maxTtl: cdk.Duration.days(1),
+      comment: isProd
+        ? "Honor origin Cache-Control for public HTML; default TTL 0 so API stays uncached"
+        : "Honor origin Cache-Control on feature/dev; default TTL 0 so API stays uncached",
+      cookieBehavior: cloudfront.CacheCookieBehavior.none(),
+      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
+    });
 
     // Prod never invokes the seed handler. The viewer-request function returns 404
     // before CloudFront contacts the Lambda origin.

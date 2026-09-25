@@ -1,5 +1,5 @@
 import { BUN_DOCKER_IMAGE, BUN_TIME_LAYER_SSM_NAME } from "@utils/buntime";
-import { getSanitizedBranch } from "@utils/git";
+import { buildLambdaFunctionName, buildLambdaLogGroupName } from "@utils/lambda-names";
 import * as cdk from "aws-cdk-lib";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as logs from "aws-cdk-lib/aws-logs";
@@ -8,7 +8,6 @@ import type { Construct } from "constructs";
 import { chmodSync, copyFileSync, existsSync, mkdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
-import { buildLambdaFunctionName } from "./vcm-nodejs-function";
 
 export interface VcmBunFunctionProps {
   namespace: string;
@@ -18,13 +17,6 @@ export interface VcmBunFunctionProps {
   timeout?: cdk.Duration;
   memorySize?: number;
   environment?: Record<string, string>;
-}
-
-function buildLogGroupName(namespace: string, baseName: string): string {
-  const environment = process.env.CDK_ENVIRONMENT || "dev";
-  const branch = getSanitizedBranch();
-  const branchSuffix = branch ? `-${branch}` : "";
-  return `/vcm/${environment}${branchSuffix}/${namespace}/${baseName}`;
 }
 
 /**
@@ -52,7 +44,7 @@ export class VcmBunFunction extends cdk.Resource {
     const bunLayer = lambda.LayerVersion.fromLayerVersionArn(this, "BunTimeLayer", bunLayerArn);
 
     const logGroup = new logs.LogGroup(this, "LogGroup", {
-      logGroupName: buildLogGroupName(namespace, name),
+      logGroupName: buildLambdaLogGroupName(namespace, name),
       retention: logs.RetentionDays.TWO_MONTHS,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
