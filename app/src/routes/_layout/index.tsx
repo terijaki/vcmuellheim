@@ -9,44 +9,45 @@ import HomeKontakt from "@webapp/components/homepage/HomeKontakt";
 import HomeLiveTicker from "@webapp/components/homepage/HomeLiveTicker";
 import HomeMembers from "@webapp/components/homepage/HomeMembers";
 import HomeNews from "@webapp/components/homepage/HomeNews";
-import HomeSectionsSkeleton from "@webapp/components/homepage/HomeSectionsSkeleton";
+import HomeSectionFallback from "@webapp/components/homepage/HomeSectionFallback";
 import HomeSponsors from "@webapp/components/homepage/HomeSponsors";
 import HomeTeams from "@webapp/components/homepage/HomeTeams";
 import { useHomeLiveTickerData } from "@webapp/hooks/useHomeLiveTicker";
-import {
-  loadHomePageIntroBackgroundImage,
-  loadHomePageSections,
-  type HomePageSections,
-} from "../../lib/home-page-data";
+import { getUpcomingEventsFn } from "@webapp/server/functions/events";
+import { getHomeIntroBackgroundImageFn } from "@webapp/server/functions/home";
+import { getHomeMembersFn } from "@webapp/server/functions/members";
+import { getHomeNewsFn } from "@webapp/server/functions/news";
+import { getHomeHeimspieleFn } from "@webapp/server/functions/sams";
+import { getInstagramPostsFn } from "@webapp/server/functions/social";
+import { listPublicSponsorsFn } from "@webapp/server/functions/sponsors";
+import { listTeamsFn } from "@webapp/server/functions/teams";
 
-const DEFAULT_INTRO_BACKGROUND = "/assets/backgrounds/intro1.jpg";
+/**
+ * The default hero is 90vh, which hid every section fallback below the first screen.
+ * This height keeps the next section in the initial viewport.
+ */
+const HOME_HERO_MIN_HEIGHT = "min(42vh, 380px)";
 
 export const Route = createFileRoute("/_layout/")({
   loader: async () => {
-    const introBackgroundImage = await loadHomePageIntroBackgroundImage();
-    const sections = loadHomePageSections();
-    return { introBackgroundImage, sections };
+    // Await only the intro image. Each section promise is returned unresolved so
+    // <Await> can render a fallback and stream the section when that read finishes.
+    // https://tanstack.com/router/latest/docs/framework/react/guide/deferred-data-loading
+    const introBackgroundImage = await getHomeIntroBackgroundImageFn();
+    return {
+      introBackgroundImage,
+      instagramPosts: getInstagramPostsFn(),
+      news: getHomeNewsFn(),
+      heimspiele: Promise.all([getUpcomingEventsFn(), getHomeHeimspieleFn()]),
+      teams: Promise.all([listTeamsFn(), getHomeMembersFn()]),
+      sponsors: listPublicSponsorsFn(),
+    };
   },
   component: HomePage,
 });
 
-function HomePageSections({ sections }: { sections: HomePageSections }) {
-  return (
-    <>
-      <HomeInstagram posts={sections.instagramPosts} />
-      <HomeNews initialNews={sections.news} />
-      <HomeHeimspiele initialEvents={sections.events} initialHeimspiele={sections.heimspiele} />
-      <HomeTeams initialTeams={sections.teams} initialMembers={sections.members} />
-      <HomeSponsors initialSponsors={sections.sponsors} />
-      <HomeMembers initialMembers={sections.members} />
-      <HomeFotos />
-      <HomeKontakt initialMembers={sections.members} />
-    </>
-  );
-}
-
 function HomePage() {
-  const { introBackgroundImage, sections } = Route.useLoaderData();
+  const data = Route.useLoaderData();
   const { ourMatches, hasMatchesToday, hasOpenMatches, isPending } = useHomeLiveTickerData();
   const showLiveTicker = !isPending && hasMatchesToday;
 
@@ -76,12 +77,36 @@ function HomePage() {
   return (
     <Stack gap={0} align="stretch">
       <HomeIntro
-        backgroundImage={introBackgroundImage || DEFAULT_INTRO_BACKGROUND}
+        backgroundImage={data.introBackgroundImage}
         introContent={introContent}
+        minHeight={HOME_HERO_MIN_HEIGHT}
       />
-      <Await promise={sections} fallback={<HomeSectionsSkeleton />}>
-        {(data) => <HomePageSections sections={data} />}
+      <Await promise={data.instagramPosts} fallback={<HomeSectionFallback title="Instagram" />}>
+        {(posts) => <HomeInstagram posts={posts} />}
       </Await>
+      <Await promise={data.news} fallback={<HomeSectionFallback title="News" />}>
+        {(news) => <HomeNews initialNews={news} />}
+      </Await>
+      <Await promise={data.heimspiele} fallback={<HomeSectionFallback title="Heimspiele" />}>
+        {([events, heimspiele]) => (
+          <HomeHeimspiele initialEvents={events} initialHeimspiele={heimspiele} />
+        )}
+      </Await>
+      <Await promise={data.teams} fallback={<HomeSectionFallback title="Mannschaften" />}>
+        {([teams, members]) => <HomeTeams initialTeams={teams} initialMembers={members} />}
+      </Await>
+      <Await promise={data.sponsors} fallback={<HomeSectionFallback title="Sponsoren" />}>
+        {(sponsors) => <HomeSponsors initialSponsors={sponsors} />}
+      </Await>
+      <Await promise={data.teams} fallback={<HomeSectionFallback title="Verein" />}>
+        {([, members]) => (
+          <>
+            <HomeMembers initialMembers={members} />
+            <HomeKontakt initialMembers={members} />
+          </>
+        )}
+      </Await>
+      <HomeFotos />
     </Stack>
   );
 }

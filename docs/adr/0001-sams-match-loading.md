@@ -43,8 +43,9 @@ side; `isHomeGame` is stored on each Termine row for Heimspiele filters.
 React Query passes cached loader data as `initialData` and refetches in the background
 when stale. `useSamsMatches` uses a **5 minute** `staleTime`.
 
-The homepage loader awaits only the intro background image. Section reads run as a
-**deferred promise** (`Await`) so SSR can stream the shell before DynamoDB work finishes.
+The homepage loader awaits only the intro image. Each section is an unresolved promise
+rendered with `<Await>` and its own fallback, so the route does not wait for every read.
+The hero is shorter than a full viewport so the first fallback is on screen.
 Nitro uses the AWS Lambda **streaming** handler; the function URL uses **RESPONSE_STREAM**
 (not buffered). Anonymous `GET /` sends `Cache-Control` with `s-maxage=600` and
 `stale-while-revalidate` so CloudFront can serve HTML between sparse visits. Signed-in
