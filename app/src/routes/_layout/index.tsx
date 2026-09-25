@@ -1,4 +1,5 @@
 import { Stack, Text, Title } from "@mantine/core";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import HomeFotos from "@webapp/components/homepage/HomeFotos";
 import HomeHeimspiele from "@webapp/components/homepage/HomeHeimspiele";
@@ -20,19 +21,26 @@ import { getHomeHeimspieleFn } from "@webapp/server/functions/sams";
 import { getInstagramPostsFn } from "@webapp/server/functions/social";
 import { listPublicSponsorsFn } from "@webapp/server/functions/sponsors";
 import { listTeamsFn } from "@webapp/server/functions/teams";
+import { resolveHomePageLoader, type HomePageSnapshot } from "../../lib/home-page-loader";
 
-export const Route = createFileRoute("/_layout/")({
-  loader: async () => {
-    const [
-      introBackgroundImage,
-      instagramPosts,
-      events,
-      heimspiele,
-      news,
-      sponsors,
-      members,
-      teams,
-    ] = await Promise.all([
+const DEFAULT_INTRO_BACKGROUND = "/assets/backgrounds/intro1.jpg";
+
+type HomePageData = {
+  introBackgroundImage: string;
+  instagramPosts: Awaited<ReturnType<typeof getInstagramPostsFn>>;
+  events: Awaited<ReturnType<typeof getUpcomingEventsFn>>;
+  heimspiele: Awaited<ReturnType<typeof getHomeHeimspieleFn>>;
+  news: Awaited<ReturnType<typeof getHomeNewsFn>>;
+  sponsors: Awaited<ReturnType<typeof listPublicSponsorsFn>>;
+  members: Awaited<ReturnType<typeof getHomeMembersFn>>;
+  teams: Awaited<ReturnType<typeof listTeamsFn>>;
+};
+
+let homePageCache: HomePageSnapshot<HomePageData> | null = null;
+
+async function loadHomePageData(): Promise<HomePageData> {
+  const [introBackgroundImage, instagramPosts, events, heimspiele, news, sponsors, members, teams] =
+    await Promise.all([
       getHomeIntroBackgroundImageFn(),
       getInstagramPostsFn(),
       getUpcomingEventsFn(),
@@ -42,22 +50,7 @@ export const Route = createFileRoute("/_layout/")({
       getHomeMembersFn(),
       listTeamsFn(),
     ]);
-    return {
-      introBackgroundImage,
-      instagramPosts,
-      events,
-      heimspiele,
-      news,
-      sponsors,
-      members,
-      teams,
-    };
-  },
-  component: HomePage,
-});
-
-function HomePage() {
-  const {
+  return {
     introBackgroundImage,
     instagramPosts,
     events,
@@ -66,7 +59,33 @@ function HomePage() {
     sponsors,
     members,
     teams,
-  } = Route.useLoaderData();
+  };
+}
+
+export const Route = createFileRoute("/_layout/")({
+  loader: () =>
+    resolveHomePageLoader({
+      load: loadHomePageData,
+      cache: homePageCache,
+      now: Date.now(),
+      wait: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+      store: (snapshot) => {
+        homePageCache = snapshot;
+      },
+    }),
+  component: HomePage,
+});
+
+function HomePage() {
+  const loaderData = Route.useLoaderData();
+  const ready = loaderData.ready ? loaderData.data : null;
+  const instagramQuery = useQuery({
+    queryKey: ["home", "instagram"],
+    queryFn: () => getInstagramPostsFn(),
+    initialData: ready?.instagramPosts,
+    initialDataUpdatedAt: ready ? Date.now() : undefined,
+    staleTime: 1000 * 60 * 5,
+  });
   const { ourMatches, hasMatchesToday, hasOpenMatches, isPending } = useHomeLiveTickerData();
   const showLiveTicker = !isPending && hasMatchesToday;
 
@@ -95,15 +114,18 @@ function HomePage() {
 
   return (
     <Stack gap={0} align="stretch">
-      <HomeIntro backgroundImage={introBackgroundImage} introContent={introContent} />
-      <HomeInstagram posts={instagramPosts} />
-      <HomeNews initialNews={news} />
-      <HomeHeimspiele initialEvents={events} initialHeimspiele={heimspiele} />
-      <HomeTeams initialTeams={teams} initialMembers={members} />
-      <HomeSponsors initialSponsors={sponsors} />
-      <HomeMembers initialMembers={members} />
+      <HomeIntro
+        backgroundImage={ready?.introBackgroundImage ?? DEFAULT_INTRO_BACKGROUND}
+        introContent={introContent}
+      />
+      <HomeInstagram posts={instagramQuery.data ?? []} />
+      <HomeNews initialNews={ready?.news} />
+      <HomeHeimspiele initialEvents={ready?.events} initialHeimspiele={ready?.heimspiele} />
+      <HomeTeams initialTeams={ready?.teams} initialMembers={ready?.members} />
+      <HomeSponsors initialSponsors={ready?.sponsors} />
+      <HomeMembers initialMembers={ready?.members} />
       <HomeFotos />
-      <HomeKontakt initialMembers={members} />
+      <HomeKontakt initialMembers={ready?.members} />
     </Stack>
   );
 }

@@ -366,6 +366,15 @@ describe("WebAppStack", () => {
 
     const template = Template.fromStack(stack);
 
+    template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
+      CachePolicyConfig: {
+        Comment: "Honor origin Cache-Control for public HTML; default TTL 0 so API stays uncached",
+        DefaultTTL: 0,
+        MinTTL: 0,
+        MaxTTL: 86400,
+      },
+    });
+
     template.hasResourceProperties("AWS::CloudFront::Distribution", {
       DistributionConfig: {
         Aliases: Match.arrayWith(["vcmuellheim.de", "www.vcmuellheim.de"]),

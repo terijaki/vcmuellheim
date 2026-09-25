@@ -33,15 +33,21 @@ side; `isHomeGame` is stored on each Termine row for Heimspiele filters.
 
 ## SSR loading strategy
 
-| Route                 | Loader                                     | Client refresh                |
-| --------------------- | ------------------------------------------ | ----------------------------- |
-| `/termine`            | `getCurrentTermineFn({ range: "future" })` | `useSamsMatches(hookOptions)` |
-| `/tabelle`            | `getCurrentTabelleFn` + past Termine       | `useSamsMatches(hookOptions)` |
-| `/teams/$slug`        | `loadSamsMatchesForSsrFn({ team })`        | `useSamsMatches(hookOptions)` |
-| Homepage (Heimspiele) | `getHomeHeimspieleFn`                      | `useHomeHeimspiele`           |
+| Route                 | Loader                                      | Client refresh                |
+| --------------------- | ------------------------------------------- | ----------------------------- |
+| `/termine`            | `getCurrentTermineFn({ range: "future" })`  | `useSamsMatches(hookOptions)` |
+| `/tabelle`            | `getCurrentTabelleFn` + past Termine        | `useSamsMatches(hookOptions)` |
+| `/teams/$slug`        | `loadSamsMatchesForSsrFn({ team })`         | `useSamsMatches(hookOptions)` |
+| Homepage (Heimspiele) | `getHomeHeimspieleFn` within a 200ms budget | `useHomeHeimspiele`           |
 
 React Query passes cached loader data as `initialData` and refetches in the background
 when stale. `useSamsMatches` uses a **5 minute** `staleTime`.
+
+The homepage document does not wait for every section read. A warm in-memory snapshot
+is returned immediately; a cold read is abandoned for rendering after 200ms so the shell
+can be sent, and sections fall back to their client queries. Anonymous `GET /` responses
+send `Cache-Control` so CloudFront can serve the document with stale-while-revalidate.
+Signed-in requests are `private, no-store`.
 
 The homepage does not filter 50 future matches in the browser. SAMS sync writes a
 Heimspiele card document (`META#heimspiele`) with league name, opponent, hall, and
