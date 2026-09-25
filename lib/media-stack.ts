@@ -12,7 +12,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import type { Construct } from "constructs";
 import { Club } from "@/project.config";
 import { VcmBunFunction } from "./construct/vcm-bun-function";
-import { buildLambdaFunctionName } from "./construct/vcm-nodejs-function";
+import { buildLambdaFunctionName } from "@utils/lambda-names";
 
 /**
  * Compute the canonical media S3 bucket name for a given environment and branch.
