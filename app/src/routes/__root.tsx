@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/de";
 import { useEffect } from "react";
 import type { RouterContext } from "../router";
-import { hasAuthSessionCookie } from "../lib/public-document-cache";
+import { resolveBrowserRootSession } from "../lib/root-session";
 import { getSessionFn } from "../server/functions/session";
 import type { AdminSessionUser } from "../server/functions/session-utils";
 import { theme } from "../lib/theme";
@@ -32,10 +32,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       const { resolveRootSession } = await import("../lib/root-session.server");
       return resolveRootSession();
     }
-    if (!hasAuthSessionCookie(document.cookie)) {
-      return { session: null };
-    }
-    return { session: await getSessionFn() };
+    return resolveBrowserRootSession(getSessionFn);
   },
   head: () => ({
     title: Club.name,
