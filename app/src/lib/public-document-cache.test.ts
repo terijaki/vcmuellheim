@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { publicHomeCacheControl } from "./public-document-cache";
+import { hasAuthSessionCookie, publicHomeCacheControl } from "./public-document-cache";
 
 describe("publicHomeCacheControl", () => {
   it("caches anonymous homepage GETs at the edge", () => {
@@ -17,5 +17,17 @@ describe("publicHomeCacheControl", () => {
   it("leaves other requests alone", () => {
     expect(publicHomeCacheControl("GET", "/teams", null)).toBeNull();
     expect(publicHomeCacheControl("POST", "/", null)).toBeNull();
+  });
+});
+
+describe("hasAuthSessionCookie", () => {
+  it("reads session names from the Cookie request header, including httpOnly prefixes", () => {
+    expect(hasAuthSessionCookie("__Secure-better-auth.session_token=abc")).toBe(true);
+    expect(hasAuthSessionCookie("better-auth.session_data=xyz")).toBe(true);
+  });
+
+  it("treats an empty document.cookie string as unsigned", () => {
+    expect(hasAuthSessionCookie("")).toBe(false);
+    expect(hasAuthSessionCookie(null)).toBe(false);
   });
 });
