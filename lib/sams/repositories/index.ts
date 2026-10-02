@@ -25,4 +25,9 @@ export {
   createSamsRankingProjectionRepository,
   samsRankingProjectionRepository,
 } from "./sams-ranking-projection-repository";
+export {
+  SamsClubLogoRepository,
+  createSamsClubLogoRepository,
+  samsClubLogoRepository,
+} from "./sams-club-logo-repository";
 export type { SamsProjectionMatchInput } from "@/lib/db/schemas";

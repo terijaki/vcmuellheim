@@ -23,6 +23,7 @@ import {
   appHeimspieleRepository,
   appTabelleRepository,
   appTermineRepository,
+  samsClubLogoRepository,
   samsRankingProjectionRepository,
   samsScheduleProjectionRepository,
 } from "@/lib/sams/repositories";
@@ -36,15 +37,9 @@ import {
   resolveEffectiveSamsSportsclubUuids,
   shouldResolveDefaultSamsSportsclubs,
 } from "@utils/sams";
-import {
-  getAllSamsClubs,
-  getAllSamsTeams,
-  getSamsClubBySportsclubUuid,
-  getSamsRosterByTeamUuid,
-} from "../queries";
+import { getAllSamsClubs, getAllSamsTeams, getSamsRosterByTeamUuid } from "../queries";
 import { parseServerData } from "../schema-parse";
 import { buildSamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
-import { clubLogoProxyUrl } from "@webapp/utils/club-logo";
 
 const TICKER_FETCH_TIMEOUT_MS = SAMS_API_TIMEOUT_MS;
 const GAMES_PER_TEAM_FOR_LAST_RESULTS = 2.3;
@@ -284,13 +279,6 @@ async function buildMatchesResponse(
   );
 }
 
-function withProxiedClubLogoUrl<T extends { sportsclubUuid?: string; logoUrl?: string }>(
-  team: T,
-): T {
-  if (!team.sportsclubUuid || !team.logoUrl) return team;
-  return { ...team, logoUrl: clubLogoProxyUrl(team.sportsclubUuid) };
-}
-
 function emptyRankingResponse(leagueUuid: string): RankingResponse {
   return {
     teams: [],
@@ -326,7 +314,7 @@ function rankingResponseFromAppTabelle(league: {
   return parseServerData(
     RankingResponseSchema,
     {
-      teams: (league.teams ?? []).map(withProxiedClubLogoUrl),
+      teams: league.teams ?? [],
       timestamp: league.updatedAt,
       leagueUuid: league.leagueUuid,
       leagueName: league.leagueName,
@@ -451,7 +439,7 @@ async function fetchSamsRankingsByLeagueUuid(leagueUuid: string): Promise<Rankin
   return parseServerData(
     RankingResponseSchema,
     {
-      teams: projection.teams.map(withProxiedClubLogoUrl),
+      teams: projection.teams,
       timestamp: projection.updatedAt,
       leagueUuid,
       leagueName: projection.leagueName,
@@ -471,7 +459,7 @@ async function peekRankingProjectionForSeason(
   return parseServerData(
     RankingResponseSchema,
     {
-      teams: projection.teams.map(withProxiedClubLogoUrl),
+      teams: projection.teams,
       timestamp: projection.updatedAt,
       leagueUuid,
       leagueName: projection.leagueName,
@@ -600,7 +588,7 @@ export async function handleGetSamsRosterByTeamUuid(teamUuid: string) {
   return getSamsRosterByTeamUuid(teamUuid);
 }
 
-const CLUB_LOGO_MAX_BYTES = 512 * 1024;
+const CLUB_LOGO_MAX_BYTES = 1.5 * 1024 * 1024;
 const CLUB_LOGO_CACHE_CONTROL = "public, max-age=86400, s-maxage=86400";
 const CLUB_LOGO_ERROR_CACHE_CONTROL = "public, max-age=60";
 
@@ -642,8 +630,8 @@ function responseFromDataUri(uri: string): Response {
 }
 
 export async function handleServeClubLogo(clubUuid: string): Promise<Response> {
-  const club = await getSamsClubBySportsclubUuid(clubUuid);
-  const source = club?.logoImageLink;
+  const logo = await samsClubLogoRepository.get(clubUuid);
+  const source = logo?.logoUrl;
   if (!source) return logoErrorResponse(404, "Not found");
   if (source.startsWith("data:")) return responseFromDataUri(source);
   if (!source.startsWith("https://")) return logoErrorResponse(404, "Unsupported logo URL");
