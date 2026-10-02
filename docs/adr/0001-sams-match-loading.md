@@ -68,6 +68,11 @@ The ICS calendar at `/ics/$teamSlug` is a TanStack Start **server route**
 
 - After deploy, application read models populate on the next SAMS provider event (or
   `db:seed:sams` in non-prod). Until then, Tabelle/Termine may be empty.
+- Rebuilds that cannot resolve the synced season or configured clubs leave the
+  existing `current` dataset untouched (they do not wipe last-good standings/matches).
+- Club rows use the same DynamoDB TTL window as other SAMS projections. Every
+  `clubUpdated` event rewrites the club item so TTL is refreshed even when the
+  snapshot is unchanged.
 - Canonical SAMS projections are retained; historical seasons stay queryable via
   season-keyed app datasets.
 - Rankings and matches are only as fresh as the last processed provider event that

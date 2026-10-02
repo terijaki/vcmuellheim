@@ -304,17 +304,37 @@ describe("processSamsProviderEvent", () => {
     expect(repos.rankings.replace).not.toHaveBeenCalled();
   });
 
-  it("skips club upsert when snapshotVersion is unchanged", async () => {
+  it("upserts club and refreshes TTL when snapshotVersion is unchanged", async () => {
     const fixture = samsProviderEventFixtures.find(
       (entry) => entry.type === SamsEventType.clubUpdated,
     );
     expect(fixture).toBeDefined();
     const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
-    repos.clubs.getById = vi.fn().mockResolvedValue({ snapshotVersion: event.snapshotVersion });
+    const payload = event.payload as {
+      uuid: string;
+      name: string;
+      slug?: string;
+    };
+    repos.clubs.getById = vi.fn().mockResolvedValue({
+      sportsclubUuid: payload.uuid,
+      name: payload.name,
+      nameSlug: payload.slug ?? "existing-slug",
+      snapshotVersion: event.snapshotVersion,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+      ttl: 1_700_000_000,
+    });
 
     await processSamsProviderEvent(event, repos);
 
-    expect(repos.clubs.upsert).not.toHaveBeenCalled();
+    expect(repos.clubs.upsert).toHaveBeenCalledOnce();
+    const upserted = (repos.clubs.upsert as ReturnType<typeof vi.fn>).mock.calls[0][0] as {
+      sportsclubUuid: string;
+      snapshotVersion: string;
+      ttl: number;
+    };
+    expect(upserted.sportsclubUuid).toBe(payload.uuid);
+    expect(upserted.snapshotVersion).toBe(event.snapshotVersion);
+    expect(upserted.ttl).toBeGreaterThan(1_700_000_000);
   });
 
   it("does not enqueue Mastodon share outside prod", async () => {
@@ -511,6 +531,24 @@ describe("processSamsProviderEvent", () => {
       (entry) => entry.type === SamsEventType.leagueRankingUpdated,
     );
     expect(fixture).toBeDefined();
+    repos.clubs.listAll = vi.fn().mockResolvedValue([
+      {
+        sportsclubUuid: SEED_VCM_CLUB.uuid,
+        name: SEED_VCM_CLUB.name,
+        nameSlug: SEED_VCM_CLUB.slug,
+      },
+    ]);
+    repos.teams.listAll = vi.fn().mockResolvedValue([
+      {
+        uuid: "team-vcm-1",
+        sportsclubUuid: SEED_VCM_CLUB.uuid,
+        leagueUuid: "league-1",
+        leagueName: "Bezirksliga",
+        seasonUuid: SEED_SEASON.uuid,
+        seasonName: SEED_SEASON.name,
+        updatedAt: "2026-09-01T00:00:00.000Z",
+      },
+    ]);
 
     const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
     await processSamsProviderEvent(event, repos);
@@ -524,6 +562,24 @@ describe("processSamsProviderEvent", () => {
       (entry) => entry.type === SamsEventType.clubMatchScheduleUpdated,
     );
     expect(fixture).toBeDefined();
+    repos.clubs.listAll = vi.fn().mockResolvedValue([
+      {
+        sportsclubUuid: SEED_VCM_CLUB.uuid,
+        name: SEED_VCM_CLUB.name,
+        nameSlug: SEED_VCM_CLUB.slug,
+      },
+    ]);
+    repos.teams.listAll = vi.fn().mockResolvedValue([
+      {
+        uuid: "team-vcm-1",
+        sportsclubUuid: SEED_VCM_CLUB.uuid,
+        leagueUuid: "league-1",
+        leagueName: "Bezirksliga",
+        seasonUuid: SEED_SEASON.uuid,
+        seasonName: SEED_SEASON.name,
+        updatedAt: "2026-09-01T00:00:00.000Z",
+      },
+    ]);
 
     const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
     await processSamsProviderEvent(event, repos);

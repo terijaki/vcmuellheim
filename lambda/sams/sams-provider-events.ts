@@ -224,15 +224,7 @@ async function upsertClub(
   event: SamsEvent & { type: typeof SamsEventType.clubUpdated },
 ): Promise<void> {
   const club = event.payload;
-  const existing = await repos.clubs.getById(club.uuid);
-  if (existing?.snapshotVersion === event.snapshotVersion) {
-    logger.info("Skipping unchanged club projection", {
-      sportsclubUuid: club.uuid,
-      snapshotVersion: event.snapshotVersion,
-    });
-    return;
-  }
-
+  // Always write so DynamoDB TTL is refreshed even when the club snapshot is unchanged.
   const nameSlug = club.slug || slugify(club.name);
   const slugMatches = await repos.clubs.queryByNameSlugPrefix(nameSlug);
   for (const staleClub of slugMatches) {
