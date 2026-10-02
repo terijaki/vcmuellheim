@@ -32,11 +32,8 @@ export async function rebuildAppProjections(
   const seasonUuid = resolveSyncedSeasonUuidFromTeams(teams);
 
   if (!seasonUuid || configuredSportsclubUuids.size === 0) {
-    await Promise.all([
-      repos.appTabelle.replaceDataset(APP_DATASET_CURRENT, []),
-      repos.appTermine.replaceDataset(APP_DATASET_CURRENT, []),
-      repos.appHeimspiele.delete(APP_DATASET_CURRENT),
-    ]);
+    // Keep last-good `current` read models. Clearing here made production blank
+    // when club rows expired via TTL while teams/schedules were still present.
     return { seasonUuid: seasonUuid ?? null, tabelleLeagueCount: 0, termineMatchCount: 0 };
   }
 

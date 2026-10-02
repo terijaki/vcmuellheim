@@ -131,7 +131,7 @@ describe("rebuildAppProjections", () => {
     );
   });
 
-  it("clears current datasets when season or configured clubs are unresolved", async () => {
+  it("preserves current datasets when season is unresolved", async () => {
     const repos = createRepos({
       teams: {
         listAll: vi.fn().mockResolvedValue([]),
@@ -145,10 +145,38 @@ describe("rebuildAppProjections", () => {
     });
 
     const result = await rebuildAppProjections(repos);
-    expect(result.seasonUuid).toBeNull();
-    expect(repos.appTabelle.replaceDataset).toHaveBeenCalledWith("current", []);
-    expect(repos.appTermine.replaceDataset).toHaveBeenCalledWith("current", []);
-    expect(repos.appHeimspiele.delete).toHaveBeenCalledWith("current");
+    expect(result).toEqual({
+      seasonUuid: null,
+      tabelleLeagueCount: 0,
+      termineMatchCount: 0,
+    });
+    expect(repos.appTabelle.replaceDataset).not.toHaveBeenCalled();
+    expect(repos.appTermine.replaceDataset).not.toHaveBeenCalled();
+    expect(repos.appHeimspiele.delete).not.toHaveBeenCalled();
+  });
+
+  it("preserves current datasets when configured clubs are missing", async () => {
+    const repos = createRepos({
+      clubs: {
+        listAll: vi.fn().mockResolvedValue([]),
+        getById: vi.fn(),
+        getByNameSlug: vi.fn(),
+        queryByNameSlugPrefix: vi.fn(),
+        upsert: vi.fn(),
+        delete: vi.fn(),
+        upsertMany: vi.fn(),
+      },
+    });
+
+    const result = await rebuildAppProjections(repos);
+    expect(result).toEqual({
+      seasonUuid: "season-26",
+      tabelleLeagueCount: 0,
+      termineMatchCount: 0,
+    });
+    expect(repos.appTabelle.replaceDataset).not.toHaveBeenCalled();
+    expect(repos.appTermine.replaceDataset).not.toHaveBeenCalled();
+    expect(repos.appHeimspiele.delete).not.toHaveBeenCalled();
   });
 
   it("publishes a new current season while retaining the previous season dataset id", async () => {

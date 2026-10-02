@@ -187,7 +187,7 @@ export const samsClubSchema = z.object({
   logoS3Key: z.string().optional(),
   snapshotVersion: z.string().min(1).optional(),
   updatedAt: z.iso.datetime(),
-  ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (30-day expiry)"),
+  ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (1-year expiry)"),
 });
 
 /** SAMS team record (from provider club-season team events) */

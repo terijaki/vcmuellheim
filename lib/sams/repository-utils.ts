@@ -1,10 +1,10 @@
 import dayjs from "dayjs";
 import { z } from "zod";
 
-/** Club metadata TTL (logo/name rows). */
-export const SAMS_CLUB_TTL_DAYS = 30;
-/** Teams, rosters, schedules, and rankings. */
+/** Teams, rosters, schedules, rankings, and club metadata. */
 export const SAMS_PROJECTION_TTL_DAYS = 365;
+/** Club metadata TTL — same as projections so rare club updates cannot expire rows early. */
+export const SAMS_CLUB_TTL_DAYS = SAMS_PROJECTION_TTL_DAYS;
 
 export function unixTtlSecondsFromNow(days: number): number {
   return Math.floor(Date.now() / 1000) + days * 24 * 60 * 60;
