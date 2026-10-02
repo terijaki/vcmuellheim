@@ -34,6 +34,7 @@ import {
   AppTabelleLeagueEntity,
   AppTermineMatchEntity,
   SamsClubEntity,
+  SamsClubLogoEntity,
   SamsRankingEntity,
   SamsRosterEntity,
   SamsScheduleEntity,
@@ -85,6 +86,7 @@ export function db(): ReturnType<typeof createDb> {
 
 const samsEntityMap = {
   club: SamsClubEntity,
+  clubLogo: SamsClubLogoEntity,
   team: SamsTeamEntity,
   roster: SamsRosterEntity,
   schedule: SamsScheduleEntity,

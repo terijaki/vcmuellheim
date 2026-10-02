@@ -5,6 +5,10 @@ import {
 } from "./app-heimspiele-repository";
 import { createAppTabelleRepository, type AppTabelleRepository } from "./app-tabelle-repository";
 import { createAppTermineRepository, type AppTermineRepository } from "./app-termine-repository";
+import {
+  createSamsClubLogoRepository,
+  type SamsClubLogoRepository,
+} from "./sams-club-logo-repository";
 import { createSamsClubsRepository, type SamsClubsRepository } from "./sams-clubs-repository";
 import {
   createSamsRankingProjectionRepository,
@@ -22,6 +26,7 @@ type PublicInstance<T> = { [K in keyof T]: T[K] };
 
 export type SamsRepositories = {
   clubs: PublicInstance<SamsClubsRepository>;
+  clubLogos: PublicInstance<SamsClubLogoRepository>;
   teams: PublicInstance<SamsTeamsRepository>;
   rosters: PublicInstance<SamsRostersRepository>;
   schedules: PublicInstance<SamsScheduleProjectionRepository>;
@@ -37,6 +42,7 @@ export function createSamsRepositories(
 ): SamsRepositories {
   return {
     clubs: createSamsClubsRepository(client, tableName),
+    clubLogos: createSamsClubLogoRepository(client, tableName),
     teams: createSamsTeamsRepository(client, tableName),
     rosters: createSamsRostersRepository(client, tableName),
     schedules: createSamsScheduleProjectionRepository(client, tableName),

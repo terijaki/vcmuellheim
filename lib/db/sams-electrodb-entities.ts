@@ -56,6 +56,31 @@ export const SamsClubEntity = new Entity({
 } as const);
 
 // ---------------------------------------------------------------------------
+// SamsClubLogo entity — CDN logo index keyed by sportsclubUuid (from rankings)
+// ---------------------------------------------------------------------------
+
+export const SamsClubLogoEntity = new Entity({
+  model: {
+    entity: "samslogo",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    sportsclubUuid: { type: "string", required: true },
+    type: { type: "string", required: true, default: () => "samslogo" as const },
+    logoUrl: { type: "string", required: true },
+    updatedAt: { type: "string", required: true },
+    ttl: { type: "number", required: true },
+  },
+  indexes: {
+    bySportsclubUuid: {
+      pk: { field: "pk", composite: ["sportsclubUuid"] },
+      sk: { field: "sk", composite: [] },
+    },
+  },
+} as const);
+
+// ---------------------------------------------------------------------------
 // SamsTeam entity
 // ---------------------------------------------------------------------------
 
@@ -287,6 +312,7 @@ export const AppHeimspieleEntity = new Entity({
 /** All SAMS entities — useful for building a service */
 export const SamsEntities = {
   club: SamsClubEntity,
+  clubLogo: SamsClubLogoEntity,
   team: SamsTeamEntity,
   roster: SamsRosterEntity,
   schedule: SamsScheduleEntity,

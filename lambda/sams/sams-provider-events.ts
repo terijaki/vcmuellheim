@@ -13,6 +13,7 @@ import type { SamsRepositories } from "@/lib/sams/repositories/create-sams-repos
 import type { SamsScheduleProjectionMeta } from "@/lib/sams/repositories/sams-schedule-projection-repository";
 import { createSamsRepositories } from "@/lib/sams/repositories";
 import {
+  isoTimestampNow,
   SAMS_CLUB_TTL_DAYS,
   SAMS_PROJECTION_TTL_DAYS,
   unixTtlSecondsFromNow,
@@ -426,17 +427,35 @@ export async function processSamsProviderEvent(
       if (await shouldSkipRanking(repos, leagueUuid, seasonUuid, event.snapshotVersion)) {
         return;
       }
+      const teams = entries.map(mapProviderRankingEntry);
       await repos.rankings.replace({
         leagueUuid,
         seasonUuid,
         seasonName,
         leagueName,
-        teams: entries.map(mapProviderRankingEntry),
+        teams,
         snapshotVersion: event.snapshotVersion,
         cachedAt,
         isStale,
         ttl: unixTtlSecondsFromNow(SAMS_PROJECTION_TTL_DAYS),
       });
+      const logoUpdatedAt = isoTimestampNow();
+      const logoTtl = unixTtlSecondsFromNow(SAMS_PROJECTION_TTL_DAYS);
+      await Promise.all(
+        teams
+          .filter(
+            (team): team is typeof team & { sportsclubUuid: string; logoUrl: string } =>
+              !!team.sportsclubUuid && !!team.logoUrl,
+          )
+          .map((team) =>
+            repos.clubLogos.upsert({
+              sportsclubUuid: team.sportsclubUuid,
+              logoUrl: team.logoUrl,
+              updatedAt: logoUpdatedAt,
+              ttl: logoTtl,
+            }),
+          ),
+      );
       await rebuildAppReadModels(repos);
       return;
     }

@@ -14,35 +14,32 @@ import {
 vi.mock("@/lib/sams/repositories", () => ({
   samsScheduleProjectionRepository: { listMatchesForSportsclubs: vi.fn(), get: vi.fn() },
   samsRankingProjectionRepository: { get: vi.fn() },
+  samsClubLogoRepository: { get: vi.fn(), upsert: vi.fn() },
   appTabelleRepository: { listByDataset: vi.fn(), replaceDataset: vi.fn() },
   appTermineRepository: { listByDataset: vi.fn(), query: vi.fn(), replaceDataset: vi.fn() },
 }));
 vi.mock("@webapp/server/queries", () => ({
   getAllSamsClubs: vi.fn(),
   getAllSamsTeams: vi.fn(),
-  getSamsClubBySportsclubUuid: vi.fn(),
   getSamsRosterByTeamUuid: vi.fn(),
 }));
 
 import {
   appTabelleRepository,
   appTermineRepository,
+  samsClubLogoRepository,
   samsRankingProjectionRepository,
   samsScheduleProjectionRepository,
 } from "@/lib/sams/repositories";
-import {
-  getAllSamsClubs,
-  getAllSamsTeams,
-  getSamsClubBySportsclubUuid,
-} from "@webapp/server/queries";
+import { getAllSamsClubs, getAllSamsTeams } from "@webapp/server/queries";
 
 const mockList = vi.mocked(samsScheduleProjectionRepository.listMatchesForSportsclubs);
 const mockRankingGet = vi.mocked(samsRankingProjectionRepository.get);
+const mockClubLogoGet = vi.mocked(samsClubLogoRepository.get);
 const mockAppTabelleList = vi.mocked(appTabelleRepository.listByDataset);
 const mockAppTermineQuery = vi.mocked(appTermineRepository.query);
 const mockClubs = vi.mocked(getAllSamsClubs);
 const mockTeams = vi.mocked(getAllSamsTeams);
-const mockClubByUuid = vi.mocked(getSamsClubBySportsclubUuid);
 
 const clubs: ClubResponse[] = [
   {
@@ -153,7 +150,7 @@ describe("application read models", () => {
     const result = await handleGetCurrentTabelle();
     expect(result.leagueUuids).toEqual(["l1"]);
     expect(result.rankingsByLeagueUuid.l1?.teams?.[0]?.logoUrl).toBe(
-      "/api/sams/logos?clubUuid=club-1",
+      "https://cdn.example.com/logo.png",
     );
     expect(mockTeams).not.toHaveBeenCalled();
   });
@@ -222,7 +219,7 @@ describe("application read models", () => {
       },
     ]);
     const result = await handleGetSamsRankingByLeagueUuid("l1");
-    expect(result.teams?.[0]?.logoUrl).toBe("/api/sams/logos?clubUuid=club-1");
+    expect(result.teams?.[0]?.logoUrl).toBe("https://cdn.example.com/logo.png");
     expect(result.leagueName).toBe("BL");
     expect(mockRankingGet).not.toHaveBeenCalled();
   });
@@ -273,14 +270,14 @@ describe("handleServeClubLogo", () => {
     vi.unstubAllGlobals();
   });
 
-  it("streams SVG bytes from a data URI stored on the club", async () => {
+  it("streams SVG bytes from a data URI stored on the logo index", async () => {
     const svg = "<svg xmlns='http://www.w3.org/2000/svg'></svg>";
-    mockClubByUuid.mockResolvedValue({
-      type: "club",
-      name: "Mighty Ducks",
+    mockClubLogoGet.mockResolvedValue({
+      type: "samslogo",
       sportsclubUuid: "club-1",
-      logoImageLink: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`,
+      logoUrl: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`,
       updatedAt: "2026-01-01T00:00:00.000Z",
+      ttl: 1,
     });
 
     const response = await handleServeClubLogo("club-1");
@@ -289,13 +286,13 @@ describe("handleServeClubLogo", () => {
     expect(await response.text()).toBe(svg);
   });
 
-  it("proxies https provider logos", async () => {
-    mockClubByUuid.mockResolvedValue({
-      type: "club",
-      name: "VC Müllheim",
+  it("proxies https CDN logos from the logo index", async () => {
+    mockClubLogoGet.mockResolvedValue({
+      type: "samslogo",
       sportsclubUuid: "club-1",
-      logoImageLink: "https://cdn.example.com/logo.png",
+      logoUrl: "https://cdn.example.com/logo.png",
       updatedAt: "2026-01-01T00:00:00.000Z",
+      ttl: 1,
     });
     vi.stubGlobal(
       "fetch",
@@ -313,13 +310,8 @@ describe("handleServeClubLogo", () => {
     expect(Buffer.from(await response.arrayBuffer()).toString()).toBe("png-bytes");
   });
 
-  it("returns 404 when the club has no logo", async () => {
-    mockClubByUuid.mockResolvedValue({
-      type: "club",
-      name: "VC Müllheim",
-      sportsclubUuid: "club-1",
-      updatedAt: "2026-01-01T00:00:00.000Z",
-    });
+  it("returns 404 when the logo index has no entry", async () => {
+    mockClubLogoGet.mockResolvedValue(null);
     const response = await handleServeClubLogo("club-1");
     expect(response.status).toBe(404);
   });
