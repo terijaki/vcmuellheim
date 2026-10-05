@@ -4,16 +4,26 @@ import ClubLogo from "../ClubLogo";
 
 type HomeLiveTickerProps = {
   matches: LiveTickerDisplayMatch[];
+  /** Skip outer container when embedded in another layout (e.g. homepage tabs). */
+  embedded?: boolean;
 };
 
-export default function HomeLiveTicker({ matches }: HomeLiveTickerProps) {
+export default function HomeLiveTicker({ matches, embedded = false }: HomeLiveTickerProps) {
+  const grid = (
+    <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
+      {matches.map((m) => (
+        <LiveMatchCard key={m.matchUuid} match={m} />
+      ))}
+    </SimpleGrid>
+  );
+
+  if (embedded) {
+    return grid;
+  }
+
   return (
     <Container size="lg" w="100%">
-      <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
-        {matches.map((m) => (
-          <LiveMatchCard key={m.matchUuid} match={m} />
-        ))}
-      </SimpleGrid>
+      {grid}
     </Container>
   );
 }

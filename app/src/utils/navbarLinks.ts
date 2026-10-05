@@ -12,3 +12,6 @@ export const navbarLinks = [
   },
   { name: "Kontakt", href: "/#kontakt" as const },
 ];
+
+/** Mobile-only nav entry — omitted from desktop header due to space constraints. */
+export const mobileOnlyNavbarLinks = [{ name: "Live", href: "/live" as const }] as const;

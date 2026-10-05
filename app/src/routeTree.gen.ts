@@ -20,6 +20,7 @@ import { Route as LayoutTeamsRouteImport } from './routes/_layout/teams'
 import { Route as LayoutTabelleRouteImport } from './routes/_layout/tabelle'
 import { Route as LayoutSatzungRouteImport } from './routes/_layout/satzung'
 import { Route as LayoutNewsRouteImport } from './routes/_layout/news'
+import { Route as LayoutLiveRouteImport } from './routes/_layout/live'
 import { Route as LayoutJugendschutzRouteImport } from './routes/_layout/jugendschutz'
 import { Route as LayoutImpressumRouteImport } from './routes/_layout/impressum'
 import { Route as LayoutFotosRouteImport } from './routes/_layout/fotos'
@@ -101,6 +102,11 @@ const LayoutSatzungRoute = LayoutSatzungRouteImport.update({
 const LayoutNewsRoute = LayoutNewsRouteImport.update({
   id: '/news',
   path: '/news',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutLiveRoute = LayoutLiveRouteImport.update({
+  id: '/live',
+  path: '/live',
   getParentRoute: () => LayoutRoute,
 } as any)
 const LayoutJugendschutzRoute = LayoutJugendschutzRouteImport.update({
@@ -255,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/fotos': typeof LayoutFotosRoute
   '/impressum': typeof LayoutImpressumRoute
   '/jugendschutz': typeof LayoutJugendschutzRoute
+  '/live': typeof LayoutLiveRoute
   '/news': typeof LayoutNewsRouteWithChildren
   '/satzung': typeof LayoutSatzungRoute
   '/tabelle': typeof LayoutTabelleRoute
@@ -294,6 +301,7 @@ export interface FileRoutesByTo {
   '/fotos': typeof LayoutFotosRoute
   '/impressum': typeof LayoutImpressumRoute
   '/jugendschutz': typeof LayoutJugendschutzRoute
+  '/live': typeof LayoutLiveRoute
   '/satzung': typeof LayoutSatzungRoute
   '/tabelle': typeof LayoutTabelleRoute
   '/admin/login': typeof AdminLoginRoute
@@ -332,6 +340,7 @@ export interface FileRoutesById {
   '/_layout/fotos': typeof LayoutFotosRoute
   '/_layout/impressum': typeof LayoutImpressumRoute
   '/_layout/jugendschutz': typeof LayoutJugendschutzRoute
+  '/_layout/live': typeof LayoutLiveRoute
   '/_layout/news': typeof LayoutNewsRouteWithChildren
   '/_layout/satzung': typeof LayoutSatzungRoute
   '/_layout/tabelle': typeof LayoutTabelleRoute
@@ -375,6 +384,7 @@ export interface FileRouteTypes {
     | '/fotos'
     | '/impressum'
     | '/jugendschutz'
+    | '/live'
     | '/news'
     | '/satzung'
     | '/tabelle'
@@ -414,6 +424,7 @@ export interface FileRouteTypes {
     | '/fotos'
     | '/impressum'
     | '/jugendschutz'
+    | '/live'
     | '/satzung'
     | '/tabelle'
     | '/admin/login'
@@ -451,6 +462,7 @@ export interface FileRouteTypes {
     | '/_layout/fotos'
     | '/_layout/impressum'
     | '/_layout/jugendschutz'
+    | '/_layout/live'
     | '/_layout/news'
     | '/_layout/satzung'
     | '/_layout/tabelle'
@@ -572,6 +584,13 @@ declare module '@tanstack/react-router' {
       path: '/news'
       fullPath: '/news'
       preLoaderRoute: typeof LayoutNewsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/live': {
+      id: '/_layout/live'
+      path: '/live'
+      fullPath: '/live'
+      preLoaderRoute: typeof LayoutLiveRouteImport
       parentRoute: typeof LayoutRoute
     }
     '/_layout/jugendschutz': {
@@ -823,6 +842,7 @@ interface LayoutRouteChildren {
   LayoutFotosRoute: typeof LayoutFotosRoute
   LayoutImpressumRoute: typeof LayoutImpressumRoute
   LayoutJugendschutzRoute: typeof LayoutJugendschutzRoute
+  LayoutLiveRoute: typeof LayoutLiveRoute
   LayoutNewsRoute: typeof LayoutNewsRouteWithChildren
   LayoutSatzungRoute: typeof LayoutSatzungRoute
   LayoutTabelleRoute: typeof LayoutTabelleRoute
@@ -840,6 +860,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutFotosRoute: LayoutFotosRoute,
   LayoutImpressumRoute: LayoutImpressumRoute,
   LayoutJugendschutzRoute: LayoutJugendschutzRoute,
+  LayoutLiveRoute: LayoutLiveRoute,
   LayoutNewsRoute: LayoutNewsRouteWithChildren,
   LayoutSatzungRoute: LayoutSatzungRoute,
   LayoutTabelleRoute: LayoutTabelleRoute,

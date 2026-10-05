@@ -1,14 +1,12 @@
-import { Stack, Text, Title } from "@mantine/core";
+import { Stack, Text } from "@mantine/core";
 import { Await, createFileRoute } from "@tanstack/react-router";
+import HomeContentTabs from "@webapp/components/homepage/HomeContentTabs";
 import HomeFotos from "@webapp/components/homepage/HomeFotos";
 import HomeHeimspiele from "@webapp/components/homepage/HomeHeimspiele";
-import HomeInstagram from "@webapp/components/homepage/HomeInstagram";
 import HomeIntro from "@webapp/components/homepage/HomeIntro";
 import HomeIntroLogo from "@webapp/components/homepage/HomeIntroLogo";
 import HomeKontakt from "@webapp/components/homepage/HomeKontakt";
-import HomeLiveTicker from "@webapp/components/homepage/HomeLiveTicker";
 import HomeMembers from "@webapp/components/homepage/HomeMembers";
-import HomeNews from "@webapp/components/homepage/HomeNews";
 import HomeSectionFallback from "@webapp/components/homepage/HomeSectionFallback";
 import HomeSponsors from "@webapp/components/homepage/HomeSponsors";
 import HomeTeams from "@webapp/components/homepage/HomeTeams";
@@ -48,45 +46,25 @@ export const Route = createFileRoute("/_layout/")({
 
 function HomePage() {
   const data = Route.useLoaderData();
-  const { ourMatches, hasMatchesToday, hasOpenMatches, isPending } = useHomeLiveTickerData();
-  const showLiveTicker = !isPending && hasMatchesToday;
-
-  const introContent = showLiveTicker ? (
-    <Stack gap="md" align="center" style={{ position: "relative", zIndex: 2 }}>
-      <Stack gap={0} align="center">
-        <Title order={2} c="white" mt="xl" style={{ textWrap: "balance" }} ta="center">
-          Willkommen beim Volleyballclub Müllheim
-        </Title>
-        <Text c="white">
-          {hasOpenMatches
-            ? "Unsere Mannschaften spielen gerade!"
-            : "Unsere Mannschaften haben heute gespielt!"}
-        </Text>
-      </Stack>
-      <HomeLiveTicker matches={ourMatches} />
-    </Stack>
-  ) : (
-    <Stack gap={0} align="center" style={{ position: "relative", zIndex: 2 }}>
-      <Text fw="bolder" size="xl" mt="xl">
-        Willkommen beim
-      </Text>
-      <HomeIntroLogo />
-    </Stack>
-  );
+  const { hasMatchesToday, isPending } = useHomeLiveTickerData();
+  const showLiveLink = !isPending && hasMatchesToday;
 
   return (
     <Stack gap={0} align="stretch">
       <HomeIntro
         backgroundImage={data.introBackgroundImage}
-        introContent={introContent}
+        introContent={
+          <Stack gap={0} align="center" style={{ position: "relative", zIndex: 2 }}>
+            <Text fw="bolder" size="xl" mt="xl">
+              Willkommen beim
+            </Text>
+            <HomeIntroLogo />
+          </Stack>
+        }
         minHeight={HOME_HERO_MIN_HEIGHT}
+        showLiveLink={showLiveLink}
       />
-      <Await promise={data.instagramPosts} fallback={<HomeSectionFallback title="Instagram" />}>
-        {(posts) => <HomeInstagram posts={posts} />}
-      </Await>
-      <Await promise={data.news} fallback={<HomeSectionFallback title="News" />}>
-        {(news) => <HomeNews initialNews={news} />}
-      </Await>
+      <HomeContentTabs news={data.news} instagramPosts={data.instagramPosts} />
       <Await promise={data.heimspiele} fallback={<HomeSectionFallback title="Heimspiele" />}>
         {([events, heimspiele]) => (
           <HomeHeimspiele initialEvents={events} initialHeimspiele={heimspiele} />

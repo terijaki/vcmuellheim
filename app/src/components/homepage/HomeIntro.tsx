@@ -11,9 +11,16 @@ interface HomeIntroProps {
   introContent: ReactNode;
   /** Overrides the default full-viewport hero so the next section is on screen. */
   minHeight?: string;
+  /** Show a Live pill linking to /live when match-day ticker content is available. */
+  showLiveLink?: boolean;
 }
 
-export default function HomeIntro({ backgroundImage, introContent, minHeight }: HomeIntroProps) {
+export default function HomeIntro({
+  backgroundImage,
+  introContent,
+  minHeight,
+  showLiveLink = false,
+}: HomeIntroProps) {
   const { height, width } = useViewportSize();
   const isPortrait = height > width;
   const isMobile = width < 768;
@@ -35,6 +42,18 @@ export default function HomeIntro({ backgroundImage, introContent, minHeight }: 
       {(isPortrait || isMobile) && (
         <Container size="xs" pt="xl" mt="xl" style={{ zIndex: 2 }}>
           <Group gap="xs" justify="center">
+            {showLiveLink && (
+              <Button
+                component={Link}
+                to="/live"
+                bg="red"
+                radius="xl"
+                bd="1px white solid"
+                c="white"
+              >
+                Live
+              </Button>
+            )}
             {navbarLinks.map((link) => {
               return (
                 <Button
