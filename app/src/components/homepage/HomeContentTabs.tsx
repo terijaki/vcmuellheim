@@ -17,31 +17,9 @@ type HomeContentTabsProps = {
   instagramPosts: Promise<BeholdPost[]>;
 };
 
-const tabStyles = {
-  list: {
-    justifyContent: "center",
-    borderBottom: "none",
-    gap: "var(--mantine-spacing-md)",
-    "&::before": {
-      display: "none",
-    },
-  },
-  tab: {
-    color: "var(--mantine-color-blumine-filled)",
-    fontSize: "var(--mantine-h3-font-size)",
-    fontWeight: 700,
-    paddingInline: "var(--mantine-spacing-xs)",
-    borderBottomWidth: 2,
-    borderColor: "transparent",
-    "&:hover": {
-      backgroundColor: "transparent",
-      borderColor: "transparent",
-    },
-    "&[data-active]": {
-      borderColor: "color-mix(in srgb, var(--mantine-color-blumine-filled) 30%, transparent)",
-      color: "var(--mantine-color-blumine-filled)",
-    },
-  },
+const tabClassNames = {
+  list: "home-content-tabs-list",
+  tab: "home-content-tabs-tab",
 } as const;
 
 function TabsFallback() {
@@ -49,7 +27,7 @@ function TabsFallback() {
     <Container size="xl" w="100%" py="md" px={{ base: "lg", md: "xl" }}>
       <Stack>
         <Center pb="xs">
-          <Tabs value="news" variant="default" color="blumine" styles={tabStyles}>
+          <Tabs value="news" variant="default" color="blumine" classNames={tabClassNames}>
             <Tabs.List>
               <Tabs.Tab value="news">News</Tabs.Tab>
             </Tabs.List>
@@ -101,7 +79,7 @@ function TabsShell({ initialNews, posts }: { initialNews: HomeNewsData; posts?: 
         }}
         variant="default"
         color="blumine"
-        styles={tabStyles}
+        classNames={tabClassNames}
         keepMounted={false}
       >
         <Center pb="xs">
