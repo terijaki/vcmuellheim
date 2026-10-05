@@ -6,10 +6,23 @@ import ScrollAnchor from "./ScrollAnchor";
 
 interface HomeInstagramProps {
   posts: BeholdPost[];
+  hideHeading?: boolean;
 }
 
-export default function HomeInstagram({ posts }: HomeInstagramProps) {
+export default function HomeInstagram({ posts, hideHeading = false }: HomeInstagramProps) {
   if (posts.length === 0) return null;
+
+  const grid = (
+    <SimpleGrid cols={{ base: 1, md: 2 }}>
+      {posts.map((post) => (
+        <InstagramCard key={post.id} {...post} />
+      ))}
+    </SimpleGrid>
+  );
+
+  if (hideHeading) {
+    return grid;
+  }
 
   return (
     <Box bg="onyx">
@@ -23,11 +36,7 @@ export default function HomeInstagram({ posts }: HomeInstagramProps) {
           <ScrollAnchor name="instagram" />
           <Stack>
             <SectionHeading text="Instagram" color="white" />
-            <SimpleGrid cols={{ base: 1, md: 2 }}>
-              {posts.map((post) => (
-                <InstagramCard key={post.id} {...post} />
-              ))}
-            </SimpleGrid>
+            {grid}
           </Stack>
         </Container>
         <Overlay

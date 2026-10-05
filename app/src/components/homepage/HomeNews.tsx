@@ -8,8 +8,10 @@ import ScrollAnchor from "./ScrollAnchor";
 
 export default function HomeNews({
   initialNews,
+  hideHeading = false,
 }: {
   initialNews?: Awaited<ReturnType<typeof useHomeNews>>["data"];
+  hideHeading?: boolean;
 } = {}) {
   const { data, isLoading } = useHomeNews(initialNews ? { initialData: initialNews } : undefined);
 
@@ -22,33 +24,41 @@ export default function HomeNews({
     if (thirdIsOld) news = news.slice(0, 2);
   }
 
+  const content = (
+    <Stack>
+      {!hideHeading && <SectionHeading text="News" />}
+      <SimpleGrid cols={{ base: 1, sm: 2 }}>
+        {isLoading && (
+          <>
+            <Skeleton height={140} maw={620} />
+            <Skeleton height={140} maw={620} />
+          </>
+        )}
+
+        {news?.map((post) => {
+          return <NewsCard key={post.id} {...post} />;
+        })}
+      </SimpleGrid>
+      <Center p="md">
+        {news.length === 0 && !isLoading ? (
+          <Text ta="center">News-Beiträge konnten nicht geladen werden.</Text>
+        ) : (
+          <Button component={Link} to="/news" style={{ opacity: isLoading ? 0.1 : 1 }}>
+            News-Archiv
+          </Button>
+        )}
+      </Center>
+    </Stack>
+  );
+
+  if (hideHeading) {
+    return content;
+  }
+
   return (
     <Container size="xl" w="100%" py="md" px={{ base: "lg", md: "xl" }}>
       <ScrollAnchor name="news" />
-      <Stack>
-        <SectionHeading text="News" />
-        <SimpleGrid cols={{ base: 1, sm: 2 }}>
-          {isLoading && (
-            <>
-              <Skeleton height={140} maw={620} />
-              <Skeleton height={140} maw={620} />
-            </>
-          )}
-
-          {news?.map((post) => {
-            return <NewsCard key={post.id} {...post} />;
-          })}
-        </SimpleGrid>
-        <Center p="md">
-          {news.length === 0 && !isLoading ? (
-            <Text ta="center">News-Beiträge konnten nicht geladen werden.</Text>
-          ) : (
-            <Button component={Link} to="/news" style={{ opacity: isLoading ? 0.1 : 1 }}>
-              News-Archiv
-            </Button>
-          )}
-        </Center>
-      </Stack>
+      {content}
     </Container>
   );
 }

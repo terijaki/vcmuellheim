@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { resolveRootSession } from "../../lib/root-session.server";
 import { sessionMiddleware } from "../../middleware";
 import type { AdminSessionUser } from "./session-utils";
 
@@ -15,3 +16,6 @@ export const getSessionFn = createServerFn()
       authRole: context.session.userRole,
     };
   });
+
+/** Root-route session with anonymous cookie short-circuit (SSR + client RPC). */
+export const resolveRootSessionFn = createServerFn().handler(async () => resolveRootSession());

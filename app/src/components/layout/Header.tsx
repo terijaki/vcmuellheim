@@ -12,12 +12,12 @@ import { useDisclosure } from "@mantine/hooks";
 import { Link } from "@tanstack/react-router";
 import { FaVolleyball as Logo } from "react-icons/fa6";
 import { Club } from "@project.config";
-import { navbarLinks } from "../../utils/navbarLinks";
+import { mobileOnlyNavbarLinks, navbarLinks } from "../../utils/navbarLinks";
 import Socials from "../layout/Socials";
 
 export const HEADER_HEIGHT = 60;
 
-type NavbarLinkItem = (typeof navbarLinks)[number];
+type NavbarLinkItem = (typeof navbarLinks)[number] | (typeof mobileOnlyNavbarLinks)[number];
 
 function HeaderNavLink({
   item,
@@ -105,6 +105,9 @@ export default function Header() {
         <Group justify="space-between" align="flex-start" pt="lg">
           <Stack gap="xs">
             {navbarLinks.map((item) => (
+              <HeaderNavLink key={item.name} item={item} onClick={close} mobile />
+            ))}
+            {mobileOnlyNavbarLinks.map((item) => (
               <HeaderNavLink key={item.name} item={item} onClick={close} mobile />
             ))}
           </Stack>

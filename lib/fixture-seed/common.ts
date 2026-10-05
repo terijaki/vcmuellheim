@@ -13,6 +13,8 @@ export interface SeedContext {
   cdkEnvironment: string;
   s3Bucket: string;
   contentTableName: string;
+  /** Social table for Behold Instagram feed seed (feature-branch webapp env). */
+  socialTableName: string;
   entities: ReturnType<typeof createDb>;
   docClient: DynamoDBDocumentClient;
   s3Client: S3Client;

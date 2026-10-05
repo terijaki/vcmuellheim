@@ -5,12 +5,13 @@
 
 import { db } from "@/lib/db/electrodb-client";
 import { docClient } from "@/lib/db/client";
-import { getContentTableName } from "@/lib/db/env";
+import { getContentTableName, getSocialTableName } from "@/lib/db/env";
 import { rebuildAllPublicSnapshots } from "@/lib/read-models/public-snapshots";
 import { S3Client } from "@aws-sdk/client-s3";
 import { cleanupDatabase, type SeedContext } from "@/lib/fixture-seed/common";
 import { seedBusData } from "@/lib/fixture-seed/bus";
 import { seedEventsData } from "@/lib/fixture-seed/events";
+import { seedInstagramData } from "@/lib/fixture-seed/instagram";
 import { seedLocationsData } from "@/lib/fixture-seed/locations";
 import { seedMembersData } from "@/lib/fixture-seed/members";
 import { seedNewsData } from "@/lib/fixture-seed/news";
@@ -32,6 +33,7 @@ function createDeployedSeedContext(): SeedContext {
     cdkEnvironment,
     s3Bucket,
     contentTableName: getContentTableName(),
+    socialTableName: getSocialTableName(),
     entities: db(),
     docClient,
     s3Client: new S3Client({ region: process.env.AWS_REGION || "eu-central-1" }),
@@ -48,6 +50,7 @@ export async function runFixtureSeed(): Promise<void> {
   await seedMembersData(ctx);
   await seedTeamsData(ctx);
   await seedNewsData(ctx);
+  await seedInstagramData(ctx);
   await seedSponsorsData(ctx);
   await seedEventsData(ctx);
   await seedVolunteerEventsData(ctx);
