@@ -153,7 +153,8 @@ export class WebAppStack extends cdk.Stack {
     dynamodb.Table.fromTableArn(this, "ContentTableRef", contentTableArn).grantReadWriteData(
       this.webappLambda,
     );
-    dynamodb.Table.fromTableArn(this, "SocialTableRef", socialTableArn).grantReadData(
+    // Read for homepage Instagram; write for feature-branch fixture seed (`/api/dev/seed`).
+    dynamodb.Table.fromTableArn(this, "SocialTableRef", socialTableArn).grantReadWriteData(
       this.webappLambda,
     );
     this.webappLambda.addToRolePolicy(
