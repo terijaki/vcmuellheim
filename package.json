@@ -70,7 +70,7 @@
     "@tiptap/starter-kit": "^3.31.4",
     "@varlock/aws-secrets-plugin": "^1.2.4",
     "@voidzero-dev/vite-plus-core": "1.1.0",
-    "better-auth": "1.6.23",
+    "better-auth": "1.7.7",
     "dayjs": "^1.11.23",
     "electrodb": "^3.9.3",
     "lucide-react": "^1.52.0",
