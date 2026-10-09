@@ -1,5 +1,5 @@
 /** Pinned Bun version for the Lambda custom runtime layer and CDK bundling images. */
-export const BUN_VERSION = "1.4.0" as const;
+export const BUN_VERSION = "1.4.2" as const;
 
 /** Account-scoped SSM parameter holding the Bun Lambda runtime layer ARN. */
 export const BUN_TIME_LAYER_SSM_NAME = "/vcmuellheim/lambda/buntime-arn" as const;

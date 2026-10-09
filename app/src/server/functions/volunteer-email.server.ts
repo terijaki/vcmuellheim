@@ -8,7 +8,6 @@
  */
 
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
-import { interpolatePath } from "@tanstack/react-router";
 import type { FileRoutesByPath } from "@tanstack/react-router";
 import { Club, Mail } from "@project.config";
 import dayjs from "dayjs";
@@ -42,7 +41,11 @@ type RoutePaths = FileRoutesByPath[keyof FileRoutesByPath]["fullPath"];
 
 /** Build a type-safe route path — TypeScript errors if the path is invalid. */
 function routePath(path: RoutePaths, params: Record<string, string>): string {
-  return interpolatePath({ path, params }).interpolatedPath;
+  let result: string = path;
+  for (const [key, value] of Object.entries(params)) {
+    result = result.replaceAll(`$${key}`, encodeURIComponent(value));
+  }
+  return result;
 }
 
 // ---------------------------------------------------------------------------

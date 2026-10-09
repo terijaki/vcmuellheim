@@ -17,7 +17,7 @@ describe("Bun 1.4 pins", () => {
       devDependencies: Record<string, string>;
     };
 
-    expect(BUN_VERSION).toBe("1.4.0");
+    expect(BUN_VERSION).toBe("1.4.2");
     expect(packageJson.packageManager).toBe(`bun@${BUN_VERSION}`);
     expect(packageJson.devDependencies["bun-types"]).toBe(BUN_VERSION);
   });

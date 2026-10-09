@@ -36,3 +36,4 @@ apps/**/dist
 # playwright
 playwright-report/
 test-results/
+.vitest/

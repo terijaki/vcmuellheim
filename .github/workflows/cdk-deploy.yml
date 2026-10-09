@@ -32,9 +32,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - uses: voidzero-dev/setup-vp@v1
+      - uses: voidzero-dev/setup-vp@v1.21.1
         with:
-          node-version: "25"
+          node-version: "26"
           cache: true
 
       - name: Install dependencies
@@ -135,9 +135,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - uses: voidzero-dev/setup-vp@v1
+      - uses: voidzero-dev/setup-vp@v1.21.1
         with:
-          node-version: "25"
+          node-version: "26"
           cache: true
 
       - name: Install dependencies
