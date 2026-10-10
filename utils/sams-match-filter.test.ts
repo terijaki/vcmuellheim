@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vite-plus/test";
-import { filterAndSortSamsMatches, filterHomeMatches } from "@/utils/sams-match-filter";
+import {
+  filterAndSortSamsMatches,
+  filterHomeMatches,
+  isMatchHostedByOwnedTeam,
+} from "@/utils/sams-match-filter";
 
 describe("filterAndSortSamsMatches", () => {
   const matches = [
@@ -26,19 +30,55 @@ describe("filterAndSortSamsMatches", () => {
   });
 });
 
+describe("isMatchHostedByOwnedTeam", () => {
+  const ownedTeamUuids = new Set(["our-home", "our-other"]);
+
+  it("is true when host is an owned team", () => {
+    expect(isMatchHostedByOwnedTeam({ host: "our-home" }, ownedTeamUuids)).toBe(true);
+  });
+
+  it("is false when host is not an owned team", () => {
+    expect(isMatchHostedByOwnedTeam({ host: "opponent-host" }, ownedTeamUuids)).toBe(false);
+  });
+
+  it("is false when host is missing", () => {
+    expect(isMatchHostedByOwnedTeam({}, ownedTeamUuids)).toBe(false);
+  });
+});
+
 describe("filterHomeMatches", () => {
   const ownedTeamUuids = new Set(["our-home", "our-other"]);
 
   const matches = [
-    { uuid: "home", team1: { uuid: "our-home" }, team2: { uuid: "away-guest" } },
-    { uuid: "away", team1: { uuid: "opponent-home" }, team2: { uuid: "our-home" } },
-    { uuid: "other-home", team1: { uuid: "our-other" }, team2: { uuid: "guest" } },
-    { uuid: "unrelated", team1: { uuid: "a" }, team2: { uuid: "b" } },
+    {
+      uuid: "home-as-team2",
+      host: "our-home",
+      team1: { uuid: "away-guest" },
+      team2: { uuid: "our-home" },
+    },
+    {
+      uuid: "away-as-team1",
+      host: "opponent-host",
+      team1: { uuid: "our-home" },
+      team2: { uuid: "guest-b" },
+    },
+    {
+      uuid: "other-home",
+      host: "our-other",
+      team1: { uuid: "our-other" },
+      team2: { uuid: "guest" },
+    },
+    {
+      uuid: "unrelated",
+      host: "a",
+      team1: { uuid: "a" },
+      team2: { uuid: "b" },
+    },
   ];
 
-  it("keeps only matches where an owned team is the home side (team1)", () => {
+  it("keeps only matches whose SAMS host is an owned team", () => {
     const result = filterHomeMatches(matches, ownedTeamUuids);
-    expect(result.map((m) => m.uuid)).toEqual(["home", "other-home"]);
+    expect(result.map((m) => m.uuid)).toEqual(["home-as-team2", "other-home"]);
   });
 
   it("returns an empty list when no owned teams are hosting", () => {

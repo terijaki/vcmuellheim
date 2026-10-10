@@ -196,6 +196,7 @@ function buildMatchesForTeam(
       team2: isHome
         ? { uuid: opponentTeamUuidValue, name: opponentName, sportsclubUuid: opponentClub.uuid }
         : { uuid: team.uuid, name: displayName, sportsclubUuid: club.uuid },
+      host: isHome ? team.uuid : opponentTeamUuidValue,
       location: {
         uuid: `location-${team.leagueUuid}-${index % 3}`,
         name: `${opponentClub.shortName} Halle ${(index % 3) + 1}`,
@@ -240,6 +241,7 @@ function buildMatchesForTeam(
       team2: isHome
         ? { uuid: opponentTeamUuidValue, name: opponentName, sportsclubUuid: opponentClub.uuid }
         : { uuid: team.uuid, name: displayName, sportsclubUuid: club.uuid },
+      host: isHome ? team.uuid : opponentTeamUuidValue,
       location: {
         uuid: `location-future-${team.leagueUuid}-${index % 3}`,
         name: `Arena ${opponentClub.slug} ${(index % 3) + 1}`,

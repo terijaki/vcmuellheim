@@ -19,6 +19,7 @@ describe("buildTermineProjection", () => {
           seasonUuid: "season-26",
           team1: { uuid: "team-opp", name: "Opponent", sportsclubUuid: "club-opp" },
           team2: { uuid: "team-vcm-1", name: "VC Müllheim 1", sportsclubUuid: "club-vcm" },
+          host: "team-opp",
           location: { uuid: "loc-1", name: "Halle Opp" },
           hasResult: false,
         },
@@ -30,6 +31,7 @@ describe("buildTermineProjection", () => {
           seasonUuid: "season-26",
           team1: { uuid: "team-vcm-1", name: "VC Müllheim 1", sportsclubUuid: "club-vcm" },
           team2: { uuid: "team-opp", name: "Opponent", sportsclubUuid: "club-opp" },
+          host: "team-vcm-1",
           hasResult: true,
           result: { winner: "team-vcm-1", setPoints: "3:1" },
         },
@@ -40,6 +42,7 @@ describe("buildTermineProjection", () => {
           seasonUuid: "season-26",
           team1: { uuid: "a", name: "A", sportsclubUuid: "club-a" },
           team2: { uuid: "b", name: "B", sportsclubUuid: "club-b" },
+          host: "a",
           hasResult: false,
         },
       ],
@@ -52,6 +55,40 @@ describe("buildTermineProjection", () => {
     expect(projection[0]?.leagueName).toBe("Bezirksliga");
     expect(projection[1]?.matchSortKey.startsWith("P#")).toBe(true);
     expect(projection[1]?.isHomeGame).toBe(true);
+  });
+
+  it("marks Heimspiele from SAMS host, not team1 order", () => {
+    const projection = buildTermineProjection({
+      datasetId: "current",
+      updatedAt: "2026-09-09T12:00:00.000Z",
+      ttl: 1_800_000_000,
+      configuredSportsclubUuids: new Set(["club-vcm"]),
+      ownedTeamUuids: new Set(["team-vcm-1"]),
+      leagueNameByUuid: new Map<string, string>(),
+      matches: [
+        {
+          uuid: "away-as-team1",
+          date: "2026-10-11T11:00:00.000Z",
+          team1: { uuid: "team-vcm-1", name: "VC Müllheim 1", sportsclubUuid: "club-vcm" },
+          team2: { uuid: "team-todtnau", name: "TV Todtnau", sportsclubUuid: "club-todtnau" },
+          host: "team-host-elsewhere",
+          location: { uuid: "loc-badmatte", name: "Sporthalle Badmatte" },
+          hasResult: false,
+        },
+        {
+          uuid: "home-as-team2",
+          date: "2026-10-12T14:00:00.000Z",
+          team1: { uuid: "team-guest", name: "Guest", sportsclubUuid: "club-guest" },
+          team2: { uuid: "team-vcm-1", name: "VC Müllheim 1", sportsclubUuid: "club-vcm" },
+          host: "team-vcm-1",
+          location: { uuid: "loc-home", name: "Halle Müllheim" },
+          hasResult: false,
+        },
+      ],
+    });
+
+    expect(projection.find((m) => m.matchUuid === "away-as-team1")?.isHomeGame).toBe(false);
+    expect(projection.find((m) => m.matchUuid === "home-as-team2")?.isHomeGame).toBe(true);
   });
 
   it("is idempotent for the same match set", () => {
@@ -68,6 +105,7 @@ describe("buildTermineProjection", () => {
           date: "2026-10-02T18:00:00.000Z",
           team1: { uuid: "team-vcm-1", name: "VC", sportsclubUuid: "club-vcm" },
           team2: { uuid: "team-opp", name: "Opp", sportsclubUuid: "club-opp" },
+          host: "team-vcm-1",
           hasResult: false,
         },
       ],

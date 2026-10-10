@@ -17,7 +17,10 @@ export function buildHeimspieleProjection(
   for (const match of matches) {
     if (!match.isHomeGame || match.hasResult) continue;
 
-    const opponentName = match.team2.name.trim();
+    // Heimspiel host may be team1 or team2; opponent is the other side.
+    const owned = new Set(match.ownedTeamUuids);
+    const opponentTeam = owned.has(match.team1.uuid) ? match.team2 : match.team1;
+    const opponentName = opponentTeam.name.trim();
     if (!opponentName) continue;
 
     byUuid.set(match.matchUuid, {

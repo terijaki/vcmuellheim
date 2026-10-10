@@ -22,8 +22,8 @@
     "db:seed:sams": "bun ./scripts/seed-sams-provider-events.ts",
     "verify": "vp check --fix && vp test",
     "cdk:deploy": "cdk deploy --require-approval=never",
-    "cdk:deploy:all": "cdk deploy --all --require-approval=never --concurrency 8",
-    "cdk:deploy:prod": "CDK_ENVIRONMENT=prod cdk deploy --all --concurrency 8",
+    "cdk:deploy:all": "cdk deploy --all --require-approval=never --concurrency 4",
+    "cdk:deploy:prod": "CDK_ENVIRONMENT=prod cdk deploy --all --concurrency 4",
     "cdk:deploy:buntime": "CDK_DEPLOY_BUNTIME=true cdk deploy BunTimeStack-Dev --require-approval=never",
     "cdk:deploy:buntime:prod": "CDK_ENVIRONMENT=prod CDK_DEPLOY_BUNTIME=true cdk deploy BunTimeStack-Prod --require-approval=never",
     "cdk:synth:all": "cdk synth --all",
@@ -36,7 +36,7 @@
     "cdk:diff:buntime": "CDK_DEPLOY_BUNTIME=true cdk diff BunTimeStack-Dev",
     "cdk:diff:buntime:prod": "CDK_ENVIRONMENT=prod CDK_DEPLOY_BUNTIME=true cdk diff BunTimeStack-Prod",
     "cdk:destroy": "CDK_DESTROY=true cdk destroy --require-approval=never",
-    "cdk:destroy:all": "CDK_DESTROY=true cdk destroy --all --require-approval=never --concurrency 8",
+    "cdk:destroy:all": "CDK_DESTROY=true cdk destroy --all --require-approval=never --concurrency 4",
     "cdk:bootstrap": "cdk bootstrap"
   },
   "dependencies": {
@@ -79,7 +79,7 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-icons": "^5.7.0",
-    "sams-provider-events": "^0.4.0",
+    "sams-provider-events": "^0.5.0",
     "ts-ics": "^2.4.7",
     "varlock": "^1.22.0",
     "zod": "^4.6.5"
