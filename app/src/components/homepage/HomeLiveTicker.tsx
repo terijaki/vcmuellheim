@@ -1,5 +1,5 @@
 import { Badge, Box, Card, Container, Flex, Group, SimpleGrid, Stack, Text } from "@mantine/core";
-import type { LiveTickerDisplayMatch } from "../../utils/liveTicker";
+import { getLiveTickerScoreDisplay, type LiveTickerDisplayMatch } from "../../utils/liveTicker";
 import ClubLogo from "../ClubLogo";
 
 type HomeLiveTickerProps = {
@@ -45,9 +45,7 @@ function MatchClubLogo({
 }
 
 function LiveMatchCard({ match }: { match: LiveTickerDisplayMatch }) {
-  const activeSet = match.activeSetNumber
-    ? match.setScores.find((setScore) => setScore.setNumber === match.activeSetNumber)
-    : undefined;
+  const { primaryText, secondaryText } = getLiveTickerScoreDisplay(match);
 
   const team1Logo = (
     <MatchClubLogo clubUuid={match.team1ClubUuid} label={match.team1Name} size={104} />
@@ -84,18 +82,14 @@ function LiveMatchCard({ match }: { match: LiveTickerDisplayMatch }) {
 
             <Stack gap={0} align="center" style={{ minWidth: 96 }}>
               <Text fw={900} size="3.2rem" c="onyx" lh={1} style={{ whiteSpace: "nowrap" }}>
-                {match.setPointsText}
+                {primaryText}
               </Text>
 
-              {activeSet ? (
+              {secondaryText ? (
                 <Text size="md" fw={800}>
-                  {activeSet.team1Score}:{activeSet.team2Score}
+                  {secondaryText}
                 </Text>
-              ) : (
-                <Text c="dimmed" size="xs">
-                  Sätze
-                </Text>
-              )}
+              ) : null}
             </Stack>
 
             <Flex justify="center" style={{ flex: 1, minWidth: 0 }}>
@@ -134,18 +128,14 @@ function LiveMatchCard({ match }: { match: LiveTickerDisplayMatch }) {
 
           <Stack gap={0} align="center" style={{ minWidth: 140 }}>
             <Text fw={900} size="4rem" c="onyx" lh={1} style={{ whiteSpace: "nowrap" }}>
-              {match.setPointsText}
+              {primaryText}
             </Text>
 
-            {activeSet ? (
+            {secondaryText ? (
               <Text size="lg" fw={800}>
-                {activeSet.team1Score}:{activeSet.team2Score}
+                {secondaryText}
               </Text>
-            ) : (
-              <Text c="dimmed" size="xs">
-                Sätze
-              </Text>
-            )}
+            ) : null}
           </Stack>
 
           <Stack gap={6} align="center" style={{ flex: 1 }}>

@@ -21,6 +21,30 @@ export type LiveTickerDisplayMatch = {
   weAreWinning: boolean;
 };
 
+/** Primary (large) and optional secondary (small) scores for the live card center. */
+export function getLiveTickerScoreDisplay(match: LiveTickerDisplayMatch): {
+  primaryText: string;
+  secondaryText: string | null;
+} {
+  const activeSet = match.activeSetNumber
+    ? match.setScores.find((setScore) => setScore.setNumber === match.activeSetNumber)
+    : undefined;
+
+  // Ongoing: emphasize points in the current set; sets sit underneath.
+  if (!match.isFinished && activeSet) {
+    return {
+      primaryText: `${activeSet.team1Score}:${activeSet.team2Score}`,
+      secondaryText: match.setPointsText,
+    };
+  }
+
+  // Finished (or no active set yet): only show set score.
+  return {
+    primaryText: match.setPointsText,
+    secondaryText: null,
+  };
+}
+
 export function toLiveTickerDisplayMatches(args: {
   liveMatches: LiveMatch[];
   ourTeamUuids: Set<string>;
