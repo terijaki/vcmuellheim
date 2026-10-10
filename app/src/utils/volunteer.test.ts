@@ -3,10 +3,12 @@ import dayjs from "dayjs";
 import "dayjs/locale/de";
 import {
   formatShiftDateRange,
+  formatVolunteerTShirtSize,
   getVolunteerEventGroup,
   getVolunteerSignupRoleLabel,
   sanitizeVolunteerPhoneNumber,
 } from "./volunteer";
+import { volunteerTShirtSizeSchema } from "@/lib/db/schemas";
 
 dayjs.locale("de");
 
@@ -41,6 +43,31 @@ describe("sanitizeVolunteerPhoneNumber", () => {
   it("returns undefined for empty values", () => {
     expect(sanitizeVolunteerPhoneNumber(undefined)).toBeUndefined();
     expect(sanitizeVolunteerPhoneNumber("")).toBeUndefined();
+  });
+});
+
+describe("formatVolunteerTShirtSize", () => {
+  it("adds a Kinder hint for kids sizes", () => {
+    expect(formatVolunteerTShirtSize("128")).toBe("128 (Kinder)");
+    expect(formatVolunteerTShirtSize("164")).toBe("164 (Kinder)");
+  });
+
+  it("returns adult sizes unchanged", () => {
+    expect(formatVolunteerTShirtSize("M")).toBe("M");
+    expect(formatVolunteerTShirtSize("3XL")).toBe("3XL");
+  });
+});
+
+describe("volunteerTShirtSizeSchema", () => {
+  it("accepts kids and adult sizes", () => {
+    expect(volunteerTShirtSizeSchema.parse("140")).toBe("140");
+    expect(volunteerTShirtSizeSchema.parse("XL")).toBe("XL");
+  });
+
+  it("rejects free-form and unknown sizes", () => {
+    expect(() => volunteerTShirtSizeSchema.parse("medium")).toThrow();
+    expect(() => volunteerTShirtSizeSchema.parse("110")).toThrow();
+    expect(() => volunteerTShirtSizeSchema.parse("free text")).toThrow();
   });
 });
 

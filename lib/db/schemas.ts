@@ -459,6 +459,16 @@ export const volunteerShiftSchema = z.object({
   roles: z.array(volunteerRoleSchema),
 });
 
+/** EU kids (height cm) + adult unisex t-shirt sizes for volunteer signup */
+export const VOLUNTEER_KIDS_T_SHIRT_SIZES = ["128", "140", "152", "164"] as const;
+export const VOLUNTEER_ADULT_T_SHIRT_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "3XL"] as const;
+export const VOLUNTEER_T_SHIRT_SIZES = [
+  ...VOLUNTEER_KIDS_T_SHIRT_SIZES,
+  ...VOLUNTEER_ADULT_T_SHIRT_SIZES,
+] as const;
+
+export const volunteerTShirtSizeSchema = z.enum(VOLUNTEER_T_SHIRT_SIZES);
+
 /** Volunteer event with nested shifts and roles */
 export const volunteerEventSchema = z.object({
   ...baseEntityFields,
@@ -483,6 +493,10 @@ export const volunteerEventSchema = z.object({
     .trim()
     .max(200)
     .describe("Email of the event organizer — set as Reply-To on all volunteer emails"),
+  askForTShirtSize: z
+    .boolean()
+    .optional()
+    .describe("When true, the public signup form requires a t-shirt size"),
   shifts: z.array(volunteerShiftSchema),
   archivedAt: z.iso
     .datetime()
@@ -516,6 +530,9 @@ export const volunteerSignupDataSchema = z.object({
     .max(1000)
     .optional()
     .describe("Optional free-text note from the volunteer"),
+  tShirtSize: volunteerTShirtSizeSchema
+    .optional()
+    .describe("T-shirt size — required when the event has askForTShirtSize enabled"),
   eventId: z.uuid(),
   shiftId: z.uuid(),
 });
@@ -549,6 +566,7 @@ export type VolunteerShiftInput = z.infer<typeof volunteerShiftSchema>;
 export type VolunteerRoleInput = z.infer<typeof volunteerRoleSchema>;
 export type VolunteerSignupInput = z.infer<typeof volunteerSignupSchema>;
 export type VolunteerSignupData = z.infer<typeof volunteerSignupDataSchema>;
+export type VolunteerTShirtSize = z.infer<typeof volunteerTShirtSizeSchema>;
 export type VolunteerTokenInput = z.infer<typeof volunteerTokenSchema>;
 
 /** Social-table ledger item for one Mastodon share of a concluded match UUID. */

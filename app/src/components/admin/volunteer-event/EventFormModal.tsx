@@ -6,6 +6,7 @@ import {
   Modal,
   SimpleGrid,
   Stack,
+  Switch,
   Text,
   TextInput,
 } from "@mantine/core";
@@ -151,6 +152,7 @@ export function EventFormModal({
       locationUrl: editingEvent?.locationUrl ?? initialData?.locationUrl ?? "",
       organizerName: editingEvent?.organizerName ?? initialData?.organizerName ?? "",
       organizerEmail: editingEvent?.organizerEmail ?? initialData?.organizerEmail ?? "",
+      askForTShirtSize: editingEvent?.askForTShirtSize ?? initialData?.askForTShirtSize ?? false,
     },
     onSubmit: async ({ value }) => {
       const serializedShifts = serializeShifts(shifts);
@@ -165,6 +167,7 @@ export function EventFormModal({
             locationUrl: value.locationUrl || undefined,
             organizerName: value.organizerName,
             organizerEmail: value.organizerEmail,
+            askForTShirtSize: value.askForTShirtSize,
             shifts: serializedShifts,
           },
         });
@@ -177,6 +180,7 @@ export function EventFormModal({
           locationUrl: value.locationUrl || undefined,
           organizerName: value.organizerName,
           organizerEmail: value.organizerEmail,
+          askForTShirtSize: value.askForTShirtSize,
           shifts: serializedShifts,
         });
       }
@@ -283,6 +287,16 @@ export function EventFormModal({
               )}
             </form.Field>
           </SimpleGrid>
+          <form.Field name="askForTShirtSize">
+            {(field) => (
+              <Switch
+                label="T-Shirt-Größe abfragen"
+                description="Helfer:innen müssen bei der Anmeldung eine EU-Unisex- oder Kindergröße wählen"
+                checked={field.state.value}
+                onChange={(e) => field.handleChange(e.currentTarget.checked)}
+              />
+            )}
+          </form.Field>
           <Divider label="Schichten" />
           <ShiftsManager
             shifts={shifts}

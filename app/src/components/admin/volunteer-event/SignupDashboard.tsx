@@ -25,7 +25,7 @@ import {
 import dayjs from "dayjs";
 import { ArrowLeftRight, Ban, Mail, SquareCheckBig } from "lucide-react";
 import type { VolunteerEvent } from "@/lib/db/types";
-import { getVolunteerSignupRoleLabel } from "@webapp/utils/volunteer";
+import { formatVolunteerTShirtSize, getVolunteerSignupRoleLabel } from "@webapp/utils/volunteer";
 
 export function SignupDashboard({
   event,
@@ -262,6 +262,11 @@ export function SignupDashboard({
                               )}
                             </Box>
                           )}
+                          {signup.tShirtSize && (
+                            <Box fz="xs" c="dimmed" mb={4}>
+                              T-Shirt: {formatVolunteerTShirtSize(signup.tShirtSize)}
+                            </Box>
+                          )}
                           {signup.note && (
                             <Box fz="xs" c="dimmed" mb={4}>
                               „{signup.note}"
@@ -365,6 +370,9 @@ export function SignupDashboard({
                         <Table.Th>Handy</Table.Th>
                         <Table.Th>Alter</Table.Th>
                         <Table.Th>Notfall</Table.Th>
+                        {(event.askForTShirtSize || visibleSignups.some((s) => s.tShirtSize)) && (
+                          <Table.Th>T-Shirt</Table.Th>
+                        )}
                         {!isPastEvent && <Table.Th>Bevorzugte Aufgaben</Table.Th>}
                         <Table.Th>Anmerkung</Table.Th>
                         {!isPastEvent && <Table.Th>Status</Table.Th>}
@@ -440,6 +448,20 @@ export function SignupDashboard({
                                 </Text>
                               )}
                             </Table.Td>
+                            {(event.askForTShirtSize ||
+                              visibleSignups.some((s) => s.tShirtSize)) && (
+                              <Table.Td>
+                                {signup.tShirtSize ? (
+                                  <Text size="xs">
+                                    {formatVolunteerTShirtSize(signup.tShirtSize)}
+                                  </Text>
+                                ) : (
+                                  <Text size="xs" c="dimmed">
+                                    –
+                                  </Text>
+                                )}
+                              </Table.Td>
+                            )}
                             {!isPastEvent && (
                               <Table.Td>
                                 {preferredLabels ? (

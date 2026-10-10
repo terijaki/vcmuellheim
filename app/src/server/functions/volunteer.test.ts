@@ -153,6 +153,7 @@ function makeSignup(
       id: string;
       status: "pending" | "confirmed" | "canceled";
       assignedRoleId?: string;
+      tShirtSize?: "128" | "140" | "152" | "164" | "XS" | "S" | "M" | "L" | "XL" | "XXL" | "3XL";
     }
   > = {},
 ) {
@@ -313,6 +314,32 @@ describe("createVolunteerSignup", () => {
     await createVolunteerSignup(minorSignupData);
     expect(mockSignupCreate).toHaveBeenCalledTimes(1);
     expect(mockTokenCreate).toHaveBeenCalledTimes(1);
+  });
+
+  it("rejects signup without t-shirt size when the event asks for it", async () => {
+    mockEventGet.mockResolvedValue({ data: { ...mockEvent, askForTShirtSize: true } });
+
+    await expect(createVolunteerSignup(signupData)).rejects.toThrow("T-Shirt-Größe");
+    expect(mockSignupCreate).not.toHaveBeenCalled();
+    expect(mockTokenCreate).not.toHaveBeenCalled();
+  });
+
+  it("allows signup with a kids t-shirt size when the event asks for it", async () => {
+    mockEventGet.mockResolvedValue({ data: { ...mockEvent, askForTShirtSize: true } });
+    const withSize = { ...signupData, tShirtSize: "140" as const };
+    mockSignupCreate.mockResolvedValue({ data: makeSignup({ tShirtSize: "140" }) });
+
+    await createVolunteerSignup(withSize);
+    expect(mockSignupCreate).toHaveBeenCalledTimes(1);
+    expect(mockTokenCreate).toHaveBeenCalledTimes(1);
+  });
+
+  it("rejects t-shirt size when the event does not ask for it", async () => {
+    await expect(createVolunteerSignup({ ...signupData, tShirtSize: "M" })).rejects.toThrow(
+      "keine T-Shirt-Größe",
+    );
+    expect(mockSignupCreate).not.toHaveBeenCalled();
+    expect(mockTokenCreate).not.toHaveBeenCalled();
   });
 });
 
