@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vite-plus/test";
 import type { LiveMatch } from "@/lambda/sams/types";
-import { toLiveTickerDisplayMatches } from "./liveTicker";
+import {
+  getLiveTickerScoreDisplay,
+  toLiveTickerDisplayMatches,
+  type LiveTickerDisplayMatch,
+} from "./liveTicker";
 
 const OUR_UUID = "team-ours";
 const THEIR_UUID = "team-theirs";
@@ -199,5 +203,67 @@ describe("toLiveTickerDisplayMatches", () => {
     expect(result?.team2ClubUuid).toBe("club-opp-mighty-ducks");
     expect(result).not.toHaveProperty("team1ClubSlug");
     expect(result).not.toHaveProperty("team2ClubSlug");
+  });
+});
+
+describe("getLiveTickerScoreDisplay", () => {
+  const baseDisplay = (
+    overrides: Partial<LiveTickerDisplayMatch> = {},
+  ): LiveTickerDisplayMatch => ({
+    matchUuid: "match-1",
+    team1Name: "Team A",
+    team2Name: "Team B",
+    setPointsText: "0:0",
+    team1SetPoints: 0,
+    team2SetPoints: 0,
+    setScores: [{ setNumber: 1, team1Score: 11, team2Score: 11 }],
+    activeSetNumber: 1,
+    isFinished: false,
+    weAreWinning: false,
+    ...overrides,
+  });
+
+  it("shows points large and sets small while the match is ongoing", () => {
+    expect(getLiveTickerScoreDisplay(baseDisplay())).toEqual({
+      primaryText: "11:11",
+      secondaryText: "0:0",
+    });
+  });
+
+  it("shows only set scores when the match is finished", () => {
+    expect(
+      getLiveTickerScoreDisplay(
+        baseDisplay({
+          setPointsText: "3:1",
+          team1SetPoints: 3,
+          team2SetPoints: 1,
+          activeSetNumber: null,
+          isFinished: true,
+          setScores: [
+            { setNumber: 1, team1Score: 25, team2Score: 20 },
+            { setNumber: 2, team1Score: 20, team2Score: 25 },
+            { setNumber: 3, team1Score: 25, team2Score: 18 },
+            { setNumber: 4, team1Score: 25, team2Score: 22 },
+          ],
+        }),
+      ),
+    ).toEqual({
+      primaryText: "3:1",
+      secondaryText: null,
+    });
+  });
+
+  it("shows only set scores when there is no active set yet", () => {
+    expect(
+      getLiveTickerScoreDisplay(
+        baseDisplay({
+          setScores: [],
+          activeSetNumber: null,
+        }),
+      ),
+    ).toEqual({
+      primaryText: "0:0",
+      secondaryText: null,
+    });
   });
 });
