@@ -8,6 +8,7 @@ import { docClient } from "@/lib/db/client";
 import { getContentTableName, getSocialTableName } from "@/lib/db/env";
 import { rebuildAllPublicSnapshots } from "@/lib/read-models/public-snapshots";
 import { S3Client } from "@aws-sdk/client-s3";
+import { grantCmsAdmin } from "@/lib/fixture-seed/cms-admin";
 import { cleanupDatabase, type SeedContext } from "@/lib/fixture-seed/common";
 import { seedBusData } from "@/lib/fixture-seed/bus";
 import { seedEventsData } from "@/lib/fixture-seed/events";
@@ -43,11 +44,17 @@ function createDeployedSeedContext(): SeedContext {
   };
 }
 
-export async function runFixtureSeed(): Promise<void> {
+export async function runFixtureSeed(options?: { adminEmail?: string }): Promise<void> {
   const ctx = createDeployedSeedContext();
   await cleanupDatabase(ctx);
   await seedLocationsData(ctx);
   await seedMembersData(ctx);
+  if (options?.adminEmail) {
+    const result = await grantCmsAdmin(ctx.entities, options.adminEmail);
+    console.log(
+      `CMS admin seed (${result.status}): ${result.status === "unchanged" ? `${result.email} (${result.authRole})` : result.email}`,
+    );
+  }
   await seedTeamsData(ctx);
   await seedNewsData(ctx);
   await seedInstagramData(ctx);
