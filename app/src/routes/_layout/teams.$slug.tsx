@@ -25,7 +25,7 @@ import { createWebcalLink } from "@webapp/utils/webcal";
 import dayjs from "dayjs";
 import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
-import { Suspense } from "react";
+import { Fragment, Suspense } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import {
   useFileUrls,
@@ -301,6 +301,57 @@ function TeamSchedule({ team }: { team: NonNullable<ReturnType<typeof useTeamByS
   );
 }
 
+type TeamMember = NonNullable<
+  NonNullable<Awaited<ReturnType<typeof useMembers>>["data"]>["items"][number]
+>;
+
+function MemberList({
+  title,
+  memberList,
+  avatarUrlByKey,
+}: {
+  title: string;
+  memberList: TeamMember[] | undefined;
+  avatarUrlByKey: Map<string, string>;
+}) {
+  if (!memberList || memberList.length === 0) return null;
+
+  return (
+    <Stack>
+      <CardTitle>{title}</CardTitle>
+      <Flex wrap="wrap" gap="xl">
+        {memberList.map((member) => {
+          const avatarUrl = member.avatarS3Key ? avatarUrlByKey.get(member.avatarS3Key) : undefined;
+          const person = (
+            <Group align="center">
+              <Avatar src={avatarUrl} name={member.name} />
+              <Stack gap={0}>
+                <Text fw="bold" c="turquoise">
+                  {member.name}
+                </Text>
+                {member.proxyEmail && (
+                  <Text c="dimmed" size="xs">
+                    {member.proxyEmail}
+                  </Text>
+                )}
+              </Stack>
+            </Group>
+          );
+
+          if (member.proxyEmail) {
+            return (
+              <Anchor key={member.id} href={`mailto:${member.proxyEmail}`} underline="never">
+                {person}
+              </Anchor>
+            );
+          }
+          return <Fragment key={member.id}>{person}</Fragment>;
+        })}
+      </Flex>
+    </Stack>
+  );
+}
+
 function TeamTrainers({
   team,
   initialMembers,
@@ -319,10 +370,18 @@ function TeamTrainers({
     ?.map((id) => members?.items.find((m) => m.id === id))
     .filter((x): x is NonNullable<typeof x> => x != null);
 
-  const { data: avatarUrls } = useFileUrls([
+  const avatarKeys = [
     ...(trainers?.map((t) => t.avatarS3Key).filter(Boolean) || []),
     ...(contacts?.map((c) => c.avatarS3Key).filter(Boolean) || []),
-  ] as string[]);
+  ] as string[];
+  const { data: avatarUrls } = useFileUrls(avatarKeys);
+  const avatarUrlByKey = new Map<string, string>();
+  if (avatarUrls) {
+    for (let i = 0; i < avatarKeys.length; i++) {
+      const url = avatarUrls[i];
+      if (url) avatarUrlByKey.set(avatarKeys[i], url);
+    }
+  }
 
   if (!trainers?.length && !contacts?.length) {
     return (
@@ -335,54 +394,14 @@ function TeamTrainers({
     );
   }
 
-  function MemberList({ title, memberList }: { title: string; memberList: typeof trainers }) {
-    if (!memberList || memberList.length === 0) return null;
-
-    return (
-      <Stack>
-        <CardTitle>{title}</CardTitle>
-        <Flex wrap="wrap" gap="xl">
-          {memberList.map((member) => {
-            const avatarUrl = member.avatarS3Key
-              ? avatarUrls?.[memberList.indexOf(member)]
-              : undefined;
-            const Person = () => (
-              <Group key={member.id} align="center">
-                <Avatar src={avatarUrl} name={member.name} />
-                <Stack gap={0}>
-                  <Text fw="bold" c="turquoise">
-                    {member.name}
-                  </Text>
-                  {member.proxyEmail && (
-                    <Text c="dimmed" size="xs">
-                      {member.proxyEmail}
-                    </Text>
-                  )}
-                </Stack>
-              </Group>
-            );
-
-            if (member.proxyEmail) {
-              return (
-                <Anchor key={member.id} href={`mailto:${member.proxyEmail}`} underline="never">
-                  <Person />
-                </Anchor>
-              );
-            }
-            return <Person key={member.id} />;
-          })}
-        </Flex>
-      </Stack>
-    );
-  }
-
   return (
     <Card>
       <Flex wrap="wrap" columnGap="xl" rowGap="md">
-        <MemberList title="Trainer" memberList={trainers} />
+        <MemberList title="Trainer" memberList={trainers} avatarUrlByKey={avatarUrlByKey} />
         <MemberList
           title={contacts && contacts.length > 1 ? "Ansprechpersonen" : "Ansprechperson"}
           memberList={contacts}
+          avatarUrlByKey={avatarUrlByKey}
         />
       </Flex>
     </Card>

@@ -331,7 +331,7 @@ type ShiftCardProps = {
 };
 
 function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }: ShiftCardProps) {
-  const isPast = new Date(shift.startDate) <= new Date();
+  const isPast = !dayjs(shift.startDate).isAfter(dayjs());
   const [modalOpen, setModalOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const isMobile = useMediaQuery("(max-width: 48em)");
@@ -448,7 +448,7 @@ type SignupFormProps = {
 
 function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: SignupFormProps) {
   const shift = event.shifts.find((s: { id: string }) => s.id === shiftId);
-  const shiftStartDate = shift?.startDate ?? new Date().toISOString();
+  const shiftStartDate = shift?.startDate ?? dayjs().toISOString();
   const dateRangeFormatted = formatShiftDateRange(shiftStartDate, shift?.endDate);
 
   type RoleOption = { value: string; label: string; minAge: number | undefined; disabled: boolean };

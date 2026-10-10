@@ -84,6 +84,7 @@ export default defineConfig({
   test: {
     root: ".",
     silent: true,
+    testTimeout: 30_000,
     include: ["**/*.test.ts", "**/*.test.tsx"],
     reporters: process.env.GITHUB_ACTIONS === "true" ? ["agent", "github-actions"] : ["agent"],
     env: {

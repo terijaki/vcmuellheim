@@ -3,7 +3,7 @@ import { Club } from "@project.config";
 import dayjs from "dayjs";
 import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import {
   FaCalendarDays,
   FaClock,
@@ -59,10 +59,11 @@ export default function TeamCard(
   const isMatching = Boolean(!isEmptyBoth && isMatchingLeague && isMatchingGender);
 
   const [isOpen, setIsOpen] = useState(isMatching);
-
-  useEffect(() => {
+  const [prevIsMatching, setPrevIsMatching] = useState(isMatching);
+  if (isMatching !== prevIsMatching) {
+    setPrevIsMatching(isMatching);
     setIsOpen(isMatching);
-  }, [isMatching]);
+  }
 
   const emailAddresses = new Map<string, string>();
 

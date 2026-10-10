@@ -3,7 +3,7 @@ import { Await } from "@tanstack/react-router";
 import type { BeholdPost } from "@/lambda/social/types";
 import { useHomeLiveTickerData } from "@webapp/hooks/useHomeLiveTicker";
 import type { getHomeNewsFn } from "@webapp/server/functions/news";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import HomeInstagram from "./HomeInstagram";
 import HomeLiveTicker from "./HomeLiveTicker";
 import HomeNews from "./HomeNews";
@@ -58,12 +58,10 @@ function TabsShell({ initialNews, posts }: { initialNews: HomeNewsData; posts?: 
   const showLive = !isPending && hasMatchesToday;
 
   const [activeTab, setActiveTab] = useState<HomeContentTab>("news");
-
-  useEffect(() => {
-    if ((activeTab === "instagram" && !showInstagram) || (activeTab === "live" && !showLive)) {
-      setActiveTab("news");
-    }
-  }, [activeTab, showInstagram, showLive]);
+  const resolvedTab: HomeContentTab =
+    (activeTab === "instagram" && !showInstagram) || (activeTab === "live" && !showLive)
+      ? "news"
+      : activeTab;
 
   return (
     <Container size="xl" w="100%" py="md" px={{ base: "lg", md: "xl" }} pos="relative">
@@ -71,7 +69,7 @@ function TabsShell({ initialNews, posts }: { initialNews: HomeNewsData; posts?: 
       {showInstagram && <ScrollAnchor name="instagram" />}
       {showLive && <ScrollAnchor name="live" />}
       <Tabs
-        value={activeTab}
+        value={resolvedTab}
         onChange={(value) => {
           if (value === "news" || value === "instagram" || value === "live") {
             setActiveTab(value);

@@ -1,6 +1,6 @@
 import type { AnchorProps } from "@mantine/core";
 import { Anchor, Group, Text } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { FaLocationDot as IconLocation } from "react-icons/fa6";
 import { buildMapsSearchUrl } from "@/utils/build-maps-search-url";
 
@@ -11,34 +11,35 @@ interface MapsLinkProps extends Omit<AnchorProps, "href" | "component" | "target
   name?: string | null;
 }
 
+function subscribe() {
+  return () => {};
+}
+
+function hasUserAgentData(n: Navigator): n is Navigator & { userAgentData: { platform: string } } {
+  return (
+    "userAgentData" in n &&
+    typeof (n as { userAgentData?: { platform?: string } }).userAgentData?.platform === "string"
+  );
+}
+
+function getIsAppleDevice(): boolean {
+  if (hasUserAgentData(navigator)) {
+    return /iPhone|iPad|iPod|Mac/.test(navigator.userAgentData.platform);
+  }
+  if (navigator.userAgent) {
+    return /iPhone|iPad|iPod|Mac/.test(navigator.userAgent);
+  }
+  return false;
+}
+
 export default function MapsLink({ street, postal, city, name, ...anchorProps }: MapsLinkProps) {
-  const [mapsUrl, setMapsUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    let isAppleDevice = false;
-    function hasUserAgentData(
-      n: Navigator,
-    ): n is Navigator & { userAgentData: { platform: string } } {
-      return (
-        "userAgentData" in n &&
-        typeof (n as { userAgentData?: { platform?: string } }).userAgentData?.platform === "string"
-      );
-    }
-    if (hasUserAgentData(navigator)) {
-      isAppleDevice = /iPhone|iPad|iPod|Mac/.test(navigator.userAgentData.platform);
-    } else if (navigator.userAgent) {
-      isAppleDevice = /iPhone|iPad|iPod|Mac/.test(navigator.userAgent);
-    }
-
-    setMapsUrl(
-      buildMapsSearchUrl({ name, street, postal, city }, isAppleDevice ? "apple" : "google"),
-    );
-  }, [street, postal, city, name]);
+  const isAppleDevice = useSyncExternalStore(subscribe, getIsAppleDevice, () => false);
+  const mapsUrl = buildMapsSearchUrl(
+    { name, street, postal, city },
+    isAppleDevice ? "apple" : "google",
+  );
 
   const displayName = name || city;
-
-  // Before the effect runs, just show the name without a link
-  if (!mapsUrl) return <>{displayName}</>;
 
   return (
     <Anchor

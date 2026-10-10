@@ -8,6 +8,7 @@ import { useSamsMatches } from "@webapp/hooks/dataQueries";
 import { getCurrentTabelleFn, getCurrentTermineFn } from "@webapp/server/functions/sams";
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import { buildSamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
+import dayjs from "dayjs";
 import { numToWord } from "num-words-de";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
@@ -133,7 +134,7 @@ function MatchesErrorState() {
 }
 
 function NoRankingsData() {
-  const currentMonth = new Date().getMonth() + 1;
+  const currentMonth = dayjs().month() + 1;
   return (
     <>
       <Card>

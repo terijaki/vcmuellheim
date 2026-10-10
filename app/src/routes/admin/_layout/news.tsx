@@ -236,7 +236,7 @@ function NewsPage() {
 
       return true;
     });
-  }, [news?.items, searchQuery, statusFilter]);
+  }, [news, searchQuery, statusFilter]);
 
   return (
     <Stack gap="md">
