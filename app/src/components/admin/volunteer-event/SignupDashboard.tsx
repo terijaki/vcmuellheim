@@ -214,6 +214,7 @@ export function SignupDashboard({
                               </Badge>
                               <Tooltip
                                 label={signup.association || "Keine Zugehörigkeit angegeben"}
+                                disabled={!signup.association && !event.askForAssociation}
                               >
                                 <Text fw={600} size="sm">
                                   {signup.firstName} {signup.lastName}
@@ -260,6 +261,11 @@ export function SignupDashboard({
                               {signup.emergencyContact && (
                                 <span>Notfall: {signup.emergencyContact}</span>
                               )}
+                            </Box>
+                          )}
+                          {signup.tShirtSize && (
+                            <Box fz="xs" c="dimmed" mb={4}>
+                              T-Shirt: {signup.tShirtSize}
                             </Box>
                           )}
                           {signup.note && (
@@ -365,6 +371,9 @@ export function SignupDashboard({
                         <Table.Th>Handy</Table.Th>
                         <Table.Th>Alter</Table.Th>
                         <Table.Th>Notfall</Table.Th>
+                        {(event.askForTShirtSize || visibleSignups.some((s) => s.tShirtSize)) && (
+                          <Table.Th>T-Shirt</Table.Th>
+                        )}
                         {!isPastEvent && <Table.Th>Bevorzugte Aufgaben</Table.Th>}
                         <Table.Th>Anmerkung</Table.Th>
                         {!isPastEvent && <Table.Th>Status</Table.Th>}
@@ -391,6 +400,7 @@ export function SignupDashboard({
                             <Table.Td>
                               <Tooltip
                                 label={signup.association || "Keine Zugehörigkeit angegeben"}
+                                disabled={!signup.association && !event.askForAssociation}
                               >
                                 <span>
                                   {signup.firstName} {signup.lastName}
@@ -440,6 +450,18 @@ export function SignupDashboard({
                                 </Text>
                               )}
                             </Table.Td>
+                            {(event.askForTShirtSize ||
+                              visibleSignups.some((s) => s.tShirtSize)) && (
+                              <Table.Td>
+                                {signup.tShirtSize ? (
+                                  <Text size="xs">{signup.tShirtSize}</Text>
+                                ) : (
+                                  <Text size="xs" c="dimmed">
+                                    –
+                                  </Text>
+                                )}
+                              </Table.Td>
+                            )}
                             {!isPastEvent && (
                               <Table.Td>
                                 {preferredLabels ? (

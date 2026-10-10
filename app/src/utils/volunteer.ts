@@ -1,7 +1,20 @@
 import dayjs from "dayjs";
+import { VOLUNTEER_ADULT_T_SHIRT_SIZES, VOLUNTEER_KIDS_T_SHIRT_SIZES } from "@/lib/db/schemas";
 import type { VolunteerEvent } from "@/lib/db/types";
 
 export type VolunteerEventGroup = "active" | "past" | "archived";
+
+/** Grouped Mantine Select data for volunteer t-shirt sizes */
+export const volunteerTShirtSizeSelectData = [
+  {
+    group: "Kinder",
+    items: VOLUNTEER_KIDS_T_SHIRT_SIZES.map((size) => ({ value: size, label: size })),
+  },
+  {
+    group: "Erwachsene (Unisex)",
+    items: VOLUNTEER_ADULT_T_SHIRT_SIZES.map((size) => ({ value: size, label: size })),
+  },
+] as const;
 
 /**
  * Formats a shift's date/time range as a human-readable German string.

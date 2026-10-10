@@ -67,6 +67,7 @@ function normalizeSignupPatchData(data: z.infer<typeof volunteerSignupDataSchema
     mobilePhone: data.mobilePhone,
     emergencyContact: data.emergencyContact,
     note: data.note,
+    tShirtSize: data.tShirtSize,
     updatedAt: new Date().toISOString(),
   };
 }
@@ -219,6 +220,22 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
     throw new Error("Für Minderjährige ist eine Notfall-Kontaktnummer erforderlich");
   }
 
+  if (event.askForTShirtSize) {
+    if (!data.tShirtSize) {
+      throw new Error("Bitte wähle eine T-Shirt-Größe");
+    }
+  } else if (data.tShirtSize) {
+    throw new Error("Für diese Veranstaltung wird keine T-Shirt-Größe erfasst");
+  }
+
+  if (event.askForAssociation) {
+    if (!data.association) {
+      throw new Error("Bitte gib deine Vereinszugehörigkeit an");
+    }
+  } else if (data.association) {
+    throw new Error("Für diese Veranstaltung wird keine Vereinszugehörigkeit erfasst");
+  }
+
   const existing = await findExistingSignup(data.email, data.eventId, data.shiftId);
 
   if (existing?.status === "confirmed") {
@@ -340,6 +357,7 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
     mobilePhone: pendingSignup.mobilePhone,
     emergencyContact: pendingSignup.emergencyContact,
     note: pendingSignup.note,
+    tShirtSize: pendingSignup.tShirtSize,
     eventId: pendingSignup.eventId,
     shiftId: pendingSignup.shiftId,
   };

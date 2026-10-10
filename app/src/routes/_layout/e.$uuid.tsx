@@ -49,9 +49,13 @@ import {
   volunteerCancelSignupFn,
   verifyVolunteerTokenFn,
 } from "@webapp/server/functions/volunteer";
-import { formatShiftDateRange, sanitizeVolunteerPhoneNumber } from "@webapp/utils/volunteer";
+import {
+  formatShiftDateRange,
+  sanitizeVolunteerPhoneNumber,
+  volunteerTShirtSizeSelectData,
+} from "@webapp/utils/volunteer";
 import type { VolunteerEvent } from "@/lib/db/types";
-import { volunteerSignupDataSchema } from "@/lib/db/schemas";
+import { volunteerSignupDataSchema, volunteerTShirtSizeSchema } from "@/lib/db/schemas";
 import { z } from "zod";
 
 // volunteerSignupDataSchema requires dateOfBirth as non-nullable string (server-side),
@@ -60,9 +64,11 @@ import { z } from "zod";
 // as required-with-undefined to satisfy TanStack Form’s StandardSchemaV1 check.
 const volunteerFormSchema = volunteerSignupDataSchema.extend({
   dateOfBirth: volunteerSignupDataSchema.shape.dateOfBirth.nullable(),
+  association: z.union([z.string().trim().max(500), z.undefined()]),
   mobilePhone: z.union([z.string().trim().max(30), z.undefined()]),
   emergencyContact: z.union([z.string().trim().max(30), z.undefined()]),
   note: z.union([z.string().trim().max(1000), z.undefined()]),
+  tShirtSize: z.union([volunteerTShirtSizeSchema, z.undefined()]),
 });
 
 dayjs.locale("de");
@@ -486,6 +492,9 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
     onSuccess,
   });
 
+  const askForTShirtSize = event.askForTShirtSize === true;
+  const askForAssociation = event.askForAssociation === true;
+
   const form = useForm({
     defaultValues: {
       eventId: event.id,
@@ -495,10 +504,11 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
       email: "",
       dateOfBirth: null as string | null,
       preferredRoleIds: (roles.length === 1 ? [roles[0].id] : []) as string[],
-      association: "",
+      association: undefined as string | undefined,
       mobilePhone: undefined as string | undefined,
       emergencyContact: undefined as string | undefined,
       note: undefined as string | undefined,
+      tShirtSize: undefined as z.infer<typeof volunteerTShirtSizeSchema> | undefined,
     },
     validators: {
       onChange: volunteerFormSchema,
@@ -512,10 +522,11 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
         email: value.email,
         dateOfBirth: dayjs(value.dateOfBirth).format("YYYY-MM-DD"),
         preferredRoleIds: value.preferredRoleIds,
-        association: value.association,
+        ...(askForAssociation && value.association ? { association: value.association } : {}),
         mobilePhone: sanitizeVolunteerPhoneNumber(value.mobilePhone || undefined),
         emergencyContact: sanitizeVolunteerPhoneNumber(value.emergencyContact || undefined),
         note: value.note || undefined,
+        ...(askForTShirtSize && value.tShirtSize ? { tShirtSize: value.tShirtSize } : {}),
         eventId: event.id,
         shiftId,
       });
@@ -739,16 +750,53 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
           }}
         </form.Subscribe>
 
-        <form.Field name="association">
-          {(field) => (
-            <TextInput
-              label="Vereinszugehörigkeit"
-              placeholder="z. B. Mitglied, Familie, Freund/in, …"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-            />
-          )}
-        </form.Field>
+        {askForAssociation && (
+          <form.Field
+            name="association"
+            validators={{
+              onChange: ({ value }) =>
+                value?.trim() ? undefined : "Bitte gib deine Vereinszugehörigkeit an.",
+            }}
+          >
+            {(field) => (
+              <TextInput
+                label="Vereinszugehörigkeit"
+                placeholder="z. B. Mitglied, Familie, Freund/in, …"
+                required
+                withAsterisk={false}
+                value={field.state.value ?? ""}
+                onChange={(e) => field.handleChange(e.target.value || undefined)}
+                error={field.state.meta.errors[0]?.toString()}
+              />
+            )}
+          </form.Field>
+        )}
+
+        {askForTShirtSize && (
+          <form.Field
+            name="tShirtSize"
+            validators={{
+              onChange: ({ value }) => (value ? undefined : "Bitte wähle eine T-Shirt-Größe."),
+            }}
+          >
+            {(field) => (
+              <Select
+                label="T-Shirt-Größe"
+                placeholder="Größe wählen"
+                required
+                withAsterisk={false}
+                data={[...volunteerTShirtSizeSelectData]}
+                value={field.state.value ?? null}
+                onChange={(val) =>
+                  field.handleChange(val ? volunteerTShirtSizeSchema.parse(val) : undefined)
+                }
+                error={field.state.meta.errors[0]?.toString()}
+                allowDeselect={false}
+                searchable={false}
+              />
+            )}
+          </form.Field>
+        )}
 
         <form.Field name="note">
           {(field) => (

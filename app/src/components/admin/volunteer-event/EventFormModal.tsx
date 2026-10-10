@@ -6,6 +6,7 @@ import {
   Modal,
   SimpleGrid,
   Stack,
+  Switch,
   Text,
   TextInput,
 } from "@mantine/core";
@@ -151,6 +152,8 @@ export function EventFormModal({
       locationUrl: editingEvent?.locationUrl ?? initialData?.locationUrl ?? "",
       organizerName: editingEvent?.organizerName ?? initialData?.organizerName ?? "",
       organizerEmail: editingEvent?.organizerEmail ?? initialData?.organizerEmail ?? "",
+      askForTShirtSize: editingEvent?.askForTShirtSize ?? initialData?.askForTShirtSize ?? false,
+      askForAssociation: editingEvent?.askForAssociation ?? initialData?.askForAssociation ?? false,
     },
     onSubmit: async ({ value }) => {
       const serializedShifts = serializeShifts(shifts);
@@ -165,6 +168,8 @@ export function EventFormModal({
             locationUrl: value.locationUrl || undefined,
             organizerName: value.organizerName,
             organizerEmail: value.organizerEmail,
+            askForTShirtSize: value.askForTShirtSize,
+            askForAssociation: value.askForAssociation,
             shifts: serializedShifts,
           },
         });
@@ -177,6 +182,8 @@ export function EventFormModal({
           locationUrl: value.locationUrl || undefined,
           organizerName: value.organizerName,
           organizerEmail: value.organizerEmail,
+          askForTShirtSize: value.askForTShirtSize,
+          askForAssociation: value.askForAssociation,
           shifts: serializedShifts,
         });
       }
@@ -283,6 +290,26 @@ export function EventFormModal({
               )}
             </form.Field>
           </SimpleGrid>
+          <form.Field name="askForTShirtSize">
+            {(field) => (
+              <Switch
+                label="T-Shirt-Größe abfragen"
+                description="Personen müssen bei der Anmeldung eine T-Shirt-Größe wählen"
+                checked={field.state.value}
+                onChange={(e) => field.handleChange(e.currentTarget.checked)}
+              />
+            )}
+          </form.Field>
+          <form.Field name="askForAssociation">
+            {(field) => (
+              <Switch
+                label="Vereinszugehörigkeit abfragen"
+                description="Personen müssen bei der Anmeldung ihre Vereinszugehörigkeit angeben"
+                checked={field.state.value}
+                onChange={(e) => field.handleChange(e.currentTarget.checked)}
+              />
+            )}
+          </form.Field>
           <Divider label="Schichten" />
           <ShiftsManager
             shifts={shifts}

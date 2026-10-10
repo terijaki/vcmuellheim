@@ -7,6 +7,7 @@ import {
   getVolunteerSignupRoleLabel,
   sanitizeVolunteerPhoneNumber,
 } from "./volunteer";
+import { volunteerTShirtSizeSchema } from "@/lib/db/schemas";
 
 dayjs.locale("de");
 
@@ -41,6 +42,19 @@ describe("sanitizeVolunteerPhoneNumber", () => {
   it("returns undefined for empty values", () => {
     expect(sanitizeVolunteerPhoneNumber(undefined)).toBeUndefined();
     expect(sanitizeVolunteerPhoneNumber("")).toBeUndefined();
+  });
+});
+
+describe("volunteerTShirtSizeSchema", () => {
+  it("accepts kids and adult sizes", () => {
+    expect(volunteerTShirtSizeSchema.parse("140")).toBe("140");
+    expect(volunteerTShirtSizeSchema.parse("XL")).toBe("XL");
+  });
+
+  it("rejects free-form and unknown sizes", () => {
+    expect(() => volunteerTShirtSizeSchema.parse("medium")).toThrow();
+    expect(() => volunteerTShirtSizeSchema.parse("110")).toThrow();
+    expect(() => volunteerTShirtSizeSchema.parse("free text")).toThrow();
   });
 });
 
