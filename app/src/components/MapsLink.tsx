@@ -2,6 +2,7 @@ import type { AnchorProps } from "@mantine/core";
 import { Anchor, Group, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { FaLocationDot as IconLocation } from "react-icons/fa6";
+import { buildMapsSearchUrl } from "@/utils/build-maps-search-url";
 
 interface MapsLinkProps extends Omit<AnchorProps, "href" | "component" | "target"> {
   street?: string | null;
@@ -14,14 +15,6 @@ export default function MapsLink({ street, postal, city, name, ...anchorProps }:
   const [mapsUrl, setMapsUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    let addressString = "";
-    if (name) addressString += `${name}, `;
-    if (street) addressString += street;
-    if (street && (postal || city)) addressString += ", ";
-    if (postal) addressString += `${postal}`;
-    if (postal && city) addressString += " ";
-    if (city) addressString += `${city}`;
-
     let isAppleDevice = false;
     function hasUserAgentData(
       n: Navigator,
@@ -37,13 +30,9 @@ export default function MapsLink({ street, postal, city, name, ...anchorProps }:
       isAppleDevice = /iPhone|iPad|iPod|Mac/.test(navigator.userAgent);
     }
 
-    if (isAppleDevice) {
-      setMapsUrl(`https://maps.apple.com/?q=${encodeURIComponent(addressString)}`);
-    } else {
-      setMapsUrl(
-        `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressString)}`,
-      );
-    }
+    setMapsUrl(
+      buildMapsSearchUrl({ name, street, postal, city }, isAppleDevice ? "apple" : "google"),
+    );
   }, [street, postal, city, name]);
 
   const displayName = name || city;
