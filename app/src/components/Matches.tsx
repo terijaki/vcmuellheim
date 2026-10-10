@@ -101,6 +101,9 @@ export default function Matches({
                     {match.location && (
                       <MapsLink
                         name={match.location.name}
+                        street={match.location.street}
+                        postal={match.location.postal}
+                        city={match.location.city}
                         size="sm"
                         maw={{ base: "100%", sm: 160 }}
                       />
@@ -248,7 +251,14 @@ export default function Matches({
 
               {match.location && (
                 <GridCol span={{ base: 12, sm: 3 }}>
-                  <MapsLink name={match.location.name} size="sm" maw={{ base: "100%", sm: 160 }} />
+                  <MapsLink
+                    name={match.location.name}
+                    street={match.location.street}
+                    postal={match.location.postal}
+                    city={match.location.city}
+                    size="sm"
+                    maw={{ base: "100%", sm: 160 }}
+                  />
                 </GridCol>
               )}
             </Grid>
