@@ -43,7 +43,6 @@ export const useHomeNews = (options?: {
     queryKey: ["homeNews"],
     queryFn: () => getHomeNewsFn(),
     initialData: options?.initialData,
-    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
   });
 };
 
@@ -65,7 +64,6 @@ export const useNews = ({
           pageParams: [undefined],
         }
       : undefined,
-    initialDataUpdatedAt: initialItems ? Date.now() : undefined,
   });
 };
 
@@ -102,7 +100,6 @@ export const useEvents = (options?: {
     queryKey: ["events"],
     queryFn: () => getUpcomingEventsFn(),
     initialData: options?.initialData,
-    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
   });
 };
 
@@ -127,7 +124,6 @@ export const useTeams = (options?: {
     queryFn: () => listTeamsFn(),
     enabled: options?.enabled ?? true,
     initialData: options?.initialData,
-    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
   });
 };
 
@@ -140,7 +136,6 @@ export const useTeamBySlug = (
     queryFn: () => getTeamBySlugFn({ data: { slug } }),
     enabled: !!slug,
     initialData,
-    initialDataUpdatedAt: initialData ? Date.now() : undefined,
   });
 };
 
@@ -155,7 +150,6 @@ export const useMembers = (options?: {
     queryKey: ["homeMembers"],
     queryFn: () => getHomeMembersFn(),
     initialData: options?.initialData,
-    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
   });
 };
 
@@ -170,7 +164,6 @@ export const useSponsors = (options?: {
     queryKey: ["sponsors", "public"],
     queryFn: () => listPublicSponsorsFn(),
     initialData: options?.initialData,
-    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
   });
 };
 
@@ -183,7 +176,6 @@ export const useHomeHeimspiele = (options?: {
     staleTime: SAMS_MATCHES_CACHE_TTL_MS,
     refetchOnWindowFocus: false,
     initialData: options?.initialData,
-    initialDataUpdatedAt: options?.initialData ? Date.now() : undefined,
   });
 };
 

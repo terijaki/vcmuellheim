@@ -1,17 +1,27 @@
 import { AspectRatio, Card, Group, Image } from "@mantine/core";
 import { useMemo, useState } from "react";
 
+/** Deterministic shuffle so render stays pure (no Math.random). */
+function shuffleDeterministic(images: string[]): string[] {
+  const shuffled = [...images];
+  let seed = 0;
+  for (const url of images) {
+    for (let i = 0; i < url.length; i++) {
+      seed = (Math.imul(31, seed) + url.charCodeAt(i)) | 0;
+    }
+  }
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    seed = (Math.imul(seed, 1664525) + 1013904223) | 0;
+    const j = Math.abs(seed) % (i + 1);
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 export default function ImageGallery({ images }: { images?: string[] }) {
   const [isHovered, setIsHovered] = useState<string | null>(null);
 
-  const shuffledGallery = useMemo(() => {
-    const shuffled = images ? [...images] : [];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  }, [images]);
+  const shuffledGallery = useMemo(() => (images ? shuffleDeterministic(images) : []), [images]);
 
   if (!images || images.length === 0) return null;
 

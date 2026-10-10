@@ -179,7 +179,7 @@ function BusSchedulesPage() {
       const comparison = dayjs(a.from).unix() - dayjs(b.from).unix();
       return timeFilter === "upcoming" ? comparison : -comparison;
     });
-  }, [schedules?.items, timeFilter]);
+  }, [schedules, timeFilter]);
 
   return (
     <Stack>

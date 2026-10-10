@@ -25,7 +25,7 @@ function RouteComponent() {
 
     // Remove duplicates while preserving order
     return [...new Set(urls)];
-  }, [data?.pages]);
+  }, [data]);
 
   // Infinite scroll logic using Mantine's useInViewport
   const { inViewport, ref: loaderRef } = useInViewport<HTMLDivElement>();

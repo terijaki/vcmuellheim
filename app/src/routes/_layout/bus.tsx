@@ -27,7 +27,7 @@ function RouteComponent() {
   const [selectedDates, setSelectedDates] = useState<DateStringValue[]>([]);
 
   const dates = new Map<DateStringValue, string>();
-  let lastDate = new Date();
+  let lastDate = dayjs();
   for (const booking of bookings) {
     let cursor = dayjs(booking.from);
     const end = dayjs(booking.to);
@@ -35,7 +35,7 @@ function RouteComponent() {
       dates.set(cursor.format("YYYY-MM-DD"), booking.id);
       cursor = cursor.add(1, "day");
     }
-    if (end.isAfter(lastDate)) lastDate = end.toDate();
+    if (end.isAfter(lastDate)) lastDate = end;
   }
 
   const CalendarConfig: CalendarProps = {
@@ -43,7 +43,7 @@ function RouteComponent() {
     hideOutsideDates: true,
     maxLevel: "month",
     minDate: dayjs().startOf("day").toDate(),
-    maxDate: dayjs(lastDate).endOf("month").toDate(),
+    maxDate: lastDate.endOf("month").toDate(),
     getDayProps: (date: DateStringValue) => {
       // date is a DateStringValue in "YYYY-MM-DD" format
       const hasDate = dates.has(date);
