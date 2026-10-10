@@ -44,17 +44,23 @@ export function filterAndSortSamsMatches<T extends MatchWithResult>(
   return filteredMatches;
 }
 
-type MatchWithHomeTeam = {
-  team1?: { uuid?: string | null } | null;
+type MatchWithHostTeam = {
+  host?: string | null;
 };
 
-/** Keep matches hosted by an owned team (SAMS team1 is the home side). */
-export function filterHomeMatches<T extends MatchWithHomeTeam>(
+/** True when SAMS `host` (Ausrichter team UUID) is one of our owned teams. */
+export function isMatchHostedByOwnedTeam(
+  match: MatchWithHostTeam,
+  ownedTeamUuids: ReadonlySet<string>,
+): boolean {
+  const hostTeamUuid = match.host?.trim();
+  return !!hostTeamUuid && ownedTeamUuids.has(hostTeamUuid);
+}
+
+/** Keep matches whose series host is an owned team (not team1/team2 order). */
+export function filterHomeMatches<T extends MatchWithHostTeam>(
   matches: readonly T[],
   ownedTeamUuids: ReadonlySet<string>,
 ): T[] {
-  return matches.filter((match) => {
-    const homeTeamUuid = match.team1?.uuid;
-    return !!homeTeamUuid && ownedTeamUuids.has(homeTeamUuid);
-  });
+  return matches.filter((match) => isMatchHostedByOwnedTeam(match, ownedTeamUuids));
 }

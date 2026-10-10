@@ -72,13 +72,22 @@ function convertMatchToIcs(
     .utc();
   if (!startTime.isValid()) return null;
 
-  const homeTeam = match.team1.name;
-  const guestTeam = match.team2.name;
+  const hostTeam =
+    match.host && (match.team1.uuid === match.host || match.team2.uuid === match.host)
+      ? match.team1.uuid === match.host
+        ? match.team1
+        : match.team2
+      : undefined;
+  const guestTeam = hostTeam
+    ? hostTeam.uuid === match.team1.uuid
+      ? match.team2
+      : match.team1
+    : undefined;
 
   const baseDesc = [
     teamLeagueName,
-    homeTeam ? `Heim: ${homeTeam}` : null,
-    guestTeam ? `Gast: ${guestTeam}` : null,
+    hostTeam ? `Heim: ${hostTeam.name}` : null,
+    guestTeam ? `Gast: ${guestTeam.name}` : null,
   ]
     .filter(Boolean)
     .join(", ");

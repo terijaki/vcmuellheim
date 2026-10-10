@@ -33,6 +33,7 @@ describe("buildHeimspieleProjection", () => {
         isHomeGame: false,
         team1: { uuid: "other", name: "Other", sportsclubUuid: "club-x" },
         team2: { uuid: "home", name: "VC", sportsclubUuid: "club-vcm" },
+        ownedTeamUuids: ["home"],
       }),
       match({ matchUuid: "played", hasResult: true, matchSortKey: "P#2026-09-01#played" }),
     ]);
@@ -51,6 +52,20 @@ describe("buildHeimspieleProjection", () => {
         locationUuid: "hall-1",
       },
     ]);
+  });
+
+  it("uses the non-owned side as opponent when the host plays as team2", () => {
+    const games = buildHeimspieleProjection([
+      match({
+        matchUuid: "home-as-team2",
+        team1: { uuid: "guest", name: "Guest FC", sportsclubUuid: "club-guest" },
+        team2: { uuid: "home", name: "VC", sportsclubUuid: "club-vcm" },
+        ownedTeamUuids: ["home"],
+        isHomeGame: true,
+      }),
+    ]);
+
+    expect(games[0]?.opponentName).toBe("Guest FC");
   });
 });
 

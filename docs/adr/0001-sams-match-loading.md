@@ -28,8 +28,9 @@ page loaders do not rediscover the season.
 ## Range filtering
 
 Termine rows use SK prefixes `F#` (future / no result) and `P#` (past / has result)
-so DynamoDB can query one range with a limit. `team1` remains the home / first-listed
-side; `isHomeGame` is stored on each Termine row for Heimspiele filters.
+so DynamoDB can query one range with a limit. `team1` / `team2` are match sides only.
+`isHomeGame` is true when SAMS `host` (Ausrichter team UUID) is an owned team, and is
+stored on each Termine row for Heimspiele filters.
 
 ## SSR loading strategy
 

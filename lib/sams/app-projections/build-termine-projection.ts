@@ -1,5 +1,6 @@
 import type { SamsProjectionMatchInput, AppTermineMatchInput } from "@/lib/db/schemas";
 import { matchInvolvesConfiguredSportsclub } from "@/utils/sams";
+import { isMatchHostedByOwnedTeam } from "@/utils/sams-match-filter";
 import { buildTermineMatchSortKey } from "./sort-keys";
 
 export type AppTermineMatchRecord = Omit<AppTermineMatchInput, "type"> & {
@@ -26,7 +27,7 @@ export function buildTermineProjection(input: {
       .filter((uuid) => input.ownedTeamUuids.has(uuid))
       .sort((a, b) => a.localeCompare(b));
 
-    const isHomeGame = input.ownedTeamUuids.has(match.team1.uuid);
+    const isHomeGame = isMatchHostedByOwnedTeam(match, input.ownedTeamUuids);
     const leagueName =
       (match.leagueUuid ? input.leagueNameByUuid.get(match.leagueUuid) : undefined) ?? undefined;
 
