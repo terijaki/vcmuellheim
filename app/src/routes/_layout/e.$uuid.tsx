@@ -64,6 +64,7 @@ import { z } from "zod";
 // as required-with-undefined to satisfy TanStack Form’s StandardSchemaV1 check.
 const volunteerFormSchema = volunteerSignupDataSchema.extend({
   dateOfBirth: volunteerSignupDataSchema.shape.dateOfBirth.nullable(),
+  association: z.union([z.string().trim().max(500), z.undefined()]),
   mobilePhone: z.union([z.string().trim().max(30), z.undefined()]),
   emergencyContact: z.union([z.string().trim().max(30), z.undefined()]),
   note: z.union([z.string().trim().max(1000), z.undefined()]),
@@ -492,6 +493,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
   });
 
   const askForTShirtSize = event.askForTShirtSize === true;
+  const askForAssociation = event.askForAssociation === true;
 
   const form = useForm({
     defaultValues: {
@@ -502,7 +504,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
       email: "",
       dateOfBirth: null as string | null,
       preferredRoleIds: (roles.length === 1 ? [roles[0].id] : []) as string[],
-      association: "",
+      association: undefined as string | undefined,
       mobilePhone: undefined as string | undefined,
       emergencyContact: undefined as string | undefined,
       note: undefined as string | undefined,
@@ -520,7 +522,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
         email: value.email,
         dateOfBirth: dayjs(value.dateOfBirth).format("YYYY-MM-DD"),
         preferredRoleIds: value.preferredRoleIds,
-        association: value.association,
+        ...(askForAssociation && value.association ? { association: value.association } : {}),
         mobilePhone: sanitizeVolunteerPhoneNumber(value.mobilePhone || undefined),
         emergencyContact: sanitizeVolunteerPhoneNumber(value.emergencyContact || undefined),
         note: value.note || undefined,
@@ -748,16 +750,27 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
           }}
         </form.Subscribe>
 
-        <form.Field name="association">
-          {(field) => (
-            <TextInput
-              label="Vereinszugehörigkeit"
-              placeholder="z. B. Mitglied, Familie, Freund/in, …"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-            />
-          )}
-        </form.Field>
+        {askForAssociation && (
+          <form.Field
+            name="association"
+            validators={{
+              onChange: ({ value }) =>
+                value?.trim() ? undefined : "Bitte gib deine Vereinszugehörigkeit an.",
+            }}
+          >
+            {(field) => (
+              <TextInput
+                label="Vereinszugehörigkeit"
+                placeholder="z. B. Mitglied, Familie, Freund/in, …"
+                required
+                withAsterisk={false}
+                value={field.state.value ?? ""}
+                onChange={(e) => field.handleChange(e.target.value || undefined)}
+                error={field.state.meta.errors[0]?.toString()}
+              />
+            )}
+          </form.Field>
+        )}
 
         {askForTShirtSize && (
           <form.Field
@@ -777,7 +790,6 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
                 onChange={(val) =>
                   field.handleChange(val ? volunteerTShirtSizeSchema.parse(val) : undefined)
                 }
-                description="EU-Größen — Kinder nach Körpergröße in cm, Erwachsene Unisex"
                 error={field.state.meta.errors[0]?.toString()}
                 allowDeselect={false}
                 searchable={false}

@@ -25,7 +25,7 @@ import {
 import dayjs from "dayjs";
 import { ArrowLeftRight, Ban, Mail, SquareCheckBig } from "lucide-react";
 import type { VolunteerEvent } from "@/lib/db/types";
-import { formatVolunteerTShirtSize, getVolunteerSignupRoleLabel } from "@webapp/utils/volunteer";
+import { getVolunteerSignupRoleLabel } from "@webapp/utils/volunteer";
 
 export function SignupDashboard({
   event,
@@ -214,6 +214,7 @@ export function SignupDashboard({
                               </Badge>
                               <Tooltip
                                 label={signup.association || "Keine Zugehörigkeit angegeben"}
+                                disabled={!signup.association && !event.askForAssociation}
                               >
                                 <Text fw={600} size="sm">
                                   {signup.firstName} {signup.lastName}
@@ -264,7 +265,7 @@ export function SignupDashboard({
                           )}
                           {signup.tShirtSize && (
                             <Box fz="xs" c="dimmed" mb={4}>
-                              T-Shirt: {formatVolunteerTShirtSize(signup.tShirtSize)}
+                              T-Shirt: {signup.tShirtSize}
                             </Box>
                           )}
                           {signup.note && (
@@ -399,6 +400,7 @@ export function SignupDashboard({
                             <Table.Td>
                               <Tooltip
                                 label={signup.association || "Keine Zugehörigkeit angegeben"}
+                                disabled={!signup.association && !event.askForAssociation}
                               >
                                 <span>
                                   {signup.firstName} {signup.lastName}
@@ -452,9 +454,7 @@ export function SignupDashboard({
                               visibleSignups.some((s) => s.tShirtSize)) && (
                               <Table.Td>
                                 {signup.tShirtSize ? (
-                                  <Text size="xs">
-                                    {formatVolunteerTShirtSize(signup.tShirtSize)}
-                                  </Text>
+                                  <Text size="xs">{signup.tShirtSize}</Text>
                                 ) : (
                                   <Text size="xs" c="dimmed">
                                     –

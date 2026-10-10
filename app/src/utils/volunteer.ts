@@ -1,14 +1,8 @@
 import dayjs from "dayjs";
-import {
-  VOLUNTEER_ADULT_T_SHIRT_SIZES,
-  VOLUNTEER_KIDS_T_SHIRT_SIZES,
-  type VolunteerTShirtSize,
-} from "@/lib/db/schemas";
+import { VOLUNTEER_ADULT_T_SHIRT_SIZES, VOLUNTEER_KIDS_T_SHIRT_SIZES } from "@/lib/db/schemas";
 import type { VolunteerEvent } from "@/lib/db/types";
 
 export type VolunteerEventGroup = "active" | "past" | "archived";
-
-const kidsTShirtSizeSet = new Set<string>(VOLUNTEER_KIDS_T_SHIRT_SIZES);
 
 /** Grouped Mantine Select data for volunteer t-shirt sizes */
 export const volunteerTShirtSizeSelectData = [
@@ -21,10 +15,6 @@ export const volunteerTShirtSizeSelectData = [
     items: VOLUNTEER_ADULT_T_SHIRT_SIZES.map((size) => ({ value: size, label: size })),
   },
 ] as const;
-
-export function formatVolunteerTShirtSize(size: VolunteerTShirtSize | string): string {
-  return kidsTShirtSizeSet.has(size) ? `${size} (Kinder)` : size;
-}
 
 /**
  * Formats a shift's date/time range as a human-readable German string.

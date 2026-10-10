@@ -153,6 +153,7 @@ export function EventFormModal({
       organizerName: editingEvent?.organizerName ?? initialData?.organizerName ?? "",
       organizerEmail: editingEvent?.organizerEmail ?? initialData?.organizerEmail ?? "",
       askForTShirtSize: editingEvent?.askForTShirtSize ?? initialData?.askForTShirtSize ?? false,
+      askForAssociation: editingEvent?.askForAssociation ?? initialData?.askForAssociation ?? false,
     },
     onSubmit: async ({ value }) => {
       const serializedShifts = serializeShifts(shifts);
@@ -168,6 +169,7 @@ export function EventFormModal({
             organizerName: value.organizerName,
             organizerEmail: value.organizerEmail,
             askForTShirtSize: value.askForTShirtSize,
+            askForAssociation: value.askForAssociation,
             shifts: serializedShifts,
           },
         });
@@ -181,6 +183,7 @@ export function EventFormModal({
           organizerName: value.organizerName,
           organizerEmail: value.organizerEmail,
           askForTShirtSize: value.askForTShirtSize,
+          askForAssociation: value.askForAssociation,
           shifts: serializedShifts,
         });
       }
@@ -291,7 +294,17 @@ export function EventFormModal({
             {(field) => (
               <Switch
                 label="T-Shirt-Größe abfragen"
-                description="Helfer:innen müssen bei der Anmeldung eine EU-Unisex- oder Kindergröße wählen"
+                description="Personen müssen bei der Anmeldung eine T-Shirt-Größe wählen"
+                checked={field.state.value}
+                onChange={(e) => field.handleChange(e.currentTarget.checked)}
+              />
+            )}
+          </form.Field>
+          <form.Field name="askForAssociation">
+            {(field) => (
+              <Switch
+                label="Vereinszugehörigkeit abfragen"
+                description="Personen müssen bei der Anmeldung ihre Vereinszugehörigkeit angeben"
                 checked={field.state.value}
                 onChange={(e) => field.handleChange(e.currentTarget.checked)}
               />

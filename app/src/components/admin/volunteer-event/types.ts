@@ -27,6 +27,7 @@ export type EventFormInitialData = {
   organizerName: string;
   organizerEmail: string;
   askForTShirtSize: boolean;
+  askForAssociation: boolean;
   shifts: ShiftFormValue[];
 };
 
@@ -40,6 +41,7 @@ export function buildTemplateData(source: VolunteerEvent): EventFormInitialData 
     organizerName: source.organizerName,
     organizerEmail: source.organizerEmail,
     askForTShirtSize: source.askForTShirtSize ?? false,
+    askForAssociation: source.askForAssociation ?? false,
     shifts: source.shifts.map((s) => ({
       id: crypto.randomUUID(),
       label: s.label,

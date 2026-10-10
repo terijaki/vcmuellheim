@@ -3,7 +3,6 @@ import dayjs from "dayjs";
 import "dayjs/locale/de";
 import {
   formatShiftDateRange,
-  formatVolunteerTShirtSize,
   getVolunteerEventGroup,
   getVolunteerSignupRoleLabel,
   sanitizeVolunteerPhoneNumber,
@@ -43,18 +42,6 @@ describe("sanitizeVolunteerPhoneNumber", () => {
   it("returns undefined for empty values", () => {
     expect(sanitizeVolunteerPhoneNumber(undefined)).toBeUndefined();
     expect(sanitizeVolunteerPhoneNumber("")).toBeUndefined();
-  });
-});
-
-describe("formatVolunteerTShirtSize", () => {
-  it("adds a Kinder hint for kids sizes", () => {
-    expect(formatVolunteerTShirtSize("128")).toBe("128 (Kinder)");
-    expect(formatVolunteerTShirtSize("164")).toBe("164 (Kinder)");
-  });
-
-  it("returns adult sizes unchanged", () => {
-    expect(formatVolunteerTShirtSize("M")).toBe("M");
-    expect(formatVolunteerTShirtSize("3XL")).toBe("3XL");
   });
 });
 

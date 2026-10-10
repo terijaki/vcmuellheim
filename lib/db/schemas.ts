@@ -497,6 +497,10 @@ export const volunteerEventSchema = z.object({
     .boolean()
     .optional()
     .describe("When true, the public signup form requires a t-shirt size"),
+  askForAssociation: z
+    .boolean()
+    .optional()
+    .describe("When true, the public signup form requires Vereinszugehörigkeit"),
   shifts: z.array(volunteerShiftSchema),
   archivedAt: z.iso
     .datetime()
@@ -511,7 +515,12 @@ export const volunteerSignupDataSchema = z.object({
   email: z.email().trim(),
   dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected YYYY-MM-DD"),
   preferredRoleIds: z.array(z.uuid()),
-  association: z.string().trim().max(500),
+  association: z
+    .string()
+    .trim()
+    .max(500)
+    .optional()
+    .describe("Vereinszugehörigkeit — required when the event has askForAssociation enabled"),
   mobilePhone: z
     .string()
     .trim()
