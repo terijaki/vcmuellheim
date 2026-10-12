@@ -22,9 +22,13 @@ export class VcmNodejsFunction extends cdk.Resource {
 
     const { bundling, namespace, name, ...restProps } = props;
 
+    const environment = process.env.CDK_ENVIRONMENT || "dev";
+    const logRetention =
+      environment === "prod" ? logs.RetentionDays.TWO_MONTHS : logs.RetentionDays.ONE_WEEK;
+
     const logGroup = new logs.LogGroup(this, "LogGroup", {
       logGroupName: buildLambdaLogGroupName(namespace, name ?? id),
-      retention: logs.RetentionDays.TWO_MONTHS,
+      retention: logRetention,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 

@@ -129,7 +129,9 @@ export class WebAppStack extends cdk.Stack {
     // ── Lambda Function (Nitro aws-lambda output) ────────────────────────────
     const logGroup = new cdk.aws_logs.LogGroup(this, "WebAppLogGroup", {
       logGroupName: `/vcm/${environment}${branchSuffix}/webapp/webapp`,
-      retention: cdk.aws_logs.RetentionDays.TWO_MONTHS,
+      retention: isProd
+        ? cdk.aws_logs.RetentionDays.TWO_MONTHS
+        : cdk.aws_logs.RetentionDays.ONE_WEEK,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
@@ -146,7 +148,7 @@ export class WebAppStack extends cdk.Stack {
       memorySize: 1024,
       logGroup,
       environment: lambdaEnvironment,
-      tracing: lambda.Tracing.ACTIVE,
+      tracing: isProd ? lambda.Tracing.ACTIVE : lambda.Tracing.DISABLED,
     });
 
     // Grant Lambda access to content, social, and SAMS tables via computed ARNs (no CF cross-stack exports)

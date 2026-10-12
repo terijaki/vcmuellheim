@@ -147,9 +147,9 @@ if (deployBuntime) {
     );
   }
 
-  // Monitoring stack - setup alerts and dashboards
+  // Monitoring stack — CloudWatch alarms (production only)
   const monitoringEmail = ENV.CDK_MONITORING_ALERT_EMAIL || budgetEmail;
-  if (deployAccountOpsStacks) {
+  if (isProd) {
     if (monitoringEmail) {
       new MonitoringStack(app, monitoringStackName, {
         ...commonStackProps,
@@ -164,18 +164,10 @@ if (deployBuntime) {
         websiteDistribution: webappStack.distribution,
       });
     } else {
-      const message = "❌ CDK_MONITORING_ALERT_EMAIL not set";
-      if (isProd) {
-        console.error(`🚨  ${message} - production deployment requires monitoring alerts.`);
-        process.exit(1);
-      } else {
-        console.warn(`⚠️  ${message} - skipping monitoring stack.`);
-        console.warn("    Set CDK_MONITORING_ALERT_EMAIL in .env to enable monitoring and alerts.");
-      }
+      console.error(
+        "🚨  ❌ CDK_MONITORING_ALERT_EMAIL not set - production deployment requires monitoring alerts.",
+      );
+      process.exit(1);
     }
-  } else {
-    console.warn(
-      `⚠️  Skipping monitoring stack on feature branch "${branch}" — account-baseline stack, deploy from main or prod only.`,
-    );
   }
 }

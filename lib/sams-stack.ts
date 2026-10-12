@@ -164,22 +164,24 @@ export class SamsStack extends cdk.Stack {
       }),
     );
 
-    const dlqAlarm = new cloudwatch.Alarm(this, "SamsProviderDlqAlarm", {
-      alarmName: `sams-provider-dlq-depth-${environment}${branchSuffix}`,
-      alarmDescription: "SAMS provider events dead-letter queue has messages",
-      metric: dlq.metricApproximateNumberOfMessagesVisible(),
-      threshold: 1,
-      evaluationPeriods: 1,
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
-    });
-
-    if (props?.alertEmail) {
-      const dlqAlarmTopic = new sns.Topic(this, "SamsProviderDlqAlarmTopic", {
-        displayName: `SAMS provider DLQ alarms (${environment}${branchSuffix})`,
+    if (isProd) {
+      const dlqAlarm = new cloudwatch.Alarm(this, "SamsProviderDlqAlarm", {
+        alarmName: `sams-provider-dlq-depth-${environment}${branchSuffix}`,
+        alarmDescription: "SAMS provider events dead-letter queue has messages",
+        metric: dlq.metricApproximateNumberOfMessagesVisible(),
+        threshold: 1,
+        evaluationPeriods: 1,
+        comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+        treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
       });
-      dlqAlarmTopic.addSubscription(new snsSubscriptions.EmailSubscription(props.alertEmail));
-      dlqAlarm.addAlarmAction(new actions.SnsAction(dlqAlarmTopic));
+
+      if (props?.alertEmail) {
+        const dlqAlarmTopic = new sns.Topic(this, "SamsProviderDlqAlarmTopic", {
+          displayName: `SAMS provider DLQ alarms (${environment}${branchSuffix})`,
+        });
+        dlqAlarmTopic.addSubscription(new snsSubscriptions.EmailSubscription(props.alertEmail));
+        dlqAlarm.addAlarmAction(new actions.SnsAction(dlqAlarmTopic));
+      }
     }
 
     new cdk.CfnOutput(this, "SamsProviderEventsQueueUrl", {
