@@ -80,11 +80,11 @@ function HomePage() {
         {([, members]) => (
           <>
             <HomeMembers initialMembers={members} />
+            <HomeFotos />
             <HomeKontakt initialMembers={members} />
           </>
         )}
       </Await>
-      <HomeFotos />
     </Stack>
   );
 }
