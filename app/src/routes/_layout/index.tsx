@@ -77,14 +77,12 @@ function HomePage() {
         {(sponsors) => <HomeSponsors initialSponsors={sponsors} />}
       </Await>
       <Await promise={data.teams} fallback={<HomeSectionFallback title="Verein" />}>
-        {([, members]) => (
-          <>
-            <HomeMembers initialMembers={members} />
-            <HomeKontakt initialMembers={members} />
-          </>
-        )}
+        {([, members]) => <HomeMembers initialMembers={members} />}
       </Await>
       <HomeFotos />
+      <Await promise={data.teams} fallback={<HomeSectionFallback title="Kontakt" />}>
+        {([, members]) => <HomeKontakt initialMembers={members} />}
+      </Await>
     </Stack>
   );
 }
