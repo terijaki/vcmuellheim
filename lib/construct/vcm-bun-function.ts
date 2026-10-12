@@ -43,9 +43,13 @@ export class VcmBunFunction extends cdk.Resource {
     const bunLayerArn = ssm.StringParameter.valueForStringParameter(this, BUN_TIME_LAYER_SSM_NAME);
     const bunLayer = lambda.LayerVersion.fromLayerVersionArn(this, "BunTimeLayer", bunLayerArn);
 
+    const cdkEnvironment = process.env.CDK_ENVIRONMENT || "dev";
+    const logRetention =
+      cdkEnvironment === "prod" ? logs.RetentionDays.TWO_MONTHS : logs.RetentionDays.ONE_WEEK;
+
     const logGroup = new logs.LogGroup(this, "LogGroup", {
       logGroupName: buildLambdaLogGroupName(namespace, name),
-      retention: logs.RetentionDays.TWO_MONTHS,
+      retention: logRetention,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 

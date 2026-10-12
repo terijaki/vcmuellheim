@@ -47,7 +47,7 @@ describe("VcmBunFunction", () => {
     const template = createTemplate();
     template.hasResourceProperties("AWS::Logs::LogGroup", {
       LogGroupName: "/vcm/dev/media/bun-image-processor",
-      RetentionInDays: 60,
+      RetentionInDays: 7,
     });
   });
 

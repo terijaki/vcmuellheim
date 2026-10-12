@@ -35,7 +35,7 @@ interface MailStackProps extends cdk.StackProps {
  *   - EventBridge rule filtering S3 Object Created events from the inbound bucket
  *   - Lambda for proxy lookup + MIME retrieval + SES forwarding
  *   - Dead-letter queue (DLQ) for failed forwarding attempts
- *   - CloudWatch alarm on DLQ depth
+ *   - CloudWatch alarm on DLQ depth (production only)
  */
 export class MailStack extends cdk.Stack {
   public readonly mailForwardLambda: lambda.IFunction;
@@ -134,25 +134,26 @@ export class MailStack extends cdk.Stack {
       }),
     );
 
-    // CloudWatch alarm: DLQ message count > 0 → alert
-    const dlqAlarm = new cloudwatch.Alarm(this, "MailForwardDlqAlarm", {
-      alarmName: `mail-forward-dlq-${environment}${branchSuffix}`,
-      alarmDescription: "Mail forwarding Lambda has failed processing — check DLQ",
-      metric: dlq.metricApproximateNumberOfMessagesVisible({
-        period: cdk.Duration.minutes(5),
-      }),
-      threshold: 1,
-      evaluationPeriods: 1,
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
-    });
-
-    if (props.alertEmail) {
-      const alarmTopic = new sns.Topic(this, "MailForwardAlarmTopic", {
-        topicName: `mail-forward-alarm-${environment}${branchSuffix}`,
+    if (isProd) {
+      const dlqAlarm = new cloudwatch.Alarm(this, "MailForwardDlqAlarm", {
+        alarmName: `mail-forward-dlq-${environment}${branchSuffix}`,
+        alarmDescription: "Mail forwarding Lambda has failed processing — check DLQ",
+        metric: dlq.metricApproximateNumberOfMessagesVisible({
+          period: cdk.Duration.minutes(5),
+        }),
+        threshold: 1,
+        evaluationPeriods: 1,
+        comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+        treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
       });
-      alarmTopic.addSubscription(new snsSubscriptions.EmailSubscription(props.alertEmail));
-      dlqAlarm.addAlarmAction(new actions.SnsAction(alarmTopic));
+
+      if (props.alertEmail) {
+        const alarmTopic = new sns.Topic(this, "MailForwardAlarmTopic", {
+          topicName: `mail-forward-alarm-${environment}${branchSuffix}`,
+        });
+        alarmTopic.addSubscription(new snsSubscriptions.EmailSubscription(props.alertEmail));
+        dlqAlarm.addAlarmAction(new actions.SnsAction(alarmTopic));
+      }
     }
 
     this.mailForwardLambda = mailForward;

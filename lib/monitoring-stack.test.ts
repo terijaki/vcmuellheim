@@ -64,7 +64,7 @@ describe("MonitoringStack", () => {
     });
   });
 
-  it("keeps the non-prod duration threshold at 5000 ms", () => {
+  it("uses a higher duration threshold in non-prod when alarms are deployed", () => {
     const template = createMonitoringWithWebapp("dev");
 
     template.hasResourceProperties("AWS::CloudWatch::Alarm", {

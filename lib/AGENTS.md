@@ -12,7 +12,7 @@ This file provides instructions specific to the `lib/` directory, which contains
   - `lib/media-stack.ts` — S3 bucket + CloudFront distribution for media assets; Bun image processor Lambda
   - `lib/buntime-stack.ts` — Account-scoped Bun 1.4 Lambda runtime layer (deploy once per environment)
   - `lib/dns-stack.ts` — Route53 hosted zones and DNS records
-  - `lib/monitoring-stack.ts` — CloudWatch alarms and SNS topics (prod + shared-dev only)
+  - `lib/monitoring-stack.ts` — CloudWatch alarms and SNS topics (production only)
   - `lib/budget-stack.ts` — AWS Billing and cost alerts (prod + shared-dev only)
 - `lib/db/` — DynamoDB client, schemas, repositories, and types
 - `bin/cdk.ts` — CDK app entry point that instantiates all stacks
@@ -20,7 +20,7 @@ This file provides instructions specific to the `lib/` directory, which contains
 ## Key files to reference
 
 - CDK entry: `bin/cdk.ts`
-- Account-baseline stacks: `BudgetStack` and `MonitoringStack` deploy for **prod** and **shared dev** (`main` / empty sanitized branch) only — not on feature-branch deploys. See `shouldDeployAccountOpsStacks` in `utils/cdk-deploy.ts`.
+- Account-baseline stacks: `BudgetStack` deploys for **prod** and **shared dev** (`main` / empty sanitized branch) only — not on feature-branch deploys. `MonitoringStack` deploys for **prod** only. See `shouldDeployAccountOpsStacks` in `utils/cdk-deploy.ts`.
 - Active stacks: `lib/webapp-stack.ts`, `lib/content-db-stack.ts`, `lib/sams-stack.ts`, `lib/social-media-stack.ts`, `lib/media-stack.ts`, `lib/buntime-stack.ts`, `lib/dns-stack.ts`, `lib/monitoring-stack.ts`, `lib/budget-stack.ts`
 - DB client: `lib/db/client.ts` (DynamoDB DocumentClient with X-Ray tracing)
 - DB schemas: `lib/db/schemas.ts` (Zod schemas for all entities)

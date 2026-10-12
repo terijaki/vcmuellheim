@@ -38,29 +38,7 @@ describe("SamsStack", () => {
       template.resourceCountIs("AWS::Events::Rule", 0);
     });
 
-    it("creates a DLQ alarm without an SNS subscription when alertEmail is omitted", () => {
-      const app = createTestApp();
-      const stack = new SamsStack(app, "TestStack", {
-        env: {
-          account: "123456789012",
-          region: "eu-central-1",
-        },
-        stackProps: {
-          environment: "dev",
-          branch: "test-branch",
-        },
-      });
-
-      const template = Template.fromStack(stack);
-
-      template.hasResourceProperties("AWS::CloudWatch::Alarm", {
-        AlarmName: Match.stringLikeRegexp("^sams-provider-dlq-depth-"),
-      });
-      template.resourceCountIs("AWS::SNS::Topic", 0);
-      template.resourceCountIs("AWS::SNS::Subscription", 0);
-    });
-
-    it("emails DLQ alarms when alertEmail is set", () => {
+    it("does not create DLQ CloudWatch alarms in dev", () => {
       const app = createTestApp();
       const stack = new SamsStack(app, "TestStack", {
         env: {
@@ -76,11 +54,8 @@ describe("SamsStack", () => {
 
       const template = Template.fromStack(stack);
 
-      template.resourceCountIs("AWS::SNS::Topic", 1);
-      template.hasResourceProperties("AWS::SNS::Subscription", {
-        Protocol: "email",
-        Endpoint: "alerts@example.com",
-      });
+      template.resourceCountIs("AWS::CloudWatch::Alarm", 0);
+      template.resourceCountIs("AWS::SNS::Topic", 0);
     });
 
     it("should include branch suffix in resource names", () => {
@@ -179,6 +154,32 @@ describe("SamsStack", () => {
   describe("Production environment", () => {
     beforeEach(() => {
       process.env.CDK_ENVIRONMENT = "prod";
+    });
+
+    it("creates a DLQ alarm and emails when alertEmail is set", () => {
+      const app = createTestApp();
+      const stack = new SamsStack(app, "TestStack", {
+        env: {
+          account: "123456789012",
+          region: "eu-central-1",
+        },
+        stackProps: {
+          environment: "prod",
+          branch: "",
+        },
+        alertEmail: "alerts@example.com",
+      });
+
+      const template = Template.fromStack(stack);
+
+      template.hasResourceProperties("AWS::CloudWatch::Alarm", {
+        AlarmName: "sams-provider-dlq-depth-prod",
+      });
+      template.resourceCountIs("AWS::SNS::Topic", 1);
+      template.hasResourceProperties("AWS::SNS::Subscription", {
+        Protocol: "email",
+        Endpoint: "alerts@example.com",
+      });
     });
 
     it("should set RETAIN removal policy for prod tables and queues", () => {

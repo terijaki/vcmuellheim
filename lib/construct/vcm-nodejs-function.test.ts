@@ -46,10 +46,10 @@ describe("VcmNodejsFunction", () => {
   });
 
   describe("CloudWatch log group", () => {
-    it("sets retention to two months", () => {
+    it("sets retention to one week in dev", () => {
       const template = createTemplate();
       template.hasResourceProperties("AWS::Logs::LogGroup", {
-        RetentionInDays: 60,
+        RetentionInDays: 7,
       });
     });
 
@@ -114,6 +114,13 @@ describe("VcmNodejsFunction", () => {
       const template = createTemplate();
       template.hasResourceProperties("AWS::Logs::LogGroup", {
         LogGroupName: "/vcm/prod/sams/my-func",
+      });
+    });
+
+    it("sets retention to two months in prod", () => {
+      const template = createTemplate();
+      template.hasResourceProperties("AWS::Logs::LogGroup", {
+        RetentionInDays: 60,
       });
     });
   });
