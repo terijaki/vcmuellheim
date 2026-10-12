@@ -1022,6 +1022,110 @@ describe("mail-forward Lambda", () => {
       expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
     });
 
+    test("uses SES Received for= envelope recipient when X-Original-To is absent", async () => {
+      // SES stores one S3 object per envelope RCPT TO. Google Workspace "internal
+      // outbound" routing (same-domain From) commonly delivers one RCPT TO per
+      // transaction, so two club aliases produce two nearly identical MIME bodies
+      // that both list both addresses in To:. Without envelope identity we would
+      // forward to every To address on every delivery → each person gets N copies.
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              [
+                "Return-Path: <john.doe@vcmuellheim.de>",
+                "Received: from mail-google.com (mail-google.com [1.2.3.4])",
+                " by inbound-smtp.eu-central-1.amazonaws.com with SMTP id abc123",
+                " for max.mustermann@vcmuellheim.de;",
+                " Mon, 12 Oct 2026 12:00:00 +0000 (UTC)",
+                "From: john.doe@vcmuellheim.de",
+                "To: max.mustermann@vcmuellheim.de, erika.mustermann@vcmuellheim.de",
+                "Subject: Test",
+                "",
+                "Hello world",
+              ].join("\n"),
+            ),
+        } as never,
+      });
+      mockByProxyEmailGo.mockImplementation((input: { proxyEmail: string }) => {
+        const members: Record<string, { id: string; proxyEmail: string; privateEmail: string }> = {
+          "max.mustermann@vcmuellheim.de": {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+          "erika.mustermann@vcmuellheim.de": {
+            id: "m2",
+            proxyEmail: "erika.mustermann@vcmuellheim.de",
+            privateEmail: "erika@example.com",
+          },
+        };
+        const member = members[input.proxyEmail];
+        return Promise.resolve({ data: member ? [member] : [] });
+      });
+
+      const result = await handler(
+        makeEvent("emails/ses-received-for.eml"),
+        mockLambdaContext as never,
+      );
+
+      const sesCalls = getForwardCalls();
+      expect(sesCalls).toHaveLength(1);
+      expect(sesCalls[0].args[0].input.Destination?.ToAddresses).toEqual(["max@example.com"]);
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 1" });
+    });
+
+    test("ignores spoofed non-SES Received for= and falls back to To recipients", async () => {
+      s3Mock.on(GetObjectCommand).resolves({
+        Body: {
+          transformToString: vi
+            .fn()
+            .mockResolvedValue(
+              [
+                "Received: from evil.example (evil.example [9.9.9.9])",
+                " by mail.evil.example with SMTP id spoof",
+                " for max.mustermann@vcmuellheim.de;",
+                " Mon, 12 Oct 2026 12:00:00 +0000 (UTC)",
+                "From: john.doe@vcmuellheim.de",
+                "To: max.mustermann@vcmuellheim.de, erika.mustermann@vcmuellheim.de",
+                "Subject: Test",
+                "",
+                "Hello world",
+              ].join("\n"),
+            ),
+        } as never,
+      });
+      mockByProxyEmailGo.mockImplementation((input: { proxyEmail: string }) => {
+        const members: Record<string, { id: string; proxyEmail: string; privateEmail: string }> = {
+          "max.mustermann@vcmuellheim.de": {
+            id: "m1",
+            proxyEmail: "max.mustermann@vcmuellheim.de",
+            privateEmail: "max@example.com",
+          },
+          "erika.mustermann@vcmuellheim.de": {
+            id: "m2",
+            proxyEmail: "erika.mustermann@vcmuellheim.de",
+            privateEmail: "erika@example.com",
+          },
+        };
+        const member = members[input.proxyEmail];
+        return Promise.resolve({ data: member ? [member] : [] });
+      });
+
+      const result = await handler(
+        makeEvent("emails/spoofed-received-for.eml"),
+        mockLambdaContext as never,
+      );
+
+      const sesCalls = getForwardCalls();
+      expect(sesCalls).toHaveLength(2);
+      const destinations = sesCalls.map((c) => c.args[0].input.Destination!.ToAddresses![0]);
+      expect(destinations).toContain("max@example.com");
+      expect(destinations).toContain("erika@example.com");
+      expect(result).toMatchObject({ statusCode: 200, body: "forwarded: 2" });
+    });
+
     test("prefers X-Original-To over To list to avoid duplicate forwarding", async () => {
       s3Mock.on(GetObjectCommand).resolves({
         Body: {

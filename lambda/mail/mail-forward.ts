@@ -5,7 +5,8 @@
  * Flow:
  *   1. Parse S3 key from EventBridge event.
  *   2. Read raw MIME email from S3.
- *   3. Extract the To address (recipient alias) from MIME headers.
+ *   3. Resolve the envelope recipient for this SES delivery (X-Original-To or
+ *      SES Received `for=`), falling back to To/Cc club aliases when absent.
  *   4. Apply branch plus-address stripping in dev environments.
  *   5. Resolve recipient:
  *      a. Check hardcoded group aliases (trainer@, vorstand@, info@).
@@ -636,27 +637,85 @@ function isAddressOnRecipientDomain(address: string): boolean {
 }
 
 /**
+ * Envelope recipient from the topmost SES inbound Received header.
+ *
+ * SES stores one S3 object per RCPT TO. Those copies share the same To/Cc
+ * headers; only the SES-prepended Received line's `for <addr>` identifies which
+ * envelope recipient this object was accepted for. X-Original-To is often
+ * absent (Google Workspace → SES does not add it).
+ *
+ * Trust only headers written by inbound-smtp.*.amazonaws.com so spoofed
+ * Received lines cannot redirect forwarding.
+ */
+function extractSesEnvelopeRecipient(rawMime: string): string | null {
+  const headerBlock = splitMimeIntoHeadersAndBody(rawMime)?.headers ?? rawMime;
+  const lines = headerBlock.split(/\r?\n/);
+  const receivedBlocks: string[] = [];
+  let current: string[] | null = null;
+
+  for (const line of lines) {
+    if (/^Received:/i.test(line)) {
+      if (current) receivedBlocks.push(current.join(" "));
+      current = [line.replace(/^Received:\s*/i, "")];
+      continue;
+    }
+    if (current && /^[ \t]/.test(line)) {
+      current.push(line.trim());
+      continue;
+    }
+    if (current) {
+      receivedBlocks.push(current.join(" "));
+      current = null;
+    }
+  }
+  if (current) receivedBlocks.push(current.join(" "));
+
+  for (const flattened of receivedBlocks) {
+    if (!/by\s+inbound-smtp\.[a-z0-9-]+\.amazonaws\.com\b/i.test(flattened)) {
+      continue;
+    }
+
+    const forMatch = flattened.match(/\bfor\s+(?:<([^<>]+@[^<>]+)>|([^\s,;<>]+@[^\s,;<>]+))/i);
+    const address = sanitizeEmailAddress((forMatch?.[1] || forMatch?.[2] || "").toLowerCase());
+    if (address && BASIC_EMAIL_REGEX.test(address)) {
+      return address;
+    }
+  }
+
+  return null;
+}
+
+/**
  * Club proxy addresses that should receive a forward for this inbound message.
- * Honors X-Original-To when it matches a To or Cc address (one forward per SES
- * delivery); otherwise uses To + Cc.
+ *
+ * Prefer a single envelope recipient (one forward per SES delivery):
+ *   1. X-Original-To when it matches a To/Cc address
+ *   2. SES Received `for=` (trusted inbound-smtp header) on the recipient domain
+ * Otherwise fall back to all club addresses on To + Cc.
  */
 function resolveMatchingClubRecipientAddresses(rawMime: string): string[] {
-  const envelopeRecipientAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
   const headerToAddresses = extractToAddresses(rawMime);
   const headerCcAddresses = extractRecipientAddressesFromHeader(rawMime, "cc");
   const headerRecipientSet = new Set(
     [...headerToAddresses, ...headerCcAddresses].map((addr) => addr.toLowerCase()),
   );
-  const hasValidatedEnvelopeRecipient = envelopeRecipientAddresses.some((addr) =>
+
+  const xOriginalToAddresses = extractRecipientAddressesFromHeader(rawMime, "x-original-to");
+  const validatedXOriginalTo = xOriginalToAddresses.filter((addr) =>
     headerRecipientSet.has(addr.toLowerCase()),
   );
+  if (validatedXOriginalTo.length > 0) {
+    return dedupeAddresses(validatedXOriginalTo.filter((addr) => isAddressOnRecipientDomain(addr)));
+  }
 
-  const candidateAddresses =
-    envelopeRecipientAddresses.length > 0 && hasValidatedEnvelopeRecipient
-      ? envelopeRecipientAddresses
-      : [...headerToAddresses, ...headerCcAddresses];
+  const sesEnvelopeRecipient = extractSesEnvelopeRecipient(rawMime);
+  if (sesEnvelopeRecipient && isAddressOnRecipientDomain(sesEnvelopeRecipient)) {
+    return [sesEnvelopeRecipient];
+  }
 
-  return dedupeAddresses(candidateAddresses.filter((addr) => isAddressOnRecipientDomain(addr)));
+  return dedupeAddresses(
+    [...headerToAddresses, ...headerCcAddresses].filter((addr) => isAddressOnRecipientDomain(addr)),
+  );
 }
 
 /**
