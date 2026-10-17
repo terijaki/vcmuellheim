@@ -9,6 +9,7 @@
 
 import { describe, it } from "vite-plus/test";
 import {
+  ApiKeyEntity,
   BusEntity,
   EventEntity,
   LocationEntity,
@@ -34,6 +35,7 @@ import {
   SamsTeamEntity,
 } from "./sams-electrodb-entities";
 import {
+  apiKeySchema,
   appHeimspieleSchema,
   appTabelleLeagueSchema,
   appTermineMatchSchema,
@@ -231,6 +233,10 @@ describe("Volunteer ElectroDB ↔ Zod drift detection", () => {
 
   it("VolunteerToken entity attributes match volunteerTokenSchema", () => {
     checkDrift("VolunteerToken", volunteerTokenSchema, VolunteerTokenEntity);
+  });
+
+  it("ApiKey entity attributes match apiKeySchema", () => {
+    checkDrift("ApiKey", apiKeySchema, ApiKeyEntity);
   });
 
   it("PublicSnapshot entity attributes match publicSnapshotSchema", () => {

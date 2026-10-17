@@ -15,6 +15,7 @@ import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { Service } from "electrodb";
 import { docClient } from "./client";
 import {
+  ApiKeyEntity,
   BusEntity,
   EventEntity,
   LocationEntity,
@@ -43,6 +44,7 @@ import {
 
 /** All entities registered in the service */
 const entityMap = {
+  apiKey: ApiKeyEntity,
   news: NewsEntity,
   event: EventEntity,
   team: TeamEntity,

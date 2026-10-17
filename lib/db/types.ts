@@ -12,7 +12,9 @@ import type {
   locationSchema,
   mediaSchema,
   memberSchema,
+  apiKeySchema,
   newsSchema,
+  publicApiKeySchema,
   sponsorSchema,
   teamSchema,
   volunteerEventSchema,
@@ -21,6 +23,8 @@ import type {
 } from "./schemas";
 
 /** Inferred types from Zod schemas */
+export type ApiKey = z.infer<typeof apiKeySchema>;
+export type PublicApiKey = z.infer<typeof publicApiKeySchema>;
 export type News = z.infer<typeof newsSchema>;
 export type Event = z.infer<typeof eventSchema>;
 export type Team = z.infer<typeof teamSchema>;

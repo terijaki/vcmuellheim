@@ -432,6 +432,41 @@ export const VolunteerSignupEntity = new Entity({
 } as const);
 
 // ---------------------------------------------------------------------------
+// API key entity — hashed bearer credentials for the CMS HTTP API
+// ---------------------------------------------------------------------------
+
+export const ApiKeyEntity = new Entity({
+  model: {
+    entity: "apiKey",
+    service: "vcm",
+    version: "1",
+  },
+  attributes: {
+    id: { type: "string", required: true },
+    type: { type: "string", required: true, default: () => "apiKey" as const },
+    label: { type: "string", required: true },
+    memberId: { type: "string", required: true },
+    scope: { type: ["news"] as const, required: true },
+    secretHash: { type: "string", required: true },
+    prefix: { type: "string", required: true },
+    createdAt: { type: "string", required: true },
+    expiresAt: { type: "string", required: true },
+    lastUsedAt: { type: "string" },
+  },
+  indexes: {
+    byId: {
+      pk: { field: "pk", composite: ["id"] },
+      sk: { field: "sk", composite: [] },
+    },
+    byType: {
+      index: ContentTableIndexes.gsi1,
+      pk: { field: "gsi1pk", composite: ["type"] },
+      sk: { field: "gsi1sk", composite: ["createdAt"] },
+    },
+  },
+} as const);
+
+// ---------------------------------------------------------------------------
 // VolunteerToken entity
 // ---------------------------------------------------------------------------
 
@@ -497,6 +532,7 @@ export const ContentEntities = {
   volunteerEvent: VolunteerEventEntity,
   volunteerSignup: VolunteerSignupEntity,
   volunteerToken: VolunteerTokenEntity,
+  apiKey: ApiKeyEntity,
   publicSnapshot: PublicSnapshotEntity,
 } as const;
 

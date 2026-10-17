@@ -13,6 +13,31 @@ export const baseEntityFields = {
   updatedAt: z.iso.datetime(),
 } as const;
 
+/** Scope granted to a CMS API key. New areas are added here and chosen only when creating a key. */
+export const apiKeyScopeSchema = z.enum(["news"]);
+
+/** Hashed CMS API key. The bearer token itself is never stored. */
+export const apiKeySchema = z.object({
+  id: z.uuid(),
+  type: z.literal("apiKey").default("apiKey").describe("Entity type discriminator"),
+  label: z.string().trim().min(1).max(100),
+  memberId: z.uuid(),
+  scope: apiKeyScopeSchema,
+  secretHash: z.string().regex(/^[a-f0-9]{64}$/),
+  prefix: z.string().min(1).max(16),
+  createdAt: z.iso.datetime(),
+  expiresAt: z.iso.datetime(),
+  lastUsedAt: z.iso.datetime().optional(),
+});
+
+export const publicApiKeySchema = apiKeySchema.omit({ secretHash: true });
+
+export const createApiKeyInputSchema = z.object({
+  label: z.string().trim().min(1).max(100),
+  memberId: z.uuid(),
+  scope: apiKeyScopeSchema,
+});
+
 /** News article schema */
 export const newsSchema = z.object({
   ...baseEntityFields,

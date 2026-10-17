@@ -17,6 +17,7 @@ export const Route = createFileRoute("/admin/_layout/")({
   component: DashboardIndexPage,
 });
 function DashboardIndexPage() {
+  const { user } = Route.useRouteContext();
   return (
     <Stack gap="lg">
       <Text c="dimmed" size="sm">
@@ -24,7 +25,7 @@ function DashboardIndexPage() {
       </Text>
 
       <SimpleGrid spacing="md" cols={{ base: 1, sm: 2, xl: 3 }}>
-        {getAdminRoutesWithLabels().map(({ to, label, icon, description }) => {
+        {getAdminRoutesWithLabels(user.authRole).map(({ to, label, icon, description }) => {
           return (
             <Card
               key={to}
