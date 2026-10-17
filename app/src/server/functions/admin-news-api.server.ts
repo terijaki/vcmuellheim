@@ -6,6 +6,7 @@
 import { newsSchema } from "@/lib/db/schemas";
 import { z } from "zod";
 import { authenticateApiKey } from "../api-keys.server";
+import { buildAdminCmsOpenApiDocument } from "../openapi/admin-cms-openapi";
 import {
   handleCreateDraftNews,
   handleGetNewsById,
@@ -16,6 +17,11 @@ import {
 const JSON_HEADERS = {
   "Content-Type": "application/json; charset=utf-8",
   "Cache-Control": "private, no-store",
+} as const;
+
+const PUBLIC_JSON_HEADERS = {
+  "Content-Type": "application/json; charset=utf-8",
+  "Cache-Control": "public, max-age=3600",
 } as const;
 
 const createNewsBodySchema = newsSchema
@@ -90,8 +96,18 @@ function pathParts(request: Request): string[] {
   return pathname.slice(marker.length).split("/").filter(Boolean);
 }
 
+function openApiResponse(request: Request): Response {
+  const origin = new URL(request.url).origin;
+  const document = buildAdminCmsOpenApiDocument(origin);
+  return new Response(JSON.stringify(document), { status: 200, headers: PUBLIC_JSON_HEADERS });
+}
+
 export async function handleAdminApiRequest(request: Request): Promise<Response> {
   const parts = pathParts(request);
+  if (parts.length === 1 && parts[0] === "openapi.json" && request.method === "GET") {
+    return openApiResponse(request);
+  }
+
   if (parts[0] !== "news") return errorResponse(404, "not_found", "Not found");
 
   if (parts.length === 1 && request.method === "GET") return listNews(request);

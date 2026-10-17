@@ -35,6 +35,20 @@ function request(path: string, method: string, body?: unknown, authorization?: s
 }
 
 describe("admin news HTTP API", () => {
+  it("serves the OpenAPI document without authentication", async () => {
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      new Request("https://dev.new.vcmuellheim.de/api/admin/openapi.json"),
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Cache-Control")).toContain("public");
+    expect(mockAuthenticate).not.toHaveBeenCalled();
+    const body = await response.json();
+    expect(body.openapi).toBe("3.1.0");
+    expect(body.servers[0].url).toBe("https://dev.new.vcmuellheim.de");
+  });
+
   beforeEach(() => {
     mockAuthenticate.mockReset();
     mockCreateDraft.mockReset();
