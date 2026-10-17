@@ -199,6 +199,7 @@ describe("WebAppStack", () => {
         CacheBehaviors: Match.arrayWith([
           Match.objectLike({ PathPattern: "/assets/*" }),
           Match.objectLike({ PathPattern: "/_build/*" }),
+          Match.objectLike({ PathPattern: "/api/admin/*" }),
           Match.objectLike({ PathPattern: "/api/dev/seed" }),
           Match.objectLike({ PathPattern: "/api/sams/logos" }),
           Match.objectLike({ PathPattern: "/docs/*" }),
@@ -383,6 +384,10 @@ describe("WebAppStack", () => {
       DistributionConfig: {
         Aliases: Match.arrayWith(["vcmuellheim.de", "www.vcmuellheim.de"]),
         CacheBehaviors: Match.arrayWith([
+          Match.objectLike({
+            PathPattern: "/api/admin/*",
+            AllowedMethods: ["GET", "HEAD", "OPTIONS", "PUT", "PATCH", "POST", "DELETE"],
+          }),
           Match.objectLike({
             PathPattern: "/api/dev/seed",
             AllowedMethods: ["GET", "HEAD", "OPTIONS", "PUT", "PATCH", "POST", "DELETE"],

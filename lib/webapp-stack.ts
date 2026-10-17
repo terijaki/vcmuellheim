@@ -7,6 +7,7 @@
  * - Lambda Function URL (streaming) ← Nitro server handler (.output/server/index.mjs)
  * - CloudFront distribution
  *   · Default behavior → Lambda Function URL (all requests: SSR + API routes)
+ *   · /api/admin/* → Lambda Function URL (caching disabled; Authorization is not a cache key)
  *   · /api/sams/logos → Lambda Function URL (cached per club query string)
  *   · /assets/* behavior → S3 static assets origin (immutable, long TTL)
  *   · /docs/* behavior → S3 static assets origin (downloadable documents)
@@ -291,6 +292,15 @@ export class WebAppStack extends cdk.Stack {
         // Fixture seed. Non-prod allows a longer origin read for image downloads.
         // Prod allows every method on this path so POST cannot fall through to the Lambda,
         // then the viewer-request function answers 404 without calling the origin.
+        // Programmatic CMS API. Caching is disabled because the cache key ignores Authorization.
+        "/api/admin/*": {
+          origin: lambdaOrigin,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+          cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+          responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
+        },
         "/api/dev/seed": {
           origin: isProd
             ? lambdaOrigin

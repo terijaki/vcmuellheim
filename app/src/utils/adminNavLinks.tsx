@@ -5,6 +5,7 @@ import {
   CalendarDays,
   Contact,
   HandHelping,
+  KeyRound,
   MapPinned,
   Newspaper,
   Users,
@@ -16,9 +17,10 @@ type AdminRoute = {
   label: string;
   icon: ReactElement;
   description: string;
+  adminOnly?: boolean;
 };
 
-export function getAdminRoutesWithLabels(): AdminRoute[] {
+export function getAdminRoutesWithLabels(authRole?: string): AdminRoute[] {
   const routes: AdminRoute[] = [
     {
       to: "/admin/news",
@@ -75,7 +77,14 @@ export function getAdminRoutesWithLabels(): AdminRoute[] {
       icon: <Building2 />,
       description: "SAMS Teams Übersicht.",
     },
+    {
+      to: "/admin/api-keys",
+      label: "API-Schlüssel",
+      icon: <KeyRound />,
+      description: "Erstelle und lösche Schlüssel für den programmatischen Zugriff.",
+      adminOnly: true,
+    },
   ];
 
-  return routes;
+  return routes.filter((route) => !route.adminOnly || authRole === "Admin");
 }

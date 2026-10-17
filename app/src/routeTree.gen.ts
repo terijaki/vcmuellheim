@@ -36,6 +36,7 @@ import { Route as LayoutTeamsSlugRouteImport } from './routes/_layout/teams.$slu
 import { Route as LayoutTermineIndexRouteImport } from './routes/_layout/termine.index'
 import { Route as LayoutTermineIdRouteImport } from './routes/_layout/termine.$id'
 import { Route as AdminLayoutIndexRouteImport } from './routes/admin/_layout/index'
+import { Route as AdminLayoutApiKeysRouteImport } from './routes/admin/_layout/api-keys'
 import { Route as AdminLayoutBusRouteImport } from './routes/admin/_layout/bus'
 import { Route as AdminLayoutEventsRouteImport } from './routes/admin/_layout/events'
 import { Route as AdminLayoutLocationsRouteImport } from './routes/admin/_layout/locations'
@@ -45,6 +46,7 @@ import { Route as AdminLayoutSamsRouteImport } from './routes/admin/_layout/sams
 import { Route as AdminLayoutSponsorsRouteImport } from './routes/admin/_layout/sponsors'
 import { Route as AdminLayoutTeamsRouteImport } from './routes/admin/_layout/teams'
 import { Route as AdminLayoutVolunteerEventRouteImport } from './routes/admin/_layout/volunteer-event'
+import { Route as ApiAdminSplatRouteImport } from './routes/api/admin/$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiDevSeedRouteImport } from './routes/api/dev/seed'
 import { Route as ApiSamsLogosRouteImport } from './routes/api/sams/logos'
@@ -184,6 +186,11 @@ const AdminLayoutIndexRoute = AdminLayoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminLayoutRoute,
 } as any)
+const AdminLayoutApiKeysRoute = AdminLayoutApiKeysRouteImport.update({
+  id: '/api-keys',
+  path: '/api-keys',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
 const AdminLayoutBusRoute = AdminLayoutBusRouteImport.update({
   id: '/bus',
   path: '/bus',
@@ -230,6 +237,11 @@ const AdminLayoutVolunteerEventRoute =
     path: '/volunteer-event',
     getParentRoute: () => AdminLayoutRoute,
   } as any)
+const ApiAdminSplatRoute = ApiAdminSplatRouteImport.update({
+  id: '/api/admin/$',
+  path: '/api/admin/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -275,6 +287,7 @@ export interface FileRoutesByFullPath {
   '/news/$id': typeof LayoutNewsIdRoute
   '/teams/$slug': typeof LayoutTeamsSlugRoute
   '/termine/$id': typeof LayoutTermineIdRoute
+  '/admin/api-keys': typeof AdminLayoutApiKeysRoute
   '/admin/bus': typeof AdminLayoutBusRoute
   '/admin/events': typeof AdminLayoutEventsRoute
   '/admin/locations': typeof AdminLayoutLocationsRoute
@@ -284,6 +297,7 @@ export interface FileRoutesByFullPath {
   '/admin/sponsors': typeof AdminLayoutSponsorsRoute
   '/admin/teams': typeof AdminLayoutTeamsRoute
   '/admin/volunteer-event': typeof AdminLayoutVolunteerEventRoute
+  '/api/admin/$': typeof ApiAdminSplatRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/dev/seed': typeof ApiDevSeedRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
@@ -312,6 +326,7 @@ export interface FileRoutesByTo {
   '/news/$id': typeof LayoutNewsIdRoute
   '/teams/$slug': typeof LayoutTeamsSlugRoute
   '/termine/$id': typeof LayoutTermineIdRoute
+  '/admin/api-keys': typeof AdminLayoutApiKeysRoute
   '/admin/bus': typeof AdminLayoutBusRoute
   '/admin/events': typeof AdminLayoutEventsRoute
   '/admin/locations': typeof AdminLayoutLocationsRoute
@@ -321,6 +336,7 @@ export interface FileRoutesByTo {
   '/admin/sponsors': typeof AdminLayoutSponsorsRoute
   '/admin/teams': typeof AdminLayoutTeamsRoute
   '/admin/volunteer-event': typeof AdminLayoutVolunteerEventRoute
+  '/api/admin/$': typeof ApiAdminSplatRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/dev/seed': typeof ApiDevSeedRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
@@ -355,6 +371,7 @@ export interface FileRoutesById {
   '/_layout/news/$id': typeof LayoutNewsIdRoute
   '/_layout/teams/$slug': typeof LayoutTeamsSlugRoute
   '/_layout/termine/$id': typeof LayoutTermineIdRoute
+  '/admin/_layout/api-keys': typeof AdminLayoutApiKeysRoute
   '/admin/_layout/bus': typeof AdminLayoutBusRoute
   '/admin/_layout/events': typeof AdminLayoutEventsRoute
   '/admin/_layout/locations': typeof AdminLayoutLocationsRoute
@@ -364,6 +381,7 @@ export interface FileRoutesById {
   '/admin/_layout/sponsors': typeof AdminLayoutSponsorsRoute
   '/admin/_layout/teams': typeof AdminLayoutTeamsRoute
   '/admin/_layout/volunteer-event': typeof AdminLayoutVolunteerEventRoute
+  '/api/admin/$': typeof ApiAdminSplatRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/dev/seed': typeof ApiDevSeedRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
@@ -398,6 +416,7 @@ export interface FileRouteTypes {
     | '/news/$id'
     | '/teams/$slug'
     | '/termine/$id'
+    | '/admin/api-keys'
     | '/admin/bus'
     | '/admin/events'
     | '/admin/locations'
@@ -407,6 +426,7 @@ export interface FileRouteTypes {
     | '/admin/sponsors'
     | '/admin/teams'
     | '/admin/volunteer-event'
+    | '/api/admin/$'
     | '/api/auth/$'
     | '/api/dev/seed'
     | '/api/sams/logos'
@@ -435,6 +455,7 @@ export interface FileRouteTypes {
     | '/news/$id'
     | '/teams/$slug'
     | '/termine/$id'
+    | '/admin/api-keys'
     | '/admin/bus'
     | '/admin/events'
     | '/admin/locations'
@@ -444,6 +465,7 @@ export interface FileRouteTypes {
     | '/admin/sponsors'
     | '/admin/teams'
     | '/admin/volunteer-event'
+    | '/api/admin/$'
     | '/api/auth/$'
     | '/api/dev/seed'
     | '/api/sams/logos'
@@ -477,6 +499,7 @@ export interface FileRouteTypes {
     | '/_layout/news/$id'
     | '/_layout/teams/$slug'
     | '/_layout/termine/$id'
+    | '/admin/_layout/api-keys'
     | '/admin/_layout/bus'
     | '/admin/_layout/events'
     | '/admin/_layout/locations'
@@ -486,6 +509,7 @@ export interface FileRouteTypes {
     | '/admin/_layout/sponsors'
     | '/admin/_layout/teams'
     | '/admin/_layout/volunteer-event'
+    | '/api/admin/$'
     | '/api/auth/$'
     | '/api/dev/seed'
     | '/api/sams/logos'
@@ -502,6 +526,7 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOtpLoginRoute: typeof AdminOtpLoginRoute
   IcsTeamSlugRoute: typeof IcsTeamSlugRoute
+  ApiAdminSplatRoute: typeof ApiAdminSplatRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiDevSeedRoute: typeof ApiDevSeedRoute
   ApiSamsLogosRoute: typeof ApiSamsLogosRoute
@@ -698,6 +723,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLayoutIndexRouteImport
       parentRoute: typeof AdminLayoutRoute
     }
+    '/admin/_layout/api-keys': {
+      id: '/admin/_layout/api-keys'
+      path: '/api-keys'
+      fullPath: '/admin/api-keys'
+      preLoaderRoute: typeof AdminLayoutApiKeysRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
     '/admin/_layout/bus': {
       id: '/admin/_layout/bus'
       path: '/bus'
@@ -760,6 +792,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/volunteer-event'
       preLoaderRoute: typeof AdminLayoutVolunteerEventRouteImport
       parentRoute: typeof AdminLayoutRoute
+    }
+    '/api/admin/$': {
+      id: '/api/admin/$'
+      path: '/api/admin/$'
+      fullPath: '/api/admin/$'
+      preLoaderRoute: typeof ApiAdminSplatRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -874,6 +913,7 @@ const LayoutRouteWithChildren =
   LayoutRoute._addFileChildren(LayoutRouteChildren)
 
 interface AdminLayoutRouteChildren {
+  AdminLayoutApiKeysRoute: typeof AdminLayoutApiKeysRoute
   AdminLayoutBusRoute: typeof AdminLayoutBusRoute
   AdminLayoutEventsRoute: typeof AdminLayoutEventsRoute
   AdminLayoutLocationsRoute: typeof AdminLayoutLocationsRoute
@@ -888,6 +928,7 @@ interface AdminLayoutRouteChildren {
 }
 
 const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
+  AdminLayoutApiKeysRoute: AdminLayoutApiKeysRoute,
   AdminLayoutBusRoute: AdminLayoutBusRoute,
   AdminLayoutEventsRoute: AdminLayoutEventsRoute,
   AdminLayoutLocationsRoute: AdminLayoutLocationsRoute,
@@ -912,6 +953,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminOtpLoginRoute: AdminOtpLoginRoute,
   IcsTeamSlugRoute: IcsTeamSlugRoute,
+  ApiAdminSplatRoute: ApiAdminSplatRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiDevSeedRoute: ApiDevSeedRoute,
   ApiSamsLogosRoute: ApiSamsLogosRoute,

@@ -28,7 +28,7 @@ interface AdminHeaderProps {
 export default function AdminHeader({ user }: AdminHeaderProps) {
   const [opened, { toggle, close }] = useDisclosure();
   const { location } = useRouterState();
-  const navLinks = getAdminRoutesWithLabels();
+  const navLinks = getAdminRoutesWithLabels(user?.authRole);
   const navigate = useNavigate();
   const [loggingOut, setLoggingOut] = useState(false);
 
