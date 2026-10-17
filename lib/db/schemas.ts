@@ -23,7 +23,10 @@ export const apiKeySchema = z.object({
   label: z.string().trim().min(1).max(100),
   memberId: z.uuid(),
   scope: apiKeyScopeSchema,
-  secretHash: z.string().regex(/^[a-f0-9]{64}$/),
+  secretHash: z
+    .string()
+    .regex(/^scrypt\$[A-Za-z0-9_-]+\$[A-Za-z0-9_-]+$/)
+    .describe("scrypt hash with per-key salt (format scrypt$<salt>$<derived>)"),
   prefix: z.string().min(1).max(16),
   createdAt: z.iso.datetime(),
   expiresAt: z.iso.datetime(),

@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import dayjs from "dayjs";
 
@@ -87,9 +86,13 @@ describe("api keys", () => {
     expect(created.apiKey.scope).toBe("news");
     expect(created.apiKey.label).toBe("Redaktion");
 
-    const secret = created.token.slice(`vcm_${created.apiKey.id}_`.length);
     expect(storedKey?.scope).toBe("news");
-    expect(storedKey?.secretHash).toBe(createHash("sha256").update(secret).digest("hex"));
+    expect(storedKey?.secretHash.startsWith("scrypt$")).toBe(true);
+
+    const { authenticateApiKey } = await import("./api-keys.server");
+    mockKeyGet.mockResolvedValue({ data: storedKey });
+    const access = await authenticateApiKey(`Bearer ${created.token}`, "news");
+    expect(access.ok).toBe(true);
   });
 
   it("rejects a member without CMS access and does not write a key", async () => {

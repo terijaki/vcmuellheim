@@ -3,7 +3,7 @@
  * DynamoDB stores a hash, the owning member, one scope, and a one-year expiry.
  */
 
-import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
+import { randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
 import { db } from "@/lib/db/electrodb-client";
 import {
   apiKeySchema,
@@ -20,6 +20,10 @@ export type ApiKeyScope = PublicApiKey["scope"];
 
 const TOKEN_MARKER = "vcm_";
 const TOKEN_PREFIX_LENGTH = 12;
+const SCRYPT_PREFIX = "scrypt$";
+const SCRYPT_SALT_BYTES = 16;
+const SCRYPT_DERIVED_BYTES = 32;
+const SCRYPT_OPTIONS = { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 };
 
 const storedApiKeySchema = apiKeySchema.extend({ scope: z.string().min(1) });
 
@@ -46,14 +50,24 @@ function isCmsRole(role: string | undefined): role is "Admin" | "Moderator" {
 }
 
 function hashSecret(secret: string): string {
-  return createHash("sha256").update(secret).digest("hex");
+  const salt = randomBytes(SCRYPT_SALT_BYTES);
+  const derived = scryptSync(secret, salt, SCRYPT_DERIVED_BYTES, SCRYPT_OPTIONS);
+  return `${SCRYPT_PREFIX}${salt.toString("base64url")}$${derived.toString("base64url")}`;
 }
 
-function secretsMatch(expectedHash: string, secret: string): boolean {
-  const actual = Buffer.from(hashSecret(secret));
-  const expected = Buffer.from(expectedHash);
-  if (expected.length !== actual.length) return false;
-  return timingSafeEqual(expected, actual);
+function secretsMatch(storedHash: string, secret: string): boolean {
+  if (!storedHash.startsWith(SCRYPT_PREFIX)) return false;
+  const payload = storedHash.slice(SCRYPT_PREFIX.length);
+  const separator = payload.indexOf("$");
+  if (separator <= 0) return false;
+
+  const salt = Buffer.from(payload.slice(0, separator), "base64url");
+  const expected = Buffer.from(payload.slice(separator + 1), "base64url");
+  if (salt.length === 0 || expected.length === 0) return false;
+
+  const derived = scryptSync(secret, salt, expected.length, SCRYPT_OPTIONS);
+  if (derived.length !== expected.length) return false;
+  return timingSafeEqual(derived, expected);
 }
 
 function parseToken(token: string): { id: string; secret: string } | null {
