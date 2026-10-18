@@ -16,6 +16,7 @@ import { buildAdminCmsOpenApiDocument } from "../openapi/admin-cms-openapi";
 import { resolveNewsPublicOrigin } from "../news-public-url";
 import {
   handleCreateDraftNews,
+  handleDeleteNews,
   handleGetNewsById,
   handleListAdminNews,
   handlePublishNews,
@@ -167,8 +168,11 @@ function readListQuery(url: URL):
   };
 }
 
-async function requireNewsKey(request: Request): Promise<Response | null> {
-  const access = await authenticateApiKey(request.headers.get("authorization"), "news");
+async function requireNewsKey(
+  request: Request,
+  options?: { requireAdmin?: boolean },
+): Promise<Response | null> {
+  const access = await authenticateApiKey(request.headers.get("authorization"), "news", options);
   if (!access.ok) {
     return errorResponse(access.status, access.code, access.message, { reason: access.reason });
   }
@@ -222,6 +226,10 @@ export async function handleAdminApiRequest(request: Request): Promise<Response>
   if (parts.length === 2 && request.method === "PATCH") {
     if (!id) return errorResponse(404, "not_found", "News article not found");
     return updateNews(request, id);
+  }
+  if (parts.length === 2 && request.method === "DELETE") {
+    if (!id) return errorResponse(404, "not_found", "News article not found");
+    return deleteNewsArticle(request, id);
   }
   if (parts.length === 3 && parts[2] === "publish" && request.method === "POST") {
     if (!id) return errorResponse(404, "not_found", "News article not found");
@@ -411,5 +419,20 @@ async function publishNews(request: Request, id: string): Promise<Response> {
   } catch (error) {
     console.error(error);
     return errorResponse(500, "internal", "Failed to publish news");
+  }
+}
+
+async function deleteNewsArticle(request: Request, id: string): Promise<Response> {
+  const denied = await requireNewsKey(request, { requireAdmin: true });
+  if (denied) return denied;
+
+  try {
+    const existing = await handleGetNewsById(id);
+    if (!existing) return errorResponse(404, "not_found", "News article not found");
+    await handleDeleteNews(id);
+    return json({ success: true as const });
+  } catch (error) {
+    console.error(error);
+    return errorResponse(500, "internal", "Failed to delete news");
   }
 }

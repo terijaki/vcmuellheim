@@ -7,6 +7,7 @@ const {
   mockGetById,
   mockList,
   mockUpdateContent,
+  mockDeleteNews,
   mockPresign,
   mockProcessImage,
   mockGetFileUrls,
@@ -17,6 +18,7 @@ const {
   mockGetById: vi.fn(),
   mockList: vi.fn(),
   mockUpdateContent: vi.fn(),
+  mockDeleteNews: vi.fn(),
   mockPresign: vi.fn(),
   mockProcessImage: vi.fn(),
   mockGetFileUrls: vi.fn(),
@@ -32,6 +34,7 @@ vi.mock("./news.server", () => ({
   handleGetNewsById: (...args: unknown[]) => mockGetById(...args),
   handleListAdminNews: (...args: unknown[]) => mockList(...args),
   handleUpdateNewsContent: (...args: unknown[]) => mockUpdateContent(...args),
+  handleDeleteNews: (...args: unknown[]) => mockDeleteNews(...args),
 }));
 
 vi.mock("./upload.server", () => ({
@@ -76,6 +79,7 @@ describe("admin news HTTP API", () => {
     mockGetById.mockReset();
     mockList.mockReset();
     mockUpdateContent.mockReset();
+    mockDeleteNews.mockReset();
     mockPresign.mockReset();
     mockProcessImage.mockReset();
     mockGetFileUrls.mockReset();
@@ -308,6 +312,30 @@ describe("admin news HTTP API", () => {
 
     expect(response.status).toBe(400);
     expect(mockProcessImage).not.toHaveBeenCalled();
+  });
+
+  it("deletes an article when the key is allowed", async () => {
+    mockGetById.mockResolvedValue({ id: articleId, status: "draft", title: "Gone" });
+    mockDeleteNews.mockResolvedValue({ success: true });
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request(`/api/admin/news/${articleId}`, "DELETE", undefined, "Bearer token"),
+    );
+
+    expect(response.status).toBe(200);
+    expect(mockDeleteNews).toHaveBeenCalledWith(articleId);
+    await expect(response.json()).resolves.toEqual({ success: true });
+  });
+
+  it("returns 404 from delete when the article does not exist", async () => {
+    mockGetById.mockResolvedValue(null);
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request(`/api/admin/news/${articleId}`, "DELETE", undefined, "Bearer token"),
+    );
+
+    expect(response.status).toBe(404);
+    expect(mockDeleteNews).not.toHaveBeenCalled();
   });
 
   it("returns 404 from publish when the article does not exist", async () => {

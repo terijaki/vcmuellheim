@@ -112,7 +112,7 @@ describe("api keys", () => {
     mockKeyGet.mockResolvedValue({ data: storedKey });
 
     const now = new Date("2026-10-17T12:00:30.000Z");
-    const access = await authenticateApiKey(`Bearer ${created.token}`, "news", now);
+    const access = await authenticateApiKey(`Bearer ${created.token}`, "news", { now });
 
     expect(access.ok).toBe(true);
     expect(mockKeyPatch).toHaveBeenCalledWith({ lastUsedAt: now.toISOString() });
@@ -125,11 +125,9 @@ describe("api keys", () => {
       data: { ...storedKey, lastUsedAt: "2026-10-17T12:00:01.000Z" },
     });
 
-    const access = await authenticateApiKey(
-      `Bearer ${created.token}`,
-      "news",
-      new Date("2026-10-17T12:00:59.000Z"),
-    );
+    const access = await authenticateApiKey(`Bearer ${created.token}`, "news", {
+      now: new Date("2026-10-17T12:00:59.000Z"),
+    });
 
     expect(access.ok).toBe(true);
     expect(mockKeyPatch).not.toHaveBeenCalled();
@@ -149,7 +147,7 @@ describe("api keys", () => {
       data: { ...storedKey, expiresAt: "2020-01-01T00:00:00.000Z" },
     });
 
-    const access = await authenticateApiKey(`Bearer ${created.token}`, "news", new Date());
+    const access = await authenticateApiKey(`Bearer ${created.token}`, "news", { now: new Date() });
     expect(access).toMatchObject({ ok: false, status: 401, reason: "expired" });
     expect(mockKeyPatch).not.toHaveBeenCalled();
   });
@@ -167,6 +165,32 @@ describe("api keys", () => {
       reason: "wrong_scope",
     });
     expect(mockKeyPatch).not.toHaveBeenCalled();
+  });
+
+  it("rejects non-admin members when admin is required", async () => {
+    const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
+    const created = await createApiKey({ label: "Mod", memberId, scope: "news" });
+    mockKeyGet.mockResolvedValue({ data: storedKey });
+    mockMemberGet.mockResolvedValue({
+      data: { ...adminMember, authRole: "Moderator" },
+    });
+
+    const access = await authenticateApiKey(`Bearer ${created.token}`, "news", {
+      requireAdmin: true,
+    });
+    expect(access).toMatchObject({ ok: false, status: 403, reason: "admin_required" });
+    expect(mockKeyPatch).not.toHaveBeenCalled();
+  });
+
+  it("allows admins when admin is required", async () => {
+    const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
+    const created = await createApiKey({ label: "Admin", memberId, scope: "news" });
+    mockKeyGet.mockResolvedValue({ data: storedKey });
+
+    const access = await authenticateApiKey(`Bearer ${created.token}`, "news", {
+      requireAdmin: true,
+    });
+    expect(access.ok).toBe(true);
   });
 
   it("rejects a key whose member lost CMS access", async () => {

@@ -33,7 +33,13 @@ export type ApiKeyAuthReason =
   | "invalid_token"
   | "expired"
   | "wrong_scope"
-  | "member_ineligible";
+  | "member_ineligible"
+  | "admin_required";
+
+export type AuthenticateApiKeyOptions = {
+  requireAdmin?: boolean;
+  now?: Date;
+};
 
 export type ApiKeyAccess =
   | { ok: true; apiKey: PublicApiKey; memberId: string }
@@ -115,11 +121,12 @@ function toPublicApiKey(key: ApiKey): PublicApiKey {
   });
 }
 
-async function memberMayUseKeys(memberId: string): Promise<boolean> {
+async function getMemberCmsRole(memberId: string): Promise<"Admin" | "Moderator" | null> {
   const result = await db().member.get({ id: memberId }).go();
-  if (!result.data) return false;
+  if (!result.data) return null;
   const member = memberSchema.safeParse(result.data);
-  return member.success && isCmsRole(member.data.authRole);
+  if (!member.success || !isCmsRole(member.data.authRole)) return null;
+  return member.data.authRole;
 }
 
 export async function createApiKey(input: {
@@ -128,7 +135,7 @@ export async function createApiKey(input: {
   scope: ApiKeyScope;
 }): Promise<{ apiKey: PublicApiKey; token: string }> {
   const parsed = createApiKeyInputSchema.parse(input);
-  if (!(await memberMayUseKeys(parsed.memberId))) {
+  if (!(await getMemberCmsRole(parsed.memberId))) {
     throw new Error("Nur Admins und Moderatoren können einen Schlüssel erhalten");
   }
 
@@ -169,8 +176,9 @@ export async function deleteApiKey(id: string): Promise<{ success: true }> {
 export async function authenticateApiKey(
   authorizationHeader: string | null,
   requiredScope: ApiKeyScope,
-  now = new Date(),
+  options: AuthenticateApiKeyOptions = {},
 ): Promise<ApiKeyAccess> {
+  const now = options.now ?? new Date();
   const header = authorizationHeader ?? "";
   if (!header.trim()) {
     return authFailure(
@@ -234,12 +242,21 @@ export async function authenticateApiKey(
       `API key scope "${record.data.scope}" does not allow this action (required: "${requiredScope}")`,
     );
   }
-  if (!(await memberMayUseKeys(record.data.memberId))) {
+  const memberRole = await getMemberCmsRole(record.data.memberId);
+  if (!memberRole) {
     return authFailure(
       403,
       "forbidden",
       "member_ineligible",
       "API key owner no longer has CMS access",
+    );
+  }
+  if (options.requireAdmin && memberRole !== "Admin") {
+    return authFailure(
+      403,
+      "forbidden",
+      "admin_required",
+      "This action requires the API key owner to be an Admin",
     );
   }
 

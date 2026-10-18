@@ -8,8 +8,9 @@ describe("admin CMS OpenAPI document", () => {
     expect(doc.openapi).toBe("3.1.0");
     expect(doc.servers[0]?.url).toBe("https://dev.new.vcmuellheim.de");
     expect(doc.paths["/api/admin/news"]).toBeDefined();
-    const newsById = doc.paths["/api/admin/news/{id}"] as { patch?: unknown };
+    const newsById = doc.paths["/api/admin/news/{id}"] as { patch?: unknown; delete?: unknown };
     expect(newsById.patch).toBeDefined();
+    expect(newsById.delete).toBeDefined();
     expect(doc.paths["/api/admin/news/{id}/publish"]).toBeDefined();
     expect(doc.paths["/api/admin/media/upload-url"]).toBeDefined();
     expect(doc.paths["/api/admin/media/process"]).toBeDefined();

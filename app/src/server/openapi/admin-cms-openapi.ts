@@ -128,6 +128,31 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
             "404": { $ref: "#/components/responses/NotFound" },
           },
         },
+        delete: {
+          operationId: "deleteNews",
+          summary: "Delete a news article",
+          description:
+            "Permanently deletes a news article. Requires the API key owner to be an **Admin** (Moderators cannot delete via API).",
+          security: [{ bearerApiKey: [] }],
+          parameters: [{ $ref: "#/components/parameters/NewsId" }],
+          responses: {
+            "200": {
+              description: "Article deleted",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    required: ["success"],
+                    properties: { success: { type: "boolean", const: true } },
+                  },
+                },
+              },
+            },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+            "404": { $ref: "#/components/responses/NotFound" },
+          },
+        },
         patch: {
           operationId: "updateNews",
           summary: "Update a news article",
@@ -312,7 +337,7 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
                 reason: {
                   type: "string",
                   description:
-                    "Machine-readable auth failure cause (e.g. missing_token, expired, wrong_scope)",
+                    "Machine-readable auth failure cause (e.g. missing_token, expired, wrong_scope, admin_required)",
                 },
                 details: {
                   type: "array",
