@@ -46,10 +46,7 @@ function RouteComponent() {
   }
 
   return (
-    <PageWithHeading
-      title="News Beiträge"
-      description="Lese die neuesten Nachrichten und Updates vom Volleyballclub Müllheim"
-    >
+    <PageWithHeading title="News Beiträge">
       <Stack>
         <SimpleGrid cols={{ base: 1, sm: 2 }}>
           {news.map((post, index) => (

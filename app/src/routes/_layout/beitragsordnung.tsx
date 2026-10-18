@@ -11,7 +11,7 @@ function RouteComponent() {
   const versionDate = "26.11.2023";
 
   return (
-    <PageWithHeading title="Beitragsordnung" updatedAt={versionDate}>
+    <PageWithHeading title="Beitragsordnung">
       <Typography>
         <Card>
           <CardTitle>§ 1 Geschäftsjahr und Fälligkeit</CardTitle>
