@@ -34,11 +34,7 @@ function LivePage() {
           : undefined;
 
   return (
-    <PageWithHeading
-      title="Live"
-      description="Live-Ergebnisse der Mannschaften vom Volleyballclub Müllheim"
-      subtitle={subtitle}
-    >
+    <PageWithHeading title="Live" subtitle={subtitle}>
       <Stack gap="xl">
         {isPending ? (
           <CenteredLoader text="Lade Live-Ergebnisse…" />

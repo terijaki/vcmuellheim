@@ -50,10 +50,7 @@ function RouteComponent() {
     : "Abboniere unseren Vereinskalender";
 
   return (
-    <PageWithHeading
-      title="Termine"
-      description="Alle Termine, Spieltage und Events von Volleyballclub Müllheim im Überblick"
-    >
+    <PageWithHeading title="Termine">
       <Stack>
         <Card>
           <Stack>

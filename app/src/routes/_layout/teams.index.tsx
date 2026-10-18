@@ -16,10 +16,7 @@ export const Route = createFileRoute("/_layout/teams/")({
 function RouteComponent() {
   const { teams, members } = Route.useLoaderData();
   return (
-    <PageWithHeading
-      title="Mannschaften"
-      description="Erfahre mehr über unsere Volleyball-Teams und Mannschaften bei Volleyballclub Müllheim"
-    >
+    <PageWithHeading title="Mannschaften">
       <Center>
         <Text>
           Zurzeit umfasst unser Verein {teams.length}{" "}

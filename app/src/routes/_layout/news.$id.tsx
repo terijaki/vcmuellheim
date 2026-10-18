@@ -19,15 +19,7 @@ function RouteComponent() {
   if (!data) return <Loader />;
 
   return (
-    <PageWithHeading
-      title={data.title}
-      date={new Date(data.createdAt)}
-      description={data.excerpt || data.content?.substring(0, 160)}
-      image={thumbnails?.[0]}
-      type="article"
-      publishedAt={data.createdAt}
-      updatedAt={data.updatedAt}
-    >
+    <PageWithHeading title={data.title} date={new Date(data.createdAt)}>
       <Stack>
         <Card>
           <Stack>
