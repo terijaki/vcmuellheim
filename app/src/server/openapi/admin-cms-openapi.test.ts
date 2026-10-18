@@ -11,10 +11,14 @@ describe("admin CMS OpenAPI document", () => {
     const newsById = doc.paths["/api/admin/news/{id}"] as { patch?: unknown };
     expect(newsById.patch).toBeDefined();
     expect(doc.paths["/api/admin/news/{id}/publish"]).toBeDefined();
+    expect(doc.paths["/api/admin/media/upload-url"]).toBeDefined();
+    expect(doc.paths["/api/admin/media/process"]).toBeDefined();
+    expect(doc.info.description).toContain("imageS3Keys");
     const newsArticle = doc.components.schemas.NewsArticle as {
       properties?: Record<string, unknown>;
     };
     expect(newsArticle.properties?.publicUrl).toBeDefined();
+    expect(newsArticle.properties?.imageUrls).toBeDefined();
     expect(doc.components.securitySchemes.bearerApiKey).toMatchObject({
       type: "http",
       scheme: "bearer",

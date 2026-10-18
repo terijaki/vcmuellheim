@@ -1,14 +1,26 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
-const { mockAuthenticate, mockCreateDraft, mockPublish, mockGetById, mockList, mockUpdateContent } =
-  vi.hoisted(() => ({
-    mockAuthenticate: vi.fn(),
-    mockCreateDraft: vi.fn(),
-    mockPublish: vi.fn(),
-    mockGetById: vi.fn(),
-    mockList: vi.fn(),
-    mockUpdateContent: vi.fn(),
-  }));
+const {
+  mockAuthenticate,
+  mockCreateDraft,
+  mockPublish,
+  mockGetById,
+  mockList,
+  mockUpdateContent,
+  mockPresign,
+  mockProcessImage,
+  mockGetFileUrls,
+} = vi.hoisted(() => ({
+  mockAuthenticate: vi.fn(),
+  mockCreateDraft: vi.fn(),
+  mockPublish: vi.fn(),
+  mockGetById: vi.fn(),
+  mockList: vi.fn(),
+  mockUpdateContent: vi.fn(),
+  mockPresign: vi.fn(),
+  mockProcessImage: vi.fn(),
+  mockGetFileUrls: vi.fn(),
+}));
 
 vi.mock("../api-keys.server", () => ({
   authenticateApiKey: (...args: unknown[]) => mockAuthenticate(...args),
@@ -20,6 +32,12 @@ vi.mock("./news.server", () => ({
   handleGetNewsById: (...args: unknown[]) => mockGetById(...args),
   handleListAdminNews: (...args: unknown[]) => mockList(...args),
   handleUpdateNewsContent: (...args: unknown[]) => mockUpdateContent(...args),
+}));
+
+vi.mock("./upload.server", () => ({
+  handleGetPresignedUrl: (...args: unknown[]) => mockPresign(...args),
+  handleProcessMediaImage: (...args: unknown[]) => mockProcessImage(...args),
+  handleGetFileUrls: (...args: unknown[]) => mockGetFileUrls(...args),
 }));
 
 const articleId = "33333333-3333-4333-8333-333333333333";
@@ -58,6 +76,12 @@ describe("admin news HTTP API", () => {
     mockGetById.mockReset();
     mockList.mockReset();
     mockUpdateContent.mockReset();
+    mockPresign.mockReset();
+    mockProcessImage.mockReset();
+    mockGetFileUrls.mockReset();
+    mockGetFileUrls.mockImplementation(async (keys: string[]) =>
+      keys.map((key) => `https://media.test/${key}`),
+    );
     mockAuthenticate.mockResolvedValue({
       ok: true,
       apiKey: { id: "key" },
@@ -139,7 +163,12 @@ describe("admin news HTTP API", () => {
   });
 
   it("includes publicUrl when reading a single article", async () => {
-    mockGetById.mockResolvedValue({ id: articleId, status: "draft", title: "A" });
+    mockGetById.mockResolvedValue({
+      id: articleId,
+      status: "draft",
+      title: "A",
+      imageS3Keys: ["news/photo.jpg"],
+    });
     const { handleAdminApiRequest } = await import("./admin-news-api.server");
     const response = await handleAdminApiRequest(
       request(`/api/admin/news/${articleId}`, "GET", undefined, "Bearer token"),
@@ -148,6 +177,7 @@ describe("admin news HTTP API", () => {
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toMatchObject({
       publicUrl: `${publicOrigin}/news/${articleId}`,
+      imageUrls: ["https://media.test/news/photo.jpg"],
     });
   });
 
@@ -184,6 +214,72 @@ describe("admin news HTTP API", () => {
     );
 
     expect(response.status).toBe(404);
+  });
+
+  it("rejects invalid imageS3Keys on create", async () => {
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request(
+        "/api/admin/news",
+        "POST",
+        { title: "A", content: "<p>B</p>", imageS3Keys: ["members/x.jpg"] },
+        "Bearer token",
+      ),
+    );
+
+    expect(response.status).toBe(400);
+    expect(mockCreateDraft).not.toHaveBeenCalled();
+  });
+
+  it("returns presigned upload URL for news images", async () => {
+    mockPresign.mockResolvedValue({
+      uploadUrl: "https://s3.example/upload",
+      key: "news/abc.jpg",
+      bucket: "media",
+    });
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request(
+        "/api/admin/media/upload-url",
+        "POST",
+        { filename: "photo.jpg", contentType: "image/jpeg" },
+        "Bearer token",
+      ),
+    );
+
+    expect(response.status).toBe(200);
+    expect(mockPresign).toHaveBeenCalledWith({
+      filename: "photo.jpg",
+      contentType: "image/jpeg",
+      folder: "news",
+    });
+    await expect(response.json()).resolves.toEqual({
+      uploadUrl: "https://s3.example/upload",
+      key: "news/abc.jpg",
+      expiresIn: 300,
+    });
+  });
+
+  it("processes a news gallery key", async () => {
+    mockProcessImage.mockResolvedValue(undefined);
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request("/api/admin/media/process", "POST", { s3Key: "news/abc.jpg" }, "Bearer token"),
+    );
+
+    expect(response.status).toBe(200);
+    expect(mockProcessImage).toHaveBeenCalledWith("news/abc.jpg");
+    await expect(response.json()).resolves.toEqual({ ok: true });
+  });
+
+  it("rejects process for keys outside news/", async () => {
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request("/api/admin/media/process", "POST", { s3Key: "teams/logo.jpg" }, "Bearer token"),
+    );
+
+    expect(response.status).toBe(400);
+    expect(mockProcessImage).not.toHaveBeenCalled();
   });
 
   it("returns 404 from publish when the article does not exist", async () => {

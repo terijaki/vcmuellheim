@@ -23,7 +23,11 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
       title: "VC Müllheim CMS API",
       version: "1.0.0",
       description:
-        "Programmatic access to CMS content. Authenticate with a CMS API key (Bearer token) created in the admin UI. Keys are scoped; the news scope covers these endpoints.",
+        "Programmatic access to CMS content. Authenticate with a CMS API key (Bearer token) created in the admin UI. Keys are scoped; the news scope covers these endpoints.\n\n" +
+        "**News images (gallery):** Article body `content` is HTML only (no inline image upload). Gallery images are stored separately in `imageS3Keys` and shown on the public news page. " +
+        "To attach images via API: (1) `POST /api/admin/media/upload-url`, (2) `PUT` the file to `uploadUrl` with the same `Content-Type`, " +
+        "(3) `POST /api/admin/media/process` with the returned `key` (skip for SVG), (4) set `imageS3Keys` on create or PATCH. " +
+        "Responses include `imageUrls` (CDN URLs, same order as keys) and `publicUrl` for the article page (works for drafts).",
     },
     servers: [{ url: serverUrl, description: "Current deployment" }],
     paths: {
@@ -155,6 +159,70 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
           },
         },
       },
+      "/api/admin/media/upload-url": {
+        post: {
+          operationId: "createNewsImageUploadUrl",
+          summary: "Presigned URL for a news gallery image",
+          description:
+            "Returns a short-lived S3 PUT URL and the `news/{uuid}.{ext}` key. Upload the file directly to S3, then call `/api/admin/media/process` for raster images before attaching the key via news create/PATCH.",
+          security: [{ bearerApiKey: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/MediaUploadUrlRequest" },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "Upload URL and S3 key",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/MediaUploadUrlResponse" },
+                },
+              },
+            },
+            "400": { $ref: "#/components/responses/BadRequest" },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+          },
+        },
+      },
+      "/api/admin/media/process": {
+        post: {
+          operationId: "processNewsImage",
+          summary: "Trigger responsive image processing",
+          description:
+            "Queues the image processor Lambda for a key under `news/`. Omit for SVG uploads. Call after a successful S3 PUT.",
+          security: [{ bearerApiKey: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/MediaProcessRequest" },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "Processing accepted",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    required: ["ok"],
+                    properties: { ok: { type: "boolean", const: true } },
+                  },
+                },
+              },
+            },
+            "400": { $ref: "#/components/responses/BadRequest" },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+          },
+        },
+      },
       "/api/admin/news/{id}/publish": {
         post: {
           operationId: "publishNews",
@@ -256,12 +324,46 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
               description: "HTML content (e.g. from the admin rich-text editor)",
             },
             excerpt: { type: "string", maxLength: 500 },
-            imageS3Keys: { type: "array", items: { type: "string" } },
+            imageS3Keys: {
+              type: "array",
+              items: { type: "string" },
+              description: "S3 keys under `news/` from the media upload flow",
+            },
             tags: { type: "array", items: { type: "string" } },
             status: {
               type: "string",
               enum: ["draft", "published", "archived"],
               description: "Ignored on create; articles are always stored as draft",
+            },
+          },
+        },
+        MediaUploadUrlRequest: {
+          type: "object",
+          required: ["filename", "contentType"],
+          properties: {
+            filename: { type: "string", minLength: 1 },
+            contentType: {
+              type: "string",
+              enum: ["image/png", "image/jpeg", "image/gif", "image/webp", "image/svg+xml"],
+            },
+          },
+        },
+        MediaUploadUrlResponse: {
+          type: "object",
+          required: ["uploadUrl", "key", "expiresIn"],
+          properties: {
+            uploadUrl: { type: "string", format: "uri" },
+            key: { type: "string", description: "S3 object key, e.g. news/{uuid}.jpg" },
+            expiresIn: { type: "integer", description: "Presigned PUT validity in seconds" },
+          },
+        },
+        MediaProcessRequest: {
+          type: "object",
+          required: ["s3Key"],
+          properties: {
+            s3Key: {
+              type: "string",
+              description: "Key returned from upload-url; must start with news/",
             },
           },
         },
@@ -276,7 +378,11 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
               description: "HTML content (e.g. from the admin rich-text editor)",
             },
             excerpt: { type: "string", maxLength: 500 },
-            imageS3Keys: { type: "array", items: { type: "string" } },
+            imageS3Keys: {
+              type: "array",
+              items: { type: "string" },
+              description: "S3 keys under `news/` from the media upload flow",
+            },
             tags: { type: "array", items: { type: "string" } },
           },
         },
@@ -290,6 +396,7 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
             "content",
             "status",
             "publicUrl",
+            "imageUrls",
             "createdAt",
             "updatedAt",
           ],
@@ -308,6 +415,11 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
                 "Canonical public page URL (`/news/{id}`). Works for drafts so reviewers can open the article before publish.",
             },
             imageS3Keys: { type: "array", items: { type: "string" } },
+            imageUrls: {
+              type: "array",
+              items: { type: "string", format: "uri" },
+              description: "Public CDN URLs for gallery images, same order as imageS3Keys",
+            },
             tags: { type: "array", items: { type: "string" } },
             sharedToMastodon: { type: "boolean" },
             createdAt: { type: "string", format: "date-time" },

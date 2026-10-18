@@ -5,9 +5,14 @@
 
 import { newsSchema } from "@/lib/db/schemas";
 import { z } from "zod";
+import {
+  isCmsNewsImageContentType,
+  toAdminNewsArticleResponse,
+  validateNewsGalleryS3Keys,
+} from "../admin-news-images";
 import { authenticateApiKey } from "../api-keys.server";
 import { buildAdminCmsOpenApiDocument } from "../openapi/admin-cms-openapi";
-import { resolveNewsPublicOrigin, withNewsPublicUrl } from "../news-public-url";
+import { resolveNewsPublicOrigin } from "../news-public-url";
 import {
   handleCreateDraftNews,
   handleGetNewsById,
@@ -15,6 +20,9 @@ import {
   handlePublishNews,
   handleUpdateNewsContent,
 } from "./news.server";
+import { handleGetPresignedUrl, handleProcessMediaImage } from "./upload.server";
+
+const PRESIGNED_UPLOAD_EXPIRES_SECONDS = 300;
 
 const JSON_HEADERS = {
   "Content-Type": "application/json; charset=utf-8",
@@ -42,26 +50,42 @@ const updateNewsBodySchema = newsContentFieldsSchema
   .partial()
   .refine((value) => Object.keys(value).length > 0, { message: "At least one field is required" });
 
+const mediaUploadUrlBodySchema = z.object({
+  filename: z.string().trim().min(1, "filename is required"),
+  contentType: z
+    .string()
+    .min(1)
+    .refine(isCmsNewsImageContentType, { message: "Unsupported content type" }),
+});
+
+const mediaProcessBodySchema = z.object({
+  s3Key: z.string().min(1),
+});
+
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: JSON_HEADERS });
 }
 
-function jsonNews(
+async function jsonNews(
   request: Request,
-  article: Parameters<typeof withNewsPublicUrl>[1],
+  article: Parameters<typeof toAdminNewsArticleResponse>[1],
   status = 200,
 ) {
   const origin = resolveNewsPublicOrigin(request);
-  return json(withNewsPublicUrl(origin, article), status);
+  const body = await toAdminNewsArticleResponse(origin, article);
+  return json(body, status);
 }
 
-function jsonNewsList(
+async function jsonNewsList(
   request: Request,
-  result: { items: Parameters<typeof withNewsPublicUrl>[1][]; nextCursor?: string },
+  result: { items: Parameters<typeof toAdminNewsArticleResponse>[1][]; nextCursor?: string },
 ) {
   const origin = resolveNewsPublicOrigin(request);
+  const items = await Promise.all(
+    result.items.map((article) => toAdminNewsArticleResponse(origin, article)),
+  );
   return json({
-    items: result.items.map((article) => withNewsPublicUrl(origin, article)),
+    items,
     ...(result.nextCursor ? { nextCursor: result.nextCursor } : {}),
   });
 }
@@ -128,10 +152,21 @@ function openApiResponse(request: Request): Response {
   return new Response(JSON.stringify(document), { status: 200, headers: PUBLIC_JSON_HEADERS });
 }
 
+function validateImageKeysField(keys: string[] | undefined): Response | null {
+  if (!keys || keys.length === 0) return null;
+  const message = validateNewsGalleryS3Keys(keys);
+  if (message) return errorResponse(400, "invalid", message);
+  return null;
+}
+
 export async function handleAdminApiRequest(request: Request): Promise<Response> {
   const parts = pathParts(request);
   if (parts.length === 1 && parts[0] === "openapi.json" && request.method === "GET") {
     return openApiResponse(request);
+  }
+
+  if (parts[0] === "media") {
+    return handleMediaRequest(request, parts);
   }
 
   if (parts[0] !== "news") return errorResponse(404, "not_found", "Not found");
@@ -154,6 +189,73 @@ export async function handleAdminApiRequest(request: Request): Promise<Response>
   }
 
   return errorResponse(404, "not_found", "Not found");
+}
+
+async function handleMediaRequest(request: Request, parts: string[]): Promise<Response> {
+  if (parts.length === 2 && parts[1] === "upload-url" && request.method === "POST") {
+    return mediaUploadUrl(request);
+  }
+  if (parts.length === 2 && parts[1] === "process" && request.method === "POST") {
+    return mediaProcess(request);
+  }
+  return errorResponse(404, "not_found", "Not found");
+}
+
+async function mediaUploadUrl(request: Request): Promise<Response> {
+  const denied = await requireNewsKey(request);
+  if (denied) return denied;
+
+  let raw: unknown;
+  try {
+    raw = await request.json();
+  } catch {
+    return errorResponse(400, "invalid", "Invalid JSON body");
+  }
+
+  const parsed = mediaUploadUrlBodySchema.safeParse(raw);
+  if (!parsed.success) return errorResponse(400, "invalid", "Invalid upload request");
+
+  try {
+    const result = await handleGetPresignedUrl({
+      filename: parsed.data.filename,
+      contentType: parsed.data.contentType,
+      folder: "news",
+    });
+    return json({
+      uploadUrl: result.uploadUrl,
+      key: result.key,
+      expiresIn: PRESIGNED_UPLOAD_EXPIRES_SECONDS,
+    });
+  } catch (error) {
+    console.error(error);
+    return errorResponse(500, "internal", "Failed to create upload URL");
+  }
+}
+
+async function mediaProcess(request: Request): Promise<Response> {
+  const denied = await requireNewsKey(request);
+  if (denied) return denied;
+
+  let raw: unknown;
+  try {
+    raw = await request.json();
+  } catch {
+    return errorResponse(400, "invalid", "Invalid JSON body");
+  }
+
+  const parsed = mediaProcessBodySchema.safeParse(raw);
+  if (!parsed.success) return errorResponse(400, "invalid", "Invalid process request");
+
+  const keyError = validateNewsGalleryS3Keys([parsed.data.s3Key]);
+  if (keyError) return errorResponse(400, "invalid", keyError);
+
+  try {
+    await handleProcessMediaImage(parsed.data.s3Key);
+    return json({ ok: true as const });
+  } catch (error) {
+    console.error(error);
+    return errorResponse(500, "internal", "Failed to process image");
+  }
 }
 
 async function listNews(request: Request): Promise<Response> {
@@ -204,6 +306,9 @@ async function createNews(request: Request): Promise<Response> {
   const parsed = createNewsBodySchema.safeParse(raw);
   if (!parsed.success) return errorResponse(400, "invalid", "Invalid news article");
 
+  const keyError = validateImageKeysField(parsed.data.imageS3Keys);
+  if (keyError) return keyError;
+
   try {
     const article = await handleCreateDraftNews({
       title: parsed.data.title,
@@ -233,6 +338,9 @@ async function updateNews(request: Request, id: string): Promise<Response> {
 
   const parsed = updateNewsBodySchema.safeParse(raw);
   if (!parsed.success) return errorResponse(400, "invalid", "Invalid news article update");
+
+  const keyError = validateImageKeysField(parsed.data.imageS3Keys);
+  if (keyError) return keyError;
 
   try {
     const article = await handleUpdateNewsContent(id, parsed.data);
