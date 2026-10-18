@@ -11,7 +11,7 @@ import { newsSchema } from "@/lib/db/schemas";
 import { readLatestNews, rebuildLatestNews } from "@/lib/read-models/public-snapshots";
 import { withTimestamps } from "../dynamo";
 import { getAllNews, getPublishedNews } from "../queries";
-import { parseServerData } from "../schema-parse";
+import { parseServerArray, parseServerData } from "../schema-parse";
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "eu-central-1" });
 const BUCKET_NAME = () => process.env.MEDIA_BUCKET_NAME || "";
@@ -84,6 +84,61 @@ export async function handleCreateNews(data: NewsInput) {
   await rebuildLatestNews();
 
   return news;
+}
+
+/** Programmatic create. Always stores the article as a draft. */
+export async function handleCreateDraftNews(data: NewsInput) {
+  return handleCreateNews({
+    title: data.title,
+    content: data.content,
+    excerpt: data.excerpt,
+    imageS3Keys: data.imageS3Keys,
+    tags: data.tags,
+    status: "draft",
+  });
+}
+
+/**
+ * Move a draft or archived article to published.
+ * An article that is already published is returned unchanged, with no write.
+ */
+export async function handlePublishNews(id: string) {
+  const existing = await handleGetNewsById(id);
+  if (!existing) return null;
+  if (existing.status === "published") return existing;
+  return handleUpdateNews(id, { status: "published" });
+}
+
+/** Programmatic update. Status cannot be changed here; use publish for that. */
+export async function handleUpdateNewsContent(
+  id: string,
+  updates: Partial<Pick<NewsInput, "title" | "content" | "excerpt" | "imageS3Keys" | "tags">>,
+) {
+  const existing = await handleGetNewsById(id);
+  if (!existing) return null;
+  if (Object.keys(updates).length === 0) return existing;
+  return handleUpdateNews(id, updates);
+}
+
+export async function handleListAdminNews(data?: {
+  limit?: number;
+  cursor?: string;
+  status?: NewsInput["status"];
+}) {
+  const limit = data?.limit ?? 30;
+  if (data?.status) {
+    const result = await db()
+      .news.query.byStatus({ status: data.status })
+      .gt({ createdAt: "2000-01-01T00:00:00.000Z" })
+      .go({ order: "desc", limit, cursor: data.cursor });
+    return {
+      items: parseServerArray(newsSchema, result.data, "Failed to parse news list"),
+      nextCursor: result.cursor ?? undefined,
+    };
+  }
+
+  const listed = await getAllNews(limit, data?.cursor);
+  return { items: listed.items, nextCursor: listed.lastEvaluatedKey };
 }
 
 export async function handleUpdateNews(id: string, updates: Partial<NewsInput>) {

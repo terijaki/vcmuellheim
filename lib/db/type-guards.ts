@@ -16,11 +16,12 @@ import type {
   LocationEntity,
   MediaEntity,
   MemberEntity,
+  ApiKeyEntity,
   NewsEntity,
   SponsorEntity,
   TeamEntity,
 } from "./electrodb-entities";
-import type { Bus, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
+import type { ApiKey, Bus, Event, Location, Media, Member, News, Sponsor, Team } from "./types";
 
 // ---------------------------------------------------------------------------
 // Compile-time drift detection via type compatibility assertions.
@@ -42,6 +43,17 @@ import type { Bus, Event, Location, Media, Member, News, Sponsor, Team } from ".
 // ---------------------------------------------------------------------------
 
 type AssertAssignable<TZod, TElectro extends TZod> = TElectro;
+
+// API key
+export type _ApiKeyCheck = AssertAssignable<
+  Required<
+    Pick<
+      ApiKey,
+      "id" | "label" | "memberId" | "scope" | "secretHash" | "prefix" | "createdAt" | "expiresAt"
+    >
+  >,
+  EntityItem<typeof ApiKeyEntity>
+>;
 
 // News
 export type _NewsCheck = AssertAssignable<

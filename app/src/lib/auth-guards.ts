@@ -29,3 +29,13 @@ export function loginPageGuard(session: AdminSessionUser | null): void {
     throw redirect({ to: "/admin", replace: true });
   }
 }
+
+/**
+ * Guards admin-only pages such as API key management.
+ * Moderators are sent back to the admin dashboard.
+ */
+export function adminKeysGuard(session: AdminSessionUser): void {
+  if (session.authRole !== "Admin") {
+    throw redirect({ to: "/admin", replace: true });
+  }
+}

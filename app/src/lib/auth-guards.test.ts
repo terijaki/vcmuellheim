@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 import type { AdminSessionUser } from "../server/functions/session-utils";
-import { adminLayoutGuard, loginPageGuard } from "./auth-guards";
+import { adminKeysGuard, adminLayoutGuard, loginPageGuard } from "./auth-guards";
 
 const adminSession: AdminSessionUser = {
   id: "u1",
@@ -59,5 +59,21 @@ describe("loginPageGuard", () => {
 
   it("does not throw for a null session", () => {
     expect(() => loginPageGuard(null)).not.toThrow();
+  });
+});
+
+describe("adminKeysGuard", () => {
+  it("allows an Admin", () => {
+    expect(() => adminKeysGuard(adminSession)).not.toThrow();
+  });
+
+  it("redirects a Moderator to /admin", () => {
+    expect(() => adminKeysGuard(moderatorSession)).toThrow();
+    try {
+      adminKeysGuard(moderatorSession);
+    } catch (e: unknown) {
+      const opts = (e as Response & { options: Record<string, unknown> }).options;
+      expect(opts.to).toBe("/admin");
+    }
   });
 });
