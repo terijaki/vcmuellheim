@@ -5,6 +5,7 @@
 
 import { newsSchema } from "@/lib/db/schemas";
 import { z } from "zod";
+import { buildApiErrorBody, zodValidationDetails, zodValidationMessage } from "../admin-api-errors";
 import {
   isCmsNewsImageContentType,
   toAdminNewsArticleResponse,
@@ -42,9 +43,7 @@ const newsContentFieldsSchema = newsSchema.pick({
   tags: true,
 });
 
-const createNewsBodySchema = newsContentFieldsSchema.extend({
-  status: z.enum(["draft", "published", "archived"]).optional(),
-});
+const createNewsBodySchema = newsContentFieldsSchema;
 
 const updateNewsBodySchema = newsContentFieldsSchema
   .partial()
@@ -90,8 +89,37 @@ async function jsonNewsList(
   });
 }
 
-function errorResponse(status: number, code: string, message: string): Response {
-  return json({ error: { code, message } }, status);
+function errorResponse(
+  status: number,
+  code: string,
+  message: string,
+  extra?: { reason?: string; details?: { path: string; message: string }[] },
+): Response {
+  return new Response(JSON.stringify(buildApiErrorBody(code, message, extra)), {
+    status,
+    headers: JSON_HEADERS,
+  });
+}
+
+function invalidBodyResponse(error: z.ZodError): Response {
+  const details = zodValidationDetails(error);
+  return new Response(
+    JSON.stringify(buildApiErrorBody("invalid", zodValidationMessage(error), { details })),
+    { status: 400, headers: JSON_HEADERS },
+  );
+}
+
+function createStatusRejectedResponse(): Response {
+  return new Response(
+    JSON.stringify(
+      buildApiErrorBody(
+        "invalid",
+        "status cannot be set on create; articles are always created as draft. Use POST /api/admin/news/{id}/publish to publish.",
+        { details: [{ path: "status", message: "Not allowed on create" }] },
+      ),
+    ),
+    { status: 400, headers: JSON_HEADERS },
+  );
 }
 
 function newsId(value: string): string | null {
@@ -109,9 +137,12 @@ function readListQuery(url: URL):
   const limitRaw = url.searchParams.get("limit");
   let limit: number | undefined;
   if (limitRaw !== null && limitRaw !== "") {
-    if (!/^\d+$/.test(limitRaw)) return { ok: false, message: "Invalid limit" };
+    if (!/^\d+$/.test(limitRaw))
+      return { ok: false, message: "Query parameter limit must be an integer" };
     limit = Number(limitRaw);
-    if (limit < 1 || limit > 100) return { ok: false, message: "Invalid limit" };
+    if (limit < 1 || limit > 100) {
+      return { ok: false, message: "Query parameter limit must be between 1 and 100" };
+    }
   }
 
   const statusRaw = url.searchParams.get("status");
@@ -121,7 +152,10 @@ function readListQuery(url: URL):
     statusRaw !== "published" &&
     statusRaw !== "archived"
   ) {
-    return { ok: false, message: "Invalid status" };
+    return {
+      ok: false,
+      message: "Query parameter status must be draft, published, or archived",
+    };
   }
 
   const cursor = url.searchParams.get("cursor");
@@ -135,7 +169,9 @@ function readListQuery(url: URL):
 
 async function requireNewsKey(request: Request): Promise<Response | null> {
   const access = await authenticateApiKey(request.headers.get("authorization"), "news");
-  if (!access.ok) return errorResponse(access.status, access.code, access.message);
+  if (!access.ok) {
+    return errorResponse(access.status, access.code, access.message, { reason: access.reason });
+  }
   return null;
 }
 
@@ -147,7 +183,7 @@ function pathParts(request: Request): string[] {
 }
 
 function openApiResponse(request: Request): Response {
-  const origin = new URL(request.url).origin;
+  const origin = resolveNewsPublicOrigin(request);
   const document = buildAdminCmsOpenApiDocument(origin);
   return new Response(JSON.stringify(document), { status: 200, headers: PUBLIC_JSON_HEADERS });
 }
@@ -155,7 +191,11 @@ function openApiResponse(request: Request): Response {
 function validateImageKeysField(keys: string[] | undefined): Response | null {
   if (!keys || keys.length === 0) return null;
   const message = validateNewsGalleryS3Keys(keys);
-  if (message) return errorResponse(400, "invalid", message);
+  if (message) {
+    return errorResponse(400, "invalid", message, {
+      details: [{ path: "imageS3Keys", message }],
+    });
+  }
   return null;
 }
 
@@ -213,7 +253,7 @@ async function mediaUploadUrl(request: Request): Promise<Response> {
   }
 
   const parsed = mediaUploadUrlBodySchema.safeParse(raw);
-  if (!parsed.success) return errorResponse(400, "invalid", "Invalid upload request");
+  if (!parsed.success) return invalidBodyResponse(parsed.error);
 
   try {
     const result = await handleGetPresignedUrl({
@@ -244,10 +284,14 @@ async function mediaProcess(request: Request): Promise<Response> {
   }
 
   const parsed = mediaProcessBodySchema.safeParse(raw);
-  if (!parsed.success) return errorResponse(400, "invalid", "Invalid process request");
+  if (!parsed.success) return invalidBodyResponse(parsed.error);
 
   const keyError = validateNewsGalleryS3Keys([parsed.data.s3Key]);
-  if (keyError) return errorResponse(400, "invalid", keyError);
+  if (keyError) {
+    return errorResponse(400, "invalid", keyError, {
+      details: [{ path: "s3Key", message: keyError }],
+    });
+  }
 
   try {
     await handleProcessMediaImage(parsed.data.s3Key);
@@ -303,8 +347,12 @@ async function createNews(request: Request): Promise<Response> {
     return errorResponse(400, "invalid", "Invalid JSON body");
   }
 
+  if (raw !== null && typeof raw === "object" && "status" in raw && raw.status !== undefined) {
+    return createStatusRejectedResponse();
+  }
+
   const parsed = createNewsBodySchema.safeParse(raw);
-  if (!parsed.success) return errorResponse(400, "invalid", "Invalid news article");
+  if (!parsed.success) return invalidBodyResponse(parsed.error);
 
   const keyError = validateImageKeysField(parsed.data.imageS3Keys);
   if (keyError) return keyError;
@@ -316,7 +364,7 @@ async function createNews(request: Request): Promise<Response> {
       excerpt: parsed.data.excerpt,
       imageS3Keys: parsed.data.imageS3Keys,
       tags: parsed.data.tags,
-      status: parsed.data.status ?? "draft",
+      status: "draft",
     });
     return jsonNews(request, article, 201);
   } catch (error) {
@@ -337,7 +385,7 @@ async function updateNews(request: Request, id: string): Promise<Response> {
   }
 
   const parsed = updateNewsBodySchema.safeParse(raw);
-  if (!parsed.success) return errorResponse(400, "invalid", "Invalid news article update");
+  if (!parsed.success) return invalidBodyResponse(parsed.error);
 
   const keyError = validateImageKeysField(parsed.data.imageS3Keys);
   if (keyError) return keyError;

@@ -83,7 +83,7 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
           operationId: "createNewsDraft",
           summary: "Create a news draft",
           description:
-            "Creates a news article in draft status. A `status` field in the body is ignored; use the publish endpoint to make an article public.",
+            "Creates a news article in draft status. Do not send `status` in the body (request will be rejected); use the publish endpoint to go live.",
           security: [{ bearerApiKey: [] }],
           requestBody: {
             required: true,
@@ -309,6 +309,23 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
               properties: {
                 code: { type: "string" },
                 message: { type: "string" },
+                reason: {
+                  type: "string",
+                  description:
+                    "Machine-readable auth failure cause (e.g. missing_token, expired, wrong_scope)",
+                },
+                details: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    required: ["path", "message"],
+                    properties: {
+                      path: { type: "string" },
+                      message: { type: "string" },
+                    },
+                  },
+                  description: "Validation errors for 400 responses",
+                },
               },
             },
           },
@@ -330,11 +347,6 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
               description: "S3 keys under `news/` from the media upload flow",
             },
             tags: { type: "array", items: { type: "string" } },
-            status: {
-              type: "string",
-              enum: ["draft", "published", "archived"],
-              description: "Ignored on create; articles are always stored as draft",
-            },
           },
         },
         MediaUploadUrlRequest: {

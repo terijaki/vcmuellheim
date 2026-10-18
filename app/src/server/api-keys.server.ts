@@ -27,23 +27,32 @@ const SCRYPT_OPTIONS = { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 };
 
 const storedApiKeySchema = apiKeySchema.extend({ scope: z.string().min(1) });
 
+export type ApiKeyAuthReason =
+  | "missing_token"
+  | "malformed_token"
+  | "invalid_token"
+  | "expired"
+  | "wrong_scope"
+  | "member_ineligible";
+
 export type ApiKeyAccess =
   | { ok: true; apiKey: PublicApiKey; memberId: string }
-  | { ok: false; status: 401 | 403; code: "unauthorized" | "forbidden"; message: string };
+  | {
+      ok: false;
+      status: 401 | 403;
+      code: "unauthorized" | "forbidden";
+      reason: ApiKeyAuthReason;
+      message: string;
+    };
 
-const unauthorized: Extract<ApiKeyAccess, { ok: false }> = {
-  ok: false,
-  status: 401,
-  code: "unauthorized",
-  message: "Unauthorized",
-};
-
-const forbidden: Extract<ApiKeyAccess, { ok: false }> = {
-  ok: false,
-  status: 403,
-  code: "forbidden",
-  message: "Forbidden",
-};
+function authFailure(
+  status: 401 | 403,
+  code: "unauthorized" | "forbidden",
+  reason: ApiKeyAuthReason,
+  message: string,
+): Extract<ApiKeyAccess, { ok: false }> {
+  return { ok: false, status, code, reason, message };
+}
 
 function isCmsRole(role: string | undefined): role is "Admin" | "Moderator" {
   return role === "Admin" || role === "Moderator";
@@ -163,21 +172,76 @@ export async function authenticateApiKey(
   now = new Date(),
 ): Promise<ApiKeyAccess> {
   const header = authorizationHeader ?? "";
-  const presented = header.startsWith("Bearer ") ? header.slice("Bearer ".length).trim() : "";
-  const parsedToken = presented ? parseToken(presented) : null;
-  if (!parsedToken) return unauthorized;
+  if (!header.trim()) {
+    return authFailure(
+      401,
+      "unauthorized",
+      "missing_token",
+      "Authorization header with Bearer API key is required",
+    );
+  }
+  if (!header.startsWith("Bearer ")) {
+    return authFailure(
+      401,
+      "unauthorized",
+      "malformed_token",
+      "Authorization must use Bearer scheme with a CMS API key",
+    );
+  }
+
+  const presented = header.slice("Bearer ".length).trim();
+  if (!presented) {
+    return authFailure(
+      401,
+      "unauthorized",
+      "missing_token",
+      "Authorization header with Bearer API key is required",
+    );
+  }
+
+  const parsedToken = parseToken(presented);
+  if (!parsedToken) {
+    return authFailure(
+      401,
+      "unauthorized",
+      "malformed_token",
+      "API key format is invalid (expected vcm_<uuid>_<secret>)",
+    );
+  }
 
   const result = await db().apiKey.get({ id: parsedToken.id }).go();
-  if (!result.data) return unauthorized;
+  if (!result.data) {
+    return authFailure(401, "unauthorized", "invalid_token", "API key is invalid");
+  }
 
   const record = storedApiKeySchema.safeParse(result.data);
-  if (!record.success) return unauthorized;
-  if (!secretsMatch(record.data.secretHash, parsedToken.secret)) return unauthorized;
+  if (!record.success) {
+    return authFailure(401, "unauthorized", "invalid_token", "API key is invalid");
+  }
+  if (!secretsMatch(record.data.secretHash, parsedToken.secret)) {
+    return authFailure(401, "unauthorized", "invalid_token", "API key is invalid");
+  }
 
   const nowIso = now.toISOString();
-  if (!dayjs(record.data.expiresAt).isAfter(now)) return unauthorized;
-  if (record.data.scope !== requiredScope) return forbidden;
-  if (!(await memberMayUseKeys(record.data.memberId))) return forbidden;
+  if (!dayjs(record.data.expiresAt).isAfter(now)) {
+    return authFailure(401, "unauthorized", "expired", "API key has expired");
+  }
+  if (record.data.scope !== requiredScope) {
+    return authFailure(
+      403,
+      "forbidden",
+      "wrong_scope",
+      `API key scope "${record.data.scope}" does not allow this action (required: "${requiredScope}")`,
+    );
+  }
+  if (!(await memberMayUseKeys(record.data.memberId))) {
+    return authFailure(
+      403,
+      "forbidden",
+      "member_ineligible",
+      "API key owner no longer has CMS access",
+    );
+  }
 
   const previousUse = record.data.lastUsedAt;
   const shouldRecordUse = !previousUse || !isSameUtcMinute(previousUse, nowIso);

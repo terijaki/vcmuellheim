@@ -66,7 +66,7 @@ describe("admin news HTTP API", () => {
     expect(mockAuthenticate).not.toHaveBeenCalled();
     const body = await response.json();
     expect(body.openapi).toBe("3.1.0");
-    expect(body.servers[0].url).toBe("https://dev.new.vcmuellheim.de");
+    expect(body.servers[0].url).toBe(publicOrigin);
   });
 
   beforeEach(() => {
@@ -139,8 +139,20 @@ describe("admin news HTTP API", () => {
     expect(mockPublish).not.toHaveBeenCalled();
   });
 
-  it("creates through the draft handler even when the body asks to publish", async () => {
+  it("creates a draft when status is omitted", async () => {
     mockCreateDraft.mockResolvedValue({ id: articleId, status: "draft", title: "A" });
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request("/api/admin/news", "POST", { title: "A", content: "<p>B</p>" }, "Bearer token"),
+    );
+
+    expect(response.status).toBe(201);
+    expect(mockCreateDraft).toHaveBeenCalledWith(
+      expect.objectContaining({ title: "A", status: "draft" }),
+    );
+  });
+
+  it("rejects status on create with a field-specific error", async () => {
     const { handleAdminApiRequest } = await import("./admin-news-api.server");
     const response = await handleAdminApiRequest(
       request(
@@ -151,15 +163,31 @@ describe("admin news HTTP API", () => {
       ),
     );
 
-    expect(response.status).toBe(201);
-    expect(response.headers.get("Cache-Control")).toBe("private, no-store");
-    expect(mockCreateDraft).toHaveBeenCalledWith(
-      expect.objectContaining({ title: "A", status: "published" }),
-    );
+    expect(response.status).toBe(400);
+    expect(mockCreateDraft).not.toHaveBeenCalled();
     await expect(response.json()).resolves.toMatchObject({
-      id: articleId,
-      publicUrl: `${publicOrigin}/news/${articleId}`,
+      error: {
+        code: "invalid",
+        details: [{ path: "status" }],
+      },
     });
+  });
+
+  it("uses APP_BASE_URL for OpenAPI servers instead of the request host", async () => {
+    const previous = process.env.APP_BASE_URL;
+    process.env.APP_BASE_URL = "https://www.vcmuellheim.de";
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      new Request("https://abc123.lambda-url.eu-central-1.on.aws/api/admin/openapi.json"),
+    );
+    if (previous === undefined) {
+      Reflect.deleteProperty(process.env, "APP_BASE_URL");
+    } else {
+      process.env.APP_BASE_URL = previous;
+    }
+
+    const body = await response.json();
+    expect(body.servers[0].url).toBe("https://www.vcmuellheim.de");
   });
 
   it("includes publicUrl when reading a single article", async () => {

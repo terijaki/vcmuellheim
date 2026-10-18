@@ -86,7 +86,7 @@ export async function handleCreateNews(data: NewsInput) {
   return news;
 }
 
-/** Programmatic create. A requested status is ignored and the article is stored as a draft. */
+/** Programmatic create. Always stores the article as a draft. */
 export async function handleCreateDraftNews(data: NewsInput) {
   return handleCreateNews({
     title: data.title,

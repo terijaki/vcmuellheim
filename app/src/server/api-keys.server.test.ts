@@ -138,7 +138,7 @@ describe("api keys", () => {
   it("rejects a missing token", async () => {
     const { authenticateApiKey } = await import("./api-keys.server");
     const access = await authenticateApiKey(null, "news");
-    expect(access).toMatchObject({ ok: false, status: 401 });
+    expect(access).toMatchObject({ ok: false, status: 401, reason: "missing_token" });
     expect(mockKeyGet).not.toHaveBeenCalled();
   });
 
@@ -150,7 +150,7 @@ describe("api keys", () => {
     });
 
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news", new Date());
-    expect(access).toMatchObject({ ok: false, status: 401 });
+    expect(access).toMatchObject({ ok: false, status: 401, reason: "expired" });
     expect(mockKeyPatch).not.toHaveBeenCalled();
   });
 
@@ -160,7 +160,12 @@ describe("api keys", () => {
     mockKeyGet.mockResolvedValue({ data: { ...storedKey, scope: "events" } });
 
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news");
-    expect(access).toMatchObject({ ok: false, status: 403, code: "forbidden" });
+    expect(access).toMatchObject({
+      ok: false,
+      status: 403,
+      code: "forbidden",
+      reason: "wrong_scope",
+    });
     expect(mockKeyPatch).not.toHaveBeenCalled();
   });
 
@@ -171,7 +176,7 @@ describe("api keys", () => {
     mockMemberGet.mockResolvedValue({ data: { ...adminMember, authRole: undefined } });
 
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news");
-    expect(access).toMatchObject({ ok: false, status: 403 });
+    expect(access).toMatchObject({ ok: false, status: 403, reason: "member_ineligible" });
     expect(mockKeyPatch).not.toHaveBeenCalled();
   });
 });
