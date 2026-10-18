@@ -11,6 +11,7 @@ export const Route = createFileRoute("/api/admin/$")({
     handlers: {
       GET: ({ request }) => handleAdminApiRequest(request),
       POST: ({ request }) => handleAdminApiRequest(request),
+      PATCH: ({ request }) => handleAdminApiRequest(request),
     },
   },
 });

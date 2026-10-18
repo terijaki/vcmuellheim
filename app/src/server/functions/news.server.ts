@@ -109,6 +109,17 @@ export async function handlePublishNews(id: string) {
   return handleUpdateNews(id, { status: "published" });
 }
 
+/** Programmatic update. Status cannot be changed here; use publish for that. */
+export async function handleUpdateNewsContent(
+  id: string,
+  updates: Partial<Pick<NewsInput, "title" | "content" | "excerpt" | "imageS3Keys" | "tags">>,
+) {
+  const existing = await handleGetNewsById(id);
+  if (!existing) return null;
+  if (Object.keys(updates).length === 0) return existing;
+  return handleUpdateNews(id, updates);
+}
+
 export async function handleListAdminNews(data?: {
   limit?: number;
   cursor?: string;

@@ -7,11 +7,13 @@ import { newsSchema } from "@/lib/db/schemas";
 import { z } from "zod";
 import { authenticateApiKey } from "../api-keys.server";
 import { buildAdminCmsOpenApiDocument } from "../openapi/admin-cms-openapi";
+import { resolveNewsPublicOrigin, withNewsPublicUrl } from "../news-public-url";
 import {
   handleCreateDraftNews,
   handleGetNewsById,
   handleListAdminNews,
   handlePublishNews,
+  handleUpdateNewsContent,
 } from "./news.server";
 
 const JSON_HEADERS = {
@@ -24,20 +26,44 @@ const PUBLIC_JSON_HEADERS = {
   "Cache-Control": "public, max-age=3600",
 } as const;
 
-const createNewsBodySchema = newsSchema
-  .pick({
-    title: true,
-    content: true,
-    excerpt: true,
-    imageS3Keys: true,
-    tags: true,
-  })
-  .extend({
-    status: z.enum(["draft", "published", "archived"]).optional(),
-  });
+const newsContentFieldsSchema = newsSchema.pick({
+  title: true,
+  content: true,
+  excerpt: true,
+  imageS3Keys: true,
+  tags: true,
+});
+
+const createNewsBodySchema = newsContentFieldsSchema.extend({
+  status: z.enum(["draft", "published", "archived"]).optional(),
+});
+
+const updateNewsBodySchema = newsContentFieldsSchema
+  .partial()
+  .refine((value) => Object.keys(value).length > 0, { message: "At least one field is required" });
 
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: JSON_HEADERS });
+}
+
+function jsonNews(
+  request: Request,
+  article: Parameters<typeof withNewsPublicUrl>[1],
+  status = 200,
+) {
+  const origin = resolveNewsPublicOrigin(request);
+  return json(withNewsPublicUrl(origin, article), status);
+}
+
+function jsonNewsList(
+  request: Request,
+  result: { items: Parameters<typeof withNewsPublicUrl>[1][]; nextCursor?: string },
+) {
+  const origin = resolveNewsPublicOrigin(request);
+  return json({
+    items: result.items.map((article) => withNewsPublicUrl(origin, article)),
+    ...(result.nextCursor ? { nextCursor: result.nextCursor } : {}),
+  });
 }
 
 function errorResponse(status: number, code: string, message: string): Response {
@@ -118,6 +144,10 @@ export async function handleAdminApiRequest(request: Request): Promise<Response>
     if (!id) return errorResponse(404, "not_found", "News article not found");
     return getNews(request, id);
   }
+  if (parts.length === 2 && request.method === "PATCH") {
+    if (!id) return errorResponse(404, "not_found", "News article not found");
+    return updateNews(request, id);
+  }
   if (parts.length === 3 && parts[2] === "publish" && request.method === "POST") {
     if (!id) return errorResponse(404, "not_found", "News article not found");
     return publishNews(request, id);
@@ -139,7 +169,7 @@ async function listNews(request: Request): Promise<Response> {
       cursor: query.cursor,
       status: query.status,
     });
-    return json(result);
+    return jsonNewsList(request, result);
   } catch (error) {
     console.error(error);
     return errorResponse(500, "internal", "Failed to list news");
@@ -153,7 +183,7 @@ async function getNews(request: Request, id: string): Promise<Response> {
   try {
     const article = await handleGetNewsById(id);
     if (!article) return errorResponse(404, "not_found", "News article not found");
-    return json(article);
+    return jsonNews(request, article);
   } catch (error) {
     console.error(error);
     return errorResponse(500, "internal", "Failed to read news");
@@ -183,10 +213,34 @@ async function createNews(request: Request): Promise<Response> {
       tags: parsed.data.tags,
       status: parsed.data.status ?? "draft",
     });
-    return json(article, 201);
+    return jsonNews(request, article, 201);
   } catch (error) {
     console.error(error);
     return errorResponse(500, "internal", "Failed to create news");
+  }
+}
+
+async function updateNews(request: Request, id: string): Promise<Response> {
+  const denied = await requireNewsKey(request);
+  if (denied) return denied;
+
+  let raw: unknown;
+  try {
+    raw = await request.json();
+  } catch {
+    return errorResponse(400, "invalid", "Invalid JSON body");
+  }
+
+  const parsed = updateNewsBodySchema.safeParse(raw);
+  if (!parsed.success) return errorResponse(400, "invalid", "Invalid news article update");
+
+  try {
+    const article = await handleUpdateNewsContent(id, parsed.data);
+    if (!article) return errorResponse(404, "not_found", "News article not found");
+    return jsonNews(request, article);
+  } catch (error) {
+    console.error(error);
+    return errorResponse(500, "internal", "Failed to update news");
   }
 }
 
@@ -197,7 +251,7 @@ async function publishNews(request: Request, id: string): Promise<Response> {
   try {
     const article = await handlePublishNews(id);
     if (!article) return errorResponse(404, "not_found", "News article not found");
-    return json(article);
+    return jsonNews(request, article);
   } catch (error) {
     console.error(error);
     return errorResponse(500, "internal", "Failed to publish news");

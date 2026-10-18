@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
-const { mockAuthenticate, mockCreateDraft, mockPublish, mockGetById, mockList } = vi.hoisted(
-  () => ({
+const { mockAuthenticate, mockCreateDraft, mockPublish, mockGetById, mockList, mockUpdateContent } =
+  vi.hoisted(() => ({
     mockAuthenticate: vi.fn(),
     mockCreateDraft: vi.fn(),
     mockPublish: vi.fn(),
     mockGetById: vi.fn(),
     mockList: vi.fn(),
-  }),
-);
+    mockUpdateContent: vi.fn(),
+  }));
 
 vi.mock("../api-keys.server", () => ({
   authenticateApiKey: (...args: unknown[]) => mockAuthenticate(...args),
@@ -19,9 +19,11 @@ vi.mock("./news.server", () => ({
   handlePublishNews: (...args: unknown[]) => mockPublish(...args),
   handleGetNewsById: (...args: unknown[]) => mockGetById(...args),
   handleListAdminNews: (...args: unknown[]) => mockList(...args),
+  handleUpdateNewsContent: (...args: unknown[]) => mockUpdateContent(...args),
 }));
 
 const articleId = "33333333-3333-4333-8333-333333333333";
+const publicOrigin = (process.env.APP_BASE_URL ?? "https://vcmuellheim.de").replace(/\/+$/, "");
 
 function request(path: string, method: string, body?: unknown, authorization?: string) {
   return new Request(`https://vcmuellheim.de${path}`, {
@@ -55,6 +57,7 @@ describe("admin news HTTP API", () => {
     mockPublish.mockReset();
     mockGetById.mockReset();
     mockList.mockReset();
+    mockUpdateContent.mockReset();
     mockAuthenticate.mockResolvedValue({
       ok: true,
       apiKey: { id: "key" },
@@ -129,6 +132,58 @@ describe("admin news HTTP API", () => {
     expect(mockCreateDraft).toHaveBeenCalledWith(
       expect.objectContaining({ title: "A", status: "published" }),
     );
+    await expect(response.json()).resolves.toMatchObject({
+      id: articleId,
+      publicUrl: `${publicOrigin}/news/${articleId}`,
+    });
+  });
+
+  it("includes publicUrl when reading a single article", async () => {
+    mockGetById.mockResolvedValue({ id: articleId, status: "draft", title: "A" });
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request(`/api/admin/news/${articleId}`, "GET", undefined, "Bearer token"),
+    );
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toMatchObject({
+      publicUrl: `${publicOrigin}/news/${articleId}`,
+    });
+  });
+
+  it("patches content through the update handler", async () => {
+    mockUpdateContent.mockResolvedValue({ id: articleId, status: "draft", title: "Updated" });
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request(`/api/admin/news/${articleId}`, "PATCH", { title: "Updated" }, "Bearer token"),
+    );
+
+    expect(response.status).toBe(200);
+    expect(mockUpdateContent).toHaveBeenCalledWith(articleId, { title: "Updated" });
+    await expect(response.json()).resolves.toMatchObject({
+      title: "Updated",
+      publicUrl: `${publicOrigin}/news/${articleId}`,
+    });
+  });
+
+  it("returns 400 for an empty PATCH body", async () => {
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request(`/api/admin/news/${articleId}`, "PATCH", {}, "Bearer token"),
+    );
+
+    expect(response.status).toBe(400);
+    expect(mockUpdateContent).not.toHaveBeenCalled();
+  });
+
+  it("returns 404 from PATCH when the article does not exist", async () => {
+    mockUpdateContent.mockResolvedValue(null);
+    const { handleAdminApiRequest } = await import("./admin-news-api.server");
+    const response = await handleAdminApiRequest(
+      request(`/api/admin/news/${articleId}`, "PATCH", { title: "X" }, "Bearer token"),
+    );
+
+    expect(response.status).toBe(404);
   });
 
   it("returns 404 from publish when the article does not exist", async () => {

@@ -124,6 +124,36 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
             "404": { $ref: "#/components/responses/NotFound" },
           },
         },
+        patch: {
+          operationId: "updateNews",
+          summary: "Update a news article",
+          description:
+            "Partial update of title, content, excerpt, images, or tags. Does not change status; use the publish endpoint to go live. Returns `publicUrl` for sharing draft previews with reviewers.",
+          security: [{ bearerApiKey: [] }],
+          parameters: [{ $ref: "#/components/parameters/NewsId" }],
+          requestBody: {
+            required: true,
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/UpdateNewsRequest" },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "Updated article",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/NewsArticle" },
+                },
+              },
+            },
+            "400": { $ref: "#/components/responses/BadRequest" },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+            "404": { $ref: "#/components/responses/NotFound" },
+          },
+        },
       },
       "/api/admin/news/{id}/publish": {
         post: {
@@ -235,9 +265,34 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
             },
           },
         },
+        UpdateNewsRequest: {
+          type: "object",
+          minProperties: 1,
+          properties: {
+            title: { type: "string", minLength: 1, maxLength: 200 },
+            content: {
+              type: "string",
+              minLength: 1,
+              description: "HTML content (e.g. from the admin rich-text editor)",
+            },
+            excerpt: { type: "string", maxLength: 500 },
+            imageS3Keys: { type: "array", items: { type: "string" } },
+            tags: { type: "array", items: { type: "string" } },
+          },
+        },
         NewsArticle: {
           type: "object",
-          required: ["id", "type", "title", "slug", "content", "status", "createdAt", "updatedAt"],
+          required: [
+            "id",
+            "type",
+            "title",
+            "slug",
+            "content",
+            "status",
+            "publicUrl",
+            "createdAt",
+            "updatedAt",
+          ],
           properties: {
             id: { type: "string", format: "uuid" },
             type: { type: "string", const: "article" },
@@ -246,6 +301,12 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
             content: { type: "string" },
             excerpt: { type: "string" },
             status: { type: "string", enum: ["draft", "published", "archived"] },
+            publicUrl: {
+              type: "string",
+              format: "uri",
+              description:
+                "Canonical public page URL (`/news/{id}`). Works for drafts so reviewers can open the article before publish.",
+            },
             imageS3Keys: { type: "array", items: { type: "string" } },
             tags: { type: "array", items: { type: "string" } },
             sharedToMastodon: { type: "boolean" },
