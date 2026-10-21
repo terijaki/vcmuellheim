@@ -73,6 +73,13 @@ const gamboge: MantineColorsTuple = [
   "#130e06",
 ];
 
+/** Prevents horizontal shift oscillation / viewport widening on Android Chrome (Mantine #8321). */
+const selectComboboxDefaultProps = {
+  middlewares: {
+    shift: { padding: 0 },
+  },
+};
+
 export const theme = createTheme({
   colors: { blumine, turquoise, onyx, lion, aquahaze, gamboge },
   primaryShade: 6,
@@ -97,8 +104,12 @@ export const theme = createTheme({
     },
     TextInput: { defaultProps: { size: "md" } },
     Textarea: { defaultProps: { size: "md" } },
-    Select: { defaultProps: { size: "md" } },
-    MultiSelect: { defaultProps: { size: "md" } },
+    Select: {
+      defaultProps: { size: "md", comboboxProps: selectComboboxDefaultProps },
+    },
+    MultiSelect: {
+      defaultProps: { size: "md", comboboxProps: selectComboboxDefaultProps },
+    },
     PinInput: { defaultProps: { size: "md" } },
     DateInput: { defaultProps: { size: "md" } },
     DateTimePicker: { defaultProps: { size: "md" } },
