@@ -27,7 +27,8 @@
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
   },
-  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "js/ts.experimental.useTsgo": true,
+  "js/ts.tsdk.path": "node_modules/typescript",
   "chat.useNestedAgentsMdFiles": true,
   "chat.tools.terminal.autoApprove": {
     "/^(vp (run )?|vpr )(test|check(--fix)?|lint|verify(:all)?|cdk:synth(:all)?|deps-check)(\\s+[\\w./\\-:*=]+)*(\\s+2>&1)?(\\s*\\|\\s*(head|tail|cat|grep|wc)(\\s+[\\w./\\-*=]+)*)?$/": true,

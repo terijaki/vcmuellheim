@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "TypeScriptTeam.native-preview",
     "varlock.env-spec-language",
     "github.vscode-github-actions",
     "voidzero.vite-plus-extension-pack"
