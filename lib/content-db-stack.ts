@@ -46,19 +46,12 @@ export class ContentDbStack extends cdk.Stack {
     this.contentTableStreamArn = this.contentTable.tableStreamArn!;
 
     // DynamoDB allows one GSI create or delete per table update.
-    // This deploy removes GSI5-ByPrivateEmail only. GSI6 stays until a later deploy.
-    // Application code no longer reads or writes these indexes.
+    // This deploy removes GSI6-ByEventId, the last unused content index.
+    // Application code no longer reads or writes it.
     this.contentTable.addGlobalSecondaryIndex({
       indexName: ContentTableIndexes.gsi1,
       partitionKey: { name: "gsi1pk", type: dynamodb.AttributeType.STRING },
       sortKey: { name: "gsi1sk", type: dynamodb.AttributeType.STRING },
-      projectionType: dynamodb.ProjectionType.ALL,
-    });
-
-    this.contentTable.addGlobalSecondaryIndex({
-      indexName: "GSI6-ByEventId",
-      partitionKey: { name: "gsi6pk", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "gsi6sk", type: dynamodb.AttributeType.STRING },
       projectionType: dynamodb.ProjectionType.ALL,
     });
   }

@@ -146,7 +146,7 @@ describe("ContentDbStack", () => {
   });
 
   describe("GSI configuration", () => {
-    it("removes GSI5-ByPrivateEmail and keeps the remaining content indexes", () => {
+    it("keeps only GSI1 after GSI6 is removed", () => {
       const app = createTestApp();
       const stack = new ContentDbStack(app, "TestStack", {
         stackProps: { environment: "dev", branch: "" },
@@ -161,7 +161,6 @@ describe("ContentDbStack", () => {
       const indexes = table.Properties?.GlobalSecondaryIndexes ?? [];
       expect(indexes.map((index) => index.IndexName)).toEqual([
         ContentTableIndexes.gsi1,
-        "GSI6-ByEventId",
       ]);
     });
 
