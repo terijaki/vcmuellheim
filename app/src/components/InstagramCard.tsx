@@ -88,10 +88,12 @@ export default function InstagramCard(post: BeholdPost) {
           }}
         />
       </CardSection>
-      <Stack justify="space-between" h="100%" p="sm" style={{ flex: 1, overflow: "hidden" }}>
-        <Text lineClamp={6}>{prunedCaption}</Text>
+      <Stack gap="xs" h="100%" p="sm" style={{ flex: 1, minHeight: 0, overflow: "hidden" }}>
+        <Text lineClamp={6} style={{ flexShrink: 0 }}>
+          {prunedCaption}
+        </Text>
         {hashtags.length > 0 && (
-          <Text size="xs" fw="bold">
+          <Text size="xs" fw="bold" lineClamp={2} style={{ minHeight: 0 }}>
             {hashtags.map((h) => `#${h}`).join(" ")}
           </Text>
         )}
