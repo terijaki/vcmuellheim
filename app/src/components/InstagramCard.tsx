@@ -2,6 +2,14 @@ import { Card, CardSection, Image, Stack, Text } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import type { BeholdPost } from "@/lambda/social/types";
 
+/** Square media column; card height matches media (text uses line-clamp inside). */
+const MEDIA_SIZE = 180;
+
+/** Caption lines that fit in the text column beside 180px media (incl. padding + hashtags). */
+export function captionLineClamp(hashtagCount: number): number {
+  return hashtagCount > 0 ? 4 : 6;
+}
+
 export default function InstagramCard(post: BeholdPost) {
   const [isHovered, setIsHovered] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -43,13 +51,22 @@ export default function InstagramCard(post: BeholdPost) {
       rel="noopener noreferrer"
       radius="md"
       shadow="sm"
-      mah={180}
+      h={MEDIA_SIZE}
+      mah={MEDIA_SIZE}
       orientation="horizontal"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setIsHovered(false)}
       data-post-id={id}
     >
-      <CardSection w={180} pos="relative" style={{ overflow: "hidden" }}>
+      <CardSection
+        w={MEDIA_SIZE}
+        h={MEDIA_SIZE}
+        miw={MEDIA_SIZE}
+        mih={MEDIA_SIZE}
+        flex="0 0 auto"
+        pos="relative"
+        style={{ overflow: "hidden" }}
+      >
         {isVideo && (
           <video
             ref={videoRef}
@@ -80,7 +97,8 @@ export default function InstagramCard(post: BeholdPost) {
         <Image
           src={sizes.small.mediaUrl}
           alt={altText || ""}
-          h="100%"
+          w={MEDIA_SIZE}
+          h={MEDIA_SIZE}
           fit="cover"
           style={{
             transition: "transform 0.5s ease",
@@ -88,12 +106,17 @@ export default function InstagramCard(post: BeholdPost) {
           }}
         />
       </CardSection>
-      <Stack gap="xs" h="100%" p="sm" style={{ flex: 1, minHeight: 0, overflow: "hidden" }}>
-        <Text lineClamp={6} style={{ flexShrink: 0 }}>
+      <Stack
+        gap="xs"
+        p="sm"
+        h="100%"
+        style={{ flex: 1, minWidth: 0, minHeight: 0, overflow: "hidden" }}
+      >
+        <Text lineClamp={captionLineClamp(hashtags.length)} style={{ flex: 1, minHeight: 0 }}>
           {prunedCaption}
         </Text>
         {hashtags.length > 0 && (
-          <Text size="xs" fw="bold" lineClamp={2} style={{ minHeight: 0 }}>
+          <Text size="xs" fw="bold" lineClamp={2} style={{ flexShrink: 0 }}>
             {hashtags.map((h) => `#${h}`).join(" ")}
           </Text>
         )}
