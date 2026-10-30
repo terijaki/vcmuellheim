@@ -173,9 +173,7 @@ describe("ContentDbStack", () => {
         Properties?: { GlobalSecondaryIndexes?: Array<{ IndexName?: string }> };
       };
       const indexes = table.Properties?.GlobalSecondaryIndexes ?? [];
-      expect(indexes.map((index) => index.IndexName)).toEqual([
-        ContentTableIndexes.gsi1,
-      ]);
+      expect(indexes.map((index) => index.IndexName)).toEqual([ContentTableIndexes.gsi1]);
     });
 
     it("should have correct key schema for GSI1 (type+date)", () => {
