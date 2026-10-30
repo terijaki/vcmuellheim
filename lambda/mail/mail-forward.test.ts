@@ -47,19 +47,30 @@ const { mockByProxyEmailGo, mockByTypeWhereGo } = vi.hoisted(() => {
   };
 });
 
-vi.mock("@/lib/db/electrodb-client", () => ({
-  createDb: vi.fn(() => ({
-    member: {
-      query: {
-        byProxyEmail: (input: { proxyEmail: string }) => ({
-          go: () => mockByProxyEmailGo(input),
-        }),
-        byType: () => ({
-          where: () => ({ go: mockByTypeWhereGo }),
-        }),
-      },
-    },
-  })),
+vi.mock("@/lib/db/repositories/member-repository", () => ({
+  MemberRepository: class MockMemberRepository {
+    getByProxyEmail = async (proxyEmail: string) => {
+      const result = await mockByProxyEmailGo({ proxyEmail });
+      if (result && typeof result === "object" && "data" in result && Array.isArray(result.data)) {
+        return result.data[0] ?? null;
+      }
+      return result ?? null;
+    };
+    listTrainers = async () => {
+      const result = await mockByTypeWhereGo();
+      if (result && typeof result === "object" && "data" in result && Array.isArray(result.data)) {
+        return result.data;
+      }
+      return Array.isArray(result) ? result : [];
+    };
+    listBoardMembers = async () => {
+      const result = await mockByTypeWhereGo();
+      if (result && typeof result === "object" && "data" in result && Array.isArray(result.data)) {
+        return result.data;
+      }
+      return Array.isArray(result) ? result : [];
+    };
+  },
 }));
 
 // ── Sentry mock (no-op in tests) ─────────────────────────────────────────────

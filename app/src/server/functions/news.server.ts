@@ -6,7 +6,7 @@ import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { slugify } from "@utils/slugify";
 import { z } from "zod";
-import { db } from "@/lib/db/electrodb-client";
+import { newsRepository } from "@/lib/db/repositories/news-repository";
 import { newsSchema } from "@/lib/db/schemas";
 import { readLatestNews, rebuildLatestNews } from "@/lib/read-models/public-snapshots";
 import { withTimestamps } from "../dynamo";
@@ -37,10 +37,8 @@ export async function handleGetPublishedNews(data?: { limit?: number; cursor?: s
 }
 
 export async function handleGetNewsById(id: string) {
-  const result = await db().news.get({ id }).go();
-  return result.data
-    ? parseServerData(newsSchema, result.data, "Failed to parse news article")
-    : null;
+  const news = await newsRepository.getById(id);
+  return news ? parseServerData(newsSchema, news, "Failed to parse news article") : null;
 }
 
 export async function handleGetGalleryImages(data?: {
@@ -80,13 +78,12 @@ export async function handleCreateNews(data: NewsInput) {
   const slug = slugify(data.title);
   const news = withTimestamps({ ...data, id, slug, type: "article" as const });
 
-  await db().news.create(news).go();
+  await newsRepository.create(news);
   await rebuildLatestNews();
 
   return news;
 }
 
-/** Programmatic create. Always stores the article as a draft. */
 export async function handleCreateDraftNews(data: NewsInput) {
   return handleCreateNews({
     title: data.title,
@@ -98,10 +95,6 @@ export async function handleCreateDraftNews(data: NewsInput) {
   });
 }
 
-/**
- * Move a draft or archived article to published.
- * An article that is already published is returned unchanged, with no write.
- */
 export async function handlePublishNews(id: string) {
   const existing = await handleGetNewsById(id);
   if (!existing) return null;
@@ -109,7 +102,6 @@ export async function handlePublishNews(id: string) {
   return handleUpdateNews(id, { status: "published" });
 }
 
-/** Programmatic update. Status cannot be changed here; use publish for that. */
 export async function handleUpdateNewsContent(
   id: string,
   updates: Partial<Pick<NewsInput, "title" | "content" | "excerpt" | "imageS3Keys" | "tags">>,
@@ -127,12 +119,9 @@ export async function handleListAdminNews(data?: {
 }) {
   const limit = data?.limit ?? 30;
   if (data?.status) {
-    const result = await db()
-      .news.query.byStatus({ status: data.status })
-      .gt({ createdAt: "2000-01-01T00:00:00.000Z" })
-      .go({ order: "desc", limit, cursor: data.cursor });
+    const result = await newsRepository.listByStatus(data.status, limit, data.cursor);
     return {
-      items: parseServerArray(newsSchema, result.data, "Failed to parse news list"),
+      items: parseServerArray(newsSchema, result.items, "Failed to parse news list"),
       nextCursor: result.cursor ?? undefined,
     };
   }
@@ -151,20 +140,14 @@ export async function handleUpdateNews(id: string, updates: Partial<NewsInput>) 
     ? { ...baseUpdates, slug: slugify(updates.title) }
     : baseUpdates;
 
-  const result = await db().news.patch({ id }).set(finalUpdates).go();
-  if (!result.data) throw new Error("News article not found");
-
-  const refreshedResult = await db().news.get({ id }).go();
-  const news = refreshedResult.data
-    ? parseServerData(newsSchema, refreshedResult.data, "Failed to parse news article")
-    : null;
+  const news = await newsRepository.update(id, finalUpdates);
   if (!news) throw new Error("News article not found");
   await rebuildLatestNews();
   return news;
 }
 
 export async function handleDeleteNews(id: string) {
-  await db().news.delete({ id }).go();
+  await newsRepository.delete(id);
   await rebuildLatestNews();
   return { success: true as const };
 }

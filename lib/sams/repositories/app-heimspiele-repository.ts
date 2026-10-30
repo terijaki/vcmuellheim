@@ -1,7 +1,8 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
-import { createSamsDb } from "@/lib/db/electrodb-client";
 import { getSamsTableName } from "@/lib/db/env";
+import { deleteItem, getItem, parseDomain, putItem } from "@/lib/db/repositories/dynamo-helpers";
+import { appHeimspieleItemFromDomain, appHeimspieleKeys } from "@/lib/db/sams-keys";
 import {
   APP_DATASET_CURRENT,
   appHeimspieleSchema,
@@ -22,17 +23,22 @@ export class AppHeimspieleRepository {
     private readonly tableName?: string,
   ) {}
 
-  private entities() {
-    const table = this.tableName ?? getSamsTableName();
-    return createSamsDb(this.documentClient, table);
+  private table(): string {
+    return this.tableName ?? getSamsTableName();
   }
 
   async get(datasetId: string = APP_DATASET_CURRENT): Promise<AppHeimspieleInput | null> {
-    const result = await this.entities()
-      .appHeimspiele.get({ datasetId, documentKey: HEIMSPIELE_DOCUMENT_KEY })
-      .go();
-    if (!result.data) return null;
-    return parseWithSchema(appHeimspieleSchema, result.data, "Failed to parse Heimspiele document");
+    const item = await getItem(
+      this.documentClient,
+      this.table(),
+      appHeimspieleKeys(datasetId, HEIMSPIELE_DOCUMENT_KEY),
+    );
+    if (!item) return null;
+    return parseWithSchema(
+      appHeimspieleSchema,
+      parseDomain(appHeimspieleSchema, item, "parse"),
+      "Failed to parse Heimspiele document",
+    );
   }
 
   async put(
@@ -52,16 +58,20 @@ export class AppHeimspieleRepository {
       },
       "Failed to parse Heimspiele document",
     );
-    await this.entities().appHeimspiele.put(item).go();
+    await putItem(this.documentClient, this.table(), appHeimspieleItemFromDomain(item));
     return item;
   }
 
   async delete(datasetId: string): Promise<void> {
-    await this.entities()
-      .appHeimspiele.delete({ datasetId, documentKey: HEIMSPIELE_DOCUMENT_KEY })
-      .go();
+    await deleteItem(
+      this.documentClient,
+      this.table(),
+      appHeimspieleKeys(datasetId, HEIMSPIELE_DOCUMENT_KEY),
+    );
   }
 }
+
+export const appHeimspieleRepository = new AppHeimspieleRepository();
 
 export function createAppHeimspieleRepository(
   client: DynamoDBDocumentClient,
@@ -69,5 +79,3 @@ export function createAppHeimspieleRepository(
 ): AppHeimspieleRepository {
   return new AppHeimspieleRepository(client, tableName);
 }
-
-export const appHeimspieleRepository = new AppHeimspieleRepository();

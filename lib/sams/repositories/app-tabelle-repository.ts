@@ -1,7 +1,13 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
-import { createSamsDb } from "@/lib/db/electrodb-client";
 import { getSamsTableName } from "@/lib/db/env";
+import {
+  deleteItem,
+  parseDomain,
+  putItem,
+  queryTablePk,
+} from "@/lib/db/repositories/dynamo-helpers";
+import { appTabelleItemFromDomain, appTabelleKeys } from "@/lib/db/sams-keys";
 import {
   APP_DATASET_CURRENT,
   appTabelleLeagueSchema,
@@ -28,17 +34,20 @@ export class AppTabelleRepository {
     private readonly tableName?: string,
   ) {}
 
-  private entities() {
-    const table = this.tableName ?? getSamsTableName();
-    return createSamsDb(this.documentClient, table);
+  private table(): string {
+    return this.tableName ?? getSamsTableName();
   }
 
   async listByDataset(datasetId: string = APP_DATASET_CURRENT): Promise<AppTabelleLeagueInput[]> {
-    const result = await this.entities()
-      .appTabelle.query.byDataset({ datasetId })
-      .go({ pages: "all" });
-    return result.data.map((item) =>
-      parseWithSchema(appTabelleLeagueSchema, item, "Failed to parse app Tabelle league"),
+    const page = await queryTablePk(this.documentClient, this.table(), {
+      pk: `appTabelle#${datasetId}`,
+    });
+    return page.items.map((item) =>
+      parseWithSchema(
+        appTabelleLeagueSchema,
+        parseDomain(appTabelleLeagueSchema, item, "parse"),
+        "Failed to parse app Tabelle league",
+      ),
     );
   }
 
@@ -48,12 +57,15 @@ export class AppTabelleRepository {
   ): Promise<AppTabelleLeagueInput[]> {
     const existing = await this.listByDataset(datasetId);
     const nextKeys = new Set(leagues.map((league) => league.leagueSortKey));
+    const table = this.table();
 
     for (const stale of existing) {
       if (!nextKeys.has(stale.leagueSortKey)) {
-        await this.entities()
-          .appTabelle.delete({ datasetId, leagueSortKey: stale.leagueSortKey })
-          .go();
+        await deleteItem(
+          this.documentClient,
+          table,
+          appTabelleKeys(datasetId, stale.leagueSortKey),
+        );
       }
     }
 
@@ -70,7 +82,7 @@ export class AppTabelleRepository {
         },
         "Failed to parse app Tabelle upsert input",
       );
-      await this.entities().appTabelle.put(item).go();
+      await putItem(this.documentClient, table, appTabelleItemFromDomain(item));
       written.push(item);
     }
     return written;

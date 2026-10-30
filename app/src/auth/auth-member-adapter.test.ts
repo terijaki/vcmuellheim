@@ -13,37 +13,32 @@ type FakeMember = {
   updatedAt: string;
 };
 
-function makeFakeMemberDb(members: FakeMember[]) {
-  return {
-    member: {
-      get: (key: { id: string }) => ({
-        go: async () => ({ data: members.find((m) => m.id === key.id) ?? null }),
-      }),
-      query: {
-        byPrivateEmail: ({ privateEmail }: { privateEmail: string }) => ({
-          go: async (opts?: { limit?: number }) => {
-            const matches = members.filter((m) => m.privateEmail === privateEmail);
-            return { data: opts?.limit ? matches.slice(0, opts.limit) : matches };
-          },
-        }),
-        byProxyEmail: ({ proxyEmail }: { proxyEmail: string }) => ({
-          go: async (opts?: { limit?: number }) => {
-            const matches = members.filter((m) => m.proxyEmail === proxyEmail);
-            return { data: opts?.limit ? matches.slice(0, opts.limit) : matches };
-          },
-        }),
-      },
-    },
-  };
-}
-
 // ── Module mock ────────────────────────────────────────────────────────────────
 
-let fakeDbResult: ReturnType<typeof makeFakeMemberDb>;
-
-vi.mock("@/lib/db/electrodb-client", () => ({
-  db: () => fakeDbResult,
+const memberRepoMocks = vi.hoisted(() => ({
+  getById: vi.fn(),
+  getByPrivateEmail: vi.fn(),
+  getByProxyEmail: vi.fn(),
 }));
+
+vi.mock("@/lib/db/repositories/member-repository", () => ({
+  memberRepository: memberRepoMocks,
+}));
+
+function wireMemberRepo(members: FakeMember[]) {
+  memberRepoMocks.getById.mockImplementation(async (id: string) => {
+    const member = members.find((m) => m.id === id);
+    return member ? { ...member, type: "member" as const } : null;
+  });
+  memberRepoMocks.getByPrivateEmail.mockImplementation(async (email: string) => {
+    const member = members.find((m) => m.privateEmail === email);
+    return member ? { ...member, type: "member" as const } : null;
+  });
+  memberRepoMocks.getByProxyEmail.mockImplementation(async (email: string) => {
+    const member = members.find((m) => m.proxyEmail === email);
+    return member ? { ...member, type: "member" as const } : null;
+  });
+}
 
 let adapter: typeof MemberAuthAdapter;
 
@@ -101,7 +96,7 @@ const MEMBER_NO_ROLE: FakeMember = {
 
 describe("findOne — user model", () => {
   beforeEach(() => {
-    fakeDbResult = makeFakeMemberDb([ADMIN_MEMBER, MODERATOR_MEMBER, MEMBER_NO_ROLE]);
+    wireMemberRepo([ADMIN_MEMBER, MODERATOR_MEMBER, MEMBER_NO_ROLE]);
   });
 
   it("finds an Admin member by privateEmail and maps it to email in auth view", async () => {
@@ -217,7 +212,7 @@ describe("findOne — user model", () => {
 
 describe("findOne — non-user models return null", () => {
   beforeEach(() => {
-    fakeDbResult = makeFakeMemberDb([ADMIN_MEMBER]);
+    wireMemberRepo([ADMIN_MEMBER]);
   });
 
   it("returns null for session model", async () => {

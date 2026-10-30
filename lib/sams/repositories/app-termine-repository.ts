@@ -1,7 +1,13 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
-import { createSamsDb } from "@/lib/db/electrodb-client";
 import { getSamsTableName } from "@/lib/db/env";
+import {
+  deleteItem,
+  parseDomain,
+  putItem,
+  queryTablePk,
+} from "@/lib/db/repositories/dynamo-helpers";
+import { appTermineItemFromDomain, appTermineKeys } from "@/lib/db/sams-keys";
 import {
   APP_DATASET_CURRENT,
   appTermineMatchSchema,
@@ -42,75 +48,72 @@ export class AppTermineRepository {
     private readonly tableName?: string,
   ) {}
 
-  private entities() {
-    const table = this.tableName ?? getSamsTableName();
-    return createSamsDb(this.documentClient, table);
+  private table(): string {
+    return this.tableName ?? getSamsTableName();
   }
 
   async listByDataset(datasetId: string = APP_DATASET_CURRENT): Promise<AppTermineMatchInput[]> {
-    const result = await this.entities()
-      .appTermine.query.byDataset({ datasetId })
-      .go({ pages: "all" });
-    return result.data.map((item) =>
-      parseWithSchema(appTermineMatchSchema, item, "Failed to parse app Termine match"),
+    const page = await queryTablePk(this.documentClient, this.table(), {
+      pk: `appTermine#${datasetId}`,
+    });
+    return page.items.map((item) =>
+      parseWithSchema(
+        appTermineMatchSchema,
+        parseDomain(appTermineMatchSchema, item, "parse"),
+        "Failed to parse app Termine match",
+      ),
     );
   }
 
-  /**
-   * Query the current (or given) Termine dataset.
-   * Uses DynamoDB begins_with for past/future partitions, FilterExpression for
-   * home-only, and paginated Limit — not pages:"all" + slice.
-   */
   async query(options: AppTermineQueryOptions = {}): Promise<AppTermineMatchInput[]> {
     const datasetId = options.datasetId ?? APP_DATASET_CURRENT;
     const rangePrefix =
       options.range === "past" ? "P#" : options.range === "future" ? "F#" : undefined;
-    const order = (options.range === "past" ? "desc" : "asc") as "asc" | "desc";
+    const order = options.range === "past" ? false : true;
     const needsPostFilter = Boolean(options.teamUuid);
     const targetCount = options.limit;
 
     const collected: AppTermineMatchInput[] = [];
-    let cursor: string | null = null;
+    let cursor: string | undefined;
 
     do {
       const remaining =
         targetCount === undefined ? DEFAULT_PAGE_SIZE : Math.max(targetCount - collected.length, 1);
-      // When FilterExpression or post-filters drop items, over-fetch a bit per page.
       const pageLimit =
         options.homeOnly || needsPostFilter
           ? Math.min(DEFAULT_PAGE_SIZE, remaining * 3)
           : remaining;
 
-      const baseQuery = this.entities().appTermine.query.byDataset({ datasetId });
-      const rangedQuery = rangePrefix ? baseQuery.begins({ matchSortKey: rangePrefix }) : baseQuery;
-      const filteredQuery = options.homeOnly
-        ? rangedQuery.where(({ isHomeGame }, { eq }) => eq(isHomeGame, true))
-        : rangedQuery;
-
-      // Annotate the page result to avoid ElectroDB's circular cursor inference.
-      const result: { data: unknown[]; cursor: string | null } = await filteredQuery.go({
-        order,
+      const page = await queryTablePk(this.documentClient, this.table(), {
+        pk: `appTermine#${datasetId}`,
+        beginsWithSk: rangePrefix,
+        scanIndexForward: order,
         limit: pageLimit,
         cursor,
-        pages: 1,
+        filterExpression: options.homeOnly ? "isHomeGame = :home" : undefined,
+        expressionAttributeValues: options.homeOnly ? { ":home": true } : undefined,
       });
 
-      let page = result.data.map((item) =>
-        parseWithSchema(appTermineMatchSchema, item, "Failed to parse app Termine match"),
+      let batch = page.items.map((item) =>
+        parseWithSchema(
+          appTermineMatchSchema,
+          parseDomain(appTermineMatchSchema, item, "parse"),
+          "Failed to parse app Termine match",
+        ),
       );
       const teamUuid = options.teamUuid;
       if (teamUuid) {
-        page = page.filter((match) => matchInvolvesTeam(match, teamUuid));
+        batch = batch.filter((match) => matchInvolvesTeam(match, teamUuid));
       }
 
-      for (const match of page) {
+      for (const match of batch) {
         collected.push(match);
         if (targetCount !== undefined && collected.length >= targetCount) {
           return collected.slice(0, targetCount);
         }
       }
 
-      cursor = result.cursor;
+      cursor = page.cursor;
     } while (cursor);
 
     return targetCount === undefined ? collected : collected.slice(0, targetCount);
@@ -122,12 +125,11 @@ export class AppTermineRepository {
   ): Promise<AppTermineMatchInput[]> {
     const existing = await this.listByDataset(datasetId);
     const nextKeys = new Set(matches.map((match) => match.matchSortKey));
+    const table = this.table();
 
     for (const stale of existing) {
       if (!nextKeys.has(stale.matchSortKey)) {
-        await this.entities()
-          .appTermine.delete({ datasetId, matchSortKey: stale.matchSortKey })
-          .go();
+        await deleteItem(this.documentClient, table, appTermineKeys(datasetId, stale.matchSortKey));
       }
     }
 
@@ -144,7 +146,7 @@ export class AppTermineRepository {
         },
         "Failed to parse app Termine upsert input",
       );
-      await this.entities().appTermine.put(item).go();
+      await putItem(this.documentClient, table, appTermineItemFromDomain(item));
       written.push(item);
     }
     return written;

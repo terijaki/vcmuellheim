@@ -17,7 +17,8 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { generateIcsCalendar, type IcsCalendar, type IcsEvent } from "ts-ics";
-import { db } from "@/lib/db/electrodb-client";
+import { eventRepository } from "@/lib/db/repositories/content-entities-repository";
+import { teamRepository } from "@/lib/db/repositories/team-repository";
 import { eventSchema, teamSchema } from "@/lib/db/schemas";
 import type { Event } from "@/lib/db/types";
 
@@ -27,11 +28,11 @@ dayjs.extend(timezone);
 
 async function fetchCustomEvents(teamId?: string): Promise<Event[]> {
   const fourteenDaysAgo = dayjs().subtract(14, "day").toISOString();
-  const query = db().event.query.byType({ type: "event" }).gte({ startDate: fourteenDaysAgo });
-  const result = await (teamId
-    ? query.where((attr, op) => op.contains(attr.teamIds, teamId)).go({ pages: "all" })
-    : query.go({ pages: "all" }));
-  return result.data.map((item) => eventSchema.parse(item));
+  const events = await eventRepository.listFromStartDate(fourteenDaysAgo);
+  const filtered = teamId
+    ? events.filter((event) => (event.teamIds ?? []).includes(teamId))
+    : events;
+  return filtered.map((item) => eventSchema.parse(item));
 }
 
 function convertEventToIcs(event: Event, timestamp: Date): IcsEvent {
@@ -124,15 +125,13 @@ export const Route = createFileRoute("/ics/$teamSlug")({
             calendarTitle = homeGamesOnly
               ? `${calendarTitle} - Heimspiele`
               : `${calendarTitle} - Vereinskalender`;
-            const allTeamsResult = await db()
-              .team.query.byType({ type: "team" })
-              .go({ pages: "all" });
-            teamSamsUuids = allTeamsResult.data
+            const allTeams = await teamRepository.listAll();
+            teamSamsUuids = allTeams
               .map((t) => teamSchema.parse(t).sbvvTeamId)
               .filter((id): id is string => !!id);
           } else {
-            const teamResult = await db().team.query.bySlug({ slug: teamSlug }).go({ limit: 1 });
-            const foundTeam = teamResult.data[0] ? teamSchema.parse(teamResult.data[0]) : null;
+            const foundTeamRaw = await teamRepository.getBySlug(teamSlug);
+            const foundTeam = foundTeamRaw ? teamSchema.parse(foundTeamRaw) : null;
             if (!foundTeam) {
               return new Response("Team nicht gefunden", {
                 status: 404,

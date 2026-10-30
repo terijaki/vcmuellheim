@@ -16,7 +16,7 @@ import {
   computeSqsQueueArn,
   computeSqsQueueUrl,
 } from "./db/env";
-import { SamsTableIndexes } from "./db/sams-electrodb-entities";
+import { SamsTableIndexes } from "./db/table-indexes";
 import { VcmNodejsFunction } from "./construct/vcm-nodejs-function";
 import {
   computeSamsProviderEventsDlqName,

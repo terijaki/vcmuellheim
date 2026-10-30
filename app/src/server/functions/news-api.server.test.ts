@@ -7,16 +7,12 @@ const { mockGet, mockCreate, mockPatch, mockRebuild } = vi.hoisted(() => ({
   mockRebuild: vi.fn(),
 }));
 
-vi.mock("@/lib/db/electrodb-client", () => ({
-  db: vi.fn(() => ({
-    news: {
-      get: () => ({ go: mockGet }),
-      create: (item: unknown) => ({ go: () => mockCreate(item) }),
-      patch: () => ({
-        set: (value: unknown) => ({ go: () => mockPatch(value) }),
-      }),
-    },
-  })),
+vi.mock("@/lib/db/repositories/news-repository", () => ({
+  newsRepository: {
+    getById: mockGet,
+    create: mockCreate,
+    update: (_id: string, updates: unknown) => mockPatch(updates),
+  },
 }));
 
 vi.mock("@/lib/read-models/public-snapshots", () => ({
@@ -50,11 +46,11 @@ describe("programmatic news writes", () => {
     patchedStatus = undefined;
     mockCreate.mockImplementation((item: { status: string }) => {
       createdStatus = item.status;
-      return { data: {} };
+      return item;
     });
-    mockPatch.mockImplementation((value: { status: string }) => {
-      patchedStatus = value.status;
-      return { data: draft };
+    mockPatch.mockImplementation((updates: { status?: string }) => {
+      patchedStatus = updates.status;
+      return { ...draft, ...updates, status: updates.status ?? draft.status };
     });
     mockRebuild.mockResolvedValue({ items: [] });
   });
@@ -73,8 +69,7 @@ describe("programmatic news writes", () => {
   });
 
   it("publishes a draft and rebuilds the snapshot", async () => {
-    const published = { ...draft, status: "published" as const };
-    mockGet.mockResolvedValueOnce({ data: draft }).mockResolvedValueOnce({ data: published });
+    mockGet.mockResolvedValue(draft);
     const { handlePublishNews } = await import("./news.server");
 
     const result = await handlePublishNews(articleId);
@@ -86,7 +81,7 @@ describe("programmatic news writes", () => {
   });
 
   it("does not write when the article is already published", async () => {
-    mockGet.mockResolvedValue({ data: { ...draft, status: "published" } });
+    mockGet.mockResolvedValue({ ...draft, status: "published" });
     const { handlePublishNews } = await import("./news.server");
 
     const result = await handlePublishNews(articleId);
@@ -97,7 +92,7 @@ describe("programmatic news writes", () => {
   });
 
   it("does not write when the article is missing", async () => {
-    mockGet.mockResolvedValue({ data: null });
+    mockGet.mockResolvedValue(null);
     const { handlePublishNews } = await import("./news.server");
 
     const result = await handlePublishNews(articleId);
@@ -109,8 +104,7 @@ describe("programmatic news writes", () => {
 
   it("publishes an archived article", async () => {
     const archived = { ...draft, status: "archived" as const };
-    const published = { ...draft, status: "published" as const };
-    mockGet.mockResolvedValueOnce({ data: archived }).mockResolvedValueOnce({ data: published });
+    mockGet.mockResolvedValue(archived);
     const { handlePublishNews } = await import("./news.server");
 
     const result = await handlePublishNews(articleId);

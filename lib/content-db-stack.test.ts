@@ -1,7 +1,7 @@
-import { describe, it } from "vite-plus/test";
+import { describe, expect, it } from "vite-plus/test";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { ContentDbStack } from "./content-db-stack";
-import { ContentTableIndexes } from "./db/electrodb-entities";
+import { ContentTableIndexes } from "./db/table-indexes";
 import { createTestApp } from "./test-helpers";
 
 describe("ContentDbStack", () => {
@@ -21,7 +21,6 @@ describe("ContentDbStack", () => {
 
       const template = Template.fromStack(stack);
 
-      // Should have exactly 1 DynamoDB table (single-table design)
       template.resourceCountIs("AWS::DynamoDB::Table", 1);
     });
 
@@ -147,7 +146,7 @@ describe("ContentDbStack", () => {
   });
 
   describe("GSI configuration", () => {
-    it("should create all six required GSIs", () => {
+    it("should create only GSI1-ByTypeAndDate", () => {
       const app = createTestApp();
       const stack = new ContentDbStack(app, "TestStack", {
         stackProps: { environment: "dev", branch: "" },
@@ -155,37 +154,13 @@ describe("ContentDbStack", () => {
 
       const template = Template.fromStack(stack);
 
-      template.hasResourceProperties("AWS::DynamoDB::Table", {
-        GlobalSecondaryIndexes: Match.arrayWith([
-          Match.objectLike({ IndexName: ContentTableIndexes.gsi1 }),
-          Match.objectLike({ IndexName: ContentTableIndexes.gsi2 }),
-          Match.objectLike({ IndexName: ContentTableIndexes.gsi3 }),
-          Match.objectLike({ IndexName: ContentTableIndexes.gsi4 }),
-          Match.objectLike({ IndexName: ContentTableIndexes.gsi5 }),
-          Match.objectLike({ IndexName: ContentTableIndexes.gsi6 }),
-        ]),
-      });
-    });
-
-    it("should have correct key schema for GSI6 (eventId-based)", () => {
-      const app = createTestApp();
-      const stack = new ContentDbStack(app, "TestStack", {
-        stackProps: { environment: "dev", branch: "" },
-      });
-
-      const template = Template.fromStack(stack);
-
-      template.hasResourceProperties("AWS::DynamoDB::Table", {
-        GlobalSecondaryIndexes: Match.arrayWith([
-          Match.objectLike({
-            IndexName: ContentTableIndexes.gsi6,
-            KeySchema: [
-              { AttributeName: "gsi6pk", KeyType: "HASH" },
-              { AttributeName: "gsi6sk", KeyType: "RANGE" },
-            ],
-          }),
-        ]),
-      });
+      const resources = template.findResources("AWS::DynamoDB::Table");
+      const table = Object.values(resources)[0] as {
+        Properties?: { GlobalSecondaryIndexes?: Array<{ IndexName?: string }> };
+      };
+      const indexes = table.Properties?.GlobalSecondaryIndexes ?? [];
+      expect(indexes).toHaveLength(1);
+      expect(indexes[0]?.IndexName).toBe(ContentTableIndexes.gsi1);
     });
 
     it("should have correct key schema for GSI1 (type+date)", () => {
@@ -203,27 +178,6 @@ describe("ContentDbStack", () => {
             KeySchema: [
               { AttributeName: "gsi1pk", KeyType: "HASH" },
               { AttributeName: "gsi1sk", KeyType: "RANGE" },
-            ],
-          }),
-        ]),
-      });
-    });
-
-    it("should have correct key schema for GSI4 (email/identifier)", () => {
-      const app = createTestApp();
-      const stack = new ContentDbStack(app, "TestStack", {
-        stackProps: { environment: "dev", branch: "" },
-      });
-
-      const template = Template.fromStack(stack);
-
-      template.hasResourceProperties("AWS::DynamoDB::Table", {
-        GlobalSecondaryIndexes: Match.arrayWith([
-          Match.objectLike({
-            IndexName: ContentTableIndexes.gsi4,
-            KeySchema: [
-              { AttributeName: "gsi4pk", KeyType: "HASH" },
-              { AttributeName: "gsi4sk", KeyType: "RANGE" },
             ],
           }),
         ]),

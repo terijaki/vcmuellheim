@@ -4,7 +4,8 @@
  */
 
 import { randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
-import { db } from "@/lib/db/electrodb-client";
+import { apiKeyRepository } from "@/lib/db/repositories/content-entities-repository";
+import { memberRepository } from "@/lib/db/repositories/member-repository";
 import {
   apiKeySchema,
   createApiKeyInputSchema,
@@ -122,9 +123,9 @@ function toPublicApiKey(key: ApiKey): PublicApiKey {
 }
 
 async function getMemberCmsRole(memberId: string): Promise<"Admin" | "Moderator" | null> {
-  const result = await db().member.get({ id: memberId }).go();
-  if (!result.data) return null;
-  const member = memberSchema.safeParse(result.data);
+  const memberRecord = await memberRepository.getById(memberId);
+  if (!memberRecord) return null;
+  const member = memberSchema.safeParse(memberRecord);
   if (!member.success || !isCmsRole(member.data.authRole)) return null;
   return member.data.authRole;
 }
@@ -155,21 +156,21 @@ export async function createApiKey(input: {
     expiresAt: apiKeyExpiresAt(createdAt),
   };
 
-  await db().apiKey.create(record).go();
+  await apiKeyRepository.create(record);
   return { apiKey: toPublicApiKey(record), token };
 }
 
 export async function listApiKeys(): Promise<PublicApiKey[]> {
-  const result = await db().apiKey.query.byType({ type: "apiKey" }).go({ pages: "all" });
-  const keys = parseServerArray(apiKeySchema, result.data, "Failed to parse API keys");
+  const records = await apiKeyRepository.listAll();
+  const keys = parseServerArray(apiKeySchema, records, "Failed to parse API keys");
   keys.sort((left, right) => right.createdAt.localeCompare(left.createdAt));
   return keys.map((key) => toPublicApiKey(key));
 }
 
 export async function deleteApiKey(id: string): Promise<{ success: true }> {
-  const existing = await db().apiKey.get({ id }).go();
-  if (!existing.data) throw new Error("API-Schlüssel nicht gefunden");
-  await db().apiKey.delete({ id }).go();
+  const existing = await apiKeyRepository.getById(id);
+  if (!existing) throw new Error("API-Schlüssel nicht gefunden");
+  await apiKeyRepository.delete(id);
   return { success: true };
 }
 
@@ -217,12 +218,12 @@ export async function authenticateApiKey(
     );
   }
 
-  const result = await db().apiKey.get({ id: parsedToken.id }).go();
-  if (!result.data) {
+  const keyRecord = await apiKeyRepository.getById(parsedToken.id);
+  if (!keyRecord) {
     return authFailure(401, "unauthorized", "invalid_token", "API key is invalid");
   }
 
-  const record = storedApiKeySchema.safeParse(result.data);
+  const record = storedApiKeySchema.safeParse(keyRecord);
   if (!record.success) {
     return authFailure(401, "unauthorized", "invalid_token", "API key is invalid");
   }
@@ -263,7 +264,7 @@ export async function authenticateApiKey(
   const previousUse = record.data.lastUsedAt;
   const shouldRecordUse = !previousUse || !isSameUtcMinute(previousUse, nowIso);
   if (shouldRecordUse) {
-    await db().apiKey.patch({ id: record.data.id }).set({ lastUsedAt: nowIso }).go();
+    await apiKeyRepository.patch(record.data.id, { lastUsedAt: nowIso });
   }
 
   const apiKey = toPublicApiKey({

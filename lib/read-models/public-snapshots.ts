@@ -1,6 +1,13 @@
 import dayjs from "dayjs";
 import { z } from "zod";
-import { db } from "@/lib/db/electrodb-client";
+import {
+  eventRepository,
+  publicSnapshotRepository,
+  sponsorRepository,
+} from "@/lib/db/repositories/content-entities-repository";
+import { memberRepository } from "@/lib/db/repositories/member-repository";
+import { newsRepository } from "@/lib/db/repositories/news-repository";
+import { teamRepository } from "@/lib/db/repositories/team-repository";
 import {
   eventSchema,
   memberSchema,
@@ -52,23 +59,20 @@ async function putSnapshot(section: PublicSnapshotSection, payload: unknown): Pr
     },
     "Failed to parse public snapshot",
   );
-  await db().publicSnapshot.put(item).go();
+  await publicSnapshotRepository.put(section, item.payload);
 }
 
 export async function readPublicSnapshot(section: PublicSnapshotSection): Promise<unknown | null> {
-  const result = await db().publicSnapshot.get({ section }).go();
-  if (!result.data) return null;
-  return result.data.payload;
+  const result = await publicSnapshotRepository.get(section);
+  if (!result) return null;
+  return result.payload;
 }
 
 export async function rebuildUpcomingEvents(): Promise<PublicEventsPayload> {
-  const [eventsResult, teamsResult] = await Promise.all([
-    db().event.query.byType({ type: "event" }).go({ pages: "all" }),
-    db().team.query.byType({ type: "team" }).go({ pages: "all" }),
-  ]);
-  const namesById = new Map(teamsResult.data.map((team) => [team.id, team.name]));
+  const [events, teams] = await Promise.all([eventRepository.listAll(), teamRepository.listAll()]);
+  const namesById = new Map(teams.map((team) => [team.id, team.name]));
   const now = dayjs().toISOString();
-  const items = eventsResult.data
+  const items = events
     .map((event) => eventSchema.safeParse(event))
     .flatMap((parsed) => (parsed.success ? [parsed.data] : []))
     .filter((event) => event.startDate >= now)
@@ -87,11 +91,8 @@ export async function rebuildUpcomingEvents(): Promise<PublicEventsPayload> {
 }
 
 export async function rebuildLatestNews(): Promise<PublicNewsPayload> {
-  const result = await db()
-    .news.query.byStatus({ status: "published" })
-    .gt({ createdAt: "2000-01-01T00:00:00.000Z" })
-    .go({ order: "desc", limit: LATEST_NEWS_SNAPSHOT_COUNT });
-  const items = result.data
+  const result = await newsRepository.listPublished(LATEST_NEWS_SNAPSHOT_COUNT);
+  const items = result.items
     .map((article) => newsSchema.safeParse(article))
     .flatMap((parsed) => (parsed.success ? [parsed.data] : []));
   const payload: PublicNewsPayload = { items };
@@ -100,8 +101,8 @@ export async function rebuildLatestNews(): Promise<PublicNewsPayload> {
 }
 
 export async function rebuildSponsors(): Promise<PublicSponsorsPayload> {
-  const result = await db().sponsor.query.byType({ type: "sponsor" }).go({ pages: "all" });
-  const items = result.data
+  const sponsors = await sponsorRepository.listAll();
+  const items = sponsors
     .map((sponsor) => sponsorSchema.safeParse(sponsor))
     .flatMap((parsed) => (parsed.success ? [parsed.data] : []));
   const payload: PublicSponsorsPayload = { items };
@@ -126,8 +127,8 @@ export function buildPublicMembersPayload(members: readonly unknown[]): PublicMe
 }
 
 export async function rebuildPublicMembers(): Promise<PublicMembersPayload> {
-  const result = await db().member.query.byType({ type: "member" }).go({ pages: "all" });
-  const payload = buildPublicMembersPayload(result.data);
+  const members = await memberRepository.listAll();
+  const payload = buildPublicMembersPayload(members);
   await putSnapshot("members", payload);
   return payload;
 }

@@ -4,7 +4,7 @@
 
 import dayjs from "dayjs";
 import { z } from "zod";
-import { db } from "@/lib/db/electrodb-client";
+import { eventRepository } from "@/lib/db/repositories/content-entities-repository";
 import { eventSchema } from "@/lib/db/schemas";
 import { readUpcomingEvents, rebuildUpcomingEvents } from "@/lib/read-models/public-snapshots";
 import { withTimestamps } from "../dynamo";
@@ -37,20 +37,14 @@ export async function handleGetUpcomingEvents(data?: { limit?: number }) {
 }
 
 export async function handleGetEventById(id: string) {
-  const result = await db().event.get({ id }).go();
-  return result.data
-    ? parseServerData(eventSchema, result.data, "Failed to parse event data")
-    : null;
+  const event = await eventRepository.getById(id);
+  return event ? parseServerData(eventSchema, event, "Failed to parse event data") : null;
 }
 
 export async function handleListAllEvents() {
-  const result = await db().event.query.byType({ type: "event" }).go({ pages: "all" });
-  const items = parseServerArray(eventSchema, result.data, "Failed to parse event list");
-
-  return {
-    items,
-    lastEvaluatedKey: result.cursor ?? undefined,
-  };
+  const events = await eventRepository.listAll();
+  const items = parseServerArray(eventSchema, events, "Failed to parse event list");
+  return { items, lastEvaluatedKey: undefined };
 }
 
 export async function handleCreateEvent(data: EventInput) {
@@ -62,13 +56,16 @@ export async function handleCreateEvent(data: EventInput) {
       .unix(),
   });
 
-  await db().event.create(event).go();
+  await eventRepository.create(event);
   await rebuildUpcomingEvents();
 
   return event;
 }
 
 export async function handleUpdateEvent(id: string, updates: EventUpdateInput) {
+  const existing = await eventRepository.getById(id);
+  if (!existing) throw new Error("Event not found");
+
   const { description, location, variant, ...restUpdates } = updates;
   const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
     description,
@@ -76,7 +73,8 @@ export async function handleUpdateEvent(id: string, updates: EventUpdateInput) {
     variant,
   });
 
-  const setFields = {
+  const merged = {
+    ...existing,
     ...restUpdates,
     ...nullableFields,
     ...(updates.endDate || updates.startDate
@@ -87,25 +85,19 @@ export async function handleUpdateEvent(id: string, updates: EventUpdateInput) {
         }
       : {}),
     updatedAt: new Date().toISOString(),
-  };
+  } as Record<string, unknown>;
+  for (const key of removeKeys) {
+    delete merged[key];
+  }
 
-  const patchOp = db().event.patch({ id }).set(setFields);
-  const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
-
-  if (!result.data) throw new Error("Event not found");
-
-  const refreshedResult = await db().event.get({ id }).go();
-  const event = refreshedResult.data
-    ? parseServerData(eventSchema, refreshedResult.data, "Failed to parse event data")
-    : null;
-
+  const event = await eventRepository.update(id, merged);
   if (!event) throw new Error("Event not found");
   await rebuildUpcomingEvents();
   return event;
 }
 
 export async function handleDeleteEvent(id: string) {
-  await db().event.delete({ id }).go();
+  await eventRepository.delete(id);
   await rebuildUpcomingEvents();
   return { success: true as const };
 }

@@ -5,17 +5,40 @@ import {
   type DynamoDBDocumentClient,
   ScanCommand as ScanDocCommand,
 } from "@aws-sdk/lib-dynamodb";
-import { type createDb } from "@/lib/db/electrodb-client";
+import {
+  busRepository,
+  eventRepository,
+  locationRepository,
+  sponsorRepository,
+  volunteerEventRepository,
+  volunteerSignupRepository,
+} from "@/lib/db/repositories/content-entities-repository";
+import { memberRepository } from "@/lib/db/repositories/member-repository";
+import { newsRepository } from "@/lib/db/repositories/news-repository";
+import { teamRepository } from "@/lib/db/repositories/team-repository";
 import { type LocationInput, type MemberInput, type TeamInput } from "@/lib/db/schemas";
 import { invokeImageProcessorAsync } from "@/lib/media/image-processing";
+
+export const seedEntityWriters = {
+  news: newsRepository,
+  member: memberRepository,
+  event: eventRepository,
+  team: teamRepository,
+  sponsor: sponsorRepository,
+  location: locationRepository,
+  bus: busRepository,
+  volunteerEvent: volunteerEventRepository,
+  volunteerSignup: volunteerSignupRepository,
+} as const;
+
+export type SeedEntityWriters = typeof seedEntityWriters;
 
 export interface SeedContext {
   cdkEnvironment: string;
   s3Bucket: string;
   contentTableName: string;
-  /** Social table for Behold Instagram feed seed (feature-branch webapp env). */
   socialTableName: string;
-  entities: ReturnType<typeof createDb>;
+  entities: SeedEntityWriters;
   docClient: DynamoDBDocumentClient;
   s3Client: S3Client;
   locationCache: LocationInput[];
@@ -86,10 +109,10 @@ export async function cleanupDatabase(ctx: SeedContext): Promise<void> {
 }
 
 export async function putItems<T>(
-  entity: { create(item: T): { go(): Promise<unknown> } },
+  entity: { create(item: T): Promise<unknown> },
   items: T[],
 ): Promise<void> {
-  await Promise.all(items.map((item) => entity.create(item).go()));
+  await Promise.all(items.map((item) => entity.create(item)));
 }
 
 export async function uploadImageToS3(

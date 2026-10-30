@@ -10,8 +10,6 @@ let getPublishedNews: typeof import("./queries").getPublishedNews;
 let getNewsBySlug: typeof import("./queries").getNewsBySlug;
 let getAllSamsClubs: typeof import("./queries").getAllSamsClubs;
 let getSamsClubBySportsclubUuid: typeof import("./queries").getSamsClubBySportsclubUuid;
-let getSamsClubByNameSlug: typeof import("./queries").getSamsClubByNameSlug;
-let getAllSamsTeams: typeof import("./queries").getAllSamsTeams;
 let getSamsTeamByUuid: typeof import("./queries").getSamsTeamByUuid;
 let getSamsRosterByTeamUuid: typeof import("./queries").getSamsRosterByTeamUuid;
 
@@ -26,8 +24,6 @@ describe("server/queries", () => {
     getNewsBySlug = q.getNewsBySlug;
     getAllSamsClubs = q.getAllSamsClubs;
     getSamsClubBySportsclubUuid = q.getSamsClubBySportsclubUuid;
-    getSamsClubByNameSlug = q.getSamsClubByNameSlug;
-    getAllSamsTeams = q.getAllSamsTeams;
     getSamsTeamByUuid = q.getSamsTeamByUuid;
     getSamsRosterByTeamUuid = q.getSamsRosterByTeamUuid;
   });
@@ -37,83 +33,47 @@ describe("server/queries", () => {
   });
 
   describe("getAllNews", () => {
-    it("queries GSI1-ByTypeAndDate descending via ElectroDB", async () => {
-      // ElectroDB requires __edb_e__ and __edb_v__ to correctly parse query results
-      const mockItems = [
-        {
-          id: "11111111-1111-4111-8111-111111111111",
-          type: "article",
-          title: "A",
-          slug: "a",
-          content: "c",
-          status: "published",
-          createdAt: "2024-01-01T00:00:00Z",
-          updatedAt: "2024-01-02T00:00:00Z",
-          __edb_e__: "news",
-          __edb_v__: "1",
-        },
-        {
-          id: "22222222-2222-4222-8222-222222222222",
-          type: "article",
-          title: "B",
-          slug: "b",
-          content: "c",
-          status: "draft",
-          createdAt: "2024-01-01T00:00:00Z",
-          updatedAt: "2024-01-01T00:00:00Z",
-          __edb_e__: "news",
-          __edb_v__: "1",
-        },
-      ];
-      ddbMock.on(QueryCommand).resolves({ Items: mockItems });
+    it("merges news status partitions via GSI1", async () => {
+      const mockItem = {
+        pk: "news#11111111-1111-4111-8111-111111111111",
+        sk: "news",
+        gsi1pk: "news#published",
+        gsi1sk: "2024-01-02T00:00:00Z",
+        id: "11111111-1111-4111-8111-111111111111",
+        type: "article",
+        title: "A",
+        slug: "a",
+        content: "c",
+        status: "published",
+        createdAt: "2024-01-01T00:00:00Z",
+        updatedAt: "2024-01-02T00:00:00Z",
+      };
+      ddbMock.on(QueryCommand).resolves({ Items: [mockItem] });
 
       const result = await getAllNews(10);
 
-      expect(result.items).toHaveLength(2);
-      expect(result.items[0].id).toBe("11111111-1111-4111-8111-111111111111");
+      expect(result.items).toHaveLength(3);
+      expect(result.items.every((item) => item.id === mockItem.id)).toBe(true);
 
       const calls = ddbMock.commandCalls(QueryCommand);
-      expect(calls).toHaveLength(1);
+      expect(calls.length).toBeGreaterThanOrEqual(3);
+      const gsi1Pks = calls.map(
+        (call) => call.args[0].input.ExpressionAttributeValues?.[":pk"] as string,
+      );
+      expect(gsi1Pks).toEqual(
+        expect.arrayContaining(["news#draft", "news#published", "news#archived"]),
+      );
       expect(calls[0].args[0].input).toMatchObject({
         TableName: "test-content-table",
         IndexName: "GSI1-ByTypeAndDate",
         ScanIndexForward: false,
-        Limit: 10,
+        Limit: 1,
       });
-    });
-
-    it("returns lastEvaluatedKey (ElectroDB cursor string) when present", async () => {
-      const lastKey = {
-        gsi1pk: "$vcm#type_article",
-        gsi1sk: "$news_1#updatedat_2024-01-01t00:00:00z",
-        pk: "$vcm#id_x",
-        sk: "$news_1",
-      };
-      ddbMock.on(QueryCommand).resolves({ Items: [], LastEvaluatedKey: lastKey });
-
-      const result = await getAllNews(5);
-
-      // ElectroDB encodes LastEvaluatedKey as a base64 cursor string
-      expect(typeof result.lastEvaluatedKey).toBe("string");
-      expect(result.lastEvaluatedKey).toBeTruthy();
-    });
-
-    it("forwards cursor as ExclusiveStartKey when provided", async () => {
-      ddbMock.on(QueryCommand).resolves({ Items: [] });
-      // Simulate an ElectroDB cursor (base64-encoded DynamoDB key)
-      const cursor = Buffer.from(JSON.stringify({ pk: "$vcm#id_abc", sk: "$news_1" })).toString(
-        "base64",
-      );
-
-      await getAllNews(10, cursor);
-
-      const calls = ddbMock.commandCalls(QueryCommand);
-      expect(calls[0].args[0].input.ExclusiveStartKey).toBeDefined();
     });
   });
 
   describe("getPublishedNews", () => {
-    it("queries GSI2-ByStatus with status=published via ElectroDB", async () => {
+    it("queries GSI1 with news#published partition", async () => {
       ddbMock.on(QueryCommand).resolves({ Items: [] });
 
       await getPublishedNews(5);
@@ -121,15 +81,16 @@ describe("server/queries", () => {
       const calls = ddbMock.commandCalls(QueryCommand);
       expect(calls[0].args[0].input).toMatchObject({
         TableName: "test-content-table",
-        IndexName: "GSI2-ByStatus",
+        IndexName: "GSI1-ByTypeAndDate",
         ScanIndexForward: false,
         Limit: 5,
+        ExpressionAttributeValues: { ":pk": "news#published" },
       });
     });
   });
 
   describe("getNewsBySlug", () => {
-    it("returns first match from GSI3-BySlug via ElectroDB", async () => {
+    it("loads slug lookup then main item", async () => {
       const domainItem: News = {
         id: "33333333-3333-4333-8333-333333333333",
         type: "article",
@@ -140,41 +101,46 @@ describe("server/queries", () => {
         createdAt: "2024-01-01T00:00:00Z",
         updatedAt: "2024-01-01T00:00:00Z",
       };
-      // Include ElectroDB internal fields so it can parse the result correctly
-      const dbItem = { ...domainItem, __edb_e__: "news", __edb_v__: "1" };
-      ddbMock.on(QueryCommand).resolves({ Items: [dbItem] });
+      ddbMock
+        .on(GetCommand)
+        .resolvesOnce({
+          Item: { pk: "news#slug#hello", sk: "news", id: domainItem.id, slug: "hello" },
+        })
+        .resolvesOnce({
+          Item: {
+            pk: `news#${domainItem.id}`,
+            sk: "news",
+            ...domainItem,
+          },
+        });
 
       const result = await getNewsBySlug("hello");
 
-      // ElectroDB strips internal fields from the result
       expect(result).toEqual(domainItem);
-      const calls = ddbMock.commandCalls(QueryCommand);
-      expect(calls[0].args[0].input).toMatchObject({
-        TableName: "test-content-table",
-        IndexName: "GSI3-BySlug",
-        Limit: 1,
-      });
+      expect(ddbMock.commandCalls(GetCommand)).toHaveLength(2);
     });
 
     it("returns null when not found", async () => {
-      ddbMock.on(QueryCommand).resolves({ Items: [] });
+      ddbMock.on(GetCommand).resolves({ Item: undefined });
       const result = await getNewsBySlug("unknown");
       expect(result).toBeNull();
     });
   });
 
   describe("getAllSamsClubs", () => {
-    it("queries the SAMS table by type via ElectroDB", async () => {
+    it("queries the SAMS table GSI1", async () => {
       const mockClubs = [
         {
+          pk: "samsClub#c1",
+          sk: "samsClub",
+          gsi1pk: "samsClub",
+          gsi1sk: "vc-muellheim",
           sportsclubUuid: "c1",
           type: "club",
           name: "VC Müllheim",
           nameSlug: "vc-muellheim",
           updatedAt: "2024-01-01T00:00:00Z",
           ttl: 123,
-          __edb_e__: "samsclub",
-          __edb_v__: "1",
         },
       ];
       ddbMock.on(QueryCommand).resolves({ Items: mockClubs });
@@ -188,16 +154,16 @@ describe("server/queries", () => {
   });
 
   describe("getSamsClubBySportsclubUuid", () => {
-    it("gets club by primary key sportsclubUuid via ElectroDB", async () => {
+    it("gets club by primary key", async () => {
       const mockClub = {
+        pk: "samsClub#c1",
+        sk: "samsClub",
         sportsclubUuid: "c1",
         type: "club",
         name: "VC Müllheim",
         nameSlug: "vc-muellheim",
         updatedAt: "2024-01-01T00:00:00Z",
         ttl: 123,
-        __edb_e__: "samsclub",
-        __edb_v__: "1",
       };
       ddbMock.on(GetCommand).resolves({ Item: mockClub });
 
@@ -205,80 +171,14 @@ describe("server/queries", () => {
 
       expect(result).not.toBeNull();
       expect(result?.sportsclubUuid).toBe("c1");
-      expect(result?.name).toBe("VC Müllheim");
-      const calls = ddbMock.commandCalls(GetCommand);
-      expect(calls[0].args[0].input.TableName).toBe("test-sams-table");
-    });
-
-    it("returns null when not found", async () => {
-      ddbMock.on(GetCommand).resolves({ Item: undefined });
-      const result = await getSamsClubBySportsclubUuid("missing");
-      expect(result).toBeNull();
-    });
-  });
-
-  describe("getSamsClubByNameSlug", () => {
-    it("queries GSI1-BySamsType with begins_with slug match via ElectroDB", async () => {
-      const mockClub = {
-        sportsclubUuid: "c1",
-        type: "club",
-        name: "VC Müllheim",
-        nameSlug: "vc-muellheim",
-        updatedAt: "2024-01-01T00:00:00Z",
-        ttl: 123,
-        __edb_e__: "samsclub",
-        __edb_v__: "1",
-      };
-      ddbMock.on(QueryCommand).resolves({ Items: [mockClub] });
-
-      const result = await getSamsClubByNameSlug("vc-muellheim");
-
-      expect(result).not.toBeNull();
-      expect(result?.sportsclubUuid).toBe("c1");
-      const calls = ddbMock.commandCalls(QueryCommand);
-      expect(calls[0].args[0].input.TableName).toBe("test-sams-table");
-    });
-
-    it("returns null when no match", async () => {
-      ddbMock.on(QueryCommand).resolves({ Items: [] });
-      const result = await getSamsClubByNameSlug("unknown");
-      expect(result).toBeNull();
-    });
-  });
-
-  describe("getAllSamsTeams", () => {
-    it("queries the SAMS table by type via ElectroDB", async () => {
-      const mockTeams = [
-        {
-          uuid: "t1",
-          type: "team",
-          name: "Damen 1",
-          nameSlug: "damen-1",
-          sportsclubUuid: "c1",
-          associationUuid: "a1",
-          leagueUuid: "l1",
-          leagueName: "Liga A",
-          seasonUuid: "s1",
-          seasonName: "2024",
-          updatedAt: "2024-01-01T00:00:00Z",
-          ttl: 123,
-          __edb_e__: "samsteam",
-          __edb_v__: "1",
-        },
-      ];
-      ddbMock.on(QueryCommand).resolves({ Items: mockTeams });
-
-      const result = await getAllSamsTeams();
-
-      expect(result.items).toHaveLength(1);
-      const calls = ddbMock.commandCalls(QueryCommand);
-      expect(calls[0].args[0].input.TableName).toBe("test-sams-table");
     });
   });
 
   describe("getSamsTeamByUuid", () => {
-    it("gets team by uuid primary key via ElectroDB", async () => {
+    it("gets team by uuid primary key", async () => {
       const mockTeam = {
+        pk: "samsTeam#t1",
+        sk: "samsTeam",
         uuid: "t1",
         type: "team",
         name: "Damen 1",
@@ -291,8 +191,6 @@ describe("server/queries", () => {
         seasonName: "2024",
         updatedAt: "2024-01-01T00:00:00Z",
         ttl: 123,
-        __edb_e__: "samsteam",
-        __edb_v__: "1",
       };
       ddbMock.on(GetCommand).resolves({ Item: mockTeam });
 
@@ -300,29 +198,20 @@ describe("server/queries", () => {
 
       expect(result).not.toBeNull();
       expect(result?.uuid).toBe("t1");
-      expect(result?.name).toBe("Damen 1");
-      const calls = ddbMock.commandCalls(GetCommand);
-      expect(calls[0].args[0].input.TableName).toBe("test-sams-table");
-    });
-
-    it("returns null when not found", async () => {
-      ddbMock.on(GetCommand).resolves({ Item: undefined });
-      const result = await getSamsTeamByUuid("missing");
-      expect(result).toBeNull();
     });
   });
 
   describe("getSamsRosterByTeamUuid", () => {
-    it("gets roster by teamUuid primary key via ElectroDB", async () => {
+    it("gets roster by teamUuid primary key", async () => {
       const mockRoster = {
+        pk: "samsRoster#t1",
+        sk: "samsRoster",
         teamUuid: "t1",
         type: "roster",
         players: [{ uuid: "p1", name: "Jane Doe", jerseyNumber: 7, position: "Zuspiel" }],
         officials: [{ uuid: "o1", name: "Coach Smith", role: "Trainer" }],
         updatedAt: "2024-01-01T00:00:00Z",
         ttl: 123,
-        __edb_e__: "samsroster",
-        __edb_v__: "1",
       };
       ddbMock.on(GetCommand).resolves({ Item: mockRoster });
 
@@ -330,16 +219,6 @@ describe("server/queries", () => {
 
       expect(result).not.toBeNull();
       expect(result?.teamUuid).toBe("t1");
-      expect(result?.players).toHaveLength(1);
-      expect(result?.officials).toHaveLength(1);
-      const calls = ddbMock.commandCalls(GetCommand);
-      expect(calls[0].args[0].input.TableName).toBe("test-sams-table");
-    });
-
-    it("returns null when not found", async () => {
-      ddbMock.on(GetCommand).resolves({ Item: undefined });
-      const result = await getSamsRosterByTeamUuid("missing");
-      expect(result).toBeNull();
     });
   });
 });

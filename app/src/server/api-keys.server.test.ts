@@ -11,23 +11,20 @@ const { mockKeyGet, mockKeyCreate, mockKeyDelete, mockKeyPatch, mockKeyList, moc
     mockMemberGet: vi.fn(),
   }));
 
-vi.mock("@/lib/db/electrodb-client", () => ({
-  db: vi.fn(() => ({
-    apiKey: {
-      get: () => ({ go: mockKeyGet }),
-      create: (item: unknown) => ({ go: () => mockKeyCreate(item) }),
-      delete: () => ({ go: mockKeyDelete }),
-      patch: () => ({
-        set: (value: unknown) => ({ go: () => mockKeyPatch(value) }),
-      }),
-      query: {
-        byType: () => ({ go: mockKeyList }),
-      },
-    },
-    member: {
-      get: () => ({ go: mockMemberGet }),
-    },
-  })),
+vi.mock("@/lib/db/repositories/content-entities-repository", () => ({
+  apiKeyRepository: {
+    getById: mockKeyGet,
+    create: mockKeyCreate,
+    delete: mockKeyDelete,
+    patch: mockKeyPatch,
+    listAll: mockKeyList,
+  },
+}));
+
+vi.mock("@/lib/db/repositories/member-repository", () => ({
+  memberRepository: {
+    getById: mockMemberGet,
+  },
 }));
 
 const memberId = "11111111-1111-4111-8111-111111111111";
@@ -62,11 +59,11 @@ describe("api keys", () => {
     storedKey = undefined;
     mockKeyCreate.mockImplementation((item: StoredKey) => {
       storedKey = item;
-      return { data: item };
+      return item;
     });
-    mockKeyPatch.mockResolvedValue({ data: {} });
-    mockKeyDelete.mockResolvedValue({ data: {} });
-    mockMemberGet.mockResolvedValue({ data: adminMember });
+    mockKeyPatch.mockResolvedValue({});
+    mockKeyDelete.mockResolvedValue(undefined);
+    mockMemberGet.mockResolvedValue(adminMember);
   });
 
   it("stores a hash, a one-year expiry, and returns the token once", async () => {
@@ -90,14 +87,15 @@ describe("api keys", () => {
     expect(storedKey?.secretHash.startsWith("scrypt$")).toBe(true);
 
     const { authenticateApiKey } = await import("./api-keys.server");
-    mockKeyGet.mockResolvedValue({ data: storedKey });
+    mockKeyGet.mockResolvedValue(storedKey);
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news");
     expect(access.ok).toBe(true);
   });
 
   it("rejects a member without CMS access and does not write a key", async () => {
     mockMemberGet.mockResolvedValue({
-      data: { ...adminMember, authRole: undefined },
+      ...adminMember,
+      authRole: undefined,
     });
     const { createApiKey } = await import("./api-keys.server");
     await expect(createApiKey({ label: "Nope", memberId, scope: "news" })).rejects.toThrow(
@@ -109,20 +107,21 @@ describe("api keys", () => {
   it("authenticates a valid key and records last use", async () => {
     const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
     const created = await createApiKey({ label: "Skript", memberId, scope: "news" });
-    mockKeyGet.mockResolvedValue({ data: storedKey });
+    mockKeyGet.mockResolvedValue(storedKey);
 
     const now = new Date("2026-10-17T12:00:30.000Z");
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news", { now });
 
     expect(access.ok).toBe(true);
-    expect(mockKeyPatch).toHaveBeenCalledWith({ lastUsedAt: now.toISOString() });
+    expect(mockKeyPatch).toHaveBeenCalledWith(storedKey?.id, { lastUsedAt: now.toISOString() });
   });
 
   it("does not write last use again in the same minute", async () => {
     const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
     const created = await createApiKey({ label: "Skript", memberId, scope: "news" });
     mockKeyGet.mockResolvedValue({
-      data: { ...storedKey, lastUsedAt: "2026-10-17T12:00:01.000Z" },
+      ...storedKey,
+      lastUsedAt: "2026-10-17T12:00:01.000Z",
     });
 
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news", {
@@ -144,7 +143,8 @@ describe("api keys", () => {
     const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
     const created = await createApiKey({ label: "Alt", memberId, scope: "news" });
     mockKeyGet.mockResolvedValue({
-      data: { ...storedKey, expiresAt: "2020-01-01T00:00:00.000Z" },
+      ...storedKey,
+      expiresAt: "2020-01-01T00:00:00.000Z",
     });
 
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news", { now: new Date() });
@@ -155,7 +155,7 @@ describe("api keys", () => {
   it("rejects a key whose scope is not news", async () => {
     const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
     const created = await createApiKey({ label: "Andere", memberId, scope: "news" });
-    mockKeyGet.mockResolvedValue({ data: { ...storedKey, scope: "events" } });
+    mockKeyGet.mockResolvedValue({ ...storedKey, scope: "events" });
 
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news");
     expect(access).toMatchObject({
@@ -170,9 +170,10 @@ describe("api keys", () => {
   it("rejects non-admin members when admin is required", async () => {
     const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
     const created = await createApiKey({ label: "Mod", memberId, scope: "news" });
-    mockKeyGet.mockResolvedValue({ data: storedKey });
+    mockKeyGet.mockResolvedValue(storedKey);
     mockMemberGet.mockResolvedValue({
-      data: { ...adminMember, authRole: "Moderator" },
+      ...adminMember,
+      authRole: "Moderator",
     });
 
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news", {
@@ -185,7 +186,7 @@ describe("api keys", () => {
   it("allows admins when admin is required", async () => {
     const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
     const created = await createApiKey({ label: "Admin", memberId, scope: "news" });
-    mockKeyGet.mockResolvedValue({ data: storedKey });
+    mockKeyGet.mockResolvedValue(storedKey);
 
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news", {
       requireAdmin: true,
@@ -196,8 +197,8 @@ describe("api keys", () => {
   it("rejects a key whose member lost CMS access", async () => {
     const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
     const created = await createApiKey({ label: "Weg", memberId, scope: "news" });
-    mockKeyGet.mockResolvedValue({ data: storedKey });
-    mockMemberGet.mockResolvedValue({ data: { ...adminMember, authRole: undefined } });
+    mockKeyGet.mockResolvedValue(storedKey);
+    mockMemberGet.mockResolvedValue({ ...adminMember, authRole: undefined });
 
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news");
     expect(access).toMatchObject({ ok: false, status: 403, reason: "member_ineligible" });

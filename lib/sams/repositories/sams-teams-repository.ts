@@ -1,7 +1,15 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
-import { createSamsDb } from "@/lib/db/electrodb-client";
 import { getSamsTableName } from "@/lib/db/env";
+import {
+  deleteItem,
+  getItem,
+  parseDomain,
+  putItem,
+  queryGsi1,
+} from "@/lib/db/repositories/dynamo-helpers";
+import { samsTeamItemFromDomain, samsTeamMainKeys } from "@/lib/db/sams-keys";
+import { SamsTableIndexes } from "@/lib/db/table-indexes";
 import { samsTeamSchema, type SamsTeamInput } from "@/lib/db/schemas";
 import { isoTimestampNow, parseWithSchema } from "@/lib/sams/repository-utils";
 
@@ -15,22 +23,32 @@ export class SamsTeamsRepository {
     private readonly tableName?: string,
   ) {}
 
-  private entities() {
-    const table = this.tableName ?? getSamsTableName();
-    return createSamsDb(this.documentClient, table);
+  private table(): string {
+    return this.tableName ?? getSamsTableName();
   }
 
   async listAll(): Promise<SamsTeamInput[]> {
-    const result = await this.entities().team.query.byType({ type: "team" }).go({ pages: "all" });
-    return result.data.map((item) =>
-      parseWithSchema(samsTeamSchema, item, "Failed to parse SAMS team list item"),
+    const page = await queryGsi1(this.documentClient, this.table(), {
+      gsi1pk: "samsTeam",
+      indexName: SamsTableIndexes.gsi1,
+    });
+    return page.items.map((item) =>
+      parseWithSchema(
+        samsTeamSchema,
+        parseDomain(samsTeamSchema, item, "parse"),
+        "Failed to parse SAMS team list item",
+      ),
     );
   }
 
   async getById(uuid: string): Promise<SamsTeamInput | null> {
-    const result = await this.entities().team.get({ uuid }).go();
-    return result.data
-      ? parseWithSchema(samsTeamSchema, result.data, "Failed to parse SAMS team data")
+    const item = await getItem(this.documentClient, this.table(), samsTeamMainKeys(uuid));
+    return item
+      ? parseWithSchema(
+          samsTeamSchema,
+          parseDomain(samsTeamSchema, item, "parse"),
+          "Failed to parse SAMS team data",
+        )
       : null;
   }
 
@@ -40,12 +58,17 @@ export class SamsTeamsRepository {
   }
 
   async queryByNameSlugPrefix(nameSlugPrefix: string): Promise<SamsTeamInput[]> {
-    const result = await this.entities()
-      .team.query.byType({ type: "team" })
-      .begins({ nameSlug: nameSlugPrefix })
-      .go({ pages: "all" });
-    return result.data.map((item) =>
-      parseWithSchema(samsTeamSchema, item, "Failed to parse SAMS team query item"),
+    const page = await queryGsi1(this.documentClient, this.table(), {
+      gsi1pk: "samsTeam",
+      beginsWithGsi1sk: nameSlugPrefix,
+      indexName: SamsTableIndexes.gsi1,
+    });
+    return page.items.map((item) =>
+      parseWithSchema(
+        samsTeamSchema,
+        parseDomain(samsTeamSchema, item, "parse"),
+        "Failed to parse SAMS team query item",
+      ),
     );
   }
 
@@ -59,7 +82,7 @@ export class SamsTeamsRepository {
       },
       "Failed to parse SAMS team upsert input",
     );
-    await this.entities().team.put(item).go();
+    await putItem(this.documentClient, this.table(), samsTeamItemFromDomain(item));
     return item;
   }
 
@@ -68,7 +91,7 @@ export class SamsTeamsRepository {
   }
 
   async delete(uuid: string): Promise<void> {
-    await this.entities().team.delete({ uuid }).go();
+    await deleteItem(this.documentClient, this.table(), samsTeamMainKeys(uuid));
   }
 }
 

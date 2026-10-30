@@ -1,7 +1,8 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
-import { createSamsDb } from "@/lib/db/electrodb-client";
 import { getSamsTableName } from "@/lib/db/env";
+import { deleteItem, getItem, parseDomain, putItem } from "@/lib/db/repositories/dynamo-helpers";
+import { samsRosterItemFromDomain, samsRosterMainKeys } from "@/lib/db/sams-keys";
 import { samsRosterSchema, type SamsRosterInput } from "@/lib/db/schemas";
 import { isoTimestampNow, parseWithSchema } from "@/lib/sams/repository-utils";
 
@@ -15,15 +16,18 @@ export class SamsRostersRepository {
     private readonly tableName?: string,
   ) {}
 
-  private entities() {
-    const table = this.tableName ?? getSamsTableName();
-    return createSamsDb(this.documentClient, table);
+  private table(): string {
+    return this.tableName ?? getSamsTableName();
   }
 
   async getByTeamUuid(teamUuid: string): Promise<SamsRosterInput | null> {
-    const result = await this.entities().roster.get({ teamUuid }).go();
-    return result.data
-      ? parseWithSchema(samsRosterSchema, result.data, "Failed to parse SAMS roster data")
+    const item = await getItem(this.documentClient, this.table(), samsRosterMainKeys(teamUuid));
+    return item
+      ? parseWithSchema(
+          samsRosterSchema,
+          parseDomain(samsRosterSchema, item, "parse"),
+          "Failed to parse SAMS roster data",
+        )
       : null;
   }
 
@@ -37,12 +41,12 @@ export class SamsRostersRepository {
       },
       "Failed to parse SAMS roster upsert input",
     );
-    await this.entities().roster.put(item).go();
+    await putItem(this.documentClient, this.table(), samsRosterItemFromDomain(item));
     return item;
   }
 
   async delete(teamUuid: string): Promise<void> {
-    await this.entities().roster.delete({ teamUuid }).go();
+    await deleteItem(this.documentClient, this.table(), samsRosterMainKeys(teamUuid));
   }
 }
 

@@ -1,7 +1,8 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
-import { createSamsDb } from "@/lib/db/electrodb-client";
 import { getSamsTableName } from "@/lib/db/env";
+import { getItem, parseDomain, putItem } from "@/lib/db/repositories/dynamo-helpers";
+import { samsRankingItemFromDomain, samsRankingKeys } from "@/lib/db/sams-keys";
 import {
   samsLeagueRankingProjectionSchema,
   type SamsLeagueRankingProjectionInput,
@@ -27,19 +28,24 @@ export class SamsRankingProjectionRepository {
     private readonly tableName?: string,
   ) {}
 
-  private entities() {
-    const table = this.tableName ?? getSamsTableName();
-    return createSamsDb(this.documentClient, table);
+  private table(): string {
+    return this.tableName ?? getSamsTableName();
   }
 
   async get(
     leagueUuid: string,
     seasonUuid: string,
   ): Promise<SamsLeagueRankingProjectionInput | null> {
-    const result = await this.entities().ranking.get({ leagueUuid, seasonUuid }).go();
-    if (!result.data) return null;
+    const raw = await getItem(
+      this.documentClient,
+      this.table(),
+      samsRankingKeys(leagueUuid, seasonUuid),
+    );
+    if (!raw) return null;
 
-    const parsed = samsLeagueRankingProjectionSchema.safeParse(result.data);
+    const parsed = samsLeagueRankingProjectionSchema.safeParse(
+      parseDomain(samsLeagueRankingProjectionSchema, raw, "parse"),
+    );
     if (!parsed.success) {
       console.warn("Failed to parse SAMS ranking projection; treating as missing", {
         leagueUuid,
@@ -62,7 +68,7 @@ export class SamsRankingProjectionRepository {
       },
       "Failed to parse SAMS ranking projection upsert input",
     );
-    await this.entities().ranking.put(item).go();
+    await putItem(this.documentClient, this.table(), samsRankingItemFromDomain(item));
     return item;
   }
 }
