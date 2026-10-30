@@ -253,6 +253,20 @@ export const samsClubLogoSchema = z.object({
 
 export type SamsClubLogoInput = z.infer<typeof samsClubLogoSchema>;
 
+/** Team logo index — CDN URL keyed by SAMS team UUID (from ranking sync). */
+export const samsTeamLogoSchema = z.object({
+  teamUuid: z.string().min(1),
+  type: z
+    .literal("samsteamlogo")
+    .default("samsteamlogo")
+    .describe("Entity type discriminator for team logo index rows"),
+  logoUrl: z.string().min(1).describe("HTTPS CDN or data URI logo URL from ranking entries"),
+  updatedAt: z.iso.datetime(),
+  ttl: z.number().int().positive().describe("Unix timestamp for DynamoDB TTL (1-year expiry)"),
+});
+
+export type SamsTeamLogoInput = z.infer<typeof samsTeamLogoSchema>;
+
 /** Public club record — omits query/TTL internals. */
 export const ClubResponseSchema = samsClubSchema.omit({
   nameSlug: true,

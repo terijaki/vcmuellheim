@@ -441,21 +441,28 @@ export async function processSamsProviderEvent(
       });
       const logoUpdatedAt = isoTimestampNow();
       const logoTtl = unixTtlSecondsFromNow(SAMS_PROJECTION_TTL_DAYS);
-      await Promise.all(
-        teams
-          .filter(
-            (team): team is typeof team & { sportsclubUuid: string; logoUrl: string } =>
-              !!team.sportsclubUuid && !!team.logoUrl,
-          )
-          .map((team) =>
-            repos.clubLogos.upsert({
-              sportsclubUuid: team.sportsclubUuid,
-              logoUrl: team.logoUrl,
-              updatedAt: logoUpdatedAt,
-              ttl: logoTtl,
-            }),
-          ),
+      const teamsWithLogo = teams.filter(
+        (team): team is typeof team & { sportsclubUuid: string; logoUrl: string } =>
+          !!team.sportsclubUuid && !!team.logoUrl,
       );
+      await Promise.all([
+        ...teamsWithLogo.map((team) =>
+          repos.clubLogos.upsert({
+            sportsclubUuid: team.sportsclubUuid,
+            logoUrl: team.logoUrl,
+            updatedAt: logoUpdatedAt,
+            ttl: logoTtl,
+          }),
+        ),
+        ...teamsWithLogo.map((team) =>
+          repos.teamLogos.upsert({
+            teamUuid: team.uuid,
+            logoUrl: team.logoUrl,
+            updatedAt: logoUpdatedAt,
+            ttl: logoTtl,
+          }),
+        ),
+      ]);
       await rebuildAppReadModels(repos);
       return;
     }

@@ -29,6 +29,7 @@ import {
   AppTermineMatchEntity,
   SamsClubEntity,
   SamsClubLogoEntity,
+  SamsTeamLogoEntity,
   SamsRankingEntity,
   SamsRosterEntity,
   SamsScheduleEntity,
@@ -48,6 +49,7 @@ import {
   newsSchema,
   samsClubSchema,
   samsClubLogoSchema,
+  samsTeamLogoSchema,
   samsLeagueRankingProjectionSchema,
   samsRosterSchema,
   samsClubScheduleProjectionSchema,
@@ -191,6 +193,10 @@ describe("SAMS ElectroDB ↔ Zod drift detection", () => {
 
   it("SamsClubLogo entity attributes match samsClubLogoSchema", () => {
     checkDrift("SamsClubLogo", samsClubLogoSchema, SamsClubLogoEntity);
+  });
+
+  it("SamsTeamLogo entity attributes match samsTeamLogoSchema", () => {
+    checkDrift("SamsTeamLogo", samsTeamLogoSchema, SamsTeamLogoEntity);
   });
 
   it("SamsTeam entity attributes match samsTeamSchema", () => {
