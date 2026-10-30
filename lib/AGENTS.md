@@ -45,7 +45,7 @@ This file provides instructions specific to the `lib/` directory, which contains
 ## DB conventions
 
 - DynamoDB access goes through repository modules:
-  - Content table: ElectroDB entities in `lib/db/electrodb-*.ts`
+  - Content table: DocumentClient repositories in `lib/db/repositories/`
   - SAMS table: `lib/sams/repositories/`
   - Social table item repos: `lib/db/` (e.g. match Mastodon share ledger) and `lib/social/` (e.g. Behold feed)
 - Shared Zod schemas live in `lib/db/schemas.ts` — update schemas and repositories together.

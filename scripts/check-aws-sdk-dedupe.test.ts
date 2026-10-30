@@ -3,7 +3,7 @@ import { findInstalledPackageVersions, uniqueVersions } from "./check-aws-sdk-de
 
 const PACKAGES = ["@aws-sdk/lib-dynamodb", "@aws-sdk/util-dynamodb"] as const;
 
-describe("AWS SDK / ElectroDB version dedupe", () => {
+describe("AWS SDK version dedupe", () => {
   for (const packageName of PACKAGES) {
     it(`installs a single ${packageName} version`, () => {
       const installs = findInstalledPackageVersions(packageName);
@@ -12,8 +12,8 @@ describe("AWS SDK / ElectroDB version dedupe", () => {
       expect(
         versions,
         [
-          `ElectroDB and app DocumentClient code must share one ${packageName} copy.`,
-          "Multiple versions break ElectroDB queries (undefined LastEvaluatedKey / Item).",
+          `App DocumentClient code must share one ${packageName} copy.`,
+          "Multiple versions break DynamoDB queries (undefined LastEvaluatedKey / Item).",
           `Fix: set package.json overrides["${packageName}"] to the root dependency`,
           "version, then reinstall.",
           "",
