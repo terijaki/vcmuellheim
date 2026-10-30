@@ -146,14 +146,28 @@ describe("ContentDbStack", () => {
   });
 
   describe("GSI configuration", () => {
-    it("removes GSI4-ByIdentifier and keeps the remaining content indexes", () => {
+    it("creates dev tables with GSI1 only", () => {
       const app = createTestApp();
       const stack = new ContentDbStack(app, "TestStack", {
         stackProps: { environment: "dev", branch: "" },
       });
 
       const template = Template.fromStack(stack);
+      const resources = template.findResources("AWS::DynamoDB::Table");
+      const table = Object.values(resources)[0] as {
+        Properties?: { GlobalSecondaryIndexes?: Array<{ IndexName?: string }> };
+      };
+      const indexes = table.Properties?.GlobalSecondaryIndexes ?? [];
+      expect(indexes.map((index) => index.IndexName)).toEqual([ContentTableIndexes.gsi1]);
+    });
 
+    it("removes GSI4-ByIdentifier on prod", () => {
+      const app = createTestApp();
+      const stack = new ContentDbStack(app, "TestStack", {
+        stackProps: { environment: "prod", branch: "" },
+      });
+
+      const template = Template.fromStack(stack);
       const resources = template.findResources("AWS::DynamoDB::Table");
       const table = Object.values(resources)[0] as {
         Properties?: { GlobalSecondaryIndexes?: Array<{ IndexName?: string }> };
