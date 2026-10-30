@@ -146,7 +146,7 @@ describe("ContentDbStack", () => {
   });
 
   describe("GSI configuration", () => {
-    it("should create only GSI1-ByTypeAndDate", () => {
+    it("drops only GSI2 and keeps the other content indexes", () => {
       const app = createTestApp();
       const stack = new ContentDbStack(app, "TestStack", {
         stackProps: { environment: "dev", branch: "" },
@@ -159,8 +159,13 @@ describe("ContentDbStack", () => {
         Properties?: { GlobalSecondaryIndexes?: Array<{ IndexName?: string }> };
       };
       const indexes = table.Properties?.GlobalSecondaryIndexes ?? [];
-      expect(indexes).toHaveLength(1);
-      expect(indexes[0]?.IndexName).toBe(ContentTableIndexes.gsi1);
+      expect(indexes.map((index) => index.IndexName)).toEqual([
+        ContentTableIndexes.gsi1,
+        "GSI3-BySlug",
+        "GSI4-ByIdentifier",
+        "GSI5-ByPrivateEmail",
+        "GSI6-ByEventId",
+      ]);
     });
 
     it("should have correct key schema for GSI1 (type+date)", () => {

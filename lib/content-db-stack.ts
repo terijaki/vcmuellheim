@@ -45,10 +45,41 @@ export class ContentDbStack extends cdk.Stack {
 
     this.contentTableStreamArn = this.contentTable.tableStreamArn!;
 
+    // DynamoDB allows one GSI create or delete per table update.
+    // This deploy removes GSI2-ByStatus only. GSI3–GSI6 stay until later deploys.
+    // Application code no longer reads or writes any of them.
     this.contentTable.addGlobalSecondaryIndex({
       indexName: ContentTableIndexes.gsi1,
       partitionKey: { name: "gsi1pk", type: dynamodb.AttributeType.STRING },
       sortKey: { name: "gsi1sk", type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+
+    this.contentTable.addGlobalSecondaryIndex({
+      indexName: "GSI3-BySlug",
+      partitionKey: { name: "gsi3pk", type: dynamodb.AttributeType.STRING },
+      sortKey: { name: "gsi3sk", type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+
+    this.contentTable.addGlobalSecondaryIndex({
+      indexName: "GSI4-ByIdentifier",
+      partitionKey: { name: "gsi4pk", type: dynamodb.AttributeType.STRING },
+      sortKey: { name: "gsi4sk", type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+
+    this.contentTable.addGlobalSecondaryIndex({
+      indexName: "GSI5-ByPrivateEmail",
+      partitionKey: { name: "gsi5pk", type: dynamodb.AttributeType.STRING },
+      sortKey: { name: "gsi5sk", type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+
+    this.contentTable.addGlobalSecondaryIndex({
+      indexName: "GSI6-ByEventId",
+      partitionKey: { name: "gsi6pk", type: dynamodb.AttributeType.STRING },
+      sortKey: { name: "gsi6sk", type: dynamodb.AttributeType.STRING },
       projectionType: dynamodb.ProjectionType.ALL,
     });
   }
