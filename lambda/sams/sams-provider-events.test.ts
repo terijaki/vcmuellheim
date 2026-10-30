@@ -26,6 +26,10 @@ function createMockRepos(): SamsRepositories {
       get: vi.fn().mockResolvedValue(null),
       upsert: vi.fn().mockResolvedValue(undefined),
     },
+    teamLogos: {
+      get: vi.fn().mockResolvedValue(null),
+      upsert: vi.fn().mockResolvedValue(undefined),
+    },
     teams: {
       listAll: vi.fn().mockResolvedValue([]),
       getById: vi.fn().mockResolvedValue(null),
@@ -142,7 +146,7 @@ describe("processSamsProviderEvent", () => {
     expect(firstUpsert?.players.length).toBeGreaterThan(0);
   });
 
-  it("replaces league ranking projections and upserts club logo index entries", async () => {
+  it("replaces league ranking projections and upserts club and team logo index entries", async () => {
     const fixture = samsProviderEventFixtures.find(
       (entry) => entry.type === SamsEventType.leagueRankingUpdated,
     );
@@ -157,6 +161,9 @@ describe("processSamsProviderEvent", () => {
     expect(repos.clubLogos.upsert).toHaveBeenCalled();
     const logoUpserts = vi.mocked(repos.clubLogos.upsert).mock.calls.map((call) => call[0]);
     expect(logoUpserts.every((entry) => entry.sportsclubUuid && entry.logoUrl)).toBe(true);
+    expect(repos.teamLogos.upsert).toHaveBeenCalled();
+    const teamLogoUpserts = vi.mocked(repos.teamLogos.upsert).mock.calls.map((call) => call[0]);
+    expect(teamLogoUpserts.every((entry) => entry.teamUuid && entry.logoUrl)).toBe(true);
   });
 
   it("skips ranking replace when snapshotVersion is unchanged", async () => {
@@ -171,6 +178,7 @@ describe("processSamsProviderEvent", () => {
 
     expect(repos.rankings.replace).not.toHaveBeenCalled();
     expect(repos.clubLogos.upsert).not.toHaveBeenCalled();
+    expect(repos.teamLogos.upsert).not.toHaveBeenCalled();
   });
 
   it("replaces club match schedule projections with provider Match shape", async () => {

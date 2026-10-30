@@ -4,10 +4,10 @@ type TeamSide = "team1" | "team2";
 
 export type LiveTickerDisplayMatch = {
   matchUuid: string;
+  team1Uuid: string;
+  team2Uuid: string;
   team1Name: string;
   team2Name: string;
-  team1ClubUuid?: string;
-  team2ClubUuid?: string;
   setPointsText: string;
   team1SetPoints: number;
   team2SetPoints: number;
@@ -48,9 +48,8 @@ export function getLiveTickerScoreDisplay(match: LiveTickerDisplayMatch): {
 export function toLiveTickerDisplayMatches(args: {
   liveMatches: LiveMatch[];
   ourTeamUuids: Set<string>;
-  teamClubByUuid: Map<string, string>;
 }): LiveTickerDisplayMatch[] {
-  const { liveMatches, ourTeamUuids, teamClubByUuid } = args;
+  const { liveMatches, ourTeamUuids } = args;
 
   const result: LiveTickerDisplayMatch[] = [];
 
@@ -78,10 +77,10 @@ export function toLiveTickerDisplayMatches(args: {
     const team2Name = match.team2Name;
     result.push({
       matchUuid: match.matchUuid,
+      team1Uuid: match.team1Uuid,
+      team2Uuid: match.team2Uuid,
       team1Name,
       team2Name,
-      team1ClubUuid: teamClubByUuid.get(match.team1Uuid),
-      team2ClubUuid: teamClubByUuid.get(match.team2Uuid),
       setPointsText,
       team1SetPoints,
       team2SetPoints,

@@ -30,4 +30,9 @@ export {
   createSamsClubLogoRepository,
   samsClubLogoRepository,
 } from "./sams-club-logo-repository";
+export {
+  SamsTeamLogoRepository,
+  createSamsTeamLogoRepository,
+  samsTeamLogoRepository,
+} from "./sams-team-logo-repository";
 export type { SamsProjectionMatchInput } from "@/lib/db/schemas";

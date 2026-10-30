@@ -50,6 +50,7 @@ import { Route as ApiAdminSplatRouteImport } from './routes/api/admin/$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiDevSeedRouteImport } from './routes/api/dev/seed'
 import { Route as ApiSamsLogosRouteImport } from './routes/api/sams/logos'
+import { Route as ApiSamsTeamLogosRouteImport } from './routes/api/sams/team-logos'
 import { Route as AdminLayoutVolunteerEventEventIdMessageRouteImport } from './routes/admin/_layout/volunteer-event_.$eventId.message'
 
 const LayoutRoute = LayoutRouteImport.update({
@@ -257,6 +258,11 @@ const ApiSamsLogosRoute = ApiSamsLogosRouteImport.update({
   path: '/api/sams/logos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSamsTeamLogosRoute = ApiSamsTeamLogosRouteImport.update({
+  id: '/api/sams/team-logos',
+  path: '/api/sams/team-logos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminLayoutVolunteerEventEventIdMessageRoute =
   AdminLayoutVolunteerEventEventIdMessageRouteImport.update({
     id: '/volunteer-event_/$eventId/message',
@@ -301,6 +307,7 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/dev/seed': typeof ApiDevSeedRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
+  '/api/sams/team-logos': typeof ApiSamsTeamLogosRoute
   '/news/': typeof LayoutNewsIndexRoute
   '/teams/': typeof LayoutTeamsIndexRoute
   '/termine/': typeof LayoutTermineIndexRoute
@@ -340,6 +347,7 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/dev/seed': typeof ApiDevSeedRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
+  '/api/sams/team-logos': typeof ApiSamsTeamLogosRoute
   '/news': typeof LayoutNewsIndexRoute
   '/teams': typeof LayoutTeamsIndexRoute
   '/termine': typeof LayoutTermineIndexRoute
@@ -385,6 +393,7 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/dev/seed': typeof ApiDevSeedRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
+  '/api/sams/team-logos': typeof ApiSamsTeamLogosRoute
   '/_layout/news/': typeof LayoutNewsIndexRoute
   '/_layout/teams/': typeof LayoutTeamsIndexRoute
   '/_layout/termine/': typeof LayoutTermineIndexRoute
@@ -430,6 +439,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/dev/seed'
     | '/api/sams/logos'
+    | '/api/sams/team-logos'
     | '/news/'
     | '/teams/'
     | '/termine/'
@@ -469,6 +479,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/dev/seed'
     | '/api/sams/logos'
+    | '/api/sams/team-logos'
     | '/news'
     | '/teams'
     | '/termine'
@@ -513,6 +524,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/dev/seed'
     | '/api/sams/logos'
+    | '/api/sams/team-logos'
     | '/_layout/news/'
     | '/_layout/teams/'
     | '/_layout/termine/'
@@ -530,6 +542,7 @@ export interface RootRouteChildren {
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiDevSeedRoute: typeof ApiDevSeedRoute
   ApiSamsLogosRoute: typeof ApiSamsLogosRoute
+  ApiSamsTeamLogosRoute: typeof ApiSamsTeamLogosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -821,6 +834,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSamsLogosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/sams/team-logos': {
+      id: '/api/sams/team-logos'
+      path: '/api/sams/team-logos'
+      fullPath: '/api/sams/team-logos'
+      preLoaderRoute: typeof ApiSamsTeamLogosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/_layout/volunteer-event_/$eventId/message': {
       id: '/admin/_layout/volunteer-event_/$eventId/message'
       path: '/volunteer-event/$eventId/message'
@@ -957,6 +977,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiDevSeedRoute: ApiDevSeedRoute,
   ApiSamsLogosRoute: ApiSamsLogosRoute,
+  ApiSamsTeamLogosRoute: ApiSamsTeamLogosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

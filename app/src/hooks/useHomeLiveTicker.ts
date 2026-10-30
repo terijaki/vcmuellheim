@@ -9,9 +9,8 @@ export function useHomeLiveTickerData() {
   const teams = samsTeamsData?.teams ?? [];
 
   const ourTeamUuids = getOwnedSamsTeamUuids(teams);
-  const teamClubByUuid = new Map(teams.map((team) => [team.uuid, team.sportsclubUuid]));
 
-  const ourMatches = toLiveTickerDisplayMatches({ liveMatches, ourTeamUuids, teamClubByUuid });
+  const ourMatches = toLiveTickerDisplayMatches({ liveMatches, ourTeamUuids });
   const hasMatchesToday = ourMatches.length > 0;
   const hasOpenMatches = ourMatches.some((match) => !match.isFinished);
 

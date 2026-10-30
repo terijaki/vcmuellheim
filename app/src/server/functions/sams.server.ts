@@ -24,6 +24,7 @@ import {
   appTabelleRepository,
   appTermineRepository,
   samsClubLogoRepository,
+  samsTeamLogoRepository,
   samsRankingProjectionRepository,
   samsScheduleProjectionRepository,
 } from "@/lib/sams/repositories";
@@ -629,9 +630,7 @@ function responseFromDataUri(uri: string): Response {
   });
 }
 
-export async function handleServeClubLogo(clubUuid: string): Promise<Response> {
-  const logo = await samsClubLogoRepository.get(clubUuid);
-  const source = logo?.logoUrl;
+async function serveStoredLogoUrl(source: string | undefined): Promise<Response> {
   if (!source) return logoErrorResponse(404, "Not found");
   if (source.startsWith("data:")) return responseFromDataUri(source);
   if (!source.startsWith("https://")) return logoErrorResponse(404, "Unsupported logo URL");
@@ -658,6 +657,16 @@ export async function handleServeClubLogo(clubUuid: string): Promise<Response> {
   } catch {
     return logoErrorResponse(502, "Logo fetch failed");
   }
+}
+
+export async function handleServeClubLogo(clubUuid: string): Promise<Response> {
+  const logo = await samsClubLogoRepository.get(clubUuid);
+  return serveStoredLogoUrl(logo?.logoUrl);
+}
+
+export async function handleServeTeamLogo(teamUuid: string): Promise<Response> {
+  const logo = await samsTeamLogoRepository.get(teamUuid);
+  return serveStoredLogoUrl(logo?.logoUrl);
 }
 
 // ── SAMS Live Ticker proxy ────────────────────────────────────────────────────

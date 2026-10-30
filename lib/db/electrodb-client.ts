@@ -40,6 +40,7 @@ import {
   SamsRosterEntity,
   SamsScheduleEntity,
   SamsTeamEntity,
+  SamsTeamLogoEntity,
 } from "./sams-electrodb-entities";
 
 /** All entities registered in the service */
@@ -89,6 +90,7 @@ export function db(): ReturnType<typeof createDb> {
 const samsEntityMap = {
   club: SamsClubEntity,
   clubLogo: SamsClubLogoEntity,
+  teamLogo: SamsTeamLogoEntity,
   team: SamsTeamEntity,
   roster: SamsRosterEntity,
   schedule: SamsScheduleEntity,

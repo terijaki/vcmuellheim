@@ -9,6 +9,7 @@
  *   · Default behavior → Lambda Function URL (all requests: SSR + API routes)
  *   · /api/admin/* → Lambda Function URL (caching disabled; Authorization is not a cache key)
  *   · /api/sams/logos → Lambda Function URL (cached per club query string)
+ *   · /api/sams/team-logos → Lambda Function URL (cached per team query string)
  *   · /assets/* behavior → S3 static assets origin (immutable, long TTL)
  *   · /docs/* behavior → S3 static assets origin (downloadable documents)
  * - S3 bucket for static assets (.output/public/)
@@ -256,6 +257,15 @@ export class WebAppStack extends cdk.Stack {
       queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList("clubUuid"),
     });
 
+    const teamLogosCachePolicy = new cloudfront.CachePolicy(this, "TeamLogosCachePolicy", {
+      cachePolicyName: `vcm-webapp-team-logos-${environment}${branchSuffix}`,
+      defaultTtl: cdk.Duration.days(1),
+      minTtl: cdk.Duration.seconds(0),
+      maxTtl: cdk.Duration.days(7),
+      comment: "Cache /api/sams/team-logos per teamUuid query string",
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList("teamUuid"),
+    });
+
     // ── CloudFront distribution ────────────────────────────────────────────
     const lambdaOrigin = new origins.FunctionUrlOrigin(fnUrl);
     const s3Origin = origins.S3BucketOrigin.withOriginAccessControl(assetsBucket);
@@ -330,6 +340,16 @@ export class WebAppStack extends cdk.Stack {
           allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
           cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
           cachePolicy: clubLogosCachePolicy,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+          responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
+          compress: true,
+        },
+        "/api/sams/team-logos": {
+          origin: lambdaOrigin,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+          cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+          cachePolicy: teamLogosCachePolicy,
           originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
           responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
           compress: true,

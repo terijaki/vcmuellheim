@@ -9,12 +9,14 @@ import {
   handleGetSamsRankingByLeagueUuid,
   handlePeekSamsMatchesCache,
   handleServeClubLogo,
+  handleServeTeamLogo,
 } from "./sams.server";
 
 vi.mock("@/lib/sams/repositories", () => ({
   samsScheduleProjectionRepository: { listMatchesForSportsclubs: vi.fn(), get: vi.fn() },
   samsRankingProjectionRepository: { get: vi.fn() },
   samsClubLogoRepository: { get: vi.fn(), upsert: vi.fn() },
+  samsTeamLogoRepository: { get: vi.fn(), upsert: vi.fn() },
   appTabelleRepository: { listByDataset: vi.fn(), replaceDataset: vi.fn() },
   appTermineRepository: { listByDataset: vi.fn(), query: vi.fn(), replaceDataset: vi.fn() },
 }));
@@ -28,6 +30,7 @@ import {
   appTabelleRepository,
   appTermineRepository,
   samsClubLogoRepository,
+  samsTeamLogoRepository,
   samsRankingProjectionRepository,
   samsScheduleProjectionRepository,
 } from "@/lib/sams/repositories";
@@ -36,6 +39,7 @@ import { getAllSamsClubs, getAllSamsTeams } from "@webapp/server/queries";
 const mockList = vi.mocked(samsScheduleProjectionRepository.listMatchesForSportsclubs);
 const mockRankingGet = vi.mocked(samsRankingProjectionRepository.get);
 const mockClubLogoGet = vi.mocked(samsClubLogoRepository.get);
+const mockTeamLogoGet = vi.mocked(samsTeamLogoRepository.get);
 const mockAppTabelleList = vi.mocked(appTabelleRepository.listByDataset);
 const mockAppTermineQuery = vi.mocked(appTermineRepository.query);
 const mockClubs = vi.mocked(getAllSamsClubs);
@@ -313,6 +317,34 @@ describe("handleServeClubLogo", () => {
   it("returns 404 when the logo index has no entry", async () => {
     mockClubLogoGet.mockResolvedValue(null);
     const response = await handleServeClubLogo("club-1");
+    expect(response.status).toBe(404);
+  });
+});
+
+describe("handleServeTeamLogo", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("streams SVG bytes from a data URI stored on the team logo index", async () => {
+    const svg = "<svg xmlns='http://www.w3.org/2000/svg'></svg>";
+    mockTeamLogoGet.mockResolvedValue({
+      type: "samsteamlogo",
+      teamUuid: "team-1",
+      logoUrl: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+      ttl: 1,
+    });
+
+    const response = await handleServeTeamLogo("team-1");
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toBe("image/svg+xml;charset=utf-8");
+    expect(await response.text()).toBe(svg);
+  });
+
+  it("returns 404 when the team logo index has no entry", async () => {
+    mockTeamLogoGet.mockResolvedValue(null);
+    const response = await handleServeTeamLogo("team-1");
     expect(response.status).toBe(404);
   });
 });

@@ -21,6 +21,10 @@ function createRepos(overrides: Partial<SamsRepositories> = {}): SamsRepositorie
       get: vi.fn(),
       upsert: vi.fn(),
     },
+    teamLogos: {
+      get: vi.fn(),
+      upsert: vi.fn(),
+    },
     teams: {
       listAll: vi.fn().mockResolvedValue([
         {

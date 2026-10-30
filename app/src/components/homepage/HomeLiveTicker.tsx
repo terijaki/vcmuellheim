@@ -28,36 +28,28 @@ export default function HomeLiveTicker({ matches, embedded = false }: HomeLiveTi
   );
 }
 
-function MatchClubLogo({
-  clubUuid,
+function MatchTeamLogo({
+  teamUuid,
   label,
   size,
 }: {
-  clubUuid?: string;
+  teamUuid: string;
   label: string;
   size: number;
 }) {
-  return clubUuid ? (
-    <ClubLogo clubUuid={clubUuid} label={label} size={size} />
-  ) : (
-    <ClubLogo logoUrl={null} label={label} size={size} />
-  );
+  return <ClubLogo teamUuid={teamUuid} label={label} size={size} />;
 }
 
 function LiveMatchCard({ match }: { match: LiveTickerDisplayMatch }) {
   const { primaryText, secondaryText } = getLiveTickerScoreDisplay(match);
 
-  const team1Logo = (
-    <MatchClubLogo clubUuid={match.team1ClubUuid} label={match.team1Name} size={104} />
-  );
-  const team2Logo = (
-    <MatchClubLogo clubUuid={match.team2ClubUuid} label={match.team2Name} size={104} />
-  );
+  const team1Logo = <MatchTeamLogo teamUuid={match.team1Uuid} label={match.team1Name} size={104} />;
+  const team2Logo = <MatchTeamLogo teamUuid={match.team2Uuid} label={match.team2Name} size={104} />;
   const team1LogoMobile = (
-    <MatchClubLogo clubUuid={match.team1ClubUuid} label={match.team1Name} size={72} />
+    <MatchTeamLogo teamUuid={match.team1Uuid} label={match.team1Name} size={72} />
   );
   const team2LogoMobile = (
-    <MatchClubLogo clubUuid={match.team2ClubUuid} label={match.team2Name} size={72} />
+    <MatchTeamLogo teamUuid={match.team2Uuid} label={match.team2Name} size={72} />
   );
 
   return (

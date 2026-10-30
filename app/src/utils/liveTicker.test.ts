@@ -9,7 +9,6 @@ import {
 const OUR_UUID = "team-ours";
 const THEIR_UUID = "team-theirs";
 const ourTeamUuids = new Set([OUR_UUID]);
-const emptyMaps = { teamClubByUuid: new Map<string, string>() };
 
 const makeMatch = (overrides: Partial<LiveMatch> = {}): LiveMatch => ({
   matchUuid: "match-1",
@@ -29,19 +28,19 @@ const makeMatch = (overrides: Partial<LiveMatch> = {}): LiveMatch => ({
 describe("toLiveTickerDisplayMatches", () => {
   it("filters out matches where neither team is ours", () => {
     const match = makeMatch({ team1Uuid: "other-1", team2Uuid: "other-2" });
-    const result = toLiveTickerDisplayMatches({ liveMatches: [match], ourTeamUuids, ...emptyMaps });
+    const result = toLiveTickerDisplayMatches({ liveMatches: [match], ourTeamUuids });
     expect(result).toHaveLength(0);
   });
 
   it("includes match where team1 is ours", () => {
     const match = makeMatch({ team1Uuid: OUR_UUID });
-    const result = toLiveTickerDisplayMatches({ liveMatches: [match], ourTeamUuids, ...emptyMaps });
+    const result = toLiveTickerDisplayMatches({ liveMatches: [match], ourTeamUuids });
     expect(result).toHaveLength(1);
   });
 
   it("includes match where team2 is ours", () => {
     const match = makeMatch({ team1Uuid: THEIR_UUID, team2Uuid: OUR_UUID });
-    const result = toLiveTickerDisplayMatches({ liveMatches: [match], ourTeamUuids, ...emptyMaps });
+    const result = toLiveTickerDisplayMatches({ liveMatches: [match], ourTeamUuids });
     expect(result).toHaveLength(1);
   });
 
@@ -52,7 +51,6 @@ describe("toLiveTickerDisplayMatches", () => {
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      ...emptyMaps,
     });
     expect(result?.setPointsText).toBe("2:1");
   });
@@ -64,7 +62,6 @@ describe("toLiveTickerDisplayMatches", () => {
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      ...emptyMaps,
     });
     expect(result?.team1SetPoints).toBe(3);
     expect(result?.team2SetPoints).toBe(2);
@@ -77,7 +74,6 @@ describe("toLiveTickerDisplayMatches", () => {
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      ...emptyMaps,
     });
     expect(result?.isFinished).toBe(true);
   });
@@ -89,7 +85,6 @@ describe("toLiveTickerDisplayMatches", () => {
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      ...emptyMaps,
     });
     expect(result?.weAreWinning).toBe(true);
   });
@@ -103,7 +98,6 @@ describe("toLiveTickerDisplayMatches", () => {
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      ...emptyMaps,
     });
     expect(result?.weAreWinning).toBe(false);
   });
@@ -124,7 +118,6 @@ describe("toLiveTickerDisplayMatches", () => {
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      ...emptyMaps,
     });
     expect(result?.setScores.map((s) => s.setNumber)).toEqual([1, 2, 3]);
   });
@@ -144,7 +137,6 @@ describe("toLiveTickerDisplayMatches", () => {
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      ...emptyMaps,
     });
     expect(result?.activeSetNumber).toBe(2);
   });
@@ -161,7 +153,6 @@ describe("toLiveTickerDisplayMatches", () => {
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      ...emptyMaps,
     });
     expect(result?.activeSetNumber).toBeNull();
   });
@@ -173,7 +164,6 @@ describe("toLiveTickerDisplayMatches", () => {
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      ...emptyMaps,
     });
     expect(result?.activeSetNumber).toBeNull();
   });
@@ -183,26 +173,19 @@ describe("toLiveTickerDisplayMatches", () => {
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      ...emptyMaps,
     });
     expect(result?.team1Name).toBe("VC Müllheim 1");
     expect(result?.team2Name).toBe("Gegner 2");
   });
 
-  it("maps club logos from team UUID to sportsclub UUID, not from the team name", () => {
+  it("passes through team UUIDs for logo proxy lookup", () => {
     const match = makeMatch({ team1Name: "VC Müllheim 1", team2Name: "Mighty Ducks 2" });
     const [result] = toLiveTickerDisplayMatches({
       liveMatches: [match],
       ourTeamUuids,
-      teamClubByUuid: new Map([
-        [OUR_UUID, "club-vc-muellheim"],
-        [THEIR_UUID, "club-opp-mighty-ducks"],
-      ]),
     });
-    expect(result?.team1ClubUuid).toBe("club-vc-muellheim");
-    expect(result?.team2ClubUuid).toBe("club-opp-mighty-ducks");
-    expect(result).not.toHaveProperty("team1ClubSlug");
-    expect(result).not.toHaveProperty("team2ClubSlug");
+    expect(result?.team1Uuid).toBe(OUR_UUID);
+    expect(result?.team2Uuid).toBe(THEIR_UUID);
   });
 });
 
@@ -211,6 +194,8 @@ describe("getLiveTickerScoreDisplay", () => {
     overrides: Partial<LiveTickerDisplayMatch> = {},
   ): LiveTickerDisplayMatch => ({
     matchUuid: "match-1",
+    team1Uuid: "team-a",
+    team2Uuid: "team-b",
     team1Name: "Team A",
     team2Name: "Team B",
     setPointsText: "0:0",
