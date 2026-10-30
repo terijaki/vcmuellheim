@@ -55,4 +55,5 @@ export class ContentDbStack extends cdk.Stack {
       sortKey: { name: "gsi1sk", type: dynamodb.AttributeType.STRING },
       projectionType: dynamodb.ProjectionType.ALL,
     });
-
+  }
+}
