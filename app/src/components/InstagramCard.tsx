@@ -2,8 +2,13 @@ import { Card, CardSection, Image, Stack, Text } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import type { BeholdPost } from "@/lambda/social/types";
 
-/** Square media column; card height follows caption + hashtags (no fixed max). */
+/** Square media column; card height matches media (text uses line-clamp inside). */
 const MEDIA_SIZE = 180;
+
+/** Caption lines that fit in the text column beside 180px media (incl. padding + hashtags). */
+export function captionLineClamp(hashtagCount: number): number {
+  return hashtagCount > 0 ? 4 : 6;
+}
 
 export default function InstagramCard(post: BeholdPost) {
   const [isHovered, setIsHovered] = useState(false);
@@ -46,8 +51,9 @@ export default function InstagramCard(post: BeholdPost) {
       rel="noopener noreferrer"
       radius="md"
       shadow="sm"
+      h={MEDIA_SIZE}
+      mah={MEDIA_SIZE}
       orientation="horizontal"
-      styles={{ root: { alignItems: "flex-start" } }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setIsHovered(false)}
       data-post-id={id}
@@ -100,10 +106,17 @@ export default function InstagramCard(post: BeholdPost) {
           }}
         />
       </CardSection>
-      <Stack gap="xs" p="sm" style={{ flex: 1, minWidth: 0 }}>
-        <Text lineClamp={10}>{prunedCaption}</Text>
+      <Stack
+        gap="xs"
+        p="sm"
+        h="100%"
+        style={{ flex: 1, minWidth: 0, minHeight: 0, overflow: "hidden" }}
+      >
+        <Text lineClamp={captionLineClamp(hashtags.length)} style={{ flex: 1, minHeight: 0 }}>
+          {prunedCaption}
+        </Text>
         {hashtags.length > 0 && (
-          <Text size="xs" fw="bold" lineClamp={2}>
+          <Text size="xs" fw="bold" lineClamp={2} style={{ flexShrink: 0 }}>
             {hashtags.map((h) => `#${h}`).join(" ")}
           </Text>
         )}
