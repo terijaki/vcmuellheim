@@ -42,18 +42,6 @@ export default function HomeIntro({
       {(isPortrait || isMobile) && (
         <Container size="xs" pt="xl" mt="xl" style={{ zIndex: 2 }}>
           <Group gap="xs" justify="center">
-            {showLiveLink && (
-              <Button
-                component={Link}
-                to="/live"
-                bg="red"
-                radius="xl"
-                bd="1px white solid"
-                c="white"
-              >
-                Live
-              </Button>
-            )}
             {navbarLinks.map((link) => {
               return (
                 <Button
@@ -73,6 +61,18 @@ export default function HomeIntro({
                 </Button>
               );
             })}
+            {showLiveLink && (
+              <Button
+                component={Link}
+                to="/live"
+                bg="red"
+                radius="xl"
+                bd="1px white solid"
+                c="white"
+              >
+                Live
+              </Button>
+            )}
           </Group>
         </Container>
       )}
