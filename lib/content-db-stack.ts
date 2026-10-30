@@ -45,9 +45,10 @@ export class ContentDbStack extends cdk.Stack {
 
     this.contentTableStreamArn = this.contentTable.tableStreamArn!;
 
-    // DynamoDB allows one GSI create or delete per table update.
-    // This deploy removes GSI3-BySlug only. GSI4–GSI6 stay until later deploys.
-    // Application code no longer reads or writes these indexes.
+    // Application code only queries GSI1. Prod still has the older indexes.
+    // DynamoDB allows one GSI change per table update, so this prod deploy
+    // removes GSI3-BySlug only. GSI4–GSI6 stay until later deploys.
+    // Dev and feature-branch tables keep GSI1 only.
     this.contentTable.addGlobalSecondaryIndex({
       indexName: ContentTableIndexes.gsi1,
       partitionKey: { name: "gsi1pk", type: dynamodb.AttributeType.STRING },
@@ -55,25 +56,20 @@ export class ContentDbStack extends cdk.Stack {
       projectionType: dynamodb.ProjectionType.ALL,
     });
 
-    this.contentTable.addGlobalSecondaryIndex({
-      indexName: "GSI4-ByIdentifier",
-      partitionKey: { name: "gsi4pk", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "gsi4sk", type: dynamodb.AttributeType.STRING },
-      projectionType: dynamodb.ProjectionType.ALL,
-    });
-
-    this.contentTable.addGlobalSecondaryIndex({
-      indexName: "GSI5-ByPrivateEmail",
-      partitionKey: { name: "gsi5pk", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "gsi5sk", type: dynamodb.AttributeType.STRING },
-      projectionType: dynamodb.ProjectionType.ALL,
-    });
-
-    this.contentTable.addGlobalSecondaryIndex({
-      indexName: "GSI6-ByEventId",
-      partitionKey: { name: "gsi6pk", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "gsi6sk", type: dynamodb.AttributeType.STRING },
-      projectionType: dynamodb.ProjectionType.ALL,
-    });
+    if (isProd) {
+      const retainedIndexes = [
+        { indexName: "GSI4-ByIdentifier", partitionKey: "gsi4pk", sortKey: "gsi4sk" },
+        { indexName: "GSI5-ByPrivateEmail", partitionKey: "gsi5pk", sortKey: "gsi5sk" },
+        { indexName: "GSI6-ByEventId", partitionKey: "gsi6pk", sortKey: "gsi6sk" },
+      ] as const;
+      for (const index of retainedIndexes) {
+        this.contentTable.addGlobalSecondaryIndex({
+          indexName: index.indexName,
+          partitionKey: { name: index.partitionKey, type: dynamodb.AttributeType.STRING },
+          sortKey: { name: index.sortKey, type: dynamodb.AttributeType.STRING },
+          projectionType: dynamodb.ProjectionType.ALL,
+        });
+      }
+    }
   }
 }
