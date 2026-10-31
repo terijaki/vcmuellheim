@@ -5,10 +5,10 @@
 import { createAdapterFactory } from "better-auth/adapters";
 import { memberRepository } from "@/lib/db/repositories/member-repository";
 
-type ElectroItem = Record<string, unknown>;
+type MemberRecord = Record<string, unknown>;
 
-function toAuthView(member: ElectroItem): ElectroItem {
-  const { privateEmail, ...rest } = member as { privateEmail?: unknown } & ElectroItem;
+function toAuthView(member: MemberRecord): MemberRecord {
+  const { privateEmail, ...rest } = member as { privateEmail?: unknown } & MemberRecord;
   return { ...rest, email: privateEmail ?? "", emailVerified: true };
 }
 
@@ -31,7 +31,7 @@ export const memberAuthAdapter = createAdapterFactory({
       if (idWhere) {
         const item = await memberRepository.getById(idWhere.value as string);
         if (!item) return null;
-        const member = item as ElectroItem;
+        const member = item as MemberRecord;
         if (member.authRole !== "Admin" && member.authRole !== "Moderator") return null;
         const result = toAuthView(member);
         return applySelect(result, select) as ReturnType<typeof Object.assign>;
@@ -89,9 +89,9 @@ export const memberAuthAdapter = createAdapterFactory({
   }),
 });
 
-function applySelect(item: ElectroItem, select?: string[]): ElectroItem {
+function applySelect(item: MemberRecord, select?: string[]): MemberRecord {
   if (!select || select.length === 0) return item;
-  const result: ElectroItem = {};
+  const result: MemberRecord = {};
   for (const key of select) {
     if (key in item) result[key] = item[key];
   }

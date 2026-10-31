@@ -1,14 +1,14 @@
 /**
- * Processes nullable optional field updates for ElectroDB patch operations.
+ * Processes nullable optional field updates for DynamoDB partial writes.
  *
  * Conventions:
- *   null      → field should be REMOVED from DynamoDB  (ElectroDB .remove())
- *   undefined → field should be left untouched          (omit from .set / .remove)
- *   value     → field should be SET to the given value  (ElectroDB .set())
+ *   null      → field should be REMOVED (UpdateItem REMOVE)
+ *   undefined → field should be left untouched
+ *   value     → field should be SET (UpdateItem SET)
  *
  * Returns:
- *   setFields  — object to spread into `.set({ ...setFields })`
- *   removeKeys — array to pass to `.remove(removeKeys)`
+ *   setFields  — attributes to include in SET
+ *   removeKeys — attribute names to REMOVE
  */
 export function resolveNullableUpdates<K extends string>(
   fields: Record<K, string | number | boolean | null | undefined>,

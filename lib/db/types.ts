@@ -43,5 +43,5 @@ export type BaseEntity = {
   updatedAt: string;
 };
 
-/** Pagination cursor — ElectroDB base64-encoded last-evaluated-key string */
+/** Opaque pagination cursor (`encodeDynamoCursor` / `decodeDynamoCursor`). */
 export type PaginationCursor = string;
