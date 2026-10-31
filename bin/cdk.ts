@@ -90,10 +90,16 @@ if (deployBuntime) {
     ...commonStackProps,
     description: `Social Media API Services (${envLabel})`,
     contentTableName: contentDbStack.contentTableName,
-    contentTableStreamArn: contentDbStack.contentTableStreamArn,
+    // Prod looks the stream ARN up itself. Passing the token exports it, and
+    // CloudFormation then refuses the GSI update while this stack imports it.
+    // Social must deploy first so the import is gone before the table changes.
+    ...(isProd ? {} : { contentTableStreamArn: contentDbStack.contentTableStreamArn }),
     websiteUrl: buildWebappUrl(environment, branch),
     mediaBucketName: mediaStack.bucketName,
   });
+  if (isProd) {
+    contentDbStack.addDependency(socialMediaStack);
+  }
 
   new SamsStack(app, samsStackName, {
     ...commonStackProps,
