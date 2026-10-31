@@ -18,6 +18,7 @@ import {
   SAMS_PROJECTION_TTL_DAYS,
   unixTtlSecondsFromNow,
 } from "@/lib/sams/repository-utils";
+import { mergeClubScheduleProjectionMatches } from "@/utils/sams-club-schedule-window";
 import { resolveConfiguredSamsSportsclubUuids } from "@/utils/sams";
 import { slugify } from "@/utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
@@ -280,11 +281,16 @@ async function replaceClubSchedule(
   }
 
   try {
+    const incomingProjectionMatches = matches.map(mapProviderMatchToProjection);
+    const mergedMatches = mergeClubScheduleProjectionMatches(
+      previousMatches,
+      incomingProjectionMatches,
+    );
     await repos.schedules.replace({
       sportsclubUuid,
       seasonUuid,
       seasonName,
-      matches: matches.map(mapProviderMatchToProjection),
+      matches: mergedMatches,
       snapshotVersion: meta.snapshotVersion,
       projectedAt: meta.projectedAt,
       cachedAt: meta.cachedAt,
@@ -294,7 +300,8 @@ async function replaceClubSchedule(
     logger.info("Replaced club schedule projection", {
       sportsclubUuid,
       seasonUuid,
-      matchCount: matches.length,
+      incomingMatchCount: incomingProjectionMatches.length,
+      storedMatchCount: mergedMatches.length,
       snapshotVersion: meta.snapshotVersion,
     });
   } catch (error) {
