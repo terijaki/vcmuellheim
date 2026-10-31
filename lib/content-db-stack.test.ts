@@ -160,7 +160,6 @@ describe("ContentDbStack", () => {
       const indexes = table.Properties?.GlobalSecondaryIndexes ?? [];
       expect(indexes.map((index) => index.IndexName)).toEqual([
         ContentTableIndexes.gsi1,
-        "GSI4-ByIdentifier",
         "GSI5-ByPrivateEmail",
         "GSI6-ByEventId",
       ]);
