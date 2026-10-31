@@ -75,16 +75,10 @@ export class MediaStack extends cdk.Stack {
       autoDeleteObjects: !isProd, // Auto-delete objects on stack deletion in dev
     });
 
-    // CloudFront Distribution with OAC for public read access
-    // Dev environment uses shorter cache TTL for faster iteration
-    const cachePolicy = isProd
-      ? cloudfront.CachePolicy.CACHING_OPTIMIZED
-      : new cloudfront.CachePolicy(this, "DevCachePolicy", {
-          defaultTtl: cdk.Duration.minutes(5),
-          minTtl: cdk.Duration.seconds(0),
-          maxTtl: cdk.Duration.minutes(10),
-          comment: "Dev cache policy with short TTL",
-        });
+    // CloudFront Distribution with OAC for public read access.
+    // Managed policies stay inside the account cache-policy quota. A custom
+    // dev policy would be one more per feature branch.
+    const cachePolicy = cloudfront.CachePolicy.CACHING_OPTIMIZED;
 
     this.distribution = new cloudfront.Distribution(this, "MediaDistribution", {
       defaultBehavior: {
