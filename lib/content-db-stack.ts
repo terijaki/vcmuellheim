@@ -68,6 +68,5 @@ export class ContentDbStack extends cdk.Stack {
         projectionType: dynamodb.ProjectionType.ALL,
       });
     }
-
   }
 }
