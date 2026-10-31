@@ -146,7 +146,7 @@ describe("ContentDbStack", () => {
   });
 
   describe("GSI configuration", () => {
-    it("creates dev tables with GSI1 only", () => {
+    it("keeps the preview table indexes already deployed", () => {
       const app = createTestApp();
       const stack = new ContentDbStack(app, "TestStack", {
         stackProps: { environment: "dev", branch: "" },
@@ -158,7 +158,12 @@ describe("ContentDbStack", () => {
         Properties?: { GlobalSecondaryIndexes?: Array<{ IndexName?: string }> };
       };
       const indexes = table.Properties?.GlobalSecondaryIndexes ?? [];
-      expect(indexes.map((index) => index.IndexName)).toEqual([ContentTableIndexes.gsi1]);
+      expect(indexes.map((index) => index.IndexName)).toEqual([
+        ContentTableIndexes.gsi1,
+        "GSI4-ByIdentifier",
+        "GSI5-ByPrivateEmail",
+        "GSI6-ByEventId",
+      ]);
     });
 
     it("removes GSI3-BySlug on prod", () => {

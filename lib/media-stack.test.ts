@@ -26,8 +26,8 @@ describe("MediaStack", () => {
       // Should have CloudFront distribution
       template.resourceCountIs("AWS::CloudFront::Distribution", 1);
 
-      // Dev environment should have custom cache policy
-      template.resourceCountIs("AWS::CloudFront::CachePolicy", 1);
+      // Preview stacks use the managed caching policy.
+      template.resourceCountIs("AWS::CloudFront::CachePolicy", 0);
     });
 
     it("should set DESTROY removal policy for dev bucket", () => {
@@ -71,7 +71,7 @@ describe("MediaStack", () => {
       });
     });
 
-    it("should use short cache TTL for dev environment", () => {
+    it("should use the managed cache policy for dev environment", () => {
       const app = createTestApp();
       const stack = new MediaStack(app, "TestStack", {
         stackProps: {
@@ -82,15 +82,7 @@ describe("MediaStack", () => {
 
       const template = Template.fromStack(stack);
 
-      // Dev should have custom cache policy with short TTL
-      template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
-        CachePolicyConfig: {
-          DefaultTTL: 300, // 5 minutes
-          MinTTL: 0,
-          MaxTTL: 600, // 10 minutes
-          Comment: "Dev cache policy with short TTL",
-        },
-      });
+      template.resourceCountIs("AWS::CloudFront::CachePolicy", 0);
     });
   });
 
