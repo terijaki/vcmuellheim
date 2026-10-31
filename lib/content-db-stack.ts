@@ -48,12 +48,13 @@ export class ContentDbStack extends cdk.Stack {
     // Application code only queries GSI1.
     // DynamoDB allows one GSI change per table update, so this prod deploy
     // removes GSI6-ByEventId, the last unused content index.
-    // Dev and feature-branch tables keep GSI1 only.
+    // This branch's preview table was created with GSI1 only.
     this.contentTable.addGlobalSecondaryIndex({
       indexName: ContentTableIndexes.gsi1,
       partitionKey: { name: "gsi1pk", type: dynamodb.AttributeType.STRING },
       sortKey: { name: "gsi1sk", type: dynamodb.AttributeType.STRING },
       projectionType: dynamodb.ProjectionType.ALL,
     });
+
   }
 }
