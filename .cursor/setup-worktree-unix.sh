@@ -124,5 +124,4 @@ log "starting worktree setup"
 sync_worktree_with_base
 log "installing dependencies..."
 vp install
-./node_modules/.bin/varlock codegen
 log "done"
