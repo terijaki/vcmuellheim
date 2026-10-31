@@ -45,10 +45,11 @@ export class ContentDbStack extends cdk.Stack {
 
     this.contentTableStreamArn = this.contentTable.tableStreamArn!;
 
-    // Application code only queries GSI1. Prod still has the older indexes.
+    // Application code only queries GSI1. Prod still has GSI5 and GSI6.
     // DynamoDB allows one GSI change per table update, so this prod deploy
     // removes GSI5-ByPrivateEmail only. GSI6 stays until a later deploy.
-    // Dev and feature-branch tables keep GSI1 only.
+    // This branch's preview table was created with GSI6.
+    // Declaring it for every environment keeps that update to one index change.
     this.contentTable.addGlobalSecondaryIndex({
       indexName: ContentTableIndexes.gsi1,
       partitionKey: { name: "gsi1pk", type: dynamodb.AttributeType.STRING },
@@ -56,18 +57,17 @@ export class ContentDbStack extends cdk.Stack {
       projectionType: dynamodb.ProjectionType.ALL,
     });
 
-    if (isProd) {
-      const retainedIndexes = [
-        { indexName: "GSI6-ByEventId", partitionKey: "gsi6pk", sortKey: "gsi6sk" },
-      ] as const;
-      for (const index of retainedIndexes) {
-        this.contentTable.addGlobalSecondaryIndex({
-          indexName: index.indexName,
-          partitionKey: { name: index.partitionKey, type: dynamodb.AttributeType.STRING },
-          sortKey: { name: index.sortKey, type: dynamodb.AttributeType.STRING },
-          projectionType: dynamodb.ProjectionType.ALL,
-        });
-      }
+    const retainedIndexes = [
+      { indexName: "GSI6-ByEventId", partitionKey: "gsi6pk", sortKey: "gsi6sk" },
+    ] as const;
+    for (const index of retainedIndexes) {
+      this.contentTable.addGlobalSecondaryIndex({
+        indexName: index.indexName,
+        partitionKey: { name: index.partitionKey, type: dynamodb.AttributeType.STRING },
+        sortKey: { name: index.sortKey, type: dynamodb.AttributeType.STRING },
+        projectionType: dynamodb.ProjectionType.ALL,
+      });
     }
+
   }
 }

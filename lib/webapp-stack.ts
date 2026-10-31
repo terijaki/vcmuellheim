@@ -210,31 +210,37 @@ export class WebAppStack extends cdk.Stack {
     });
 
     // ── Cache policies ─────────────────────────────────────────────────────
+    // Each custom policy counts against the account quota of 20. Preview stacks
+    // use managed policies so several feature branches can deploy together.
+    // Production keeps the custom policies.
     // Static assets: vite injects content hashes → can cache indefinitely
-    const staticAssetsCachePolicy = new cloudfront.CachePolicy(this, "StaticAssetsCachePolicy", {
-      cachePolicyName: `vcm-webapp-static-${environment}${branchSuffix}`,
-      defaultTtl: cdk.Duration.days(365),
-      minTtl: cdk.Duration.days(1),
-      maxTtl: cdk.Duration.days(365),
-      comment: "Long-lived cache for hashed static assets",
-    });
+    const staticAssetsCachePolicy = isProd
+      ? new cloudfront.CachePolicy(this, "StaticAssetsCachePolicy", {
+          cachePolicyName: `vcm-webapp-static-${environment}${branchSuffix}`,
+          defaultTtl: cdk.Duration.days(365),
+          minTtl: cdk.Duration.days(1),
+          maxTtl: cdk.Duration.days(365),
+          comment: "Long-lived cache for hashed static assets",
+        })
+      : cloudfront.CachePolicy.CACHING_OPTIMIZED;
 
     // SSR/API: default TTL 0 so unmarked responses (server functions, auth) stay uncached.
     // The homepage sets Cache-Control; max TTL lets CloudFront honor s-maxage and
     // stale-while-revalidate. Cookies are forwarded by the origin request policy
     // but kept out of the cache key so anonymous HTML can be shared.
-    const ssrCachePolicy = new cloudfront.CachePolicy(this, "SsrCachePolicy", {
-      cachePolicyName: `vcm-webapp-ssr-${environment}${branchSuffix}`,
-      defaultTtl: cdk.Duration.seconds(0),
-      minTtl: cdk.Duration.seconds(0),
-      maxTtl: cdk.Duration.days(1),
-      comment: isProd
-        ? "Honor origin Cache-Control for public HTML; default TTL 0 so API stays uncached"
-        : "Honor origin Cache-Control on feature/dev; default TTL 0 so API stays uncached",
-      cookieBehavior: cloudfront.CacheCookieBehavior.none(),
-      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
-    });
+    const ssrCachePolicy = isProd
+      ? new cloudfront.CachePolicy(this, "SsrCachePolicy", {
+          cachePolicyName: `vcm-webapp-ssr-${environment}${branchSuffix}`,
+          defaultTtl: cdk.Duration.seconds(0),
+          minTtl: cdk.Duration.seconds(0),
+          maxTtl: cdk.Duration.days(1),
+          comment:
+            "Honor origin Cache-Control for public HTML; default TTL 0 so API stays uncached",
+          cookieBehavior: cloudfront.CacheCookieBehavior.none(),
+          headerBehavior: cloudfront.CacheHeaderBehavior.none(),
+          queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
+        })
+      : cloudfront.CachePolicy.CACHING_DISABLED;
 
     // Prod never invokes the seed handler. The viewer-request function returns 404
     // before CloudFront contacts the Lambda origin.
@@ -248,23 +254,27 @@ export class WebAppStack extends cdk.Stack {
         })
       : undefined;
 
-    const clubLogosCachePolicy = new cloudfront.CachePolicy(this, "ClubLogosCachePolicy", {
-      cachePolicyName: `vcm-webapp-club-logos-${environment}${branchSuffix}`,
-      defaultTtl: cdk.Duration.days(1),
-      minTtl: cdk.Duration.seconds(0),
-      maxTtl: cdk.Duration.days(7),
-      comment: "Cache /api/sams/logos per clubUuid query string",
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList("clubUuid"),
-    });
+    const clubLogosCachePolicy = isProd
+      ? new cloudfront.CachePolicy(this, "ClubLogosCachePolicy", {
+          cachePolicyName: `vcm-webapp-club-logos-${environment}${branchSuffix}`,
+          defaultTtl: cdk.Duration.days(1),
+          minTtl: cdk.Duration.seconds(0),
+          maxTtl: cdk.Duration.days(7),
+          comment: "Cache /api/sams/logos per clubUuid query string",
+          queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList("clubUuid"),
+        })
+      : cloudfront.CachePolicy.CACHING_DISABLED;
 
-    const teamLogosCachePolicy = new cloudfront.CachePolicy(this, "TeamLogosCachePolicy", {
-      cachePolicyName: `vcm-webapp-team-logos-${environment}${branchSuffix}`,
-      defaultTtl: cdk.Duration.days(1),
-      minTtl: cdk.Duration.seconds(0),
-      maxTtl: cdk.Duration.days(7),
-      comment: "Cache /api/sams/team-logos per teamUuid query string",
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList("teamUuid"),
-    });
+    const teamLogosCachePolicy = isProd
+      ? new cloudfront.CachePolicy(this, "TeamLogosCachePolicy", {
+          cachePolicyName: `vcm-webapp-team-logos-${environment}${branchSuffix}`,
+          defaultTtl: cdk.Duration.days(1),
+          minTtl: cdk.Duration.seconds(0),
+          maxTtl: cdk.Duration.days(7),
+          comment: "Cache /api/sams/team-logos per teamUuid query string",
+          queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList("teamUuid"),
+        })
+      : cloudfront.CachePolicy.CACHING_DISABLED;
 
     // ── CloudFront distribution ────────────────────────────────────────────
     const lambdaOrigin = new origins.FunctionUrlOrigin(fnUrl);
