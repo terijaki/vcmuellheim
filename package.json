@@ -21,7 +21,6 @@
     "db:seed": "bun ./scripts/db-seed.ts",
     "db:seed:user": "bun ./scripts/db-seed-user.ts",
     "db:seed:sams": "bun ./scripts/seed-sams-provider-events.ts",
-    "migrate:off-electrodb": "bun ./scripts/migrate-off-electrodb.ts",
     "verify": "vp check --fix && vp test",
     "cdk:deploy": "cdk deploy --require-approval=never",
     "cdk:deploy:all": "cdk deploy --all --require-approval=never --concurrency 4",
