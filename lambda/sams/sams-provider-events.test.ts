@@ -181,6 +181,40 @@ describe("processSamsProviderEvent", () => {
     expect(repos.teamLogos.upsert).not.toHaveBeenCalled();
   });
 
+  it("merges club schedule updates and keeps matches outside the provider window", async () => {
+    const fixture = samsProviderEventFixtures.find(
+      (entry) => entry.type === SamsEventType.clubMatchScheduleUpdated,
+    );
+    expect(fixture).toBeDefined();
+    const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
+    if (event.type !== SamsEventType.clubMatchScheduleUpdated) {
+      throw new Error("expected club match schedule fixture");
+    }
+
+    const historicalMatch = {
+      uuid: "season-opener",
+      date: "2026-07-01",
+      time: "18:00",
+      seasonUuid: event.payload.season.uuid,
+      team1: { uuid: "t1", name: "Home" },
+      team2: { uuid: "t2", name: "Away" },
+      hasResult: true,
+      result: { winner: "t1", setPoints: "3:0" },
+    };
+    repos.schedules.get = vi.fn().mockResolvedValue({
+      snapshotVersion: "previous-version",
+      matches: [historicalMatch],
+    });
+
+    await processSamsProviderEvent(event, repos);
+
+    expect(repos.schedules.replace).toHaveBeenCalledOnce();
+    const scheduleInput = vi.mocked(repos.schedules.replace).mock.calls[0]?.[0];
+    const storedUuids = scheduleInput?.matches.map((match) => match.uuid) ?? [];
+    expect(storedUuids).toContain("season-opener");
+    expect(storedUuids.length).toBeGreaterThan(event.payload.matches.length);
+  });
+
   it("replaces club match schedule projections with provider Match shape", async () => {
     const fixture = samsProviderEventFixtures.find(
       (entry) => entry.type === SamsEventType.clubMatchScheduleUpdated,
