@@ -1,5 +1,6 @@
 import * as path from "node:path";
 import * as cdk from "aws-cdk-lib";
+import * as cr from "aws-cdk-lib/custom-resources";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as events from "aws-cdk-lib/aws-events";
@@ -31,7 +32,12 @@ interface SocialMediaStackProps extends cdk.StackProps {
   };
   /** Plain-string table name — avoids CloudFormation cross-stack export of the full table object. */
   contentTableName?: string;
-  /** Stream ARN for the content table — needed by DynamoEventSource on the stream handler. */
+  /**
+   * Stream ARN token from ContentDbStack.
+   * Passing it creates a CloudFormation export. Prod must not: a table update
+   * cannot change that export while this stack still imports it.
+   * Omit it and this stack reads LatestStreamArn with DescribeTable instead.
+   */
   contentTableStreamArn?: string;
   websiteUrl?: string;
   mediaBucketName?: string;
@@ -170,19 +176,22 @@ export class SocialMediaStack extends cdk.Stack {
 
     // Create Lambda function for Mastodon stream handler (DynamoDB streams)
     const contentTableName = props.contentTableName ?? computeContentTableName(environment, branch);
-    if (props.contentTableName && props.contentTableStreamArn && props.websiteUrl) {
+    if (props.contentTableName && props.websiteUrl) {
       const contentTableArn = cdk.Stack.of(this).formatArn({
         service: "dynamodb",
         resource: "table",
         resourceName: contentTableName,
       });
+      const contentTableStreamArn =
+        props.contentTableStreamArn ??
+        lookupContentStreamArn(this, contentTableName, contentTableArn);
       // fromTableAttributes includes the stream ARN so DynamoEventSource can access it
       const contentTableWithStream = dynamodb.Table.fromTableAttributes(
         this,
         "ContentTableWithStream",
         {
           tableArn: contentTableArn,
-          tableStreamArn: props.contentTableStreamArn,
+          tableStreamArn: contentTableStreamArn,
         },
       );
 
@@ -226,4 +235,25 @@ export class SocialMediaStack extends cdk.Stack {
     // Export Mastodon Lambda for use in other stacks
     this.mastodonLambda = mastodonShare;
   }
+}
+
+/** Read the live stream ARN so prod does not import a ContentDbStack export. */
+function lookupContentStreamArn(
+  scope: Construct,
+  contentTableName: string,
+  contentTableArn: string,
+): string {
+  const describeTable = {
+    service: "DynamoDB",
+    action: "describeTable",
+    parameters: { TableName: contentTableName },
+    physicalResourceId: cr.PhysicalResourceId.of(`${contentTableName}-stream`),
+  };
+  const described = new cr.AwsCustomResource(scope, "DescribeContentTableStream", {
+    onCreate: describeTable,
+    onUpdate: describeTable,
+    policy: cr.AwsCustomResourcePolicy.fromSdkCalls({ resources: [contentTableArn] }),
+    installLatestAwsSdk: false,
+  });
+  return described.getResponseField("Table.LatestStreamArn");
 }

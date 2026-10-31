@@ -164,4 +164,60 @@ describe("SocialMediaStack", () => {
       });
     });
   });
+
+  describe("content table stream", () => {
+    it("looks up the prod stream ARN instead of importing a content stack export", () => {
+      const app = createTestApp();
+      const stack = new SocialMediaStack(app, "TestStack", {
+        env: {
+          account: "123456789012",
+          region: "eu-central-1",
+        },
+        stackProps: {
+          environment: "prod",
+          branch: "",
+        },
+        contentTableName: "vcm-content-prod",
+        websiteUrl: "https://vcmuellheim.de",
+      });
+
+      const template = Template.fromStack(stack);
+
+      template.hasResourceProperties("Custom::AWS", {
+        Create: Match.stringLikeRegexp("describeTable"),
+        Update: Match.stringLikeRegexp("describeTable"),
+      });
+      template.hasResourceProperties("AWS::Lambda::EventSourceMapping", {
+        StartingPosition: "LATEST",
+      });
+      template.resourceCountIs("AWS::CloudFormation::Output", 0);
+    });
+
+    it("uses a provided stream ARN without calling DescribeTable", () => {
+      const app = createTestApp();
+      const stack = new SocialMediaStack(app, "TestStack", {
+        env: {
+          account: "123456789012",
+          region: "eu-central-1",
+        },
+        stackProps: {
+          environment: "dev",
+          branch: "",
+        },
+        contentTableName: "vcm-content-dev",
+        contentTableStreamArn:
+          "arn:aws:dynamodb:eu-central-1:123456789012:table/vcm-content-dev/stream/2020-01-01T00:00:00.000",
+        websiteUrl: "https://dev.new.vcmuellheim.de",
+      });
+
+      const template = Template.fromStack(stack);
+
+      template.resourceCountIs("Custom::AWS", 0);
+      template.hasResourceProperties("AWS::Lambda::EventSourceMapping", {
+        StartingPosition: "LATEST",
+        EventSourceArn:
+          "arn:aws:dynamodb:eu-central-1:123456789012:table/vcm-content-dev/stream/2020-01-01T00:00:00.000",
+      });
+    });
+  });
 });

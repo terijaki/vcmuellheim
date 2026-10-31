@@ -18,7 +18,11 @@ export class ContentDbStack extends cdk.Stack {
   public readonly contentTable: dynamodb.Table;
   /** Stable plain-string table name — safe to pass cross-stack without creating CloudFormation exports. */
   public readonly contentTableName: string;
-  /** DynamoDB stream ARN — a CFN token, but passed as a single scalar to avoid exporting the full table object. */
+  /**
+   * DynamoDB stream ARN token. Passing this into another stack creates a
+   * CloudFormation export. Do not pass it for prod: a table update cannot
+   * change that export while another stack imports it.
+   */
   public readonly contentTableStreamArn: string;
 
   constructor(scope: Construct, id: string, props?: ContentDbStackProps) {
