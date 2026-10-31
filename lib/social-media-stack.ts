@@ -248,6 +248,8 @@ function lookupContentStreamArn(
     action: "describeTable",
     parameters: { TableName: contentTableName },
     physicalResourceId: cr.PhysicalResourceId.of(`${contentTableName}-stream`),
+    // Full DescribeTable responses exceed the custom resource 4096-byte limit.
+    outputPaths: ["Table.LatestStreamArn"],
   };
   const described = new cr.AwsCustomResource(scope, "DescribeContentTableStream", {
     onCreate: describeTable,

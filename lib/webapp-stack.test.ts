@@ -116,7 +116,7 @@ describe("WebAppStack", () => {
     template.resourceCountIs("AWS::Lambda::Url", 1);
     template.resourceCountIs("AWS::CloudFront::Distribution", 1);
     template.resourceCountIs("AWS::CloudFront::OriginAccessControl", 1);
-    template.resourceCountIs("AWS::CloudFront::CachePolicy", 4);
+    template.resourceCountIs("AWS::CloudFront::CachePolicy", 0);
     template.resourceCountIs("AWS::S3::Bucket", 1);
   });
 
@@ -160,49 +160,7 @@ describe("WebAppStack", () => {
       InvokeMode: "RESPONSE_STREAM",
     });
 
-    template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
-      CachePolicyConfig: {
-        Comment: "Honor origin Cache-Control on feature/dev; default TTL 0 so API stays uncached",
-        DefaultTTL: 0,
-        MinTTL: 0,
-        MaxTTL: 86400,
-        ParametersInCacheKeyAndForwardedToOrigin: {
-          QueryStringsConfig: {
-            QueryStringBehavior: "all",
-          },
-        },
-      },
-    });
-
-    template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
-      CachePolicyConfig: {
-        Comment: "Cache /api/sams/logos per clubUuid query string",
-        DefaultTTL: 86400,
-        MinTTL: 0,
-        MaxTTL: 604800,
-        ParametersInCacheKeyAndForwardedToOrigin: {
-          QueryStringsConfig: {
-            QueryStringBehavior: "whitelist",
-            QueryStrings: ["clubUuid"],
-          },
-        },
-      },
-    });
-
-    template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
-      CachePolicyConfig: {
-        Comment: "Cache /api/sams/team-logos per teamUuid query string",
-        DefaultTTL: 86400,
-        MinTTL: 0,
-        MaxTTL: 604800,
-        ParametersInCacheKeyAndForwardedToOrigin: {
-          QueryStringsConfig: {
-            QueryStringBehavior: "whitelist",
-            QueryStrings: ["teamUuid"],
-          },
-        },
-      },
-    });
+    template.resourceCountIs("AWS::CloudFront::CachePolicy", 0);
 
     template.hasResourceProperties("AWS::CloudFront::Distribution", {
       DistributionConfig: {
@@ -387,12 +345,35 @@ describe("WebAppStack", () => {
 
     const template = Template.fromStack(stack);
 
+    template.resourceCountIs("AWS::CloudFront::CachePolicy", 4);
     template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
       CachePolicyConfig: {
         Comment: "Honor origin Cache-Control for public HTML; default TTL 0 so API stays uncached",
         DefaultTTL: 0,
         MinTTL: 0,
         MaxTTL: 86400,
+      },
+    });
+    template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
+      CachePolicyConfig: {
+        Comment: "Cache /api/sams/logos per clubUuid query string",
+        ParametersInCacheKeyAndForwardedToOrigin: {
+          QueryStringsConfig: {
+            QueryStringBehavior: "whitelist",
+            QueryStrings: ["clubUuid"],
+          },
+        },
+      },
+    });
+    template.hasResourceProperties("AWS::CloudFront::CachePolicy", {
+      CachePolicyConfig: {
+        Comment: "Cache /api/sams/team-logos per teamUuid query string",
+        ParametersInCacheKeyAndForwardedToOrigin: {
+          QueryStringsConfig: {
+            QueryStringBehavior: "whitelist",
+            QueryStrings: ["teamUuid"],
+          },
+        },
       },
     });
 
