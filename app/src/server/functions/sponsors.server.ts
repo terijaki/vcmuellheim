@@ -3,7 +3,7 @@
  */
 
 import { z } from "zod";
-import { db } from "@/lib/db/electrodb-client";
+import { sponsorRepository } from "@/lib/db/repositories/content-entities-repository";
 import { sponsorSchema } from "@/lib/db/schemas";
 import { readSponsors, rebuildSponsors } from "@/lib/read-models/public-snapshots";
 import { handleGetFileUrls } from "./upload.server";
@@ -43,13 +43,9 @@ export async function handleListPublicSponsors() {
 }
 
 export async function handleListSponsors() {
-  const result = await db().sponsor.query.byType({ type: "sponsor" }).go({ pages: "all" });
-  const items = parseServerArray(sponsorSchema, result.data, "Failed to parse sponsor list");
-
-  return {
-    items,
-    lastEvaluatedKey: result.cursor ?? undefined,
-  };
+  const sponsors = await sponsorRepository.listAll();
+  const items = parseServerArray(sponsorSchema, sponsors, "Failed to parse sponsor list");
+  return { items, lastEvaluatedKey: undefined };
 }
 
 export async function handleCreateSponsor(data: SponsorInput) {
@@ -58,13 +54,16 @@ export async function handleCreateSponsor(data: SponsorInput) {
     id: crypto.randomUUID(),
   });
 
-  await db().sponsor.create(sponsor).go();
+  await sponsorRepository.create(sponsor);
   await rebuildSponsors();
 
   return sponsor;
 }
 
 export async function handleUpdateSponsor(id: string, updates: SponsorUpdateInput) {
+  const existing = await sponsorRepository.getById(id);
+  if (!existing) throw new Error("Sponsor not found");
+
   const { description, websiteUrl, logoS3Key, ttl, ...restUpdates } = updates;
   const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
     description,
@@ -73,28 +72,24 @@ export async function handleUpdateSponsor(id: string, updates: SponsorUpdateInpu
     ttl,
   });
 
-  const setFields = {
+  const merged = {
+    ...existing,
     ...restUpdates,
     ...nullableFields,
     updatedAt: new Date().toISOString(),
-  };
-  const patchOp = db().sponsor.patch({ id }).set(setFields);
-  const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
+  } as Record<string, unknown>;
+  for (const key of removeKeys) {
+    delete merged[key];
+  }
 
-  if (!result.data) throw new Error("Sponsor not found");
-
-  const refreshedResult = await db().sponsor.get({ id }).go();
-  const sponsor = refreshedResult.data
-    ? parseServerData(sponsorSchema, refreshedResult.data, "Failed to parse sponsor data")
-    : null;
-
+  const sponsor = await sponsorRepository.update(id, merged);
   if (!sponsor) throw new Error("Sponsor not found");
   await rebuildSponsors();
-  return sponsor;
+  return parseServerData(sponsorSchema, sponsor, "Failed to parse sponsor data");
 }
 
 export async function handleDeleteSponsor(id: string) {
-  await db().sponsor.delete({ id }).go();
+  await sponsorRepository.delete(id);
   await rebuildSponsors();
   return { success: true as const };
 }

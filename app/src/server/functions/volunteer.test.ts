@@ -55,36 +55,26 @@ const {
   mockTokenDelete: vi.fn(),
 }));
 
-vi.mock("@/lib/db/electrodb-client", () => ({
-  db: vi.fn(() => ({
-    volunteerEvent: {
-      get: () => ({ go: mockEventGet }),
-      create: () => ({ go: mockEventCreate }),
-      patch: () => ({
-        set: () => ({ go: mockEventPatch }),
-      }),
-      query: {
-        byType: () => ({ go: vi.fn().mockResolvedValue({ data: [] }) }),
-      },
-    },
-    volunteerSignup: {
-      get: () => ({ go: mockSignupGet }),
-      create: () => ({ go: mockSignupCreate }),
-      patch: () => ({
-        set: () => ({ go: mockSignupPatch, remove: () => ({ go: mockSignupPatch }) }),
-        remove: () => ({ go: mockSignupPatch }),
-      }),
-      delete: () => ({ go: mockSignupDelete }),
-      query: {
-        byEvent: () => ({ go: mockSignupQuery }),
-      },
-    },
-    volunteerToken: {
-      get: () => ({ go: mockTokenGet }),
-      create: () => ({ go: mockTokenCreate }),
-      delete: () => ({ go: mockTokenDelete }),
-    },
-  })),
+vi.mock("@/lib/db/repositories/content-entities-repository", () => ({
+  volunteerEventRepository: {
+    getById: mockEventGet,
+    create: mockEventCreate,
+    update: mockEventPatch,
+    listAll: vi.fn().mockResolvedValue([]),
+    delete: vi.fn(),
+  },
+  volunteerSignupRepository: {
+    getById: mockSignupGet,
+    create: mockSignupCreate,
+    update: mockSignupPatch,
+    delete: mockSignupDelete,
+    listByEvent: mockSignupQuery,
+  },
+  volunteerTokenRepository: {
+    getById: mockTokenGet,
+    create: mockTokenCreate,
+    delete: mockTokenDelete,
+  },
 }));
 
 vi.mock("./volunteer-email.server", () => ({
@@ -175,10 +165,11 @@ describe("createVolunteerSignup", () => {
   beforeEach(() => {
     sesMock.reset();
     vi.clearAllMocks();
-    mockEventGet.mockResolvedValue({ data: mockEvent });
-    mockSignupQuery.mockResolvedValue({ data: [] });
-    mockSignupCreate.mockResolvedValue({ data: makeSignup() });
-    mockTokenCreate.mockResolvedValue({ data: {} });
+    mockEventGet.mockResolvedValue(mockEvent);
+    mockSignupQuery.mockResolvedValue([]);
+    mockSignupCreate.mockResolvedValue(makeSignup());
+    mockSignupPatch.mockImplementation((_id, updates) => makeSignup(updates as never));
+    mockTokenCreate.mockResolvedValue({});
   });
 
   it("creates a pending signup and token on first submission", async () => {
@@ -190,7 +181,7 @@ describe("createVolunteerSignup", () => {
 
   it("updates an existing pending signup on re-submission and keeps sending a token", async () => {
     // Existing signup for same email+shift
-    mockSignupQuery.mockResolvedValue({ data: [makeSignup()] });
+    mockSignupQuery.mockResolvedValue([makeSignup()]);
 
     await createVolunteerSignup(signupData);
 
@@ -204,7 +195,7 @@ describe("createVolunteerSignup", () => {
   });
 
   it("does not create token or overwrite signup for confirmed duplicates", async () => {
-    mockSignupQuery.mockResolvedValue({ data: [makeSignup({ status: "confirmed" })] });
+    mockSignupQuery.mockResolvedValue([makeSignup({ status: "confirmed" })]);
 
     await createVolunteerSignup(signupData);
 
@@ -220,7 +211,7 @@ describe("createVolunteerSignup", () => {
       ...mockEvent,
       shifts: [{ ...mockEvent.shifts[0], startDate: pastDate }],
     };
-    mockEventGet.mockResolvedValue({ data: pastEvent });
+    mockEventGet.mockResolvedValue(pastEvent);
 
     await expect(createVolunteerSignup(signupData)).rejects.toThrow("already started");
     expect(mockSignupCreate).not.toHaveBeenCalled();
@@ -242,7 +233,7 @@ describe("createVolunteerSignup", () => {
         },
       ],
     };
-    mockEventGet.mockResolvedValue({ data: restrictedEvent });
+    mockEventGet.mockResolvedValue(restrictedEvent);
 
     // signupData selects roleId1 as first preference — fails minAge 40 for a ~35-year-old
     await expect(createVolunteerSignup(signupData)).rejects.toThrow("Mindestalter");
@@ -263,8 +254,8 @@ describe("createVolunteerSignup", () => {
         },
       ],
     };
-    mockEventGet.mockResolvedValue({ data: restrictedEvent });
-    mockSignupCreate.mockResolvedValue({ data: makeSignup() });
+    mockEventGet.mockResolvedValue(restrictedEvent);
+    mockSignupCreate.mockResolvedValue(makeSignup());
 
     // signupData.dateOfBirth = "1990-01-15", ~35 years old — well above 18
     await createVolunteerSignup(signupData);
@@ -275,7 +266,7 @@ describe("createVolunteerSignup", () => {
   it("allows signup for a role with no minAge regardless of age", async () => {
     // roleId2 has no minAge — only roleId2 is selected
     const singleRoleData = { ...signupData, preferredRoleIds: [roleId2] };
-    mockSignupCreate.mockResolvedValue({ data: makeSignup({ preferredRoleIds: [roleId2] }) });
+    mockSignupCreate.mockResolvedValue(makeSignup({ preferredRoleIds: [roleId2] }));
 
     await createVolunteerSignup(singleRoleData);
     expect(mockSignupCreate).toHaveBeenCalledTimes(1);
@@ -286,10 +277,10 @@ describe("createVolunteerSignup", () => {
       ...mockEvent,
       shifts: [{ ...mockEvent.shifts[0], roles: [] }],
     };
-    mockEventGet.mockResolvedValue({ data: rolelessEvent });
+    mockEventGet.mockResolvedValue(rolelessEvent);
 
     const rolelessSignupData = { ...signupData, preferredRoleIds: [] };
-    mockSignupCreate.mockResolvedValue({ data: makeSignup({ preferredRoleIds: [] }) });
+    mockSignupCreate.mockResolvedValue(makeSignup({ preferredRoleIds: [] }));
 
     await createVolunteerSignup(rolelessSignupData);
     expect(mockSignupCreate).toHaveBeenCalledTimes(1);
@@ -309,7 +300,7 @@ describe("createVolunteerSignup", () => {
       dateOfBirth: "2010-01-15",
       emergencyContact: "0151 12345678",
     };
-    mockSignupCreate.mockResolvedValue({ data: makeSignup() });
+    mockSignupCreate.mockResolvedValue(makeSignup());
 
     await createVolunteerSignup(minorSignupData);
     expect(mockSignupCreate).toHaveBeenCalledTimes(1);
@@ -317,7 +308,7 @@ describe("createVolunteerSignup", () => {
   });
 
   it("rejects signup without t-shirt size when the event asks for it", async () => {
-    mockEventGet.mockResolvedValue({ data: { ...mockEvent, askForTShirtSize: true } });
+    mockEventGet.mockResolvedValue({ ...mockEvent, askForTShirtSize: true });
 
     await expect(createVolunteerSignup(signupData)).rejects.toThrow("T-Shirt-Größe");
     expect(mockSignupCreate).not.toHaveBeenCalled();
@@ -325,9 +316,9 @@ describe("createVolunteerSignup", () => {
   });
 
   it("allows signup with a kids t-shirt size when the event asks for it", async () => {
-    mockEventGet.mockResolvedValue({ data: { ...mockEvent, askForTShirtSize: true } });
+    mockEventGet.mockResolvedValue({ ...mockEvent, askForTShirtSize: true });
     const withSize = { ...signupData, tShirtSize: "140" as const };
-    mockSignupCreate.mockResolvedValue({ data: makeSignup({ tShirtSize: "140" }) });
+    mockSignupCreate.mockResolvedValue(makeSignup({ tShirtSize: "140" }));
 
     await createVolunteerSignup(withSize);
     expect(mockSignupCreate).toHaveBeenCalledTimes(1);
@@ -343,7 +334,7 @@ describe("createVolunteerSignup", () => {
   });
 
   it("rejects signup without association when the event asks for it", async () => {
-    mockEventGet.mockResolvedValue({ data: { ...mockEvent, askForAssociation: true } });
+    mockEventGet.mockResolvedValue({ ...mockEvent, askForAssociation: true });
 
     await expect(createVolunteerSignup(signupData)).rejects.toThrow("Vereinszugehörigkeit");
     expect(mockSignupCreate).not.toHaveBeenCalled();
@@ -351,9 +342,9 @@ describe("createVolunteerSignup", () => {
   });
 
   it("allows signup with association when the event asks for it", async () => {
-    mockEventGet.mockResolvedValue({ data: { ...mockEvent, askForAssociation: true } });
+    mockEventGet.mockResolvedValue({ ...mockEvent, askForAssociation: true });
     const withAssociation = { ...signupData, association: "Mitglied" };
-    mockSignupCreate.mockResolvedValue({ data: makeSignup({ association: "Mitglied" }) });
+    mockSignupCreate.mockResolvedValue(makeSignup({ association: "Mitglied" }));
 
     await createVolunteerSignup(withAssociation);
     expect(mockSignupCreate).toHaveBeenCalledTimes(1);
@@ -386,13 +377,13 @@ describe("verifyVolunteerToken", () => {
   beforeEach(() => {
     sesMock.reset();
     vi.clearAllMocks();
-    mockTokenGet.mockResolvedValue({ data: mockToken });
-    mockEventGet.mockResolvedValue({ data: mockEvent });
-    mockSignupQuery.mockResolvedValue({ data: [makeSignup()] }); // existing pending signup
-    mockSignupCreate.mockResolvedValue({ data: makeSignup({ status: "confirmed" }) });
-    mockSignupPatch.mockResolvedValue({ data: makeSignup({ status: "confirmed" }) });
-    mockTokenDelete.mockResolvedValue({ data: {} });
-    mockSignupGet.mockResolvedValue({ data: makeSignup({ status: "confirmed" }) });
+    mockTokenGet.mockResolvedValue(mockToken);
+    mockEventGet.mockResolvedValue(mockEvent);
+    mockSignupQuery.mockResolvedValue([makeSignup()]); // existing pending signup
+    mockSignupCreate.mockResolvedValue(makeSignup({ status: "confirmed" }));
+    mockSignupPatch.mockResolvedValue(makeSignup({ status: "confirmed" }));
+    mockTokenDelete.mockResolvedValue(undefined);
+    mockSignupGet.mockResolvedValue(makeSignup({ status: "confirmed" }));
   });
 
   it("confirms an existing pending signup, deletes token, sends receipt", async () => {
@@ -406,7 +397,7 @@ describe("verifyVolunteerToken", () => {
   });
 
   it("upserts existing pending signup to confirmed on token verification", async () => {
-    mockSignupQuery.mockResolvedValue({ data: [makeSignup()] }); // existing pending
+    mockSignupQuery.mockResolvedValue([makeSignup()]); // existing pending
 
     await verifyVolunteerToken({ tokenId });
 
@@ -419,7 +410,7 @@ describe("verifyVolunteerToken", () => {
 
   it("auto-assigns to first preferred role with available capacity on confirmation", async () => {
     // Pending signup exists and gets confirmed; no competition for roles
-    mockSignupQuery.mockResolvedValue({ data: [makeSignup()] });
+    mockSignupQuery.mockResolvedValue([makeSignup()]);
 
     const result = await verifyVolunteerToken({ tokenId });
 
@@ -459,9 +450,7 @@ describe("verifyVolunteerToken", () => {
         email: "full-role-c@example.com",
       }),
     ];
-    mockSignupQuery.mockResolvedValue({
-      data: [makeSignup(), ...fullRoleSignups],
-    });
+    mockSignupQuery.mockResolvedValue([makeSignup(), ...fullRoleSignups]);
 
     const result = await verifyVolunteerToken({ tokenId });
 
@@ -504,9 +493,7 @@ describe("verifyVolunteerToken", () => {
         email: "full-e@example.com",
       }),
     ];
-    mockSignupQuery.mockResolvedValue({
-      data: [makeSignup(), ...fullSignups],
-    });
+    mockSignupQuery.mockResolvedValue([makeSignup(), ...fullSignups]);
 
     const result = await verifyVolunteerToken({ tokenId });
 
@@ -564,11 +551,12 @@ describe("verifyVolunteerToken", () => {
       ...mockEvent,
       shifts: [{ ...mockEvent.shifts[0], roles: [] }],
     };
-    mockEventGet.mockResolvedValue({ data: rolelessEvent });
+    mockEventGet.mockResolvedValue(rolelessEvent);
     mockTokenGet.mockResolvedValue({
-      data: { ...mockToken, signupData: { ...signupData, preferredRoleIds: [] } },
+      ...mockToken,
+      signupData: { ...signupData, preferredRoleIds: [] },
     });
-    mockSignupQuery.mockResolvedValue({ data: [makeSignup({ preferredRoleIds: [] })] });
+    mockSignupQuery.mockResolvedValue([makeSignup({ preferredRoleIds: [] })]);
 
     const result = await verifyVolunteerToken({ tokenId });
 
@@ -579,7 +567,7 @@ describe("verifyVolunteerToken", () => {
 
   it("treats a second valid link as idempotent success when signup is already confirmed", async () => {
     // Existing confirmed signup for same email+shift
-    mockSignupQuery.mockResolvedValue({ data: [makeSignup({ status: "confirmed" })] });
+    mockSignupQuery.mockResolvedValue([makeSignup({ status: "confirmed" })]);
 
     const result = await verifyVolunteerToken({ tokenId });
 
@@ -590,7 +578,7 @@ describe("verifyVolunteerToken", () => {
   });
 
   it("does not revive canceled signups when an old token is clicked", async () => {
-    mockSignupQuery.mockResolvedValue({ data: [makeSignup({ status: "canceled" })] });
+    mockSignupQuery.mockResolvedValue([makeSignup({ status: "canceled" })]);
 
     const result = await verifyVolunteerToken({ tokenId });
 
@@ -601,7 +589,7 @@ describe("verifyVolunteerToken", () => {
   });
 
   it("returns success:false for an expired token without throwing", async () => {
-    mockTokenGet.mockResolvedValue({ data: { ...mockToken, ttl: expiredTtl } });
+    mockTokenGet.mockResolvedValue({ ...mockToken, ttl: expiredTtl });
 
     const result = await verifyVolunteerToken({ tokenId });
     expect(result.success).toBe(false);
@@ -610,7 +598,7 @@ describe("verifyVolunteerToken", () => {
   });
 
   it("returns success:false for a missing token without throwing", async () => {
-    mockTokenGet.mockResolvedValue({ data: null });
+    mockTokenGet.mockResolvedValue(null);
 
     const result = await verifyVolunteerToken({ tokenId });
     expect(result.success).toBe(false);
@@ -619,7 +607,7 @@ describe("verifyVolunteerToken", () => {
   });
 
   it("returns success:false when no pending signup exists for the token data", async () => {
-    mockSignupQuery.mockResolvedValue({ data: [] });
+    mockSignupQuery.mockResolvedValue([]);
 
     const result = await verifyVolunteerToken({ tokenId });
 
@@ -634,12 +622,12 @@ describe("verifyVolunteerToken", () => {
 describe("getPublicVolunteerEvent", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockEventGet.mockResolvedValue({ data: mockEvent });
+    mockEventGet.mockResolvedValue(mockEvent);
   });
 
   it("returns signupCounts with confirmed signups counted by role", async () => {
     const confirmedSignup = makeSignup({ status: "confirmed", assignedRoleId: roleId1 });
-    mockSignupQuery.mockResolvedValue({ data: [confirmedSignup] });
+    mockSignupQuery.mockResolvedValue([confirmedSignup]);
 
     const result = await getPublicVolunteerEvent({ id: eventId });
 
@@ -648,7 +636,7 @@ describe("getPublicVolunteerEvent", () => {
 
   it("does not count pending signups in signupCounts", async () => {
     const pendingSignup = makeSignup({ status: "pending" });
-    mockSignupQuery.mockResolvedValue({ data: [pendingSignup] });
+    mockSignupQuery.mockResolvedValue([pendingSignup]);
 
     const result = await getPublicVolunteerEvent({ id: eventId });
 
@@ -657,7 +645,7 @@ describe("getPublicVolunteerEvent", () => {
 
   it("returns confirmed helpers with displayName in FirstName L. format", async () => {
     const confirmedSignup = makeSignup({ status: "confirmed", assignedRoleId: roleId1 });
-    mockSignupQuery.mockResolvedValue({ data: [confirmedSignup] });
+    mockSignupQuery.mockResolvedValue([confirmedSignup]);
 
     const result = await getPublicVolunteerEvent({ id: eventId });
 
@@ -667,7 +655,7 @@ describe("getPublicVolunteerEvent", () => {
 
   it("bench: confirmed signup without assignedRoleId is not counted in signupCounts", async () => {
     const benchedSignup = makeSignup({ status: "confirmed" }); // no assignedRoleId
-    mockSignupQuery.mockResolvedValue({ data: [benchedSignup] });
+    mockSignupQuery.mockResolvedValue([benchedSignup]);
 
     const result = await getPublicVolunteerEvent({ id: eventId });
 
@@ -676,7 +664,7 @@ describe("getPublicVolunteerEvent", () => {
 
   it("bench: confirmed signup without assignedRoleId appears in confirmedHelpers with roleId null", async () => {
     const benchedSignup = makeSignup({ status: "confirmed" }); // no assignedRoleId
-    mockSignupQuery.mockResolvedValue({ data: [benchedSignup] });
+    mockSignupQuery.mockResolvedValue([benchedSignup]);
 
     const result = await getPublicVolunteerEvent({ id: eventId });
 
@@ -691,9 +679,9 @@ describe("confirmVolunteerSignup (admin force-confirm)", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockSignupGet
-      .mockResolvedValueOnce({ data: makeSignup({ id: signupId }) })
-      .mockResolvedValue({ data: makeSignup({ id: signupId, status: "confirmed" }) });
-    mockSignupPatch.mockResolvedValue({ data: {} });
+      .mockResolvedValueOnce(makeSignup({ id: signupId }))
+      .mockResolvedValue(makeSignup({ id: signupId, status: "confirmed" }));
+    mockSignupPatch.mockImplementation((_, updates) => makeSignup(updates as never));
   });
 
   it("sets status to confirmed", async () => {
@@ -703,7 +691,7 @@ describe("confirmVolunteerSignup (admin force-confirm)", () => {
   });
 
   it("throws when signup not found", async () => {
-    mockSignupGet.mockResolvedValue({ data: null });
+    mockSignupGet.mockResolvedValue(null);
     await expect(confirmVolunteerSignup({ id: signupId })).rejects.toThrow("not found");
   });
 });
@@ -713,14 +701,14 @@ describe("signup cancellation", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    mockEventGet.mockResolvedValue({ data: mockEvent });
+    mockEventGet.mockResolvedValue(mockEvent);
   });
 
   it("allows volunteer cancellation for confirmed signup before shift start", async () => {
     mockSignupGet
-      .mockResolvedValueOnce({ data: makeSignup({ id: signupId, status: "confirmed" }) })
-      .mockResolvedValue({ data: makeSignup({ id: signupId, status: "canceled" }) });
-    mockSignupPatch.mockResolvedValue({ data: {} });
+      .mockResolvedValueOnce(makeSignup({ id: signupId, status: "confirmed" }))
+      .mockResolvedValue(makeSignup({ id: signupId, status: "canceled" }));
+    mockSignupPatch.mockImplementation((_, updates) => makeSignup(updates as never));
 
     const result = await cancelVolunteerSignupByVolunteer({
       id: signupId,
@@ -743,14 +731,14 @@ describe("signup cancellation", () => {
       status: "confirmed",
       assignedRoleId: roleId1,
     });
-    mockSignupGet.mockResolvedValueOnce({ data: signupWithAssignedRole }).mockResolvedValue({
+    mockSignupGet.mockResolvedValueOnce(signupWithAssignedRole).mockResolvedValue({
       data: {
         ...signupWithAssignedRole,
         status: "canceled",
         assignedRoleId: undefined,
       },
     });
-    mockSignupPatch.mockResolvedValue({ data: {} });
+    mockSignupPatch.mockImplementation((_, updates) => makeSignup(updates as never));
 
     await cancelVolunteerSignupByVolunteer({
       id: signupId,
@@ -766,7 +754,7 @@ describe("signup cancellation", () => {
   });
 
   it("returns generic invalid result for email mismatch", async () => {
-    mockSignupGet.mockResolvedValue({ data: makeSignup({ id: signupId, status: "confirmed" }) });
+    mockSignupGet.mockResolvedValue(makeSignup({ id: signupId, status: "confirmed" }));
 
     const result = await cancelVolunteerSignupByVolunteer({
       id: signupId,
@@ -778,7 +766,7 @@ describe("signup cancellation", () => {
   });
 
   it("returns already_canceled for repeated cancellation", async () => {
-    mockSignupGet.mockResolvedValue({ data: makeSignup({ id: signupId, status: "canceled" }) });
+    mockSignupGet.mockResolvedValue(makeSignup({ id: signupId, status: "canceled" }));
 
     const result = await cancelVolunteerSignupByVolunteer({
       id: signupId,
@@ -794,8 +782,8 @@ describe("signup cancellation", () => {
       ...mockEvent,
       shifts: [{ ...mockEvent.shifts[0], startDate: pastDate }],
     };
-    mockEventGet.mockResolvedValue({ data: startedEvent });
-    mockSignupGet.mockResolvedValue({ data: makeSignup({ id: signupId, status: "confirmed" }) });
+    mockEventGet.mockResolvedValue(startedEvent);
+    mockSignupGet.mockResolvedValue(makeSignup({ id: signupId, status: "confirmed" }));
 
     const result = await cancelVolunteerSignupByVolunteer({
       id: signupId,
@@ -808,9 +796,9 @@ describe("signup cancellation", () => {
 
   it("allows admin cancellation for pending signups", async () => {
     mockSignupGet
-      .mockResolvedValueOnce({ data: makeSignup({ id: signupId, status: "pending" }) })
-      .mockResolvedValue({ data: makeSignup({ id: signupId, status: "canceled" }) });
-    mockSignupPatch.mockResolvedValue({ data: {} });
+      .mockResolvedValueOnce(makeSignup({ id: signupId, status: "pending" }))
+      .mockResolvedValue(makeSignup({ id: signupId, status: "canceled" }));
+    mockSignupPatch.mockImplementation((_, updates) => makeSignup(updates as never));
 
     const result = await cancelVolunteerSignupByAdmin({ id: signupId });
 
@@ -849,7 +837,7 @@ describe("sendBulkVolunteerEventEmail", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    mockEventGet.mockResolvedValue({ data: mockEvent });
+    mockEventGet.mockResolvedValue(mockEvent);
   });
 
   it("sends one email per unique confirmed signup email address", async () => {
@@ -861,7 +849,7 @@ describe("sendBulkVolunteerEventEmail", () => {
       id: "cc222222-2222-4222-8222-222222222222",
       email: "b@example.com",
     });
-    mockSignupQuery.mockResolvedValue({ data: [confirmed1, confirmed2] });
+    mockSignupQuery.mockResolvedValue([confirmed1, confirmed2]);
 
     const result = await sendBulkVolunteerEventEmail({
       eventId,
@@ -875,7 +863,7 @@ describe("sendBulkVolunteerEventEmail", () => {
   });
 
   it("sends the organizer a copy even without confirmed signups", async () => {
-    mockSignupQuery.mockResolvedValue({ data: [] });
+    mockSignupQuery.mockResolvedValue([]);
 
     const result = await sendBulkVolunteerEventEmail({
       eventId,
@@ -904,7 +892,7 @@ describe("sendBulkVolunteerEventEmail", () => {
       email: "b@example.com",
       status: "pending",
     });
-    mockSignupQuery.mockResolvedValue({ data: [confirmed, pending] });
+    mockSignupQuery.mockResolvedValue([confirmed, pending]);
 
     const result = await sendBulkVolunteerEventEmail({
       eventId,
@@ -925,7 +913,7 @@ describe("sendBulkVolunteerEventEmail", () => {
       id: "cc222222-2222-4222-8222-222222222222",
       email: "erika@example.com",
     });
-    mockSignupQuery.mockResolvedValue({ data: [s1, s2] });
+    mockSignupQuery.mockResolvedValue([s1, s2]);
 
     const result = await sendBulkVolunteerEventEmail({
       eventId,
@@ -944,7 +932,7 @@ describe("sendBulkVolunteerEventEmail", () => {
       firstName: "Max",
       lastName: "Muster",
     });
-    mockSignupQuery.mockResolvedValue({ data: [organizerSignup] });
+    mockSignupQuery.mockResolvedValue([organizerSignup]);
 
     const result = await sendBulkVolunteerEventEmail({
       eventId,
@@ -962,7 +950,7 @@ describe("sendBulkVolunteerEventEmail", () => {
   });
 
   it("filters by shiftIds", async () => {
-    mockEventGet.mockResolvedValue({ data: mockEventWithTwoShifts });
+    mockEventGet.mockResolvedValue(mockEventWithTwoShifts);
     const inShift1 = makeConfirmedSignup({
       id: "cc111111-1111-4111-8111-111111111111",
       email: "a@example.com",
@@ -974,7 +962,7 @@ describe("sendBulkVolunteerEventEmail", () => {
       shiftId: shift2Id,
       assignedRoleId: roleId3,
     });
-    mockSignupQuery.mockResolvedValue({ data: [inShift1, inShift2] });
+    mockSignupQuery.mockResolvedValue([inShift1, inShift2]);
 
     const result = await sendBulkVolunteerEventEmail({
       eventId,
@@ -998,7 +986,7 @@ describe("sendBulkVolunteerEventEmail", () => {
       email: "b@example.com",
       assignedRoleId: roleId2,
     });
-    mockSignupQuery.mockResolvedValue({ data: [withRole1, withRole2] });
+    mockSignupQuery.mockResolvedValue([withRole1, withRole2]);
 
     const result = await sendBulkVolunteerEventEmail({
       eventId,
@@ -1023,7 +1011,7 @@ describe("sendBulkVolunteerEventEmail", () => {
       email: "b@example.com",
       dateOfBirth: "1980-01-01",
     });
-    mockSignupQuery.mockResolvedValue({ data: [inRange, outOfRange] });
+    mockSignupQuery.mockResolvedValue([inRange, outOfRange]);
 
     const result = await sendBulkVolunteerEventEmail({
       eventId,
@@ -1041,7 +1029,7 @@ describe("sendBulkVolunteerEventEmail", () => {
       id: "cc111111-1111-4111-8111-111111111111",
       email: "a@example.com",
     });
-    mockSignupQuery.mockResolvedValue({ data: [confirmed] });
+    mockSignupQuery.mockResolvedValue([confirmed]);
 
     await sendBulkVolunteerEventEmail({
       eventId,
@@ -1068,7 +1056,7 @@ describe("sendBulkVolunteerEventEmail", () => {
       id: "cc222222-2222-4222-8222-222222222222",
       email: "b@example.com",
     });
-    mockSignupQuery.mockResolvedValue({ data: [s1, s2] });
+    mockSignupQuery.mockResolvedValue([s1, s2]);
 
     vi.mocked(sendBulkVolunteerEmail)
       .mockResolvedValueOnce(undefined) // first succeeds

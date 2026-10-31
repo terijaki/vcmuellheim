@@ -3,9 +3,9 @@
  * Invoked only from the feature-branch seed route.
  */
 
-import { db } from "@/lib/db/electrodb-client";
 import { docClient } from "@/lib/db/client";
 import { getContentTableName, getSocialTableName } from "@/lib/db/env";
+import { seedEntityWriters } from "@/lib/fixture-seed/common";
 import { rebuildAllPublicSnapshots } from "@/lib/read-models/public-snapshots";
 import { S3Client } from "@aws-sdk/client-s3";
 import { grantCmsAdmin } from "@/lib/fixture-seed/cms-admin";
@@ -35,7 +35,7 @@ function createDeployedSeedContext(): SeedContext {
     s3Bucket,
     contentTableName: getContentTableName(),
     socialTableName: getSocialTableName(),
-    entities: db(),
+    entities: seedEntityWriters,
     docClient,
     s3Client: new S3Client({ region: process.env.AWS_REGION || "eu-central-1" }),
     locationCache: [],
@@ -50,7 +50,7 @@ export async function runFixtureSeed(options?: { adminEmail?: string }): Promise
   await seedLocationsData(ctx);
   await seedMembersData(ctx);
   if (options?.adminEmail) {
-    const result = await grantCmsAdmin(ctx.entities, options.adminEmail);
+    const result = await grantCmsAdmin(null, options.adminEmail);
     console.log(
       `CMS admin seed (${result.status}): ${result.status === "unchanged" ? `${result.email} (${result.authRole})` : result.email}`,
     );

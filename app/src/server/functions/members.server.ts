@@ -3,12 +3,13 @@
  */
 
 import { z } from "zod";
-import { db } from "@/lib/db/electrodb-client";
+import { memberRepository } from "@/lib/db/repositories/member-repository";
+import { teamRepository } from "@/lib/db/repositories/team-repository";
 import { memberSchema } from "@/lib/db/schemas";
 import { readPublicMembers, rebuildPublicMembers } from "@/lib/read-models/public-snapshots";
 import { handleGetFileUrls } from "./upload.server";
 import { withTimestamps } from "../dynamo";
-import { parseServerArray, parseServerData } from "../schema-parse";
+import { parseServerArray } from "../schema-parse";
 import {
   canonicalizeProxyAlias,
   getProxyAliasBranchName,
@@ -48,13 +49,9 @@ async function withAvatarUrls<T extends { avatarS3Key?: string }>(members: T[]) 
 }
 
 export async function handleListPublicMembers() {
-  const result = await db().member.query.byType({ type: "member" }).go({ pages: "all" });
-  const items = parseServerArray(publicMemberSchema, result.data, "Failed to parse member list");
-
-  return {
-    items,
-    lastEvaluatedKey: result.cursor ?? undefined,
-  };
+  const members = await memberRepository.listAll();
+  const items = parseServerArray(publicMemberSchema, members, "Failed to parse member list");
+  return { items, lastEvaluatedKey: undefined };
 }
 
 export async function handleGetHomeMembers() {
@@ -80,16 +77,9 @@ export async function handleGetHomeMembers() {
 }
 
 export async function handleGetTrainers() {
-  const result = await db()
-    .member.query.byType({ type: "member" })
-    .where((attr, op) => op.eq(attr.isTrainer, true))
-    .go({ pages: "all" });
-  const items = parseServerArray(publicMemberSchema, result.data, "Failed to parse trainer list");
-
-  return {
-    items,
-    lastEvaluatedKey: result.cursor ?? undefined,
-  };
+  const trainers = await memberRepository.listTrainers();
+  const items = parseServerArray(publicMemberSchema, trainers, "Failed to parse trainer list");
+  return { items, lastEvaluatedKey: undefined };
 }
 
 export async function handleCreateMember(data: MemberInput) {
@@ -100,7 +90,7 @@ export async function handleCreateMember(data: MemberInput) {
     id: crypto.randomUUID(),
   });
 
-  await db().member.create(member).go();
+  await memberRepository.create(member);
   await rebuildPublicMembers();
 
   return member;
@@ -110,6 +100,9 @@ export async function handleUpdateMember(id: string, updates: MemberUpdateInput,
   if (id === userId && updates.authRole !== "Admin") {
     throw new Error("You cannot remove your own admin role");
   }
+
+  const existing = await memberRepository.getById(id);
+  if (!existing) throw new Error("Member not found");
 
   const { privateEmail, proxyEmail, phone, roleTitle, avatarS3Key, authRole, ...restUpdates } =
     updates;
@@ -124,52 +117,43 @@ export async function handleUpdateMember(id: string, updates: MemberUpdateInput,
     authRole,
   });
 
-  const setFields = {
+  const merged = {
+    ...existing,
     ...restUpdates,
     ...nullableFields,
     updatedAt: new Date().toISOString(),
-  };
-  const patchOp = db().member.patch({ id }).set(setFields);
-  const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
+  } as Record<string, unknown>;
+  for (const key of removeKeys) {
+    delete merged[key];
+  }
 
-  if (!result.data) throw new Error("Member not found");
-
-  const refreshedResult = await db().member.get({ id }).go();
-  const member = refreshedResult.data
-    ? parseServerData(memberSchema, refreshedResult.data, "Failed to parse member data")
-    : null;
-
+  const member = await memberRepository.update(id, merged);
   if (!member) throw new Error("Member not found");
   await rebuildPublicMembers();
   return member;
 }
 
 export async function handleDeleteMember(id: string) {
-  const teamsResult = await db().team.query.byType({ type: "team" }).go({ pages: "all" });
-  const teams = teamsResult.data;
+  const teams = await teamRepository.listAll();
   const teamsToUpdate = teams.filter((team) => team.trainerIds?.includes(id));
   for (const team of teamsToUpdate) {
     const updatedTrainerIds = team.trainerIds?.filter((trainerId) => trainerId !== id);
-    await db()
-      .team.patch({ id: team.id })
-      .set({ trainerIds: updatedTrainerIds, updatedAt: new Date().toISOString() })
-      .go();
+    await teamRepository.update(team.id, {
+      trainerIds: updatedTrainerIds,
+      updatedAt: new Date().toISOString(),
+    });
   }
 
-  await db().member.delete({ id }).go();
+  await memberRepository.delete(id);
   await rebuildPublicMembers();
 
   return { success: true as const };
 }
 
 export async function handleListAdminMembers() {
-  const result = await db().member.query.byType({ type: "member" }).go({ pages: "all" });
-  const items = parseServerArray(memberSchema, result.data, "Failed to parse member list");
-
-  return {
-    items,
-    lastEvaluatedKey: result.cursor ?? undefined,
-  };
+  const members = await memberRepository.listAll();
+  const items = parseServerArray(memberSchema, members, "Failed to parse member list");
+  return { items, lastEvaluatedKey: undefined };
 }
 
 export async function handleSuggestProxyAlias(name: string, excludeMemberId?: string) {
@@ -177,9 +161,8 @@ export async function handleSuggestProxyAlias(name: string, excludeMemberId?: st
   const aliasBranchName = getProxyAliasBranchName();
   let alias = suggestProxyAlias(name, aliasDomain, aliasBranchName);
   for (let counter = 2; counter <= 99; counter++) {
-    const result = await db().member.query.byProxyEmail({ proxyEmail: alias }).go();
-    const existing = result.data.filter((m) => m.id !== excludeMemberId);
-    if (existing.length === 0) break;
+    const existing = await memberRepository.getByProxyEmail(alias);
+    if (!existing || existing.id === excludeMemberId) break;
     alias = suggestProxyAlias(name, aliasDomain, aliasBranchName, counter);
   }
   return { alias };
@@ -187,9 +170,9 @@ export async function handleSuggestProxyAlias(name: string, excludeMemberId?: st
 
 export async function handleCheckProxyEmail(proxyEmail: string, excludeMemberId?: string) {
   const canonicalProxyEmail = canonicalizeProxyAlias(proxyEmail);
-  const result = await db().member.query.byProxyEmail({ proxyEmail: canonicalProxyEmail }).go();
-  const existing = result.data.filter((m) => m.id !== excludeMemberId);
-  return { available: existing.length === 0 };
+  const existing = await memberRepository.getByProxyEmail(canonicalProxyEmail);
+  const available = !existing || existing.id === excludeMemberId;
+  return { available };
 }
 
 export type { MemberUpdateInput };

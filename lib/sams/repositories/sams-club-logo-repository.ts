@@ -1,7 +1,8 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
-import { createSamsDb } from "@/lib/db/electrodb-client";
 import { getSamsTableName } from "@/lib/db/env";
+import { getItem, parseDomain, putItem } from "@/lib/db/repositories/dynamo-helpers";
+import { samsClubLogoItemFromDomain, samsClubLogoMainKeys } from "@/lib/db/sams-keys";
 import { samsClubLogoSchema, type SamsClubLogoInput } from "@/lib/db/schemas";
 import {
   isoTimestampNow,
@@ -21,15 +22,22 @@ export class SamsClubLogoRepository {
     private readonly tableName?: string,
   ) {}
 
-  private entities() {
-    const table = this.tableName ?? getSamsTableName();
-    return createSamsDb(this.documentClient, table);
+  private table(): string {
+    return this.tableName ?? getSamsTableName();
   }
 
   async get(sportsclubUuid: string): Promise<SamsClubLogoInput | null> {
-    const result = await this.entities().clubLogo.get({ sportsclubUuid }).go();
-    return result.data
-      ? parseWithSchema(samsClubLogoSchema, result.data, "Failed to parse SAMS club logo")
+    const item = await getItem(
+      this.documentClient,
+      this.table(),
+      samsClubLogoMainKeys(sportsclubUuid),
+    );
+    return item
+      ? parseWithSchema(
+          samsClubLogoSchema,
+          parseDomain(samsClubLogoSchema, item, "parse"),
+          "Failed to parse SAMS club logo",
+        )
       : null;
   }
 
@@ -44,7 +52,7 @@ export class SamsClubLogoRepository {
       },
       "Failed to parse SAMS club logo upsert input",
     );
-    await this.entities().clubLogo.put(item).go();
+    await putItem(this.documentClient, this.table(), samsClubLogoItemFromDomain(item));
     return item;
   }
 }

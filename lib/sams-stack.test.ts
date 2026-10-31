@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from "vite-plus/test";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { SamsStack } from "./sams-stack";
-import { SamsTableIndexes } from "./db/sams-electrodb-entities";
+import { SamsTableIndexes } from "./db/table-indexes";
 import { getProviderEventDeliveryRoleArn, SAMS_PROVIDER_ACCOUNT_ID } from "./sams-provider-env";
 import { createTestApp } from "./test-helpers";
 

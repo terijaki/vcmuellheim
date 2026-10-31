@@ -1,7 +1,8 @@
 import type { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { docClient } from "@/lib/db/client";
-import { createSamsDb } from "@/lib/db/electrodb-client";
 import { getSamsTableName } from "@/lib/db/env";
+import { getItem, parseDomain, putItem } from "@/lib/db/repositories/dynamo-helpers";
+import { samsScheduleItemFromDomain, samsScheduleKeys } from "@/lib/db/sams-keys";
 import {
   samsClubScheduleProjectionSchema,
   type SamsClubScheduleProjectionInput,
@@ -35,9 +36,8 @@ export class SamsScheduleProjectionRepository {
     private readonly tableName?: string,
   ) {}
 
-  private entities() {
-    const table = this.tableName ?? getSamsTableName();
-    return createSamsDb(this.documentClient, table);
+  private table(): string {
+    return this.tableName ?? getSamsTableName();
   }
 
   private parseItem(value: unknown): SamsClubScheduleProjectionInput {
@@ -52,10 +52,16 @@ export class SamsScheduleProjectionRepository {
     sportsclubUuid: string,
     seasonUuid: string,
   ): Promise<SamsClubScheduleProjectionInput | null> {
-    const result = await this.entities().schedule.get({ sportsclubUuid, seasonUuid }).go();
-    if (!result.data) return null;
+    const raw = await getItem(
+      this.documentClient,
+      this.table(),
+      samsScheduleKeys(sportsclubUuid, seasonUuid),
+    );
+    if (!raw) return null;
 
-    const parsed = samsClubScheduleProjectionSchema.safeParse(result.data);
+    const parsed = samsClubScheduleProjectionSchema.safeParse(
+      parseDomain(samsClubScheduleProjectionSchema, raw, "parse"),
+    );
     if (!parsed.success) {
       console.warn("Failed to parse SAMS schedule projection; treating as missing", {
         sportsclubUuid,
@@ -82,7 +88,7 @@ export class SamsScheduleProjectionRepository {
       updatedAt: input.updatedAt ?? isoTimestampNow(),
       ttl: input.ttl ?? unixTtlSecondsFromNow(SAMS_PROJECTION_TTL_DAYS),
     });
-    await this.entities().schedule.put(item).go();
+    await putItem(this.documentClient, this.table(), samsScheduleItemFromDomain(item));
     return item;
   }
 

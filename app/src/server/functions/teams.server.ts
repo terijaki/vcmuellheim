@@ -4,7 +4,7 @@
 
 import { slugify } from "@utils/slugify";
 import { z } from "zod";
-import { db } from "@/lib/db/electrodb-client";
+import { teamRepository } from "@/lib/db/repositories/team-repository";
 import { teamSchema } from "@/lib/db/schemas";
 import { rebuildUpcomingEvents } from "@/lib/read-models/public-snapshots";
 import { withTimestamps } from "../dynamo";
@@ -27,20 +27,14 @@ type TeamInput = z.infer<typeof teamInputSchema>;
 type TeamUpdateInput = z.infer<typeof teamUpdateDataSchema>;
 
 export async function handleListTeams() {
-  const result = await db().team.query.byType({ type: "team" }).go({ pages: "all" });
-  const items = parseServerArray(teamSchema, result.data, "Failed to parse team list");
-
-  return {
-    items,
-    lastEvaluatedKey: result.cursor ?? undefined,
-  };
+  const teams = await teamRepository.listAll();
+  const items = parseServerArray(teamSchema, teams, "Failed to parse team list");
+  return { items, lastEvaluatedKey: undefined };
 }
 
 export async function handleGetTeamBySlug(slug: string) {
-  const result = await db().team.query.bySlug({ slug }).go({ limit: 1 });
-  return result.data[0]
-    ? parseServerData(teamSchema, result.data[0], "Failed to parse team data")
-    : null;
+  const team = await teamRepository.getBySlug(slug);
+  return team ? parseServerData(teamSchema, team, "Failed to parse team data") : null;
 }
 
 export async function handleCreateTeam(data: TeamInput) {
@@ -52,13 +46,16 @@ export async function handleCreateTeam(data: TeamInput) {
     slug,
   });
 
-  await db().team.create(team).go();
+  await teamRepository.create(team);
   await rebuildUpcomingEvents();
 
   return team;
 }
 
 export async function handleUpdateTeam(id: string, updates: TeamUpdateInput) {
+  const existing = await teamRepository.getById(id);
+  if (!existing) throw new Error("Team not found");
+
   const { description, sbvvTeamId, ageGroup, league, name, ...restUpdates } = updates;
   const { setFields: nullableFields, removeKeys } = resolveNullableUpdates({
     description,
@@ -67,30 +64,25 @@ export async function handleUpdateTeam(id: string, updates: TeamUpdateInput) {
     league,
   });
 
-  const setFields = {
+  const merged = {
+    ...existing,
     ...restUpdates,
     ...nullableFields,
     ...(name !== undefined ? { name, slug: slugify(name, true) } : {}),
     updatedAt: new Date().toISOString(),
-  };
+  } as Record<string, unknown>;
+  for (const key of removeKeys) {
+    delete merged[key];
+  }
 
-  const patchOp = db().team.patch({ id }).set(setFields);
-  const result = await (removeKeys.length > 0 ? patchOp.remove(removeKeys) : patchOp).go();
-
-  if (!result.data) throw new Error("Team not found");
-
-  const refreshedResult = await db().team.get({ id }).go();
-  const team = refreshedResult.data
-    ? parseServerData(teamSchema, refreshedResult.data, "Failed to parse team data")
-    : null;
-
+  const team = await teamRepository.update(id, merged);
   if (!team) throw new Error("Team not found");
   await rebuildUpcomingEvents();
   return team;
 }
 
 export async function handleDeleteTeam(id: string) {
-  await db().team.delete({ id }).go();
+  await teamRepository.delete(id);
   await rebuildUpcomingEvents();
   return { success: true as const };
 }

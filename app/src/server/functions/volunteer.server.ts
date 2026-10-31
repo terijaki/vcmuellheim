@@ -8,7 +8,11 @@
 import dayjs from "dayjs";
 import { z } from "zod";
 import * as Sentry from "@sentry/tanstackstart-react";
-import { db } from "@/lib/db/electrodb-client";
+import {
+  volunteerEventRepository,
+  volunteerSignupRepository,
+  volunteerTokenRepository,
+} from "@/lib/db/repositories/content-entities-repository";
 import {
   volunteerEventSchema,
   volunteerSignupDataSchema,
@@ -37,8 +41,8 @@ const TOKEN_TTL_SECONDS = 72 * 60 * 60;
 
 /** Retrieve all signups for an event from GSI6. */
 async function getSignupsForEvent(eventId: string): Promise<VolunteerSignup[]> {
-  const result = await db().volunteerSignup.query.byEvent({ eventId }).go({ pages: "all" });
-  return parseServerArray(volunteerSignupSchema, result.data, "Failed to parse signup list");
+  const signups = await volunteerSignupRepository.listByEvent(eventId);
+  return parseServerArray(volunteerSignupSchema, signups, "Failed to parse signup list");
 }
 
 /** Find an existing signup by email + eventId + shiftId (in-memory filter). */
@@ -81,19 +85,21 @@ async function cancelSignupAndNotify(opts: {
 }): Promise<VolunteerSignup> {
   const { signup, event, source } = opts;
 
-  const patchOperation = db()
-    .volunteerSignup.patch({ id: signup.id })
-    .set({ status: "canceled", updatedAt: new Date().toISOString() });
-  await patchOperation.remove(["assignedRoleId"]).go();
-
-  const refreshed = await db().volunteerSignup.get({ id: signup.id }).go();
-  if (!refreshed.data) {
+  const canceledSignupRaw = await volunteerSignupRepository.update(
+    signup.id,
+    {
+      status: "canceled",
+      updatedAt: new Date().toISOString(),
+    },
+    ["assignedRoleId"],
+  );
+  if (!canceledSignupRaw) {
     throw new Error("Signup not found after cancellation");
   }
 
   const canceledSignup = parseServerData(
     volunteerSignupSchema,
-    refreshed.data,
+    canceledSignupRaw,
     "Failed to parse canceled signup",
   );
   const organizerCancellationSignup = {
@@ -134,11 +140,11 @@ export type PublicVolunteerEventData = VolunteerEvent & {
 export async function getPublicVolunteerEvent(data: {
   id: string;
 }): Promise<PublicVolunteerEventData> {
-  const eventResult = await db().volunteerEvent.get({ id: data.id }).go();
-  if (!eventResult.data) throw new Error("Event not found");
+  const eventData = await volunteerEventRepository.getById(data.id);
+  if (!eventData) throw new Error("Event not found");
   const event = parseServerData(
     volunteerEventSchema,
-    eventResult.data,
+    eventData,
     "Failed to parse event",
   ) satisfies VolunteerEvent;
 
@@ -148,12 +154,10 @@ export async function getPublicVolunteerEvent(data: {
   // Filter out archived shifts before returning
   const activeShifts = event.shifts.filter((s) => !s.archivedAt);
 
-  const signupsResult = await db()
-    .volunteerSignup.query.byEvent({ eventId: data.id })
-    .go({ pages: "all" });
+  const signupsForEvent = await volunteerSignupRepository.listByEvent(data.id);
   const allSignups = parseServerArray(
     volunteerSignupSchema,
-    signupsResult.data,
+    signupsForEvent,
     "Failed to parse signups",
   );
 
@@ -190,11 +194,11 @@ export async function getPublicVolunteerEvent(data: {
 
 export async function createVolunteerSignup(data: z.infer<typeof volunteerSignupDataSchema>) {
   // Check that the shift's startDate is in the future
-  const eventResult = await db().volunteerEvent.get({ id: data.eventId }).go();
-  if (!eventResult.data) throw new Error("Event not found");
+  const eventData = await volunteerEventRepository.getById(data.eventId);
+  if (!eventData) throw new Error("Event not found");
   const event = parseServerData(
     volunteerEventSchema,
-    eventResult.data,
+    eventData,
     "Failed to parse event",
   ) satisfies VolunteerEvent;
 
@@ -249,10 +253,11 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
   }
 
   if (existing?.status === "pending") {
-    const patchOperation = db()
-      .volunteerSignup.patch({ id: existing.id })
-      .set({ ...normalizeSignupPatchData(data), status: "pending" as const });
-    await patchOperation.remove(["assignedRoleId"]).go();
+    await volunteerSignupRepository.update(
+      existing.id,
+      { ...normalizeSignupPatchData(data), status: "pending" as const },
+      ["assignedRoleId"],
+    );
   } else {
     const signup = withTimestamps({
       ...data,
@@ -260,7 +265,7 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
       type: "volunteerSignup" as const,
       status: "pending" as const,
     });
-    await db().volunteerSignup.create(signup).go();
+    await volunteerSignupRepository.create(signup);
   }
 
   // Create token for new and pending-duplicate submissions.
@@ -274,7 +279,7 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
     ttl,
     createdAt: new Date().toISOString(),
   };
-  await db().volunteerToken.create(token).go();
+  await volunteerTokenRepository.create(token);
 
   // Send confirmation email
   await sendVolunteerConfirmationEmail({
@@ -293,13 +298,13 @@ export async function createVolunteerSignup(data: z.infer<typeof volunteerSignup
 // ---------------------------------------------------------------------------
 
 export async function verifyVolunteerToken(data: { tokenId: string }) {
-  const tokenResult = await db().volunteerToken.get({ id: data.tokenId }).go();
-  if (!tokenResult.data) {
+  const tokenData = await volunteerTokenRepository.getById(data.tokenId);
+  if (!tokenData) {
     console.warn("[verifyVolunteerToken] Token not found:", data.tokenId);
     return { success: false, shiftId: null };
   }
 
-  const token = parseServerData(volunteerTokenSchema, tokenResult.data, "Failed to parse token");
+  const token = parseServerData(volunteerTokenSchema, tokenData, "Failed to parse token");
 
   // Check TTL manually (DDB may not have removed it yet in fast tests)
   const nowSeconds = Math.floor(Date.now() / 1000);
@@ -311,11 +316,11 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
   const signupData = token.signupData;
 
   // Fetch event
-  const eventResult = await db().volunteerEvent.get({ id: signupData.eventId }).go();
-  if (!eventResult.data) throw new Error("Event not found");
+  const eventData = await volunteerEventRepository.getById(signupData.eventId);
+  if (!eventData) throw new Error("Event not found");
   const event = parseServerData(
     volunteerEventSchema,
-    eventResult.data,
+    eventData,
     "Failed to parse event",
   ) satisfies VolunteerEvent;
 
@@ -330,19 +335,19 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 
   const confirmedSignup = matchingSignups.find((s) => s.status === "confirmed");
   if (confirmedSignup) {
-    await db().volunteerToken.delete({ id: data.tokenId }).go();
+    await volunteerTokenRepository.delete(data.tokenId);
     return { success: true, shiftId: confirmedSignup.shiftId };
   }
 
   const pendingSignup = matchingSignups.find((s) => s.status === "pending");
   const hasCanceledOnly = matchingSignups.length > 0 && !pendingSignup;
   if (hasCanceledOnly) {
-    await db().volunteerToken.delete({ id: data.tokenId }).go();
+    await volunteerTokenRepository.delete(data.tokenId);
     return { success: false, shiftId: null };
   }
 
   if (!pendingSignup) {
-    await db().volunteerToken.delete({ id: data.tokenId }).go();
+    await volunteerTokenRepository.delete(data.tokenId);
     return { success: false, shiftId: null };
   }
 
@@ -364,16 +369,12 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 
   let signup: VolunteerSignup;
   // Confirm existing pending record using its latest data.
-  await db()
-    .volunteerSignup.patch({ id: pendingSignup.id })
-    .set({
-      ...normalizeSignupPatchData(effectiveSignupData),
-      status: "confirmed",
-    })
-    .go();
-  const refreshed = await db().volunteerSignup.get({ id: pendingSignup.id }).go();
-  if (!refreshed.data) throw new Error("Signup not found after update");
-  signup = parseServerData(volunteerSignupSchema, refreshed.data, "Failed to parse signup");
+  const confirmedRaw = await volunteerSignupRepository.update(pendingSignup.id, {
+    ...normalizeSignupPatchData(effectiveSignupData),
+    status: "confirmed",
+  });
+  if (!confirmedRaw) throw new Error("Signup not found after update");
+  signup = parseServerData(volunteerSignupSchema, confirmedRaw, "Failed to parse signup");
 
   // Auto-assign to first preferred role with available capacity
   const shift = event.shifts.find((s) => s.id === effectiveSignupData.shiftId);
@@ -404,16 +405,16 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
           (role.minAge === undefined || userAgeAtShift >= role.minAge),
       );
     if (availableRole) {
-      await db()
-        .volunteerSignup.patch({ id: signup.id })
-        .set({ assignedRoleId: availableRole.id, updatedAt: new Date().toISOString() })
-        .go();
+      await volunteerSignupRepository.update(signup.id, {
+        assignedRoleId: availableRole.id,
+        updatedAt: new Date().toISOString(),
+      });
       signup = { ...signup, assignedRoleId: availableRole.id };
     }
   }
 
   // Delete token before sending email — a second concurrent call will fail at token lookup
-  await db().volunteerToken.delete({ id: data.tokenId }).go();
+  await volunteerTokenRepository.delete(data.tokenId);
 
   if (shouldSendOrganizerNotification) {
     try {
@@ -451,32 +452,32 @@ export async function verifyVolunteerToken(data: { tokenId: string }) {
 
 /** Force-confirm a pending signup (skip email verification). */
 export async function confirmVolunteerSignup(data: { id: string }) {
-  const existing = await db().volunteerSignup.get({ id: data.id }).go();
-  if (!existing.data) throw new Error("Signup not found");
+  const existingSignup = await volunteerSignupRepository.getById(data.id);
+  if (!existingSignup) throw new Error("Signup not found");
   const parsedExisting = parseServerData(
     volunteerSignupSchema,
-    existing.data,
+    existingSignup,
     "Failed to parse signup",
   ) satisfies VolunteerSignup;
   if (parsedExisting.status === "canceled") {
     throw new Error("Canceled signup cannot be confirmed");
   }
-  await db()
-    .volunteerSignup.patch({ id: data.id })
-    .set({ status: "confirmed", updatedAt: new Date().toISOString() })
-    .go();
-  const refreshed = await db().volunteerSignup.get({ id: data.id }).go();
-  if (!refreshed.data) throw new Error("Signup not found");
-  return parseServerData(volunteerSignupSchema, refreshed.data, "Failed to parse signup");
+  await volunteerSignupRepository.update(data.id, {
+    status: "confirmed",
+    updatedAt: new Date().toISOString(),
+  });
+  const refreshedSignup = await volunteerSignupRepository.getById(data.id);
+  if (!refreshedSignup) throw new Error("Signup not found");
+  return parseServerData(volunteerSignupSchema, refreshedSignup, "Failed to parse signup");
 }
 
 export async function cancelVolunteerSignupByAdmin(data: { id: string }) {
-  const existing = await db().volunteerSignup.get({ id: data.id }).go();
-  if (!existing.data) throw new Error("Signup not found");
+  const existingSignup = await volunteerSignupRepository.getById(data.id);
+  if (!existingSignup) throw new Error("Signup not found");
 
   const signup = parseServerData(
     volunteerSignupSchema,
-    existing.data,
+    existingSignup,
     "Failed to parse signup",
   ) satisfies VolunteerSignup;
 
@@ -484,11 +485,11 @@ export async function cancelVolunteerSignupByAdmin(data: { id: string }) {
     return signup;
   }
 
-  const eventResult = await db().volunteerEvent.get({ id: signup.eventId }).go();
-  if (!eventResult.data) throw new Error("Event not found");
+  const eventData = await volunteerEventRepository.getById(signup.eventId);
+  if (!eventData) throw new Error("Event not found");
   const event = parseServerData(
     volunteerEventSchema,
-    eventResult.data,
+    eventData,
     "Failed to parse event",
   ) satisfies VolunteerEvent;
 
@@ -502,14 +503,14 @@ export async function cancelVolunteerSignupByVolunteer(data: {
   success: boolean;
   code: "ok" | "invalid" | "already_canceled" | "shift_started";
 }> {
-  const existing = await db().volunteerSignup.get({ id: data.id }).go();
-  if (!existing.data) {
+  const existingSignup = await volunteerSignupRepository.getById(data.id);
+  if (!existingSignup) {
     return { success: false, code: "invalid" };
   }
 
   const signup = parseServerData(
     volunteerSignupSchema,
-    existing.data,
+    existingSignup,
     "Failed to parse signup",
   ) satisfies VolunteerSignup;
 
@@ -525,13 +526,13 @@ export async function cancelVolunteerSignupByVolunteer(data: {
     return { success: false, code: "invalid" };
   }
 
-  const eventResult = await db().volunteerEvent.get({ id: signup.eventId }).go();
-  if (!eventResult.data) {
+  const eventData = await volunteerEventRepository.getById(signup.eventId);
+  if (!eventData) {
     return { success: false, code: "invalid" };
   }
   const event = parseServerData(
     volunteerEventSchema,
-    eventResult.data,
+    eventData,
     "Failed to parse event",
   ) satisfies VolunteerEvent;
   const shift = event.shifts.find((s) => s.id === signup.shiftId);
@@ -572,14 +573,14 @@ export async function sendBulkVolunteerEventEmail(data: {
 }): Promise<BulkEmailResult> {
   const { eventId, subject, htmlBody, filters } = data;
 
-  const eventResult = await db().volunteerEvent.get({ id: eventId }).go();
-  if (!eventResult.data) throw new Error("Event not found");
-  const event = parseServerData(volunteerEventSchema, eventResult.data, "Failed to parse event");
+  const eventData = await volunteerEventRepository.getById(eventId);
+  if (!eventData) throw new Error("Event not found");
+  const event = parseServerData(volunteerEventSchema, eventData, "Failed to parse event");
 
-  const signupsResult = await db().volunteerSignup.query.byEvent({ eventId }).go({ pages: "all" });
+  const signupsListed = await volunteerSignupRepository.listByEvent(eventId);
   const allSignups = parseServerArray(
     volunteerSignupSchema,
-    signupsResult.data,
+    signupsListed,
     "Failed to parse signups",
   );
 
@@ -660,26 +661,24 @@ const volunteerEventInputSchema = volunteerEventSchema.omit({
 type VolunteerEventInput = z.infer<typeof volunteerEventInputSchema>;
 
 export async function handleListVolunteerEvents() {
-  const result = await db()
-    .volunteerEvent.query.byType({ type: "volunteerEvent" })
-    .go({ pages: "all" });
+  const events = await volunteerEventRepository.listAll();
   const items = parseServerArray(
     volunteerEventSchema,
-    result.data,
+    events,
     "Failed to parse volunteer event list",
   );
   return { items };
 }
 
 export async function handleGetVolunteerEvent(id: string) {
-  const result = await db().volunteerEvent.get({ id }).go();
-  if (!result.data) throw new Error("Volunteer event not found");
-  return parseServerData(volunteerEventSchema, result.data, "Failed to parse volunteer event");
+  const eventRecord = await volunteerEventRepository.getById(id);
+  if (!eventRecord) throw new Error("Volunteer event not found");
+  return parseServerData(volunteerEventSchema, eventRecord, "Failed to parse volunteer event");
 }
 
 export async function handleCreateVolunteerEvent(data: VolunteerEventInput) {
   const event = withTimestamps({ ...data, id: crypto.randomUUID() });
-  await db().volunteerEvent.create(event).go();
+  await volunteerEventRepository.create(event);
   return event;
 }
 
@@ -688,11 +687,11 @@ export async function handleUpdateVolunteerEvent(
   updates: Partial<VolunteerEventInput>,
 ) {
   if (updates.shifts) {
-    const current = await db().volunteerEvent.get({ id }).go();
-    if (current.data) {
+    const currentEventRecord = await volunteerEventRepository.getById(id);
+    if (currentEventRecord) {
       const currentEvent = parseServerData(
         volunteerEventSchema,
-        current.data,
+        currentEventRecord,
         "Failed to parse volunteer event",
       );
       const oldRoleIds = new Set(currentEvent.shifts.flatMap((s) => s.roles.map((r) => r.id)));
@@ -700,65 +699,60 @@ export async function handleUpdateVolunteerEvent(
       const deletedRoleIds = new Set([...oldRoleIds].filter((rid) => !newRoleIds.has(rid)));
 
       if (deletedRoleIds.size > 0) {
-        const signupsResult = await db()
-          .volunteerSignup.query.byEvent({ eventId: id })
-          .go({ pages: "all" });
-        const affectedSignups = signupsResult.data.filter(
+        const signupsForEvent = await volunteerSignupRepository.listByEvent(id);
+        const affectedSignups = signupsForEvent.filter(
           (s) => s.assignedRoleId && deletedRoleIds.has(s.assignedRoleId),
         );
         await Promise.all(
           affectedSignups.map((s) =>
-            db()
-              .volunteerSignup.patch({ id: s.id })
-              .set({ updatedAt: new Date().toISOString() })
-              .remove(["assignedRoleId"])
-              .go(),
+            volunteerSignupRepository.update(s.id, { updatedAt: new Date().toISOString() }, [
+              "assignedRoleId",
+            ]),
           ),
         );
       }
     }
   }
 
-  await db()
-    .volunteerEvent.patch({ id })
-    .set({ ...updates, updatedAt: new Date().toISOString() })
-    .go();
-  const refreshed = await db().volunteerEvent.get({ id }).go();
-  if (!refreshed.data) throw new Error("Volunteer event not found");
-  return parseServerData(volunteerEventSchema, refreshed.data, "Failed to parse volunteer event");
+  const updated = await volunteerEventRepository.update(id, {
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  });
+  if (!updated) throw new Error("Volunteer event not found");
+  return parseServerData(volunteerEventSchema, updated, "Failed to parse volunteer event");
 }
 
 export async function handleDeleteVolunteerEvent(id: string) {
-  const signupsResult = await db()
-    .volunteerSignup.query.byEvent({ eventId: id })
-    .go({ pages: "all" });
-  if (signupsResult.data.length > 0) {
+  const signupsForDelete = await volunteerSignupRepository.listByEvent(id);
+  if (signupsForDelete.length > 0) {
     throw new Error("Cannot delete an event with existing signups. Archive it instead.");
   }
-  await db().volunteerEvent.delete({ id }).go();
+  await volunteerEventRepository.delete(id);
   return { success: true as const };
 }
 
 export async function handleArchiveVolunteerEvent(id: string) {
-  await db()
-    .volunteerEvent.patch({ id })
-    .set({ archivedAt: new Date().toISOString(), updatedAt: new Date().toISOString() })
-    .go();
+  await volunteerEventRepository.update(id, {
+    archivedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  });
   return { success: true as const };
 }
 
 export async function handleRestoreVolunteerEvent(id: string) {
-  await db()
-    .volunteerEvent.patch({ id })
-    .set({ updatedAt: new Date().toISOString() })
-    .remove(["archivedAt"])
-    .go();
+  const existing = await volunteerEventRepository.getById(id);
+  if (!existing) throw new Error("Volunteer event not found");
+  const { archivedAt: _removed, ...rest } = existing;
+  await volunteerEventRepository.create({
+    ...rest,
+    updatedAt: new Date().toISOString(),
+  });
   return { success: true as const };
 }
 
 export async function handleListVolunteerSignups(eventId: string) {
-  const result = await db().volunteerSignup.query.byEvent({ eventId }).go({ pages: "all" });
-  const items = parseServerArray(volunteerSignupSchema, result.data, "Failed to parse signup list");
+  const signups = await volunteerSignupRepository.listByEvent(eventId);
+  const items = parseServerArray(volunteerSignupSchema, signups, "Failed to parse signup list");
   return { items };
 }
 
@@ -766,11 +760,11 @@ export async function handleUpdateVolunteerSignup(
   id: string,
   updates: { assignedRoleId?: string | null; shiftId?: string },
 ) {
-  const existingSignupResult = await db().volunteerSignup.get({ id }).go();
-  if (!existingSignupResult.data) throw new Error("Signup not found");
+  const existingSignupRecord = await volunteerSignupRepository.getById(id);
+  if (!existingSignupRecord) throw new Error("Signup not found");
   const existingSignup = parseServerData(
     volunteerSignupSchema,
-    existingSignupResult.data,
+    existingSignupRecord,
     "Failed to parse signup",
   );
   if (existingSignup.status === "canceled") {
@@ -779,22 +773,18 @@ export async function handleUpdateVolunteerSignup(
 
   const setFields: Record<string, unknown> = { updatedAt: new Date().toISOString() };
   if (updates.shiftId !== undefined) setFields.shiftId = updates.shiftId;
+  if (updates.assignedRoleId !== undefined && updates.assignedRoleId !== null) {
+    setFields.assignedRoleId = updates.assignedRoleId;
+  }
 
-  const patchOp = db().volunteerSignup.patch({ id }).set(setFields);
-  const result =
-    updates.assignedRoleId === null
-      ? await patchOp.remove(["assignedRoleId"]).go()
-      : updates.assignedRoleId !== undefined
-        ? await db()
-            .volunteerSignup.patch({ id })
-            .set({ ...setFields, assignedRoleId: updates.assignedRoleId })
-            .go()
-        : updates.shiftId !== undefined
-          ? await patchOp.remove(["assignedRoleId"]).go()
-          : await patchOp.go();
+  const removeFields: string[] = [];
+  if (updates.assignedRoleId === null) {
+    removeFields.push("assignedRoleId");
+  } else if (updates.shiftId !== undefined && updates.assignedRoleId === undefined) {
+    removeFields.push("assignedRoleId");
+  }
 
-  if (!result.data) throw new Error("Signup not found");
-  const refreshed = await db().volunteerSignup.get({ id }).go();
-  if (!refreshed.data) throw new Error("Signup not found");
-  return parseServerData(volunteerSignupSchema, refreshed.data, "Failed to parse signup");
+  const refreshedSignup = await volunteerSignupRepository.update(id, setFields, removeFields);
+  if (!refreshedSignup) throw new Error("Signup not found");
+  return parseServerData(volunteerSignupSchema, refreshedSignup, "Failed to parse signup");
 }

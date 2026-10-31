@@ -10,10 +10,6 @@
 
 import "varlock/auto-load";
 import { execSync } from "node:child_process";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { createDb } from "@/lib/db/electrodb-client";
-import { computeContentTableName } from "@/lib/db/env";
 import { grantCmsAdmin } from "@/lib/fixture-seed/cms-admin";
 import { getSanitizedBranch } from "@/utils/git";
 
@@ -42,16 +38,11 @@ if (cdkEnvironment === "prod") {
 
 checkAwsSession();
 
-const region = process.env.AWS_REGION || process.env.CDK_REGION || "eu-central-1";
 const branch = getSanitizedBranch();
-const contentTableName = computeContentTableName(cdkEnvironment, branch);
-const docClient = DynamoDBDocumentClient.from(new DynamoDBClient({ region }));
-const db = createDb(docClient, contentTableName);
-
-console.log(`👤 Seeding CMS admin on ${contentTableName}…`);
+console.log(`👤 Seeding CMS admin on branch ${branch || "default"}…`);
 
 try {
-  const result = await grantCmsAdmin(db, emailArg);
+  const result = await grantCmsAdmin(null, emailArg);
   if (result.status === "created") {
     console.log(`✅ Created member ${result.email} with Admin role`);
   } else if (result.status === "updated") {

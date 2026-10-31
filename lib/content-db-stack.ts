@@ -1,7 +1,7 @@
 import * as cdk from "aws-cdk-lib";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import type { Construct } from "constructs";
-import { ContentTableIndexes } from "./db/electrodb-entities";
+import { ContentTableIndexes } from "./db/table-indexes";
 import { computeContentTableName } from "./db/env";
 
 interface ContentDbStackProps extends cdk.StackProps {
@@ -13,9 +13,6 @@ interface ContentDbStackProps extends cdk.StackProps {
 
 /**
  * Single-table DynamoDB stack for all content entities.
- *
- * Replaces the previous 10-table design.  ElectroDB entities (lib/db/electrodb-entities.ts)
- * describe each entity's key structure within this shared table.
  */
 export class ContentDbStack extends cdk.Stack {
   public readonly contentTable: dynamodb.Table;
@@ -31,7 +28,6 @@ export class ContentDbStack extends cdk.Stack {
     const branch = props?.stackProps?.branch || "";
     const isProd = environment === "prod";
 
-    // Single content table — all entities share this table using composite PK/SK
     this.contentTableName = computeContentTableName(environment, branch);
     this.contentTable = new dynamodb.Table(this, "ContentTable", {
       tableName: this.contentTableName,
@@ -49,8 +45,11 @@ export class ContentDbStack extends cdk.Stack {
 
     this.contentTableStreamArn = this.contentTable.tableStreamArn!;
 
-    // GSI1 — type-based list queries sorted by a date/slug field
-    // Used by: news (by type+updatedAt), events (by type+startDate), teams (by type+slug)
+    // Application code only queries GSI1. Prod still has the older indexes.
+    // DynamoDB allows one GSI change per table update, so this prod deploy
+    // removes GSI2-ByStatus and leaves GSI3–GSI6 for later deploys.
+    // Dev and feature-branch tables are created with GSI1 only. This branch's
+    // preview stack already exists in that shape, so it must not gain indexes.
     this.contentTable.addGlobalSecondaryIndex({
       indexName: ContentTableIndexes.gsi1,
       partitionKey: { name: "gsi1pk", type: dynamodb.AttributeType.STRING },
@@ -58,51 +57,21 @@ export class ContentDbStack extends cdk.Stack {
       projectionType: dynamodb.ProjectionType.ALL,
     });
 
-    // GSI2 — status-based queries sorted by creation date
-    // Used by: news (published/draft/archived + createdAt)
-    this.contentTable.addGlobalSecondaryIndex({
-      indexName: ContentTableIndexes.gsi2,
-      partitionKey: { name: "gsi2pk", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "gsi2sk", type: dynamodb.AttributeType.STRING },
-      projectionType: dynamodb.ProjectionType.ALL,
-    });
-
-    // GSI3 — slug lookups
-    // Used by: news (by slug), teams (by slug)
-    this.contentTable.addGlobalSecondaryIndex({
-      indexName: ContentTableIndexes.gsi3,
-      partitionKey: { name: "gsi3pk", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "gsi3sk", type: dynamodb.AttributeType.STRING },
-      projectionType: dynamodb.ProjectionType.ALL,
-    });
-
-    // GSI4 — proxy email / identifier lookups
-    // Used by: members (by proxyEmail), auth verifications (by identifier)
-    // The SK (gsi4sk) is populated by ElectroDB with a constant entity-type prefix,
-    // enabling safe co-existence of member and verification items under the same GSI partition.
-    this.contentTable.addGlobalSecondaryIndex({
-      indexName: ContentTableIndexes.gsi4,
-      partitionKey: { name: "gsi4pk", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "gsi4sk", type: dynamodb.AttributeType.STRING },
-      projectionType: dynamodb.ProjectionType.ALL,
-    });
-
-    // GSI5 — private email lookups
-    // Used by: members (by privateEmail)
-    this.contentTable.addGlobalSecondaryIndex({
-      indexName: ContentTableIndexes.gsi5,
-      partitionKey: { name: "gsi5pk", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "gsi5sk", type: dynamodb.AttributeType.STRING },
-      projectionType: dynamodb.ProjectionType.ALL,
-    });
-
-    // GSI6 — volunteer signup queries by eventId
-    // Used by: VolunteerSignup (all signups for an event)
-    this.contentTable.addGlobalSecondaryIndex({
-      indexName: ContentTableIndexes.gsi6,
-      partitionKey: { name: "gsi6pk", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "gsi6sk", type: dynamodb.AttributeType.STRING },
-      projectionType: dynamodb.ProjectionType.ALL,
-    });
+    if (isProd) {
+      const retainedIndexes = [
+        { indexName: "GSI3-BySlug", partitionKey: "gsi3pk", sortKey: "gsi3sk" },
+        { indexName: "GSI4-ByIdentifier", partitionKey: "gsi4pk", sortKey: "gsi4sk" },
+        { indexName: "GSI5-ByPrivateEmail", partitionKey: "gsi5pk", sortKey: "gsi5sk" },
+        { indexName: "GSI6-ByEventId", partitionKey: "gsi6pk", sortKey: "gsi6sk" },
+      ] as const;
+      for (const index of retainedIndexes) {
+        this.contentTable.addGlobalSecondaryIndex({
+          indexName: index.indexName,
+          partitionKey: { name: index.partitionKey, type: dynamodb.AttributeType.STRING },
+          sortKey: { name: index.sortKey, type: dynamodb.AttributeType.STRING },
+          projectionType: dynamodb.ProjectionType.ALL,
+        });
+      }
+    }
   }
 }

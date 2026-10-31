@@ -4,7 +4,7 @@
 
 import dayjs from "dayjs";
 import { z } from "zod";
-import { db } from "@/lib/db/electrodb-client";
+import { busRepository } from "@/lib/db/repositories/content-entities-repository";
 import { busSchema } from "@/lib/db/schemas";
 import { withTimestamps } from "../dynamo";
 import { parseServerArray, parseServerData } from "../schema-parse";
@@ -14,13 +14,9 @@ const busInputSchema = busSchema.omit({ id: true, createdAt: true, updatedAt: tr
 type BusInput = z.infer<typeof busInputSchema>;
 
 export async function handleListBus() {
-  const result = await db().bus.query.byType({ type: "bus" }).go({ pages: "all" });
-  const items = parseServerArray(busSchema, result.data, "Failed to parse bus bookings");
-
-  return {
-    items,
-    lastEvaluatedKey: result.cursor ?? undefined,
-  };
+  const bookings = await busRepository.listAll();
+  const items = parseServerArray(busSchema, bookings, "Failed to parse bus bookings");
+  return { items, lastEvaluatedKey: undefined };
 }
 
 export async function handleCreateBus(data: BusInput) {
@@ -30,34 +26,24 @@ export async function handleCreateBus(data: BusInput) {
     ttl: dayjs(data.to).add(30, "day").unix(),
   });
 
-  await db().bus.create(booking).go();
+  await busRepository.create(booking);
 
   return booking;
 }
 
 export async function handleUpdateBus(id: string, updates: Partial<BusInput>) {
   const ttl = updates.to ? dayjs(updates.to).add(30, "day").unix() : undefined;
-  const result = await db()
-    .bus.patch({ id })
-    .set({
-      ...updates,
-      ...(ttl ? { ttl } : {}),
-      updatedAt: new Date().toISOString(),
-    })
-    .go();
-
-  if (!result.data) throw new Error("Bus booking not found");
-
-  const refreshedResult = await db().bus.get({ id }).go();
-  const booking = refreshedResult.data
-    ? parseServerData(busSchema, refreshedResult.data, "Failed to parse bus booking")
-    : null;
+  const booking = await busRepository.update(id, {
+    ...updates,
+    ...(ttl ? { ttl } : {}),
+    updatedAt: new Date().toISOString(),
+  });
 
   if (!booking) throw new Error("Bus booking not found");
-  return booking;
+  return parseServerData(busSchema, booking, "Failed to parse bus booking");
 }
 
 export async function handleDeleteBus(id: string) {
-  await db().bus.delete({ id }).go();
+  await busRepository.delete(id);
   return { success: true as const };
 }
