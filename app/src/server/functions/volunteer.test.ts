@@ -28,7 +28,7 @@ process.env.APP_BASE_URL = "https://test.vcmuellheim.de";
 // ── AWS SDK mocks ────────────────────────────────────────────────────────────
 const sesMock = mockClient(SESv2Client);
 
-// ── ElectroDB mock via vi.hoisted + vi.mock ──────────────────────────────────
+// ── Content repository mock (vi.hoisted + vi.mock) ─────────────────────────────
 const {
   mockEventGet,
   mockEventCreate,

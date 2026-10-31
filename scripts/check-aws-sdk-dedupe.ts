@@ -8,7 +8,7 @@ export type InstalledPackage = {
 
 /**
  * Walk nested node_modules trees and collect every installed copy of a package.
- * Used to catch ElectroDB / DocumentClient marshalling breaks when
+ * Used to catch DocumentClient marshalling breaks when
  * `@aws-sdk/lib-dynamodb` resolves to more than one physical version.
  */
 export function findInstalledPackageVersions(

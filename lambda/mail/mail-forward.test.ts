@@ -37,7 +37,7 @@ function getNotificationCalls() {
     .filter((call) => call.args[0].input.Content?.Simple);
 }
 
-// ── ElectroDB mock via vi.hoisted + vi.mock ──────────────────────────────────
+// ── Member repository mock (vi.hoisted + vi.mock) ────────────────────────────
 // createDb is called at module-level in mail-forward.ts; must be intercepted
 // before the module is first imported.
 const { mockByProxyEmailGo, mockByTypeWhereGo } = vi.hoisted(() => {

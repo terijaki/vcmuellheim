@@ -21,7 +21,6 @@
     "db:seed": "bun ./scripts/db-seed.ts",
     "db:seed:user": "bun ./scripts/db-seed-user.ts",
     "db:seed:sams": "bun ./scripts/seed-sams-provider-events.ts",
-    "migrate:off-electrodb": "bun ./scripts/migrate-off-electrodb.ts",
     "verify": "vp check --fix && vp test",
     "cdk:deploy": "cdk deploy --require-approval=never",
     "cdk:deploy:all": "cdk deploy --all --require-approval=never --concurrency 4",
@@ -74,7 +73,6 @@
     "@voidzero-dev/vite-plus-core": "1.4.0",
     "better-auth": "1.7.14",
     "dayjs": "^1.11.23",
-    "electrodb": "^3.9.3",
     "lucide-react": "^1.63.0",
     "nitro": "3.0.260903-beta",
     "num-words-de": "^2.0.0",
@@ -110,8 +108,6 @@
     "vite-plus": "1.4.0"
   },
   "overrides": {
-    "@aws-sdk/lib-dynamodb": "^3.1158.0",
-    "@aws-sdk/util-dynamodb": "^3.996.9",
     "vite": "npm:@voidzero-dev/vite-plus-core@1.4.0",
     "vitest": "5.0.5"
   },
