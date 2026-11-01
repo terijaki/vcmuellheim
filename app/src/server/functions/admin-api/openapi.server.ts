@@ -2,9 +2,9 @@
  * OpenAPI document for the programmatic CMS API.
  */
 
-import { buildAdminCmsOpenApiDocument } from "../openapi/admin-cms-openapi";
-import { resolveNewsPublicOrigin } from "../news-public-url";
-import { PUBLIC_JSON_HEADERS } from "./admin-cms-api-http.server";
+import { buildAdminCmsOpenApiDocument } from "../../openapi/admin-cms-openapi";
+import { resolveNewsPublicOrigin } from "../../news-public-url";
+import { PUBLIC_JSON_HEADERS } from "./http.server";
 
 export function getAdminCmsOpenApiResponse(request: Request): Response {
   const origin = resolveNewsPublicOrigin(request);

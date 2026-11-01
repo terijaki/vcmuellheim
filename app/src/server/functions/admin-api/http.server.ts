@@ -2,9 +2,13 @@
  * Shared HTTP helpers for the programmatic CMS API (/api/admin/*).
  */
 
-import type { ApiKeyScope } from "../api-keys.server";
-import { authenticateApiKey } from "../api-keys.server";
-import { buildApiErrorBody, zodValidationDetails, zodValidationMessage } from "../admin-api-errors";
+import type { ApiKeyScope } from "../../api-keys.server";
+import { authenticateApiKey } from "../../api-keys.server";
+import {
+  buildApiErrorBody,
+  zodValidationDetails,
+  zodValidationMessage,
+} from "../../admin-api-errors";
 import { z } from "zod";
 
 export const JSON_HEADERS = {

@@ -2,7 +2,7 @@
  * Programmatic CMS API — OpenAPI document
  */
 
-import { getAdminCmsOpenApiResponse } from "@webapp/server/functions/admin-cms-api-openapi.server";
+import { getAdminCmsOpenApiResponse } from "@webapp/server/functions/admin-api/openapi.server";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/api/admin/openapi.json")({

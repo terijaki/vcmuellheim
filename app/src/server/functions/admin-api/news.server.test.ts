@@ -24,11 +24,11 @@ const {
   mockGetFileUrls: vi.fn(),
 }));
 
-vi.mock("../api-keys.server", () => ({
+vi.mock("../../api-keys.server", () => ({
   authenticateApiKey: (...args: unknown[]) => mockAuthenticate(...args),
 }));
 
-vi.mock("./news.server", () => ({
+vi.mock("../news.server", () => ({
   handleCreateDraftNews: (...args: unknown[]) => mockCreateDraft(...args),
   handlePublishNews: (...args: unknown[]) => mockPublish(...args),
   handleGetNewsById: (...args: unknown[]) => mockGetById(...args),
@@ -37,7 +37,7 @@ vi.mock("./news.server", () => ({
   handleDeleteNews: (...args: unknown[]) => mockDeleteNews(...args),
 }));
 
-vi.mock("./upload.server", () => ({
+vi.mock("../upload.server", () => ({
   handleGetPresignedUrl: (...args: unknown[]) => mockPresign(...args),
   handleProcessMediaImage: (...args: unknown[]) => mockProcessImage(...args),
   handleGetFileUrls: (...args: unknown[]) => mockGetFileUrls(...args),
@@ -59,7 +59,7 @@ function request(path: string, method: string, body?: unknown, authorization?: s
 
 describe("admin news HTTP API", () => {
   it("serves the OpenAPI document without authentication", async () => {
-    const { getAdminCmsOpenApiResponse } = await import("./admin-cms-api-openapi.server");
+    const { getAdminCmsOpenApiResponse } = await import("./openapi.server");
     const response = getAdminCmsOpenApiResponse(
       new Request("https://dev.new.vcmuellheim.de/api/admin/openapi.json"),
     );
@@ -100,7 +100,7 @@ describe("admin news HTTP API", () => {
       code: "unauthorized",
       message: "Unauthorized",
     });
-    const { createNewsApi } = await import("./admin-news-api.server");
+    const { createNewsApi } = await import("./news.server");
     const response = await createNewsApi(
       request("/api/admin/news", "POST", { title: "A", content: "B", status: "published" }),
     );
@@ -121,7 +121,7 @@ describe("admin news HTTP API", () => {
       code: "forbidden",
       message: "Forbidden",
     });
-    const { publishNewsApi } = await import("./admin-news-api.server");
+    const { publishNewsApi } = await import("./news.server");
     const response = await publishNewsApi(
       request("/api/admin/news/" + articleId + "/publish", "POST", undefined, "Bearer token"),
       articleId,
@@ -134,7 +134,7 @@ describe("admin news HTTP API", () => {
 
   it("returns 404 for a missing article without creating or publishing", async () => {
     mockGetById.mockResolvedValue(null);
-    const { getNewsApi } = await import("./admin-news-api.server");
+    const { getNewsApi } = await import("./news.server");
     const response = await getNewsApi(
       request(`/api/admin/news/${articleId}`, "GET", undefined, "Bearer token"),
       articleId,
@@ -147,7 +147,7 @@ describe("admin news HTTP API", () => {
 
   it("creates a draft when status is omitted", async () => {
     mockCreateDraft.mockResolvedValue({ id: articleId, status: "draft", title: "A" });
-    const { createNewsApi } = await import("./admin-news-api.server");
+    const { createNewsApi } = await import("./news.server");
     const response = await createNewsApi(
       request("/api/admin/news", "POST", { title: "A", content: "<p>B</p>" }, "Bearer token"),
     );
@@ -159,7 +159,7 @@ describe("admin news HTTP API", () => {
   });
 
   it("rejects status on create with a field-specific error", async () => {
-    const { createNewsApi } = await import("./admin-news-api.server");
+    const { createNewsApi } = await import("./news.server");
     const response = await createNewsApi(
       request(
         "/api/admin/news",
@@ -182,7 +182,7 @@ describe("admin news HTTP API", () => {
   it("uses APP_BASE_URL for OpenAPI servers instead of the request host", async () => {
     const previous = process.env.APP_BASE_URL;
     process.env.APP_BASE_URL = "https://www.vcmuellheim.de";
-    const { getAdminCmsOpenApiResponse } = await import("./admin-cms-api-openapi.server");
+    const { getAdminCmsOpenApiResponse } = await import("./openapi.server");
     const response = getAdminCmsOpenApiResponse(
       new Request("https://abc123.lambda-url.eu-central-1.on.aws/api/admin/openapi.json"),
     );
@@ -203,7 +203,7 @@ describe("admin news HTTP API", () => {
       title: "A",
       imageS3Keys: ["news/photo.jpg"],
     });
-    const { getNewsApi } = await import("./admin-news-api.server");
+    const { getNewsApi } = await import("./news.server");
     const response = await getNewsApi(
       request(`/api/admin/news/${articleId}`, "GET", undefined, "Bearer token"),
       articleId,
@@ -218,7 +218,7 @@ describe("admin news HTTP API", () => {
 
   it("patches content through the update handler", async () => {
     mockUpdateContent.mockResolvedValue({ id: articleId, status: "draft", title: "Updated" });
-    const { updateNewsApi } = await import("./admin-news-api.server");
+    const { updateNewsApi } = await import("./news.server");
     const response = await updateNewsApi(
       request(`/api/admin/news/${articleId}`, "PATCH", { title: "Updated" }, "Bearer token"),
       articleId,
@@ -233,7 +233,7 @@ describe("admin news HTTP API", () => {
   });
 
   it("returns 400 for an empty PATCH body", async () => {
-    const { updateNewsApi } = await import("./admin-news-api.server");
+    const { updateNewsApi } = await import("./news.server");
     const response = await updateNewsApi(
       request(`/api/admin/news/${articleId}`, "PATCH", {}, "Bearer token"),
       articleId,
@@ -245,7 +245,7 @@ describe("admin news HTTP API", () => {
 
   it("returns 404 from PATCH when the article does not exist", async () => {
     mockUpdateContent.mockResolvedValue(null);
-    const { updateNewsApi } = await import("./admin-news-api.server");
+    const { updateNewsApi } = await import("./news.server");
     const response = await updateNewsApi(
       request(`/api/admin/news/${articleId}`, "PATCH", { title: "X" }, "Bearer token"),
       articleId,
@@ -255,7 +255,7 @@ describe("admin news HTTP API", () => {
   });
 
   it("rejects invalid imageS3Keys on create", async () => {
-    const { createNewsApi } = await import("./admin-news-api.server");
+    const { createNewsApi } = await import("./news.server");
     const response = await createNewsApi(
       request(
         "/api/admin/news",
@@ -275,7 +275,7 @@ describe("admin news HTTP API", () => {
       key: "news/abc.jpg",
       bucket: "media",
     });
-    const { mediaUploadUrlApi } = await import("./admin-news-api.server");
+    const { mediaUploadUrlApi } = await import("./news.server");
     const response = await mediaUploadUrlApi(
       request(
         "/api/admin/media/upload-url",
@@ -300,7 +300,7 @@ describe("admin news HTTP API", () => {
 
   it("processes a news gallery key", async () => {
     mockProcessImage.mockResolvedValue(undefined);
-    const { mediaProcessApi } = await import("./admin-news-api.server");
+    const { mediaProcessApi } = await import("./news.server");
     const response = await mediaProcessApi(
       request("/api/admin/media/process", "POST", { s3Key: "news/abc.jpg" }, "Bearer token"),
     );
@@ -311,7 +311,7 @@ describe("admin news HTTP API", () => {
   });
 
   it("rejects process for keys outside news/", async () => {
-    const { mediaProcessApi } = await import("./admin-news-api.server");
+    const { mediaProcessApi } = await import("./news.server");
     const response = await mediaProcessApi(
       request("/api/admin/media/process", "POST", { s3Key: "teams/logo.jpg" }, "Bearer token"),
     );
@@ -323,7 +323,7 @@ describe("admin news HTTP API", () => {
   it("deletes an article when the key is allowed", async () => {
     mockGetById.mockResolvedValue({ id: articleId, status: "draft", title: "Gone" });
     mockDeleteNews.mockResolvedValue({ success: true });
-    const { deleteNewsApi } = await import("./admin-news-api.server");
+    const { deleteNewsApi } = await import("./news.server");
     const response = await deleteNewsApi(
       request(`/api/admin/news/${articleId}`, "DELETE", undefined, "Bearer token"),
       articleId,
@@ -336,7 +336,7 @@ describe("admin news HTTP API", () => {
 
   it("returns 404 from delete when the article does not exist", async () => {
     mockGetById.mockResolvedValue(null);
-    const { deleteNewsApi } = await import("./admin-news-api.server");
+    const { deleteNewsApi } = await import("./news.server");
     const response = await deleteNewsApi(
       request(`/api/admin/news/${articleId}`, "DELETE", undefined, "Bearer token"),
       articleId,
@@ -348,7 +348,7 @@ describe("admin news HTTP API", () => {
 
   it("returns 404 from publish when the article does not exist", async () => {
     mockPublish.mockResolvedValue(null);
-    const { publishNewsApi } = await import("./admin-news-api.server");
+    const { publishNewsApi } = await import("./news.server");
     const response = await publishNewsApi(
       request(`/api/admin/news/${articleId}/publish`, "POST", undefined, "Bearer token"),
       articleId,

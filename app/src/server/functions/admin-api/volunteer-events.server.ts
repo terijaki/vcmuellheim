@@ -2,8 +2,8 @@
  * HTTP adapter for programmatic volunteer events access (read-only).
  */
 
-import { handleGetVolunteerEvent, handleListVolunteerEvents } from "./volunteer.server";
-import { errorResponse, json, requireApiKeyScope, resourceId } from "./admin-cms-api-http.server";
+import { handleGetVolunteerEvent, handleListVolunteerEvents } from "../volunteer.server";
+import { errorResponse, json, requireApiKeyScope, resourceId } from "./http.server";
 
 export async function listVolunteerEventsApi(request: Request): Promise<Response> {
   const denied = await requireApiKeyScope(request, "volunteerEvents");

@@ -5,15 +5,19 @@
 
 import { newsSchema } from "@/lib/db/schemas";
 import { z } from "zod";
-import { buildApiErrorBody, zodValidationDetails, zodValidationMessage } from "../admin-api-errors";
+import {
+  buildApiErrorBody,
+  zodValidationDetails,
+  zodValidationMessage,
+} from "../../admin-api-errors";
 import {
   isCmsNewsImageContentType,
   toAdminNewsArticleResponse,
   validateNewsGalleryS3Keys,
-} from "../admin-news-images";
-import { authenticateApiKey } from "../api-keys.server";
-import { resolveNewsPublicOrigin } from "../news-public-url";
-import { JSON_HEADERS, resourceId } from "./admin-cms-api-http.server";
+} from "../../admin-news-images";
+import { authenticateApiKey } from "../../api-keys.server";
+import { resolveNewsPublicOrigin } from "../../news-public-url";
+import { JSON_HEADERS, resourceId } from "./http.server";
 import {
   handleCreateDraftNews,
   handleDeleteNews,
@@ -21,8 +25,8 @@ import {
   handleListAdminNews,
   handlePublishNews,
   handleUpdateNewsContent,
-} from "./news.server";
-import { handleGetPresignedUrl, handleProcessMediaImage } from "./upload.server";
+} from "../news.server";
+import { handleGetPresignedUrl, handleProcessMediaImage } from "../upload.server";
 
 const PRESIGNED_UPLOAD_EXPIRES_SECONDS = 300;
 

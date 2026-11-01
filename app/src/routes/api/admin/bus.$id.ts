@@ -6,7 +6,7 @@ import {
   deleteBusApi,
   getBusApi,
   updateBusApi,
-} from "@webapp/server/functions/admin-cms-api-bus.server";
+} from "@webapp/server/functions/admin-api/bus.server";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/api/admin/bus/$id")({

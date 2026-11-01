@@ -2,7 +2,7 @@
  * Programmatic CMS API — news gallery image upload URL
  */
 
-import { mediaUploadUrlApi } from "@webapp/server/functions/admin-news-api.server";
+import { mediaUploadUrlApi } from "@webapp/server/functions/admin-api/news.server";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/api/admin/media/upload-url")({

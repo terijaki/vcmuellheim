@@ -2,8 +2,8 @@
  * HTTP adapter for programmatic events access (read-only).
  */
 
-import { handleGetEventById, handleListAllEvents } from "./events.server";
-import { errorResponse, json, requireApiKeyScope, resourceId } from "./admin-cms-api-http.server";
+import { handleGetEventById, handleListAllEvents } from "../events.server";
+import { errorResponse, json, requireApiKeyScope, resourceId } from "./http.server";
 
 export async function listEventsApi(request: Request): Promise<Response> {
   const denied = await requireApiKeyScope(request, "events");

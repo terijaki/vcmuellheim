@@ -9,7 +9,7 @@ import {
   handleGetBusById,
   handleListBus,
   handleUpdateBus,
-} from "./bus.server";
+} from "../bus.server";
 import {
   errorResponse,
   invalidBodyResponse,
@@ -17,7 +17,7 @@ import {
   readJsonBody,
   requireApiKeyScope,
   resourceId,
-} from "./admin-cms-api-http.server";
+} from "./http.server";
 
 const busBodySchema = busSchema.omit({
   id: true,
