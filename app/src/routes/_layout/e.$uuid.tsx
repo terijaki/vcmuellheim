@@ -451,8 +451,7 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
                 <Text span fw={600} inherit>
                   {submittedEmail}
                 </Text>
-                ) und klicke den Bestätigungslink. Ohne diesen Schritt verfällt die Anmeldung nach
-                72 Stunden.
+                ) und klicke den Bestätigungslink. Ohne diesen Schritt verfällt die Anmeldung.
               </Text>
 
               <Timeline active={2} bulletSize={24} lineWidth={2} color="gamboge">
