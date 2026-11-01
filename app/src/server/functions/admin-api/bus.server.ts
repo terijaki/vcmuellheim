@@ -113,7 +113,7 @@ export async function deleteBusApi(request: Request, idParam: string): Promise<R
   const id = resourceId(idParam);
   if (!id) return errorResponse(404, "not_found", "Bus booking not found");
 
-  const denied = await requireApiKeyScope(request, "bus", { requireAdmin: true });
+  const denied = await requireApiKeyScope(request, "bus");
   if (denied) return denied;
 
   try {

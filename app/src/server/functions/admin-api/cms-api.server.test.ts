@@ -6,6 +6,7 @@ const {
   mockGetEvent,
   mockListVolunteerEvents,
   mockGetVolunteerEvent,
+  mockListVolunteerSignups,
   mockListBus,
   mockGetBus,
   mockCreateBus,
@@ -17,6 +18,7 @@ const {
   mockGetEvent: vi.fn(),
   mockListVolunteerEvents: vi.fn(),
   mockGetVolunteerEvent: vi.fn(),
+  mockListVolunteerSignups: vi.fn(),
   mockListBus: vi.fn(),
   mockGetBus: vi.fn(),
   mockCreateBus: vi.fn(),
@@ -36,6 +38,7 @@ vi.mock("../events.server", () => ({
 vi.mock("../volunteer.server", () => ({
   handleListVolunteerEvents: (...args: unknown[]) => mockListVolunteerEvents(...args),
   handleGetVolunteerEvent: (...args: unknown[]) => mockGetVolunteerEvent(...args),
+  handleListVolunteerSignups: (...args: unknown[]) => mockListVolunteerSignups(...args),
 }));
 
 vi.mock("../bus.server", () => ({
@@ -68,6 +71,7 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
     mockGetEvent.mockReset();
     mockListVolunteerEvents.mockReset();
     mockGetVolunteerEvent.mockReset();
+    mockListVolunteerSignups.mockReset();
     mockListBus.mockReset();
     mockGetBus.mockReset();
     mockCreateBus.mockReset();
@@ -135,6 +139,48 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
     expect(response.status).toBe(404);
   });
 
+  it("lists volunteer event registrations with the volunteerEvents scope", async () => {
+    mockGetVolunteerEvent.mockResolvedValue({ id: volunteerEventId, title: "Helfer" });
+    mockListVolunteerSignups.mockResolvedValue({
+      items: [{ id: "44444444-4444-4444-8444-444444444444", eventId: volunteerEventId }],
+    });
+    const { listVolunteerEventRegistrationsApi } = await import("./volunteer-events.server");
+    const response = await listVolunteerEventRegistrationsApi(
+      request(
+        `/api/admin/volunteer-events/${volunteerEventId}/registrations`,
+        "GET",
+        undefined,
+        "Bearer token",
+      ),
+      volunteerEventId,
+    );
+
+    expect(response.status).toBe(200);
+    expect(mockAuthenticate).toHaveBeenCalledWith("Bearer token", "volunteerEvents", undefined);
+    expect(mockGetVolunteerEvent).toHaveBeenCalledWith(volunteerEventId);
+    expect(mockListVolunteerSignups).toHaveBeenCalledWith(volunteerEventId);
+    await expect(response.json()).resolves.toEqual({
+      items: [{ id: "44444444-4444-4444-8444-444444444444", eventId: volunteerEventId }],
+    });
+  });
+
+  it("returns 404 when listing registrations for a missing volunteer event", async () => {
+    mockGetVolunteerEvent.mockRejectedValue(new Error("Volunteer event not found"));
+    const { listVolunteerEventRegistrationsApi } = await import("./volunteer-events.server");
+    const response = await listVolunteerEventRegistrationsApi(
+      request(
+        `/api/admin/volunteer-events/${volunteerEventId}/registrations`,
+        "GET",
+        undefined,
+        "Bearer token",
+      ),
+      volunteerEventId,
+    );
+
+    expect(response.status).toBe(404);
+    expect(mockListVolunteerSignups).not.toHaveBeenCalled();
+  });
+
   it("creates a bus booking", async () => {
     const booking = {
       id: busId,
@@ -184,7 +230,7 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
     expect(mockUpdateBus).not.toHaveBeenCalled();
   });
 
-  it("requires an admin owner to delete a bus booking", async () => {
+  it("allows deleting a bus booking with the bus scope", async () => {
     mockGetBus.mockResolvedValue({ id: busId, driver: "Alex" });
     mockDeleteBus.mockResolvedValue({ success: true });
     const { deleteBusApi } = await import("./bus.server");
@@ -194,7 +240,7 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
     );
 
     expect(response.status).toBe(200);
-    expect(mockAuthenticate).toHaveBeenCalledWith("Bearer token", "bus", { requireAdmin: true });
+    expect(mockAuthenticate).toHaveBeenCalledWith("Bearer token", "bus", undefined);
     expect(mockDeleteBus).toHaveBeenCalledWith(busId);
   });
 
