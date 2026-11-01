@@ -16,13 +16,20 @@ export const baseEntityFields = {
 /** Scope granted to a CMS API key. New areas are added here and chosen only when creating a key. */
 export const apiKeyScopeSchema = z.enum(["news", "events", "volunteerEvents", "bus"]);
 
+/** One or more scopes on a key. Legacy single-string values are coerced to a one-element array. */
+export const apiKeyScopesSchema = z.preprocess((value) => {
+  if (typeof value === "string") return [value];
+  if (Array.isArray(value)) return [...new Set(value)];
+  return value;
+}, z.array(apiKeyScopeSchema).min(1));
+
 /** Hashed CMS API key. The bearer token itself is never stored. */
 export const apiKeySchema = z.object({
   id: z.uuid(),
   type: z.literal("apiKey").default("apiKey").describe("Entity type discriminator"),
   label: z.string().trim().min(1).max(100),
   memberId: z.uuid(),
-  scope: apiKeyScopeSchema,
+  scope: apiKeyScopesSchema,
   secretHash: z
     .string()
     .regex(/^scrypt\$[A-Za-z0-9_-]+\$[A-Za-z0-9_-]+$/)
@@ -38,7 +45,7 @@ export const publicApiKeySchema = apiKeySchema.omit({ secretHash: true });
 export const createApiKeyInputSchema = z.object({
   label: z.string().trim().min(1).max(100),
   memberId: z.uuid(),
-  scope: apiKeyScopeSchema,
+  scope: apiKeyScopesSchema,
 });
 
 /** News article schema */

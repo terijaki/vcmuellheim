@@ -1,6 +1,6 @@
 /**
  * Admin server functions for CMS API keys.
- * Create and delete only — scope, member, and expiry are fixed at creation.
+ * Create and delete only — scopes, member, and expiry are fixed at creation.
  */
 
 import { createServerFn } from "@tanstack/react-start";

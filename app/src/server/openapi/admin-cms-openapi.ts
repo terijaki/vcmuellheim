@@ -23,7 +23,7 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
       title: "VC Müllheim CMS API",
       version: "1.0.0",
       description:
-        "Programmatic access to CMS content. Authenticate with a CMS API key (Bearer token) created in the admin UI. Keys are scoped per resource:\n\n" +
+        "Programmatic access to CMS content. Authenticate with a CMS API key (Bearer token) created in the admin UI. A key may grant one or more resource scopes:\n\n" +
         "- `news` — news articles and media helpers (read/write)\n" +
         "- `events` — club events (read-only)\n" +
         "- `volunteerEvents` — volunteer events (read-only)\n" +
@@ -484,7 +484,7 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
           type: "http",
           scheme: "bearer",
           description:
-            "CMS API key issued in the admin UI (`/admin/api-keys`). Format: `vcm_<uuid>_<secret>`. Scope must match the resource.",
+            "CMS API key issued in the admin UI (`/admin/api-keys`). Format: `vcm_<uuid>_<secret>`. The key must include the resource scope among its granted scopes.",
         },
       },
       parameters: {

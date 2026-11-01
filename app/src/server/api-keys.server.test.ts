@@ -31,7 +31,7 @@ const memberId = "11111111-1111-4111-8111-111111111111";
 
 type StoredKey = {
   id: string;
-  scope: string;
+  scope: string | string[];
   secretHash: string;
   expiresAt: string;
   lastUsedAt?: string;
@@ -80,10 +80,10 @@ describe("api keys", () => {
     );
     expect(created.apiKey.prefix).toBe(created.token.slice(0, 12));
     expect(created.apiKey).not.toHaveProperty("secretHash");
-    expect(created.apiKey.scope).toBe("news");
+    expect(created.apiKey.scope).toEqual(["news"]);
     expect(created.apiKey.label).toBe("Redaktion");
 
-    expect(storedKey?.scope).toBe("news");
+    expect(storedKey?.scope).toEqual(["news"]);
     expect(storedKey?.secretHash.startsWith("scrypt$")).toBe(true);
 
     const { authenticateApiKey } = await import("./api-keys.server");
@@ -155,7 +155,7 @@ describe("api keys", () => {
   it("rejects a key whose scope is not news", async () => {
     const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
     const created = await createApiKey({ label: "Andere", memberId, scope: "news" });
-    mockKeyGet.mockResolvedValue({ ...storedKey, scope: "events" });
+    mockKeyGet.mockResolvedValue({ ...storedKey, scope: ["events"] });
 
     const access = await authenticateApiKey(`Bearer ${created.token}`, "news");
     expect(access).toMatchObject({
@@ -165,6 +165,37 @@ describe("api keys", () => {
       reason: "wrong_scope",
     });
     expect(mockKeyPatch).not.toHaveBeenCalled();
+  });
+
+  it("allows any granted scope on a multi-scope key", async () => {
+    const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
+    const created = await createApiKey({
+      label: "Kombi",
+      memberId,
+      scope: ["news", "bus"],
+    });
+    mockKeyGet.mockResolvedValue(storedKey);
+
+    const newsAccess = await authenticateApiKey(`Bearer ${created.token}`, "news");
+    const busAccess = await authenticateApiKey(`Bearer ${created.token}`, "bus");
+    const eventsAccess = await authenticateApiKey(`Bearer ${created.token}`, "events");
+
+    expect(newsAccess.ok).toBe(true);
+    expect(busAccess.ok).toBe(true);
+    expect(eventsAccess).toMatchObject({ ok: false, reason: "wrong_scope" });
+    expect(created.apiKey.scope).toEqual(["news", "bus"]);
+  });
+
+  it("accepts legacy single-string scope records", async () => {
+    const { authenticateApiKey, createApiKey } = await import("./api-keys.server");
+    const created = await createApiKey({ label: "Legacy", memberId, scope: "news" });
+    mockKeyGet.mockResolvedValue({ ...storedKey, scope: "news" });
+
+    const access = await authenticateApiKey(`Bearer ${created.token}`, "news");
+    expect(access.ok).toBe(true);
+    if (access.ok) {
+      expect(access.apiKey.scope).toEqual(["news"]);
+    }
   });
 
   it("rejects non-admin members when admin is required", async () => {
