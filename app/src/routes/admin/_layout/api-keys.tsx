@@ -8,6 +8,7 @@ import {
   CopyButton,
   Group,
   Modal,
+  MultiSelect,
   Select,
   SimpleGrid,
   Stack,
@@ -27,6 +28,8 @@ import dayjs from "dayjs";
 import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 
+type ApiKeyScope = PublicApiKey["scope"][number];
+
 export const Route = createFileRoute("/admin/_layout/api-keys")({
   beforeLoad: ({ context }) => {
     adminKeysGuard(context.user);
@@ -41,7 +44,7 @@ function ApiKeysPage() {
   const [createOpened, { open: openCreate, close: closeCreate }] = useDisclosure(false);
   const [label, setLabel] = useState("");
   const [memberId, setMemberId] = useState<string | null>(null);
-  const [scope, setScope] = useState<string | null>("news");
+  const [scopes, setScopes] = useState<string[]>(["news"]);
   const [createdToken, setCreatedToken] = useState<string | null>(null);
 
   const keysQuery = useQuery({
@@ -67,7 +70,7 @@ function ApiKeysPage() {
       closeCreate();
       setLabel("");
       setMemberId(null);
-      setScope("news");
+      setScopes(["news"]);
       setCreatedToken(result.token);
     },
     onError: (error) => {
@@ -92,8 +95,9 @@ function ApiKeysPage() {
 
   const submitCreate = () => {
     const trimmed = label.trim();
-    if (!trimmed || !memberId || !isApiKeyScope(scope)) return;
-    createMutation.mutate({ label: trimmed, memberId, scope });
+    const selectedScopes = scopes.filter(isApiKeyScope);
+    if (!trimmed || !memberId || selectedScopes.length === 0) return;
+    createMutation.mutate({ label: trimmed, memberId, scope: selectedScopes });
   };
 
   const confirmDelete = (apiKey: PublicApiKey) => {
@@ -122,8 +126,9 @@ function ApiKeysPage() {
         </ActionIcon>
       </Group>
       <Text c="dimmed" size="sm">
-        Jeder Schlüssel gehört zu einem Mitglied, hat einen festen Bereich und läuft nach einem Jahr
-        ab. Der Bereich kann nicht geändert werden. Die HTTP-Schnittstelle ist als{" "}
+        Jeder Schlüssel gehört zu einem Mitglied, hat einen oder mehrere feste Bereiche und läuft
+        nach einem Jahr ab. Die Bereiche können nicht geändert werden. Die HTTP-Schnittstelle ist
+        als{" "}
         <Anchor href="/api/admin/openapi.json" target="_blank" rel="noopener noreferrer">
           OpenAPI-Spezifikation
         </Anchor>{" "}
@@ -205,12 +210,12 @@ function ApiKeysPage() {
             required
             searchable
           />
-          <Select
-            label="Bereich"
+          <MultiSelect
+            label="Bereiche"
+            description="Mindestens einen Bereich wählen"
             data={API_KEY_SCOPE_OPTIONS}
-            value={scope}
-            onChange={setScope}
-            allowDeselect={false}
+            value={scopes}
+            onChange={setScopes}
             required
           />
           <Group justify="flex-end">
@@ -220,7 +225,7 @@ function ApiKeysPage() {
             <Button
               onClick={submitCreate}
               loading={createMutation.isPending}
-              disabled={!label.trim() || !memberId || !isApiKeyScope(scope)}
+              disabled={!label.trim() || !memberId || scopes.filter(isApiKeyScope).length === 0}
             >
               Erstellen
             </Button>
@@ -257,19 +262,31 @@ function ApiKeysPage() {
   );
 }
 
-const API_KEY_SCOPE_OPTIONS: { value: PublicApiKey["scope"]; label: string }[] = [
+const API_KEY_SCOPE_OPTIONS: { value: ApiKeyScope; label: string }[] = [
   { value: "news", label: "News" },
   { value: "events", label: "Events" },
   { value: "volunteerEvents", label: "Helferevents" },
   { value: "bus", label: "Vereinsbus" },
 ];
 
-function isApiKeyScope(value: string | null): value is PublicApiKey["scope"] {
+function isApiKeyScope(value: string): value is ApiKeyScope {
   return API_KEY_SCOPE_OPTIONS.some((option) => option.value === value);
 }
 
-function scopeLabel(scope: PublicApiKey["scope"]): string {
+function scopeLabel(scope: ApiKeyScope): string {
   return API_KEY_SCOPE_OPTIONS.find((option) => option.value === scope)?.label ?? scope;
+}
+
+function ScopeBadges({ scopes }: { scopes: PublicApiKey["scope"] }) {
+  return (
+    <Group gap="xs">
+      {scopes.map((scope) => (
+        <Badge key={scope} variant="light">
+          {scopeLabel(scope)}
+        </Badge>
+      ))}
+    </Group>
+  );
 }
 
 function ApiKeyTableRow({
@@ -286,7 +303,9 @@ function ApiKeyTableRow({
     <Table.Tr>
       <Table.Td>{apiKey.label}</Table.Td>
       <Table.Td>{memberName}</Table.Td>
-      <Table.Td>{scopeLabel(apiKey.scope)}</Table.Td>
+      <Table.Td>
+        <ScopeBadges scopes={apiKey.scope} />
+      </Table.Td>
       <Table.Td>
         <Text ff="monospace" size="sm">
           {apiKey.prefix}
@@ -351,7 +370,7 @@ function ApiKeyCard({
           </ActionIcon>
         </Group>
         <Group gap="xs">
-          <Badge variant="light">{scopeLabel(apiKey.scope)}</Badge>
+          <ScopeBadges scopes={apiKey.scope} />
           {expired && (
             <Badge color="red" variant="light">
               Abgelaufen

@@ -1,6 +1,6 @@
 /**
  * CMS API keys. The bearer token is returned once at creation.
- * DynamoDB stores a hash, the owning member, one scope, and a one-year expiry.
+ * DynamoDB stores a hash, the owning member, one or more scopes, and a one-year expiry.
  */
 
 import { randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
@@ -8,6 +8,7 @@ import { apiKeyRepository } from "@/lib/db/repositories/content-entities-reposit
 import { memberRepository } from "@/lib/db/repositories/member-repository";
 import {
   apiKeySchema,
+  apiKeyScopeSchema,
   createApiKeyInputSchema,
   memberSchema,
   publicApiKeySchema,
@@ -17,7 +18,7 @@ import dayjs from "dayjs";
 import { z } from "zod";
 import { parseServerArray } from "./schema-parse";
 
-export type ApiKeyScope = PublicApiKey["scope"];
+export type ApiKeyScope = z.infer<typeof apiKeyScopeSchema>;
 
 const TOKEN_MARKER = "vcm_";
 const TOKEN_PREFIX_LENGTH = 12;
@@ -25,8 +26,6 @@ const SCRYPT_PREFIX = "scrypt$";
 const SCRYPT_SALT_BYTES = 16;
 const SCRYPT_DERIVED_BYTES = 32;
 const SCRYPT_OPTIONS = { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 };
-
-const storedApiKeySchema = apiKeySchema.extend({ scope: z.string().min(1) });
 
 export type ApiKeyAuthReason =
   | "missing_token"
@@ -133,7 +132,7 @@ async function getMemberCmsRole(memberId: string): Promise<"Admin" | "Moderator"
 export async function createApiKey(input: {
   label: string;
   memberId: string;
-  scope: ApiKeyScope;
+  scope: ApiKeyScope | ApiKeyScope[];
 }): Promise<{ apiKey: PublicApiKey; token: string }> {
   const parsed = createApiKeyInputSchema.parse(input);
   if (!(await getMemberCmsRole(parsed.memberId))) {
@@ -223,7 +222,7 @@ export async function authenticateApiKey(
     return authFailure(401, "unauthorized", "invalid_token", "API key is invalid");
   }
 
-  const record = storedApiKeySchema.safeParse(keyRecord);
+  const record = apiKeySchema.safeParse(keyRecord);
   if (!record.success) {
     return authFailure(401, "unauthorized", "invalid_token", "API key is invalid");
   }
@@ -235,12 +234,12 @@ export async function authenticateApiKey(
   if (!dayjs(record.data.expiresAt).isAfter(now)) {
     return authFailure(401, "unauthorized", "expired", "API key has expired");
   }
-  if (record.data.scope !== requiredScope) {
+  if (!record.data.scope.includes(requiredScope)) {
     return authFailure(
       403,
       "forbidden",
       "wrong_scope",
-      `API key scope "${record.data.scope}" does not allow this action (required: "${requiredScope}")`,
+      `API key scopes [${record.data.scope.join(", ")}] do not allow this action (required: "${requiredScope}")`,
     );
   }
   const memberRole = await getMemberCmsRole(record.data.memberId);
@@ -272,7 +271,7 @@ export async function authenticateApiKey(
     type: "apiKey",
     label: record.data.label,
     memberId: record.data.memberId,
-    scope: requiredScope,
+    scope: record.data.scope,
     secretHash: record.data.secretHash,
     prefix: record.data.prefix,
     createdAt: record.data.createdAt,
