@@ -455,27 +455,30 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
                 72 Stunden.
               </Text>
 
-              <Timeline active={1} bulletSize={24} lineWidth={2} color="gamboge">
+              <Timeline active={2} bulletSize={24} lineWidth={2} color="gamboge">
                 <Timeline.Item
                   bullet={<Check size={12} />}
                   title="Formular abgeschickt"
                   color="green"
                 >
-                  <Text size="sm" c="dimmed">
-                    Deine Angaben wurden gespeichert.
-                  </Text>
+                  <Text size="sm">Deine Angaben wurden gespeichert.</Text>
                 </Timeline.Item>
                 <Timeline.Item
                   bullet={<Mail size={12} />}
                   title="E-Mail bestätigen — jetzt dran"
                   color="gamboge"
+                  lineVariant="dashed"
                 >
                   <Text size="sm">
                     Klicke den Link in der E-Mail. Schau ggf. auch im Spam- oder Werbeordner nach.
                   </Text>
                 </Timeline.Item>
-                <Timeline.Item bullet={<CheckCircle size={12} />} title="Anmeldung abgeschlossen">
-                  <Text size="sm" c="dimmed">
+                <Timeline.Item
+                  bullet={<CheckCircle size={12} />}
+                  title="Anmeldung abgeschlossen"
+                  color="gamboge"
+                >
+                  <Text size="sm">
                     Erst danach bist du verbindlich eingetragen und erhältst die finale Bestätigung.
                   </Text>
                 </Timeline.Item>
