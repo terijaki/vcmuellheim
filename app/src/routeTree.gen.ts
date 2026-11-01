@@ -63,6 +63,7 @@ import { Route as ApiAdminNewsIdRouteImport } from './routes/api/admin/news.$id'
 import { Route as ApiAdminVolunteerEventsIdRouteImport } from './routes/api/admin/volunteer-events.$id'
 import { Route as AdminLayoutVolunteerEventEventIdMessageRouteImport } from './routes/admin/_layout/volunteer-event_.$eventId.message'
 import { Route as ApiAdminNewsIdPublishRouteImport } from './routes/api/admin/news.$id.publish'
+import { Route as ApiAdminVolunteerEventsIdRegistrationsRouteImport } from './routes/api/admin/volunteer-events.$id.registrations'
 
 const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
@@ -336,6 +337,12 @@ const ApiAdminNewsIdPublishRoute = ApiAdminNewsIdPublishRouteImport.update({
   path: '/publish',
   getParentRoute: () => ApiAdminNewsIdRoute,
 } as any)
+const ApiAdminVolunteerEventsIdRegistrationsRoute =
+  ApiAdminVolunteerEventsIdRegistrationsRouteImport.update({
+    id: '/registrations',
+    path: '/registrations',
+    getParentRoute: () => ApiAdminVolunteerEventsIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRoute
@@ -388,9 +395,10 @@ export interface FileRoutesByFullPath {
   '/api/admin/media/process': typeof ApiAdminMediaProcessRoute
   '/api/admin/media/upload-url': typeof ApiAdminMediaUploadUrlRoute
   '/api/admin/news/$id': typeof ApiAdminNewsIdRouteWithChildren
-  '/api/admin/volunteer-events/$id': typeof ApiAdminVolunteerEventsIdRoute
+  '/api/admin/volunteer-events/$id': typeof ApiAdminVolunteerEventsIdRouteWithChildren
   '/admin/volunteer-event/$eventId/message': typeof AdminLayoutVolunteerEventEventIdMessageRoute
   '/api/admin/news/$id/publish': typeof ApiAdminNewsIdPublishRoute
+  '/api/admin/volunteer-events/$id/registrations': typeof ApiAdminVolunteerEventsIdRegistrationsRoute
 }
 export interface FileRoutesByTo {
   '/beitragsordnung': typeof LayoutBeitragsordnungRoute
@@ -439,9 +447,10 @@ export interface FileRoutesByTo {
   '/api/admin/media/process': typeof ApiAdminMediaProcessRoute
   '/api/admin/media/upload-url': typeof ApiAdminMediaUploadUrlRoute
   '/api/admin/news/$id': typeof ApiAdminNewsIdRouteWithChildren
-  '/api/admin/volunteer-events/$id': typeof ApiAdminVolunteerEventsIdRoute
+  '/api/admin/volunteer-events/$id': typeof ApiAdminVolunteerEventsIdRouteWithChildren
   '/admin/volunteer-event/$eventId/message': typeof AdminLayoutVolunteerEventEventIdMessageRoute
   '/api/admin/news/$id/publish': typeof ApiAdminNewsIdPublishRoute
+  '/api/admin/volunteer-events/$id/registrations': typeof ApiAdminVolunteerEventsIdRegistrationsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -496,9 +505,10 @@ export interface FileRoutesById {
   '/api/admin/media/process': typeof ApiAdminMediaProcessRoute
   '/api/admin/media/upload-url': typeof ApiAdminMediaUploadUrlRoute
   '/api/admin/news/$id': typeof ApiAdminNewsIdRouteWithChildren
-  '/api/admin/volunteer-events/$id': typeof ApiAdminVolunteerEventsIdRoute
+  '/api/admin/volunteer-events/$id': typeof ApiAdminVolunteerEventsIdRouteWithChildren
   '/admin/_layout/volunteer-event_/$eventId/message': typeof AdminLayoutVolunteerEventEventIdMessageRoute
   '/api/admin/news/$id/publish': typeof ApiAdminNewsIdPublishRoute
+  '/api/admin/volunteer-events/$id/registrations': typeof ApiAdminVolunteerEventsIdRegistrationsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -556,6 +566,7 @@ export interface FileRouteTypes {
     | '/api/admin/volunteer-events/$id'
     | '/admin/volunteer-event/$eventId/message'
     | '/api/admin/news/$id/publish'
+    | '/api/admin/volunteer-events/$id/registrations'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/beitragsordnung'
@@ -607,6 +618,7 @@ export interface FileRouteTypes {
     | '/api/admin/volunteer-events/$id'
     | '/admin/volunteer-event/$eventId/message'
     | '/api/admin/news/$id/publish'
+    | '/api/admin/volunteer-events/$id/registrations'
   id:
     | '__root__'
     | '/_layout'
@@ -663,6 +675,7 @@ export interface FileRouteTypes {
     | '/api/admin/volunteer-events/$id'
     | '/admin/_layout/volunteer-event_/$eventId/message'
     | '/api/admin/news/$id/publish'
+    | '/api/admin/volunteer-events/$id/registrations'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1064,6 +1077,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAdminNewsIdPublishRouteImport
       parentRoute: typeof ApiAdminNewsIdRoute
     }
+    '/api/admin/volunteer-events/$id/registrations': {
+      id: '/api/admin/volunteer-events/$id/registrations'
+      path: '/registrations'
+      fullPath: '/api/admin/volunteer-events/$id/registrations'
+      preLoaderRoute: typeof ApiAdminVolunteerEventsIdRegistrationsRouteImport
+      parentRoute: typeof ApiAdminVolunteerEventsIdRoute
+    }
   }
 }
 
@@ -1231,13 +1251,28 @@ const ApiAdminNewsRouteWithChildren = ApiAdminNewsRoute._addFileChildren(
   ApiAdminNewsRouteChildren,
 )
 
+interface ApiAdminVolunteerEventsIdRouteChildren {
+  ApiAdminVolunteerEventsIdRegistrationsRoute: typeof ApiAdminVolunteerEventsIdRegistrationsRoute
+}
+
+const ApiAdminVolunteerEventsIdRouteChildren: ApiAdminVolunteerEventsIdRouteChildren =
+  {
+    ApiAdminVolunteerEventsIdRegistrationsRoute:
+      ApiAdminVolunteerEventsIdRegistrationsRoute,
+  }
+
+const ApiAdminVolunteerEventsIdRouteWithChildren =
+  ApiAdminVolunteerEventsIdRoute._addFileChildren(
+    ApiAdminVolunteerEventsIdRouteChildren,
+  )
+
 interface ApiAdminVolunteerEventsRouteChildren {
-  ApiAdminVolunteerEventsIdRoute: typeof ApiAdminVolunteerEventsIdRoute
+  ApiAdminVolunteerEventsIdRoute: typeof ApiAdminVolunteerEventsIdRouteWithChildren
 }
 
 const ApiAdminVolunteerEventsRouteChildren: ApiAdminVolunteerEventsRouteChildren =
   {
-    ApiAdminVolunteerEventsIdRoute: ApiAdminVolunteerEventsIdRoute,
+    ApiAdminVolunteerEventsIdRoute: ApiAdminVolunteerEventsIdRouteWithChildren,
   }
 
 const ApiAdminVolunteerEventsRouteWithChildren =

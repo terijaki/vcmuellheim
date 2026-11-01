@@ -27,7 +27,7 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
         "- `news` — news articles and media helpers (read/write)\n" +
         "- `events` — club events (read-only)\n" +
         "- `volunteerEvents` — volunteer events (read-only)\n" +
-        "- `bus` — Vereinsbus bookings (read/write; delete requires Admin owner)\n\n" +
+        "- `bus` — Vereinsbus bookings (read/write)\n\n" +
         "**News images (gallery):** Article body `content` is HTML only (no inline image upload). Gallery images are stored separately in `imageS3Keys` and shown on the public news page. " +
         "To attach images via API: (1) `POST /api/admin/media/upload-url`, (2) `PUT` the file to `uploadUrl` with the same `Content-Type`, " +
         "(3) `POST /api/admin/media/process` with the returned `key` (skip for SVG), (4) set `imageS3Keys` on create or PATCH. " +
@@ -357,6 +357,29 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
           },
         },
       },
+      "/api/admin/volunteer-events/{id}/registrations": {
+        get: {
+          operationId: "listVolunteerEventRegistrations",
+          summary: "List registrations for a volunteer event",
+          description:
+            "Returns all signups/registrations for the volunteer event. Requires an API key with the `volunteerEvents` scope.",
+          security: [{ bearerApiKey: [] }],
+          parameters: [{ $ref: "#/components/parameters/VolunteerEventId" }],
+          responses: {
+            "200": {
+              description: "Registrations for the volunteer event",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/VolunteerEventRegistrationListResponse" },
+                },
+              },
+            },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+            "404": { $ref: "#/components/responses/NotFound" },
+          },
+        },
+      },
       "/api/admin/bus": {
         get: {
           operationId: "listBusBookings",
@@ -455,7 +478,7 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
           operationId: "deleteBusBooking",
           summary: "Delete a bus booking",
           description:
-            "Permanently deletes a bus booking. Requires the API key owner to be an **Admin**.",
+            "Permanently deletes a bus booking. Requires an API key with the `bus` scope.",
           security: [{ bearerApiKey: [] }],
           parameters: [{ $ref: "#/components/parameters/BusId" }],
           responses: {
@@ -761,6 +784,56 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
             items: {
               type: "array",
               items: { $ref: "#/components/schemas/VolunteerEvent" },
+            },
+          },
+        },
+        VolunteerEventRegistration: {
+          type: "object",
+          required: [
+            "id",
+            "type",
+            "firstName",
+            "lastName",
+            "email",
+            "dateOfBirth",
+            "preferredRoleIds",
+            "eventId",
+            "shiftId",
+            "status",
+            "createdAt",
+            "updatedAt",
+          ],
+          properties: {
+            id: { type: "string", format: "uuid" },
+            type: { type: "string", const: "volunteerSignup" },
+            firstName: { type: "string" },
+            lastName: { type: "string" },
+            email: { type: "string", format: "email" },
+            dateOfBirth: { type: "string", format: "date" },
+            preferredRoleIds: {
+              type: "array",
+              items: { type: "string", format: "uuid" },
+            },
+            association: { type: "string" },
+            mobilePhone: { type: "string" },
+            emergencyContact: { type: "string" },
+            note: { type: "string" },
+            tShirtSize: { type: "string" },
+            eventId: { type: "string", format: "uuid" },
+            shiftId: { type: "string", format: "uuid" },
+            status: { type: "string", enum: ["pending", "confirmed", "canceled"] },
+            assignedRoleId: { type: "string", format: "uuid" },
+            createdAt: { type: "string", format: "date-time" },
+            updatedAt: { type: "string", format: "date-time" },
+          },
+        },
+        VolunteerEventRegistrationListResponse: {
+          type: "object",
+          required: ["items"],
+          properties: {
+            items: {
+              type: "array",
+              items: { $ref: "#/components/schemas/VolunteerEventRegistration" },
             },
           },
         },
