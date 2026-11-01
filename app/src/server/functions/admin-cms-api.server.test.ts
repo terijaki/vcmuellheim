@@ -46,21 +46,6 @@ vi.mock("./bus.server", () => ({
   handleDeleteBus: (...args: unknown[]) => mockDeleteBus(...args),
 }));
 
-vi.mock("./news.server", () => ({
-  handleCreateDraftNews: vi.fn(),
-  handlePublishNews: vi.fn(),
-  handleGetNewsById: vi.fn(),
-  handleListAdminNews: vi.fn(),
-  handleUpdateNewsContent: vi.fn(),
-  handleDeleteNews: vi.fn(),
-}));
-
-vi.mock("./upload.server", () => ({
-  handleGetPresignedUrl: vi.fn(),
-  handleProcessMediaImage: vi.fn(),
-  handleGetFileUrls: vi.fn(),
-}));
-
 const eventId = "11111111-1111-4111-8111-111111111111";
 const volunteerEventId = "22222222-2222-4222-8222-222222222222";
 const busId = "33333333-3333-4333-8333-333333333333";
@@ -99,8 +84,8 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
     mockListEvents.mockResolvedValue({
       items: [{ id: eventId, title: "Training" }],
     });
-    const { handleAdminApiRequest } = await import("./admin-news-api.server");
-    const response = await handleAdminApiRequest(
+    const { listEventsApi } = await import("./admin-cms-api-events.server");
+    const response = await listEventsApi(
       request("/api/admin/events", "GET", undefined, "Bearer token"),
     );
 
@@ -113,31 +98,22 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
 
   it("returns 404 for a missing event", async () => {
     mockGetEvent.mockResolvedValue(null);
-    const { handleAdminApiRequest } = await import("./admin-news-api.server");
-    const response = await handleAdminApiRequest(
+    const { getEventApi } = await import("./admin-cms-api-events.server");
+    const response = await getEventApi(
       request(`/api/admin/events/${eventId}`, "GET", undefined, "Bearer token"),
+      eventId,
     );
 
     expect(response.status).toBe(404);
     expect(mockAuthenticate).toHaveBeenCalledWith("Bearer token", "events", undefined);
   });
 
-  it("rejects write methods on events", async () => {
-    const { handleAdminApiRequest } = await import("./admin-news-api.server");
-    const response = await handleAdminApiRequest(
-      request("/api/admin/events", "POST", { title: "Nope" }, "Bearer token"),
-    );
-
-    expect(response.status).toBe(404);
-    expect(mockListEvents).not.toHaveBeenCalled();
-  });
-
   it("lists volunteer events with the volunteerEvents scope", async () => {
     mockListVolunteerEvents.mockResolvedValue({
       items: [{ id: volunteerEventId, title: "Helfer" }],
     });
-    const { handleAdminApiRequest } = await import("./admin-news-api.server");
-    const response = await handleAdminApiRequest(
+    const { listVolunteerEventsApi } = await import("./admin-cms-api-volunteer-events.server");
+    const response = await listVolunteerEventsApi(
       request("/api/admin/volunteer-events", "GET", undefined, "Bearer token"),
     );
 
@@ -150,9 +126,10 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
 
   it("returns 404 when a volunteer event is missing", async () => {
     mockGetVolunteerEvent.mockRejectedValue(new Error("Volunteer event not found"));
-    const { handleAdminApiRequest } = await import("./admin-news-api.server");
-    const response = await handleAdminApiRequest(
+    const { getVolunteerEventApi } = await import("./admin-cms-api-volunteer-events.server");
+    const response = await getVolunteerEventApi(
       request(`/api/admin/volunteer-events/${volunteerEventId}`, "GET", undefined, "Bearer token"),
+      volunteerEventId,
     );
 
     expect(response.status).toBe(404);
@@ -170,8 +147,8 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
       updatedAt: "2030-01-01T00:00:00.000Z",
     };
     mockCreateBus.mockResolvedValue(booking);
-    const { handleAdminApiRequest } = await import("./admin-news-api.server");
-    const response = await handleAdminApiRequest(
+    const { createBusApi } = await import("./admin-cms-api-bus.server");
+    const response = await createBusApi(
       request(
         "/api/admin/bus",
         "POST",
@@ -197,9 +174,10 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
   });
 
   it("rejects empty bus updates", async () => {
-    const { handleAdminApiRequest } = await import("./admin-news-api.server");
-    const response = await handleAdminApiRequest(
+    const { updateBusApi } = await import("./admin-cms-api-bus.server");
+    const response = await updateBusApi(
       request(`/api/admin/bus/${busId}`, "PATCH", {}, "Bearer token"),
+      busId,
     );
 
     expect(response.status).toBe(400);
@@ -209,9 +187,10 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
   it("requires an admin owner to delete a bus booking", async () => {
     mockGetBus.mockResolvedValue({ id: busId, driver: "Alex" });
     mockDeleteBus.mockResolvedValue({ success: true });
-    const { handleAdminApiRequest } = await import("./admin-news-api.server");
-    const response = await handleAdminApiRequest(
+    const { deleteBusApi } = await import("./admin-cms-api-bus.server");
+    const response = await deleteBusApi(
       request(`/api/admin/bus/${busId}`, "DELETE", undefined, "Bearer token"),
+      busId,
     );
 
     expect(response.status).toBe(200);
@@ -227,8 +206,8 @@ describe("admin CMS HTTP API (events, volunteer events, bus)", () => {
       reason: "missing_token",
       message: "Authorization header with Bearer API key is required",
     });
-    const { handleAdminApiRequest } = await import("./admin-news-api.server");
-    const response = await handleAdminApiRequest(request("/api/admin/bus", "GET"));
+    const { listBusApi } = await import("./admin-cms-api-bus.server");
+    const response = await listBusApi(request("/api/admin/bus", "GET"));
 
     expect(response.status).toBe(401);
     expect(mockListBus).not.toHaveBeenCalled();

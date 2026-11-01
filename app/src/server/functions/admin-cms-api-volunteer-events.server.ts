@@ -5,22 +5,7 @@
 import { handleGetVolunteerEvent, handleListVolunteerEvents } from "./volunteer.server";
 import { errorResponse, json, requireApiKeyScope, resourceId } from "./admin-cms-api-http.server";
 
-export async function handleVolunteerEventsApiRequest(
-  request: Request,
-  parts: string[],
-): Promise<Response> {
-  if (parts.length === 1 && request.method === "GET") return listVolunteerEvents(request);
-
-  const id = parts.length >= 2 ? resourceId(parts[1] ?? "") : null;
-  if (parts.length === 2 && request.method === "GET") {
-    if (!id) return errorResponse(404, "not_found", "Volunteer event not found");
-    return getVolunteerEvent(request, id);
-  }
-
-  return errorResponse(404, "not_found", "Not found");
-}
-
-async function listVolunteerEvents(request: Request): Promise<Response> {
+export async function listVolunteerEventsApi(request: Request): Promise<Response> {
   const denied = await requireApiKeyScope(request, "volunteerEvents");
   if (denied) return denied;
 
@@ -33,7 +18,10 @@ async function listVolunteerEvents(request: Request): Promise<Response> {
   }
 }
 
-async function getVolunteerEvent(request: Request, id: string): Promise<Response> {
+export async function getVolunteerEventApi(request: Request, idParam: string): Promise<Response> {
+  const id = resourceId(idParam);
+  if (!id) return errorResponse(404, "not_found", "Volunteer event not found");
+
   const denied = await requireApiKeyScope(request, "volunteerEvents");
   if (denied) return denied;
 

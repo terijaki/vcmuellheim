@@ -33,28 +33,7 @@ const updateBusBodySchema = busBodySchema
   .partial()
   .refine((value) => Object.keys(value).length > 0, { message: "At least one field is required" });
 
-export async function handleBusApiRequest(request: Request, parts: string[]): Promise<Response> {
-  if (parts.length === 1 && request.method === "GET") return listBus(request);
-  if (parts.length === 1 && request.method === "POST") return createBusBooking(request);
-
-  const id = parts.length >= 2 ? resourceId(parts[1] ?? "") : null;
-  if (parts.length === 2 && request.method === "GET") {
-    if (!id) return errorResponse(404, "not_found", "Bus booking not found");
-    return getBusBooking(request, id);
-  }
-  if (parts.length === 2 && request.method === "PATCH") {
-    if (!id) return errorResponse(404, "not_found", "Bus booking not found");
-    return updateBusBooking(request, id);
-  }
-  if (parts.length === 2 && request.method === "DELETE") {
-    if (!id) return errorResponse(404, "not_found", "Bus booking not found");
-    return deleteBusBooking(request, id);
-  }
-
-  return errorResponse(404, "not_found", "Not found");
-}
-
-async function listBus(request: Request): Promise<Response> {
+export async function listBusApi(request: Request): Promise<Response> {
   const denied = await requireApiKeyScope(request, "bus");
   if (denied) return denied;
 
@@ -67,7 +46,10 @@ async function listBus(request: Request): Promise<Response> {
   }
 }
 
-async function getBusBooking(request: Request, id: string): Promise<Response> {
+export async function getBusApi(request: Request, idParam: string): Promise<Response> {
+  const id = resourceId(idParam);
+  if (!id) return errorResponse(404, "not_found", "Bus booking not found");
+
   const denied = await requireApiKeyScope(request, "bus");
   if (denied) return denied;
 
@@ -81,7 +63,7 @@ async function getBusBooking(request: Request, id: string): Promise<Response> {
   }
 }
 
-async function createBusBooking(request: Request): Promise<Response> {
+export async function createBusApi(request: Request): Promise<Response> {
   const denied = await requireApiKeyScope(request, "bus");
   if (denied) return denied;
 
@@ -100,7 +82,10 @@ async function createBusBooking(request: Request): Promise<Response> {
   }
 }
 
-async function updateBusBooking(request: Request, id: string): Promise<Response> {
+export async function updateBusApi(request: Request, idParam: string): Promise<Response> {
+  const id = resourceId(idParam);
+  if (!id) return errorResponse(404, "not_found", "Bus booking not found");
+
   const denied = await requireApiKeyScope(request, "bus");
   if (denied) return denied;
 
@@ -124,7 +109,10 @@ async function updateBusBooking(request: Request, id: string): Promise<Response>
   }
 }
 
-async function deleteBusBooking(request: Request, id: string): Promise<Response> {
+export async function deleteBusApi(request: Request, idParam: string): Promise<Response> {
+  const id = resourceId(idParam);
+  if (!id) return errorResponse(404, "not_found", "Bus booking not found");
+
   const denied = await requireApiKeyScope(request, "bus", { requireAdmin: true });
   if (denied) return denied;
 

@@ -12,12 +12,8 @@ import {
   validateNewsGalleryS3Keys,
 } from "../admin-news-images";
 import { authenticateApiKey } from "../api-keys.server";
-import { buildAdminCmsOpenApiDocument } from "../openapi/admin-cms-openapi";
 import { resolveNewsPublicOrigin } from "../news-public-url";
-import { handleBusApiRequest } from "./admin-cms-api-bus.server";
-import { handleEventsApiRequest } from "./admin-cms-api-events.server";
-import { JSON_HEADERS, PUBLIC_JSON_HEADERS, pathParts } from "./admin-cms-api-http.server";
-import { handleVolunteerEventsApiRequest } from "./admin-cms-api-volunteer-events.server";
+import { JSON_HEADERS, resourceId } from "./admin-cms-api-http.server";
 import {
   handleCreateDraftNews,
   handleDeleteNews,
@@ -117,10 +113,6 @@ function createStatusRejectedResponse(): Response {
   );
 }
 
-function newsId(value: string): string | null {
-  return z.uuid().safeParse(value).success ? value : null;
-}
-
 function readListQuery(url: URL):
   | {
       ok: true;
@@ -173,12 +165,6 @@ async function requireNewsKey(
   return null;
 }
 
-function openApiResponse(request: Request): Response {
-  const origin = resolveNewsPublicOrigin(request);
-  const document = buildAdminCmsOpenApiDocument(origin);
-  return new Response(JSON.stringify(document), { status: 200, headers: PUBLIC_JSON_HEADERS });
-}
-
 function validateImageKeysField(keys: string[] | undefined): Response | null {
   if (!keys || keys.length === 0) return null;
   const message = validateNewsGalleryS3Keys(keys);
@@ -190,123 +176,7 @@ function validateImageKeysField(keys: string[] | undefined): Response | null {
   return null;
 }
 
-export async function handleAdminApiRequest(request: Request): Promise<Response> {
-  const parts = pathParts(request);
-  if (parts.length === 1 && parts[0] === "openapi.json" && request.method === "GET") {
-    return openApiResponse(request);
-  }
-
-  if (parts[0] === "media") {
-    return handleMediaRequest(request, parts);
-  }
-  if (parts[0] === "events") {
-    return handleEventsApiRequest(request, parts);
-  }
-  if (parts[0] === "volunteer-events") {
-    return handleVolunteerEventsApiRequest(request, parts);
-  }
-  if (parts[0] === "bus") {
-    return handleBusApiRequest(request, parts);
-  }
-
-  if (parts[0] !== "news") return errorResponse(404, "not_found", "Not found");
-
-  if (parts.length === 1 && request.method === "GET") return listNews(request);
-  if (parts.length === 1 && request.method === "POST") return createNews(request);
-
-  const id = parts.length >= 2 ? newsId(parts[1] ?? "") : null;
-  if (parts.length === 2 && request.method === "GET") {
-    if (!id) return errorResponse(404, "not_found", "News article not found");
-    return getNews(request, id);
-  }
-  if (parts.length === 2 && request.method === "PATCH") {
-    if (!id) return errorResponse(404, "not_found", "News article not found");
-    return updateNews(request, id);
-  }
-  if (parts.length === 2 && request.method === "DELETE") {
-    if (!id) return errorResponse(404, "not_found", "News article not found");
-    return deleteNewsArticle(request, id);
-  }
-  if (parts.length === 3 && parts[2] === "publish" && request.method === "POST") {
-    if (!id) return errorResponse(404, "not_found", "News article not found");
-    return publishNews(request, id);
-  }
-
-  return errorResponse(404, "not_found", "Not found");
-}
-
-async function handleMediaRequest(request: Request, parts: string[]): Promise<Response> {
-  if (parts.length === 2 && parts[1] === "upload-url" && request.method === "POST") {
-    return mediaUploadUrl(request);
-  }
-  if (parts.length === 2 && parts[1] === "process" && request.method === "POST") {
-    return mediaProcess(request);
-  }
-  return errorResponse(404, "not_found", "Not found");
-}
-
-async function mediaUploadUrl(request: Request): Promise<Response> {
-  const denied = await requireNewsKey(request);
-  if (denied) return denied;
-
-  let raw: unknown;
-  try {
-    raw = await request.json();
-  } catch {
-    return errorResponse(400, "invalid", "Invalid JSON body");
-  }
-
-  const parsed = mediaUploadUrlBodySchema.safeParse(raw);
-  if (!parsed.success) return invalidBodyResponse(parsed.error);
-
-  try {
-    const result = await handleGetPresignedUrl({
-      filename: parsed.data.filename,
-      contentType: parsed.data.contentType,
-      folder: "news",
-    });
-    return json({
-      uploadUrl: result.uploadUrl,
-      key: result.key,
-      expiresIn: PRESIGNED_UPLOAD_EXPIRES_SECONDS,
-    });
-  } catch (error) {
-    console.error(error);
-    return errorResponse(500, "internal", "Failed to create upload URL");
-  }
-}
-
-async function mediaProcess(request: Request): Promise<Response> {
-  const denied = await requireNewsKey(request);
-  if (denied) return denied;
-
-  let raw: unknown;
-  try {
-    raw = await request.json();
-  } catch {
-    return errorResponse(400, "invalid", "Invalid JSON body");
-  }
-
-  const parsed = mediaProcessBodySchema.safeParse(raw);
-  if (!parsed.success) return invalidBodyResponse(parsed.error);
-
-  const keyError = validateNewsGalleryS3Keys([parsed.data.s3Key]);
-  if (keyError) {
-    return errorResponse(400, "invalid", keyError, {
-      details: [{ path: "s3Key", message: keyError }],
-    });
-  }
-
-  try {
-    await handleProcessMediaImage(parsed.data.s3Key);
-    return json({ ok: true as const });
-  } catch (error) {
-    console.error(error);
-    return errorResponse(500, "internal", "Failed to process image");
-  }
-}
-
-async function listNews(request: Request): Promise<Response> {
+export async function listNewsApi(request: Request): Promise<Response> {
   const denied = await requireNewsKey(request);
   if (denied) return denied;
 
@@ -326,7 +196,10 @@ async function listNews(request: Request): Promise<Response> {
   }
 }
 
-async function getNews(request: Request, id: string): Promise<Response> {
+export async function getNewsApi(request: Request, idParam: string): Promise<Response> {
+  const id = resourceId(idParam);
+  if (!id) return errorResponse(404, "not_found", "News article not found");
+
   const denied = await requireNewsKey(request);
   if (denied) return denied;
 
@@ -340,7 +213,7 @@ async function getNews(request: Request, id: string): Promise<Response> {
   }
 }
 
-async function createNews(request: Request): Promise<Response> {
+export async function createNewsApi(request: Request): Promise<Response> {
   const denied = await requireNewsKey(request);
   if (denied) return denied;
 
@@ -377,7 +250,10 @@ async function createNews(request: Request): Promise<Response> {
   }
 }
 
-async function updateNews(request: Request, id: string): Promise<Response> {
+export async function updateNewsApi(request: Request, idParam: string): Promise<Response> {
+  const id = resourceId(idParam);
+  if (!id) return errorResponse(404, "not_found", "News article not found");
+
   const denied = await requireNewsKey(request);
   if (denied) return denied;
 
@@ -404,7 +280,10 @@ async function updateNews(request: Request, id: string): Promise<Response> {
   }
 }
 
-async function publishNews(request: Request, id: string): Promise<Response> {
+export async function publishNewsApi(request: Request, idParam: string): Promise<Response> {
+  const id = resourceId(idParam);
+  if (!id) return errorResponse(404, "not_found", "News article not found");
+
   const denied = await requireNewsKey(request);
   if (denied) return denied;
 
@@ -418,7 +297,10 @@ async function publishNews(request: Request, id: string): Promise<Response> {
   }
 }
 
-async function deleteNewsArticle(request: Request, id: string): Promise<Response> {
+export async function deleteNewsApi(request: Request, idParam: string): Promise<Response> {
+  const id = resourceId(idParam);
+  if (!id) return errorResponse(404, "not_found", "News article not found");
+
   const denied = await requireNewsKey(request, { requireAdmin: true });
   if (denied) return denied;
 
@@ -430,5 +312,66 @@ async function deleteNewsArticle(request: Request, id: string): Promise<Response
   } catch (error) {
     console.error(error);
     return errorResponse(500, "internal", "Failed to delete news");
+  }
+}
+
+export async function mediaUploadUrlApi(request: Request): Promise<Response> {
+  const denied = await requireNewsKey(request);
+  if (denied) return denied;
+
+  let raw: unknown;
+  try {
+    raw = await request.json();
+  } catch {
+    return errorResponse(400, "invalid", "Invalid JSON body");
+  }
+
+  const parsed = mediaUploadUrlBodySchema.safeParse(raw);
+  if (!parsed.success) return invalidBodyResponse(parsed.error);
+
+  try {
+    const result = await handleGetPresignedUrl({
+      filename: parsed.data.filename,
+      contentType: parsed.data.contentType,
+      folder: "news",
+    });
+    return json({
+      uploadUrl: result.uploadUrl,
+      key: result.key,
+      expiresIn: PRESIGNED_UPLOAD_EXPIRES_SECONDS,
+    });
+  } catch (error) {
+    console.error(error);
+    return errorResponse(500, "internal", "Failed to create upload URL");
+  }
+}
+
+export async function mediaProcessApi(request: Request): Promise<Response> {
+  const denied = await requireNewsKey(request);
+  if (denied) return denied;
+
+  let raw: unknown;
+  try {
+    raw = await request.json();
+  } catch {
+    return errorResponse(400, "invalid", "Invalid JSON body");
+  }
+
+  const parsed = mediaProcessBodySchema.safeParse(raw);
+  if (!parsed.success) return invalidBodyResponse(parsed.error);
+
+  const keyError = validateNewsGalleryS3Keys([parsed.data.s3Key]);
+  if (keyError) {
+    return errorResponse(400, "invalid", keyError, {
+      details: [{ path: "s3Key", message: keyError }],
+    });
+  }
+
+  try {
+    await handleProcessMediaImage(parsed.data.s3Key);
+    return json({ ok: true as const });
+  } catch (error) {
+    console.error(error);
+    return errorResponse(500, "internal", "Failed to process image");
   }
 }

@@ -5,19 +5,7 @@
 import { handleGetEventById, handleListAllEvents } from "./events.server";
 import { errorResponse, json, requireApiKeyScope, resourceId } from "./admin-cms-api-http.server";
 
-export async function handleEventsApiRequest(request: Request, parts: string[]): Promise<Response> {
-  if (parts.length === 1 && request.method === "GET") return listEvents(request);
-
-  const id = parts.length >= 2 ? resourceId(parts[1] ?? "") : null;
-  if (parts.length === 2 && request.method === "GET") {
-    if (!id) return errorResponse(404, "not_found", "Event not found");
-    return getEvent(request, id);
-  }
-
-  return errorResponse(404, "not_found", "Not found");
-}
-
-async function listEvents(request: Request): Promise<Response> {
+export async function listEventsApi(request: Request): Promise<Response> {
   const denied = await requireApiKeyScope(request, "events");
   if (denied) return denied;
 
@@ -30,7 +18,10 @@ async function listEvents(request: Request): Promise<Response> {
   }
 }
 
-async function getEvent(request: Request, id: string): Promise<Response> {
+export async function getEventApi(request: Request, idParam: string): Promise<Response> {
+  const id = resourceId(idParam);
+  if (!id) return errorResponse(404, "not_found", "Event not found");
+
   const denied = await requireApiKeyScope(request, "events");
   if (denied) return denied;
 

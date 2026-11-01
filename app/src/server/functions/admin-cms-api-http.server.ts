@@ -41,13 +41,6 @@ export function invalidBodyResponse(error: z.ZodError): Response {
   );
 }
 
-export function pathParts(request: Request): string[] {
-  const pathname = new URL(request.url).pathname.replace(/\/+$/, "");
-  const marker = "/api/admin/";
-  if (!pathname.startsWith(marker)) return [];
-  return pathname.slice(marker.length).split("/").filter(Boolean);
-}
-
 export function resourceId(value: string): string | null {
   return z.uuid().safeParse(value).success ? value : null;
 }
