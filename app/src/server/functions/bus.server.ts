@@ -19,6 +19,11 @@ export async function handleListBus() {
   return { items, lastEvaluatedKey: undefined };
 }
 
+export async function handleGetBusById(id: string) {
+  const booking = await busRepository.getById(id);
+  return booking ? parseServerData(busSchema, booking, "Failed to parse bus booking") : null;
+}
+
 export async function handleCreateBus(data: BusInput) {
   const booking = withTimestamps({
     ...data,

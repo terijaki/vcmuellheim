@@ -14,6 +14,10 @@ import {
 import { authenticateApiKey } from "../api-keys.server";
 import { buildAdminCmsOpenApiDocument } from "../openapi/admin-cms-openapi";
 import { resolveNewsPublicOrigin } from "../news-public-url";
+import { handleBusApiRequest } from "./admin-cms-api-bus.server";
+import { handleEventsApiRequest } from "./admin-cms-api-events.server";
+import { JSON_HEADERS, PUBLIC_JSON_HEADERS, pathParts } from "./admin-cms-api-http.server";
+import { handleVolunteerEventsApiRequest } from "./admin-cms-api-volunteer-events.server";
 import {
   handleCreateDraftNews,
   handleDeleteNews,
@@ -25,16 +29,6 @@ import {
 import { handleGetPresignedUrl, handleProcessMediaImage } from "./upload.server";
 
 const PRESIGNED_UPLOAD_EXPIRES_SECONDS = 300;
-
-const JSON_HEADERS = {
-  "Content-Type": "application/json; charset=utf-8",
-  "Cache-Control": "private, no-store",
-} as const;
-
-const PUBLIC_JSON_HEADERS = {
-  "Content-Type": "application/json; charset=utf-8",
-  "Cache-Control": "public, max-age=3600",
-} as const;
 
 const newsContentFieldsSchema = newsSchema.pick({
   title: true,
@@ -179,13 +173,6 @@ async function requireNewsKey(
   return null;
 }
 
-function pathParts(request: Request): string[] {
-  const pathname = new URL(request.url).pathname.replace(/\/+$/, "");
-  const marker = "/api/admin/";
-  if (!pathname.startsWith(marker)) return [];
-  return pathname.slice(marker.length).split("/").filter(Boolean);
-}
-
 function openApiResponse(request: Request): Response {
   const origin = resolveNewsPublicOrigin(request);
   const document = buildAdminCmsOpenApiDocument(origin);
@@ -211,6 +198,15 @@ export async function handleAdminApiRequest(request: Request): Promise<Response>
 
   if (parts[0] === "media") {
     return handleMediaRequest(request, parts);
+  }
+  if (parts[0] === "events") {
+    return handleEventsApiRequest(request, parts);
+  }
+  if (parts[0] === "volunteer-events") {
+    return handleVolunteerEventsApiRequest(request, parts);
+  }
+  if (parts[0] === "bus") {
+    return handleBusApiRequest(request, parts);
   }
 
   if (parts[0] !== "news") return errorResponse(404, "not_found", "Not found");

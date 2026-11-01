@@ -92,8 +92,8 @@ function ApiKeysPage() {
 
   const submitCreate = () => {
     const trimmed = label.trim();
-    if (!trimmed || !memberId || scope !== "news") return;
-    createMutation.mutate({ label: trimmed, memberId, scope: "news" });
+    if (!trimmed || !memberId || !isApiKeyScope(scope)) return;
+    createMutation.mutate({ label: trimmed, memberId, scope });
   };
 
   const confirmDelete = (apiKey: PublicApiKey) => {
@@ -207,7 +207,7 @@ function ApiKeysPage() {
           />
           <Select
             label="Bereich"
-            data={[{ value: "news", label: "News" }]}
+            data={API_KEY_SCOPE_OPTIONS}
             value={scope}
             onChange={setScope}
             allowDeselect={false}
@@ -220,7 +220,7 @@ function ApiKeysPage() {
             <Button
               onClick={submitCreate}
               loading={createMutation.isPending}
-              disabled={!label.trim() || !memberId || scope !== "news"}
+              disabled={!label.trim() || !memberId || !isApiKeyScope(scope)}
             >
               Erstellen
             </Button>
@@ -257,8 +257,19 @@ function ApiKeysPage() {
   );
 }
 
+const API_KEY_SCOPE_OPTIONS: { value: PublicApiKey["scope"]; label: string }[] = [
+  { value: "news", label: "News" },
+  { value: "events", label: "Events" },
+  { value: "volunteerEvents", label: "Helferevents" },
+  { value: "bus", label: "Vereinsbus" },
+];
+
+function isApiKeyScope(value: string | null): value is PublicApiKey["scope"] {
+  return API_KEY_SCOPE_OPTIONS.some((option) => option.value === value);
+}
+
 function scopeLabel(scope: PublicApiKey["scope"]): string {
-  return scope === "news" ? "News" : scope;
+  return API_KEY_SCOPE_OPTIONS.find((option) => option.value === scope)?.label ?? scope;
 }
 
 function ApiKeyTableRow({

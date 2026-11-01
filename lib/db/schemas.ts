@@ -14,7 +14,7 @@ export const baseEntityFields = {
 } as const;
 
 /** Scope granted to a CMS API key. New areas are added here and chosen only when creating a key. */
-export const apiKeyScopeSchema = z.enum(["news"]);
+export const apiKeyScopeSchema = z.enum(["news", "events", "volunteerEvents", "bus"]);
 
 /** Hashed CMS API key. The bearer token itself is never stored. */
 export const apiKeySchema = z.object({
