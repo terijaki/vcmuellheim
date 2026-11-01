@@ -1,5 +1,5 @@
 /**
- * OpenAPI 3.1 description for the programmatic CMS API (news scope).
+ * OpenAPI 3.1 description for the programmatic CMS API.
  */
 
 export type OpenApiDocument = {
@@ -23,7 +23,11 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
       title: "VC Müllheim CMS API",
       version: "1.0.0",
       description:
-        "Programmatic access to CMS content. Authenticate with a CMS API key (Bearer token) created in the admin UI. Keys are scoped; the news scope covers these endpoints.\n\n" +
+        "Programmatic access to CMS content. Authenticate with a CMS API key (Bearer token) created in the admin UI. Keys are scoped per resource:\n\n" +
+        "- `news` — news articles and media helpers (read/write)\n" +
+        "- `events` — club events (read-only)\n" +
+        "- `volunteerEvents` — volunteer events (read-only)\n" +
+        "- `bus` — Vereinsbus bookings (read/write; delete requires Admin owner)\n\n" +
         "**News images (gallery):** Article body `content` is HTML only (no inline image upload). Gallery images are stored separately in `imageS3Keys` and shown on the public news page. " +
         "To attach images via API: (1) `POST /api/admin/media/upload-url`, (2) `PUT` the file to `uploadUrl` with the same `Content-Type`, " +
         "(3) `POST /api/admin/media/process` with the returned `key` (skip for SVG), (4) set `imageS3Keys` on create or PATCH. " +
@@ -271,6 +275,208 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
           },
         },
       },
+      "/api/admin/events": {
+        get: {
+          operationId: "listEvents",
+          summary: "List club events",
+          description: "Requires an API key with the `events` scope.",
+          security: [{ bearerApiKey: [] }],
+          responses: {
+            "200": {
+              description: "All club events",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/EventListResponse" },
+                },
+              },
+            },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+          },
+        },
+      },
+      "/api/admin/events/{id}": {
+        get: {
+          operationId: "getEventById",
+          summary: "Get one club event",
+          security: [{ bearerApiKey: [] }],
+          parameters: [{ $ref: "#/components/parameters/EventId" }],
+          responses: {
+            "200": {
+              description: "Club event",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/Event" },
+                },
+              },
+            },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+            "404": { $ref: "#/components/responses/NotFound" },
+          },
+        },
+      },
+      "/api/admin/volunteer-events": {
+        get: {
+          operationId: "listVolunteerEvents",
+          summary: "List volunteer events",
+          description: "Requires an API key with the `volunteerEvents` scope.",
+          security: [{ bearerApiKey: [] }],
+          responses: {
+            "200": {
+              description: "All volunteer events",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/VolunteerEventListResponse" },
+                },
+              },
+            },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+          },
+        },
+      },
+      "/api/admin/volunteer-events/{id}": {
+        get: {
+          operationId: "getVolunteerEventById",
+          summary: "Get one volunteer event",
+          security: [{ bearerApiKey: [] }],
+          parameters: [{ $ref: "#/components/parameters/VolunteerEventId" }],
+          responses: {
+            "200": {
+              description: "Volunteer event",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/VolunteerEvent" },
+                },
+              },
+            },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+            "404": { $ref: "#/components/responses/NotFound" },
+          },
+        },
+      },
+      "/api/admin/bus": {
+        get: {
+          operationId: "listBusBookings",
+          summary: "List bus bookings",
+          description: "Requires an API key with the `bus` scope.",
+          security: [{ bearerApiKey: [] }],
+          responses: {
+            "200": {
+              description: "All bus bookings",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/BusListResponse" },
+                },
+              },
+            },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+          },
+        },
+        post: {
+          operationId: "createBusBooking",
+          summary: "Create a bus booking",
+          security: [{ bearerApiKey: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/CreateBusRequest" },
+              },
+            },
+          },
+          responses: {
+            "201": {
+              description: "Booking created",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/BusBooking" },
+                },
+              },
+            },
+            "400": { $ref: "#/components/responses/BadRequest" },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+          },
+        },
+      },
+      "/api/admin/bus/{id}": {
+        get: {
+          operationId: "getBusBookingById",
+          summary: "Get one bus booking",
+          security: [{ bearerApiKey: [] }],
+          parameters: [{ $ref: "#/components/parameters/BusId" }],
+          responses: {
+            "200": {
+              description: "Bus booking",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/BusBooking" },
+                },
+              },
+            },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+            "404": { $ref: "#/components/responses/NotFound" },
+          },
+        },
+        patch: {
+          operationId: "updateBusBooking",
+          summary: "Update a bus booking",
+          security: [{ bearerApiKey: [] }],
+          parameters: [{ $ref: "#/components/parameters/BusId" }],
+          requestBody: {
+            required: true,
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/UpdateBusRequest" },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "Updated booking",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/BusBooking" },
+                },
+              },
+            },
+            "400": { $ref: "#/components/responses/BadRequest" },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+            "404": { $ref: "#/components/responses/NotFound" },
+          },
+        },
+        delete: {
+          operationId: "deleteBusBooking",
+          summary: "Delete a bus booking",
+          description:
+            "Permanently deletes a bus booking. Requires the API key owner to be an **Admin**.",
+          security: [{ bearerApiKey: [] }],
+          parameters: [{ $ref: "#/components/parameters/BusId" }],
+          responses: {
+            "200": {
+              description: "Booking deleted",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    required: ["success"],
+                    properties: { success: { type: "boolean", const: true } },
+                  },
+                },
+              },
+            },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+            "404": { $ref: "#/components/responses/NotFound" },
+          },
+        },
+      },
     },
     components: {
       securitySchemes: {
@@ -278,11 +484,29 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
           type: "http",
           scheme: "bearer",
           description:
-            "CMS API key issued in the admin UI (`/admin/api-keys`). Format: `vcm_<uuid>_<secret>`.",
+            "CMS API key issued in the admin UI (`/admin/api-keys`). Format: `vcm_<uuid>_<secret>`. Scope must match the resource.",
         },
       },
       parameters: {
         NewsId: {
+          name: "id",
+          in: "path",
+          required: true,
+          schema: { type: "string", format: "uuid" },
+        },
+        EventId: {
+          name: "id",
+          in: "path",
+          required: true,
+          schema: { type: "string", format: "uuid" },
+        },
+        VolunteerEventId: {
+          name: "id",
+          in: "path",
+          required: true,
+          schema: { type: "string", format: "uuid" },
+        },
+        BusId: {
           name: "id",
           in: "path",
           required: true,
@@ -472,6 +696,118 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
               items: { $ref: "#/components/schemas/NewsArticle" },
             },
             nextCursor: { type: "string" },
+          },
+        },
+        Event: {
+          type: "object",
+          required: ["id", "type", "title", "startDate", "createdAt", "updatedAt"],
+          properties: {
+            id: { type: "string", format: "uuid" },
+            type: { type: "string", const: "event" },
+            title: { type: "string" },
+            description: { type: "string" },
+            startDate: { type: "string", format: "date-time" },
+            endDate: { type: "string", format: "date-time" },
+            location: { type: "string" },
+            variant: { type: "string" },
+            teamIds: { type: "array", items: { type: "string", format: "uuid" } },
+            ttl: { type: "integer" },
+            createdAt: { type: "string", format: "date-time" },
+            updatedAt: { type: "string", format: "date-time" },
+          },
+        },
+        EventListResponse: {
+          type: "object",
+          required: ["items"],
+          properties: {
+            items: {
+              type: "array",
+              items: { $ref: "#/components/schemas/Event" },
+            },
+          },
+        },
+        VolunteerEvent: {
+          type: "object",
+          required: [
+            "id",
+            "type",
+            "title",
+            "organizerName",
+            "organizerEmail",
+            "shifts",
+            "createdAt",
+            "updatedAt",
+          ],
+          properties: {
+            id: { type: "string", format: "uuid" },
+            type: { type: "string", const: "volunteerEvent" },
+            title: { type: "string" },
+            description: { type: "string" },
+            location: { type: "string" },
+            locationUrl: { type: "string" },
+            organizerName: { type: "string" },
+            organizerEmail: { type: "string", format: "email" },
+            askForTShirtSize: { type: "boolean" },
+            archived: { type: "boolean" },
+            shifts: { type: "array", items: { type: "object" } },
+            createdAt: { type: "string", format: "date-time" },
+            updatedAt: { type: "string", format: "date-time" },
+          },
+        },
+        VolunteerEventListResponse: {
+          type: "object",
+          required: ["items"],
+          properties: {
+            items: {
+              type: "array",
+              items: { $ref: "#/components/schemas/VolunteerEvent" },
+            },
+          },
+        },
+        BusBooking: {
+          type: "object",
+          required: ["id", "type", "driver", "from", "to", "ttl", "createdAt", "updatedAt"],
+          properties: {
+            id: { type: "string", format: "uuid" },
+            type: { type: "string", const: "bus" },
+            driver: { type: "string" },
+            comment: { type: "string" },
+            from: { type: "string", format: "date-time" },
+            to: { type: "string", format: "date-time" },
+            ttl: { type: "integer" },
+            createdAt: { type: "string", format: "date-time" },
+            updatedAt: { type: "string", format: "date-time" },
+          },
+        },
+        BusListResponse: {
+          type: "object",
+          required: ["items"],
+          properties: {
+            items: {
+              type: "array",
+              items: { $ref: "#/components/schemas/BusBooking" },
+            },
+          },
+        },
+        CreateBusRequest: {
+          type: "object",
+          required: ["driver", "from", "to"],
+          properties: {
+            driver: { type: "string", minLength: 1 },
+            comment: { type: "string" },
+            from: { type: "string", format: "date-time" },
+            to: { type: "string", format: "date-time" },
+            type: { type: "string", const: "bus" },
+          },
+        },
+        UpdateBusRequest: {
+          type: "object",
+          minProperties: 1,
+          properties: {
+            driver: { type: "string", minLength: 1 },
+            comment: { type: "string" },
+            from: { type: "string", format: "date-time" },
+            to: { type: "string", format: "date-time" },
           },
         },
       },

@@ -46,12 +46,23 @@ import { Route as AdminLayoutSamsRouteImport } from './routes/admin/_layout/sams
 import { Route as AdminLayoutSponsorsRouteImport } from './routes/admin/_layout/sponsors'
 import { Route as AdminLayoutTeamsRouteImport } from './routes/admin/_layout/teams'
 import { Route as AdminLayoutVolunteerEventRouteImport } from './routes/admin/_layout/volunteer-event'
-import { Route as ApiAdminSplatRouteImport } from './routes/api/admin/$'
+import { Route as ApiAdminBusRouteImport } from './routes/api/admin/bus'
+import { Route as ApiAdminEventsRouteImport } from './routes/api/admin/events'
+import { Route as ApiAdminNewsRouteImport } from './routes/api/admin/news'
+import { Route as ApiAdminOpenapiDotjsonRouteImport } from './routes/api/admin/openapi[.]json'
+import { Route as ApiAdminVolunteerEventsRouteImport } from './routes/api/admin/volunteer-events'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiDevSeedRouteImport } from './routes/api/dev/seed'
 import { Route as ApiSamsLogosRouteImport } from './routes/api/sams/logos'
 import { Route as ApiSamsTeamLogosRouteImport } from './routes/api/sams/team-logos'
+import { Route as ApiAdminBusIdRouteImport } from './routes/api/admin/bus.$id'
+import { Route as ApiAdminEventsIdRouteImport } from './routes/api/admin/events.$id'
+import { Route as ApiAdminMediaProcessRouteImport } from './routes/api/admin/media.process'
+import { Route as ApiAdminMediaUploadUrlRouteImport } from './routes/api/admin/media.upload-url'
+import { Route as ApiAdminNewsIdRouteImport } from './routes/api/admin/news.$id'
+import { Route as ApiAdminVolunteerEventsIdRouteImport } from './routes/api/admin/volunteer-events.$id'
 import { Route as AdminLayoutVolunteerEventEventIdMessageRouteImport } from './routes/admin/_layout/volunteer-event_.$eventId.message'
+import { Route as ApiAdminNewsIdPublishRouteImport } from './routes/api/admin/news.$id.publish'
 
 const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
@@ -238,9 +249,29 @@ const AdminLayoutVolunteerEventRoute =
     path: '/volunteer-event',
     getParentRoute: () => AdminLayoutRoute,
   } as any)
-const ApiAdminSplatRoute = ApiAdminSplatRouteImport.update({
-  id: '/api/admin/$',
-  path: '/api/admin/$',
+const ApiAdminBusRoute = ApiAdminBusRouteImport.update({
+  id: '/api/admin/bus',
+  path: '/api/admin/bus',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminEventsRoute = ApiAdminEventsRouteImport.update({
+  id: '/api/admin/events',
+  path: '/api/admin/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminNewsRoute = ApiAdminNewsRouteImport.update({
+  id: '/api/admin/news',
+  path: '/api/admin/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminOpenapiDotjsonRoute = ApiAdminOpenapiDotjsonRouteImport.update({
+  id: '/api/admin/openapi.json',
+  path: '/api/admin/openapi.json',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminVolunteerEventsRoute = ApiAdminVolunteerEventsRouteImport.update({
+  id: '/api/admin/volunteer-events',
+  path: '/api/admin/volunteer-events',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -263,12 +294,48 @@ const ApiSamsTeamLogosRoute = ApiSamsTeamLogosRouteImport.update({
   path: '/api/sams/team-logos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAdminBusIdRoute = ApiAdminBusIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiAdminBusRoute,
+} as any)
+const ApiAdminEventsIdRoute = ApiAdminEventsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiAdminEventsRoute,
+} as any)
+const ApiAdminMediaProcessRoute = ApiAdminMediaProcessRouteImport.update({
+  id: '/api/admin/media/process',
+  path: '/api/admin/media/process',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminMediaUploadUrlRoute = ApiAdminMediaUploadUrlRouteImport.update({
+  id: '/api/admin/media/upload-url',
+  path: '/api/admin/media/upload-url',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminNewsIdRoute = ApiAdminNewsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiAdminNewsRoute,
+} as any)
+const ApiAdminVolunteerEventsIdRoute =
+  ApiAdminVolunteerEventsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => ApiAdminVolunteerEventsRoute,
+  } as any)
 const AdminLayoutVolunteerEventEventIdMessageRoute =
   AdminLayoutVolunteerEventEventIdMessageRouteImport.update({
     id: '/volunteer-event_/$eventId/message',
     path: '/volunteer-event/$eventId/message',
     getParentRoute: () => AdminLayoutRoute,
   } as any)
+const ApiAdminNewsIdPublishRoute = ApiAdminNewsIdPublishRouteImport.update({
+  id: '/publish',
+  path: '/publish',
+  getParentRoute: () => ApiAdminNewsIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRoute
@@ -303,7 +370,11 @@ export interface FileRoutesByFullPath {
   '/admin/sponsors': typeof AdminLayoutSponsorsRoute
   '/admin/teams': typeof AdminLayoutTeamsRoute
   '/admin/volunteer-event': typeof AdminLayoutVolunteerEventRoute
-  '/api/admin/$': typeof ApiAdminSplatRoute
+  '/api/admin/bus': typeof ApiAdminBusRouteWithChildren
+  '/api/admin/events': typeof ApiAdminEventsRouteWithChildren
+  '/api/admin/news': typeof ApiAdminNewsRouteWithChildren
+  '/api/admin/openapi.json': typeof ApiAdminOpenapiDotjsonRoute
+  '/api/admin/volunteer-events': typeof ApiAdminVolunteerEventsRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/dev/seed': typeof ApiDevSeedRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
@@ -312,7 +383,14 @@ export interface FileRoutesByFullPath {
   '/teams/': typeof LayoutTeamsIndexRoute
   '/termine/': typeof LayoutTermineIndexRoute
   '/admin/': typeof AdminLayoutIndexRoute
+  '/api/admin/bus/$id': typeof ApiAdminBusIdRoute
+  '/api/admin/events/$id': typeof ApiAdminEventsIdRoute
+  '/api/admin/media/process': typeof ApiAdminMediaProcessRoute
+  '/api/admin/media/upload-url': typeof ApiAdminMediaUploadUrlRoute
+  '/api/admin/news/$id': typeof ApiAdminNewsIdRouteWithChildren
+  '/api/admin/volunteer-events/$id': typeof ApiAdminVolunteerEventsIdRoute
   '/admin/volunteer-event/$eventId/message': typeof AdminLayoutVolunteerEventEventIdMessageRoute
+  '/api/admin/news/$id/publish': typeof ApiAdminNewsIdPublishRoute
 }
 export interface FileRoutesByTo {
   '/beitragsordnung': typeof LayoutBeitragsordnungRoute
@@ -343,7 +421,11 @@ export interface FileRoutesByTo {
   '/admin/sponsors': typeof AdminLayoutSponsorsRoute
   '/admin/teams': typeof AdminLayoutTeamsRoute
   '/admin/volunteer-event': typeof AdminLayoutVolunteerEventRoute
-  '/api/admin/$': typeof ApiAdminSplatRoute
+  '/api/admin/bus': typeof ApiAdminBusRouteWithChildren
+  '/api/admin/events': typeof ApiAdminEventsRouteWithChildren
+  '/api/admin/news': typeof ApiAdminNewsRouteWithChildren
+  '/api/admin/openapi.json': typeof ApiAdminOpenapiDotjsonRoute
+  '/api/admin/volunteer-events': typeof ApiAdminVolunteerEventsRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/dev/seed': typeof ApiDevSeedRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
@@ -352,7 +434,14 @@ export interface FileRoutesByTo {
   '/teams': typeof LayoutTeamsIndexRoute
   '/termine': typeof LayoutTermineIndexRoute
   '/admin': typeof AdminLayoutIndexRoute
+  '/api/admin/bus/$id': typeof ApiAdminBusIdRoute
+  '/api/admin/events/$id': typeof ApiAdminEventsIdRoute
+  '/api/admin/media/process': typeof ApiAdminMediaProcessRoute
+  '/api/admin/media/upload-url': typeof ApiAdminMediaUploadUrlRoute
+  '/api/admin/news/$id': typeof ApiAdminNewsIdRouteWithChildren
+  '/api/admin/volunteer-events/$id': typeof ApiAdminVolunteerEventsIdRoute
   '/admin/volunteer-event/$eventId/message': typeof AdminLayoutVolunteerEventEventIdMessageRoute
+  '/api/admin/news/$id/publish': typeof ApiAdminNewsIdPublishRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -389,7 +478,11 @@ export interface FileRoutesById {
   '/admin/_layout/sponsors': typeof AdminLayoutSponsorsRoute
   '/admin/_layout/teams': typeof AdminLayoutTeamsRoute
   '/admin/_layout/volunteer-event': typeof AdminLayoutVolunteerEventRoute
-  '/api/admin/$': typeof ApiAdminSplatRoute
+  '/api/admin/bus': typeof ApiAdminBusRouteWithChildren
+  '/api/admin/events': typeof ApiAdminEventsRouteWithChildren
+  '/api/admin/news': typeof ApiAdminNewsRouteWithChildren
+  '/api/admin/openapi.json': typeof ApiAdminOpenapiDotjsonRoute
+  '/api/admin/volunteer-events': typeof ApiAdminVolunteerEventsRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/dev/seed': typeof ApiDevSeedRoute
   '/api/sams/logos': typeof ApiSamsLogosRoute
@@ -398,7 +491,14 @@ export interface FileRoutesById {
   '/_layout/teams/': typeof LayoutTeamsIndexRoute
   '/_layout/termine/': typeof LayoutTermineIndexRoute
   '/admin/_layout/': typeof AdminLayoutIndexRoute
+  '/api/admin/bus/$id': typeof ApiAdminBusIdRoute
+  '/api/admin/events/$id': typeof ApiAdminEventsIdRoute
+  '/api/admin/media/process': typeof ApiAdminMediaProcessRoute
+  '/api/admin/media/upload-url': typeof ApiAdminMediaUploadUrlRoute
+  '/api/admin/news/$id': typeof ApiAdminNewsIdRouteWithChildren
+  '/api/admin/volunteer-events/$id': typeof ApiAdminVolunteerEventsIdRoute
   '/admin/_layout/volunteer-event_/$eventId/message': typeof AdminLayoutVolunteerEventEventIdMessageRoute
+  '/api/admin/news/$id/publish': typeof ApiAdminNewsIdPublishRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -435,7 +535,11 @@ export interface FileRouteTypes {
     | '/admin/sponsors'
     | '/admin/teams'
     | '/admin/volunteer-event'
-    | '/api/admin/$'
+    | '/api/admin/bus'
+    | '/api/admin/events'
+    | '/api/admin/news'
+    | '/api/admin/openapi.json'
+    | '/api/admin/volunteer-events'
     | '/api/auth/$'
     | '/api/dev/seed'
     | '/api/sams/logos'
@@ -444,7 +548,14 @@ export interface FileRouteTypes {
     | '/teams/'
     | '/termine/'
     | '/admin/'
+    | '/api/admin/bus/$id'
+    | '/api/admin/events/$id'
+    | '/api/admin/media/process'
+    | '/api/admin/media/upload-url'
+    | '/api/admin/news/$id'
+    | '/api/admin/volunteer-events/$id'
     | '/admin/volunteer-event/$eventId/message'
+    | '/api/admin/news/$id/publish'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/beitragsordnung'
@@ -475,7 +586,11 @@ export interface FileRouteTypes {
     | '/admin/sponsors'
     | '/admin/teams'
     | '/admin/volunteer-event'
-    | '/api/admin/$'
+    | '/api/admin/bus'
+    | '/api/admin/events'
+    | '/api/admin/news'
+    | '/api/admin/openapi.json'
+    | '/api/admin/volunteer-events'
     | '/api/auth/$'
     | '/api/dev/seed'
     | '/api/sams/logos'
@@ -484,7 +599,14 @@ export interface FileRouteTypes {
     | '/teams'
     | '/termine'
     | '/admin'
+    | '/api/admin/bus/$id'
+    | '/api/admin/events/$id'
+    | '/api/admin/media/process'
+    | '/api/admin/media/upload-url'
+    | '/api/admin/news/$id'
+    | '/api/admin/volunteer-events/$id'
     | '/admin/volunteer-event/$eventId/message'
+    | '/api/admin/news/$id/publish'
   id:
     | '__root__'
     | '/_layout'
@@ -520,7 +642,11 @@ export interface FileRouteTypes {
     | '/admin/_layout/sponsors'
     | '/admin/_layout/teams'
     | '/admin/_layout/volunteer-event'
-    | '/api/admin/$'
+    | '/api/admin/bus'
+    | '/api/admin/events'
+    | '/api/admin/news'
+    | '/api/admin/openapi.json'
+    | '/api/admin/volunteer-events'
     | '/api/auth/$'
     | '/api/dev/seed'
     | '/api/sams/logos'
@@ -529,7 +655,14 @@ export interface FileRouteTypes {
     | '/_layout/teams/'
     | '/_layout/termine/'
     | '/admin/_layout/'
+    | '/api/admin/bus/$id'
+    | '/api/admin/events/$id'
+    | '/api/admin/media/process'
+    | '/api/admin/media/upload-url'
+    | '/api/admin/news/$id'
+    | '/api/admin/volunteer-events/$id'
     | '/admin/_layout/volunteer-event_/$eventId/message'
+    | '/api/admin/news/$id/publish'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -538,11 +671,17 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOtpLoginRoute: typeof AdminOtpLoginRoute
   IcsTeamSlugRoute: typeof IcsTeamSlugRoute
-  ApiAdminSplatRoute: typeof ApiAdminSplatRoute
+  ApiAdminBusRoute: typeof ApiAdminBusRouteWithChildren
+  ApiAdminEventsRoute: typeof ApiAdminEventsRouteWithChildren
+  ApiAdminNewsRoute: typeof ApiAdminNewsRouteWithChildren
+  ApiAdminOpenapiDotjsonRoute: typeof ApiAdminOpenapiDotjsonRoute
+  ApiAdminVolunteerEventsRoute: typeof ApiAdminVolunteerEventsRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiDevSeedRoute: typeof ApiDevSeedRoute
   ApiSamsLogosRoute: typeof ApiSamsLogosRoute
   ApiSamsTeamLogosRoute: typeof ApiSamsTeamLogosRoute
+  ApiAdminMediaProcessRoute: typeof ApiAdminMediaProcessRoute
+  ApiAdminMediaUploadUrlRoute: typeof ApiAdminMediaUploadUrlRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -806,11 +945,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLayoutVolunteerEventRouteImport
       parentRoute: typeof AdminLayoutRoute
     }
-    '/api/admin/$': {
-      id: '/api/admin/$'
-      path: '/api/admin/$'
-      fullPath: '/api/admin/$'
-      preLoaderRoute: typeof ApiAdminSplatRouteImport
+    '/api/admin/bus': {
+      id: '/api/admin/bus'
+      path: '/api/admin/bus'
+      fullPath: '/api/admin/bus'
+      preLoaderRoute: typeof ApiAdminBusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/events': {
+      id: '/api/admin/events'
+      path: '/api/admin/events'
+      fullPath: '/api/admin/events'
+      preLoaderRoute: typeof ApiAdminEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/news': {
+      id: '/api/admin/news'
+      path: '/api/admin/news'
+      fullPath: '/api/admin/news'
+      preLoaderRoute: typeof ApiAdminNewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/openapi.json': {
+      id: '/api/admin/openapi.json'
+      path: '/api/admin/openapi.json'
+      fullPath: '/api/admin/openapi.json'
+      preLoaderRoute: typeof ApiAdminOpenapiDotjsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/volunteer-events': {
+      id: '/api/admin/volunteer-events'
+      path: '/api/admin/volunteer-events'
+      fullPath: '/api/admin/volunteer-events'
+      preLoaderRoute: typeof ApiAdminVolunteerEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
@@ -841,12 +1008,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSamsTeamLogosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/admin/bus/$id': {
+      id: '/api/admin/bus/$id'
+      path: '/$id'
+      fullPath: '/api/admin/bus/$id'
+      preLoaderRoute: typeof ApiAdminBusIdRouteImport
+      parentRoute: typeof ApiAdminBusRoute
+    }
+    '/api/admin/events/$id': {
+      id: '/api/admin/events/$id'
+      path: '/$id'
+      fullPath: '/api/admin/events/$id'
+      preLoaderRoute: typeof ApiAdminEventsIdRouteImport
+      parentRoute: typeof ApiAdminEventsRoute
+    }
+    '/api/admin/media/process': {
+      id: '/api/admin/media/process'
+      path: '/api/admin/media/process'
+      fullPath: '/api/admin/media/process'
+      preLoaderRoute: typeof ApiAdminMediaProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/media/upload-url': {
+      id: '/api/admin/media/upload-url'
+      path: '/api/admin/media/upload-url'
+      fullPath: '/api/admin/media/upload-url'
+      preLoaderRoute: typeof ApiAdminMediaUploadUrlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/news/$id': {
+      id: '/api/admin/news/$id'
+      path: '/$id'
+      fullPath: '/api/admin/news/$id'
+      preLoaderRoute: typeof ApiAdminNewsIdRouteImport
+      parentRoute: typeof ApiAdminNewsRoute
+    }
+    '/api/admin/volunteer-events/$id': {
+      id: '/api/admin/volunteer-events/$id'
+      path: '/$id'
+      fullPath: '/api/admin/volunteer-events/$id'
+      preLoaderRoute: typeof ApiAdminVolunteerEventsIdRouteImport
+      parentRoute: typeof ApiAdminVolunteerEventsRoute
+    }
     '/admin/_layout/volunteer-event_/$eventId/message': {
       id: '/admin/_layout/volunteer-event_/$eventId/message'
       path: '/volunteer-event/$eventId/message'
       fullPath: '/admin/volunteer-event/$eventId/message'
       preLoaderRoute: typeof AdminLayoutVolunteerEventEventIdMessageRouteImport
       parentRoute: typeof AdminLayoutRoute
+    }
+    '/api/admin/news/$id/publish': {
+      id: '/api/admin/news/$id/publish'
+      path: '/publish'
+      fullPath: '/api/admin/news/$id/publish'
+      preLoaderRoute: typeof ApiAdminNewsIdPublishRouteImport
+      parentRoute: typeof ApiAdminNewsIdRoute
     }
   }
 }
@@ -967,17 +1183,85 @@ const AdminLayoutRouteWithChildren = AdminLayoutRoute._addFileChildren(
   AdminLayoutRouteChildren,
 )
 
+interface ApiAdminBusRouteChildren {
+  ApiAdminBusIdRoute: typeof ApiAdminBusIdRoute
+}
+
+const ApiAdminBusRouteChildren: ApiAdminBusRouteChildren = {
+  ApiAdminBusIdRoute: ApiAdminBusIdRoute,
+}
+
+const ApiAdminBusRouteWithChildren = ApiAdminBusRoute._addFileChildren(
+  ApiAdminBusRouteChildren,
+)
+
+interface ApiAdminEventsRouteChildren {
+  ApiAdminEventsIdRoute: typeof ApiAdminEventsIdRoute
+}
+
+const ApiAdminEventsRouteChildren: ApiAdminEventsRouteChildren = {
+  ApiAdminEventsIdRoute: ApiAdminEventsIdRoute,
+}
+
+const ApiAdminEventsRouteWithChildren = ApiAdminEventsRoute._addFileChildren(
+  ApiAdminEventsRouteChildren,
+)
+
+interface ApiAdminNewsIdRouteChildren {
+  ApiAdminNewsIdPublishRoute: typeof ApiAdminNewsIdPublishRoute
+}
+
+const ApiAdminNewsIdRouteChildren: ApiAdminNewsIdRouteChildren = {
+  ApiAdminNewsIdPublishRoute: ApiAdminNewsIdPublishRoute,
+}
+
+const ApiAdminNewsIdRouteWithChildren = ApiAdminNewsIdRoute._addFileChildren(
+  ApiAdminNewsIdRouteChildren,
+)
+
+interface ApiAdminNewsRouteChildren {
+  ApiAdminNewsIdRoute: typeof ApiAdminNewsIdRouteWithChildren
+}
+
+const ApiAdminNewsRouteChildren: ApiAdminNewsRouteChildren = {
+  ApiAdminNewsIdRoute: ApiAdminNewsIdRouteWithChildren,
+}
+
+const ApiAdminNewsRouteWithChildren = ApiAdminNewsRoute._addFileChildren(
+  ApiAdminNewsRouteChildren,
+)
+
+interface ApiAdminVolunteerEventsRouteChildren {
+  ApiAdminVolunteerEventsIdRoute: typeof ApiAdminVolunteerEventsIdRoute
+}
+
+const ApiAdminVolunteerEventsRouteChildren: ApiAdminVolunteerEventsRouteChildren =
+  {
+    ApiAdminVolunteerEventsIdRoute: ApiAdminVolunteerEventsIdRoute,
+  }
+
+const ApiAdminVolunteerEventsRouteWithChildren =
+  ApiAdminVolunteerEventsRoute._addFileChildren(
+    ApiAdminVolunteerEventsRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   AdminLayoutRoute: AdminLayoutRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
   AdminOtpLoginRoute: AdminOtpLoginRoute,
   IcsTeamSlugRoute: IcsTeamSlugRoute,
-  ApiAdminSplatRoute: ApiAdminSplatRoute,
+  ApiAdminBusRoute: ApiAdminBusRouteWithChildren,
+  ApiAdminEventsRoute: ApiAdminEventsRouteWithChildren,
+  ApiAdminNewsRoute: ApiAdminNewsRouteWithChildren,
+  ApiAdminOpenapiDotjsonRoute: ApiAdminOpenapiDotjsonRoute,
+  ApiAdminVolunteerEventsRoute: ApiAdminVolunteerEventsRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiDevSeedRoute: ApiDevSeedRoute,
   ApiSamsLogosRoute: ApiSamsLogosRoute,
   ApiSamsTeamLogosRoute: ApiSamsTeamLogosRoute,
+  ApiAdminMediaProcessRoute: ApiAdminMediaProcessRoute,
+  ApiAdminMediaUploadUrlRoute: ApiAdminMediaUploadUrlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
