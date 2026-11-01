@@ -24,6 +24,7 @@ import {
   Text,
   Textarea,
   TextInput,
+  Timeline,
   Title,
   Typography,
 } from "@mantine/core";
@@ -40,7 +41,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
-import { CheckCircle, MapPin } from "lucide-react";
+import { Check, CheckCircle, Mail, MapPin, TriangleAlert } from "lucide-react";
 import { useMediaQuery } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -339,15 +340,15 @@ type ShiftCardProps = {
 function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }: ShiftCardProps) {
   const isPast = !dayjs(shift.startDate).isAfter(dayjs());
   const [modalOpen, setModalOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState<string | null>(null);
   const isMobile = useMediaQuery("(max-width: 48em)");
   const alertRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (submitted) {
+    if (submittedEmail) {
       alertRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [submitted]);
+  }, [submittedEmail]);
 
   const dateRangeFormatted = formatShiftDateRange(shift.startDate, shift.endDate);
 
@@ -403,7 +404,7 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
           })}
         </SimpleGrid>
 
-        {!isPast && !submitted && (
+        {!isPast && !submittedEmail && (
           <>
             <Divider />
             <Button onClick={() => setModalOpen(true)} ms="auto">
@@ -422,9 +423,9 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
                 shiftLabel={shift.label}
                 shiftId={shift.id}
                 roles={shift.roles}
-                onSuccess={() => {
+                onSuccess={(email) => {
                   setModalOpen(false);
-                  setSubmitted(true);
+                  setSubmittedEmail(email);
                   onSignedUp();
                 }}
                 onCancel={() => setModalOpen(false)}
@@ -432,10 +433,54 @@ function ShiftCard({ shift, event, signupCounts, confirmedHelpers, onSignedUp }:
             </Modal>
           </>
         )}
-        {submitted && (
-          <Alert ref={alertRef} color="green" title="Anmeldung eingegangen!">
-            Bitte überprüfe dein E-Mail-Postfach und bestätige deine Anmeldung innerhalb von 72
-            Stunden.
+        {submittedEmail && (
+          <Alert
+            ref={alertRef}
+            color="gamboge"
+            variant="light"
+            icon={<TriangleAlert size={18} />}
+            title="Noch nicht fertig — bitte E-Mail bestätigen"
+          >
+            <Stack gap="md" mt="xs">
+              <Text size="sm">
+                Deine Daten sind angekommen, aber du bist{" "}
+                <Text span fw={700} inherit>
+                  noch nicht angemeldet
+                </Text>
+                . Öffne dein Postfach (
+                <Text span fw={600} inherit>
+                  {submittedEmail}
+                </Text>
+                ) und klicke den Bestätigungslink. Ohne diesen Schritt verfällt die Anmeldung nach
+                72 Stunden.
+              </Text>
+
+              <Timeline active={1} bulletSize={24} lineWidth={2} color="gamboge">
+                <Timeline.Item
+                  bullet={<Check size={12} />}
+                  title="Formular abgeschickt"
+                  color="green"
+                >
+                  <Text size="sm" c="dimmed">
+                    Deine Angaben wurden gespeichert.
+                  </Text>
+                </Timeline.Item>
+                <Timeline.Item
+                  bullet={<Mail size={12} />}
+                  title="E-Mail bestätigen — jetzt dran"
+                  color="gamboge"
+                >
+                  <Text size="sm">
+                    Klicke den Link in der E-Mail. Schau ggf. auch im Spam- oder Werbeordner nach.
+                  </Text>
+                </Timeline.Item>
+                <Timeline.Item bullet={<CheckCircle size={12} />} title="Anmeldung abgeschlossen">
+                  <Text size="sm" c="dimmed">
+                    Erst danach bist du verbindlich eingetragen und erhältst die finale Bestätigung.
+                  </Text>
+                </Timeline.Item>
+              </Timeline>
+            </Stack>
           </Alert>
         )}
       </Stack>
@@ -448,7 +493,7 @@ type SignupFormProps = {
   shiftLabel: string;
   shiftId: string;
   roles: VolunteerEvent["shifts"][number]["roles"];
-  onSuccess: () => void;
+  onSuccess: (email: string) => void;
   onCancel: () => void;
 };
 
@@ -489,7 +534,7 @@ function SignupForm({ event, shiftLabel, shiftId, roles, onSuccess, onCancel }: 
   const mutation = useMutation({
     mutationFn: (formData: Parameters<typeof createVolunteerSignupFn>[0]["data"]) =>
       createVolunteerSignupFn({ data: formData }),
-    onSuccess,
+    onSuccess: (_result, variables) => onSuccess(variables.email),
   });
 
   const askForTShirtSize = event.askForTShirtSize === true;
