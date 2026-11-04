@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
+import { betterAuth } from "better-auth";
 import type { memberAuthAdapter as MemberAuthAdapter } from "./auth-member-adapter";
 
 // ── Fake member store ──────────────────────────────────────────────────────────
@@ -139,16 +140,18 @@ describe("findOne — user model", () => {
     expect(admin.emailVerified).toBe(true);
   });
 
-  it("finds a member by proxyEmail alias when privateEmail lookup fails, and still exposes privateEmail as email", async () => {
+  it("finds a member by proxyEmail alias and returns the proxy input as email", async () => {
+    const proxyEmail = "public-admin@proxy.example.com";
     const result = (await findOne({
       model: "user",
-      where: [{ field: "email", value: "public-admin@proxy.example.com" }],
+      where: [{ field: "email", value: proxyEmail }],
     })) as Record<string, unknown>;
 
     expect(result).not.toBeNull();
     expect(result.id).toBe("m-admin");
-    // auth view always exposes privateEmail (canonical), not the proxy alias
-    expect(result.email).toBe("admin@example.com");
+    // Must match the lookup input so better-auth 1.7.16+ findUserByEmail accepts it
+    expect(result.email).toBe(proxyEmail);
+    expect(result.emailVerified).toBe(true);
   });
 
   it("returns null when no member has that email", async () => {
@@ -233,6 +236,41 @@ describe("findOne — non-user models return null", () => {
       model: "account",
       where: [{ field: "userId", value: "m-admin" }],
     });
+    expect(result).toBeNull();
+  });
+});
+
+describe("better-auth findUserByEmail via member adapter", () => {
+  beforeEach(() => {
+    wireMemberRepo([ADMIN_MEMBER, MODERATOR_MEMBER, MEMBER_NO_ROLE]);
+  });
+
+  async function findUserByEmail(email: string) {
+    const { memberAuthAdapter: database } = await import("./auth-member-adapter");
+    const auth = betterAuth({
+      database,
+      secret: "0123456789abcdef0123456789abcdef",
+      baseURL: "http://localhost:3000",
+    });
+    const ctx = await auth.$context;
+    return ctx.internalAdapter.findUserByEmail(email);
+  }
+
+  it("accepts a private-email lookup", async () => {
+    const result = await findUserByEmail("admin@example.com");
+    expect(result?.user.id).toBe("m-admin");
+    expect(result?.user.email).toBe("admin@example.com");
+  });
+
+  it("accepts a proxy-email lookup (1.7.16 email equality)", async () => {
+    const proxyEmail = "public-admin@proxy.example.com";
+    const result = await findUserByEmail(proxyEmail);
+    expect(result?.user.id).toBe("m-admin");
+    expect(result?.user.email).toBe(proxyEmail);
+  });
+
+  it("returns null for an unknown email", async () => {
+    const result = await findUserByEmail("unknown@example.com");
     expect(result).toBeNull();
   });
 });
