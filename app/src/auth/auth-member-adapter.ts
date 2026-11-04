@@ -56,7 +56,13 @@ export const memberAuthAdapter = createAdapterFactory({
           proxyMatchRaw &&
           (proxyMatchRaw.authRole === "Admin" || proxyMatchRaw.authRole === "Moderator")
         ) {
-          return applySelect(toAuthView(proxyMatchRaw), select) as ReturnType<typeof Object.assign>;
+          // better-auth 1.7.16+ findUserByEmail rejects the row unless result.email
+          // normalizes equal to the lookup input. Keep privateEmail as email for
+          // id/private lookups; for proxy matches echo the looked-up address.
+          return applySelect(
+            { ...toAuthView(proxyMatchRaw), email: inputEmail },
+            select,
+          ) as ReturnType<typeof Object.assign>;
         }
 
         return null;
