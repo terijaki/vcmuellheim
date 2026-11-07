@@ -672,6 +672,7 @@ export async function handleServeTeamLogo(teamUuid: string): Promise<Response> {
 // ── SAMS Live Ticker proxy ────────────────────────────────────────────────────
 
 const TICKER_URL = "https://backend.sams-ticker.de/live/indoor/tickers/baden";
+const TICKER_ORIGIN = "https://baden.sams-ticker.de";
 const TICKER_CACHE_TTL_MS = 10_000;
 
 type TickerCacheValue = {
@@ -777,6 +778,11 @@ export function buildLiveMatchesFromRaw(raw: z.infer<typeof RawTickerResponseSch
   return liveMatches;
 }
 
+/** Clears the in-memory ticker cache. Used by tests to isolate fetch expectations. */
+export function clearSamsTickerCacheForTests(): void {
+  tickerCache.clear();
+}
+
 export async function handleGetSamsTicker() {
   const result = await getOrSetExpiringCacheValue({
     cache: tickerCache,
@@ -785,7 +791,10 @@ export async function handleGetSamsTicker() {
     load: async () => {
       const response = await fetch(TICKER_URL, {
         signal: AbortSignal.timeout(TICKER_FETCH_TIMEOUT_MS),
-        headers: { Accept: "application/json" },
+        headers: {
+          Accept: "application/json",
+          Origin: TICKER_ORIGIN,
+        },
       });
 
       if (!response.ok) throw new Error(`SAMS ticker returned ${response.status}`);

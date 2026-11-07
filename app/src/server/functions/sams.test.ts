@@ -1,12 +1,15 @@
 import type { ClubResponse, TeamResponse } from "@/lib/db/schemas";
 import type { LeagueMatch } from "@/lambda/sams/types";
+import dayjs from "dayjs";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import {
   buildLiveMatchesFromRaw,
+  clearSamsTickerCacheForTests,
   handleGetCurrentTabelle,
   handleGetCurrentTermine,
   handleGetSamsMatches,
   handleGetSamsRankingByLeagueUuid,
+  handleGetSamsTicker,
   handlePeekSamsMatchesCache,
   handleServeClubLogo,
   handleServeTeamLogo,
@@ -352,5 +355,104 @@ describe("handleServeTeamLogo", () => {
 describe("buildLiveMatchesFromRaw", () => {
   it("returns empty without states", () => {
     expect(buildLiveMatchesFromRaw({ matchDays: [], matchStates: {} })).toHaveLength(0);
+  });
+});
+
+const todayIso = dayjs().format("YYYY-MM-DD");
+const yesterdayIso = dayjs().subtract(1, "day").format("YYYY-MM-DD");
+
+describe("handleGetSamsTicker", () => {
+  afterEach(() => {
+    clearSamsTickerCacheForTests();
+    vi.unstubAllGlobals();
+  });
+
+  it("sends Accept and Origin headers to the upstream ticker URL", async () => {
+    const fetchMock = vi.fn(async (_input: string | URL, _init?: RequestInit): Promise<Response> =>
+      Response.json({
+        matchDays: [{ matches: [{ id: "m1", date: todayIso, team1: "t1", team2: "t2" }] }],
+        matchStates: { m1: { started: true, finished: false, matchSets: [] } },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await handleGetSamsTicker();
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const [requestUrl, requestInit] = fetchMock.mock.calls[0] ?? [];
+    expect(String(requestUrl)).toBe("https://backend.sams-ticker.de/live/indoor/tickers/baden");
+    expect(requestInit?.headers).toEqual({
+      Accept: "application/json",
+      Origin: "https://baden.sams-ticker.de",
+    });
+  });
+
+  it("returns filtered live matches from a successful upstream response", async () => {
+    const fetchMock = vi.fn(async (_input: string | URL, _init?: RequestInit): Promise<Response> =>
+      Response.json({
+        matchDays: [
+          {
+            matches: [
+              {
+                id: "live-today",
+                date: todayIso,
+                team1: "uuid-1",
+                team2: "uuid-2",
+                teamDescription1: "VC Müllheim",
+                teamDescription2: "Other Club",
+              },
+              {
+                id: "not-started",
+                date: todayIso,
+                team1: "uuid-3",
+                team2: "uuid-4",
+              },
+              {
+                id: "yesterday-match",
+                date: yesterdayIso,
+                team1: "uuid-5",
+                team2: "uuid-6",
+              },
+            ],
+          },
+        ],
+        matchStates: {
+          "live-today": {
+            started: true,
+            finished: false,
+            setPoints: { team1: 1, team2: 0 },
+            matchSets: [],
+          },
+          "not-started": { started: false, finished: false, matchSets: [] },
+          "yesterday-match": { started: true, finished: true, matchSets: [] },
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await handleGetSamsTicker();
+
+    expect(result.liveMatches).toHaveLength(1);
+    expect(result.liveMatches[0]).toMatchObject({
+      matchUuid: "live-today",
+      team1Name: "VC Müllheim",
+      team2Name: "Other Club",
+      state: {
+        started: true,
+        finished: false,
+        setPoints: { team1: 1, team2: 0 },
+      },
+    });
+    expect(result.timestamp).toEqual(expect.any(String));
+  });
+
+  it("throws when the upstream ticker returns a non-OK status", async () => {
+    const fetchMock = vi.fn(
+      async (_input: string | URL, _init?: RequestInit): Promise<Response> =>
+        new Response("forbidden", { status: 403 }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(handleGetSamsTicker()).rejects.toThrow("SAMS ticker returned 403");
   });
 });
