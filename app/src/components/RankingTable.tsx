@@ -15,7 +15,7 @@ import { samsRankingQuery } from "@webapp/hooks/dataQueries";
 import dayjs from "dayjs";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { Team } from "@/lib/db/types";
-import { isSecondaryTargetClubRankingTeamName } from "@/utils/sams";
+import { isPrimarySamsClubRankingTeamName } from "@/utils/sams";
 import CardTitle from "./CardTitle";
 import ClubLogo from "./ClubLogo";
 import RankingTableItem from "./RankingTableItem";
@@ -126,7 +126,7 @@ export default function RankingTable(props: RankingTable) {
             const invertLogoOnHighlight =
               shouldHighlight &&
               Boolean(isClubsTeam) &&
-              !isSecondaryTargetClubRankingTeamName(team.teamName);
+              isPrimarySamsClubRankingTeamName(team.teamName);
 
             // Enable links only when linkToTeamPage is true (tabelle page) and team has a slug
             const teamLink =
