@@ -181,6 +181,80 @@ describe("processSamsProviderEvent", () => {
     expect(repos.teamLogos.upsert).not.toHaveBeenCalled();
   });
 
+  it("commits league ranking only after club and team logo index writes succeed", async () => {
+    const fixture = samsProviderEventFixtures.find(
+      (entry) => entry.type === SamsEventType.leagueRankingUpdated,
+    );
+    expect(fixture).toBeDefined();
+    const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
+
+    const callOrder: string[] = [];
+    repos.clubLogos.upsert = vi.fn().mockImplementation(async () => {
+      callOrder.push("clubLogo");
+    });
+    repos.teamLogos.upsert = vi.fn().mockImplementation(async () => {
+      callOrder.push("teamLogo");
+    });
+    repos.rankings.replace = vi.fn().mockImplementation(async () => {
+      callOrder.push("rankingReplace");
+    });
+
+    await processSamsProviderEvent(event, repos);
+
+    expect(repos.rankings.replace).toHaveBeenCalledOnce();
+    expect(callOrder.indexOf("rankingReplace")).toBeGreaterThan(callOrder.indexOf("clubLogo"));
+    expect(callOrder.indexOf("rankingReplace")).toBeGreaterThan(callOrder.indexOf("teamLogo"));
+  });
+
+  it("does not commit ranking snapshot when a logo upsert fails after others succeed", async () => {
+    const fixture = samsProviderEventFixtures.find(
+      (entry) => entry.type === SamsEventType.leagueRankingUpdated,
+    );
+    expect(fixture).toBeDefined();
+    const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
+
+    let teamLogoUpsertCount = 0;
+    repos.clubLogos.upsert = vi.fn().mockResolvedValue(undefined);
+    repos.teamLogos.upsert = vi.fn().mockImplementation(async () => {
+      teamLogoUpsertCount += 1;
+      if (teamLogoUpsertCount === 2) {
+        throw new Error("team logo upsert failed");
+      }
+    });
+
+    await expect(processSamsProviderEvent(event, repos)).rejects.toThrow("team logo upsert failed");
+    expect(repos.clubLogos.upsert).toHaveBeenCalled();
+    expect(repos.teamLogos.upsert).toHaveBeenCalled();
+    expect(repos.rankings.replace).not.toHaveBeenCalled();
+  });
+
+  it("retries the same ranking snapshot after a logo failure and commits once logos are complete", async () => {
+    const fixture = samsProviderEventFixtures.find(
+      (entry) => entry.type === SamsEventType.leagueRankingUpdated,
+    );
+    expect(fixture).toBeDefined();
+    const event = parseSamsEventFromSqsBody(buildMockSamsProviderSqsBody(fixture!));
+
+    let attempt = 0;
+    repos.teamLogos.upsert = vi.fn().mockImplementation(async () => {
+      attempt += 1;
+      if (attempt === 1) {
+        throw new Error("transient team logo upsert failure");
+      }
+    });
+    repos.clubLogos.upsert = vi.fn().mockResolvedValue(undefined);
+
+    await expect(processSamsProviderEvent(event, repos)).rejects.toThrow(
+      "transient team logo upsert failure",
+    );
+    expect(repos.rankings.replace).not.toHaveBeenCalled();
+
+    await processSamsProviderEvent(event, repos);
+
+    expect(repos.rankings.replace).toHaveBeenCalledOnce();
+    expect(vi.mocked(repos.teamLogos.upsert).mock.calls.length).toBeGreaterThan(1);
+  });
+
   it("merges club schedule updates and keeps matches outside the provider window", async () => {
     const fixture = samsProviderEventFixtures.find(
       (entry) => entry.type === SamsEventType.clubMatchScheduleUpdated,

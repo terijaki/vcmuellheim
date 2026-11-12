@@ -435,17 +435,6 @@ export async function processSamsProviderEvent(
         return;
       }
       const teams = entries.map(mapProviderRankingEntry);
-      await repos.rankings.replace({
-        leagueUuid,
-        seasonUuid,
-        seasonName,
-        leagueName,
-        teams,
-        snapshotVersion: event.snapshotVersion,
-        cachedAt,
-        isStale,
-        ttl: unixTtlSecondsFromNow(SAMS_PROJECTION_TTL_DAYS),
-      });
       const logoUpdatedAt = isoTimestampNow();
       const logoTtl = unixTtlSecondsFromNow(SAMS_PROJECTION_TTL_DAYS);
       const teamsWithLogo = teams.filter(
@@ -470,6 +459,17 @@ export async function processSamsProviderEvent(
           }),
         ),
       ]);
+      await repos.rankings.replace({
+        leagueUuid,
+        seasonUuid,
+        seasonName,
+        leagueName,
+        teams,
+        snapshotVersion: event.snapshotVersion,
+        cachedAt,
+        isStale,
+        ttl: unixTtlSecondsFromNow(SAMS_PROJECTION_TTL_DAYS),
+      });
       await rebuildAppReadModels(repos);
       return;
     }
