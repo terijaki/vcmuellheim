@@ -55,6 +55,7 @@ export default defineConfig({
           external: [/^@aws-sdk\//],
         },
         publicAssets: [{ dir: "app/public", maxAge: 0 }],
+        serverAssets: [{ baseName: "fixture-seed", dir: "./app/public/fixture-seed" }],
       }),
       tanstackStart({ srcDirectory: "app/src" }),
       react(),

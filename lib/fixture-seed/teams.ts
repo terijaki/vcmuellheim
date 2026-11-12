@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
 import { teamSchema } from "@/lib/db/schemas";
 import { slugify } from "@/utils/slugify";
-import { putItems, type SeedContext, uploadImageToS3 } from "./common";
+import { putItems, type SeedContext, uploadSeedAssetToS3 } from "./common";
+import { SEED_ASSET_FILES } from "./seed-assets";
 
 export async function seedTeamsData(ctx: SeedContext): Promise<void> {
   console.log("\n🏐 Seeding teams...");
@@ -86,23 +87,16 @@ export async function seedTeamsData(ctx: SeedContext): Promise<void> {
 
   const validatedTeams = teamsWithBaseMeta.map((team) => teamSchema.parse(team));
 
-  const teamPictureUrls = [
-    ["https://picsum.photos/1200/800?random=40"],
-    ["https://picsum.photos/1200/800?random=41"],
-    [],
-    [],
-  ];
+  const teamPictureCounts = [1, 1, 0, 0];
 
-  console.log("  Downloading and uploading team pictures...");
+  console.log("  Uploading team pictures...");
   for (let i = 0; i < validatedTeams.length; i++) {
-    const pictureUrls = teamPictureUrls[i] || [];
     validatedTeams[i].pictureS3Keys = [];
-    for (const [pictureIndex, pictureUrl] of pictureUrls.entries()) {
+    for (let pictureIndex = 0; pictureIndex < (teamPictureCounts[i] ?? 0); pictureIndex++) {
       try {
         const finalKey = `teams/${validatedTeams[i].id}-${pictureIndex}.jpg`;
-        await uploadImageToS3(ctx, pictureUrl, finalKey);
+        await uploadSeedAssetToS3(ctx, SEED_ASSET_FILES.banner, finalKey);
         validatedTeams[i].pictureS3Keys?.push(finalKey);
-        await new Promise((resolve) => setTimeout(resolve, 200));
       } catch (error) {
         console.warn(`  ⚠️  Failed to upload picture for team ${validatedTeams[i].name}:`, error);
       }

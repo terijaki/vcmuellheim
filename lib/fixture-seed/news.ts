@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { newsSchema } from "@/lib/db/schemas";
-import { putItems, type SeedContext, uploadImageToS3 } from "./common";
+import { putItems, type SeedContext, uploadSeedAssetToS3 } from "./common";
+import { SEED_ASSET_FILES } from "./seed-assets";
 
 export async function seedNewsData(ctx: SeedContext): Promise<void> {
   console.log("\n📰 Seeding news articles...");
@@ -95,28 +96,16 @@ export async function seedNewsData(ctx: SeedContext): Promise<void> {
 
   const validatedArticles = articles.map((article) => newsSchema.parse(article));
 
-  const imageUrlSets = [
-    ["https://picsum.photos/1200/800?random=20", "https://picsum.photos/1200/800?random=21"],
-    ["https://picsum.photos/1200/800?random=22"],
-    [
-      "https://picsum.photos/1200/800?random=23",
-      "https://picsum.photos/1200/800?random=24",
-      "https://picsum.photos/1200/800?random=25",
-    ],
-    [],
-    ["https://picsum.photos/1200/800?random=26"],
-    ["https://picsum.photos/1200/800?random=27", "https://picsum.photos/1200/800?random=28"],
-  ];
+  const imageCountsPerArticle = [2, 1, 3, 0, 1, 2];
 
-  console.log("  Downloading and uploading news images...");
+  console.log("  Uploading news images...");
   for (let i = 0; i < validatedArticles.length; i++) {
-    const imageUrls = imageUrlSets[i] || [];
-    for (const [imageIndex, imageUrl] of imageUrls.entries()) {
+    const imageCount = imageCountsPerArticle[i] ?? 0;
+    for (let imageIndex = 0; imageIndex < imageCount; imageIndex++) {
       try {
         const finalKey = `news/${validatedArticles[i].id}-${imageIndex}.jpg`;
-        await uploadImageToS3(ctx, imageUrl, finalKey);
+        await uploadSeedAssetToS3(ctx, SEED_ASSET_FILES.banner, finalKey);
         validatedArticles[i].imageS3Keys?.push(finalKey);
-        await new Promise((resolve) => setTimeout(resolve, 200));
       } catch (error) {
         console.warn(
           `  ⚠️  Failed to upload image for article ${validatedArticles[i].title}:`,

@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { sponsorSchema } from "@/lib/db/schemas";
-import { putItems, type SeedContext, uploadImageToS3 } from "./common";
+import { putItems, type SeedContext, uploadSeedAssetToS3 } from "./common";
+import { SEED_ASSET_FILES } from "./seed-assets";
 
 export async function seedSponsorsData(ctx: SeedContext): Promise<void> {
   console.log("\n💰 Seeding sponsors...");
@@ -49,20 +50,12 @@ export async function seedSponsorsData(ctx: SeedContext): Promise<void> {
 
   const validatedSponsors = sponsors.map((sponsor) => sponsorSchema.parse(sponsor));
 
-  const logoUrls = [
-    "https://picsum.photos/400/200?random=30",
-    "https://picsum.photos/400/200?random=31",
-    "https://picsum.photos/400/200?random=32",
-    "https://picsum.photos/400/200?random=33",
-  ];
-
-  console.log("  Downloading and uploading sponsor logos...");
+  console.log("  Uploading sponsor logos...");
   for (let i = 0; i < validatedSponsors.length; i++) {
     try {
       const finalKey = `sponsors/${validatedSponsors[i].id}-logo.jpg`;
-      await uploadImageToS3(ctx, logoUrls[i], finalKey);
+      await uploadSeedAssetToS3(ctx, SEED_ASSET_FILES.logo, finalKey);
       validatedSponsors[i].logoS3Key = finalKey;
-      await new Promise((resolve) => setTimeout(resolve, 200));
     } catch (error) {
       console.warn(`  ⚠️  Failed to upload logo for ${validatedSponsors[i].name}:`, error);
     }

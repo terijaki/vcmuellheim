@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { BeholdPostSchema, type BeholdPost } from "@/lambda/social/types";
 import { createBeholdFeedRepository } from "@/lib/social/behold-feed";
 import type { SeedContext } from "./common";
+import { SEED_ASSET_FILES, fixtureSeedPublicUrl } from "./seed-assets";
 
 /** Match behold-sync retention: keep at most 2 recent posts in the feed cache. */
 const MAX_SEED_POSTS = 2;
@@ -18,13 +19,28 @@ const DEFAULT_COLOR_PALETTE = {
   vibrantDark: "#017a74",
 } as const;
 
-function picsumSizes(seed: number) {
-  const urlFor = (w: number, h: number) => `https://picsum.photos/${w}/${h}?random=${seed}`;
+function fixtureSeedSizes() {
   return {
-    small: { mediaUrl: urlFor(200, 200), height: 200, width: 200 },
-    medium: { mediaUrl: urlFor(400, 400), height: 400, width: 400 },
-    large: { mediaUrl: urlFor(800, 800), height: 800, width: 800 },
-    full: { mediaUrl: urlFor(1200, 1200), height: 1200, width: 1200 },
+    small: {
+      mediaUrl: fixtureSeedPublicUrl(SEED_ASSET_FILES.thumb),
+      height: 200,
+      width: 200,
+    },
+    medium: {
+      mediaUrl: fixtureSeedPublicUrl(SEED_ASSET_FILES.portrait),
+      height: 400,
+      width: 400,
+    },
+    large: {
+      mediaUrl: fixtureSeedPublicUrl(SEED_ASSET_FILES.medium),
+      height: 800,
+      width: 800,
+    },
+    full: {
+      mediaUrl: fixtureSeedPublicUrl(SEED_ASSET_FILES.square),
+      height: 1200,
+      width: 1200,
+    },
   };
 }
 
@@ -35,8 +51,8 @@ function buildSeedPosts(): BeholdPost[] {
       timestamp: dayjs().subtract(2, "days").toISOString(),
       permalink: "https://www.instagram.com/p/seed-matchday/",
       mediaType: "IMAGE" as const,
-      mediaUrl: "https://picsum.photos/1200/1200?random=101",
-      sizes: picsumSizes(101),
+      mediaUrl: fixtureSeedPublicUrl(SEED_ASSET_FILES.square),
+      sizes: fixtureSeedSizes(),
       caption: "Matchday vibes! 🏐 #vcmüllheim #volleyball",
       prunedCaption: "Matchday vibes!",
       hashtags: ["vcmüllheim", "volleyball"],
@@ -48,8 +64,8 @@ function buildSeedPosts(): BeholdPost[] {
       timestamp: dayjs().subtract(5, "days").toISOString(),
       permalink: "https://www.instagram.com/p/seed-training/",
       mediaType: "IMAGE" as const,
-      mediaUrl: "https://picsum.photos/1200/1200?random=102",
-      sizes: picsumSizes(102),
+      mediaUrl: fixtureSeedPublicUrl(SEED_ASSET_FILES.square),
+      sizes: fixtureSeedSizes(),
       caption: "Trainingseinheit der Jugend 💪 #jugend #vcmuellheim",
       prunedCaption: "Trainingseinheit der Jugend",
       hashtags: ["jugend", "vcmuellheim"],
