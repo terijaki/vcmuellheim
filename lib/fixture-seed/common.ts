@@ -17,7 +17,7 @@ import { newsRepository } from "@/lib/db/repositories/news-repository";
 import { teamRepository } from "@/lib/db/repositories/team-repository";
 import { type LocationInput, type MemberInput, type TeamInput } from "@/lib/db/schemas";
 import { invokeImageProcessorAsync } from "@/lib/media/image-processing";
-import { type SeedAssetFile, readSeedAssetBytes } from "./seed-assets";
+import { type SeedAssetFileName, readSeedAssetBytes } from "./seed-assets";
 
 export const seedEntityWriters = {
   news: newsRepository,
@@ -117,7 +117,7 @@ export async function putItems<T>(
 
 export async function uploadSeedAssetToS3(
   ctx: SeedContext,
-  assetFileName: SeedAssetFile,
+  assetFileName: SeedAssetFileName,
   s3Key: string,
 ): Promise<string> {
   const imageBuffer = await readSeedAssetBytes(assetFileName);

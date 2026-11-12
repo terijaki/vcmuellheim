@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { newsSchema } from "@/lib/db/schemas";
 import { putItems, type SeedContext, uploadSeedAssetToS3 } from "./common";
-import { SEED_ASSET_FILES } from "./seed-assets";
+import { NEWS_PHOTO_ASSETS } from "./seed-assets";
 
 export async function seedNewsData(ctx: SeedContext): Promise<void> {
   console.log("\n📰 Seeding news articles...");
@@ -99,12 +99,18 @@ export async function seedNewsData(ctx: SeedContext): Promise<void> {
   const imageCountsPerArticle = [2, 1, 3, 0, 1, 2];
 
   console.log("  Uploading news images...");
+  let newsAssetIndex = 0;
   for (let i = 0; i < validatedArticles.length; i++) {
     const imageCount = imageCountsPerArticle[i] ?? 0;
     for (let imageIndex = 0; imageIndex < imageCount; imageIndex++) {
       try {
         const finalKey = `news/${validatedArticles[i].id}-${imageIndex}.jpg`;
-        await uploadSeedAssetToS3(ctx, SEED_ASSET_FILES.banner, finalKey);
+        const asset = NEWS_PHOTO_ASSETS[newsAssetIndex];
+        newsAssetIndex += 1;
+        if (!asset) {
+          throw new Error("Missing news photo fixture asset");
+        }
+        await uploadSeedAssetToS3(ctx, asset, finalKey);
         validatedArticles[i].imageS3Keys?.push(finalKey);
       } catch (error) {
         console.warn(

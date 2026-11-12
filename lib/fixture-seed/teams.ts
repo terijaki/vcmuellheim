@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { teamSchema } from "@/lib/db/schemas";
 import { slugify } from "@/utils/slugify";
 import { putItems, type SeedContext, uploadSeedAssetToS3 } from "./common";
-import { SEED_ASSET_FILES } from "./seed-assets";
+import { TEAM_PHOTO_ASSETS } from "./seed-assets";
 
 export async function seedTeamsData(ctx: SeedContext): Promise<void> {
   console.log("\n🏐 Seeding teams...");
@@ -92,10 +92,14 @@ export async function seedTeamsData(ctx: SeedContext): Promise<void> {
   console.log("  Uploading team pictures...");
   for (let i = 0; i < validatedTeams.length; i++) {
     validatedTeams[i].pictureS3Keys = [];
+    const teamAsset = TEAM_PHOTO_ASSETS[i];
     for (let pictureIndex = 0; pictureIndex < (teamPictureCounts[i] ?? 0); pictureIndex++) {
       try {
         const finalKey = `teams/${validatedTeams[i].id}-${pictureIndex}.jpg`;
-        await uploadSeedAssetToS3(ctx, SEED_ASSET_FILES.banner, finalKey);
+        if (!teamAsset) {
+          throw new Error("Missing team photo fixture asset");
+        }
+        await uploadSeedAssetToS3(ctx, teamAsset, finalKey);
         validatedTeams[i].pictureS3Keys?.push(finalKey);
       } catch (error) {
         console.warn(`  ⚠️  Failed to upload picture for team ${validatedTeams[i].name}:`, error);

@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { sponsorSchema } from "@/lib/db/schemas";
 import { putItems, type SeedContext, uploadSeedAssetToS3 } from "./common";
-import { SEED_ASSET_FILES } from "./seed-assets";
+import { SPONSOR_LOGO_ASSETS } from "./seed-assets";
 
 export async function seedSponsorsData(ctx: SeedContext): Promise<void> {
   console.log("\n💰 Seeding sponsors...");
@@ -54,7 +54,11 @@ export async function seedSponsorsData(ctx: SeedContext): Promise<void> {
   for (let i = 0; i < validatedSponsors.length; i++) {
     try {
       const finalKey = `sponsors/${validatedSponsors[i].id}-logo.jpg`;
-      await uploadSeedAssetToS3(ctx, SEED_ASSET_FILES.logo, finalKey);
+      const asset = SPONSOR_LOGO_ASSETS[i];
+      if (!asset) {
+        throw new Error("Missing sponsor logo fixture asset");
+      }
+      await uploadSeedAssetToS3(ctx, asset, finalKey);
       validatedSponsors[i].logoS3Key = finalKey;
     } catch (error) {
       console.warn(`  ⚠️  Failed to upload logo for ${validatedSponsors[i].name}:`, error);
