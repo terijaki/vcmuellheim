@@ -29,10 +29,11 @@ export const SAMS_PRIMARY_CLUB_SLUG = slugify(SAMS.name);
 
 const samsTargetClubSlugSet = new Set<string>(SAMS_TARGET_CLUB_SLUGS);
 
-/** True for CMS team slugs belonging to VC Müllheim (e.g. `vc-muellheim-1`). */
-export function isPrimarySamsClubTeamSlug(teamSlug: NullableString): boolean {
-  if (!teamSlug) return false;
-  return teamSlug === SAMS_PRIMARY_CLUB_SLUG || teamSlug.startsWith(`${SAMS_PRIMARY_CLUB_SLUG}-`);
+/** True when a SAMS ranking row belongs to the primary club (`SAMS.name`). */
+export function isPrimarySamsClubRankingTeamName(teamName: NullableString): boolean {
+  if (!teamName) return false;
+  const trimmed = teamName.trim();
+  return trimmed === SAMS.name || trimmed.startsWith(`${SAMS.name} `);
 }
 
 export function isConfiguredSamsClubSlug(nameSlug: NullableString): boolean {
