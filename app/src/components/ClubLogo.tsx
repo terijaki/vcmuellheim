@@ -8,7 +8,10 @@ type ClubLogoProps = (
   | { logoUrl: string | null | undefined; clubUuid?: never; teamUuid?: never }
 ) & {
   label?: string;
+  /** Invert logo colors for contrast (VC Müllheim on highlighted ranking rows). */
   light?: boolean;
+  /** Disable multiply blend when the logo sits on a dark highlighted row. */
+  onDarkBackground?: boolean;
   size?: number;
 };
 
@@ -18,6 +21,7 @@ export default function ClubLogo({
   logoUrl: proppedLogoUrl,
   label,
   light,
+  onDarkBackground,
   size = 24,
 }: ClubLogoProps) {
   const logoUrl = clubUuid
@@ -39,9 +43,8 @@ export default function ClubLogo({
           width: "100%",
           height: "100%",
           objectFit: "contain",
-          borderRadius: "50%",
           filter: light ? "saturate(0) brightness(0) invert(1)" : undefined,
-          mixBlendMode: light ? undefined : "multiply",
+          mixBlendMode: light || onDarkBackground ? undefined : "multiply",
         }}
       />
     </Flex>
