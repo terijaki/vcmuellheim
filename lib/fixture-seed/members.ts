@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { memberSchema } from "@/lib/db/schemas";
-import { putItems, type SeedContext, uploadImageToS3 } from "./common";
+import { putItems, type SeedContext, uploadSeedAssetToS3 } from "./common";
+import { MEMBER_AVATAR_ASSETS } from "./seed-assets";
 
 export async function seedMembersData(ctx: SeedContext): Promise<void> {
   console.log("\n👥 Seeding members...");
@@ -73,24 +74,20 @@ export async function seedMembersData(ctx: SeedContext): Promise<void> {
 
   const validatedMembers = membersWithBaseMeta.map((mem) => memberSchema.parse(mem));
 
-  const avatarUrls = [
-    "https://picsum.photos/400/400?random=30",
-    "https://picsum.photos/400/400?random=31",
-    "https://picsum.photos/400/400?random=32",
-    "https://picsum.photos/400/400?random=33",
-  ];
-
-  console.log("  Downloading and uploading member avatars...");
-  let avatarIndex = 0;
+  console.log("  Uploading member avatars...");
+  let avatarAssetIndex = 0;
   for (let i = 0; i < validatedMembers.length; i++) {
     const member = validatedMembers[i];
     if (i === 0 || i === 1 || i === 3 || i === 5) {
       try {
         const finalKey = `members/${member.id}-avatar.jpg`;
-        await uploadImageToS3(ctx, avatarUrls[avatarIndex], finalKey);
+        const asset = MEMBER_AVATAR_ASSETS[avatarAssetIndex];
+        if (!asset) {
+          throw new Error("Missing member avatar fixture asset");
+        }
+        avatarAssetIndex += 1;
+        await uploadSeedAssetToS3(ctx, asset, finalKey);
         member.avatarS3Key = finalKey;
-        avatarIndex++;
-        await new Promise((resolve) => setTimeout(resolve, 200));
       } catch (error) {
         console.warn(`  ⚠️  Failed to upload avatar for member ${member.name}:`, error);
       }

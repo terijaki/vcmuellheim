@@ -177,6 +177,7 @@ describe("WebAppStack", () => {
           Match.objectLike({ PathPattern: "/api/sams/logos" }),
           Match.objectLike({ PathPattern: "/api/sams/team-logos" }),
           Match.objectLike({ PathPattern: "/docs/*" }),
+          Match.objectLike({ PathPattern: "/fixture-seed/*" }),
         ]),
         PriceClass: "PriceClass_100",
       },

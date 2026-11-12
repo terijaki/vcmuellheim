@@ -12,6 +12,7 @@
  *   · /api/sams/team-logos → Lambda Function URL (cached per team query string)
  *   · /assets/* behavior → S3 static assets origin (immutable, long TTL)
  *   · /docs/* behavior → S3 static assets origin (downloadable documents)
+ *   · /fixture-seed/* → S3 static assets (committed seed images for previews)
  * - S3 bucket for static assets (.output/public/)
  * - Route53 A record pointing to CloudFront
  */
@@ -373,6 +374,14 @@ export class WebAppStack extends cdk.Stack {
           cachePolicy: staticAssetsCachePolicy,
           compress: true,
         },
+        "/fixture-seed/*": {
+          origin: s3Origin,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+          cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+          cachePolicy: staticAssetsCachePolicy,
+          compress: true,
+        },
       },
       priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
       comment: isProd ? "VCM WebApp (Prod)" : `VCM WebApp (${environment}${branchSuffix})`,
@@ -391,7 +400,7 @@ export class WebAppStack extends cdk.Stack {
         sources: [s3deploy.Source.asset("app/.output/public")],
         destinationBucket: assetsBucket,
         distribution: this.distribution,
-        distributionPaths: ["/assets/*", "/_build/*", "/docs/*"],
+        distributionPaths: ["/assets/*", "/_build/*", "/docs/*", "/fixture-seed/*"],
         prune: true,
         memoryLimit: 512,
       });
