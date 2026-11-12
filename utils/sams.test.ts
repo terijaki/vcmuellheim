@@ -3,18 +3,19 @@ import {
   dedupeSamsMatchesByUuid,
   getOwnedSamsSportsclubUuids,
   getOwnedSamsTeamUuids,
-  isPrimarySamsClubTeamSlug,
+  isSecondaryTargetClubRankingTeamName,
   resolveConfiguredSamsSportsclubUuids,
   resolveSyncedSeasonUuidFromTeams,
   shouldResolveDefaultSamsSportsclubs,
 } from "./sams";
 
-describe("isPrimarySamsClubTeamSlug", () => {
-  it("matches VC Müllheim team slugs only", () => {
-    expect(isPrimarySamsClubTeamSlug("vc-muellheim")).toBe(true);
-    expect(isPrimarySamsClubTeamSlug("vc-muellheim-1")).toBe(true);
-    expect(isPrimarySamsClubTeamSlug("markgraefler-volleys-1")).toBe(false);
-    expect(isPrimarySamsClubTeamSlug(undefined)).toBe(false);
+describe("isSecondaryTargetClubRankingTeamName", () => {
+  it("matches Markgräfler Volleys ranking names only", () => {
+    expect(isSecondaryTargetClubRankingTeamName("Markgräfler Volleys")).toBe(true);
+    expect(isSecondaryTargetClubRankingTeamName("Markgräfler Volleys 1")).toBe(true);
+    expect(isSecondaryTargetClubRankingTeamName("VC Müllheim 1")).toBe(false);
+    expect(isSecondaryTargetClubRankingTeamName("Herren 1")).toBe(false);
+    expect(isSecondaryTargetClubRankingTeamName(undefined)).toBe(false);
   });
 });
 
