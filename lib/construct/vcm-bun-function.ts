@@ -1,3 +1,4 @@
+import { BUN_LAMBDA_TASK_ROOT_BUNFIG, BUN_LAMBDA_WRITABLE_ENV } from "@lib/buntime/lambda-env";
 import { BUN_DOCKER_IMAGE, BUN_TIME_LAYER_SSM_NAME } from "@utils/buntime";
 import { buildLambdaFunctionName, buildLambdaLogGroupName } from "@utils/lambda-names";
 import * as cdk from "aws-cdk-lib";
@@ -5,7 +6,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as logs from "aws-cdk-lib/aws-logs";
 import * as ssm from "aws-cdk-lib/aws-ssm";
 import type { Construct } from "constructs";
-import { chmodSync, copyFileSync, existsSync, mkdirSync } from "node:fs";
+import { chmodSync, copyFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
 
@@ -67,10 +68,8 @@ export class VcmBunFunction extends cdk.Resource {
       layers: [bunLayer],
       environment: {
         CDK_ENVIRONMENT: process.env.CDK_ENVIRONMENT || "dev",
-        TMPDIR: "/tmp",
-        HOME: "/tmp",
-        BUN_RUNTIME_TRANSPILER_CACHE_PATH: "/tmp",
         ...environment,
+        ...BUN_LAMBDA_WRITABLE_ENV,
       },
       code: lambda.Code.fromAsset(path.dirname(entryPath), {
         bundling: {
@@ -100,6 +99,7 @@ export class VcmBunFunction extends cdk.Resource {
                 const bootstrapPath = path.join(outputDir, "bootstrap");
                 copyFileSync(path.join(__dirname, "../buntime/bootstrap"), bootstrapPath);
                 chmodSync(bootstrapPath, 0o755);
+                writeFileSync(path.join(outputDir, "bunfig.toml"), BUN_LAMBDA_TASK_ROOT_BUNFIG);
                 return true;
               } catch (error) {
                 throw new Error(
