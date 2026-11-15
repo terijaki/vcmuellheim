@@ -1,4 +1,13 @@
 #!/bin/sh
 set -eu
+
+mkdir -p /tmp/.cache /tmp/.bun-install-cache /tmp/.bun-transpiler-cache
+
+export HOME=/tmp
+export TMPDIR=/tmp
+export XDG_CACHE_HOME=/tmp/.cache
+export BUN_INSTALL_CACHE_DIR=/tmp/.bun-install-cache
+export BUN_RUNTIME_TRANSPILER_CACHE_PATH=/tmp/.bun-transpiler-cache
+
 cd "${LAMBDA_TASK_ROOT}"
 exec /opt/bun /opt/runtime.js
