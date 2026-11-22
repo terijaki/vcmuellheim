@@ -77,15 +77,15 @@ function fallbackMimeTypeForBundledAsset(fallbackPath: string): "image/jpeg" | "
   return "image/jpeg";
 }
 
-/** CSS `background-image` with WebP-first `image-set` and original-format fallback for older engines. */
+/** Inline JPEG/PNG `background-image` plus `--static-bg-image-set` for `@supports` in globals.css. */
 export function staticBundledBackgroundImageStyle(id: StaticBundledImageId): {
-  "--static-bg-fallback": string;
-  "--static-bg-set": string;
+  backgroundImage: string;
+  "--static-bg-image-set": string;
 } {
   const { webp, fallback } = getStaticBundledImage(id);
   const fallbackMime = fallbackMimeTypeForBundledAsset(fallback);
   return {
-    "--static-bg-fallback": `url("${fallback}")`,
-    "--static-bg-set": `image-set(url("${webp}") type("image/webp"), url("${fallback}") type("${fallbackMime}"))`,
+    backgroundImage: `url("${fallback}")`,
+    "--static-bg-image-set": `image-set(url("${webp}") type("image/webp"), url("${fallback}") type("${fallbackMime}"))`,
   };
 }

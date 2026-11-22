@@ -24,12 +24,12 @@ describe("static-bundled-images", () => {
     }
   });
 
-  it("builds image-set CSS variables with jpeg mime for jpg fallbacks", () => {
+  it("sets literal fallback background and image-set custom property", () => {
     const style = staticBundledBackgroundImageStyle("backgrounds/pageheading");
-    expect(style["--static-bg-fallback"]).toContain("pageheading.jpg");
-    expect(style["--static-bg-set"]).toContain('type("image/webp")');
-    expect(style["--static-bg-set"]).toContain('type("image/jpeg")');
-    expect(style["--static-bg-set"]).toContain("pageheading.webp");
+    expect(style.backgroundImage).toBe('url("/assets/backgrounds/pageheading.jpg")');
+    expect(style["--static-bg-image-set"]).toContain('type("image/webp")');
+    expect(style["--static-bg-image-set"]).toContain('type("image/jpeg")');
+    expect(style["--static-bg-image-set"]).toContain("pageheading.webp");
   });
 
   it("has webp and fallback files on disk for every registry entry", () => {
