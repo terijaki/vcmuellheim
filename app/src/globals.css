@@ -1,3 +1,9 @@
+/* Bundled static backgrounds: JPEG base layer, WebP when image-set is supported */
+.static-bundled-bg {
+  background-image: var(--static-bg-fallback);
+  background-image: var(--static-bg-set);
+}
+
 /* ------ Global Styles ------ */
 :root,
 html,

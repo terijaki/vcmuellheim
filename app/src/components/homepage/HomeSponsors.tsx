@@ -1,7 +1,6 @@
 import type { Sponsor } from "@lib/db/types";
 import {
   Anchor,
-  BackgroundImage,
   Box,
   Button,
   Center,
@@ -17,6 +16,7 @@ import {
 } from "@mantine/core";
 import { Club } from "@project.config";
 import { useSponsors } from "../../hooks/dataQueries";
+import { StaticBackgroundImage } from "../StaticBackgroundImage";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";
 
@@ -37,8 +37,8 @@ export default function HomeSponsors({
   return (
     <Box bg="blumine">
       <ScrollAnchor name="sponsors" />
-      <BackgroundImage
-        src="/images/backgrounds/sponsors.jpg"
+      <StaticBackgroundImage
+        imageId="backgrounds/sponsors"
         py="md"
         style={{ zIndex: 0 }}
         pos="relative"
@@ -61,7 +61,7 @@ export default function HomeSponsors({
           blur={2}
           zIndex={-1}
         />
-      </BackgroundImage>
+      </StaticBackgroundImage>
     </Box>
   );
 }

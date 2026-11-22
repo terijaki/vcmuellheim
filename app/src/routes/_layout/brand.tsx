@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import CardTitle from "@webapp/components/CardTitle";
+import { StaticPictureImage } from "@webapp/components/StaticPictureImage";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 
 export const Route = createFileRoute("/_layout/brand")({
@@ -182,20 +183,16 @@ function RouteComponent() {
 
               <SimpleGrid spacing="xs" cols={{ base: 1, sm: 2 }}>
                 <AspectRatio ratio={6 / 4}>
-                  <Image
-                    width={600}
-                    height={400}
-                    src="/assets/brand/jersey1.jpg"
-                    alt="Logo"
+                  <StaticPictureImage
+                    imageId="brand/jersey1"
+                    alt="Trikot Beispiel 1"
                     style={{ objectFit: "cover" }}
                   />
                 </AspectRatio>
                 <AspectRatio ratio={6 / 4}>
-                  <Image
-                    width={600}
-                    height={400}
-                    src="/assets/brand/jersey2.jpg"
-                    alt="Logo"
+                  <StaticPictureImage
+                    imageId="brand/jersey2"
+                    alt="Trikot Beispiel 2"
                     style={{ objectFit: "cover" }}
                   />
                 </AspectRatio>

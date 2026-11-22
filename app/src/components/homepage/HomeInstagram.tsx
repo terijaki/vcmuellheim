@@ -1,4 +1,5 @@
-import { BackgroundImage, Box, Container, Overlay, SimpleGrid, Stack } from "@mantine/core";
+import { Box, Container, Overlay, SimpleGrid, Stack } from "@mantine/core";
+import { StaticBackgroundImage } from "../StaticBackgroundImage";
 import type { BeholdPost } from "@/lambda/social/types";
 import InstagramCard from "../InstagramCard";
 import SectionHeading from "../layout/SectionHeading";
@@ -26,8 +27,8 @@ export default function HomeInstagram({ posts, hideHeading = false }: HomeInstag
 
   return (
     <Box bg="onyx">
-      <BackgroundImage
-        src="/assets/backgrounds/pageheading.jpg"
+      <StaticBackgroundImage
+        imageId="backgrounds/pageheading"
         py="md"
         style={{ zIndex: 0 }}
         pos="relative"
@@ -45,7 +46,7 @@ export default function HomeInstagram({ posts, hideHeading = false }: HomeInstag
           blur={2}
           zIndex={-1}
         />
-      </BackgroundImage>
+      </StaticBackgroundImage>
     </Box>
   );
 }
