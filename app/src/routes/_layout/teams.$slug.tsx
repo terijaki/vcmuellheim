@@ -43,6 +43,7 @@ import {
 import { getHomeMembersFn } from "@webapp/server/functions/members";
 import { getTeamBySlugFn } from "@webapp/server/functions/teams";
 import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
+import { dedupeSamsRosterOfficials } from "@utils/sams-roster-officials";
 
 dayjs.locale(de);
 dayjs.extend(weekday);
@@ -121,7 +122,11 @@ function RouteComponent() {
           <TeamTrainers team={team} initialMembers={loaderData.members} />
         </Suspense>
         <Suspense fallback={null}>
-          <TeamRoster teamUuid={loaderData.samsTeam?.uuid} />
+          <TeamRoster
+            teamUuid={loaderData.samsTeam?.uuid}
+            team={team}
+            initialMembers={loaderData.members}
+          />
         </Suspense>
         <Suspense fallback={<CenteredLoader text="Lade Fotos..." />}>
           <TeamPictures team={team} />
@@ -470,13 +475,29 @@ function JerseyNumber({ number }: { number?: number }) {
   );
 }
 
-function TeamRoster({ teamUuid }: { teamUuid?: string }) {
+function TeamRoster({
+  teamUuid,
+  team,
+  initialMembers,
+}: {
+  teamUuid?: string;
+  team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]>;
+  initialMembers?: Awaited<ReturnType<typeof useMembers>>["data"];
+}) {
   const { data: roster } = useSamsRoster(teamUuid);
+  const { data: members } = useMembers(
+    initialMembers ? { initialData: initialMembers } : undefined,
+  );
 
   if (!roster) return null;
 
+  const cmsTrainerNames =
+    team.trainerIds
+      ?.map((id) => members?.items.find((m) => m.id === id)?.name)
+      .filter((name): name is string => Boolean(name)) ?? [];
+
   const sortedPlayers = [...roster.players].sort(compareRosterPlayers);
-  const officialsWithRole = roster.officials.filter((official) => !!official.role?.trim());
+  const officialsWithRole = dedupeSamsRosterOfficials(roster.officials, { cmsTrainerNames });
 
   if (!sortedPlayers.length && !officialsWithRole.length) return null;
   return (
