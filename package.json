@@ -18,6 +18,7 @@
     "test:e2e": "playwright test",
     "lint": "vp check",
     "check:fix": "vp check --fix",
+    "assets:webp": "bun ./scripts/convert-static-assets-to-webp.ts",
     "db:seed": "bun ./scripts/db-seed.ts",
     "db:seed:user": "bun ./scripts/db-seed-user.ts",
     "db:seed:sams": "bun ./scripts/seed-sams-provider-events.ts",

@@ -1,4 +1,6 @@
 import { BackgroundImage, Button, Container, Group, Overlay, Stack } from "@mantine/core";
+import type { HomeIntroBackgroundImageId } from "../../utils/static-bundled-images";
+import { staticBundledBackgroundImageStyle } from "../../utils/static-bundled-images";
 import { useViewportSize } from "@mantine/hooks";
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
@@ -7,7 +9,7 @@ import { navbarLinks } from "../../utils/navbarLinks";
 import { HEADER_HEIGHT } from "../layout/Header";
 
 interface HomeIntroProps {
-  backgroundImage: string;
+  introBackgroundImageId: HomeIntroBackgroundImageId;
   introContent: ReactNode;
   /** Overrides the default full-viewport hero so the next section is on screen. */
   minHeight?: string;
@@ -16,7 +18,7 @@ interface HomeIntroProps {
 }
 
 export default function HomeIntro({
-  backgroundImage,
+  introBackgroundImageId,
   introContent,
   minHeight,
   showLiveLink = false,
@@ -26,9 +28,9 @@ export default function HomeIntro({
   const isMobile = width < 768;
   const HEIGHT = minHeight ?? `calc(90vh - ${HEADER_HEIGHT}px)`;
   return (
-    <BackgroundImage
-      src={backgroundImage}
-      component={Stack}
+    <Stack
+      className={[BackgroundImage.classes.root, "static-bundled-bg"].join(" ")}
+      style={staticBundledBackgroundImageStyle(introBackgroundImageId)}
       gap="xl"
       align="stretch"
       justify="space-between"
@@ -95,6 +97,6 @@ export default function HomeIntro({
         blur={1}
         zIndex={0}
       />
-    </BackgroundImage>
+    </Stack>
   );
 }

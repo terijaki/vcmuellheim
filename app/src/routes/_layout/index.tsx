@@ -31,9 +31,9 @@ export const Route = createFileRoute("/_layout/")({
     // Await only the intro image. Each section promise is returned unresolved so
     // <Await> can render a fallback and stream the section when that read finishes.
     // https://tanstack.com/router/latest/docs/framework/react/guide/deferred-data-loading
-    const introBackgroundImage = await getHomeIntroBackgroundImageFn();
+    const introBackgroundImageId = await getHomeIntroBackgroundImageFn();
     return {
-      introBackgroundImage,
+      introBackgroundImageId,
       instagramPosts: getInstagramPostsFn(),
       news: getHomeNewsFn(),
       heimspiele: Promise.all([getUpcomingEventsFn(), getHomeHeimspieleFn()]),
@@ -52,7 +52,7 @@ function HomePage() {
   return (
     <Stack gap={0} align="stretch">
       <HomeIntro
-        backgroundImage={data.introBackgroundImage}
+        introBackgroundImageId={data.introBackgroundImageId}
         introContent={
           <Stack gap={0} align="center" style={{ position: "relative", zIndex: 2 }}>
             <Text fw="bolder" size="xl" mt="xl">

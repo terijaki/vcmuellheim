@@ -1,7 +1,8 @@
 name: CDK Deploy
 concurrency:
-  group: cdk-deploy-${{ github.ref }}
-  cancel-in-progress: true
+  group: cdk-stack-${{ github.ref }}
+  cancel-in-progress: false
+  queue: max
 
 on:
   workflow_dispatch:
