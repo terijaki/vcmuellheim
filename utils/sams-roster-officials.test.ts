@@ -4,6 +4,7 @@ import {
   rosterOfficialDisplayName,
   rosterOfficialNameSlug,
   SAMS_ROSTER_EXCLUDED_ROLE,
+  SAMS_ROSTER_TRAINER_ROLES,
 } from "./sams-roster-officials";
 
 describe("rosterOfficialDisplayName", () => {
@@ -27,6 +28,11 @@ describe("rosterOfficialNameSlug", () => {
     expect(rosterOfficialNameSlug("Müller, Hans")).toBe("hansmueller");
     expect(rosterOfficialNameSlug("Hans Müller")).toBe("hansmueller");
   });
+
+  it("matches ß and ae spelling between SAMS comma form and CMS", () => {
+    expect(rosterOfficialNameSlug("Groß, Anna")).toBe(rosterOfficialNameSlug("Anna Gross"));
+    expect(rosterOfficialNameSlug("Groß, Anna")).toBe(rosterOfficialNameSlug("  Anna   Groß "));
+  });
 });
 
 describe("dedupeSamsRosterOfficials", () => {
@@ -45,9 +51,43 @@ describe("dedupeSamsRosterOfficials", () => {
     ]);
   });
 
+  it("merges three or more SAMS rows into one combined role list", () => {
+    const result = dedupeSamsRosterOfficials([
+      { uuid: "1", name: "Mustermann, Erika", role: "Arzt" },
+      { uuid: "2", name: "Erika Mustermann", role: "Betreuer" },
+      { uuid: "3", name: "  ERIKA   MUSTERMANN ", role: "Physiotherapeut" },
+    ]);
+
+    expect(result).toHaveLength(1);
+    expect(result[0]?.role).toBe("Arzt, Betreuer, Physiotherapeut");
+  });
+
+  it("sorts output by display name (German locale)", () => {
+    const result = dedupeSamsRosterOfficials([
+      { uuid: "1", name: "Zimmermann, Zara", role: "Arzt" },
+      { uuid: "2", name: "Mustermann, Erika", role: "Betreuer" },
+      { uuid: "3", name: "Aaberg, Anna", role: "Physio" },
+    ]);
+
+    expect(result.map((o) => rosterOfficialDisplayName(o.name))).toEqual([
+      "Anna Aaberg",
+      "Erika Mustermann",
+      "Zara Zimmermann",
+    ]);
+  });
+
   it("drops Kontaktperson Spieltag by exact role name", () => {
     const result = dedupeSamsRosterOfficials([
       { uuid: "1", name: "Mustermann, Erika", role: SAMS_ROSTER_EXCLUDED_ROLE },
+      { uuid: "2", name: "Mustermann, Erika", role: "Arzt" },
+    ]);
+
+    expect(result).toEqual([{ uuid: "2", name: "Mustermann, Erika", role: "Arzt" }]);
+  });
+
+  it("drops Kontaktperson Spieltag when the role label has surrounding whitespace", () => {
+    const result = dedupeSamsRosterOfficials([
+      { uuid: "1", name: "Mustermann, Erika", role: `  ${SAMS_ROSTER_EXCLUDED_ROLE}  ` },
       { uuid: "2", name: "Mustermann, Erika", role: "Arzt" },
     ]);
 
@@ -61,6 +101,27 @@ describe("dedupeSamsRosterOfficials", () => {
     );
 
     expect(result).toEqual([]);
+  });
+
+  it("matches CMS trainer when CMS name uses comma form and odd spacing", () => {
+    const result = dedupeSamsRosterOfficials(
+      [{ uuid: "1", name: "Mustermann, Erika", role: "Trainer" }],
+      { cmsTrainerNames: ["  Mustermann ,  Erika  "] },
+    );
+
+    expect(result).toEqual([]);
+  });
+
+  it("matches CMS and SAMS names with umlaut and ß variants", () => {
+    const result = dedupeSamsRosterOfficials(
+      [
+        { uuid: "1", name: "Müller, Hans", role: "Trainer" },
+        { uuid: "2", name: "Müller, Hans", role: "Arzt" },
+      ],
+      { cmsTrainerNames: ["Hans Mueller"] },
+    );
+
+    expect(result).toEqual([{ uuid: "1", name: "Müller, Hans", role: "Arzt" }]);
   });
 
   it("keeps non-trainer SAMS roles when CMS trainer matches", () => {
@@ -86,6 +147,24 @@ describe("dedupeSamsRosterOfficials", () => {
     );
 
     expect(result).toEqual([{ uuid: "1", name: "Erika Mustermann", role: "Betreuer" }]);
+  });
+
+  it("strips only explicit SAMS trainer role labels", () => {
+    for (const role of SAMS_ROSTER_TRAINER_ROLES) {
+      const result = dedupeSamsRosterOfficials([{ uuid: "1", name: "Erika Mustermann", role }], {
+        cmsTrainerNames: ["Erika Mustermann"],
+      });
+      expect(result).toEqual([]);
+    }
+  });
+
+  it("does not strip Physiotherapeut when CMS trainer matches", () => {
+    const result = dedupeSamsRosterOfficials(
+      [{ uuid: "1", name: "Erika Mustermann", role: "Physiotherapeut" }],
+      { cmsTrainerNames: ["Erika Mustermann"] },
+    );
+
+    expect(result).toEqual([{ uuid: "1", name: "Erika Mustermann", role: "Physiotherapeut" }]);
   });
 
   it("leaves officials unchanged when they are not CMS trainers", () => {

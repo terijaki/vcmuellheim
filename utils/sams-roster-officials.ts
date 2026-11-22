@@ -1,7 +1,16 @@
 import { slugify } from "@utils/slugify";
 
-/** SAMS role with no value on the public team page — filtered by exact label match. */
+/** SAMS role with no value on the public team page — filtered by exact label match (after trim). */
 export const SAMS_ROSTER_EXCLUDED_ROLE = "Kontaktperson Spieltag";
+
+/** SAMS roster role labels that duplicate CMS team trainers — stripped on name match. */
+export const SAMS_ROSTER_TRAINER_ROLES: ReadonlySet<string> = new Set([
+  "Trainer",
+  "Trainerin",
+  "Co-Trainer",
+  "Co-Trainerin",
+  "Coach",
+]);
 
 export type SamsRosterOfficialView = {
   uuid: string;
@@ -23,13 +32,26 @@ export function rosterOfficialDisplayName(name: string): string {
   return `${first} ${last}`;
 }
 
+/** Given name used for roster player sorting (Vorname when SAMS uses comma format). */
+export function rosterOfficialSortGivenName(name: string): string {
+  const comma = name.indexOf(",");
+  if (comma === -1) {
+    return rosterOfficialDisplayName(name);
+  }
+  const last = name.slice(0, comma).trim();
+  const first = name.slice(comma + 1).trim();
+  if (!last || !first) {
+    return rosterOfficialDisplayName(name);
+  }
+  return first;
+}
+
 export function rosterOfficialNameSlug(name: string): string {
   return slugify(rosterOfficialDisplayName(name), true);
 }
 
 function isSamsTrainerRole(role: string): boolean {
-  const slug = slugify(role.trim(), true);
-  return slug === "trainer" || slug === "trainerin" || slug.includes("trainer");
+  return SAMS_ROSTER_TRAINER_ROLES.has(role.trim());
 }
 
 function mergeRoleLabels(roles: string[]): string {
@@ -47,13 +69,16 @@ export type DedupeSamsRosterOfficialsOptions = {
  * Prepares SAMS roster officials for the public team page: drops excluded roles,
  * merges duplicate people by name slug, and hides SAMS trainer roles when the
  * same person is already listed as a CMS team trainer.
+ *
+ * People are matched by a normalized full-name slug (Vorname + Nachname). Rows with
+ * the same slug merge; different middle names or spelling in the slug keep separate entries.
  */
 export function dedupeSamsRosterOfficials(
   officials: readonly SamsRosterOfficialView[],
   options: DedupeSamsRosterOfficialsOptions = {},
 ): SamsRosterOfficialView[] {
   const cmsTrainerSlugs = new Set(
-    (options.cmsTrainerNames ?? []).map((name) => slugify(name.trim(), true)).filter(Boolean),
+    (options.cmsTrainerNames ?? []).map((name) => rosterOfficialNameSlug(name)).filter(Boolean),
   );
 
   const roleRows = officials
@@ -61,7 +86,7 @@ export function dedupeSamsRosterOfficials(
       ...official,
       role: official.role?.trim(),
     }))
-    .filter((official) => official.role && official.role !== SAMS_ROSTER_EXCLUDED_ROLE);
+    .filter((official) => official.role && official.role.trim() !== SAMS_ROSTER_EXCLUDED_ROLE);
 
   const byNameSlug = new Map<
     string,
