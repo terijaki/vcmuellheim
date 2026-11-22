@@ -6,7 +6,7 @@
 
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { volunteerEventSchema, volunteerSignupDataSchema } from "@/lib/db/schemas";
+import { volunteerEventWritableSchema, volunteerSignupDataSchema } from "@/lib/db/schemas";
 import { requireAdminMiddleware } from "../../middleware";
 import {
   cancelVolunteerSignupByAdmin,
@@ -27,12 +27,6 @@ import {
   verifyVolunteerToken,
 } from "./volunteer.server";
 
-const volunteerEventInputSchema = volunteerEventSchema.omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
 export const listVolunteerEventsFn = createServerFn()
   .middleware([requireAdminMiddleware])
   .handler(async () => handleListVolunteerEvents());
@@ -44,7 +38,7 @@ export const getVolunteerEventFn = createServerFn()
 
 export const createVolunteerEventFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])
-  .validator(volunteerEventInputSchema)
+  .validator(volunteerEventWritableSchema)
   .handler(async ({ data }) => handleCreateVolunteerEvent(data));
 
 export const updateVolunteerEventFn = createServerFn({ method: "POST" })
@@ -52,7 +46,7 @@ export const updateVolunteerEventFn = createServerFn({ method: "POST" })
   .validator(
     z.object({
       id: z.uuid(),
-      data: volunteerEventInputSchema.partial(),
+      data: volunteerEventWritableSchema.partial(),
     }),
   )
   .handler(async ({ data: { id, data: updates } }) => handleUpdateVolunteerEvent(id, updates));

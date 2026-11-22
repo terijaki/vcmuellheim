@@ -26,7 +26,7 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
         "Programmatic access to CMS content. Authenticate with a CMS API key (Bearer token) created in the admin UI. A key may grant one or more resource scopes:\n\n" +
         "- `news` — news articles and media helpers (read/write)\n" +
         "- `events` — club events (read-only)\n" +
-        "- `volunteerEvents` — volunteer events (read-only)\n" +
+        "- `volunteerEvents` — volunteer events (read/write)\n" +
         "- `bus` — Vereinsbus bookings (read/write)\n\n" +
         "**News images (gallery):** Article body `content` is HTML only (no inline image upload). Gallery images are stored separately in `imageS3Keys` and shown on the public news page. " +
         "To attach images via API: (1) `POST /api/admin/media/upload-url`, (2) `PUT` the file to `uploadUrl` with the same `Content-Type`, " +
@@ -335,6 +335,34 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
             "403": { $ref: "#/components/responses/Forbidden" },
           },
         },
+        post: {
+          operationId: "createVolunteerEvent",
+          summary: "Create a volunteer event",
+          description:
+            "Creates a volunteer event with shifts and roles. The server assigns the event id and fresh ids for every shift and role (any ids in the request body are ignored). Requires an API key with the `volunteerEvents` scope; the key owner must be an Admin or Moderator with CMS access.",
+          security: [{ bearerApiKey: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/CreateVolunteerEventRequest" },
+              },
+            },
+          },
+          responses: {
+            "201": {
+              description: "Volunteer event created",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/VolunteerEvent" },
+                },
+              },
+            },
+            "400": { $ref: "#/components/responses/BadRequest" },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+          },
+        },
       },
       "/api/admin/volunteer-events/{id}": {
         get: {
@@ -354,6 +382,37 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
             "401": { $ref: "#/components/responses/Unauthorized" },
             "403": { $ref: "#/components/responses/Forbidden" },
             "404": { $ref: "#/components/responses/NotFound" },
+          },
+        },
+        patch: {
+          operationId: "updateVolunteerEvent",
+          summary: "Update a volunteer event",
+          description:
+            "Partial update of event fields. When `shifts` is included, it **fully replaces** the shifts array: keep every shift and role you still need (include stable ids from GET responses). New shifts/roles may omit `id` (the server assigns one). Omit `shifts` to leave shifts unchanged. Removing a shift or role that has active (non-canceled) registrations returns **409 Conflict**. Requires an API key with the `volunteerEvents` scope; the key owner must be an Admin or Moderator with CMS access.",
+          security: [{ bearerApiKey: [] }],
+          parameters: [{ $ref: "#/components/parameters/VolunteerEventId" }],
+          requestBody: {
+            required: true,
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/UpdateVolunteerEventRequest" },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "Updated volunteer event",
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/VolunteerEvent" },
+                },
+              },
+            },
+            "400": { $ref: "#/components/responses/BadRequest" },
+            "401": { $ref: "#/components/responses/Unauthorized" },
+            "403": { $ref: "#/components/responses/Forbidden" },
+            "404": { $ref: "#/components/responses/NotFound" },
+            "409": { $ref: "#/components/responses/Conflict" },
           },
         },
       },
@@ -563,6 +622,14 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
         },
         BadRequest: {
           description: "Invalid request",
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/ApiError" },
+            },
+          },
+        },
+        Conflict: {
+          description: "Update conflicts with existing registrations",
           content: {
             "application/json": {
               schema: { $ref: "#/components/schemas/ApiError" },
@@ -784,6 +851,70 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
             items: {
               type: "array",
               items: { $ref: "#/components/schemas/VolunteerEvent" },
+            },
+          },
+        },
+        VolunteerEventRole: {
+          type: "object",
+          required: ["label", "minCapacity"],
+          properties: {
+            id: { type: "string", format: "uuid" },
+            label: { type: "string" },
+            description: { type: "string" },
+            minCapacity: { type: "integer", minimum: 0 },
+            maxCapacity: { type: "integer", minimum: 1 },
+            minAge: { type: "integer", minimum: 0, maximum: 120 },
+          },
+        },
+        VolunteerEventShift: {
+          type: "object",
+          required: ["label", "startDate", "roles"],
+          properties: {
+            id: { type: "string", format: "uuid" },
+            label: { type: "string" },
+            startDate: { type: "string", format: "date-time" },
+            endDate: { type: "string", format: "date-time" },
+            archivedAt: { type: "string", format: "date-time" },
+            roles: {
+              type: "array",
+              items: { $ref: "#/components/schemas/VolunteerEventRole" },
+            },
+          },
+        },
+        CreateVolunteerEventRequest: {
+          type: "object",
+          required: ["title", "organizerName", "organizerEmail", "shifts"],
+          properties: {
+            type: { type: "string", const: "volunteerEvent" },
+            title: { type: "string" },
+            description: { type: "string" },
+            location: { type: "string" },
+            locationUrl: { type: "string" },
+            organizerName: { type: "string" },
+            organizerEmail: { type: "string", format: "email" },
+            askForTShirtSize: { type: "boolean" },
+            askForAssociation: { type: "boolean" },
+            shifts: {
+              type: "array",
+              items: { $ref: "#/components/schemas/VolunteerEventShift" },
+            },
+          },
+        },
+        UpdateVolunteerEventRequest: {
+          type: "object",
+          minProperties: 1,
+          properties: {
+            title: { type: "string" },
+            description: { type: "string" },
+            location: { type: "string" },
+            locationUrl: { type: "string" },
+            organizerName: { type: "string" },
+            organizerEmail: { type: "string", format: "email" },
+            askForTShirtSize: { type: "boolean" },
+            askForAssociation: { type: "boolean" },
+            shifts: {
+              type: "array",
+              items: { $ref: "#/components/schemas/VolunteerEventShift" },
             },
           },
         },

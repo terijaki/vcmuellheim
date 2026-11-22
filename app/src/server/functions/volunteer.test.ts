@@ -17,8 +17,10 @@ import {
   confirmVolunteerSignup,
   createVolunteerSignup,
   getPublicVolunteerEvent,
+  handleUpdateVolunteerEvent,
   sendBulkVolunteerEventEmail,
   verifyVolunteerToken,
+  VolunteerEventUpdateConflictError,
 } from "./volunteer.server";
 
 // ── Environment setup ────────────────────────────────────────────────────────
@@ -1071,5 +1073,27 @@ describe("sendBulkVolunteerEventEmail", () => {
     expect(result.sent).toBe(2);
     expect(result.failed).toHaveLength(1);
     expect(result.failed[0]?.error).toBe("SES throttle");
+  });
+});
+
+describe("handleUpdateVolunteerEvent", () => {
+  it("rejects removing a shift that has active signups", async () => {
+    mockEventGet.mockResolvedValue(mockEvent);
+    mockSignupQuery.mockResolvedValue([
+      makeSignup({ shiftId, status: "confirmed", assignedRoleId: roleId1 }),
+    ]);
+
+    await expect(
+      handleUpdateVolunteerEvent(eventId, {
+        shifts: [
+          {
+            ...mockEvent.shifts[0],
+            roles: mockEvent.shifts[0].roles.filter((r) => r.id !== roleId1),
+          },
+        ],
+      }),
+    ).rejects.toBeInstanceOf(VolunteerEventUpdateConflictError);
+
+    expect(mockEventPatch).not.toHaveBeenCalled();
   });
 });

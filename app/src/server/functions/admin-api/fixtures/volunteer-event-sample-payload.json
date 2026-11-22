@@ -1,0 +1,490 @@
+{
+  "type": "volunteerEvent",
+  "title": "Stadtfest 2027",
+  "description": "<p>Das Müllheimer Stadtfest ist ein jährliches Herzstück unserer Tradition. Der VC Müllheim bringt dabei nicht nur unser traditionelles Angebot – von Pfannengyros bis zu Getränken – mit, sondern vor allem unser Gemeinschaftsgefühl in die Laube.</p><p>Wir möchten, dass dieses Fest ein voller Erfolg wird, denn das ist entscheidend für uns alle! Denn das sportliche Angebot des Vereins, das uns allen so viel Freude bereitet, hängt direkt von den Einnahmen des Stadtfestes ab.</p><p>Die Durchführung ist ein Mammutprojekt, das von einer breiten Unterstützung getragen wird. Die Vorbereitungen beginnen wochenlang und sind anspruchsvoll: Vom Aufbau der Laube, über die Küche und die Dekoration bis zur Organisation von Speisen wie Krautsalat und Zaziki – jede Phase erfordert helfende Hände.</p><p>Deshalb machen wir einen großen Appell: Wir benötigen euren Einsatz!</p><p>Ob du festes Mitglied bist, ein unterstützender Freund oder ein engagiertes Familienmitglied: Deine Hilfe ist Gold wert. Wir bitten um Unterstützung bei jeder Aufgabe – vom ersten Aufbau über den Betrieb des Festes bis zum sorgfältigen Abbau.</p><p>Wir wissen, wie viel wir gemeinsam leisten können: In den vergangenen Jahren waren rund 100 engagierte Personen beteiligt und haben unterschiedliche, wichtige Rollen übernommen.</p><p>Sei dabei und hilf uns, diese wichtige Tradition zu sichern und das Müllheimer Stadtfest zu einem unvergesslichen Erlebnis für alle!</p>",
+  "location": "Möbiushoft",
+  "locationUrl": "https://maps.app.goo.gl/XvC5Yk5DwjhvPa2M6",
+  "organizerName": "Björn Kohnen",
+  "organizerEmail": "bjoern@vcmuellheim.de",
+  "askForTShirtSize": false,
+  "askForAssociation": true,
+  "shifts": [
+    {
+      "id": "e6d01323-fc67-418c-8919-cf51dce33ab7",
+      "label": "Aufbau der Laube",
+      "startDate": "2027-06-19T07:00:00.000Z",
+      "roles": [
+        {
+          "id": "c74a1ae7-75c2-4deb-a77a-2ed0a0a13348",
+          "label": "Aufbau Vormittag",
+          "minCapacity": 2,
+          "description": "ab 9 Uhr, aber nicht bis Ende",
+          "maxCapacity": 3,
+          "minAge": 14
+        },
+        {
+          "id": "459c1d1a-197b-4d39-bd21-365b7ea48b0e",
+          "label": "Aufbau ganzer Tag",
+          "minCapacity": 5,
+          "description": "ab 9 Uhr, bis Ende",
+          "maxCapacity": 5,
+          "minAge": 14
+        }
+      ]
+    },
+    {
+      "id": "0c67e22e-cb78-4fe2-b54b-06902e52cf29",
+      "label": "Aufbau Laube",
+      "startDate": "2027-06-22T16:00:00.000Z",
+      "roles": [
+        {
+          "id": "f9756302-a2b0-41a8-acbb-64b87ce22949",
+          "label": "Helfer:in",
+          "minCapacity": 7,
+          "description": "Diverse Aufgaben Rund um den Aufbau der Laube. Dinge die wir Samstag noch nicht geschafft haben.",
+          "maxCapacity": 7,
+          "minAge": 14
+        }
+      ]
+    },
+    {
+      "id": "ac43f0ce-123f-4ca5-b7f0-c9fa751d0e63",
+      "label": "Krautsalat & Tzatziki",
+      "startDate": "2027-06-24T15:00:00.000Z",
+      "roles": [
+        {
+          "id": "a1967055-a714-4a76-99e5-a06423fc08f3",
+          "label": "Küchenhilfe",
+          "minCapacity": 4,
+          "maxCapacity": 4,
+          "minAge": 18
+        }
+      ]
+    },
+    {
+      "id": "0a787b51-123f-4d0f-84e3-ffcfd91f2c10",
+      "label": "Aufbau & Dekoration",
+      "startDate": "2027-06-24T16:00:00.000Z",
+      "roles": [
+        {
+          "id": "a5f799ba-859f-40d2-a599-4212ea793283",
+          "label": "Helfer:in",
+          "minCapacity": 10,
+          "description": "Diverse Aufgaben und Vorbereitungen der Laube. Hier wird zwar auch 💪 gebraucht, aber es fallen auch viele Kleinigkeiten an. Es muss viel gekehrt und geschmückt werden.",
+          "maxCapacity": 10,
+          "minAge": 14
+        }
+      ]
+    },
+    {
+      "id": "f1d248e9-963f-4638-8abd-bbf7b6ec6524",
+      "label": "Freitagabend",
+      "startDate": "2027-06-25T15:00:00.000Z",
+      "roles": [
+        {
+          "id": "a3d64576-b1a1-408f-a1fd-f9bac9a7b72d",
+          "label": "Küche",
+          "minCapacity": 3,
+          "description": "Pommes, Gyros, Steak, Würstchen",
+          "maxCapacity": 3
+        },
+        {
+          "id": "dcefdb8d-b79e-4201-902e-7cedeeeb65bb",
+          "label": "Durchreiche",
+          "minCapacity": 2,
+          "description": "Anrichten und Koordination der Speisen",
+          "maxCapacity": 2
+        },
+        {
+          "id": "e77857b4-a1cf-4b0b-97a8-e036a6b40154",
+          "label": "Theke",
+          "minCapacity": 5,
+          "description": "Anrichten der Getränke, Bier zapfen, (Getränke-) Bestellungen an der Theke aufnehmen & kassieren",
+          "maxCapacity": 5,
+          "minAge": 18
+        },
+        {
+          "id": "71c15396-8dbe-4023-92d7-150c83b4856e",
+          "label": "Sekttheke",
+          "minCapacity": 2,
+          "description": "Thekendienst speziell für Sekte",
+          "maxCapacity": 2,
+          "minAge": 18
+        },
+        {
+          "id": "b6e0787b-27fd-4c7c-ad1e-3df639a14fad",
+          "label": "Bedienung",
+          "minCapacity": 4,
+          "description": "Aufnehmen und kassieren der Tisch-Bestellungen",
+          "maxCapacity": 4,
+          "minAge": 16
+        },
+        {
+          "id": "4dd4ee44-0a63-4326-af2b-9e00b47de74c",
+          "label": "Bedienungshilfe",
+          "minCapacity": 4,
+          "description": "Auslieferung unserer Speisen an die Tische; Abräumen vom benutzten Besteck & Geschirr",
+          "maxCapacity": 4
+        },
+        {
+          "id": "4499e0e3-7678-408f-91bc-c5665fb6873f",
+          "label": "Spüldienst",
+          "minCapacity": 1,
+          "description": "Geschirr, Gläser und Besteck spülen im Spülmobil",
+          "maxCapacity": 2
+        },
+        {
+          "id": "c243d369-7f27-421e-9bc7-61c840e7c643",
+          "label": "Springer",
+          "minCapacity": 2,
+          "description": "Nachfüllen der Getränke, Gläser, Geschirr",
+          "maxCapacity": 2
+        },
+        {
+          "id": "59f2ba43-7627-4d6c-9ac4-c66cc9f5705d",
+          "label": "Gute Seele",
+          "minCapacity": 1,
+          "description": "Besteck in Servietten einrollen und den Backstage Bereich sauber halten"
+        },
+        {
+          "id": "9269647a-dc2c-4e17-bc4b-9d60e13ea23e",
+          "label": "Waschdienst",
+          "minCapacity": 1,
+          "description": "Am Ende der Schicht müssen die Helfershirts für die Folgeschichten gewaschen werden. (vor Samstagabend)",
+          "maxCapacity": 1
+        }
+      ],
+      "endDate": "2027-06-25T23:30:00.000Z"
+    },
+    {
+      "id": "ff143cd2-79ae-41a0-bd56-746f8a3dd10c",
+      "label": "Samstagmittag",
+      "startDate": "2027-06-26T09:00:00.000Z",
+      "roles": [
+        {
+          "id": "09674998-6542-4729-a7a1-b66f1562c316",
+          "label": "Küche",
+          "minCapacity": 3,
+          "description": "Pommes, Gyros, Steak, Würstchen",
+          "maxCapacity": 3
+        },
+        {
+          "id": "22b0d45a-aa81-44e5-bd86-052311887961",
+          "label": "Durchreiche",
+          "minCapacity": 2,
+          "description": "Anrichten und Koordination der Speisen",
+          "maxCapacity": 2
+        },
+        {
+          "id": "1aef27ed-f81f-4a20-8a29-f22917d734b6",
+          "label": "Theke",
+          "minCapacity": 2,
+          "description": "Anrichten der Getränke, Bier zapfen, (Getränke-) Bestellungen an der Theke aufnehmen & kassieren",
+          "maxCapacity": 4,
+          "minAge": 18
+        },
+        {
+          "id": "8c0b0672-9f66-4365-b8e2-f39488b2b458",
+          "label": "Bedienung",
+          "minCapacity": 2,
+          "description": "Aufnehmen und kassieren der Tisch-Bestellungen",
+          "maxCapacity": 4,
+          "minAge": 16
+        },
+        {
+          "id": "84928a87-ad62-40fc-8329-7ad485a88730",
+          "label": "Bedienungshilfe",
+          "minCapacity": 3,
+          "description": "Auslieferung unserer Speisen an die Tische; Abräumen vom benutzten Besteck & Geschirr",
+          "maxCapacity": 4
+        },
+        {
+          "id": "74a98237-4fc5-48d2-aed2-c8dfab8c13ca",
+          "label": "Spüldienst",
+          "minCapacity": 1,
+          "description": "Geschirr, Gläser und Besteck spülen im Spülmobil",
+          "maxCapacity": 2
+        },
+        {
+          "id": "f3c97f27-bcb3-4f0e-ad2d-44a2565a8fad",
+          "label": "Springer",
+          "minCapacity": 1,
+          "description": "Nachfüllen der Getränke, Gläser, Geschirr",
+          "maxCapacity": 2
+        },
+        {
+          "id": "a1bd2c29-c40b-4bd4-9310-b1419bd3bb18",
+          "label": "Gute Seele",
+          "minCapacity": 2,
+          "description": "Besteck in Servietten einrollen und den Backstage Bereich sauber halten"
+        },
+        {
+          "id": "b5a266dc-76b5-4f4a-8c96-6da7fff0eec4",
+          "label": "Waffelverkauf",
+          "minCapacity": 3,
+          "description": "Richtung Museum bauen wir einen Tisch mit Waffeleisen auf für unsere jungen Gäste",
+          "maxCapacity": 3
+        }
+      ],
+      "endDate": "2027-06-26T16:00:00.000Z"
+    },
+    {
+      "id": "bcaf74be-26b6-43e3-8252-f9f2a66787e3",
+      "label": "Samstagabend",
+      "startDate": "2027-06-26T15:00:00.000Z",
+      "roles": [
+        {
+          "id": "5524d6d4-857d-4d29-a1e0-30959693a376",
+          "label": "Küche",
+          "minCapacity": 3,
+          "description": "Pommes, Gyros, Steak, Würstchen",
+          "maxCapacity": 3
+        },
+        {
+          "id": "15b18ef0-d89a-4f3f-9994-a45695acefbd",
+          "label": "Durchreiche",
+          "minCapacity": 2,
+          "description": "Anrichten und Koordination der Speisen",
+          "maxCapacity": 2
+        },
+        {
+          "id": "c1318f57-9c3e-4fc5-9fc9-954888752906",
+          "label": "Theke",
+          "minCapacity": 4,
+          "description": "Anrichten der Getränke, Bier zapfen, (Getränke-) Bestellungen an der Theke aufnehmen & kassieren",
+          "maxCapacity": 5,
+          "minAge": 18
+        },
+        {
+          "id": "8010de7b-b72b-4b22-a585-d4a2c2b718c5",
+          "label": "Sekttheke",
+          "minCapacity": 2,
+          "description": "Thekendienst speziell für Sekte",
+          "maxCapacity": 2,
+          "minAge": 18
+        },
+        {
+          "id": "051eb2d3-5a54-4756-96b2-8a302830b299",
+          "label": "Bedienung",
+          "minCapacity": 3,
+          "description": "Aufnehmen und kassieren der Tisch-Bestellungen",
+          "maxCapacity": 4,
+          "minAge": 16
+        },
+        {
+          "id": "bb407923-91d2-4ffe-a8d7-638a3607c186",
+          "label": "Bedienungshilfe",
+          "minCapacity": 3,
+          "description": "Auslieferung unserer Speisen an die Tische; Abräumen vom benutzten Besteck & Geschirr",
+          "maxCapacity": 4
+        },
+        {
+          "id": "b8db94ff-437e-41e7-acd8-b3bd48f5e176",
+          "label": "Spüldienst",
+          "minCapacity": 1,
+          "description": "Geschirr, Gläser und Besteck spülen im Spülmobil",
+          "maxCapacity": 2
+        },
+        {
+          "id": "75a4371c-043a-4d2b-b4a9-9681c135422b",
+          "label": "Springer",
+          "minCapacity": 1,
+          "description": "Nachfüllen der Getränke, Gläser, Geschirr",
+          "maxCapacity": 2
+        },
+        {
+          "id": "99ba1833-a4e6-4781-af18-566aa591ab83",
+          "label": "Gute Seele",
+          "minCapacity": 1,
+          "description": "Besteck in Servietten einrollen und den Backstage Bereich sauber halten"
+        },
+        {
+          "id": "0dc84f3e-5a82-4bcc-98ee-fb16b7bb99da",
+          "label": "Waschdienst",
+          "minCapacity": 1,
+          "description": "Am Ende der Schicht müssen die Helfershirts für die Folgeschichten gewaschen werden. (vor Sonntagabend)",
+          "maxCapacity": 1
+        }
+      ],
+      "endDate": "2027-06-26T23:30:00.000Z"
+    },
+    {
+      "id": "631cc38c-0c85-4dea-8c0e-d2177f10a0f7",
+      "label": "Sonntagmittag",
+      "startDate": "2027-06-27T09:00:00.000Z",
+      "roles": [
+        {
+          "id": "af20dfc8-59e6-4301-8c74-ed62cde7236f",
+          "label": "Küche",
+          "minCapacity": 3,
+          "description": "Pommes, Gyros, Steak, Würstchen",
+          "maxCapacity": 3
+        },
+        {
+          "id": "696d2fd6-1cd2-4323-a629-b7cd0c82c5ba",
+          "label": "Durchreiche",
+          "minCapacity": 2,
+          "description": "Anrichten und Koordination der Speisen",
+          "maxCapacity": 2
+        },
+        {
+          "id": "7d07da20-41af-4776-ac2f-ef461fb18585",
+          "label": "Theke",
+          "minCapacity": 2,
+          "description": "Anrichten der Getränke, Bier zapfen, (Getränke-) Bestellungen an der Theke aufnehmen & kassieren",
+          "maxCapacity": 4,
+          "minAge": 18
+        },
+        {
+          "id": "570e0f63-ba41-4abe-987c-ad48c5306795",
+          "label": "Bedienung",
+          "minCapacity": 2,
+          "description": "Aufnehmen und kassieren der Tisch-Bestellungen",
+          "maxCapacity": 4,
+          "minAge": 16
+        },
+        {
+          "id": "419682e5-de9d-474f-ab72-3a1374b1b917",
+          "label": "Bedienungshilfe",
+          "minCapacity": 2,
+          "description": "Auslieferung unserer Speisen an die Tische; Abräumen vom benutzten Besteck & Geschirr",
+          "maxCapacity": 4
+        },
+        {
+          "id": "449ae513-d934-4a68-8980-4f563c1f25a0",
+          "label": "Spüldienst",
+          "minCapacity": 1,
+          "description": "Geschirr, Gläser und Besteck spülen im Spülmobil",
+          "maxCapacity": 2
+        },
+        {
+          "id": "aa1f7717-1af1-44a6-a0ae-d5b56cdc9fda",
+          "label": "Springer",
+          "minCapacity": 1,
+          "description": "Nachfüllen der Getränke, Gläser, Geschirr",
+          "maxCapacity": 2
+        },
+        {
+          "id": "3cb45032-5034-4355-b3fb-f04d285e75db",
+          "label": "Gute Seele",
+          "minCapacity": 1,
+          "description": "Besteck in Servietten einrollen und den Backstage Bereich sauber halten"
+        },
+        {
+          "id": "1e2993ce-c2db-40e4-ac11-345aacfc1750",
+          "label": "Waffelverkauf",
+          "minCapacity": 3,
+          "description": "Richtung Museum bauen wir einen Tisch mit Waffeleisen auf für unsere jungen Gäste",
+          "maxCapacity": 3
+        }
+      ],
+      "endDate": "2027-06-27T16:00:00.000Z"
+    },
+    {
+      "id": "f8cf6e5f-1f4b-4651-8d6e-ff049973dafa",
+      "label": "Sonntagabend",
+      "startDate": "2027-06-27T15:00:00.000Z",
+      "roles": [
+        {
+          "id": "913aa133-4adf-4107-b280-2a81abde2ed4",
+          "label": "Küche",
+          "minCapacity": 3,
+          "description": "Pommes, Gyros, Steak, Würstchen",
+          "maxCapacity": 3
+        },
+        {
+          "id": "09077281-7968-4d47-bd32-8c755c6ac38c",
+          "label": "Durchreiche",
+          "minCapacity": 2,
+          "description": "Anrichten und Koordination der Speisen",
+          "maxCapacity": 2
+        },
+        {
+          "id": "4d81778c-2004-4585-be6f-c0eabd69e839",
+          "label": "Theke",
+          "minCapacity": 5,
+          "description": "Anrichten der Getränke, Bier zapfen, (Getränke-) Bestellungen an der Theke aufnehmen & kassieren",
+          "maxCapacity": 5,
+          "minAge": 18
+        },
+        {
+          "id": "7262a047-489a-429a-86b5-c9f67f969e8d",
+          "label": "Sekttheke",
+          "minCapacity": 2,
+          "description": "Thekendienst speziell für Sekte",
+          "maxCapacity": 2,
+          "minAge": 18
+        },
+        {
+          "id": "65d97c2e-9be8-4a52-ab2d-86187b869034",
+          "label": "Bedienung",
+          "minCapacity": 3,
+          "description": "Aufnehmen und kassieren der Tisch-Bestellungen",
+          "maxCapacity": 4,
+          "minAge": 16
+        },
+        {
+          "id": "cc042623-3038-4ef7-9bde-8011e3035bc5",
+          "label": "Bedienungshilfe",
+          "minCapacity": 4,
+          "description": "Auslieferung unserer Speisen an die Tische; Abräumen vom benutzten Besteck & Geschirr",
+          "maxCapacity": 4
+        },
+        {
+          "id": "dae88867-b93b-4c0d-9e2f-e613fe14b2f6",
+          "label": "Spüldienst",
+          "minCapacity": 1,
+          "description": "Geschirr, Gläser und Besteck spülen im Spülmobil",
+          "maxCapacity": 2
+        },
+        {
+          "id": "98785654-ed1f-425d-85b3-1002f00f494f",
+          "label": "Springer",
+          "minCapacity": 1,
+          "description": "Nachfüllen der Getränke, Gläser, Geschirr",
+          "maxCapacity": 2
+        },
+        {
+          "id": "76b7369e-0b6a-4b23-aec9-070a32496650",
+          "label": "Gute Seele",
+          "minCapacity": 1,
+          "description": "Besteck in Servietten einrollen und den Backstage Bereich sauber halten"
+        },
+        {
+          "id": "73ec044a-279d-48c1-9de1-b577bc909234",
+          "label": "Abbau (ab 20:00)",
+          "minCapacity": 1,
+          "description": "Sobald die Besucher nachlassen, bauen wir schon ein paar Dinge ab/weg und machen sauber. Dadurch haben wir Montag nicht mehr ganz so viel zu tun."
+        }
+      ],
+      "endDate": "2027-06-27T21:00:00.000Z"
+    },
+    {
+      "id": "b484b90f-0117-4230-bfe1-e48ad9b3cf2b",
+      "label": "Abbau der Laube",
+      "startDate": "2027-06-28T07:00:00.000Z",
+      "roles": [
+        {
+          "id": "8957bdb6-a4e2-4c2f-bccb-77dcaddc9ae3",
+          "label": "Abbau Vormittag",
+          "minCapacity": 5,
+          "description": "ab 9 Uhr, aber nicht bis Ende",
+          "minAge": 14
+        },
+        {
+          "id": "2c0b762a-2761-4087-b734-5cae3018f92b",
+          "label": "Abbau Nachmittag",
+          "minCapacity": 6,
+          "description": "so früh es geht, nach der Arbeit",
+          "minAge": 14
+        },
+        {
+          "id": "7d43a1eb-cab4-4846-baa7-b715f870dcf6",
+          "label": "Abbau ganzer Tag",
+          "minCapacity": 4,
+          "description": "ab 9 Uhr, bis Ende"
+        }
+      ]
+    }
+  ]
+}
