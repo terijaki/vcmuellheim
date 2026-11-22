@@ -1,6 +1,5 @@
 import {
   Anchor,
-  BackgroundImage,
   Badge,
   Box,
   Card,
@@ -24,6 +23,7 @@ import type { HeimspielCard } from "@/lib/db/schemas";
 import { useEvents, useHomeHeimspiele, useLiveTicker } from "../../hooks/dataQueries";
 import EventCard from "../EventCard";
 import MapsLink from "../MapsLink";
+import { StaticBackgroundImage } from "../StaticBackgroundImage";
 import ScrollAnchor from "./ScrollAnchor";
 
 dayjs.locale("de");
@@ -52,8 +52,8 @@ export default function HomeHeimspiele({
   return (
     <Box bg="blumine">
       <ScrollAnchor name="heimspiele" />
-      <BackgroundImage
-        src="/assets/backgrounds/pageheading.jpg"
+      <StaticBackgroundImage
+        imageId="backgrounds/pageheading"
         py="md"
         style={{ zIndex: 0 }}
         pos="relative"
@@ -86,7 +86,7 @@ export default function HomeHeimspiele({
           blur={2}
           zIndex={-1}
         />
-      </BackgroundImage>
+      </StaticBackgroundImage>
     </Box>
   );
 }

@@ -1,15 +1,12 @@
+import {
+  HOME_INTRO_BACKGROUND_IMAGE_IDS,
+  type HomeIntroBackgroundImageId,
+} from "@webapp/utils/static-bundled-images";
 import { createServerFn } from "@tanstack/react-start";
 
-const HOME_INTRO_BACKGROUND_IMAGES = [
-  "/assets/backgrounds/intro1.jpg",
-  "/assets/backgrounds/intro2.jpg",
-  "/assets/backgrounds/intro3.jpg",
-  "/assets/backgrounds/intro4.jpg",
-] as const;
-
-const pickRandomHomeIntroBackgroundImage = () => {
-  const randomIndex = Math.floor(Math.random() * HOME_INTRO_BACKGROUND_IMAGES.length);
-  return HOME_INTRO_BACKGROUND_IMAGES[randomIndex];
+const pickRandomHomeIntroBackgroundImage = (): HomeIntroBackgroundImageId => {
+  const randomIndex = Math.floor(Math.random() * HOME_INTRO_BACKGROUND_IMAGE_IDS.length);
+  return HOME_INTRO_BACKGROUND_IMAGE_IDS[randomIndex];
 };
 
 // Chosen once per runtime instance (for example, one warm Lambda container).

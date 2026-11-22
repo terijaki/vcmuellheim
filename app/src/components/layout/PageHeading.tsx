@@ -1,11 +1,12 @@
-import { BackgroundImage, Container, Overlay, Stack, Text, Title } from "@mantine/core";
+import { Container, Overlay, Stack, Text, Title } from "@mantine/core";
+import { StaticBackgroundImage } from "../StaticBackgroundImage";
 
 export default function PageHeading(props: { title: string; subtitle?: string; date?: Date }) {
   const isLongTitle = props.title.length > 40;
 
   return (
-    <BackgroundImage
-      src="/assets/backgrounds/pageheading.jpg"
+    <StaticBackgroundImage
+      imageId="backgrounds/pageheading"
       h={96 + 8 + 8 + 8}
       w="100%"
       pos="relative"
@@ -37,6 +38,6 @@ export default function PageHeading(props: { title: string; subtitle?: string; d
         gradient="linear-gradient(0deg, rgba(54, 98, 115, 0.9) 0%, rgba(54, 59, 64,0.98) 100%)"
         zIndex={-1}
       />
-    </BackgroundImage>
+    </StaticBackgroundImage>
   );
 }

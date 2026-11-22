@@ -1,3 +1,10 @@
+/* WebP image-set is applied only when supported; inline style sets a literal JPEG/PNG fallback */
+@supports (background-image: image-set(url("") type("image/webp"))) {
+  .static-bundled-bg {
+    background-image: var(--static-bg-image-set);
+  }
+}
+
 /* ------ Global Styles ------ */
 :root,
 html,
