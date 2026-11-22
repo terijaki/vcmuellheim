@@ -4,7 +4,7 @@ import { getStaticBundledImage, type StaticBundledImageId } from "../utils/stati
 
 type StaticPictureImageProps = Omit<ImageProps, "src"> & {
   imageId: StaticBundledImageId;
-} & Pick<ComponentPropsWithoutRef<"img">, "alt">;
+} & Pick<ComponentPropsWithoutRef<"img">, "alt" | "width" | "height">;
 
 /** `<picture>` wrapper for bundled photos (WebP + JPEG fallback). */
 export function StaticPictureImage({ imageId, alt, ...imageProps }: StaticPictureImageProps) {

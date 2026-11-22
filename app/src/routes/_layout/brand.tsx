@@ -186,6 +186,8 @@ function RouteComponent() {
                   <StaticPictureImage
                     imageId="brand/jersey1"
                     alt="Trikot Beispiel 1"
+                    width={600}
+                    height={400}
                     style={{ objectFit: "cover" }}
                   />
                 </AspectRatio>
@@ -193,6 +195,8 @@ function RouteComponent() {
                   <StaticPictureImage
                     imageId="brand/jersey2"
                     alt="Trikot Beispiel 2"
+                    width={600}
+                    height={400}
                     style={{ objectFit: "cover" }}
                   />
                 </AspectRatio>

@@ -36,7 +36,7 @@ export default function HomeIntro({
       c="white"
       pos="relative"
     >
-      <Stack gap="xl" align="stretch" justify="space-between" mih={HEIGHT} pos="relative">
+      <Stack gap="xl" align="stretch" justify="space-between" pos="relative">
         {introContent}
         {(isPortrait || isMobile) && (
           <Container size="xs" pt="xl" mt="xl" style={{ zIndex: 2 }}>

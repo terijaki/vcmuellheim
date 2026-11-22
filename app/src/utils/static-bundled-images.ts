@@ -3,8 +3,6 @@
  * WebP is served preferentially; JPEG/PNG originals are kept as fallbacks.
  */
 
-export const STATIC_BUNDLED_IMAGE_QUALITY = 85;
-
 export type StaticBundledImageId =
   | "backgrounds/intro1"
   | "backgrounds/intro2"
@@ -72,14 +70,22 @@ export function getStaticBundledImage(id: StaticBundledImageId): StaticBundledIm
   return STATIC_BUNDLED_IMAGES[id];
 }
 
-/** CSS `background-image` with WebP-first `image-set` and JPEG fallback for older engines. */
+function fallbackMimeTypeForBundledAsset(fallbackPath: string): "image/jpeg" | "image/png" {
+  if (fallbackPath.endsWith(".png")) {
+    return "image/png";
+  }
+  return "image/jpeg";
+}
+
+/** CSS `background-image` with WebP-first `image-set` and original-format fallback for older engines. */
 export function staticBundledBackgroundImageStyle(id: StaticBundledImageId): {
   "--static-bg-fallback": string;
   "--static-bg-set": string;
 } {
   const { webp, fallback } = getStaticBundledImage(id);
+  const fallbackMime = fallbackMimeTypeForBundledAsset(fallback);
   return {
     "--static-bg-fallback": `url("${fallback}")`,
-    "--static-bg-set": `image-set(url("${webp}") type("image/webp"), url("${fallback}") type("image/jpeg"))`,
+    "--static-bg-set": `image-set(url("${webp}") type("image/webp"), url("${fallback}") type("${fallbackMime}"))`,
   };
 }
