@@ -1,5 +1,8 @@
 name: CDK Destroy on Branch Close
-# stack-deploy / destroy jobs share group cdk-stack-<refs/heads/...> with queue: max.
+concurrency:
+  group: cdk-stack-${{ github.event_name == 'delete' && github.ref || format('refs/heads/{0}', github.head_ref) }}
+  cancel-in-progress: false
+  queue: max
 
 on:
   pull_request:
@@ -16,10 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     # Only run for non-main branches
     if: github.event.ref != 'refs/heads/main' && github.event.pull_request.base.ref != 'main'
-    concurrency:
-      group: cdk-stack-${{ github.event_name == 'delete' && github.ref || format('refs/heads/{0}', github.head_ref) }}
-      cancel-in-progress: false
-      queue: max
 
     steps:
       - name: Checkout code
@@ -56,69 +55,9 @@ jobs:
           else
             BRANCH="$PR_HEAD_REF"
           fi
-          echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
-
-      - name: Confirm destroy preconditions
-        id: destroy-guard
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          EVENT_NAME: ${{ github.event_name }}
-          PR_STATE: ${{ github.event.pull_request.state }}
-          BRANCH_NAME: ${{ steps.branch.outputs.branch }}
-        run: |
-          PROCEED=false
-          REASON=""
-
-          if [ "$EVENT_NAME" = "pull_request" ]; then
-            if [ "$PR_STATE" = "closed" ]; then
-              PROCEED=true
-              REASON="Pull request is closed."
-            else
-              REASON="Pull request is not closed."
-            fi
-          elif [ "$EVENT_NAME" = "delete" ]; then
-            if gh api "repos/${GITHUB_REPOSITORY}/branches/${BRANCH_NAME}" >/dev/null 2>&1; then
-              REASON="Branch \`${BRANCH_NAME}\` still exists on the remote after waiting for concurrent deploys; skipping destroy."
-            else
-              PROCEED=true
-              REASON="Branch \`${BRANCH_NAME}\` is gone from the remote."
-            fi
-          fi
-
-          if [ "$PROCEED" = "true" ]; then
-            echo "proceed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "proceed=false" >> "$GITHUB_OUTPUT"
-            echo "## Destroy skipped (preconditions)" >> "$GITHUB_STEP_SUMMARY"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "${REASON}" >> "$GITHUB_STEP_SUMMARY"
-          fi
-
-      - name: Check for existing branch stacks
-        id: stacks
-        if: steps.destroy-guard.outputs.proceed == 'true'
-        env:
-          CDK_ENVIRONMENT: dev
-          CDK_BRANCH_OVERWRITE: ${{ steps.branch.outputs.branch }}
-          BRANCH_NAME: ${{ steps.branch.outputs.branch }}
-        run: |
-          SANITIZED=$(vp exec tsx -e '
-            import { getSanitizedBranch } from "./utils/git.ts";
-            process.stdout.write(getSanitizedBranch());
-          ')
-          WEBAPP_STACK="WebAppStack-Dev-${SANITIZED}"
-
-          if aws cloudformation describe-stacks --stack-name "$WEBAPP_STACK" >/dev/null 2>&1; then
-            echo "stacks_exist=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "stacks_exist=false" >> "$GITHUB_OUTPUT"
-            echo "## Destroy skipped (stacks already gone)" >> "$GITHUB_STEP_SUMMARY"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "No CloudFormation stack \`${WEBAPP_STACK}\` found for branch \`${BRANCH_NAME}\`." >> "$GITHUB_STEP_SUMMARY"
-          fi
+          echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
 
       - name: Destroy CDK Stacks
-        if: steps.destroy-guard.outputs.proceed == 'true' && steps.stacks.outputs.stacks_exist == 'true'
         env:
           CDK_ENVIRONMENT: dev
           CDK_BRANCH_OVERWRITE: ${{ steps.branch.outputs.branch }}
@@ -129,7 +68,6 @@ jobs:
           vp exec cdk destroy --all --force --concurrency 4
 
       - name: Add destroy summary
-        if: steps.destroy-guard.outputs.proceed == 'true' && steps.stacks.outputs.stacks_exist == 'true'
         env:
           BRANCH_NAME: ${{ steps.branch.outputs.branch }}
         run: |
