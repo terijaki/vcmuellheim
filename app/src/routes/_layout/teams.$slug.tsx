@@ -25,7 +25,7 @@ import { createWebcalLink } from "@webapp/utils/webcal";
 import dayjs from "dayjs";
 import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
-import { Fragment, Suspense } from "react";
+import { Fragment, Suspense, useMemo } from "react";
 import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
 import {
   useFileUrls,
@@ -43,6 +43,11 @@ import {
 import { getHomeMembersFn } from "@webapp/server/functions/members";
 import { getTeamBySlugFn } from "@webapp/server/functions/teams";
 import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
+import {
+  dedupeSamsRosterOfficials,
+  rosterOfficialDisplayName,
+  rosterOfficialSortGivenName,
+} from "@utils/sams-roster-officials";
 
 dayjs.locale(de);
 dayjs.extend(weekday);
@@ -121,7 +126,11 @@ function RouteComponent() {
           <TeamTrainers team={team} initialMembers={loaderData.members} />
         </Suspense>
         <Suspense fallback={null}>
-          <TeamRoster teamUuid={loaderData.samsTeam?.uuid} />
+          <TeamRoster
+            teamUuid={loaderData.samsTeam?.uuid}
+            team={team}
+            initialMembers={loaderData.members}
+          />
         </Suspense>
         <Suspense fallback={<CenteredLoader text="Lade Fotos..." />}>
           <TeamPictures team={team} />
@@ -408,26 +417,6 @@ function TeamTrainers({
   );
 }
 
-/** SAMS often returns "Nachname, Vorname" — prefer "Vorname Nachname" for display. */
-function parseRosterName(name: string): { first: string; last: string; display: string } {
-  const comma = name.indexOf(",");
-  if (comma === -1) {
-    const trimmed = name.trim();
-    return { first: trimmed, last: "", display: trimmed };
-  }
-  const last = name.slice(0, comma).trim();
-  const first = name.slice(comma + 1).trim();
-  if (!last || !first) {
-    const trimmed = name.trim();
-    return { first: trimmed, last: "", display: trimmed };
-  }
-  return { first, last, display: `${first} ${last}` };
-}
-
-function formatRosterName(name: string): string {
-  return parseRosterName(name).display;
-}
-
 function compareRosterPlayers(
   a: { jerseyNumber?: number; name: string },
   b: { jerseyNumber?: number; name: string },
@@ -438,7 +427,10 @@ function compareRosterPlayers(
   if ((a.jerseyNumber != null) !== (b.jerseyNumber != null)) {
     return a.jerseyNumber != null ? -1 : 1;
   }
-  return parseRosterName(a.name).first.localeCompare(parseRosterName(b.name).first, "de");
+  return rosterOfficialSortGivenName(a.name).localeCompare(
+    rosterOfficialSortGivenName(b.name),
+    "de",
+  );
 }
 
 function JerseyNumber({ number }: { number?: number }) {
@@ -470,13 +462,36 @@ function JerseyNumber({ number }: { number?: number }) {
   );
 }
 
-function TeamRoster({ teamUuid }: { teamUuid?: string }) {
+function TeamRoster({
+  teamUuid,
+  team,
+  initialMembers,
+}: {
+  teamUuid?: string;
+  team: NonNullable<ReturnType<typeof useTeamBySlug>["data"]>;
+  initialMembers?: Awaited<ReturnType<typeof useMembers>>["data"];
+}) {
   const { data: roster } = useSamsRoster(teamUuid);
+  const { data: members } = useMembers(
+    initialMembers ? { initialData: initialMembers } : undefined,
+  );
+
+  const cmsTrainerNames = useMemo(
+    () =>
+      team.trainerIds
+        ?.map((id) => members?.items.find((m) => m.id === id)?.name)
+        .filter((name): name is string => Boolean(name)) ?? [],
+    [members?.items, team.trainerIds],
+  );
+
+  const officialsWithRole = useMemo(
+    () => (roster ? dedupeSamsRosterOfficials(roster.officials, { cmsTrainerNames }) : []),
+    [cmsTrainerNames, roster],
+  );
 
   if (!roster) return null;
 
   const sortedPlayers = [...roster.players].sort(compareRosterPlayers);
-  const officialsWithRole = roster.officials.filter((official) => !!official.role?.trim());
 
   if (!sortedPlayers.length && !officialsWithRole.length) return null;
   return (
@@ -505,7 +520,7 @@ function TeamRoster({ teamUuid }: { teamUuid?: string }) {
                     </Text>
                   )}
                   <Text fw={700} c="blumine" truncate>
-                    {formatRosterName(player.name)}
+                    {rosterOfficialDisplayName(player.name)}
                   </Text>
                   {player.position && (
                     <Text c="dimmed" size="xs" truncate>
@@ -526,14 +541,14 @@ function TeamRoster({ teamUuid }: { teamUuid?: string }) {
               {officialsWithRole.map((official) => (
                 <Group key={official.uuid} gap="sm" wrap="nowrap" align="center">
                   <Avatar
-                    name={formatRosterName(official.name)}
+                    name={rosterOfficialDisplayName(official.name)}
                     size={40}
                     radius="xl"
                     color="blumine"
                   />
                   <Stack gap={2} style={{ minWidth: 0 }}>
                     <Text fw={700} c="blumine" truncate>
-                      {formatRosterName(official.name)}
+                      {rosterOfficialDisplayName(official.name)}
                     </Text>
                     <Text c="dimmed" size="xs" truncate>
                       {official.role}
