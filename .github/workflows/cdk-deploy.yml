@@ -1,7 +1,10 @@
 name: CDK Deploy
+# Serialize all work that targets the same CDK stack (one stack per git ref).
+# cancel-in-progress is false so in-flight CloudFormation create/update is never aborted.
+# GitHub keeps at most one pending run per group; newer pushes supersede older pending runs.
 concurrency:
-  group: cdk-deploy-${{ github.ref }}
-  cancel-in-progress: true
+  group: cdk-stack-${{ github.ref }}
+  cancel-in-progress: false
 
 on:
   workflow_dispatch:
