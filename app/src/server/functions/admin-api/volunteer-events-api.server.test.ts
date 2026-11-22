@@ -133,7 +133,11 @@ describe("volunteer events CMS HTTP API (write)", () => {
 
     expect(response.status).toBe(200);
     expect(mockAuthenticate).toHaveBeenCalledWith("Bearer token", "volunteerEvents", undefined);
-    expect(mockUpdateVolunteerEvent).toHaveBeenCalledWith(volunteerEventId, { title: "Neu" });
+    expect(mockUpdateVolunteerEvent).toHaveBeenCalledWith(
+      volunteerEventId,
+      { title: "Neu" },
+      { registrationPolicy: "reject" },
+    );
     await expect(response.json()).resolves.toEqual(updated);
   });
 

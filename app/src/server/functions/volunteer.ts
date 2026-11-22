@@ -49,7 +49,9 @@ export const updateVolunteerEventFn = createServerFn({ method: "POST" })
       data: volunteerEventWritableSchema.partial(),
     }),
   )
-  .handler(async ({ data: { id, data: updates } }) => handleUpdateVolunteerEvent(id, updates));
+  .handler(async ({ data: { id, data: updates } }) =>
+    handleUpdateVolunteerEvent(id, updates, { registrationPolicy: "clearAssignedRole" }),
+  );
 
 export const deleteVolunteerEventFn = createServerFn({ method: "POST" })
   .middleware([requireAdminMiddleware])

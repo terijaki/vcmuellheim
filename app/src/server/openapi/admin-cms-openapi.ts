@@ -388,7 +388,7 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
           operationId: "updateVolunteerEvent",
           summary: "Update a volunteer event",
           description:
-            "Partial update of event fields. When `shifts` is included, it **fully replaces** the shifts array: keep every shift and role you still need (include stable ids from GET responses). New shifts/roles may omit `id` (the server assigns one). Omit `shifts` to leave shifts unchanged. Removing a shift or role that has active (non-canceled) registrations returns **409 Conflict**. Requires an API key with the `volunteerEvents` scope; the key owner must be an Admin or Moderator with CMS access.",
+            "Partial update of event fields. When `shifts` is included, it **fully replaces** the shifts array: keep every shift and role you still need (include stable ids from GET responses). New shifts/roles may omit `id` (the server assigns one). Provided ids must belong to this event (roles must belong to their shift); unknown or duplicate ids return **400**. Omit `shifts` to leave shifts unchanged. Removing a shift or role that has active (non-canceled) registrations returns **409 Conflict** with `error.reason` = `registrations_block_removal`. Requires an API key with the `volunteerEvents` scope; the key owner must be an Admin or Moderator with CMS access.",
           security: [{ bearerApiKey: [] }],
           parameters: [{ $ref: "#/components/parameters/VolunteerEventId" }],
           requestBody: {
@@ -629,7 +629,8 @@ export function buildAdminCmsOpenApiDocument(origin: string): OpenApiDocument {
           },
         },
         Conflict: {
-          description: "Update conflicts with existing registrations",
+          description:
+            "Update conflicts with existing registrations (e.g. volunteer event PATCH when removing shifts/roles). Response includes `error.reason` = `registrations_block_removal` and `error.details` listing affected shift/role ids.",
           content: {
             "application/json": {
               schema: { $ref: "#/components/schemas/ApiError" },

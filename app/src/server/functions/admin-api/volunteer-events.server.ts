@@ -4,6 +4,7 @@
 
 import {
   VolunteerEventUpdateConflictError,
+  VolunteerEventUpdateInvalidIdsError,
   handleCreateVolunteerEvent,
   handleGetVolunteerEvent,
   handleListVolunteerEvents,
@@ -13,6 +14,7 @@ import {
   parseVolunteerEventCreateBody,
   parseVolunteerEventUpdateBody,
   prepareVolunteerEventCreateInput,
+  validateVolunteerEventShiftIdsForUpdate,
 } from "../volunteer.server";
 import {
   errorResponse,
@@ -115,15 +117,21 @@ export async function updateVolunteerEventApi(
   if (!parsed.success) return invalidBodyResponse(parsed.error);
 
   try {
-    await handleGetVolunteerEvent(id);
+    const existing = await handleGetVolunteerEvent(id);
     const { shifts, ...rest } = parsed.data;
+    if (shifts) {
+      validateVolunteerEventShiftIdsForUpdate(existing, shifts);
+    }
     const updates = {
       ...rest,
       ...(shifts ? { shifts: normalizeVolunteerEventShiftsForUpdate(shifts) } : {}),
     };
-    const event = await handleUpdateVolunteerEvent(id, updates);
+    const event = await handleUpdateVolunteerEvent(id, updates, { registrationPolicy: "reject" });
     return json(event);
   } catch (error) {
+    if (error instanceof VolunteerEventUpdateInvalidIdsError) {
+      return errorResponse(400, "invalid", error.message, { details: error.details });
+    }
     if (error instanceof VolunteerEventUpdateConflictError) {
       return errorResponse(409, "conflict", error.message, {
         reason: "registrations_block_removal",

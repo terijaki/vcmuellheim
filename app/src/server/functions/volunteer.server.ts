@@ -682,6 +682,12 @@ const volunteerEventCreateBodySchema = volunteerEventWritableSchema.omit({ shift
 
 export type VolunteerEventCreateBody = z.infer<typeof volunteerEventCreateBodySchema>;
 
+export type VolunteerEventRegistrationPolicy = "clearAssignedRole" | "reject";
+
+export type UpdateVolunteerEventOptions = {
+  registrationPolicy?: VolunteerEventRegistrationPolicy;
+};
+
 export class VolunteerEventUpdateConflictError extends Error {
   readonly shiftIds: string[];
   readonly roleIds: string[];
@@ -691,6 +697,16 @@ export class VolunteerEventUpdateConflictError extends Error {
     this.name = "VolunteerEventUpdateConflictError";
     this.shiftIds = options.shiftIds ?? [];
     this.roleIds = options.roleIds ?? [];
+  }
+}
+
+export class VolunteerEventUpdateInvalidIdsError extends Error {
+  readonly details: { path: string; message: string }[];
+
+  constructor(details: { path: string; message: string }[]) {
+    super("Invalid shift or role ids");
+    this.name = "VolunteerEventUpdateInvalidIdsError";
+    this.details = details;
   }
 }
 
@@ -730,6 +746,82 @@ export function normalizeVolunteerEventShiftsForUpdate(
   }));
 }
 
+export function validateVolunteerEventShiftIdsForUpdate(
+  currentEvent: z.infer<typeof volunteerEventSchema>,
+  shifts: VolunteerEventCreateBody["shifts"],
+): void {
+  const details: { path: string; message: string }[] = [];
+  const eventShiftIds = new Set(currentEvent.shifts.map((s) => s.id));
+  const shiftToRoleIds = new Map<string, Set<string>>();
+  for (const shift of currentEvent.shifts) {
+    shiftToRoleIds.set(shift.id, new Set(shift.roles.map((r) => r.id)));
+  }
+  const allEventRoleIds = new Set(currentEvent.shifts.flatMap((s) => s.roles.map((r) => r.id)));
+
+  const seenShiftIds = new Set<string>();
+  const seenRoleIds = new Set<string>();
+
+  for (let shiftIndex = 0; shiftIndex < shifts.length; shiftIndex++) {
+    const shift = shifts[shiftIndex];
+    if (shift.id) {
+      if (seenShiftIds.has(shift.id)) {
+        details.push({
+          path: `shifts.${shiftIndex}.id`,
+          message: `Duplicate shift id: ${shift.id}`,
+        });
+      }
+      seenShiftIds.add(shift.id);
+      if (!eventShiftIds.has(shift.id)) {
+        details.push({
+          path: `shifts.${shiftIndex}.id`,
+          message: `Unknown shift id: ${shift.id}`,
+        });
+      }
+    }
+
+    for (let roleIndex = 0; roleIndex < shift.roles.length; roleIndex++) {
+      const role = shift.roles[roleIndex];
+      if (!role.id) continue;
+
+      if (seenRoleIds.has(role.id)) {
+        details.push({
+          path: `shifts.${shiftIndex}.roles.${roleIndex}.id`,
+          message: `Duplicate role id: ${role.id}`,
+        });
+      }
+      seenRoleIds.add(role.id);
+
+      if (!allEventRoleIds.has(role.id)) {
+        details.push({
+          path: `shifts.${shiftIndex}.roles.${roleIndex}.id`,
+          message: `Unknown role id: ${role.id}`,
+        });
+        continue;
+      }
+
+      if (!shift.id) {
+        details.push({
+          path: `shifts.${shiftIndex}.roles.${roleIndex}.id`,
+          message: `Existing role id requires the parent shift id`,
+        });
+        continue;
+      }
+
+      const rolesOnShift = shiftToRoleIds.get(shift.id);
+      if (rolesOnShift && !rolesOnShift.has(role.id)) {
+        details.push({
+          path: `shifts.${shiftIndex}.roles.${roleIndex}.id`,
+          message: `Role id ${role.id} does not belong to shift ${shift.id}`,
+        });
+      }
+    }
+  }
+
+  if (details.length > 0) {
+    throw new VolunteerEventUpdateInvalidIdsError(details);
+  }
+}
+
 export function parseVolunteerEventCreateBody(raw: unknown) {
   return volunteerEventCreateBodySchema.safeParse(raw);
 }
@@ -747,6 +839,24 @@ export function parseVolunteerEventUpdateBody(raw: unknown) {
     .safeParse(raw);
 }
 
+async function clearAssignedRolesForDeletedRoles(
+  eventId: string,
+  deletedRoleIds: Set<string>,
+): Promise<void> {
+  const signupsForEvent = await volunteerSignupRepository.listByEvent(eventId);
+  const affectedSignups = signupsForEvent.filter(
+    (s) => s.assignedRoleId && deletedRoleIds.has(s.assignedRoleId),
+  );
+  await Promise.all(
+    affectedSignups.map((s) =>
+      volunteerSignupRepository.update(s.id, { updatedAt: new Date().toISOString() }, [
+        "assignedRoleId",
+      ]),
+    ),
+  );
+}
+
+// Best-effort check-then-write: registrations may change between this check and the repository update.
 async function assertVolunteerEventShiftUpdateAllowed(
   eventId: string,
   newShifts: VolunteerShiftInput[],
@@ -823,9 +933,29 @@ export async function handleCreateVolunteerEvent(data: VolunteerEventWritableInp
 export async function handleUpdateVolunteerEvent(
   id: string,
   updates: Partial<VolunteerEventWritableInput>,
+  options: UpdateVolunteerEventOptions = {},
 ) {
+  const registrationPolicy = options.registrationPolicy ?? "clearAssignedRole";
+
   if (updates.shifts) {
-    await assertVolunteerEventShiftUpdateAllowed(id, updates.shifts);
+    if (registrationPolicy === "reject") {
+      await assertVolunteerEventShiftUpdateAllowed(id, updates.shifts);
+    } else {
+      const currentEventRecord = await volunteerEventRepository.getById(id);
+      if (currentEventRecord) {
+        const currentEvent = parseServerData(
+          volunteerEventSchema,
+          currentEventRecord,
+          "Failed to parse volunteer event",
+        );
+        const oldRoleIds = new Set(currentEvent.shifts.flatMap((s) => s.roles.map((r) => r.id)));
+        const newRoleIds = new Set(updates.shifts.flatMap((s) => s.roles.map((r) => r.id)));
+        const deletedRoleIds = new Set([...oldRoleIds].filter((rid) => !newRoleIds.has(rid)));
+        if (deletedRoleIds.size > 0) {
+          await clearAssignedRolesForDeletedRoles(id, deletedRoleIds);
+        }
+      }
+    }
   }
 
   const updated = await volunteerEventRepository.update(id, {
