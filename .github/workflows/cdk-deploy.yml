@@ -1,10 +1,6 @@
 name: CDK Deploy
-# Serialize all work that targets the same CDK stack (one stack per git ref).
-# cancel-in-progress is false so in-flight CloudFormation create/update is never aborted.
-# GitHub keeps at most one pending run per group; newer pushes supersede older pending runs.
-concurrency:
-  group: cdk-stack-${{ github.ref }}
-  cancel-in-progress: false
+# Stack mutations for a git ref share concurrency with CDK Destroy (see stack-deploy job).
+# queue: max retains multiple pending runs (FIFO) so a queued destroy is not dropped when deploy enqueues.
 
 on:
   workflow_dispatch:
@@ -22,15 +18,9 @@ permissions:
   contents: write # Required for commenting on commits
 
 jobs:
-  deploy:
-    name: Deploy CDK Stack
+  preflight:
+    name: Preflight
     runs-on: ubuntu-latest
-    outputs:
-      webapp_url: ${{ steps.resolve-webapp-url.outputs.webapp_url }}
-    env:
-      CDK_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-      SENTRY_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -61,24 +51,89 @@ jobs:
       - name: CDK Diff
         run: vp exec cdk diff --all
 
+  stack-deploy:
+    name: Deploy CDK Stack
+    needs: preflight
+    runs-on: ubuntu-latest
+    # Serialize only CloudFormation work (and related seeding) with destroy for this ref.
+    concurrency:
+      group: cdk-stack-${{ github.ref }}
+      cancel-in-progress: false
+      queue: max
+    outputs:
+      webapp_url: ${{ steps.resolve-webapp-url.outputs.webapp_url }}
+      deploy_skipped: ${{ steps.preview-guard.outputs.deploy_skipped }}
+    env:
+      CDK_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+      SENTRY_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+
+    steps:
+      - name: Verify preview branch still exists on origin
+        id: preview-guard
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.ref_name }}
+          IS_MAIN: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          if [ "$IS_MAIN" = "true" ]; then
+            echo "deploy_skipped=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if gh api "repos/${GITHUB_REPOSITORY}/branches/${BRANCH_NAME}" >/dev/null 2>&1; then
+            echo "deploy_skipped=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy_skipped=true" >> "$GITHUB_OUTPUT"
+            echo "## Preview deploy skipped" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "Branch \`${BRANCH_NAME}\` no longer exists on the remote; skipping stack deploy." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Checkout code
+        if: steps.preview-guard.outputs.deploy_skipped != 'true'
+        uses: actions/checkout@v6
+
+      - uses: voidzero-dev/setup-vp@v1.21.1
+        if: steps.preview-guard.outputs.deploy_skipped != 'true'
+        with:
+          node-version: "26"
+          cache: true
+
+      - name: Install dependencies
+        if: steps.preview-guard.outputs.deploy_skipped != 'true'
+        run: vp install
+
+      - name: Configure AWS credentials
+        if: steps.preview-guard.outputs.deploy_skipped != 'true'
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ github.ref == 'refs/heads/main' && secrets.AWS_ROLE_ARN_PROD || secrets.AWS_ROLE_ARN_DEV }}
+          aws-region: eu-central-1
+
+      - name: Load environment variables
+        if: steps.preview-guard.outputs.deploy_skipped != 'true'
+        uses: dmno-dev/varlock-action@v1.0.1
+
       - name: CDK Deploy
+        if: steps.preview-guard.outputs.deploy_skipped != 'true'
         run: |
           vp exec cdk deploy --require-approval never --all --outputs-file cdk-outputs.json --concurrency 4
 
       - name: Seed content database
-        if: github.ref != 'refs/heads/main'
+        if: steps.preview-guard.outputs.deploy_skipped != 'true' && github.ref != 'refs/heads/main'
         env:
           CDK_BRANCH_OVERWRITE: ${{ github.ref_name }}
         run: vp run db:seed
 
       - name: Seed SAMS provider events
-        if: github.ref != 'refs/heads/main'
+        if: steps.preview-guard.outputs.deploy_skipped != 'true' && github.ref != 'refs/heads/main'
         env:
           CDK_BRANCH_OVERWRITE: ${{ github.ref_name }}
         run: vp run db:seed:sams
 
       - name: Resolve deployed web app URL
         id: resolve-webapp-url
+        if: steps.preview-guard.outputs.deploy_skipped != 'true'
         env:
           CDK_BRANCH_OVERWRITE: ${{ github.ref_name }}
         run: |
@@ -95,6 +150,7 @@ jobs:
           echo "Using computed URL: $WEBAPP_URL"
 
       - name: Add deployment summary
+        if: steps.preview-guard.outputs.deploy_skipped != 'true'
         run: |
           echo "## ${{ github.ref == 'refs/heads/main' && '🚀' || '🔧' }} CDK Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -132,7 +188,8 @@ jobs:
 
   e2e-tests:
     name: E2E Tests
-    needs: deploy
+    needs: stack-deploy
+    if: needs.stack-deploy.outputs.deploy_skipped != 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -152,7 +209,7 @@ jobs:
       - name: Run Playwright smoke tests
         id: playwright
         env:
-          WEBAPP_URL: ${{ needs.deploy.outputs.webapp_url }}
+          WEBAPP_URL: ${{ needs.stack-deploy.outputs.webapp_url }}
           SAMS_SEEDED: ${{ github.ref != 'refs/heads/main' && 'true' || 'false' }}
         run: vp run test:e2e
 
@@ -172,13 +229,13 @@ jobs:
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
           echo "| **Environment** | ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Base URL** | \`${{ needs.deploy.outputs.webapp_url }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Base URL** | \`${{ needs.stack-deploy.outputs.webapp_url }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **Browser** | Desktop Chrome |" >> $GITHUB_STEP_SUMMARY
           echo "| **Result** | ${RESULT} |" >> $GITHUB_STEP_SUMMARY
 
   comment-on-deployment:
-    if: always() && (needs.deploy.result == 'failure' || needs.e2e-tests.result == 'failure')
-    needs: [deploy, e2e-tests]
+    if: always() && (needs.stack-deploy.result == 'failure' || needs.e2e-tests.result == 'failure')
+    needs: [stack-deploy, e2e-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
