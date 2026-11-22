@@ -16,8 +16,18 @@ describe("admin CMS OpenAPI document", () => {
     expect(doc.paths["/api/admin/media/process"]).toBeDefined();
     expect(doc.paths["/api/admin/events"]).toBeDefined();
     expect(doc.paths["/api/admin/events/{id}"]).toBeDefined();
-    expect(doc.paths["/api/admin/volunteer-events"]).toBeDefined();
-    expect(doc.paths["/api/admin/volunteer-events/{id}"]).toBeDefined();
+    const volunteerEvents = doc.paths["/api/admin/volunteer-events"] as {
+      get?: unknown;
+      post?: unknown;
+    };
+    expect(volunteerEvents.get).toBeDefined();
+    expect(volunteerEvents.post).toBeDefined();
+    const volunteerEventById = doc.paths["/api/admin/volunteer-events/{id}"] as {
+      get?: unknown;
+      patch?: unknown;
+    };
+    expect(volunteerEventById.get).toBeDefined();
+    expect(volunteerEventById.patch).toBeDefined();
     expect(doc.paths["/api/admin/volunteer-events/{id}/registrations"]).toBeDefined();
     const bus = doc.paths["/api/admin/bus"] as { get?: unknown; post?: unknown };
     expect(bus.get).toBeDefined();

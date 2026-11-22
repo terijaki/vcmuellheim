@@ -619,7 +619,14 @@ export const volunteerTokenSchema = z.object({
   createdAt: z.iso.datetime(),
 });
 
+export const volunteerEventWritableSchema = volunteerEventSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 export type VolunteerEventInput = z.infer<typeof volunteerEventSchema>;
+export type VolunteerEventWritableInput = z.infer<typeof volunteerEventWritableSchema>;
 export type VolunteerShiftInput = z.infer<typeof volunteerShiftSchema>;
 export type VolunteerRoleInput = z.infer<typeof volunteerRoleSchema>;
 export type VolunteerSignupInput = z.infer<typeof volunteerSignupSchema>;

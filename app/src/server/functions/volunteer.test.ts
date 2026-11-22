@@ -17,8 +17,10 @@ import {
   confirmVolunteerSignup,
   createVolunteerSignup,
   getPublicVolunteerEvent,
+  handleUpdateVolunteerEvent,
   sendBulkVolunteerEventEmail,
   verifyVolunteerToken,
+  VolunteerEventUpdateConflictError,
 } from "./volunteer.server";
 
 // ── Environment setup ────────────────────────────────────────────────────────
@@ -1071,5 +1073,118 @@ describe("sendBulkVolunteerEventEmail", () => {
     expect(result.sent).toBe(2);
     expect(result.failed).toHaveLength(1);
     expect(result.failed[0]?.error).toBe("SES throttle");
+  });
+});
+
+describe("handleUpdateVolunteerEvent", () => {
+  const rejectPolicy = { registrationPolicy: "reject" as const };
+  const clearPolicy = { registrationPolicy: "clearAssignedRole" as const };
+
+  const shiftsWithoutRole1 = [
+    {
+      ...mockEvent.shifts[0],
+      roles: mockEvent.shifts[0].roles.filter((r) => r.id !== roleId1),
+    },
+  ];
+
+  it("clears assignedRoleId when a deleted role still has an active signup (admin UI path)", async () => {
+    mockEventGet.mockResolvedValue(mockEvent);
+    const signup = makeSignup({ shiftId, status: "confirmed", assignedRoleId: roleId1 });
+    mockSignupQuery.mockResolvedValue([signup]);
+    mockSignupPatch.mockResolvedValue({ ...signup, assignedRoleId: undefined });
+    mockEventPatch.mockResolvedValue({ ...mockEvent, shifts: shiftsWithoutRole1 });
+
+    await handleUpdateVolunteerEvent(eventId, { shifts: shiftsWithoutRole1 }, clearPolicy);
+
+    expect(mockSignupPatch).toHaveBeenCalledWith(signup.id, { updatedAt: expect.any(String) }, [
+      "assignedRoleId",
+    ]);
+    expect(mockEventPatch).toHaveBeenCalled();
+  });
+
+  it("rejects removing a role with an assigned signup (reject policy)", async () => {
+    mockEventGet.mockResolvedValue(mockEvent);
+    mockSignupQuery.mockResolvedValue([
+      makeSignup({ shiftId, status: "confirmed", assignedRoleId: roleId1 }),
+    ]);
+
+    await expect(
+      handleUpdateVolunteerEvent(eventId, { shifts: shiftsWithoutRole1 }, rejectPolicy),
+    ).rejects.toBeInstanceOf(VolunteerEventUpdateConflictError);
+
+    expect(mockEventPatch).not.toHaveBeenCalled();
+  });
+
+  it("rejects removing a whole shift with active signups (reject policy)", async () => {
+    mockEventGet.mockResolvedValue(mockEvent);
+    mockSignupQuery.mockResolvedValue([makeSignup({ shiftId, status: "confirmed" })]);
+
+    await expect(
+      handleUpdateVolunteerEvent(eventId, { shifts: [] }, rejectPolicy),
+    ).rejects.toBeInstanceOf(VolunteerEventUpdateConflictError);
+
+    expect(mockEventPatch).not.toHaveBeenCalled();
+  });
+
+  it("rejects removing a role listed only in preferredRoleIds (reject policy)", async () => {
+    mockEventGet.mockResolvedValue(mockEvent);
+    mockSignupQuery.mockResolvedValue([
+      makeSignup({
+        shiftId,
+        status: "confirmed",
+        assignedRoleId: undefined,
+        preferredRoleIds: [roleId1],
+      }),
+    ]);
+
+    await expect(
+      handleUpdateVolunteerEvent(eventId, { shifts: shiftsWithoutRole1 }, rejectPolicy),
+    ).rejects.toBeInstanceOf(VolunteerEventUpdateConflictError);
+  });
+
+  it("blocks pending signups from shift removal (reject policy)", async () => {
+    mockEventGet.mockResolvedValue(mockEvent);
+    mockSignupQuery.mockResolvedValue([makeSignup({ shiftId, status: "pending" })]);
+
+    await expect(
+      handleUpdateVolunteerEvent(eventId, { shifts: [] }, rejectPolicy),
+    ).rejects.toBeInstanceOf(VolunteerEventUpdateConflictError);
+  });
+
+  it("allows removing shifts when only canceled signups reference them (reject policy)", async () => {
+    mockEventGet.mockResolvedValue(mockEvent);
+    mockSignupQuery.mockResolvedValue([makeSignup({ shiftId, status: "canceled" })]);
+    mockEventPatch.mockResolvedValue({ ...mockEvent, shifts: [] });
+
+    await handleUpdateVolunteerEvent(eventId, { shifts: [] }, rejectPolicy);
+
+    expect(mockEventPatch).toHaveBeenCalled();
+  });
+
+  it("rejects role removal for benched signups with preferredRoleIds only (reject policy)", async () => {
+    mockEventGet.mockResolvedValue(mockEvent);
+    mockSignupQuery.mockResolvedValue([
+      makeSignup({
+        shiftId,
+        status: "confirmed",
+        assignedRoleId: undefined,
+        preferredRoleIds: [roleId2],
+      }),
+    ]);
+
+    await expect(
+      handleUpdateVolunteerEvent(
+        eventId,
+        {
+          shifts: [
+            {
+              ...mockEvent.shifts[0],
+              roles: mockEvent.shifts[0].roles.filter((r) => r.id !== roleId2),
+            },
+          ],
+        },
+        rejectPolicy,
+      ),
+    ).rejects.toBeInstanceOf(VolunteerEventUpdateConflictError);
   });
 });
