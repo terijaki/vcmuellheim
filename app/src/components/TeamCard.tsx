@@ -11,7 +11,7 @@ import {
   FaUser,
   FaUserGroup,
   FaChevronDown,
-} from "react-icons/fa6";
+} from "@webapp/components/icons";
 import type { Team } from "@/lib/db/types";
 import { useLocations, useMembers } from "../hooks/dataQueries";
 import { ButtonLink } from "./CustomLink";

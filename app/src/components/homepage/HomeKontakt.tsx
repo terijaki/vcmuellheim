@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import type { HTMLAttributeAnchorTarget } from "react";
-import { FaArrowUpRightFromSquare, FaBus, FaEnvelope, FaFileExcel } from "react-icons/fa6";
+import { FaArrowUpRightFromSquare, FaBus, FaEnvelope, FaFileExcel } from "@webapp/components/icons";
 import { useMembers } from "../../hooks/dataQueries";
 import SectionHeading from "../layout/SectionHeading";
 import ScrollAnchor from "./ScrollAnchor";

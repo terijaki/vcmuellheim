@@ -2,7 +2,7 @@ import {
   FaFacebook as IconFacebook,
   FaInstagram as IconInstagram,
   FaMastodon as IconMastodon,
-} from "react-icons/fa6";
+} from "@webapp/components/icons";
 import { Instagram } from "@project.config";
 
 export default function socialList() {

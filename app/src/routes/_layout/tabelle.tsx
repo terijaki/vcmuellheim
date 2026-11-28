@@ -9,7 +9,7 @@ import { getCurrentTabelleFn, getCurrentTermineFn } from "@webapp/server/functio
 import { listTeamsFn } from "@webapp/server/functions/teams";
 import { buildSamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 import dayjs from "dayjs";
-import { numToWord } from "num-words-de";
+import { numberToGermanWord } from "@webapp/utils/numberToGermanWord";
 import type { RankingResponse } from "@/lambda/sams/types";
 import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
@@ -63,7 +63,7 @@ function RouteComponent() {
   } = useSamsMatches(matchesQueryOptions ?? { range: "past", limit: lastResultCap });
   const recentMatches = matchesData?.matches ?? [];
   const lastResultWord =
-    recentMatches.length > 1 && numToWord(recentMatches.length, { uppercase: false });
+    recentMatches.length > 1 && numberToGermanWord(recentMatches.length, { uppercase: false });
 
   return (
     <PageWithHeading title={"Tabelle"}>

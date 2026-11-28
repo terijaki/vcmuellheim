@@ -11,7 +11,7 @@ import { buildSamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 import { createWebcalLink } from "@webapp/utils/webcal";
 import dayjs from "dayjs";
 import { Fragment, useState } from "react";
-import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
+import { FaBullhorn as IconSubscribe } from "@webapp/components/icons";
 import type { SamsMatchesHookOptions } from "@webapp/utils/sams-ssr";
 
 export const Route = createFileRoute("/_layout/termine/")({

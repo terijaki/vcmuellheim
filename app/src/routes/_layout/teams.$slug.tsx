@@ -26,7 +26,7 @@ import dayjs from "dayjs";
 import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Fragment, Suspense, useMemo } from "react";
-import { FaBullhorn as IconSubscribe } from "react-icons/fa6";
+import { FaBullhorn as IconSubscribe } from "@webapp/components/icons";
 import {
   useFileUrls,
   useLocations,
