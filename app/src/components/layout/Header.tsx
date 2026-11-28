@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "@tanstack/react-router";
-import { FaVolleyball as Logo } from "react-icons/fa6";
+import { FaVolleyball as Logo } from "@webapp/components/icons";
 import { Club } from "@project.config";
 import { mobileOnlyNavbarLinks, navbarLinks } from "../../utils/navbarLinks";
 import Socials from "../layout/Socials";

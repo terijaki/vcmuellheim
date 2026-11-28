@@ -14,7 +14,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
 import { useState } from "react";
-import { FaVolleyball } from "react-icons/fa6";
+import { FaVolleyball } from "@webapp/components/icons";
 import { authClient } from "../../lib/auth-client";
 import type { AdminSessionUser } from "../../server/functions/session-utils";
 import { getAdminRoutesWithLabels } from "../../utils/adminNavLinks";

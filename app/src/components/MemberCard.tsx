@@ -1,5 +1,5 @@
 import { Card, Center, Group, Image, Stack, Text } from "@mantine/core";
-import { FaUser as IconAvatar } from "react-icons/fa6";
+import { FaUser as IconAvatar } from "./icons";
 import type { PublicMember } from "@webapp/server/functions/members";
 import { useFileUrl } from "../hooks/dataQueries";
 

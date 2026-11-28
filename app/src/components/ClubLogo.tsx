@@ -1,5 +1,5 @@
 import { Flex, Image } from "@mantine/core";
-import { FaVolleyball as Ball } from "react-icons/fa6";
+import { FaVolleyball as Ball } from "./icons";
 import { clubLogoProxyUrl, teamLogoProxyUrl } from "@webapp/utils/club-logo";
 
 type ClubLogoProps = (

@@ -4,7 +4,7 @@ import CardTitle from "@webapp/components/CardTitle";
 import PageWithHeading from "@webapp/components/layout/PageWithHeading";
 import MemberCard from "@webapp/components/MemberCard";
 import { listMembersFn } from "@webapp/server/functions/members";
-import { FaFilePdf as IconPdf } from "react-icons/fa6";
+import { FaFilePdf as IconPdf } from "@webapp/components/icons";
 
 export const Route = createFileRoute("/_layout/jugendschutz")({
   loader: async () => {

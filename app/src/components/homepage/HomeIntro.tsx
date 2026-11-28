@@ -4,7 +4,7 @@ import { staticBundledBackgroundImageStyle } from "../../utils/static-bundled-im
 import { useViewportSize } from "@mantine/hooks";
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { FaAnglesDown as IconDown } from "react-icons/fa6";
+import { FaAnglesDown as IconDown } from "@webapp/components/icons";
 import { navbarLinks } from "../../utils/navbarLinks";
 import { HEADER_HEIGHT } from "../layout/Header";
 

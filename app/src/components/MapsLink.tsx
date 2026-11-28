@@ -1,7 +1,7 @@
 import type { AnchorProps } from "@mantine/core";
 import { Anchor, Group, Text } from "@mantine/core";
 import { useSyncExternalStore } from "react";
-import { FaLocationDot as IconLocation } from "react-icons/fa6";
+import { FaLocationDot as IconLocation } from "./icons";
 import { buildMapsSearchUrl } from "@/utils/build-maps-search-url";
 
 interface MapsLinkProps extends Omit<AnchorProps, "href" | "component" | "target"> {
