@@ -1,6 +1,5 @@
 import { defineConfig, lazyPlugins } from "vite-plus";
 import { localAwsResourceEnvPlugin } from "./app/vite/localAwsResourceEnv.ts";
-import { sentryLambdaRollupPlugin } from "./app/vite/sentryLambdaRollupPlugin.ts";
 
 const isProd = process.env.CDK_ENVIRONMENT === "prod";
 const isTest = process.env.VITEST === "true";
@@ -13,7 +12,7 @@ export default defineConfig({
     ignorePatterns: ["app/src/routeTree.gen.ts", "env.d.ts"],
   },
   lint: {
-    ignorePatterns: ["app/src/routeTree.gen.ts"],
+    ignorePatterns: ["app/src/routeTree.gen.ts", "app/server/aws-lambda-sentry-entry.ts"],
     plugins: ["react"],
     options: {
       typeAware: true,
@@ -41,9 +40,11 @@ export default defineConfig({
       localAwsResourceEnvPlugin(),
       nitro({
         preset: "aws-lambda",
+        entry: "./app/server/aws-lambda-sentry-entry.ts",
         awsLambda: {
           streaming: true,
         },
+        traceDeps: ["@sentry/aws-serverless"],
         output: {
           publicDir: "app/.output/public",
           serverDir: "app/.output/server",
@@ -56,16 +57,9 @@ export default defineConfig({
           external: [/^@aws-sdk\//],
         },
         hooks: {
-          "rollup:before"(_nitro, rollupConfig) {
-            const plugin = sentryLambdaRollupPlugin();
-            const existing = rollupConfig.plugins;
-            if (Array.isArray(existing)) {
-              rollupConfig.plugins = [...existing, plugin];
-            } else if (existing) {
-              rollupConfig.plugins = [existing, plugin];
-            } else {
-              rollupConfig.plugins = [plugin];
-            }
+          "rollup:before"(nitro, rollupConfig) {
+            // Preset appends "-streaming" to the entry path; our custom entry already stream-wraps the handler.
+            rollupConfig.input = nitro.options.entry;
           },
         },
         publicAssets: [{ dir: "app/public", maxAge: 0 }],
