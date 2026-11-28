@@ -34,4 +34,20 @@ describe("createLambdaLogger", () => {
       retry: true,
     });
   });
+
+  it("serializes Error values in extra with name, message, and stack", () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const logger = createLambdaLogger("worker");
+    const boom = new Error("boom");
+    boom.stack = "Error: boom\n    at test";
+
+    logger.error("caught", { error: boom });
+
+    const payload = JSON.parse(String(errorSpy.mock.calls[0]?.[0])) as {
+      error: { name: string; message: string; stack: string };
+    };
+    expect(payload.error.name).toBe("Error");
+    expect(payload.error.message).toBe("boom");
+    expect(payload.error.stack).toBe("Error: boom\n    at test");
+  });
 });
