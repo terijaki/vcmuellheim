@@ -18,7 +18,7 @@ import {
   teamSchema,
 } from "../../lib/db/schemas";
 import { parseLambdaEnv } from "../utils/env";
-import { Sentry } from "../utils/sentry";
+import { wrapLambdaHandler } from "../utils/sentry";
 import { S3CleanupLambdaEnvironmentSchema } from "./types";
 
 const s3Client = new S3Client({});
@@ -265,4 +265,4 @@ const lambdaHandler: DynamoDBStreamHandler = async (event: DynamoDBStreamEvent) 
   }
 };
 
-export const handler = Sentry.wrapHandler(lambdaHandler);
+export const handler = wrapLambdaHandler(lambdaHandler);

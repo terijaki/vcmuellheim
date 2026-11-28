@@ -1,5 +1,6 @@
 import { defineConfig, lazyPlugins } from "vite-plus";
 import { localAwsResourceEnvPlugin } from "./app/vite/localAwsResourceEnv.ts";
+import { sentryLambdaRollupPlugin } from "./app/vite/sentryLambdaRollupPlugin.ts";
 
 const isProd = process.env.CDK_ENVIRONMENT === "prod";
 const isTest = process.env.VITEST === "true";
@@ -54,6 +55,19 @@ export default defineConfig({
         rolldownConfig: {
           external: [/^@aws-sdk\//],
         },
+        hooks: {
+          "rollup:before"(_nitro, rollupConfig) {
+            const plugin = sentryLambdaRollupPlugin();
+            const existing = rollupConfig.plugins;
+            if (Array.isArray(existing)) {
+              rollupConfig.plugins = [...existing, plugin];
+            } else if (existing) {
+              rollupConfig.plugins = [existing, plugin];
+            } else {
+              rollupConfig.plugins = [plugin];
+            }
+          },
+        },
         publicAssets: [{ dir: "app/public", maxAge: 0 }],
         serverAssets: [{ baseName: "fixture-seed", dir: "./app/public/fixture-seed" }],
       }),
@@ -62,7 +76,7 @@ export default defineConfig({
       babelModule.default({ presets: [reactModule.reactCompilerPreset()] }),
       sentryTanstackStart({
         org: "volleyballclub-mullheim-ev",
-        project: "volleyball-webapp",
+        project: "volleyball-website",
         authToken: process.env.SENTRY_AUTH_TOKEN,
         silent: !isProd,
       }),
@@ -89,8 +103,6 @@ export default defineConfig({
     include: ["**/*.test.ts", "**/*.test.tsx"],
     reporters: process.env.GITHUB_ACTIONS === "true" ? ["agent", "github-actions"] : ["agent"],
     env: {
-      // Suppress Powertools structured log output during tests
-      POWERTOOLS_LOG_LEVEL: "SILENT",
       // Suppress jsii deprecation warnings from aws-cdk-lib
       JSII_DEPRECATED: "quiet",
       CONTENT_TABLE_NAME: "test-content-table",

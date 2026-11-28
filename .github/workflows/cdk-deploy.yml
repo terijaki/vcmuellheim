@@ -27,7 +27,6 @@ jobs:
       webapp_url: ${{ steps.resolve-webapp-url.outputs.webapp_url }}
     env:
       CDK_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-      SENTRY_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
 
     steps:
       - name: Checkout code

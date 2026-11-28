@@ -91,19 +91,13 @@ export type CoercedEnvSchema = {
    */
   SENTRY_AUTH_TOKEN: string;
   
-  /**
-   * **SENTRY_ENVIRONMENT**  
-   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M7.885%2010.23L12%203.463l4.116%206.769zm9.606%2011q-1.558%200-2.64-1.081t-1.082-2.64t1.082-2.649t2.64-1.09t2.649%201.09t1.09%202.649t-1.09%202.64t-2.649%201.082m-13.722-.5v-6.462h6.462v6.462z%22%2F%3E%3C%2Fsvg%3E)   
-   */
-  SENTRY_ENVIRONMENT: "dev" | "prod";
-  
 };
 
-type _CoercedEnvSchema_79091db8 = CoercedEnvSchema;
+type _CoercedEnvSchema_5b53ea73 = CoercedEnvSchema;
 
 declare module 'varlock/env' {
-  export interface TypedEnvSchema extends Readonly<_CoercedEnvSchema_79091db8> {}
-  export interface PublicTypedEnvSchema extends Readonly<Pick<_CoercedEnvSchema_79091db8, 'BRANCH_NAME' | 'VITE_BRANCH_NAME' | 'CDK_ENVIRONMENT' | 'SENTRY_ENVIRONMENT'>> {}
+  export interface TypedEnvSchema extends Readonly<_CoercedEnvSchema_5b53ea73> {}
+  export interface PublicTypedEnvSchema extends Readonly<Pick<_CoercedEnvSchema_5b53ea73, 'BRANCH_NAME' | 'VITE_BRANCH_NAME' | 'CDK_ENVIRONMENT'>> {}
 }
 
 
@@ -113,17 +107,17 @@ export type EnvSchemaAsStrings = {
       : (NonNullable<CoercedEnvSchema[Property]> extends boolean ? ('true' | 'false') : string)
 };
 
-type _EnvSchemaAsStrings_79091db8 = EnvSchemaAsStrings;
+type _EnvSchemaAsStrings_5b53ea73 = EnvSchemaAsStrings;
 declare global {
 
   // add types for global import.meta.env
-  interface ImportMetaEnv extends _EnvSchemaAsStrings_79091db8 {}
+  interface ImportMetaEnv extends _EnvSchemaAsStrings_5b53ea73 {}
   interface ImportMeta {
     readonly env: ImportMetaEnv;
   }
 
   // add types for global process.env
   namespace NodeJS {
-    interface ProcessEnv extends _EnvSchemaAsStrings_79091db8 {}
+    interface ProcessEnv extends _EnvSchemaAsStrings_5b53ea73 {}
   }
 }

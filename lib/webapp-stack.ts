@@ -151,7 +151,6 @@ export class WebAppStack extends cdk.Stack {
       memorySize: 1024,
       logGroup,
       environment: lambdaEnvironment,
-      tracing: isProd ? lambda.Tracing.ACTIVE : lambda.Tracing.DISABLED,
     });
 
     // Grant Lambda access to content, social, and SAMS tables via computed ARNs (no CF cross-stack exports)

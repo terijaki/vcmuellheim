@@ -82,6 +82,7 @@ vi.mock("../utils/sentry", () => ({
     captureMessage: vi.fn(),
     wrapHandler: vi.fn((fn) => fn),
   },
+  wrapLambdaHandler: vi.fn((fn) => fn),
 }));
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

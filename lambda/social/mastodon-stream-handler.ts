@@ -12,7 +12,7 @@ import { docClient } from "@/lib/db/client";
 import type { News } from "@/lib/db/types";
 import { parseLambdaEnv } from "../utils/env";
 import { createLambdaResources } from "../utils/resources";
-import { Sentry } from "../utils/sentry";
+import { wrapLambdaHandler } from "../utils/sentry";
 import { MastodonStreamHandlerLambdaEnvironmentSchema } from "./types";
 
 const { logger } = createLambdaResources("mastodon-stream-handler");
@@ -129,4 +129,4 @@ async function lambdaHandler(event: DynamoDBStreamEvent): Promise<void> {
   logger.info("Finished processing DynamoDB stream event");
 }
 
-export const handler = Sentry.wrapHandler(lambdaHandler);
+export const handler = wrapLambdaHandler(lambdaHandler);

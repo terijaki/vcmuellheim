@@ -6,6 +6,7 @@ vi.mock("../utils/sentry", () => ({
   Sentry: {
     wrapHandler: vi.fn((fn) => fn),
   },
+  wrapLambdaHandler: vi.fn((fn) => fn),
 }));
 
 const markPostedMock = vi.fn().mockResolvedValue(undefined);

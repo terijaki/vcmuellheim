@@ -2,19 +2,14 @@
  * DynamoDB client configuration
  */
 
-import { Tracer } from "@aws-lambda-powertools/tracer";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
-/** DynamoDB client instance with X-Ray tracing */
+/** DynamoDB client instance */
 const dynamoDBClient = new DynamoDBClient({});
 
-// Instrument DynamoDB client with X-Ray tracing to capture query timings
-const tracer = new Tracer({ serviceName: "vcm-api" });
-const tracedDynamoDBClient = tracer.captureAWSv3Client(dynamoDBClient);
-
-/** Document client for easier data marshalling with tracing enabled */
-export const docClient = DynamoDBDocumentClient.from(tracedDynamoDBClient, {
+/** Document client for easier data marshalling */
+export const docClient = DynamoDBDocumentClient.from(dynamoDBClient, {
   marshallOptions: {
     removeUndefinedValues: true, // Remove undefined fields
     convertClassInstanceToMap: true,
@@ -25,4 +20,4 @@ export const docClient = DynamoDBDocumentClient.from(tracedDynamoDBClient, {
 });
 
 /** Export raw client for advanced use cases */
-export { tracedDynamoDBClient as dynamoDBClient };
+export { dynamoDBClient };

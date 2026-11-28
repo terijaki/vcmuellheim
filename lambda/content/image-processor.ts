@@ -10,7 +10,7 @@ import type { Readable } from "node:stream";
 import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { type ProcessImagePayload, shouldProcessImageKey } from "@/lib/media/image-processing";
 import { IMAGE_SIZES } from "@utils/image-config";
-import { Sentry } from "../utils/sentry";
+import { wrapLambdaHandler } from "../utils/sentry";
 import {
   compressOriginal,
   generateJpegVariant,
@@ -151,4 +151,4 @@ const lambdaHandler = async (event: ProcessImagePayload): Promise<ProcessingJobR
   }
 };
 
-export const handler = Sentry.wrapHandler(lambdaHandler);
+export const handler = wrapLambdaHandler(lambdaHandler);

@@ -21,7 +21,7 @@ This file provides instructions specific to the `lambda/` directory, which conta
 - Each Lambda file exports a single handler function.
 - Unit tests live alongside the Lambda file (e.g., `sams-provider-events.test.ts` next to `sams-provider-events.ts`).
 - Use `aws-sdk-client-mock` in tests wherever AWS SDK calls are present.
-- Use the Sentry utility (`lambda/utils/sentry.ts`) for error reporting.
+- Use the Sentry utility (`lambda/utils/sentry.ts`, `wrapLambdaHandler`) and local logger (`lambda/utils/logger.ts`) for worker Lambdas.
 - SAMS data comes from provider events (`sams-provider-events`). Do not call the SAMS REST API or import `sams-rest-v2`.
 
 ## Testing

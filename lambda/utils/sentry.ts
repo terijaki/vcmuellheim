@@ -1,7 +1,8 @@
+import type { Handler } from "aws-lambda";
 import * as Sentry from "@sentry/aws-serverless";
 import { Sentry as SentryConfig } from "@/project.config";
 
-const sentryEnvironment = process.env.CDK_ENVIRONMENT || process.env.NODE_ENV || "development";
+const sentryEnvironment = process.env.CDK_ENVIRONMENT ?? "dev";
 
 // Initialize Sentry at module load time (cold start)
 Sentry.init({
@@ -18,5 +19,9 @@ Sentry.init({
     return event;
   },
 });
+
+export function wrapLambdaHandler<T extends Handler>(handler: T): T {
+  return Sentry.wrapHandler(handler, { captureTimeoutWarning: true }) as T;
+}
 
 export { Sentry };

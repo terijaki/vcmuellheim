@@ -2,9 +2,6 @@
  * SQS consumer: claim match share ledger and post concluded matches to Mastodon (prod only).
  */
 
-import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import middy from "@middy/core";
 import type { SQSEvent, SQSHandler } from "aws-lambda";
 import { z } from "zod";
 import { matchProjectionSchema } from "sams-provider-events";
@@ -12,12 +9,12 @@ import { MatchMastodonShareRepository } from "@/lib/db/match-mastodon-share-repo
 import { parseLambdaEnv } from "../utils/env";
 import { isProdEnvironment } from "../utils/environment";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
-import { Sentry } from "../utils/sentry";
+import { Sentry, wrapLambdaHandler } from "../utils/sentry";
 import { shareMatchToMastodon, type MastodonMatchShareRequest } from "./mastodon-share";
 import { MatchMastodonHandlerLambdaEnvironmentSchema } from "./types";
 
-const { logger, tracer } = createLambdaResources("match-mastodon-handler");
-const docClient = createDynamoDocClient(tracer);
+const { logger } = createLambdaResources("match-mastodon-handler");
+const docClient = createDynamoDocClient();
 const env = parseLambdaEnv(MatchMastodonHandlerLambdaEnvironmentSchema);
 
 const SOCIAL_TABLE_NAME = env.SOCIAL_TABLE_NAME;
@@ -103,6 +100,4 @@ const lambdaHandler: SQSHandler = async (event: SQSEvent) => {
   return { batchItemFailures };
 };
 
-export const handler = Sentry.wrapHandler(
-  middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)),
-);
+export const handler = wrapLambdaHandler(lambdaHandler);
