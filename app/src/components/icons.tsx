@@ -17,12 +17,13 @@ function createFa6Icon(viewBox: string, paths: readonly string[]) {
       fill="currentColor"
       strokeWidth="0"
       viewBox={viewBox}
-      className={className}
-      style={{ color, ...style }}
-      height={size}
-      width={size}
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
+      className={className}
+      style={{ ...(color !== undefined ? { color } : {}), ...style }}
+      {...(color !== undefined ? { color } : {})}
+      height={size}
+      width={size}
     >
       {title ? <title>{title}</title> : null}
       {paths.map((d, index) => (

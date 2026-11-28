@@ -4,7 +4,14 @@ import dayjs from "dayjs";
 import de from "dayjs/locale/de";
 import weekday from "dayjs/plugin/weekday";
 import { Fragment, useState } from "react";
-import { FaCalendarDays, FaClock, FaEnvelope, FaUser, FaUserGroup, FaChevronDown } from "./icons";
+import {
+  FaCalendarDays,
+  FaClock,
+  FaEnvelope,
+  FaUser,
+  FaUserGroup,
+  FaChevronDown,
+} from "@webapp/components/icons";
 import type { Team } from "@/lib/db/types";
 import { useLocations, useMembers } from "../hooks/dataQueries";
 import { ButtonLink } from "./CustomLink";
