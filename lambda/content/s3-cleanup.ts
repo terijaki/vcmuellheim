@@ -18,7 +18,7 @@ import {
   teamSchema,
 } from "../../lib/db/schemas";
 import { parseLambdaEnv } from "../utils/env";
-import { wrapLambdaHandler } from "../utils/sentry";
+import { Sentry, wrapLambdaHandler } from "../utils/sentry";
 import { S3CleanupLambdaEnvironmentSchema } from "./types";
 
 const s3Client = new S3Client({});
@@ -140,7 +140,7 @@ async function deleteS3Object(s3Key: string): Promise<void> {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error(`Failed to delete S3 object ${s3Key}: ${errorMessage}`);
-    // Don't throw - continue processing other objects
+    Sentry.captureException(error, { extra: { s3Key, bucket: MEDIA_BUCKET } });
   }
 }
 
@@ -174,7 +174,7 @@ async function findImageFilesByPrefix(bucket: string, imageKey: string): Promise
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error(`Failed to list S3 objects with prefix from ${imageKey}: ${errorMessage}`);
-    // Return the original key as fallback - at least delete that
+    Sentry.captureException(error, { extra: { imageKey, bucket } });
     return [imageKey];
   }
 }

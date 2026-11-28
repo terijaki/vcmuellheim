@@ -32,4 +32,14 @@ describe("lambda Sentry environment", () => {
 
     expect(options?.environment).toBe("prod");
   });
+
+  it("does not enable captureConsoleIntegration", async () => {
+    const { Sentry } = await import("./sentry");
+    const client = Sentry.getClient();
+    const integrations = client?.getOptions().integrations ?? [];
+
+    const integrationNames = integrations.map((integration) => integration.name);
+    expect(integrationNames).not.toContain("Console");
+    expect(integrationNames).not.toContain("CaptureConsole");
+  });
 });

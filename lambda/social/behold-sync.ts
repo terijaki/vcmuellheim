@@ -58,7 +58,6 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
         responseBody,
       },
     });
-    Sentry.captureMessage(msg, "warning");
     return { statusCode: response.status, body: msg };
   }
 

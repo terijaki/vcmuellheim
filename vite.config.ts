@@ -77,6 +77,7 @@ export default defineConfig({
       sentryTanstackStart({
         org: "volleyballclub-mullheim-ev",
         project: "volleyball-website",
+        sentryUrl: "https://de.sentry.io",
         authToken: process.env.SENTRY_AUTH_TOKEN,
         silent: !isProd,
       }),

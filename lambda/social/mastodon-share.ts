@@ -8,7 +8,7 @@ import { MatchMastodonShareRepository } from "@/lib/db/match-mastodon-share-repo
 import type { News } from "@/lib/db/types";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
-import { wrapLambdaHandler } from "../utils/sentry";
+import { Sentry, wrapLambdaHandler } from "../utils/sentry";
 import { buildMatchResultStatus } from "./match-result-status";
 import { MastodonShareLambdaEnvironmentSchema } from "./types";
 
@@ -146,6 +146,7 @@ async function uploadMediaToMastodon(s3Key: string): Promise<string | null> {
     return result.id;
   } catch (error) {
     logger.error("Error uploading media to Mastodon", { error });
+    Sentry.captureException(error, { extra: { s3Key } });
     return null;
   }
 }

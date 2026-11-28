@@ -10,8 +10,10 @@ Sentry.init({
   environment: sentryEnvironment,
   enabled: Boolean(SentryConfig.dsn),
   tracesSampleRate: 0.2,
-  // Auto-capture uncaught exceptions and unhandled rejections
-  integrations: [Sentry.captureConsoleIntegration({ levels: ["error"] })],
+  integrations: (defaults) =>
+    defaults.filter(
+      (integration) => integration.name !== "Console" && integration.name !== "CaptureConsole",
+    ),
   beforeSend(event) {
     // Suppress the specific DEP0169 url.parse() deprecation warning from third-party
     // dependencies (e.g. h3/Nitro) that we can't fix ourselves
