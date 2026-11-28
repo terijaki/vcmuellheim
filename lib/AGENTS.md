@@ -22,7 +22,7 @@ This file provides instructions specific to the `lib/` directory, which contains
 - CDK entry: `bin/cdk.ts`
 - Account-baseline stacks: `BudgetStack` deploys for **prod** and **shared dev** (`main` / empty sanitized branch) only — not on feature-branch deploys. `MonitoringStack` deploys for **prod** only. See `shouldDeployAccountOpsStacks` in `utils/cdk-deploy.ts`.
 - Active stacks: `lib/webapp-stack.ts`, `lib/content-db-stack.ts`, `lib/sams-stack.ts`, `lib/social-media-stack.ts`, `lib/media-stack.ts`, `lib/buntime-stack.ts`, `lib/dns-stack.ts`, `lib/monitoring-stack.ts`, `lib/budget-stack.ts`
-- DB client: `lib/db/client.ts` (DynamoDB DocumentClient with X-Ray tracing)
+- DB client: `lib/db/client.ts` (DynamoDB DocumentClient)
 - DB schemas: `lib/db/schemas.ts` (Zod schemas for all entities)
 - DB repositories: `lib/db/repositories.ts` (repository pattern for CRUD + queries)
 - DB types: `lib/db/types.ts` (derived types from schemas)

@@ -83,6 +83,10 @@ export class WebAppStack extends cdk.Stack {
         cwd: process.cwd(),
         stdio: "inherit",
       });
+      execFileSync("bun", ["./scripts/verify-webapp-lambda-output.ts"], {
+        cwd: process.cwd(),
+        stdio: "inherit",
+      });
     }
 
     // Compute ARNs for cross-stack table and bucket grants (no CF cross-stack reference)
@@ -151,7 +155,6 @@ export class WebAppStack extends cdk.Stack {
       memorySize: 1024,
       logGroup,
       environment: lambdaEnvironment,
-      tracing: isProd ? lambda.Tracing.ACTIVE : lambda.Tracing.DISABLED,
     });
 
     // Grant Lambda access to content, social, and SAMS tables via computed ARNs (no CF cross-stack exports)

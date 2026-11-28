@@ -32,7 +32,6 @@ MASTODON_CLIENT_SECRET=""
 
 # Sentry
 SENTRY_AUTH_TOKEN=""
-SENTRY_ENVIRONMENT="development"
 ```
 
 ## AWS Authentication

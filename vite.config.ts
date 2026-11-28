@@ -12,7 +12,7 @@ export default defineConfig({
     ignorePatterns: ["app/src/routeTree.gen.ts", "env.d.ts"],
   },
   lint: {
-    ignorePatterns: ["app/src/routeTree.gen.ts"],
+    ignorePatterns: ["app/src/routeTree.gen.ts", "app/server/aws-lambda-sentry-entry.ts"],
     plugins: ["react"],
     options: {
       typeAware: true,
@@ -40,9 +40,11 @@ export default defineConfig({
       localAwsResourceEnvPlugin(),
       nitro({
         preset: "aws-lambda",
+        entry: "./app/server/aws-lambda-sentry-entry.ts",
         awsLambda: {
           streaming: true,
         },
+        traceDeps: ["@sentry/aws-serverless"],
         output: {
           publicDir: "app/.output/public",
           serverDir: "app/.output/server",
@@ -54,6 +56,13 @@ export default defineConfig({
         rolldownConfig: {
           external: [/^@aws-sdk\//],
         },
+        hooks: {
+          "rollup:before"(nitro, rollupConfig) {
+            // Preset appends "-streaming" to the entry path; our custom entry already stream-wraps the handler.
+            // Breaking Nitro preset changes are caught by scripts/verify-webapp-lambda-output.ts (CI + WebAppStack build).
+            rollupConfig.input = nitro.options.entry;
+          },
+        },
         publicAssets: [{ dir: "app/public", maxAge: 0 }],
         serverAssets: [{ baseName: "fixture-seed", dir: "./app/public/fixture-seed" }],
       }),
@@ -62,7 +71,8 @@ export default defineConfig({
       babelModule.default({ presets: [reactModule.reactCompilerPreset()] }),
       sentryTanstackStart({
         org: "volleyballclub-mullheim-ev",
-        project: "volleyball-webapp",
+        project: "volleyball-website",
+        sentryUrl: "https://de.sentry.io",
         authToken: process.env.SENTRY_AUTH_TOKEN,
         silent: !isProd,
       }),
@@ -89,8 +99,6 @@ export default defineConfig({
     include: ["**/*.test.ts", "**/*.test.tsx"],
     reporters: process.env.GITHUB_ACTIONS === "true" ? ["agent", "github-actions"] : ["agent"],
     env: {
-      // Suppress Powertools structured log output during tests
-      POWERTOOLS_LOG_LEVEL: "SILENT",
       // Suppress jsii deprecation warnings from aws-cdk-lib
       JSII_DEPRECATED: "quiet",
       CONTENT_TABLE_NAME: "test-content-table",

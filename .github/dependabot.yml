@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: bun
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      aws-sdk:
+        patterns:
+          - "@aws-sdk/*"
+      sentry:
+        patterns:
+          - "@sentry/*"
+      tanstack:
+        patterns:
+          - "@tanstack/*"

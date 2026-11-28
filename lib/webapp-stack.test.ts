@@ -100,10 +100,20 @@ describe("WebAppStack", () => {
 
     const template = Template.fromStack(stack);
 
-    expect(buildMock).toHaveBeenCalledTimes(1);
-    expect(buildMock).toHaveBeenCalledWith(
+    expect(buildMock).toHaveBeenCalledTimes(2);
+    expect(buildMock).toHaveBeenNthCalledWith(
+      1,
       "vp",
       ["build"],
+      expect.objectContaining({
+        cwd: process.cwd(),
+        stdio: "inherit",
+      }),
+    );
+    expect(buildMock).toHaveBeenNthCalledWith(
+      2,
+      "bun",
+      ["./scripts/verify-webapp-lambda-output.ts"],
       expect.objectContaining({
         cwd: process.cwd(),
         stdio: "inherit",

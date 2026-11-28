@@ -5,6 +5,7 @@ vi.mock("../utils/sentry", () => ({
     wrapHandler: vi.fn((fn) => fn),
     captureException: vi.fn(),
   },
+  wrapLambdaHandler: vi.fn((fn) => fn),
 }));
 
 const claimMock = vi.fn();

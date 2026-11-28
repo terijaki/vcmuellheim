@@ -20,20 +20,17 @@
  * is needed.
  */
 
-import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
-import middy from "@middy/core";
 import { MemberRepository } from "@/lib/db/repositories/member-repository";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { parseLambdaEnv } from "../utils/env";
 import { createLambdaResources } from "../utils/resources";
-import { Sentry } from "../utils/sentry";
+import { Sentry, wrapLambdaHandler } from "../utils/sentry";
 import { MailForwardLambdaEnvironmentSchema, S3ObjectCreatedEventSchema } from "./types";
 
-const { logger, tracer } = createLambdaResources("mail-forward");
+const { logger } = createLambdaResources("mail-forward");
 
 const env = parseLambdaEnv(MailForwardLambdaEnvironmentSchema);
 const CONTENT_TABLE_NAME = env.CONTENT_TABLE_NAME;
@@ -52,8 +49,8 @@ const dynamoBaseClient = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(dynamoBaseClient);
 const memberRepo = new MemberRepository(docClient, CONTENT_TABLE_NAME);
 
-const s3 = tracer.captureAWSv3Client(new S3Client({}));
-const ses = tracer.captureAWSv3Client(new SESv2Client({}));
+const s3 = new S3Client({});
+const ses = new SESv2Client({});
 
 type ParsedOriginalSender = {
   name: string;
@@ -1021,8 +1018,4 @@ const lambdaHandler = async (event: unknown) => {
   };
 };
 
-export const handler = Sentry.wrapHandler(
-  middy(lambdaHandler)
-    .use(captureLambdaHandler(tracer))
-    .use(injectLambdaContext(logger, { logEvent: true })),
-);
+export const handler = wrapLambdaHandler(lambdaHandler);

@@ -8,11 +8,11 @@ import { MatchMastodonShareRepository } from "@/lib/db/match-mastodon-share-repo
 import type { News } from "@/lib/db/types";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
-import { Sentry } from "../utils/sentry";
+import { Sentry, wrapLambdaHandler } from "../utils/sentry";
 import { buildMatchResultStatus } from "./match-result-status";
 import { MastodonShareLambdaEnvironmentSchema } from "./types";
 
-const { logger, tracer } = createLambdaResources("mastodon-share");
+const { logger } = createLambdaResources("mastodon-share");
 
 const env = parseLambdaEnv(MastodonShareLambdaEnvironmentSchema);
 
@@ -24,7 +24,7 @@ const SOCIAL_TABLE_NAME = env.SOCIAL_TABLE_NAME;
 const MASTODON_CHAR_LIMIT = 2500;
 
 const s3Client = new S3Client({});
-const docClient = createDynamoDocClient(tracer);
+const docClient = createDynamoDocClient();
 
 export interface MastodonNewsShareRequest {
   newsArticle: News;
@@ -146,6 +146,7 @@ async function uploadMediaToMastodon(s3Key: string): Promise<string | null> {
     return result.id;
   } catch (error) {
     logger.error("Error uploading media to Mastodon", { error });
+    Sentry.captureException(error, { extra: { s3Key } });
     return null;
   }
 }
@@ -322,4 +323,4 @@ async function lambdaHandler(event: MastodonShareRequest): Promise<MastodonStatu
   }
 }
 
-export const handler = Sentry.wrapHandler(lambdaHandler);
+export const handler = wrapLambdaHandler(lambdaHandler);

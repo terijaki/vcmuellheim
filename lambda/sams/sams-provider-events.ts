@@ -1,6 +1,3 @@
-import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import middy from "@middy/core";
 import type { SQSEvent, SQSHandler } from "aws-lambda";
 import {
   parseSamsEventFromSqsBody,
@@ -23,7 +20,7 @@ import { resolveConfiguredSamsSportsclubUuids } from "@/utils/sams";
 import { slugify } from "@/utils/slugify";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
-import { Sentry } from "../utils/sentry";
+import { Sentry, wrapLambdaHandler } from "../utils/sentry";
 import { rebuildAppProjections } from "@/lib/sams/app-projections/rebuild-app-projections";
 import {
   collectSportsclubUuidsFromMatches,
@@ -36,8 +33,8 @@ import {
 } from "./match-mastodon-enqueue";
 import { SamsProviderProcessorLambdaEnvironmentSchema } from "./types";
 
-const { logger, tracer } = createLambdaResources("sams-provider-processor");
-const docClient = createDynamoDocClient(tracer);
+const { logger } = createLambdaResources("sams-provider-processor");
+const docClient = createDynamoDocClient();
 
 const env = parseLambdaEnv(SamsProviderProcessorLambdaEnvironmentSchema);
 const TABLE_NAME = env.SAMS_TABLE_NAME;
@@ -507,6 +504,4 @@ const lambdaHandler: SQSHandler = async (event: SQSEvent) => {
   return { batchItemFailures };
 };
 
-export const handler = Sentry.wrapHandler(
-  middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)),
-);
+export const handler = wrapLambdaHandler(lambdaHandler);

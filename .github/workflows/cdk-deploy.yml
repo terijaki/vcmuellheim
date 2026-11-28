@@ -27,7 +27,6 @@ jobs:
       webapp_url: ${{ steps.resolve-webapp-url.outputs.webapp_url }}
     env:
       CDK_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-      SENTRY_ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
 
     steps:
       - name: Checkout code
@@ -55,6 +54,11 @@ jobs:
 
       - name: Run tests
         run: vp test
+
+      - name: Build webapp and verify Lambda handler
+        run: |
+          vp build
+          bun ./scripts/verify-webapp-lambda-output.ts
 
       - name: CDK Diff
         run: vp exec cdk diff --all

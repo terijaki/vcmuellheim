@@ -5,7 +5,7 @@ This file provides instructions specific to the `lambda/` directory, which conta
 ## Structure
 
 - `lambda/sams/` — SAMS provider event processor and shared read-path types
-- `lambda/content/` — Lambdas for content management (image processing, S3 cleanup, sitemap)
+- `lambda/content/` — Lambdas for content management (image processing, S3 cleanup)
 - `lambda/social/` — Lambdas for social media integrations (Instagram, Mastodon)
 - `lambda/utils/` — Shared Lambda utilities (e.g., Sentry error reporting)
 
@@ -21,7 +21,7 @@ This file provides instructions specific to the `lambda/` directory, which conta
 - Each Lambda file exports a single handler function.
 - Unit tests live alongside the Lambda file (e.g., `sams-provider-events.test.ts` next to `sams-provider-events.ts`).
 - Use `aws-sdk-client-mock` in tests wherever AWS SDK calls are present.
-- Use the Sentry utility (`lambda/utils/sentry.ts`) for error reporting.
+- Use the Sentry utility (`lambda/utils/sentry.ts`, `wrapLambdaHandler`) and local logger (`lambda/utils/logger.ts`) for worker Lambdas.
 - SAMS data comes from provider events (`sams-provider-events`). Do not call the SAMS REST API or import `sams-rest-v2`.
 
 ## Testing

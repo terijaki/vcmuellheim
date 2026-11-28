@@ -13,19 +13,16 @@
  *   SK: `feed`
  */
 
-import { injectLambdaContext } from "@aws-lambda-powertools/logger/middleware";
-import { captureLambdaHandler } from "@aws-lambda-powertools/tracer/middleware";
-import middy from "@middy/core";
 import type { EventBridgeEvent } from "aws-lambda";
 import dayjs from "dayjs";
 import { createBeholdFeedRepository } from "@/lib/social/behold-feed";
 import { parseLambdaEnv } from "../utils/env";
 import { createDynamoDocClient, createLambdaResources } from "../utils/resources";
-import { Sentry } from "../utils/sentry";
+import { Sentry, wrapLambdaHandler } from "../utils/sentry";
 import { BeholdFeedSchema, BeholdSyncLambdaEnvironmentSchema, type BeholdPost } from "./types";
 
-const { logger, tracer } = createLambdaResources("behold-sync");
-const docClient = createDynamoDocClient(tracer);
+const { logger } = createLambdaResources("behold-sync");
+const docClient = createDynamoDocClient();
 
 const env = parseLambdaEnv(BeholdSyncLambdaEnvironmentSchema);
 const TABLE_NAME = env.SOCIAL_TABLE_NAME;
@@ -61,7 +58,6 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
         responseBody,
       },
     });
-    Sentry.captureMessage(msg, "warning");
     return { statusCode: response.status, body: msg };
   }
 
@@ -129,6 +125,4 @@ const lambdaHandler = async (event: EventBridgeEvent<string, unknown>) => {
   };
 };
 
-export const handler = Sentry.wrapHandler(
-  middy(lambdaHandler).use(injectLambdaContext(logger)).use(captureLambdaHandler(tracer)),
-);
+export const handler = wrapLambdaHandler(lambdaHandler);

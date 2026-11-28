@@ -4,7 +4,7 @@
  */
 
 import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
-import type { Logger } from "@aws-lambda-powertools/logger";
+import type { LambdaLogger } from "../utils/logger";
 import type { Match } from "sams-provider-events";
 import type { MastodonMatchShareRequest } from "@/lambda/social/mastodon-share";
 import { isProdEnvironment } from "@/lambda/utils/environment";
@@ -15,7 +15,7 @@ export type MatchMastodonEnqueueDeps = {
   queueUrl?: string;
   sqsClient?: SQSClient;
   sendMatchShare?: (payload: MastodonMatchShareRequest) => Promise<void>;
-  logger: Pick<Logger, "info" | "warn" | "error">;
+  logger: Pick<LambdaLogger, "info" | "warn" | "error">;
 };
 
 async function defaultSend(

@@ -10,7 +10,7 @@ import type { Readable } from "node:stream";
 import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { type ProcessImagePayload, shouldProcessImageKey } from "@/lib/media/image-processing";
 import { IMAGE_SIZES } from "@utils/image-config";
-import { Sentry } from "../utils/sentry";
+import { Sentry, wrapLambdaHandler } from "../utils/sentry";
 import {
   compressOriginal,
   generateJpegVariant,
@@ -102,6 +102,9 @@ export const processImage = async (
       variants[`${size}w`] = jpegKey;
     } catch (error) {
       console.error(`Failed to generate JPEG variant ${size}w:`, error);
+      Sentry.captureException(error, {
+        extra: { bucket, key, variant: `${size}w`, format: "jpeg" },
+      });
     }
 
     try {
@@ -111,6 +114,9 @@ export const processImage = async (
       variants[`${size}w-webp`] = webpKey;
     } catch (error) {
       console.error(`Failed to generate WebP variant ${size}w:`, error);
+      Sentry.captureException(error, {
+        extra: { bucket, key, variant: `${size}w`, format: "webp" },
+      });
     }
   }
 
@@ -142,6 +148,7 @@ const lambdaHandler = async (event: ProcessImagePayload): Promise<ProcessingJobR
     };
   } catch (error) {
     console.error(`Error processing image: ${error}`);
+    Sentry.captureException(error, { extra: { bucket, key } });
     return {
       originalKey: key,
       variants: {},
@@ -151,4 +158,4 @@ const lambdaHandler = async (event: ProcessImagePayload): Promise<ProcessingJobR
   }
 };
 
-export const handler = Sentry.wrapHandler(lambdaHandler);
+export const handler = wrapLambdaHandler(lambdaHandler);
