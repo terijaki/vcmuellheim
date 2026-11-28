@@ -55,6 +55,11 @@ jobs:
       - name: Run tests
         run: vp test
 
+      - name: Build webapp and verify Lambda handler
+        run: |
+          vp build
+          bun ./scripts/verify-webapp-lambda-output.ts
+
       - name: CDK Diff
         run: vp exec cdk diff --all
 

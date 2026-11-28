@@ -1,6 +1,6 @@
+/// <reference types="aws-lambda" />
 import "#nitro/virtual/polyfills";
 import type { StreamifyHandler } from "aws-lambda";
-import "aws-lambda";
 import { wrapHandler } from "@sentry/aws-serverless";
 import { handleLambdaEventWithStream } from "srvx/aws-lambda";
 import { useNitroApp } from "nitro/app";

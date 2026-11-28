@@ -59,6 +59,7 @@ export default defineConfig({
         hooks: {
           "rollup:before"(nitro, rollupConfig) {
             // Preset appends "-streaming" to the entry path; our custom entry already stream-wraps the handler.
+            // Breaking Nitro preset changes are caught by scripts/verify-webapp-lambda-output.ts (CI + WebAppStack build).
             rollupConfig.input = nitro.options.entry;
           },
         },

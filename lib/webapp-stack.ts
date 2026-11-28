@@ -83,6 +83,10 @@ export class WebAppStack extends cdk.Stack {
         cwd: process.cwd(),
         stdio: "inherit",
       });
+      execFileSync("bun", ["./scripts/verify-webapp-lambda-output.ts"], {
+        cwd: process.cwd(),
+        stdio: "inherit",
+      });
     }
 
     // Compute ARNs for cross-stack table and bucket grants (no CF cross-stack reference)

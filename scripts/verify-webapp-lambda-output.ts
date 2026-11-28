@@ -1,4 +1,4 @@
-import { cpSync, mkdtempSync, rmSync } from "node:fs";
+import { cpSync, existsSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
@@ -6,6 +6,12 @@ const serverDir = resolve("app/.output/server");
 
 export async function verifyWebappLambdaOutput(rootDir = process.cwd()): Promise<void> {
   const dir = resolve(rootDir, "app/.output/server");
+  const tracedSentry = resolve(dir, "node_modules/@sentry/aws-serverless/package.json");
+  if (!existsSync(tracedSentry)) {
+    throw new Error(
+      "Missing @sentry/aws-serverless under app/.output/server/node_modules (Nitro traceDeps)",
+    );
+  }
 
   const isolated = mkdtempSync(join(tmpdir(), "vcm-webapp-lambda-"));
   try {
